@@ -44,6 +44,11 @@ int main(int argc, char** argv)
 	options.add("xcount <int>", ki18n("Number of pieces in X direction"), "10");
 	options.add("y");
 	options.add("ycount <int>", ki18n("Number of pieces in Y direction"), "10");
+	options.add("w");
+	options.add("width <pixels>", ki18n("Width of puzzle scene"), "2000");
+	options.add("h");
+	options.add("height <pixels>", ki18n("Height of puzzle scene"), "2000");
+	options.add("", ki18n("The puzzle scene can be bigger as your monitor, you can scroll it.")); //a comment added below the options
 	KCmdLineArgs::addCmdLineOptions(options);
 
 	KApplication app;
@@ -52,16 +57,22 @@ int main(int argc, char** argv)
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 	QString fileName = args->getOption("image");
 	int xCount = args->getOption("xcount").toInt();
-	if (xCount == 0)
+	if (xCount <= 0)
 		xCount = 10;
 	int yCount = args->getOption("ycount").toInt();
-	if (yCount == 0)
+	if (yCount <= 0)
 		yCount = 10;
+	int sceneWidth = args->getOption("width").toInt();
+	if (sceneWidth <= 0)
+		sceneWidth = 2000;
+	int sceneHeight = args->getOption("height").toInt();
+	if (sceneHeight <= 0)
+		sceneHeight = 2000;
 	args->clear();
 
 	Palapeli::View view;
 	view.show();
-	view.startGame(fileName, xCount, yCount);
+	view.startGame(sceneWidth, sceneHeight, fileName, xCount, yCount);
 
 	return app.exec();
 }

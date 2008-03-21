@@ -33,8 +33,11 @@ namespace Palapeli
 		public:
 			View(QWidget* parent = 0);
 			~View();
-			
-			void startGame(const QString &fileName, int xPieces, int yPieces);
+
+			void startGame(int sceneWidth, int sceneHeight, const QString &fileName, int xPieces, int yPieces);
+
+		protected:
+			virtual void wheelEvent(QWheelEvent*);
 		private:
 			Scene* m_scene;
 	};

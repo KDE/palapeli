@@ -7,13 +7,15 @@
 #include <QPixmap>
 #include <KDebug>
 
-Palapeli::Scene::Scene()
+Palapeli::Scene::Scene(int width, int height)
 	: QGraphicsScene()
 	, m_xPieces(0)
 	, m_yPieces(0)
 	, m_pieces(0)
 {
-	setSceneRect(0, 0, 2000, 2000);
+	setSceneRect(0, 0, width, height);
+	m_visualSceneBoundary = addRect(-1.0, -1.0, width + 2.0, height + 2.0);
+	m_visualSceneBoundary->setAcceptedMouseButtons(Qt::NoButton);
 }
 
 Palapeli::Scene::~Scene()
@@ -32,6 +34,7 @@ void Palapeli::Scene::loadImage(const QString &fileName, int xPieces, int yPiece
 	QImage image(fileName);
 	int width = image.width(), height = image.height();
 	int pieceWidth = width / xPieces, pieceHeight = height / yPieces;
+	int sceneWidth = this->width(), sceneHeight = this->height();
 	m_pieces = new Palapeli::Piece**[xPieces];
 	for (int x = 0; x < xPieces; ++x)
 	{
@@ -45,7 +48,7 @@ void Palapeli::Scene::loadImage(const QString &fileName, int xPieces, int yPiece
 			m_pieces[x][y] = new Palapeli::Piece(pix, this, x, y, pieceWidth, pieceHeight);
 			Palapeli::Part* part = new Palapeli::Part(m_pieces[x][y], this);
 			addItem(part);
-			part->setPos(qrand() % 1000, qrand() % 1000); 
+			part->setPos(qrand() % (sceneWidth - pieceWidth), qrand() % (sceneHeight - pieceHeight));
 			m_parts << part;
 		}
 	}

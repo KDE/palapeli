@@ -22,6 +22,8 @@
 
 #include <QGraphicsScene>
 
+class QGraphicsRectItem;
+
 namespace Palapeli
 {
 
@@ -32,7 +34,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			Scene();
+			Scene(int width, int height);
 			~Scene();
 
 			void loadImage(const QString &fileName, int xPieces, int yPieces);
@@ -46,6 +48,8 @@ namespace Palapeli
 			int m_xPieces, m_yPieces;
 			Piece*** m_pieces;
 			QList<Part*> m_parts;
+
+			QGraphicsRectItem* m_visualSceneBoundary;
 	};
 
 }
