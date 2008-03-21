@@ -46,11 +46,6 @@ void Palapeli::Part::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 		QPointF lastPos = event->lastScenePos();
 		moveBy(pos.x() - lastPos.x(), pos.y() - lastPos.y());
 	}
-	if (m_moving)
-	{
-		mouseReleaseEvent(event);
-		m_moving = true;
-	}
 }
 
 void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent*)
@@ -61,13 +56,15 @@ void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent*)
 	{
 		int xIndex = piece->xIndex(), yIndex = piece->yIndex();
 		QRectF myRect = piece->sceneBoundingRect();
+		qreal xMaxInaccuracy = 0.1 * myRect.width();
+		qreal yMaxInaccuracy = 0.1 * myRect.height();
 		Palapeli::Piece *right = m_scene->rightNeighbor(xIndex, yIndex);
 		if (right != 0 && piece->parentItem() != right->parentItem())
 		{
 			QRectF otherRect = right->sceneBoundingRect();
 			qreal dx = otherRect.x() - myRect.x() - myRect.width();
 			qreal dy = otherRect.y() - myRect.y();
-			if (qAbs(dx) <= 10.0 && qAbs(dy) <= 10.0)
+			if (qAbs(dx) <= xMaxInaccuracy && qAbs(dy) <= yMaxInaccuracy)
 				m_scene->combineParts(this, right->part(), -dx, -dy);
 		}
 		Palapeli::Piece *left = m_scene->leftNeighbor(xIndex, yIndex);
@@ -76,7 +73,7 @@ void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent*)
 			QRectF otherRect = left->sceneBoundingRect();
 			qreal dx = otherRect.x() - myRect.x() + myRect.width();
 			qreal dy = otherRect.y() - myRect.y();
-			if (qAbs(dx) <= 10.0 && qAbs(dy) <= 10.0)
+			if (qAbs(dx) <= xMaxInaccuracy && qAbs(dy) <= yMaxInaccuracy)
 				m_scene->combineParts(this, left->part(), -dx, -dy);
 		}
 		Palapeli::Piece *top = m_scene->topNeighbor(xIndex, yIndex);
@@ -85,7 +82,7 @@ void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent*)
 			QRectF otherRect = top->sceneBoundingRect();
 			qreal dx = otherRect.x() - myRect.x();
 			qreal dy = otherRect.y() - myRect.y() + myRect.height();
-			if (qAbs(dx) <= 10.0 && qAbs(dy) <= 10.0)
+			if (qAbs(dx) <= xMaxInaccuracy && qAbs(dy) <= yMaxInaccuracy)
 				m_scene->combineParts(this, top->part(), -dx, -dy);
 		}
 		Palapeli::Piece *bottom = m_scene->bottomNeighbor(xIndex, yIndex);
@@ -94,7 +91,7 @@ void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent*)
 			QRectF otherRect = bottom->sceneBoundingRect();
 			qreal dx = otherRect.x() - myRect.x();
 			qreal dy = otherRect.y() - myRect.y() - myRect.height();
-			if (qAbs(dx) <= 10.0 && qAbs(dy) <= 10.0)
+			if (qAbs(dx) <= xMaxInaccuracy && qAbs(dy) <= yMaxInaccuracy)
 				m_scene->combineParts(this, bottom->part(), -dx, -dy);
 		}
 
