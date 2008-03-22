@@ -8,6 +8,6 @@ set(palapeli_SRCS
 )
 
 kde4_add_executable(palapeli ${palapeli_SRCS})
-target_link_libraries(palapeli ${KDE4_KDEUI_LIBS} kdegames)
+target_link_libraries(palapeli ${KDE4_KDEUI_LIBS} ${KDEGAMES_LIBRARY})
 
 install(TARGETS palapeli DESTINATION ${BIN_INSTALL_DIR})
