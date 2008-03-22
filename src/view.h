@@ -35,7 +35,6 @@ namespace Palapeli
 			~View();
 
 			void startGame(int sceneWidth, int sceneHeight, const QString &fileName, int xPieces, int yPieces);
-
 		protected:
 			virtual void wheelEvent(QWheelEvent*);
 		private:

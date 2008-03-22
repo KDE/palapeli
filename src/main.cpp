@@ -45,9 +45,9 @@ int main(int argc, char** argv)
 	options.add("y");
 	options.add("ycount <int>", ki18n("Number of pieces in Y direction"), "10");
 	options.add("w");
-	options.add("width <pixels>", ki18n("Width of puzzle scene"), "2000");
+	options.add("width <pixels>", ki18n("Width of puzzle scene (defaults to the double image width)"), "-1");
 	options.add("h");
-	options.add("height <pixels>", ki18n("Height of puzzle scene"), "2000");
+	options.add("height <pixels>", ki18n("Height of puzzle scene (defaults to the double image height)"), "-1");
 	options.add("", ki18n("The puzzle scene can be bigger as your monitor, you can scroll it.")); //a comment added below the options
 	KCmdLineArgs::addCmdLineOptions(options);
 
@@ -63,11 +63,11 @@ int main(int argc, char** argv)
 	if (yCount <= 0)
 		yCount = 10;
 	int sceneWidth = args->getOption("width").toInt();
-	if (sceneWidth <= 0)
-		sceneWidth = 2000;
+	if (sceneWidth <= 0 && sceneWidth == -1)
+		sceneWidth = -1;
 	int sceneHeight = args->getOption("height").toInt();
-	if (sceneHeight <= 0)
-		sceneHeight = 2000;
+	if (sceneHeight <= 0 && sceneWidth == -1)
+		sceneHeight = -1;
 	args->clear();
 
 	Palapeli::View view;

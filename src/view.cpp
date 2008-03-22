@@ -20,15 +20,14 @@
 #include "view.h"
 #include "scene.h"
 
+#include <QImage>
 #include <QScrollBar>
 #include <QWheelEvent>
 
 Palapeli::View::View(QWidget* parent)
 	: QGraphicsView(parent)
 	, m_scene(0)
-{
-	//setDragMode(QGraphicsView::ScrollHandDrag);
-}
+{}
 
 Palapeli::View::~View()
 {
@@ -38,8 +37,10 @@ Palapeli::View::~View()
 void Palapeli::View::startGame(int sceneWidth, int sceneHeight, const QString &fileName, int xPieces, int yPieces)
 {
 	delete m_scene;
-	m_scene = new Palapeli::Scene(sceneWidth, sceneHeight);
-	m_scene->loadImage(fileName, xPieces, yPieces);
+	QImage image(fileName);
+	m_scene = new Palapeli::Scene(sceneWidth == -1 ? 2 * image.width() : sceneWidth,
+								  sceneHeight == -1 ? 2 * image.height() : sceneHeight);
+	m_scene->loadImage(image, xPieces, yPieces);
 	setScene(m_scene);
 }
 
@@ -50,11 +51,7 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 	{
 		//control + mouse wheel - zoom viewport in/out
 		const qreal deltaAdaptationFactor = 600.0;
-		const qreal scaleBy = qAbs(delta) / deltaAdaptationFactor;
-		if (delta < 0)
-			scale(1 - scaleBy, 1 - scaleBy);
-		else
-			scale(1 + scaleBy, 1 + scaleBy);
+		scale(1 + delta / deltaAdaptationFactor, 1 + delta / deltaAdaptationFactor);
 	}
 	else if (event->modifiers() & Qt::ShiftModifier)
 	{

@@ -46,11 +46,10 @@ Palapeli::Scene::~Scene()
 		delete part;
 }
 
-void Palapeli::Scene::loadImage(const QString &fileName, int xPieces, int yPieces)
+void Palapeli::Scene::loadImage(const QImage& image, int xPieces, int yPieces)
 {
 	m_xPieces = xPieces;
 	m_yPieces = yPieces;
-	QImage image(fileName);
 	int width = image.width(), height = image.height();
 	int pieceWidth = width / xPieces, pieceHeight = height / yPieces;
 	int sceneWidth = this->width(), sceneHeight = this->height();
