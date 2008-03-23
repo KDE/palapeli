@@ -38,8 +38,10 @@ void Palapeli::View::startGame(int sceneWidth, int sceneHeight, const QString &f
 {
 	delete m_scene;
 	QImage image(fileName);
-	m_scene = new Palapeli::Scene(sceneWidth == -1 ? 2 * image.width() : sceneWidth,
-								  sceneHeight == -1 ? 2 * image.height() : sceneHeight);
+	m_scene = new Palapeli::Scene(
+		sceneWidth == -1 ? 2 * image.width() : sceneWidth,
+		sceneHeight == -1 ? 2 * image.height() : sceneHeight
+	);
 	m_scene->loadImage(image, xPieces, yPieces);
 	setScene(m_scene);
 }
@@ -51,7 +53,10 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 	{
 		//control + mouse wheel - zoom viewport in/out
 		const qreal deltaAdaptationFactor = 600.0;
-		scale(1 + delta / deltaAdaptationFactor, 1 + delta / deltaAdaptationFactor);
+		qreal scalingFactor = 1 + delta / deltaAdaptationFactor;
+		if (scalingFactor <= 0.01)
+			scalingFactor = 0.01;
+		scale(scalingFactor, scalingFactor);
 	}
 	else if (event->modifiers() & Qt::ShiftModifier)
 	{
