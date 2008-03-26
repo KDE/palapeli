@@ -63,14 +63,14 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 	if (event->modifiers() & Qt::ControlModifier)
 	{
 		//control + mouse wheel - zoom viewport in/out
-		const qreal deltaAdaptationFactor = 600.0;
+		static const qreal deltaAdaptationFactor = 600.0;
 		qreal scalingFactor = 1 + delta / deltaAdaptationFactor;
 		if (scalingFactor <= 0.01)
 			scalingFactor = 0.01;
 		scale(scalingFactor, scalingFactor);
 		emit viewportMoved();
 	}
-	else if (event->modifiers() & Qt::ShiftModifier)
+	else if ((event->modifiers() & Qt::ShiftModifier) || event->orientation() == Qt::Horizontal)
 	{
 		//shift + mouse wheel - move the viewport left/right by adjusting the slider
 		horizontalScrollBar()->triggerAction(delta < 0 ? QAbstractSlider::SliderSingleStepAdd : QAbstractSlider::SliderSingleStepSub);
