@@ -24,7 +24,6 @@
 #include <QImage>
 #include <QPainter>
 #include <QPixmap>
-#include <KDebug>
 
 Palapeli::Scene::Scene(int width, int height)
 	: QGraphicsScene()
@@ -53,6 +52,7 @@ void Palapeli::Scene::loadImage(const QImage& image, int xPieces, int yPieces)
 	int width = image.width(), height = image.height();
 	int pieceWidth = width / xPieces, pieceHeight = height / yPieces;
 	int sceneWidth = this->width(), sceneHeight = this->height();
+	//make pieces
 	m_pieces = new Palapeli::Piece**[xPieces];
 	for (int x = 0; x < xPieces; ++x)
 	{
@@ -63,46 +63,39 @@ void Palapeli::Scene::loadImage(const QImage& image, int xPieces, int yPieces)
 			QPainter painter(&pix);
 			painter.drawImage(QPoint(0, 0), image, QRect(x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight));
 			painter.end();
-			m_pieces[x][y] = new Palapeli::Piece(pix, this, x, y, pieceWidth, pieceHeight);
-			Palapeli::Part* part = new Palapeli::Part(m_pieces[x][y], this);
-			addItem(part);
-			part->setPos(qrand() % (sceneWidth - pieceWidth), qrand() % (sceneHeight - pieceHeight));
-			m_parts << part;
+			m_pieces[x][y] = new Palapeli::Piece(pix, this, pieceWidth, pieceHeight);
+			m_pieces[x][y]->setPos(qrand() % (sceneWidth - pieceWidth), qrand() % (sceneHeight - pieceHeight));
+			m_parts << new Palapeli::Part(m_pieces[x][y], this);
+		}
+	}
+	//build relationships between pieces
+	for (int x = 0; x < xPieces; ++x)
+	{
+		for (int y = 0; y < yPieces; ++y)
+		{
+			//left
+			if (x != 0)
+				m_pieces[x][y]->addNeighbor(m_pieces[x - 1][y], -pieceWidth, 0);
+			//right
+			if (x != xPieces - 1)
+				m_pieces[x][y]->addNeighbor(m_pieces[x + 1][y], pieceWidth, 0);
+			//top
+			if (y != 0)
+				m_pieces[x][y]->addNeighbor(m_pieces[x][y - 1], 0, -pieceHeight);
+			//bottom
+			if (y != yPieces - 1)
+				m_pieces[x][y]->addNeighbor(m_pieces[x][y + 1], 0, pieceHeight);
 		}
 	}
 }
 
-Palapeli::Piece* Palapeli::Scene::topNeighbor(int xIndex, int yIndex)
-{
-	return (yIndex == 0) ? 0 : m_pieces[xIndex][yIndex - 1]; 
-}
-
-Palapeli::Piece* Palapeli::Scene::bottomNeighbor(int xIndex, int yIndex)
-{
-	return (yIndex == m_yPieces - 1) ? 0 : m_pieces[xIndex][yIndex + 1]; 
-}
-
-Palapeli::Piece* Palapeli::Scene::leftNeighbor(int xIndex, int yIndex)
-{
-	return (xIndex == 0) ? 0 : m_pieces[xIndex - 1][yIndex]; 
-}
-
-Palapeli::Piece* Palapeli::Scene::rightNeighbor(int xIndex, int yIndex) 
-{
-	return (xIndex == m_xPieces - 1) ? 0 : m_pieces[xIndex + 1][yIndex]; 
-}
-
 void Palapeli::Scene::combineParts(Palapeli::Part* part1, Palapeli::Part* part2, qreal dx, qreal dy) //friend of Palapeli::Part
 {
-	QPointF pos1 = part1->pos();
-	QPointF pos2 = part2->pos();
-	dx += pos2.x() - pos1.x();
-	dy += pos2.y() - pos1.y();
-	if (!m_parts.contains(part2))
+	if (!m_parts.contains(part1) || !m_parts.contains(part2))
 		return;
 	foreach (Palapeli::Piece *piece, part2->m_pieces)
 	{
-		piece->setPart(part1);
+		part1->addPiece(piece);
 		piece->moveBy(dx, dy);
 	}
 	m_parts.removeAll(part2);

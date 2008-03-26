@@ -21,16 +21,27 @@
 #include "part.h"
 #include "scene.h"
 
-Palapeli::Piece::Piece(const QPixmap& pixmap, Palapeli::Scene* scene, int xIndex, int yIndex, int width, int height, QGraphicsItem* parent)
-	: QGraphicsPixmapItem(parent)
+#include <QGraphicsSceneMouseEvent>
+
+Palapeli::Piece::NeighborInfo::NeighborInfo(Piece* neighbor, qreal xPos, qreal yPos)
+	: piece(neighbor)
+	, relativeXPos(xPos)
+	, relativeYPos(yPos)
+{
+}
+
+Palapeli::Piece::Piece(const QPixmap& pixmap, Palapeli::Scene* scene, int width, int height)
+	: QGraphicsPixmapItem()
+	, m_width(width)
+	, m_height(height)
 	, m_scene(scene)
 	, m_part(0)
-	, m_xIndex(xIndex)
-	, m_yIndex(yIndex)
+	, m_moving(false)
 {
 	setAcceptedMouseButtons(Qt::LeftButton | Qt::RightButton);
-
 	setPixmap(pixmap);
+	setOffset(0.0, 0.0);
+
 	m_scene->addItem(this);
 	QRectF pieceRect = sceneBoundingRect();
 	scale(width / pieceRect.width(), height / pieceRect.height());
@@ -40,16 +51,14 @@ Palapeli::Piece::~Piece()
 {
 }
 
-void Palapeli::Piece::setPart(Palapeli::Part* part) //friend of Palapeli::Part
+int Palapeli::Piece::width() const
 {
-	//change ownership in internal data structures of Part
-	if (m_part != 0)
-		m_part->m_pieces.removeAll(this);
-	if (part != 0)
-		part->m_pieces << this;
-	//setup my own relationships
-	m_part = part;
-	setParentItem(part);
+	return m_width;
+}
+
+int Palapeli::Piece::height() const
+{
+	return m_height;
 }
 
 Palapeli::Part* Palapeli::Piece::part() const
@@ -57,30 +66,35 @@ Palapeli::Part* Palapeli::Piece::part() const
 	return m_part;
 }
 
-int Palapeli::Piece::xIndex() const
+void Palapeli::Piece::addNeighbor(Piece* piece, qreal xDiff, qreal yDiff)
 {
-	return m_xIndex;
+	m_neighbors << Palapeli::Piece::NeighborInfo(piece, xDiff, yDiff);
 }
 
-int Palapeli::Piece::yIndex() const
+void Palapeli::Piece::setPart(Palapeli::Part* part)
 {
-	return m_yIndex;
-}
-
-void Palapeli::Piece::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
-{
-	m_part->mouseMoveEvent(event);
+	m_part = part;
 }
 
 void Palapeli::Piece::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-	m_part->mousePressEvent(event);
-
+	if (event->button() & Qt::LeftButton)
+		m_moving = true;
 }
 
-void Palapeli::Piece::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+void Palapeli::Piece::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
-	m_part->mouseReleaseEvent(event);
-
+	if (m_moving)
+	{
+		const QPointF difference = event->scenePos() - event->lastScenePos();
+		m_part->moveAllBy(difference.x(), difference.y());
+	}
 }
+
+void Palapeli::Piece::mouseReleaseEvent(QGraphicsSceneMouseEvent*)
+{
+	m_part->searchConnections();
+	m_moving = false;
+}
+
 #include "piece.moc"

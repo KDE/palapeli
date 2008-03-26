@@ -20,35 +20,30 @@
 #ifndef PALAPELI_PART_H
 #define PALAPELI_PART_H
 
-#include "piece.h"
 #include "scene.h"
 
-#include <QGraphicsItem>
-class QGraphicsSceneMouseEvent;
 #include <QList>
 
 namespace Palapeli
 {
 
-	class Part : public QObject, public QGraphicsItem
+	class Piece;
+
+	class Part : public QObject
 	{
 		friend void Scene::combineParts(Part* part1, Part* part2, qreal dx, qreal dy);
-		friend void Piece::setPart(Part* part);
 		Q_OBJECT
 		public:
 			Part(Piece* piece, Scene* scene);
 			~Part();
 
-			virtual QRectF boundingRect() const;
-			virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
-
-			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
-			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
-			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+			void addPiece(Piece* piece);
+			void moveAllBy(qreal dx, qreal dy);
+// 			void rotateAllBy(qreal angle);
+			void searchConnections();
 		private:
 			QList<Piece*> m_pieces;
 			Scene* m_scene;
-			bool m_moving;
 	};
 
 }

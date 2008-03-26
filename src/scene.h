@@ -40,11 +40,6 @@ namespace Palapeli
 
 			void loadImage(const QImage& image, int xPieces, int yPieces);
 			void combineParts(Part* part1, Part* part2, qreal dx, qreal dy);
-
-			Piece* topNeighbor(int xIndex, int yIndex);
-			Piece* bottomNeighbor(int xIndex, int yIndex);
-			Piece* leftNeighbor(int xIndex, int yIndex);
-			Piece* rightNeighbor(int xIndex, int yIndex);
 		private:
 			int m_xPieces, m_yPieces;
 			Piece*** m_pieces;

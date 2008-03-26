@@ -21,16 +21,11 @@
 #include "piece.h"
 #include "scene.h"
 
-#include <QGraphicsSceneMouseEvent>
-
 Palapeli::Part::Part(Palapeli::Piece* piece, Scene* scene)
-	: QGraphicsItem()
+	: QObject()
 	, m_scene(scene)
-	, m_moving(false)
 {
-	piece->setPart(this);
-	piece->setPos(0.0, 0.0);
-	setAcceptedMouseButtons(Qt::NoButton);
+	addPiece(piece);
 }
 
 Palapeli::Part::~Part()
@@ -38,82 +33,36 @@ Palapeli::Part::~Part()
 	//The pieces are destroyed by the scene.
 }
 
-QRectF Palapeli::Part::boundingRect() const
+void Palapeli::Part::moveAllBy(qreal dx, qreal dy)
 {
-	QRectF rect(0.0, 0.0, 0.0, 0.0);
-	foreach(Palapeli::Piece* piece, m_pieces)
-		rect = rect.united(piece->mapToParent(piece->boundingRect()).boundingRect());
-	return rect;
+	foreach (Palapeli::Piece* piece, m_pieces)
+		piece->moveBy(dx, dy);
 }
 
-void Palapeli::Part::paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*)
+void Palapeli::Part::addPiece(Palapeli::Piece* piece)
 {
+	m_pieces << piece;
+	piece->setPart(this);
 }
 
-void Palapeli::Part::mousePressEvent(QGraphicsSceneMouseEvent*)
+void Palapeli::Part::searchConnections()
 {
-	m_moving = true;
-}
-
-void Palapeli::Part::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
-{
-	if (event->button() & Qt::LeftButton)
-		m_moving = true; 
-	if (m_moving)
-	{
-		QPointF pos = event->scenePos();
-		QPointF lastPos = event->lastScenePos();
-		moveBy(pos.x() - lastPos.x(), pos.y() - lastPos.y());
-	}
-}
-
-void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent*)
-{
-	m_moving = false;
-	//search for combinations
+	static const qreal maxInaccuracyFactor = 0.1;
 	foreach (Palapeli::Piece* piece, m_pieces)
 	{
-		int xIndex = piece->xIndex(), yIndex = piece->yIndex();
-		QRectF myRect = piece->sceneBoundingRect();
-		qreal xMaxInaccuracy = 0.1 * myRect.width();
-		qreal yMaxInaccuracy = 0.1 * myRect.height();
-		Palapeli::Piece *right = m_scene->rightNeighbor(xIndex, yIndex);
-		if (right != 0 && piece->parentItem() != right->parentItem())
+		const qreal xMaxInaccuracy = maxInaccuracyFactor * piece->width();
+		const qreal yMaxInaccuracy = maxInaccuracyFactor * piece->height();
+		const QPointF myPos = piece->pos();
+		foreach (Palapeli::Piece::NeighborInfo ni, piece->m_neighbors)
 		{
-			QRectF otherRect = right->sceneBoundingRect();
-			qreal dx = otherRect.x() - myRect.x() - myRect.width();
-			qreal dy = otherRect.y() - myRect.y();
+			if (this == ni.piece->part())
+				continue;
+			const QPointF posDiff = ni.piece->pos() - myPos;
+			const qreal dx = posDiff.x() - ni.relativeXPos;
+			const qreal dy = posDiff.y() - ni.relativeYPos;
 			if (qAbs(dx) <= xMaxInaccuracy && qAbs(dy) <= yMaxInaccuracy)
-				m_scene->combineParts(this, right->part(), -dx, -dy);
+				m_scene->combineParts(this, ni.piece->part(), -dx, -dy);
 		}
-		Palapeli::Piece *left = m_scene->leftNeighbor(xIndex, yIndex);
-		if (left != 0 && piece->parentItem() != left->parentItem())
-		{
-			QRectF otherRect = left->sceneBoundingRect();
-			qreal dx = otherRect.x() - myRect.x() + myRect.width();
-			qreal dy = otherRect.y() - myRect.y();
-			if (qAbs(dx) <= xMaxInaccuracy && qAbs(dy) <= yMaxInaccuracy)
-				m_scene->combineParts(this, left->part(), -dx, -dy);
-		}
-		Palapeli::Piece *top = m_scene->topNeighbor(xIndex, yIndex);
-		if (top != 0 && piece->parentItem() != top->parentItem())
-		{
-			QRectF otherRect = top->sceneBoundingRect();
-			qreal dx = otherRect.x() - myRect.x();
-			qreal dy = otherRect.y() - myRect.y() + myRect.height();
-			if (qAbs(dx) <= xMaxInaccuracy && qAbs(dy) <= yMaxInaccuracy)
-				m_scene->combineParts(this, top->part(), -dx, -dy);
-		}
-		Palapeli::Piece *bottom = m_scene->bottomNeighbor(xIndex, yIndex);
-		if (bottom != 0 && piece->parentItem() != bottom->parentItem())
-		{
-			QRectF otherRect = bottom->sceneBoundingRect();
-			qreal dx = otherRect.x() - myRect.x();
-			qreal dy = otherRect.y() - myRect.y() - myRect.height();
-			if (qAbs(dx) <= xMaxInaccuracy && qAbs(dy) <= yMaxInaccuracy)
-				m_scene->combineParts(this, bottom->part(), -dx, -dy);
-		}
-
 	}
 }
 
