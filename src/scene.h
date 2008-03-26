@@ -28,6 +28,7 @@ class QImage;
 namespace Palapeli
 {
 
+	class Minimap;
 	class Part;
 	class Piece;
 
@@ -38,13 +39,15 @@ namespace Palapeli
 			Scene(int width, int height);
 			~Scene();
 
+			QListIterator<Piece*> pieces() const;
+
 			void loadImage(const QImage& image, int xPieces, int yPieces);
 			void combineParts(Part* part1, Part* part2, qreal dx, qreal dy);
+		Q_SIGNALS:
+			void minimapNeedsUpdate();
 		private:
-			int m_xPieces, m_yPieces;
-			Piece*** m_pieces;
+			QList<Piece*> m_pieces;
 			QList<Part*> m_parts;
-
 			QGraphicsRectItem* m_visualSceneBoundary;
 	};
 

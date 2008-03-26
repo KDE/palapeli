@@ -34,7 +34,11 @@ namespace Palapeli
 			View(QWidget* parent = 0);
 			~View();
 
+			Scene* puzzleScene() const;
+
 			void startGame(int sceneWidth, int sceneHeight, const QString &fileName, int xPieces, int yPieces);
+		Q_SIGNALS:
+			void viewportMoved();
 		protected:
 			virtual void wheelEvent(QWheelEvent*);
 		private:

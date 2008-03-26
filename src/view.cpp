@@ -23,15 +23,26 @@
 #include <QImage>
 #include <QScrollBar>
 #include <QWheelEvent>
+#include <KLocalizedString>
 
 Palapeli::View::View(QWidget* parent)
 	: QGraphicsView(parent)
 	, m_scene(0)
-{}
+{
+	setWindowTitle(i18nc("The application's name", "Palapeli"));
+	resize(400, 400);
+	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportMoved()));
+	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportMoved()));
+}
 
 Palapeli::View::~View()
 {
 	delete m_scene;
+}
+
+Palapeli::Scene* Palapeli::View::puzzleScene() const
+{
+	return m_scene;
 }
 
 void Palapeli::View::startGame(int sceneWidth, int sceneHeight, const QString &fileName, int xPieces, int yPieces)
@@ -57,6 +68,7 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 		if (scalingFactor <= 0.01)
 			scalingFactor = 0.01;
 		scale(scalingFactor, scalingFactor);
+		emit viewportMoved();
 	}
 	else if (event->modifiers() & Qt::ShiftModifier)
 	{

@@ -41,6 +41,8 @@ namespace Palapeli
 			void moveAllBy(qreal dx, qreal dy);
 // 			void rotateAllBy(qreal angle);
 			void searchConnections();
+		Q_SIGNALS:
+			void positionsUpdated();
 		private:
 			QList<Piece*> m_pieces;
 			Scene* m_scene;

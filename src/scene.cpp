@@ -18,6 +18,7 @@
  ***************************************************************************/
 
 #include "scene.h"
+#include "minimap.h"
 #include "part.h"
 #include "piece.h"
 
@@ -27,9 +28,6 @@
 
 Palapeli::Scene::Scene(int width, int height)
 	: QGraphicsScene()
-	, m_xPieces(0)
-	, m_yPieces(0)
-	, m_pieces(0)
 {
 	setSceneRect(0, 0, width, height);
 	m_visualSceneBoundary = addRect(-1.0, -1.0, width + 2.0, height + 2.0);
@@ -38,34 +36,37 @@ Palapeli::Scene::Scene(int width, int height)
 
 Palapeli::Scene::~Scene()
 {
-	for (int x = 0; x < m_xPieces; ++x)
-		delete[] m_pieces[x];
-	delete[] m_pieces;
+	foreach (Palapeli::Piece* piece, m_pieces)
+		delete piece;
 	foreach (Palapeli::Part *part, m_parts)
 		delete part;
 }
 
+QListIterator<Palapeli::Piece*> Palapeli::Scene::pieces() const
+{
+	return QListIterator<Palapeli::Piece*>(m_pieces);
+}
+
 void Palapeli::Scene::loadImage(const QImage& image, int xPieces, int yPieces)
 {
-	m_xPieces = xPieces;
-	m_yPieces = yPieces;
 	int width = image.width(), height = image.height();
 	int pieceWidth = width / xPieces, pieceHeight = height / yPieces;
 	int sceneWidth = this->width(), sceneHeight = this->height();
 	//make pieces
-	m_pieces = new Palapeli::Piece**[xPieces];
 	for (int x = 0; x < xPieces; ++x)
 	{
-		m_pieces[x] = new Palapeli::Piece*[yPieces];
 		for (int y = 0; y < yPieces; ++y)
 		{
 			QPixmap pix(pieceWidth, pieceHeight);
 			QPainter painter(&pix);
 			painter.drawImage(QPoint(0, 0), image, QRect(x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight));
 			painter.end();
-			m_pieces[x][y] = new Palapeli::Piece(pix, this, pieceWidth, pieceHeight);
-			m_pieces[x][y]->setPos(qrand() % (sceneWidth - pieceWidth), qrand() % (sceneHeight - pieceHeight));
-			m_parts << new Palapeli::Part(m_pieces[x][y], this);
+			Palapeli::Piece* piece = new Palapeli::Piece(pix, this, pieceWidth, pieceHeight);
+			piece->setPos(qrand() % (sceneWidth - pieceWidth), qrand() % (sceneHeight - pieceHeight));
+			m_pieces << piece;
+			Palapeli::Part* part = new Palapeli::Part(piece, this);
+			m_parts << part;
+			connect(part, SIGNAL(positionsUpdated()), this, SIGNAL(minimapNeedsUpdate()));
 		}
 	}
 	//build relationships between pieces
@@ -75,16 +76,16 @@ void Palapeli::Scene::loadImage(const QImage& image, int xPieces, int yPieces)
 		{
 			//left
 			if (x != 0)
-				m_pieces[x][y]->addNeighbor(m_pieces[x - 1][y], -pieceWidth, 0);
+				m_pieces[x * yPieces + y]->addNeighbor(m_pieces[(x - 1) * yPieces + y], -pieceWidth, 0);
 			//right
 			if (x != xPieces - 1)
-				m_pieces[x][y]->addNeighbor(m_pieces[x + 1][y], pieceWidth, 0);
+				m_pieces[x * yPieces + y]->addNeighbor(m_pieces[(x + 1) * yPieces + y], pieceWidth, 0);
 			//top
 			if (y != 0)
-				m_pieces[x][y]->addNeighbor(m_pieces[x][y - 1], 0, -pieceHeight);
+				m_pieces[x * yPieces + y]->addNeighbor(m_pieces[x * yPieces + (y - 1)], 0, -pieceHeight);
 			//bottom
 			if (y != yPieces - 1)
-				m_pieces[x][y]->addNeighbor(m_pieces[x][y + 1], 0, pieceHeight);
+				m_pieces[x * yPieces + y]->addNeighbor(m_pieces[x * yPieces + (y + 1)], 0, pieceHeight);
 		}
 	}
 }

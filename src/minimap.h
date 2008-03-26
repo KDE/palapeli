@@ -17,58 +17,29 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_PIECE_H
-#define PALAPELI_PIECE_H
+#ifndef PALAPELI_MINIMAP_H
+#define PALAPELI_MINIMAP_H
 
-#include "minimap.h"
-#include "part.h"
-
-#include <QGraphicsPixmapItem>
-#include <QList>
-class QPaintEvent;
-#include <QObject>
+#include <QWidget>
 
 namespace Palapeli
 {
 
 	class Scene;
+	class View;
 
-	class Piece : public QObject, public QGraphicsPixmapItem
+	class Minimap : public QWidget
 	{
-		friend void Minimap::paintEvent(QPaintEvent*);
-		friend void Part::searchConnections();
-		Q_OBJECT
 		public:
-			Piece(const QPixmap &pixmap, Scene* scene, int width, int height);
-			~Piece();
+			Minimap(View* view);
+			~Minimap();
 
-			int width() const;
-			int height() const;
-			Part* part() const;
-
-			void addNeighbor(Piece* piece, qreal xDiff, qreal yDiff);
-			void setPart(Part* part);
-
-			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
-			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
-			void move(qreal dx, qreal dy);
-			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+			virtual void paintEvent(QPaintEvent*);
 		private:
-			struct NeighborInfo
-			{
-				NeighborInfo(Piece* neighbor, qreal xPos, qreal yPos);
-				Piece* piece;
-				qreal relativeXPos;
-				qreal relativeYPos;
-			};
-
-			int m_width, m_height;
+			View* m_view;
 			Scene* m_scene;
-			Part* m_part;
-			QList<NeighborInfo> m_neighbors;
-			bool m_moving;
 	};
 
 }
 
-#endif //PALAPELI_PIECE_H
+#endif // PALAPELI_MINIMAP_H

@@ -1,6 +1,7 @@
 # CMakeLists for /palapeli/src
 set(palapeli_SRCS
 	main.cpp
+	minimap.cpp
 	part.cpp
 	piece.cpp
 	scene.cpp

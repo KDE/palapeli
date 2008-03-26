@@ -37,6 +37,7 @@ void Palapeli::Part::moveAllBy(qreal dx, qreal dy)
 {
 	foreach (Palapeli::Piece* piece, m_pieces)
 		piece->moveBy(dx, dy);
+	emit positionsUpdated();
 }
 
 void Palapeli::Part::addPiece(Palapeli::Piece* piece)
@@ -61,7 +62,10 @@ void Palapeli::Part::searchConnections()
 			const qreal dx = posDiff.x() - ni.relativeXPos;
 			const qreal dy = posDiff.y() - ni.relativeYPos;
 			if (qAbs(dx) <= xMaxInaccuracy && qAbs(dy) <= yMaxInaccuracy)
+			{
 				m_scene->combineParts(this, ni.piece->part(), -dx, -dy);
+				emit positionsUpdated();
+			}
 		}
 	}
 }

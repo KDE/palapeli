@@ -18,6 +18,7 @@
  ***************************************************************************/
 
 #include "view.h"
+#include "minimap.h"
 
 #include <time.h>
 #include <KAboutData>
@@ -32,7 +33,7 @@ int main(int argc, char** argv)
 {
 	qsrand(time(0));
 
-	KAboutData about("palapeli", "palapeli", ki18n("Palapeli"), "0.1", ki18n("A jigsaw puzzle game"), KAboutData::License_GPL, ki18n("(c) 2008, the Palapeli team"));
+	KAboutData about("palapeli", "palapeli", ki18nc("The application's name", "Palapeli"), "0.1", ki18n("A jigsaw puzzle game"), KAboutData::License_GPL, ki18n("(c) 2008, the Palapeli team"));
 	about.addAuthor(ki18n("Felix Lemke"), KLocalizedString(), "lemke.felix@ages-skripte.org");
 	about.addAuthor(ki18n("Stefan Majewsky"), KLocalizedString(), "majewsky@gmx.net");
 	KCmdLineArgs::init(argc, argv, &about);
@@ -73,6 +74,8 @@ int main(int argc, char** argv)
 	Palapeli::View view;
 	view.show();
 	view.startGame(sceneWidth, sceneHeight, fileName, xCount, yCount);
+	Palapeli::Minimap map(&view);
+	map.show();
 
 	return app.exec();
 }
