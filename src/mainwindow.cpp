@@ -32,9 +32,9 @@
 
 Palapeli::MainWindow::MainWindow(int sceneWidth, int sceneHeight, const QString &fileName, int xPieces, int yPieces, QWidget* parent)
 	: KXmlGuiWindow(parent)
-	, m_dockmap(new QDockWidget(i18n("Minimap")))
+	, m_dockmap(new QDockWidget(i18n("Overview")))
 	, m_minimap(new Palapeli::Minimap)
-	, m_dockpreview(new QDockWidget(i18n("Preview")))
+	, m_dockpreview(new QDockWidget(i18n("Image preview")))
 	, m_preview(new Palapeli::Preview)
 	, m_sceneWidth(sceneWidth)
 	, m_sceneHeight(sceneHeight)

@@ -22,12 +22,16 @@
 #include "scene.h"
 #include "view.h"
 
+#include <QMouseEvent>
 #include <QPainter>
+#include <QScrollBar>
 
 Palapeli::Minimap::Minimap()
 	: QWidget()
 	, m_view(0)
 	, m_scene(0)
+	, m_draggingViewport(false)
+	, m_viewportWasDragged(false)
 {
 	setBackgroundRole(QPalette::Window);
 	setMinimumSize(200, 200);
@@ -46,6 +50,87 @@ void Palapeli::Minimap::setView(View* view)
 	update();
 }
 
+QPolygonF Palapeli::Minimap::viewport() const
+{
+	const QRect viewRect(0, 0, m_view->viewport()->width(), m_view->viewport()->height());
+	return m_view->mapToScene(viewRect);
+}
+
+QPointF Palapeli::Minimap::widgetToScene(const QPointF& point) const
+{
+	const QSizeF sceneSize = m_scene->sceneRect().size();
+	const qreal sceneScalingFactor = qMin(width() / sceneSize.width(), height() / sceneSize.height());
+	return QPointF(point.x() / sceneScalingFactor, point.y() / sceneScalingFactor);
+}
+
+void Palapeli::Minimap::moveViewport(const QPointF& widgetTo, const QPointF& widgetFrom)
+{
+	//translate range of sliders in their coordinates and scene coordinates
+	const qreal sliderMinimumX = m_view->horizontalScrollBar()->minimum();
+	const qreal sliderMaximumX = m_view->horizontalScrollBar()->maximum();
+	const qreal sliderMinimumY = m_view->verticalScrollBar()->minimum();
+	const qreal sliderMaximumY = m_view->verticalScrollBar()->maximum();
+	//attention: slider does only move center, it stops when the viewport edges reach the scene bounds
+	const QRectF sceneViewport = viewport().boundingRect();
+	const qreal sceneMinimumX = sceneViewport.width() / 2.0;
+	const qreal sceneMinimumY = sceneViewport.height() / 2.0;
+	//how to translate scene to slider coordinates
+	const QSizeF sceneSize = m_scene->sceneRect().size();
+	const qreal scalingX = (sliderMaximumX - sliderMinimumX) / (sceneSize.width() - sceneViewport.width());
+	const qreal scalingY = (sliderMaximumY - sliderMinimumY) / (sceneSize.height() - sceneViewport.height());
+	//widgetFrom.isNull() -> move to widgetFrom, !widgetFrom.isNull() -> move by widgetTo - widgetFrom
+	if (widgetFrom.isNull())
+	{
+		//find desired position in scene coordinates
+		const QPointF scenePos = widgetToScene(widgetTo);
+		//translate to slider coordinates
+		m_view->horizontalScrollBar()->setValue((scenePos.x() - sceneMinimumX) * scalingX);
+		m_view->verticalScrollBar()->setValue((scenePos.y() - sceneMinimumY) * scalingY);
+	}
+	else
+	{
+		//find move difference in scene coordinates
+		const QPointF sceneDiff = widgetToScene(widgetTo - widgetFrom);
+		//translate move to slider coordinates and add move to original slider values
+		m_view->horizontalScrollBar()->setValue(m_view->horizontalScrollBar()->value() + sceneDiff.x() * scalingX);
+		m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->value() + sceneDiff.y() * scalingY);
+	}
+}
+
+void Palapeli::Minimap::mousePressEvent(QMouseEvent* event)
+{
+	if (event->button() & Qt::LeftButton)
+	{
+		//if user did not click on view rectangle, move viewport to the click position
+		if (!viewport().boundingRect().contains(widgetToScene(event->pos())))
+			moveViewport(event->pos());
+		//start dragging
+		m_draggingViewport = true;
+		m_viewportWasDragged = false;
+		//save position for next event
+		m_draggingPreviousPos = event->pos();
+	}
+}
+
+void Palapeli::Minimap::mouseMoveEvent(QMouseEvent* event)
+{
+	if (m_draggingViewport)
+	{
+		moveViewport(event->pos(), m_draggingPreviousPos);
+		//save current position for next drag step
+		m_draggingPreviousPos = event->pos();
+		m_viewportWasDragged = true;
+	}
+}
+
+void Palapeli::Minimap::mouseReleaseEvent(QMouseEvent* event)
+{
+	if (m_draggingViewport && !m_viewportWasDragged)
+		//viewport was not dragged after mousePressEvent -> mouse did not move -> move viewport to this position
+		moveViewport(event->pos());
+	m_draggingViewport = m_viewportWasDragged = false;
+}
+
 void Palapeli::Minimap::paintEvent(QPaintEvent*) //friend of Palapeli::Piece
 {
 	if (m_view)
@@ -60,9 +145,8 @@ void Palapeli::Minimap::paintEvent(QPaintEvent*) //friend of Palapeli::Piece
 		const QPen pen(palette().highlight().color());
 	
 		//draw view rectangle
-		QRect viewRect(0, 0, m_view->width(), m_view->height());
 		painter.setBrush(palette().base());
-		painter.drawPolygon(m_view->mapToScene(viewRect));
+		painter.drawPolygon(viewport());
 		//draw piece positions
 		QListIterator<Palapeli::Piece*> iterPieces = m_scene->pieces();
 		QList<const Palapeli::Piece*> neighborsAlreadyConnected;
