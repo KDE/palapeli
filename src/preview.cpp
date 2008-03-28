@@ -17,30 +17,37 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_MINIMAP_H
-#define PALAPELI_MINIMAP_H
+#include "preview.h"
 
-#include <QWidget>
+#include <QImage>
+#include <QPainter>
 
-namespace Palapeli
+Palapeli::Preview::Preview()
+	: QWidget()
+	, m_image(new QImage(200, 200, QImage::Format_ARGB32))
 {
-
-	class Scene;
-	class View;
-
-	class Minimap : public QWidget
-	{
-		public:
-			Minimap();
-			~Minimap();
-			
-			void setView(View* view);
-			virtual void paintEvent(QPaintEvent*);
-		private:
-			View* m_view;
-			Scene* m_scene;
-	};
-
+	setMinimumSize(200, 200);
 }
 
-#endif // PALAPELI_MINIMAP_H
+Palapeli::Preview::~Preview()
+{}
+
+void Palapeli::Preview::loadImage(const QString& file)
+{
+	m_image->load(file);
+	repaint();
+}
+
+void Palapeli::Preview::paintEvent(QPaintEvent*)
+{
+	QPainter painter(this);
+	const qreal scalingFactorHorizontal = (qreal) this->width() / (qreal) m_image->width();
+	const qreal scalingFactorVertical = (qreal) this->height() / (qreal) m_image->height();
+	if (scalingFactorHorizontal > scalingFactorVertical)
+		painter.scale(scalingFactorVertical, scalingFactorVertical);
+	else
+		painter.scale(scalingFactorHorizontal, scalingFactorHorizontal);
+	painter.drawImage(0, 0, *m_image);
+}
+
+#include "preview.moc"

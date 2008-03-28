@@ -17,30 +17,43 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_MINIMAP_H
-#define PALAPELI_MINIMAP_H
+#ifndef PALAPELI_MAINWINDOW_H
+#define PALAPELI_MAINWINDOW_H
 
+#include <KXmlGuiWindow>
+
+class QDockWidget;
 #include <QWidget>
 
 namespace Palapeli
 {
-
-	class Scene;
+	class Minimap;
+	class Preview;
 	class View;
-
-	class Minimap : public QWidget
+	
+	class MainWindow : public KXmlGuiWindow
 	{
+		Q_OBJECT
 		public:
-			Minimap();
-			~Minimap();
+			MainWindow(int sceneWidth, int sceneHeight, const QString &fileName, int xPieces, int yPieces, QWidget* parent = 0);
+			~MainWindow();
 			
-			void setView(View* view);
-			virtual void paintEvent(QPaintEvent*);
+		public Q_SLOTS:
+			void startGame();
+		
 		private:
+			QDockWidget* m_dockmap;
+			Minimap* m_minimap;
+			QDockWidget* m_dockpreview;
+			Preview* m_preview;
+			int m_sceneWidth;
+			int m_sceneHeight;
+			QString m_fileName;
+			int m_xPieces;
+			int m_yPieces;
 			View* m_view;
-			Scene* m_scene;
 	};
-
 }
 
-#endif // PALAPELI_MINIMAP_H
+#endif //PALAPELI_MAINWINDOW_H
+ 

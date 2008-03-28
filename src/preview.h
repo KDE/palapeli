@@ -17,30 +17,25 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_MINIMAP_H
-#define PALAPELI_MINIMAP_H
+#ifndef PALAPELI_PREVIEW_H
+#define PALAPELI_PREVIEW_H
 
+class QImage;
 #include <QWidget>
 
 namespace Palapeli
 {
-
-	class Scene;
-	class View;
-
-	class Minimap : public QWidget
+	class Preview : public QWidget
 	{
 		public:
-			Minimap();
-			~Minimap();
+			Preview();
+			~Preview();
 			
-			void setView(View* view);
-			virtual void paintEvent(QPaintEvent*);
+			void loadImage(const QString& fileName);
+			virtual void paintEvent ( QPaintEvent* event);
 		private:
-			View* m_view;
-			Scene* m_scene;
+			QImage* m_image;
 	};
-
 }
 
-#endif // PALAPELI_MINIMAP_H
+#endif // PALAPELI_PREVIEW_H

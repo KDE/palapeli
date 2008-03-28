@@ -17,8 +17,7 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#include "view.h"
-#include "minimap.h"
+#include "mainwindow.h"
 
 #include <time.h>
 #include <KAboutData>
@@ -28,6 +27,8 @@
 #include <KGlobal>
 #include <KLocale>
 #include <KLocalizedString>
+
+#include <QPointer>
 
 int main(int argc, char** argv)
 {
@@ -71,11 +72,12 @@ int main(int argc, char** argv)
 		sceneHeight = -1;
 	args->clear();
 
-	Palapeli::View view;
-	view.show();
-	view.startGame(sceneWidth, sceneHeight, fileName, xCount, yCount);
-	Palapeli::Minimap map(&view);
-	map.show();
-
-	return app.exec();
+	//cannot use normal value or pointer type as Palapeli crashes then when calling Palapeli::MainWindow::quit
+	QPointer<Palapeli::MainWindow> window = new Palapeli::MainWindow(sceneWidth, sceneHeight, fileName, xCount, yCount);
+	window->show();
+	//make sure the window is deletes (to let it save its settings)
+	int ret = app.exec();
+	if (!window.isNull())
+		delete (Palapeli::MainWindow*) window;
+	return ret;
 }
