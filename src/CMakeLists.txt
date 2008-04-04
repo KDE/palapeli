@@ -4,6 +4,8 @@ set(palapeli_SRCS
 	mainwindow.cpp
 	minimap.cpp
 	part.cpp
+	pattern-abstract.cpp
+	pattern-rect.cpp
 	piece.cpp
 	preview.cpp
 	scene.cpp

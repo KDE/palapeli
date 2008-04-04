@@ -17,39 +17,12 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#include "preview.h"
+#include "pattern-abstract.h"
 
-#include <QImage>
-#include <QPainter>
-
-Palapeli::Preview::Preview()
-	: QWidget()
-	, m_image(new QImage(200, 200, QImage::Format_ARGB32))
+Palapeli::Pattern::Pattern(const QStringList&)
 {
-	setMinimumSize(200, 200);
 }
 
-Palapeli::Preview::~Preview()
+Palapeli::Pattern::~Pattern()
 {
-	delete m_image;
 }
-
-void Palapeli::Preview::loadImage(const QString& file)
-{
-	m_image->load(file);
-	repaint();
-}
-
-void Palapeli::Preview::paintEvent(QPaintEvent*)
-{
-	QPainter painter(this);
-	const qreal scalingFactorHorizontal = (qreal) this->width() / (qreal) m_image->width();
-	const qreal scalingFactorVertical = (qreal) this->height() / (qreal) m_image->height();
-	if (scalingFactorHorizontal > scalingFactorVertical)
-		painter.scale(scalingFactorVertical, scalingFactorVertical);
-	else
-		painter.scale(scalingFactorHorizontal, scalingFactorHorizontal);
-	painter.drawImage(0, 0, *m_image);
-}
-
-#include "preview.moc"

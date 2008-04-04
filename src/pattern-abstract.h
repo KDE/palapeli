@@ -17,39 +17,29 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#include "preview.h"
+#ifndef PALAPELI_PATTERN_ABSTRACT_H
+#define PALAPELI_PATTERN_ABSTRACT_H
 
 #include <QImage>
-#include <QPainter>
+#include <QStringList>
 
-Palapeli::Preview::Preview()
-	: QWidget()
-	, m_image(new QImage(200, 200, QImage::Format_ARGB32))
+namespace Palapeli
 {
-	setMinimumSize(200, 200);
+
+	class Piece;
+	class Scene;
+
+	class Pattern
+	{
+		public:
+			Pattern(const QStringList& arguments);
+			virtual ~Pattern();
+
+			virtual QList<Palapeli::Piece*> slice(const QImage& image, Scene* scene) = 0;
+			virtual QString name() const = 0;
+			virtual QStringList arguments() const = 0;
+	};
+
 }
 
-Palapeli::Preview::~Preview()
-{
-	delete m_image;
-}
-
-void Palapeli::Preview::loadImage(const QString& file)
-{
-	m_image->load(file);
-	repaint();
-}
-
-void Palapeli::Preview::paintEvent(QPaintEvent*)
-{
-	QPainter painter(this);
-	const qreal scalingFactorHorizontal = (qreal) this->width() / (qreal) m_image->width();
-	const qreal scalingFactorVertical = (qreal) this->height() / (qreal) m_image->height();
-	if (scalingFactorHorizontal > scalingFactorVertical)
-		painter.scale(scalingFactorVertical, scalingFactorVertical);
-	else
-		painter.scale(scalingFactorHorizontal, scalingFactorHorizontal);
-	painter.drawImage(0, 0, *m_image);
-}
-
-#include "preview.moc"
+#endif // PALAPELI_PATTERN_ABSTRACT_H

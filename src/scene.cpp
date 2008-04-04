@@ -21,10 +21,9 @@
 #include "minimap.h"
 #include "part.h"
 #include "piece.h"
+#include "pattern-rect.h"
 
 #include <QImage>
-#include <QPainter>
-#include <QPixmap>
 
 Palapeli::Scene::Scene(int width, int height)
 	: QGraphicsScene()
@@ -49,44 +48,16 @@ QListIterator<Palapeli::Piece*> Palapeli::Scene::pieces() const
 
 void Palapeli::Scene::loadImage(const QImage& image, int xPieces, int yPieces)
 {
-	int width = image.width(), height = image.height();
-	int pieceWidth = width / xPieces, pieceHeight = height / yPieces;
-	int sceneWidth = this->width(), sceneHeight = this->height();
-	//make pieces
-	for (int x = 0; x < xPieces; ++x)
+	Palapeli::RectangularPattern pattern(xPieces, yPieces);
+	m_pieces = pattern.slice(image, this);
+	int sceneWidth = width(), sceneHeight = height();
+	foreach (Palapeli::Piece* piece, m_pieces)
 	{
-		for (int y = 0; y < yPieces; ++y)
-		{
-			QPixmap pix(pieceWidth, pieceHeight);
-			QPainter painter(&pix);
-			painter.drawImage(QPoint(0, 0), image, QRect(x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight));
-			painter.end();
-			Palapeli::Piece* piece = new Palapeli::Piece(pix, this, pieceWidth, pieceHeight);
-			piece->setPos(qrand() % (sceneWidth - pieceWidth), qrand() % (sceneHeight - pieceHeight));
-			m_pieces << piece;
-			Palapeli::Part* part = new Palapeli::Part(piece, this);
-			m_parts << part;
-			connect(part, SIGNAL(positionsUpdated()), this, SIGNAL(minimapNeedsUpdate()));
-		}
-	}
-	//build relationships between pieces
-	for (int x = 0; x < xPieces; ++x)
-	{
-		for (int y = 0; y < yPieces; ++y)
-		{
-			//left
-			if (x != 0)
-				m_pieces[x * yPieces + y]->addNeighbor(m_pieces[(x - 1) * yPieces + y], -pieceWidth, 0);
-			//right
-			if (x != xPieces - 1)
-				m_pieces[x * yPieces + y]->addNeighbor(m_pieces[(x + 1) * yPieces + y], pieceWidth, 0);
-			//top
-			if (y != 0)
-				m_pieces[x * yPieces + y]->addNeighbor(m_pieces[x * yPieces + (y - 1)], 0, -pieceHeight);
-			//bottom
-			if (y != yPieces - 1)
-				m_pieces[x * yPieces + y]->addNeighbor(m_pieces[x * yPieces + (y + 1)], 0, pieceHeight);
-		}
+		QRectF pieceRect = piece->sceneBoundingRect();
+		piece->setPos(qrand() % (sceneWidth - (int) pieceRect.width()), qrand() % (sceneHeight - (int) pieceRect.height()));
+		Palapeli::Part* part = new Palapeli::Part(piece, this);
+		m_parts << part;
+		connect(part, SIGNAL(positionsUpdated()), this, SIGNAL(minimapNeedsUpdate()));
 	}
 }
 
