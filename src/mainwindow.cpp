@@ -26,7 +26,7 @@
 #include <KActionCollection>
 #include <KApplication>
 #include <KLocalizedString>
-#include <KStandardGameAction>
+#include <KDE/KStandardGameAction>
 
 #include <QDockWidget>
 
