@@ -28,7 +28,7 @@ namespace Palapeli
 	class RectangularPattern : public Pattern
 	{
 		public:
-			RectangularPattern(const QStringList& arguments);
+			RectangularPattern(const QHash<QString, QString>& arguments);
 			RectangularPattern(int xCount, int yCount);
 			~RectangularPattern();
 

@@ -19,7 +19,7 @@
 
 #include "pattern-abstract.h"
 
-Palapeli::Pattern::Pattern(const QStringList&)
+Palapeli::Pattern::Pattern(const QHash<QString, QString>&)
 {
 }
 

@@ -23,30 +23,28 @@
 
 #include <QPainter>
 
-Palapeli::RectangularPattern::RectangularPattern(const QStringList& arguments)
+Palapeli::RectangularPattern::RectangularPattern(const QHash<QString, QString>& arguments)
 	: Palapeli::Pattern(arguments)
 	, m_xCount(10)
 	, m_yCount(10)
 {
-	//try to read arguments
-	foreach (QString argument, arguments)
+	//read arguments
+	QHashIterator<QString, QString> iterArgs(arguments);
+	while (iterArgs.hasNext())
 	{
-		QStringList data = argument.split('=');
-		if (data.count() != 2)
-			continue;
-		QString title = data[0];
-		if (title == "XCount")
+		iterArgs.next();
+		if (iterArgs.key() == "XCount")
 		{
 			//try to convert value to integer; reset to default if conversion fails
 			bool isNumeric = false;
-			m_xCount = data[1].toInt(&isNumeric);
+			m_xCount = iterArgs.value().toInt(&isNumeric);
 			if (!isNumeric)
 				m_xCount = 10;
 		}
-		else if (title == "YCount")
+		else if (iterArgs.key() == "YCount")
 		{
 			bool isNumeric = false;
-			m_yCount = data[1].toInt(&isNumeric);
+			m_yCount = iterArgs.value().toInt(&isNumeric);
 			if (!isNumeric)
 				m_yCount = 10;
 		}
@@ -54,7 +52,7 @@ Palapeli::RectangularPattern::RectangularPattern(const QStringList& arguments)
 }
 
 Palapeli::RectangularPattern::RectangularPattern(int xCount, int yCount)
-	: Palapeli::Pattern(QStringList())
+	: Palapeli::Pattern(QHash<QString,QString>())
 	, m_xCount(qMax(1, xCount))
 	, m_yCount(qMax(1, yCount))
 {

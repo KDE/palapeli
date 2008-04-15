@@ -24,6 +24,12 @@
 
 class QDockWidget;
 #include <QWidget>
+class KDialog;
+
+namespace Ui
+{
+	class NewPuzzleDialog;
+};
 
 namespace Palapeli
 {
@@ -35,23 +41,24 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			MainWindow(int sceneWidth, int sceneHeight, const QString &fileName, int xPieces, int yPieces, QWidget* parent = 0);
+			MainWindow(QWidget* parent = 0);
 			~MainWindow();
 			
 		public Q_SLOTS:
-			void startGame();
+			void newGame();
 		
+		private Q_SLOTS:
+			void setupDialogs();
+
 		private:
+			View* m_view;
 			QDockWidget* m_dockmap;
 			Minimap* m_minimap;
 			QDockWidget* m_dockpreview;
 			Preview* m_preview;
-			int m_sceneWidth;
-			int m_sceneHeight;
-			QString m_fileName;
-			int m_xPieces;
-			int m_yPieces;
-			View* m_view;
+
+			KDialog* m_newDialog;
+			Ui::NewPuzzleDialog* m_newUi;
 	};
 }
 

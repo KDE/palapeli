@@ -30,6 +30,8 @@
 
 #include <QPointer>
 
+//TODO: Resurrect command line args: If an image is set, start a game automatically; -x and -y should be defaults for the "New puzzle" dialog
+
 int main(int argc, char** argv)
 {
 	qsrand(time(0));
@@ -40,40 +42,29 @@ int main(int argc, char** argv)
 	KCmdLineArgs::init(argc, argv, &about);
 
 	KCmdLineOptions options;
-	options.add("i");
-	options.add("image <path>", ki18n("Generate puzzle from the given image"), "/usr/share/wallpapers/Water01.jpg");
-	options.add("x");
-	options.add("xcount <int>", ki18n("Number of pieces in X direction"), "10");
-	options.add("y");
-	options.add("ycount <int>", ki18n("Number of pieces in Y direction"), "10");
-	options.add("w");
-	options.add("width <pixels>", ki18n("Width of puzzle scene (defaults to the double image width)"), "-1");
-	options.add("h");
-	options.add("height <pixels>", ki18n("Height of puzzle scene (defaults to the double image height)"), "-1");
-	options.add("", ki18n("The puzzle scene can be bigger as your monitor, you can scroll it.")); //a comment added below the options
+//	options.add("i");
+//	options.add("image <path>", ki18n("Generate puzzle from the given image"), "/usr/share/wallpapers/Water01.jpg");
+//	options.add("x");
+//	options.add("xcount <int>", ki18n("Number of pieces in X direction"), "10");
+//	options.add("y");
+//	options.add("ycount <int>", ki18n("Number of pieces in Y direction"), "10");
 	KCmdLineArgs::addCmdLineOptions(options);
 
 	KApplication app;
     KGlobal::locale()->insertCatalog("libkdegames");
 
-	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-	QString fileName = args->getOption("image");
-	int xCount = args->getOption("xcount").toInt();
-	if (xCount <= 0)
-		xCount = 10;
-	int yCount = args->getOption("ycount").toInt();
-	if (yCount <= 0)
-		yCount = 10;
-	int sceneWidth = args->getOption("width").toInt();
-	if (sceneWidth <= 0 && sceneWidth == -1)
-		sceneWidth = -1;
-	int sceneHeight = args->getOption("height").toInt();
-	if (sceneHeight <= 0 && sceneWidth == -1)
-		sceneHeight = -1;
-	args->clear();
+//	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+//	QString fileName = args->getOption("image");
+//	int xCount = args->getOption("xcount").toInt();
+//	if (xCount <= 0)
+//		xCount = 10;
+//	int yCount = args->getOption("ycount").toInt();
+//	if (yCount <= 0)
+//		yCount = 10;
+//	args->clear();
 
 	//cannot use normal value or pointer type as Palapeli crashes then when calling Palapeli::MainWindow::quit
-	QPointer<Palapeli::MainWindow> window = new Palapeli::MainWindow(sceneWidth, sceneHeight, fileName, xCount, yCount);
+	QPointer<Palapeli::MainWindow> window = new Palapeli::MainWindow();
 	window->show();
 	//make sure the window is deletes (to let it save its settings)
 	int ret = app.exec();

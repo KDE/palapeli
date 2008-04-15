@@ -20,6 +20,7 @@
 #ifndef PALAPELI_PATTERN_ABSTRACT_H
 #define PALAPELI_PATTERN_ABSTRACT_H
 
+#include <QHash>
 #include <QImage>
 #include <QStringList>
 
@@ -32,7 +33,7 @@ namespace Palapeli
 	class Pattern
 	{
 		public:
-			Pattern(const QStringList& arguments);
+			Pattern(const QHash<QString, QString>& arguments);
 			virtual ~Pattern();
 
 			virtual QList<Palapeli::Piece*> slice(const QImage& image, Scene* scene) = 0;
