@@ -18,13 +18,13 @@
  ***************************************************************************/
 
 #include "pattern-rect.h"
+#include "manager.h"
 #include "piece.h"
-#include "scene.h"
 
 #include <QPainter>
 
-Palapeli::RectangularPattern::RectangularPattern(const QHash<QString, QString>& arguments)
-	: Palapeli::Pattern(arguments)
+Palapeli::RectangularPattern::RectangularPattern(const QHash<QString, QString>& arguments, Manager* manager)
+	: Palapeli::Pattern(arguments, manager)
 	, m_xCount(10)
 	, m_yCount(10)
 {
@@ -51,8 +51,8 @@ Palapeli::RectangularPattern::RectangularPattern(const QHash<QString, QString>& 
 	}
 }
 
-Palapeli::RectangularPattern::RectangularPattern(int xCount, int yCount)
-	: Palapeli::Pattern(QHash<QString,QString>())
+Palapeli::RectangularPattern::RectangularPattern(int xCount, int yCount, Manager* manager)
+	: Palapeli::Pattern(QHash<QString,QString>(), manager)
 	, m_xCount(qMax(1, xCount))
 	, m_yCount(qMax(1, yCount))
 {
@@ -67,13 +67,16 @@ QString Palapeli::RectangularPattern::name() const
 	return "rectangular";
 }
 
-QStringList Palapeli::RectangularPattern::arguments() const
+QHash<QString,QString> Palapeli::RectangularPattern::args() const
 {
-	const QString xCount("XCount=%1"), yCount("YCount=%1");
-	return QStringList() << xCount.arg(m_xCount) << yCount.arg(m_yCount);
+	QHash<QString,QString> args;
+	static const QString intToString("%1");
+	args["XCount"] = intToString.arg(m_xCount);
+	args["YCount"] = intToString.arg(m_yCount);
+	return args;
 }
 
-QList<Palapeli::Piece*> Palapeli::RectangularPattern::slice(const QImage& image, Palapeli::Scene* scene)
+QList<Palapeli::Piece*> Palapeli::RectangularPattern::slice(const QImage& image)
 {
 	QList<Palapeli::Piece*> pieces;
 	int width = image.width(), height = image.height();
@@ -87,7 +90,7 @@ QList<Palapeli::Piece*> Palapeli::RectangularPattern::slice(const QImage& image,
 			QPainter painter(&pix);
 			painter.drawImage(QPoint(0, 0), image, QRect(x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight));
 			painter.end();
-			Palapeli::Piece* piece = new Palapeli::Piece(pix, scene, pieceWidth, pieceHeight);
+			Palapeli::Piece* piece = new Palapeli::Piece(pix, QSize(pieceWidth, pieceHeight), m_manager);
 			pieces << piece;
 		}
 	}
@@ -98,16 +101,16 @@ QList<Palapeli::Piece*> Palapeli::RectangularPattern::slice(const QImage& image,
 		{
 			//left
 			if (x != 0)
-				pieces[x * m_yCount + y]->addNeighbor(pieces[(x - 1) * m_yCount + y], -pieceWidth, 0);
+				m_manager->addRelation(pieces[x * m_yCount + y], pieces[(x - 1) * m_yCount + y], QPointF(-pieceWidth, 0));
 			//right
 			if (x != m_xCount - 1)
-				pieces[x * m_yCount + y]->addNeighbor(pieces[(x + 1) * m_yCount + y], pieceWidth, 0);
+				m_manager->addRelation(pieces[x * m_yCount + y], pieces[(x + 1) * m_yCount + y], QPointF(pieceWidth, 0));
 			//top
 			if (y != 0)
-				pieces[x * m_yCount + y]->addNeighbor(pieces[x * m_yCount + (y - 1)], 0, -pieceHeight);
+				m_manager->addRelation(pieces[x * m_yCount + y], pieces[x * m_yCount + (y - 1)], QPointF(0, -pieceHeight));
 			//bottom
 			if (y != m_yCount - 1)
-				pieces[x * m_yCount + y]->addNeighbor(pieces[x * m_yCount + (y + 1)], 0, pieceHeight);
+				m_manager->addRelation(pieces[x * m_yCount + y], pieces[x * m_yCount + (y + 1)], QPointF(0, pieceHeight));
 		}
 	}
 	return pieces;

@@ -20,22 +20,23 @@
 #ifndef PALAPELI_PREVIEW_H
 #define PALAPELI_PREVIEW_H
 
-class QImage;
 #include <QWidget>
 
 namespace Palapeli
 {
+
 	class Preview : public QWidget
 	{
-		public:
-			Preview();
-			~Preview();
-			
-			void loadImage(const QString& fileName);
-			virtual void paintEvent ( QPaintEvent* event);
-		private:
-			QImage* m_image;
+	public:
+		Preview(QWidget* parent = 0);
+
+		void setImage(const QImage &image);
+
+		virtual void paintEvent(QPaintEvent*);
+	private:
+		QImage m_image;
 	};
+
 }
 
-#endif // PALAPELI_PREVIEW_H
+#endif //PALAPELI_PREVIEW_H

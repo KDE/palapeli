@@ -18,56 +18,40 @@
  ***************************************************************************/
 
 #include "part.h"
+#include "manager.h"
 #include "piece.h"
-#include "scene.h"
 
-Palapeli::Part::Part(Palapeli::Piece* piece, Scene* scene)
-	: QObject()
-	, m_scene(scene)
+Palapeli::Part::Part(Palapeli::Piece* piece, Palapeli::Manager* manager)
+	: m_manager(manager)
 {
-	addPiece(piece);
+	add(piece);
 }
 
 Palapeli::Part::~Part()
 {
-	//The pieces are destroyed by the scene.
-}
-
-void Palapeli::Part::moveAllBy(qreal dx, qreal dy)
-{
 	foreach (Palapeli::Piece* piece, m_pieces)
-		piece->moveBy(dx, dy);
-	emit positionsUpdated();
+		delete piece;
 }
 
-void Palapeli::Part::addPiece(Palapeli::Piece* piece)
+void Palapeli::Part::add(Palapeli::Piece* piece)
 {
-	m_pieces << piece;
+	if (!m_pieces.contains(piece))
+		m_pieces << piece;
 	piece->setPart(this);
 }
 
-void Palapeli::Part::searchConnections()
+void Palapeli::Part::move(const QPointF& positionDifference)
 {
-	static const qreal maxInaccuracyFactor = 0.1;
 	foreach (Palapeli::Piece* piece, m_pieces)
-	{
-		const qreal xMaxInaccuracy = maxInaccuracyFactor * piece->width();
-		const qreal yMaxInaccuracy = maxInaccuracyFactor * piece->height();
-		const QPointF myPos = piece->pos();
-		foreach (Palapeli::Piece::NeighborInfo ni, piece->m_neighbors)
-		{
-			if (this == ni.piece->part())
-				continue;
-			const QPointF posDiff = ni.piece->pos() - myPos;
-			const qreal dx = posDiff.x() - ni.relativeXPos;
-			const qreal dy = posDiff.y() - ni.relativeYPos;
-			if (qAbs(dx) <= xMaxInaccuracy && qAbs(dy) <= yMaxInaccuracy)
-			{
-				m_scene->combineParts(this, ni.piece->part(), -dx, -dy);
-				emit positionsUpdated();
-			}
-		}
-	}
+		piece->setPos(piece->pos() + positionDifference);
+	m_manager->updateMinimap();
 }
 
-#include "part.moc"
+void Palapeli::Part::remove(Palapeli::Piece* piece)
+{
+	if (m_pieces.contains(piece))
+	{
+		m_pieces.removeAll(piece);
+		piece->setPart(0);
+	}
+}

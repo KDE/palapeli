@@ -27,17 +27,16 @@ namespace Palapeli
 
 	class RectangularPattern : public Pattern
 	{
-		public:
-			RectangularPattern(const QHash<QString, QString>& arguments);
-			RectangularPattern(int xCount, int yCount);
-			~RectangularPattern();
+	public:
+		RectangularPattern(const QHash<QString,QString>& arguments, Manager* manager);
+		RectangularPattern(int xCount, int yCount, Manager* manager);
+		virtual ~RectangularPattern();
 
-			virtual QList<Palapeli::Piece*> slice(const QImage& image, Scene* scene);
-			virtual QString name() const;
-			virtual QStringList arguments() const;
-		private:
-			int m_xCount;
-			int m_yCount;
+		virtual QList<Piece*> slice(const QImage& image);
+		virtual QString name() const;
+		virtual QHash<QString,QString> args() const;
+	private:
+		int m_xCount, m_yCount;
 	};
 
 }

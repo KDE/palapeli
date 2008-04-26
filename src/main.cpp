@@ -17,6 +17,7 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
+#include "manager.h"
 #include "mainwindow.h"
 
 #include <time.h>
@@ -27,8 +28,6 @@
 #include <KGlobal>
 #include <KLocale>
 #include <KLocalizedString>
-
-#include <QPointer>
 
 //TODO: Resurrect command line args: If an image is set, start a game automatically; -x and -y should be defaults for the "New puzzle" dialog
 
@@ -63,6 +62,7 @@ int main(int argc, char** argv)
 //		yCount = 10;
 //	args->clear();
 
+/*
 	//cannot use normal value or pointer type as Palapeli crashes then when calling Palapeli::MainWindow::quit
 	QPointer<Palapeli::MainWindow> window = new Palapeli::MainWindow();
 	window->show();
@@ -71,4 +71,8 @@ int main(int argc, char** argv)
 	if (!window.isNull())
 		delete (Palapeli::MainWindow*) window;
 	return ret;
+*/
+	Palapeli::Manager manager;
+	manager.window()->show();
+	return app.exec();
 }

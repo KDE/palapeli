@@ -22,23 +22,25 @@
 
 #include <QHash>
 #include <QImage>
-#include <QStringList>
+#include <QString>
 
 namespace Palapeli
 {
 
+	class Manager;
 	class Piece;
-	class Scene;
 
 	class Pattern
 	{
 		public:
-			Pattern(const QHash<QString, QString>& arguments);
+			Pattern(const QHash<QString,QString>& arguments, Manager* manager);
 			virtual ~Pattern();
-
-			virtual QList<Palapeli::Piece*> slice(const QImage& image, Scene* scene) = 0;
+	
+			virtual QList<Piece*> slice(const QImage& image) = 0;
 			virtual QString name() const = 0;
-			virtual QStringList arguments() const = 0;
+			virtual QHash<QString,QString> args() const = 0;
+		protected:
+			Manager* m_manager;
 	};
 
 }

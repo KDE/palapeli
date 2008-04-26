@@ -5,7 +5,8 @@
 	<ToolBar name="mainToolBar">
 		<text>Main Toolbar</text>
 		<Action name="game_new"/>
-		<Action name="game_quit" />
+		<Action name="game_load"/>
+		<Action name="game_save"/>
 	</ToolBar>
 	<StatusBar/>
 </gui>

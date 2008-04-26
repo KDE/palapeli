@@ -2,13 +2,14 @@
 set(palapeli_SRCS
 	main.cpp
 	mainwindow.cpp
+	manager.cpp
 	minimap.cpp
 	part.cpp
 	pattern-abstract.cpp
 	pattern-rect.cpp
 	piece.cpp
+	piecerelation.cpp
 	preview.cpp
-	scene.cpp
 	view.cpp
 )
 kde4_add_ui_files(palapeli_SRCS dialognew.ui)

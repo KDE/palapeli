@@ -17,40 +17,27 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_SCENE_H
-#define PALAPELI_SCENE_H
+#include "piecerelation.h"
+#include "piece.h"
 
-#include <QGraphicsScene>
-
-class QGraphicsRectItem;
-class QImage;
-
-namespace Palapeli
+Palapeli::PieceRelation::PieceRelation(Palapeli::Piece* piece1, Palapeli::Piece* piece2, const QPointF& positionDifference)
+	: m_piece1(piece1)
+	, m_piece2(piece2)
+	, m_positionDifference(positionDifference)
 {
-
-	class Minimap;
-	class Part;
-	class Piece;
-
-	class Scene : public QGraphicsScene
-	{
-		Q_OBJECT
-		public:
-			Scene(int width, int height);
-			~Scene();
-
-			QListIterator<Piece*> pieces() const;
-
-			void loadImage(const QImage& image, int xPieces, int yPieces);
-			void combineParts(Part* part1, Part* part2, qreal dx, qreal dy);
-		Q_SIGNALS:
-			void minimapNeedsUpdate();
-		private:
-			QList<Piece*> m_pieces;
-			QList<Part*> m_parts;
-			QGraphicsRectItem* m_visualSceneBoundary;
-	};
-
 }
 
-#endif //PALAPELI_SCENE_H
+Palapeli::Piece* Palapeli::PieceRelation::piece1() const
+{
+	return m_piece1;
+}
+
+Palapeli::Piece* Palapeli::PieceRelation::piece2() const
+{
+	return m_piece2;
+}
+
+QPointF Palapeli::PieceRelation::positionDifference() const
+{
+	return m_positionDifference;
+}

@@ -18,42 +18,19 @@
  ***************************************************************************/
 
 #include "view.h"
-#include "scene.h"
+#include "manager.h"
 
-#include <QImage>
+#include <QGraphicsScene>
 #include <QScrollBar>
 #include <QWheelEvent>
-#include <KLocalizedString>
 
-Palapeli::View::View(QWidget* parent)
+Palapeli::View::View(Palapeli::Manager* manager, QWidget* parent)
 	: QGraphicsView(parent)
-	, m_scene(0)
+	, m_manager(manager)
+	, m_scene(new QGraphicsScene)
 {
-	setWindowTitle(i18nc("The application's name", "Palapeli"));
-	resize(400, 400);
-	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportMoved()));
-	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportMoved()));
-}
-
-Palapeli::View::~View()
-{
-	delete m_scene;
-}
-
-Palapeli::Scene* Palapeli::View::puzzleScene() const
-{
-	return m_scene;
-}
-
-void Palapeli::View::startGame(int sceneWidth, int sceneHeight, const QString &fileName, int xPieces, int yPieces)
-{
-	delete m_scene;
-	QImage image(fileName);
-	m_scene = new Palapeli::Scene(
-		sceneWidth == -1 ? 2 * image.width() : sceneWidth,
-		sceneHeight == -1 ? 2 * image.height() : sceneHeight
-	);
-	m_scene->loadImage(image, xPieces, yPieces);
+	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), m_manager, SLOT(updateMinimap()));
+	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), m_manager, SLOT(updateMinimap()));
 	setScene(m_scene);
 }
 
@@ -68,18 +45,12 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 		if (scalingFactor <= 0.01)
 			scalingFactor = 0.01;
 		scale(scalingFactor, scalingFactor);
-		emit viewportMoved();
+		m_manager->updateMinimap();
 	}
 	else if ((event->modifiers() & Qt::ShiftModifier) || event->orientation() == Qt::Horizontal)
-	{
 		//shift + mouse wheel - move the viewport left/right by adjusting the slider
 		horizontalScrollBar()->triggerAction(delta < 0 ? QAbstractSlider::SliderSingleStepAdd : QAbstractSlider::SliderSingleStepSub);
-	}
 	else
-	{
 		//just the mouse wheel - move the viewport up/down by adjusting the slider
 		verticalScrollBar()->triggerAction(delta < 0 ? QAbstractSlider::SliderSingleStepAdd : QAbstractSlider::SliderSingleStepSub);
-	}
 }
-
-#include "view.moc"

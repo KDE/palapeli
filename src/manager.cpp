@@ -1,0 +1,198 @@
+/***************************************************************************
+ *   Copyright (C) 2008 Felix Lemke <lemke.felix@ages-skripte.org>
+ *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
+ *
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU General Public
+ *   License as published by the Free Software Foundation; either
+ *   version 2 of the License, or (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, write to the Free Software
+ *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ ***************************************************************************/
+
+#include "manager.h"
+#include "mainwindow.h"
+#include "minimap.h"
+#include "part.h"
+#include "pattern-abstract.h"
+#include "pattern-rect.h"
+#include "piece.h"
+#include "piecerelation.h"
+#include "preview.h"
+#include "view.h"
+
+#include <QHash>
+#include <kio/netaccess.h>
+#include <KMessageBox>
+
+
+Palapeli::Manager::Manager()
+	: QObject()
+	, m_minimap(new Palapeli::Minimap(this))
+	, m_pattern(0)
+	, m_preview(new Palapeli::Preview)
+	, m_view(new Palapeli::View(this))
+	, m_window(new Palapeli::MainWindow(this))
+{
+	m_window->setAttribute(Qt::WA_DeleteOnClose, false); //main window is managed by this class because there are widely-spread references to m_view, and m_view will be deleted by m_window
+}
+
+Palapeli::Manager::~Manager()
+{
+	delete m_minimap;
+	foreach (Palapeli::Part* part, m_parts)
+		delete part; //the pieces are deleted here
+	delete m_pattern;
+	delete m_preview;
+	delete m_window; //the view is deleted here
+}
+
+//properties
+
+Palapeli::Minimap* Palapeli::Manager::minimap() const
+{
+	return m_minimap;
+}
+
+QListIterator<Palapeli::Part*> Palapeli::Manager::parts() const
+{
+	return QListIterator<Palapeli::Part*>(m_parts);
+}
+
+Palapeli::Pattern* Palapeli::Manager::pattern() const
+{
+	return m_pattern;
+}
+
+QListIterator<Palapeli::Piece*> Palapeli::Manager::pieces() const
+{
+	return QListIterator<Palapeli::Piece*>(m_pieces);
+}
+
+Palapeli::Preview* Palapeli::Manager::preview() const
+{
+	return m_preview;
+}
+
+QListIterator<Palapeli::PieceRelation> Palapeli::Manager::relations() const
+{
+	return QListIterator<Palapeli::PieceRelation>(m_relations);
+}
+
+Palapeli::View* Palapeli::Manager::view() const
+{
+	return m_view;
+}
+
+Palapeli::MainWindow* Palapeli::Manager::window() const
+{
+	return m_window;
+}
+
+void Palapeli::Manager::updateMinimap()
+{
+	m_minimap->update();
+}
+
+//gameplay
+
+void Palapeli::Manager::addRelation(Palapeli::Piece* piece1, Palapeli::Piece* piece2, const QPointF& positionDifference)
+{
+	m_relations << Palapeli::PieceRelation(piece1, piece2, positionDifference);
+}
+
+void Palapeli::Manager::searchConnections()
+{
+	static const qreal maxInaccuracyFactor = 0.1;
+	bool combinedSomething = false;
+	foreach (Palapeli::PieceRelation rel, m_relations)
+	{
+		if (rel.piece1()->part() == rel.piece2()->part()) //already combined
+			continue;
+		const qreal xMaxInaccuracy = maxInaccuracyFactor * rel.piece1()->size().width();
+		const qreal yMaxInaccuracy = maxInaccuracyFactor * rel.piece1()->size().height();
+		const QPointF posDiff = rel.piece2()->pos() - rel.piece1()->pos();
+		const QPointF inaccuracy = posDiff - rel.positionDifference();
+		if (qAbs(inaccuracy.x()) <= xMaxInaccuracy && qAbs(inaccuracy.y()) <= yMaxInaccuracy)
+		{
+			combine(rel.piece1()->part(), rel.piece2()->part(), -inaccuracy);
+			combinedSomething = true;
+		}
+	}
+	if (combinedSomething)
+		updateMinimap();
+}
+
+void Palapeli::Manager::combine(Palapeli::Part* part1, Palapeli::Part* part2, const QPointF& positionDifference)
+{
+	while (part2->m_pieces.count() > 0)
+	{
+		Palapeli::Piece* piece = part2->m_pieces.takeFirst();
+		part2->remove(piece);
+		part1->add(piece);
+		piece->setPos(piece->pos() + positionDifference);
+	}
+	m_parts.removeAll(part2);
+	delete part2;
+}
+
+//game instances
+
+QString Palapeli::Manager::toLocalFile(const KUrl& url)
+{
+	QString file;
+	if(KIO::NetAccess::download(url, file, m_window))
+	{
+		m_localFiles << file;
+		return file;
+	}
+	else
+	{
+		KMessageBox::error(m_window, KIO::NetAccess::lastErrorString());
+		return QString();
+	}
+}
+
+void Palapeli::Manager::cleanupTempFiles()
+{
+	foreach (const QString& file, m_localFiles)
+		KIO::NetAccess::removeTempFile(file);
+}
+
+void Palapeli::Manager::createGame(const KUrl& url, int xPieceCount, int yPieceCount)
+{
+	//load image
+	QString imageFile = toLocalFile(url);
+	if (imageFile.isEmpty())
+		return;
+	QImage image(imageFile);
+	int sceneWidth = 2 * image.width(), sceneHeight = 2 * image.height();
+	//flush all variables
+	foreach (Palapeli::Part* part, m_parts)
+		delete part; //also deletes pieces
+	m_parts.clear();
+	m_pieces.clear();
+	//configure scene and preview
+	m_view->scene()->setSceneRect(0, 0, sceneWidth, sceneHeight);
+	m_preview->setImage(image);
+	//create pieces and parts
+	delete m_pattern;
+	m_pattern = new Palapeli::RectangularPattern(xPieceCount, yPieceCount, this);
+	m_pieces = m_pattern->slice(image);
+	foreach (Palapeli::Piece* piece, m_pieces)
+	{
+		QRectF pieceRect = piece->sceneBoundingRect();
+		piece->setPos(qrand() % (sceneWidth - (int) pieceRect.width()), qrand() % (sceneHeight - (int) pieceRect.height()));
+		m_parts << new Palapeli::Part(piece, this);
+	}
+	updateMinimap();
+}
+
+#include "manager.moc"

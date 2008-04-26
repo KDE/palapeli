@@ -20,40 +20,32 @@
 #ifndef PALAPELI_MINIMAP_H
 #define PALAPELI_MINIMAP_H
 
-class QPolygonF;
 #include <QWidget>
 
 namespace Palapeli
 {
 
-	class Scene;
-	class View;
+	class Manager;
 
 	class Minimap : public QWidget
 	{
 		public:
-			Minimap();
-			~Minimap();
-			
-			void setView(View* view);
-			
+			Minimap(Manager* manager, QWidget* parent = 0);
+	
 			virtual void mousePressEvent(QMouseEvent* event);
 			virtual void mouseMoveEvent(QMouseEvent* event);
 			virtual void mouseReleaseEvent(QMouseEvent* event);
 			virtual void paintEvent(QPaintEvent*);
 		protected:
-			QPolygonF viewport() const;
-			QPointF widgetToScene(const QPointF &point) const;
-			
-			void moveViewport(const QPointF &widgetTo, const QPointF &widgetFrom = QPointF());
+			QRectF viewport() const;
+			QPointF widgetToScene(const QPointF& point) const;
+			void moveViewport(const QPointF& widgetTo, const QPointF& widgetFrom = QPointF());
 		private:
-			View* m_view;
-			Scene* m_scene;
-			bool m_draggingViewport;
-			QPointF m_draggingPreviousPos;
-			bool m_viewportWasDragged;
+			Manager* m_manager;
+			bool m_draggingViewport, m_viewportWasDragged;
+			QPoint m_draggingPreviousPos;
 	};
 
 }
 
-#endif // PALAPELI_MINIMAP_H
+#endif //PALAPELI_MINIMAP_H

@@ -18,8 +18,10 @@
  ***************************************************************************/
 
 #include "pattern-abstract.h"
+#include "manager.h"
 
-Palapeli::Pattern::Pattern(const QHash<QString, QString>&)
+Palapeli::Pattern::Pattern(const QHash<QString,QString>&, Manager* manager)
+	: m_manager(manager)
 {
 }
 

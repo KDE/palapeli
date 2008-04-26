@@ -17,31 +17,29 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_PART_H
-#define PALAPELI_PART_H
+#ifndef PALAPELI_PIECERELATION_H
+#define PALAPELI_PIECERELATION_H
 
-#include "manager.h"
+#include <QPointF>
 
 namespace Palapeli
 {
 
 	class Piece;
 
-	class Part
+	class PieceRelation
 	{
-		friend void Manager::combine(Part* part1, Part* part2, const QPointF& positionDifference);
 		public:
-			Part(Piece* piece, Manager* manager);
-			~Part();
-
-			void add(Piece* piece);
-			void move(const QPointF& positionDifference);
-			void remove(Piece* piece);
+			PieceRelation(Piece* piece1, Piece* piece2, const QPointF& positionDifference);
+			Piece* piece1() const;
+			Piece* piece2() const;
+			QPointF positionDifference() const;
 		private:
-			Manager* m_manager;
-			QList<Piece*> m_pieces;
+			Piece* m_piece1;
+			Piece* m_piece2;
+			QPointF m_positionDifference;
 	};
 
 }
 
-#endif //PALAPELI_PART_H
+#endif //PALAPELI_PIECERELATION_H

@@ -18,47 +18,26 @@
  ***************************************************************************/
 
 #include "piece.h"
+#include "manager.h"
 #include "part.h"
-#include "scene.h"
+#include "view.h"
 
 #include <QGraphicsSceneMouseEvent>
 
-Palapeli::Piece::NeighborInfo::NeighborInfo(Piece* neighbor, qreal xPos, qreal yPos)
-	: piece(neighbor)
-	, relativeXPos(xPos)
-	, relativeYPos(yPos)
-{
-}
-
-Palapeli::Piece::Piece(const QPixmap& pixmap, Palapeli::Scene* scene, int width, int height)
+Palapeli::Piece::Piece(const QPixmap& pixmap, const QSize& size, Palapeli::Manager* manager)
 	: QGraphicsPixmapItem()
-	, m_width(width)
-	, m_height(height)
-	, m_scene(scene)
+	, m_manager(manager)
 	, m_part(0)
+	, m_size(size)
 	, m_moving(false)
 {
 	setAcceptedMouseButtons(Qt::LeftButton | Qt::RightButton);
 	setPixmap(pixmap);
 	setOffset(0.0, 0.0);
 
-	m_scene->addItem(this);
+	m_manager->view()->scene()->addItem(this);
 	QRectF pieceRect = sceneBoundingRect();
-	scale(width / pieceRect.width(), height / pieceRect.height());
-}
-
-Palapeli::Piece::~Piece()
-{
-}
-
-int Palapeli::Piece::width() const
-{
-	return m_width;
-}
-
-int Palapeli::Piece::height() const
-{
-	return m_height;
+	scale(size.width() / pieceRect.width(), size.height() / pieceRect.height());
 }
 
 Palapeli::Part* Palapeli::Piece::part() const
@@ -66,35 +45,33 @@ Palapeli::Part* Palapeli::Piece::part() const
 	return m_part;
 }
 
-void Palapeli::Piece::addNeighbor(Piece* piece, qreal xDiff, qreal yDiff)
-{
-	m_neighbors << Palapeli::Piece::NeighborInfo(piece, xDiff, yDiff);
-}
-
 void Palapeli::Piece::setPart(Palapeli::Part* part)
 {
 	m_part = part;
 }
 
+QSize Palapeli::Piece::size() const
+{
+	return m_size;
+}
+
 void Palapeli::Piece::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-	if (event->button() & Qt::LeftButton)
-		m_moving = true;
+	if (m_part)
+		m_moving = event->button() & Qt::LeftButton;
 }
 
 void Palapeli::Piece::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
-	if (m_moving)
-	{
-		const QPointF difference = event->scenePos() - event->lastScenePos();
-		m_part->moveAllBy(difference.x(), difference.y());
-	}
+	if (m_part && m_moving)
+		m_part->move(event->scenePos() - event->lastScenePos());
 }
 
 void Palapeli::Piece::mouseReleaseEvent(QGraphicsSceneMouseEvent*)
 {
-	m_part->searchConnections();
-	m_moving = false;
+	if (m_part && m_moving)
+	{
+		m_manager->searchConnections();
+		m_moving = false;
+	}
 }
-
-#include "piece.moc"

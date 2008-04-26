@@ -19,37 +19,26 @@
 
 #include "preview.h"
 
-#include <QImage>
 #include <QPainter>
 
-Palapeli::Preview::Preview()
-	: QWidget()
-	, m_image(new QImage(200, 200, QImage::Format_ARGB32))
+Palapeli::Preview::Preview(QWidget* parent)
+	: QWidget(parent)
+	, m_image()
 {
-	setMinimumSize(200, 200);
 }
 
-Palapeli::Preview::~Preview()
+void Palapeli::Preview::setImage(const QImage &image)
 {
-	delete m_image;
-}
-
-void Palapeli::Preview::loadImage(const QString& file)
-{
-	m_image->load(file);
-	repaint();
+	m_image = image;
+	update();
 }
 
 void Palapeli::Preview::paintEvent(QPaintEvent*)
 {
+	if (m_image.isNull())
+		return;
+	qreal scalingFactor = qMin((qreal) width() / m_image.width(), (qreal) height() / m_image.height());
 	QPainter painter(this);
-	const qreal scalingFactorHorizontal = (qreal) this->width() / (qreal) m_image->width();
-	const qreal scalingFactorVertical = (qreal) this->height() / (qreal) m_image->height();
-	if (scalingFactorHorizontal > scalingFactorVertical)
-		painter.scale(scalingFactorVertical, scalingFactorVertical);
-	else
-		painter.scale(scalingFactorHorizontal, scalingFactorHorizontal);
-	painter.drawImage(0, 0, *m_image);
+	painter.scale(scalingFactor, scalingFactor);
+	painter.drawImage(QPoint(0, 0), m_image);
 }
-
-#include "preview.moc"

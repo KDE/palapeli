@@ -20,29 +20,24 @@
 #ifndef PALAPELI_VIEW_H
 #define PALAPELI_VIEW_H
 
+class QGraphicsScene;
 #include <QGraphicsView>
+class QWheelEvent;
 
 namespace Palapeli
 {
 
-	class Scene;
+	class Manager;
 
 	class View : public QGraphicsView
 	{
-		Q_OBJECT
 		public:
-			View(QWidget* parent = 0);
-			~View();
-
-			Scene* puzzleScene() const;
-
-			void startGame(int sceneWidth, int sceneHeight, const QString &fileName, int xPieces, int yPieces);
-		Q_SIGNALS:
-			void viewportMoved();
+			View(Manager* manager, QWidget* parent = 0);
 		protected:
-			virtual void wheelEvent(QWheelEvent*);
+			virtual void wheelEvent(QWheelEvent* event);
 		private:
-			Scene* m_scene;
+			Manager* m_manager;
+			QGraphicsScene* m_scene;
 	};
 
 }

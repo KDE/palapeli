@@ -20,52 +20,30 @@
 #ifndef PALAPELI_PIECE_H
 #define PALAPELI_PIECE_H
 
-#include "minimap.h"
-#include "part.h"
-
 #include <QGraphicsPixmapItem>
-#include <QList>
-class QPaintEvent;
-#include <QObject>
 
 namespace Palapeli
 {
 
-	class Scene;
+	class Manager;
+	class Part;
 
-	class Piece : public QObject, public QGraphicsPixmapItem
+	class Piece : public QGraphicsPixmapItem
 	{
-		friend void Minimap::paintEvent(QPaintEvent*);
-		friend void Part::searchConnections();
-		Q_OBJECT
 		public:
-			Piece(const QPixmap &pixmap, Scene* scene, int width, int height);
-			~Piece();
+			Piece(const QPixmap& pixmap, const QSize& size, Manager* manager);
 
-			int width() const;
-			int height() const;
 			Part* part() const;
-
-			void addNeighbor(Piece* piece, qreal xDiff, qreal yDiff);
 			void setPart(Part* part);
+			QSize size() const;
 
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
-			void move(qreal dx, qreal dy);
 			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 		private:
-			struct NeighborInfo
-			{
-				NeighborInfo(Piece* neighbor, qreal xPos, qreal yPos);
-				Piece* piece;
-				qreal relativeXPos;
-				qreal relativeYPos;
-			};
-
-			int m_width, m_height;
-			Scene* m_scene;
+			Manager* m_manager;
 			Part* m_part;
-			QList<NeighborInfo> m_neighbors;
+			QSize m_size;
 			bool m_moving;
 	};
 

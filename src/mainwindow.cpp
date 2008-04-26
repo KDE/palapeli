@@ -18,48 +18,44 @@
  ***************************************************************************/
 
 #include "mainwindow.h"
+#include "manager.h"
 #include "minimap.h"
 #include "preview.h"
-#include "scene.h"
 #include "ui_dialognew.h"
 #include "view.h"
 
-#include <KActionCollection>
-#include <KApplication>
-#include <KDialog>
-#include <KLocalizedString>
-#include <KMessageBox>
-#include <KDE/KStandardGameAction>
-#include <kio/netaccess.h>
-
 #include <QDockWidget>
 #include <QTimer>
+#include <KAction>
+#include <KActionCollection>
+#include <KDialog>
+#include <KLocalizedString>
+#include <KDE/KStandardGameAction>
 
-Palapeli::MainWindow::MainWindow(QWidget* parent)
+Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	: KXmlGuiWindow(parent)
-	, m_view(new Palapeli::View)
-	, m_dockmap(new QDockWidget(i18n("Overview")))
-	, m_minimap(new Palapeli::Minimap)
-	, m_dockpreview(new QDockWidget(i18n("Image preview")))
-	, m_preview(new Palapeli::Preview)
+	, m_manager(manager)
+	, m_dockMinimap(new QDockWidget(i18n("Overview"), this))
+	, m_dockPreview(new QDockWidget(i18n("Image preview"), this))
 	, m_newDialog(new KDialog(this))
 	, m_newUi(new Ui::NewPuzzleDialog)
 {
 	//Game actions
 	KStandardGameAction::gameNew(m_newDialog, SLOT(show()), actionCollection());
-	KStandardGameAction::quit(kapp, SLOT(quit()), actionCollection());
-	//gui settings
+	KStandardGameAction::load(this, SLOT(loadGame()), actionCollection())->setEnabled(false);
+	KStandardGameAction::save(this, SLOT(saveGame()), actionCollection())->setEnabled(false);
+	//GUI settings
 	setAutoSaveSettings();
-	setCentralWidget(m_view);
+	setCentralWidget(m_manager->view());
 	//minimap
-	addDockWidget(Qt::RightDockWidgetArea, m_dockmap);
-	m_dockmap->setObjectName("DockMap");
-	m_dockmap->setWidget(m_minimap);
+	addDockWidget(Qt::RightDockWidgetArea, m_dockMinimap);
+	m_dockMinimap->setObjectName("DockMap");
+	m_dockMinimap->setWidget(m_manager->minimap());
 	//preview
-	addDockWidget(Qt::RightDockWidgetArea, m_dockpreview);
-	m_dockpreview->setObjectName("DockPreview");
-	m_dockpreview->setWidget(m_preview);
-	//late settings
+	addDockWidget(Qt::RightDockWidgetArea, m_dockPreview);
+	m_dockPreview->setObjectName("DockPreview");
+	m_dockPreview->setWidget(m_manager->preview());
+	//late GUI settings
 	setupGUI(QSize(400, 400));
 	setCaption(i18nc("The application's name", "Palapeli"));
 	//initialise dialogs after entering the event loop (to speed up startup)
@@ -83,29 +79,20 @@ void Palapeli::MainWindow::setupDialogs()
 	m_newDialog->setCaption(i18n("New puzzle"));
 	m_newDialog->setButtons(KDialog::Ok | KDialog::Cancel);
 	m_newDialog->mainWidget()->layout()->setMargin(0);
-	connect(m_newDialog, SIGNAL(okClicked()), this, SLOT(newGame()));
+	connect(m_newDialog, SIGNAL(okClicked()), this, SLOT(startGame()));
 }
 
-Palapeli::MainWindow::~MainWindow()
+void Palapeli::MainWindow::startGame()
+{
+	m_manager->createGame(m_newUi->urlImage->url(), m_newUi->spinHorizontalPieces->value(), m_newUi->spinVerticalPieces->value());
+}
+
+void Palapeli::MainWindow::loadGame()
 {
 }
 
-void Palapeli::MainWindow::newGame()
+void Palapeli::MainWindow::saveGame()
 {
-	//translate given image URL into local file
-	KUrl imageUrl = m_newUi->urlImage->url();
-	QString imageFile;
-	if(!KIO::NetAccess::download(imageUrl, imageFile, this))
-	{
-		KMessageBox::error(this, KIO::NetAccess::lastErrorString());
-		return;
-	}
-	//start game
-	m_view->startGame(-1, -1, imageFile, m_newUi->spinHorizontalPieces->value(), m_newUi->spinVerticalPieces->value());
-	m_preview->loadImage(imageFile);
-	m_minimap->setView(m_view);
-	//cleanup temporary files
-	KIO::NetAccess::removeTempFile(imageFile);
 }
 
 #include "mainwindow.moc"
