@@ -46,7 +46,7 @@ namespace Palapeli
 	
 			void addRelation(Piece* piece1, Piece* piece2, const QPointF& positionDifference);
 			void searchConnections();
-			void combine(Part* part1, Part* part2, const QPointF& positionDifference);
+			void combine(Part* part1, Part* part2);
 	
 			Minimap* minimap() const;
 			QListIterator<Part*> parts() const;

@@ -122,7 +122,7 @@ void Palapeli::Manager::searchConnections()
 		const QPointF inaccuracy = posDiff - rel.positionDifference();
 		if (qAbs(inaccuracy.x()) <= xMaxInaccuracy && qAbs(inaccuracy.y()) <= yMaxInaccuracy)
 		{
-			combine(rel.piece1()->part(), rel.piece2()->part(), -inaccuracy);
+			combine(rel.piece1()->part(), rel.piece2()->part());
 			combinedSomething = true;
 		}
 	}
@@ -130,16 +130,16 @@ void Palapeli::Manager::searchConnections()
 		updateMinimap();
 }
 
-void Palapeli::Manager::combine(Palapeli::Part* part1, Palapeli::Part* part2, const QPointF& positionDifference)
+void Palapeli::Manager::combine(Palapeli::Part* part1, Palapeli::Part* part2)
 {
 	while (part2->m_pieces.count() > 0)
 	{
 		Palapeli::Piece* piece = part2->m_pieces.takeFirst();
 		part2->remove(piece);
 		part1->add(piece);
-		piece->setPos(piece->pos() + positionDifference);
 	}
 	m_parts.removeAll(part2);
+	part1->update();
 	delete part2;
 }
 

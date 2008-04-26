@@ -22,6 +22,8 @@
 
 #include "manager.h"
 
+#include <QPointF>
+
 namespace Palapeli
 {
 
@@ -29,7 +31,7 @@ namespace Palapeli
 
 	class Part
 	{
-		friend void Manager::combine(Part* part1, Part* part2, const QPointF& positionDifference);
+		friend void Manager::combine(Part* part1, Part* part2);
 		public:
 			Part(Piece* piece, Manager* manager);
 			~Part();
@@ -37,9 +39,11 @@ namespace Palapeli
 			void add(Piece* piece);
 			void move(const QPointF& positionDifference);
 			void remove(Piece* piece);
+			void update();
 		private:
 			Manager* m_manager;
 			QList<Piece*> m_pieces;
+			QPointF m_basePos; //resembles to (0,0) in image coordinates
 	};
 
 }

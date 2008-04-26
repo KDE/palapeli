@@ -31,9 +31,11 @@ namespace Palapeli
 	class Piece : public QGraphicsPixmapItem
 	{
 		public:
-			Piece(const QPixmap& pixmap, const QSize& size, Manager* manager);
+			Piece(const QPixmap& pixmap, const QSize& size, const QPointF& posInImage, Manager* manager);
 
+			virtual QRectF boundingRect() const;
 			Part* part() const;
+			QPointF posInImage() const;
 			void setPart(Part* part);
 			QSize size() const;
 
@@ -44,6 +46,7 @@ namespace Palapeli
 			Manager* m_manager;
 			Part* m_part;
 			QSize m_size;
+			QPointF m_posInImage;
 			bool m_moving;
 	};
 

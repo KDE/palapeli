@@ -23,6 +23,7 @@
 
 Palapeli::Part::Part(Palapeli::Piece* piece, Palapeli::Manager* manager)
 	: m_manager(manager)
+	, m_basePos(piece->pos() - piece->posInImage())
 {
 	add(piece);
 }
@@ -42,8 +43,8 @@ void Palapeli::Part::add(Palapeli::Piece* piece)
 
 void Palapeli::Part::move(const QPointF& positionDifference)
 {
-	foreach (Palapeli::Piece* piece, m_pieces)
-		piece->setPos(piece->pos() + positionDifference);
+	m_basePos += positionDifference;
+	update();
 	m_manager->updateMinimap();
 }
 
@@ -54,4 +55,11 @@ void Palapeli::Part::remove(Palapeli::Piece* piece)
 		m_pieces.removeAll(piece);
 		piece->setPart(0);
 	}
+}
+
+void Palapeli::Part::update()
+{
+	//move every piece to the right position
+	foreach (Palapeli::Piece* piece, m_pieces)
+		piece->setPos(m_basePos + piece->posInImage());
 }

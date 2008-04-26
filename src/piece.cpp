@@ -24,25 +24,36 @@
 
 #include <QGraphicsSceneMouseEvent>
 
-Palapeli::Piece::Piece(const QPixmap& pixmap, const QSize& size, Palapeli::Manager* manager)
-	: QGraphicsPixmapItem()
+Palapeli::Piece::Piece(const QPixmap& pixmap, const QSize& size, const QPointF& posInImage, Palapeli::Manager* manager)
+	: QGraphicsPixmapItem(pixmap)
 	, m_manager(manager)
 	, m_part(0)
 	, m_size(size)
+	, m_posInImage(posInImage)
 	, m_moving(false)
 {
 	setAcceptedMouseButtons(Qt::LeftButton | Qt::RightButton);
-	setPixmap(pixmap);
 	setOffset(0.0, 0.0);
 
 	m_manager->view()->scene()->addItem(this);
-	QRectF pieceRect = sceneBoundingRect();
-	scale(size.width() / pieceRect.width(), size.height() / pieceRect.height());
+}
+
+QRectF Palapeli::Piece::boundingRect() const
+{
+	QRectF baseRect = QGraphicsPixmapItem::boundingRect();
+	//QGraphicsPixmapItem adds a padding of 0.5 units - we need to remove this padding for proper positioning
+	static const qreal unwantedPadding = 0.5;
+	return baseRect.adjusted(-unwantedPadding, -unwantedPadding, unwantedPadding, unwantedPadding);
 }
 
 Palapeli::Part* Palapeli::Piece::part() const
 {
 	return m_part;
+}
+
+QPointF Palapeli::Piece::posInImage() const
+{
+	return m_posInImage;
 }
 
 void Palapeli::Piece::setPart(Palapeli::Part* part)
@@ -52,7 +63,7 @@ void Palapeli::Piece::setPart(Palapeli::Part* part)
 
 QSize Palapeli::Piece::size() const
 {
-	return m_size;
+	return QSize(m_size.width() - 1.0, m_size.height() - 1.0);
 }
 
 void Palapeli::Piece::mousePressEvent(QGraphicsSceneMouseEvent* event)

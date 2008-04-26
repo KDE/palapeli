@@ -41,9 +41,13 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 	{
 		//control + mouse wheel - zoom viewport in/out
 		static const qreal deltaAdaptationFactor = 600.0;
-		qreal scalingFactor = 1 + delta / deltaAdaptationFactor;
-		if (scalingFactor <= 0.01)
-			scalingFactor = 0.01;
+		qreal scalingFactor = 1.0 + qAbs(delta) / deltaAdaptationFactor;
+		if (delta < 0) //zoom out
+		{
+			scalingFactor = 1.0 / scalingFactor;
+			if (scalingFactor <= 0.01)
+				scalingFactor = 0.01;
+		}
 		scale(scalingFactor, scalingFactor);
 		m_manager->updateMinimap();
 	}
