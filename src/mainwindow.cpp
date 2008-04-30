@@ -42,8 +42,8 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 {
 	//Game actions
 	KStandardGameAction::gameNew(m_newDialog, SLOT(show()), actionCollection());
-	KStandardGameAction::load(this, SLOT(loadGame()), actionCollection())->setEnabled(false);
-	KStandardGameAction::save(this, SLOT(saveGame()), actionCollection())->setEnabled(false);
+	KStandardGameAction::load(this, SLOT(loadGame()), actionCollection());
+	KStandardGameAction::save(this, SLOT(saveGame()), actionCollection());
 	//GUI settings
 	setAutoSaveSettings();
 	setCentralWidget(m_manager->view());
@@ -89,10 +89,12 @@ void Palapeli::MainWindow::startGame()
 
 void Palapeli::MainWindow::loadGame()
 {
+	m_manager->loadGame("My Savegame");
 }
 
 void Palapeli::MainWindow::saveGame()
 {
+	m_manager->saveGame("My Savegame");
 }
 
 #include "mainwindow.moc"

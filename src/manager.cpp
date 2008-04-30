@@ -28,13 +28,23 @@
 #include "preview.h"
 #include "view.h"
 
+#include <QDir>
+#include <QFile>
 #include <QHash>
+#include <QImage>
+#include <KConfig>
+#include <KConfigGroup>
 #include <kio/netaccess.h>
 #include <KMessageBox>
+#include <KProcess>
+#include <KStandardDirs>
 
+const QString configPath = "savegames/%1.palapelisavegame";
+const QString imagePath = "savegames/%1.jpg";
 
 Palapeli::Manager::Manager()
 	: QObject()
+	, m_image()
 	, m_minimap(new Palapeli::Minimap(this))
 	, m_pattern(0)
 	, m_preview(new Palapeli::Preview)
@@ -172,8 +182,9 @@ void Palapeli::Manager::createGame(const KUrl& url, int xPieceCount, int yPieceC
 	QString imageFile = toLocalFile(url);
 	if (imageFile.isEmpty())
 		return;
-	QImage image(imageFile);
-	int sceneWidth = 2 * image.width(), sceneHeight = 2 * image.height();
+	m_image.load(imageFile);
+	cleanupTempFiles();
+	int sceneWidth = 2 * m_image.width(), sceneHeight = 2 * m_image.height();
 	//flush all variables
 	foreach (Palapeli::Part* part, m_parts)
 		delete part; //also deletes pieces
@@ -181,11 +192,11 @@ void Palapeli::Manager::createGame(const KUrl& url, int xPieceCount, int yPieceC
 	m_pieces.clear();
 	//configure scene and preview
 	m_view->scene()->setSceneRect(0, 0, sceneWidth, sceneHeight);
-	m_preview->setImage(image);
+	m_preview->setImage(m_image);
 	//create pieces and parts
 	delete m_pattern;
 	m_pattern = new Palapeli::RectangularPattern(xPieceCount, yPieceCount, this);
-	m_pieces = m_pattern->slice(image);
+	m_pieces = m_pattern->slice(m_image);
 	foreach (Palapeli::Piece* piece, m_pieces)
 	{
 		QRectF pieceRect = piece->sceneBoundingRect();
@@ -193,6 +204,73 @@ void Palapeli::Manager::createGame(const KUrl& url, int xPieceCount, int yPieceC
 		m_parts << new Palapeli::Part(piece, this);
 	}
 	updateMinimap();
+}
+
+void Palapeli::Manager::loadGame(const QString& name)
+{
+	//check if savegame exists
+	const QString configFileName = KStandardDirs::locate("appdata", configPath.arg(name));
+	const QString imageFileName = KStandardDirs::locate("appdata", imagePath.arg(name));
+	if (configFileName.isEmpty() || imageFileName.isEmpty())
+		return;
+	//load image and configuration
+	KConfig config(configFileName);
+	m_image.load(imageFileName);
+	int sceneWidth = 2 * m_image.width(), sceneHeight = 2 * m_image.height();
+	//flush all variables
+	foreach (Palapeli::Part* part, m_parts)
+		delete part; //also deletes pieces
+	m_parts.clear();
+	m_pieces.clear();
+	//configure scene and preview
+	m_view->scene()->setSceneRect(0, 0, sceneWidth, sceneHeight);
+	m_preview->setImage(m_image);
+	//create pieces and parts
+	delete m_pattern;
+	//TODO: Support multiple types of patterns. There is only "rectangular" at the moment, so I don't care about the name specified in "General/Pattern" at all.
+	m_pattern = new Palapeli::RectangularPattern(config.entryMap("Pattern"), this);
+	m_pieces = m_pattern->slice(m_image);
+	KConfigGroup piecesGroup(&config, "Pieces");
+	static const QString intToString("%1"); //args: int
+	for (int i = 0; i < m_pieces.count(); ++i)
+	{
+		Palapeli::Piece* piece = m_pieces.at(i);
+		piece->setPos(piecesGroup.readEntry(intToString.arg(i), QPointF()));
+		m_parts << new Palapeli::Part(piece, this);
+	}
+	searchConnections(); //reconnect everything which was already connected
+	updateMinimap();
+}
+
+void Palapeli::Manager::saveGame(const QString& name)
+{
+	if (!m_pattern || m_pieces.empty())
+		return;
+	//open config file and write general information
+	KConfig config(KStandardDirs::locateLocal("appdata", configPath.arg(name)));
+	KConfigGroup generalGroup(&config, "Palapeli");
+	generalGroup.writeEntry("Pattern", m_pattern->name());
+	//pattern arguments
+	KConfigGroup patternGroup(&config, "Pattern");
+	QMap<QString,QString> args = m_pattern->args();
+	QMapIterator<QString,QString> iterArgs(args);
+	while (iterArgs.hasNext())
+	{
+		iterArgs.next();
+		patternGroup.writeEntry(iterArgs.key(), iterArgs.value());
+	}
+	//piece positions
+	KConfigGroup pieceGroup(&config, "Pieces");
+	static const QString pieceData("%1,%2"); //args: X position, Y position
+	static const QString intToString("%1"); //args: int
+	for (int i = 0; i < m_pieces.count(); ++i)
+	{
+		Palapeli::Piece* piece = m_pieces.at(i);
+		pieceGroup.writeEntry(intToString.arg(i), QVariant(piece->pos()));
+	}
+	//save information and image
+	config.sync();
+	m_image.save(KStandardDirs::locateLocal("appdata", imagePath.arg(name)), "JPG");
 }
 
 #include "manager.moc"

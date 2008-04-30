@@ -20,7 +20,7 @@
 #include "pattern-abstract.h"
 #include "manager.h"
 
-Palapeli::Pattern::Pattern(const QHash<QString,QString>&, Manager* manager)
+Palapeli::Pattern::Pattern(const QMap<QString,QString>&, Manager* manager)
 	: m_manager(manager)
 {
 }

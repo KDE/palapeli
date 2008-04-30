@@ -20,6 +20,7 @@
 #ifndef PALAPELI_MANAGER_H
 #define PALAPELI_MANAGER_H
 
+#include <QImage>
 #include <QObject>
 #include <KUrl>
 
@@ -43,6 +44,8 @@ namespace Palapeli
 			~Manager();
 	
 			void createGame(const KUrl& url, int xPieceCount, int yPieceCount);
+			void loadGame(const QString& name);
+			void saveGame(const QString& name);
 	
 			void addRelation(Piece* piece1, Piece* piece2, const QPointF& positionDifference);
 			void searchConnections();
@@ -62,6 +65,7 @@ namespace Palapeli
 			QString toLocalFile(const KUrl& url);
 			void cleanupTempFiles();
 
+			QImage m_image;
 			QList<QString> m_localFiles;
 			Minimap* m_minimap;
 			QList<Part*> m_parts;

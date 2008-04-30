@@ -29,7 +29,10 @@
 #include <KLocale>
 #include <KLocalizedString>
 
-//TODO: Resurrect command line args: If an image is set, start a game automatically; -x and -y should be defaults for the "New puzzle" dialog
+//TODO: Resurrect command line args: If an image is set, start a game automatically; -x and -y should be defaults for the "New puzzle" dialog.
+//TODO: Save games to the internal config (as default; exporting will also be possible). On start, show some kind of start page which allows to start a new game or load one of the saved games.
+//TODO: Remember format of loaded image, and reuse this for saving.
+//TODO: Transform patterns into shared libraries which can be loaded dynamically from a .desktop database (just as Plasma applets, hopefully including GHNS support.)
 
 int main(int argc, char** argv)
 {

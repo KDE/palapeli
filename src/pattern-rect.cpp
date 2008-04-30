@@ -23,28 +23,29 @@
 
 #include <QPainter>
 
-Palapeli::RectangularPattern::RectangularPattern(const QHash<QString, QString>& arguments, Manager* manager)
+Palapeli::RectangularPattern::RectangularPattern(const QMap<QString, QString>& arguments, Manager* manager)
 	: Palapeli::Pattern(arguments, manager)
 	, m_xCount(10)
 	, m_yCount(10)
 {
 	//read arguments
-	QHashIterator<QString, QString> iterArgs(arguments);
+	QMapIterator<QString, QString> iterArgs(arguments);
 	while (iterArgs.hasNext())
 	{
 		iterArgs.next();
-		if (iterArgs.key() == "XCount")
+		QString value = iterArgs.value();
+		if (iterArgs.key() == QLatin1String("XCount"))
 		{
 			//try to convert value to integer; reset to default if conversion fails
 			bool isNumeric = false;
-			m_xCount = iterArgs.value().toInt(&isNumeric);
+			m_xCount = value.toInt(&isNumeric);
 			if (!isNumeric)
 				m_xCount = 10;
 		}
-		else if (iterArgs.key() == "YCount")
+		else if (iterArgs.key() == QLatin1String("YCount"))
 		{
 			bool isNumeric = false;
-			m_yCount = iterArgs.value().toInt(&isNumeric);
+			m_yCount = value.toInt(&isNumeric);
 			if (!isNumeric)
 				m_yCount = 10;
 		}
@@ -52,7 +53,7 @@ Palapeli::RectangularPattern::RectangularPattern(const QHash<QString, QString>& 
 }
 
 Palapeli::RectangularPattern::RectangularPattern(int xCount, int yCount, Manager* manager)
-	: Palapeli::Pattern(QHash<QString,QString>(), manager)
+	: Palapeli::Pattern(QMap<QString,QString>(), manager)
 	, m_xCount(qMax(1, xCount))
 	, m_yCount(qMax(1, yCount))
 {
@@ -64,15 +65,15 @@ Palapeli::RectangularPattern::~RectangularPattern()
 
 QString Palapeli::RectangularPattern::name() const
 {
-	return "rectangular";
+	return QLatin1String("rectangular");
 }
 
-QHash<QString,QString> Palapeli::RectangularPattern::args() const
+QMap<QString,QString> Palapeli::RectangularPattern::args() const
 {
-	QHash<QString,QString> args;
-	static const QString intToString("%1");
-	args["XCount"] = intToString.arg(m_xCount);
-	args["YCount"] = intToString.arg(m_yCount);
+	QMap<QString,QString> args;
+	static const QString intToString = QLatin1String("%1");
+	args[QLatin1String("XCount")] = intToString.arg(m_xCount);
+	args[QLatin1String("YCount")] = intToString.arg(m_yCount);
 	return args;
 }
 
