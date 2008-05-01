@@ -22,6 +22,7 @@
 #include "manager.h"
 #include "minimap.h"
 #include "preview.h"
+#include "saveaction.h"
 #include "ui_dialognew.h"
 #include "view.h"
 
@@ -37,6 +38,7 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	: KXmlGuiWindow(parent)
 	, m_manager(manager)
 	, m_loadAct(new Palapeli::LoadAction(m_manager, this))
+	, m_saveAct(new Palapeli::SaveAction(m_manager, this))
 	, m_dockMinimap(new QDockWidget(i18n("Overview"), this))
 	, m_dockPreview(new QDockWidget(i18n("Image preview"), this))
 	, m_newDialog(new KDialog(this))
@@ -45,8 +47,9 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	//Game actions
 	KStandardGameAction::gameNew(m_newDialog, SLOT(show()), actionCollection());
 	//KStandardGameAction::load(this, SLOT(loadGame()), actionCollection());
+	//KStandardGameAction::save(this, SLOT(saveGame()), actionCollection());
 	actionCollection()->addAction("game_load", m_loadAct);
-	KStandardGameAction::save(this, SLOT(saveGame()), actionCollection());
+	actionCollection()->addAction("game_save", m_saveAct);
 	//GUI settings
 	setAutoSaveSettings();
 	setCentralWidget(m_manager->view());

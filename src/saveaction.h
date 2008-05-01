@@ -17,45 +17,35 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_MAINWINDOW_H
-#define PALAPELI_MAINWINDOW_H
+#ifndef PALAPELI_SAVEACTION_H
+#define PALAPELI_SAVEACTION_H
 
-class QDockWidget;
-class KDialog;
-#include <KXmlGuiWindow>
-
-namespace Ui
-{
-	class NewPuzzleDialog;
-};
+#include <KActionMenu>
+class KMenu;
+class KLineEdit;
 
 namespace Palapeli
 {
 
-	class LoadAction;
-	class SaveAction;
 	class Manager;
 
-	class MainWindow : public KXmlGuiWindow
+	class SaveAction : public KActionMenu
 	{
 		Q_OBJECT
 		public:
-			MainWindow(Manager* manager, QWidget* parent = 0);
+			SaveAction(Manager* manager, QObject* parent = 0);
+			~SaveAction();
 		private Q_SLOTS:
-			void setupDialogs();
-			void startGame();
-			void loadGame();
-			void saveGame();
+			void setPredefinedName(const QString& name);
+			void save();
 		private:
 			Manager* m_manager;
-			LoadAction* m_loadAct;
-			SaveAction* m_saveAct;
-			QDockWidget* m_dockMinimap;
-			QDockWidget* m_dockPreview;
-			KDialog* m_newDialog;
-			Ui::NewPuzzleDialog* m_newUi;
+			KMenu* m_menu;
+			KLineEdit* m_nameInput;
+			KAction* m_nameInputAct;
+			KAction* m_saveAct;
 	};
 
 }
 
-#endif //PALAPELI_MAINWINDOW_H
+#endif // PALAPELI_SAVEACTION_H

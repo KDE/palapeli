@@ -205,6 +205,7 @@ void Palapeli::Manager::createGame(const KUrl& url, int xPieceCount, int yPieceC
 		m_parts << new Palapeli::Part(piece, this);
 	}
 	updateMinimap();
+	emit gameLoaded(QString());
 }
 
 void Palapeli::Manager::loadGame(const QString& name)
@@ -241,6 +242,7 @@ void Palapeli::Manager::loadGame(const QString& name)
 	}
 	searchConnections(); //reconnect everything which was already connected
 	updateMinimap();
+	emit gameLoaded(name);
 }
 
 void Palapeli::Manager::saveGame(const QString& name)

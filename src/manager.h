@@ -65,6 +65,7 @@ namespace Palapeli
 			void saveGame(const QString& name);
 		Q_SIGNALS:
 			void saveGameListUpdated();
+			void gameLoaded(const QString& name);
 		private:
 			QString toLocalFile(const KUrl& url);
 			void cleanupTempFiles();

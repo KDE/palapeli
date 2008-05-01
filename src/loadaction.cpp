@@ -31,6 +31,7 @@ Palapeli::LoadAction::LoadAction(Palapeli::Manager *manager, QObject *parent)
 	setDelayed(false);
 	setStickyMenu(true);
 	setToolTip(i18n("Load a saved game"));
+	//setup game list
 	update();
 	connect(m_manager, SIGNAL(saveGameListUpdated()), this, SLOT(update()));
 	connect(m_mapper, SIGNAL(mapped(const QString &)), m_manager, SLOT(loadGame(const QString &)));
@@ -57,6 +58,7 @@ void Palapeli::LoadAction::update()
 		connect(newAct, SIGNAL(triggered(bool)), m_mapper, SLOT(map()));
 		m_mapper->setMapping(newAct, name);
 		addAction(newAct);
+		m_actions[name] = newAct;
 	}
 	//remove old savegames
 	foreach (QString name, actions)
@@ -68,6 +70,8 @@ void Palapeli::LoadAction::update()
 		removeAction(oldAct);
 		delete oldAct;
 	}
+	//disable action if nothing can be loaded
+	setEnabled(m_actions.count() > 0);
 }
 
 #include "loadaction.moc"
