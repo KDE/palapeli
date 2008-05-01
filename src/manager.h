@@ -42,10 +42,8 @@ namespace Palapeli
 		public:
 			Manager();
 			~Manager();
-	
-			void createGame(const KUrl& url, int xPieceCount, int yPieceCount);
-			void loadGame(const QString& name);
-			void saveGame(const QString& name);
+
+			QList<QString> availableSaveGames();
 	
 			void addRelation(Piece* piece1, Piece* piece2, const QPointF& positionDifference);
 			void searchConnections();
@@ -61,6 +59,12 @@ namespace Palapeli
 			MainWindow* window() const;
 		public Q_SLOTS:
 			void updateMinimap();
+
+			void createGame(const KUrl& url, int xPieceCount, int yPieceCount);
+			void loadGame(const QString& name);
+			void saveGame(const QString& name);
+		Q_SIGNALS:
+			void saveGameListUpdated();
 		private:
 			QString toLocalFile(const KUrl& url);
 			void cleanupTempFiles();

@@ -30,17 +30,18 @@
 
 #include <QDir>
 #include <QFile>
-#include <QHash>
 #include <QImage>
+#include <KComponentData>
 #include <KConfig>
 #include <KConfigGroup>
 #include <kio/netaccess.h>
 #include <KMessageBox>
-#include <KProcess>
 #include <KStandardDirs>
 
-const QString configPath = "savegames/%1.palapelisavegame";
-const QString imagePath = "savegames/%1.jpg";
+const QString saveGameDir("savegames");
+const QString configPattern("*.palapelisavegame");
+const QString configPath("savegames/%1.palapelisavegame");
+const QString imagePath("savegames/%1.png");
 
 Palapeli::Manager::Manager()
 	: QObject()
@@ -270,7 +271,32 @@ void Palapeli::Manager::saveGame(const QString& name)
 	}
 	//save information and image
 	config.sync();
-	m_image.save(KStandardDirs::locateLocal("appdata", imagePath.arg(name)), "JPG");
+	m_image.save(KStandardDirs::locateLocal("appdata", imagePath.arg(name)), "PNG"); //format should be lossless
+	emit saveGameListUpdated();
+}
+
+QList<QString> Palapeli::Manager::availableSaveGames()
+{
+	QList<QString> foundSaveGames;
+	KStandardDirs *ksd = KGlobal::mainComponent().dirs();
+	QDir dir;
+	//find all savegames directories
+	foreach (QString saveGameDirectory, ksd->findDirs("data", "palapeli/" + saveGameDir))
+	{
+		//look for *.palapelisavegame files
+		dir.setPath(saveGameDirectory);
+		foreach (QFileInfo config, dir.entryInfoList(QStringList() << configPattern))
+			foundSaveGames << config.baseName();
+	}
+	//images need to be available
+	QMutableListIterator<QString> iterSaveGames(foundSaveGames);
+	while (iterSaveGames.hasNext())
+	{
+		QString name = iterSaveGames.next();
+		if (ksd->findResource("appdata", imagePath.arg(name)).isEmpty())
+			iterSaveGames.remove();
+	}
+	return foundSaveGames;
 }
 
 #include "manager.moc"

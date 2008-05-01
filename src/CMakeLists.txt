@@ -1,5 +1,6 @@
 # CMakeLists for /palapeli/src
 set(palapeli_SRCS
+	loadaction.cpp
 	main.cpp
 	mainwindow.cpp
 	manager.cpp
