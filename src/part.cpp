@@ -21,6 +21,8 @@
 #include "manager.h"
 #include "piece.h"
 
+int currentZValue = 0;
+
 Palapeli::Part::Part(Palapeli::Piece* piece, Palapeli::Manager* manager)
 	: m_manager(manager)
 	, m_basePos(piece->pos() - piece->posInImage())
@@ -59,7 +61,12 @@ void Palapeli::Part::remove(Palapeli::Piece* piece)
 
 void Palapeli::Part::update()
 {
+	//iterate Z value to make elements of this part appear on top
+	++currentZValue;
 	//move every piece to the right position
 	foreach (Palapeli::Piece* piece, m_pieces)
+	{
 		piece->setPos(m_basePos + piece->posInImage());
+		piece->setZValue(currentZValue);
+	}
 }
