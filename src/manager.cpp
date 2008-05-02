@@ -191,6 +191,7 @@ void Palapeli::Manager::createGame(const KUrl& url, int xPieceCount, int yPieceC
 		delete part; //also deletes pieces
 	m_parts.clear();
 	m_pieces.clear();
+	m_relations.clear();
 	//configure scene and preview
 	m_view->scene()->setSceneRect(0, 0, sceneWidth, sceneHeight);
 	m_preview->setImage(m_image);
