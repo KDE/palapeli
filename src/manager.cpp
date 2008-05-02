@@ -224,6 +224,7 @@ void Palapeli::Manager::loadGame(const QString& name)
 		delete part; //also deletes pieces
 	m_parts.clear();
 	m_pieces.clear();
+	m_relations.clear();
 	//configure scene and preview
 	m_view->scene()->setSceneRect(0, 0, sceneWidth, sceneHeight);
 	m_preview->setImage(m_image);
