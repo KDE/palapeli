@@ -115,7 +115,7 @@ void Palapeli::MainWindow::setupDialogs()
 	m_savegameView = new SavegameView(m_manager);
 	//setup "Manage savegames" dialog
 	m_savegameDialog->setWindowIcon(KIcon("document-save-as"));
-	m_savegameDialog->setCaption(i18n("Manage savegames"));
+	m_savegameDialog->setCaption(i18n("Manage saved games"));
 	m_savegameDialog->setButtons(KDialog::Close);
 	m_savegameDialog->setMainWidget(m_savegameView);
 	connect(m_manageSavegameAct, SIGNAL(triggered()), m_savegameDialog, SLOT(show()));
