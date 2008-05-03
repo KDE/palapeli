@@ -23,6 +23,7 @@
 #include <KActionMenu>
 class KMenu;
 class KLineEdit;
+class KPushButton;
 
 namespace Palapeli
 {
@@ -42,6 +43,7 @@ namespace Palapeli
 			Manager* m_manager;
 			KMenu* m_menu;
 			KLineEdit* m_nameInput;
+			KPushButton* m_saveButton;
 			KAction* m_nameInputAct;
 			KAction* m_saveAct;
 	};

@@ -23,14 +23,16 @@
 #include <KLocalizedString>
 #include <KLineEdit>
 #include <KMenu>
+#include <KPushButton>
 
 Palapeli::SaveAction::SaveAction(Manager* manager, QObject* parent)
 	: KActionMenu(KIcon("document-save"), i18n("Save"), parent)
 	, m_manager(manager)
 	, m_menu(new KMenu)
 	, m_nameInput(new KLineEdit)
-	, m_nameInputAct(new KAction(i18n("Game name:"), m_menu))
-	, m_saveAct(new KAction(KIcon("document-save"), i18n("Save game"), m_menu))
+	, m_saveButton(new KPushButton(KIcon("document-save"), i18n("Save game")))
+	, m_nameInputAct(new KAction(m_menu))
+	, m_saveAct(new KAction(m_menu))
 {
 	setEnabled(false); //do not enable until a game has been started or loaded
 	setDelayed(false);
@@ -40,7 +42,8 @@ Palapeli::SaveAction::SaveAction(Manager* manager, QObject* parent)
 	//setup actions in menu
 	m_nameInputAct->setDefaultWidget(m_nameInput);
 	connect(m_nameInput, SIGNAL(returnPressed()), this, SLOT(save()));
-	connect(m_saveAct, SIGNAL(triggered()), this, SLOT(save()));
+	m_saveAct->setDefaultWidget(m_saveButton);
+	connect(m_saveButton, SIGNAL(clicked()), this, SLOT(save()));
 	//setup menu
 	m_menu->addTitle(i18n("Enter a name"));
 	m_menu->addAction(m_nameInputAct);
