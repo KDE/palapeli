@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
 <gui name="palapeli" version="1">
-	<MenuBar />
+	<MenuBar>
+		<Menu name="game">
+			<Action name="game_new"/>
+			<Action name="game_load"/>
+			<Separator/>
+			<Action name="game_save"/>
+			<Action name="palapeli_manage_savegames"/>
+			<Separator/>
+			<Action name="game_quit"/>
+		</Menu>
+	</MenuBar>
 	<ToolBar name="mainToolBar">
 		<text>Main Toolbar</text>
 		<Action name="game_new"/>

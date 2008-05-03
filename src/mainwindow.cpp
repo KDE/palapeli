@@ -23,6 +23,7 @@
 #include "minimap.h"
 #include "preview.h"
 #include "saveaction.h"
+#include "savegameview.h"
 #include "ui_dialognew.h"
 #include "view.h"
 
@@ -30,26 +31,37 @@
 #include <QTimer>
 #include <KAction>
 #include <KActionCollection>
+#include <KApplication>
 #include <KDialog>
 #include <KLocalizedString>
 #include <KDE/KStandardGameAction>
+#include <KStatusBar>
+
+//TODO: Request a proper icon for the savegame management action.
+//TODO: Eventually convert SavegameView from a dialog into a dock widget.
+//TODO: Add actions to toggle dock widgets. (Is there a standard way for this?)
 
 Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	: KXmlGuiWindow(parent)
 	, m_manager(manager)
 	, m_loadAct(new Palapeli::LoadAction(m_manager, this))
 	, m_saveAct(new Palapeli::SaveAction(m_manager, this))
+	, m_manageSavegameAct(new KAction(KIcon("document-save-as"), i18n("Manage saved games"), this))
 	, m_dockMinimap(new QDockWidget(i18n("Overview"), this))
 	, m_dockPreview(new QDockWidget(i18n("Image preview"), this))
 	, m_newDialog(new KDialog(this))
 	, m_newUi(new Ui::NewPuzzleDialog)
+	, m_savegameDialog(new KDialog(this))
+	, m_savegameView(0)
 {
 	//Game actions
 	KStandardGameAction::gameNew(m_newDialog, SLOT(show()), actionCollection());
+	KStandardGameAction::quit(kapp, SLOT(quit()), actionCollection());
 	//KStandardGameAction::load(this, SLOT(loadGame()), actionCollection());
 	//KStandardGameAction::save(this, SLOT(saveGame()), actionCollection());
 	actionCollection()->addAction("game_load", m_loadAct);
 	actionCollection()->addAction("game_save", m_saveAct);
+	actionCollection()->addAction("palapeli_manage_savegames", m_manageSavegameAct);
 	//GUI settings
 	setAutoSaveSettings();
 	setCentralWidget(m_manager->view());
@@ -64,13 +76,25 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	//late GUI settings
 	setupGUI(QSize(400, 400));
 	setCaption(i18nc("The application's name", "Palapeli"));
+	statusBar()->hide();
 	//initialise dialogs after entering the event loop (to speed up startup)
 	QTimer::singleShot(0, this, SLOT(setupDialogs()));
 }
 
+Palapeli::MainWindow::~MainWindow()
+{
+	delete m_loadAct;
+	delete m_saveAct;
+	delete m_dockMinimap;
+	delete m_dockPreview;
+	delete m_newDialog;
+	delete m_newUi;
+	delete m_savegameDialog; //also deletes its content widget m_savegameView
+}
+
 void Palapeli::MainWindow::setupDialogs()
 {
-	//setup UI
+	//setup "New game" UI
 	const int minPieceCount = 0;
 	const int defaultPieceCount = 8;
 	const int maxPieceCount = 100;
@@ -81,11 +105,20 @@ void Palapeli::MainWindow::setupDialogs()
 	m_newUi->spinVerticalPieces->setMinimum(minPieceCount);
 	m_newUi->spinVerticalPieces->setMaximum(maxPieceCount);
 	m_newUi->spinVerticalPieces->setValue(defaultPieceCount);
-	//setup dialog
+	//setup "New game" dialog
+	m_newDialog->setWindowIcon(KIcon("document-new"));
 	m_newDialog->setCaption(i18n("New puzzle"));
 	m_newDialog->setButtons(KDialog::Ok | KDialog::Cancel);
 	m_newDialog->mainWidget()->layout()->setMargin(0);
 	connect(m_newDialog, SIGNAL(okClicked()), this, SLOT(startGame()));
+	//setup "Manage savegames" UI
+	m_savegameView = new SavegameView(m_manager);
+	//setup "Manage savegames" dialog
+	m_savegameDialog->setWindowIcon(KIcon("document-save-as"));
+	m_savegameDialog->setCaption(i18n("Manage savegames"));
+	m_savegameDialog->setButtons(KDialog::Close);
+	m_savegameDialog->setMainWidget(m_savegameView);
+	connect(m_manageSavegameAct, SIGNAL(triggered()), m_savegameDialog, SLOT(show()));
 }
 
 void Palapeli::MainWindow::startGame()

@@ -17,38 +17,31 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_PIECE_H
-#define PALAPELI_PIECE_H
+#ifndef PALAPELI_SAVEGAMEVIEW_H
+#define PALAPELI_SAVEGAMEVIEW_H
 
-#include <QGraphicsPixmapItem>
+class QGridLayout;
+class QListView;
+#include <QWidget>
 
 namespace Palapeli
 {
 
 	class Manager;
-	class Part;
+	class SavegameModel;
 
-	class Piece : public QGraphicsPixmapItem
+	class SavegameView : public QWidget
 	{
 		public:
-			Piece(const QPixmap& pixmap, const QSize& size, const QPointF& posInImage, Manager* manager);
-
-			Part* part() const;
-			QPointF posInImage() const;
-			void setPart(Part* part);
-			QSize size() const;
-
-			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
-			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
-			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+			SavegameView(Manager* manager, QWidget* parent = 0);
+			~SavegameView();
 		private:
+			QGridLayout* m_layout;
 			Manager* m_manager;
-			Part* m_part;
-			QSize m_size;
-			QPointF m_posInImage;
-			bool m_moving;
+			SavegameModel* m_model;
+			QListView* m_view;
 	};
-
+	
 }
 
-#endif //PALAPELI_PIECE_H
+#endif // PALAPELI_SAVEGAMEVIEW_H

@@ -38,14 +38,6 @@ Palapeli::Piece::Piece(const QPixmap& pixmap, const QSize& size, const QPointF& 
 	m_manager->view()->scene()->addItem(this);
 }
 
-QRectF Palapeli::Piece::boundingRect() const
-{
-	QRectF baseRect = QGraphicsPixmapItem::boundingRect();
-	//QGraphicsPixmapItem adds a padding of 0.5 units - we need to remove this padding for proper positioning
-	static const qreal unwantedPadding = 0.5;
-	return baseRect.adjusted(-unwantedPadding, -unwantedPadding, unwantedPadding, unwantedPadding);
-}
-
 Palapeli::Part* Palapeli::Piece::part() const
 {
 	return m_part;

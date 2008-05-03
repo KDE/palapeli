@@ -31,9 +31,7 @@
 
 //TODO: Resurrect command line args: If an image is set, start a game automatically; -x and -y should be defaults for the "New puzzle" dialog.
 //TODO: Import and export of savegames.
-//FIXME: Crashes when a game is loaded or started while another one is being played.
-//FIXME: Disable save button when no game is being played.
-//TODO: Transform patterns into shared libraries which can be loaded dynamically from a .desktop database (just as Plasma applets, hopefully including GHNS support.)
+//TODO: Transform patterns into shared libraries which can be loaded dynamically from a .desktop database (like Plasma applets, hopefully including GHNS support.)
 
 int main(int argc, char** argv)
 {

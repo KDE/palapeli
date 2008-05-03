@@ -12,6 +12,7 @@ set(palapeli_SRCS
 	piecerelation.cpp
 	preview.cpp
 	saveaction.cpp
+	savegameview.cpp
 	view.cpp
 )
 kde4_add_ui_files(palapeli_SRCS dialognew.ui)

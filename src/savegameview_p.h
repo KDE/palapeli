@@ -17,38 +17,30 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_PIECE_H
-#define PALAPELI_PIECE_H
+#ifndef PALAPELI_SAVEGAMEVIEW_PRIVATE_H
+#define PALAPELI_SAVEGAMEVIEW_PRIVATE_H
 
-#include <QGraphicsPixmapItem>
+#include <QAbstractListModel>
 
 namespace Palapeli
 {
 
 	class Manager;
-	class Part;
 
-	class Piece : public QGraphicsPixmapItem
+	class SavegameModel : public QAbstractListModel
 	{
 		public:
-			Piece(const QPixmap& pixmap, const QSize& size, const QPointF& posInImage, Manager* manager);
+			SavegameModel(Manager* manager);
+			~SavegameModel();
 
-			Part* part() const;
-			QPointF posInImage() const;
-			void setPart(Part* part);
-			QSize size() const;
-
-			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
-			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
-			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+			QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+			QVariant headerData(int index, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+			int rowCount(const QModelIndex &parent = QModelIndex()) const;
 		private:
 			Manager* m_manager;
-			Part* m_part;
-			QSize m_size;
-			QPointF m_posInImage;
-			bool m_moving;
+			QList<QString> m_saveGames;
 	};
-
+	
 }
 
-#endif //PALAPELI_PIECE_H
+#endif // PALAPELI_SAVEGAMEVIEW_H
