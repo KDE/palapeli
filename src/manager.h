@@ -63,6 +63,7 @@ namespace Palapeli
 			void createGame(const KUrl& url, int xPieceCount, int yPieceCount);
 			void loadGame(const QString& name);
 			void saveGame(const QString& name);
+			void deleteGame(const QString& name);
 		Q_SIGNALS:
 			void saveGameListUpdated();
 			void gameLoaded(const QString& name);

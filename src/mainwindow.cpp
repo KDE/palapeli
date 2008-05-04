@@ -62,6 +62,7 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	actionCollection()->addAction("game_load", m_loadAct);
 	actionCollection()->addAction("game_save", m_saveAct);
 	actionCollection()->addAction("palapeli_manage_savegames", m_manageSavegameAct);
+	connect(m_manageSavegameAct, SIGNAL(triggered()), m_savegameDialog, SLOT(show()));
 	//GUI settings
 	setAutoSaveSettings();
 	setCentralWidget(m_manager->view());
@@ -116,9 +117,11 @@ void Palapeli::MainWindow::setupDialogs()
 	//setup "Manage savegames" dialog
 	m_savegameDialog->setWindowIcon(KIcon("document-save-as"));
 	m_savegameDialog->setCaption(i18n("Manage saved games"));
-	m_savegameDialog->setButtons(KDialog::Close);
+	m_savegameDialog->setButtons(KDialog::Close | KDialog::User1);
+	m_savegameDialog->setButtonText(KDialog::User1, i18n("Delete selected"));
+	m_savegameDialog->setButtonIcon(KDialog::User1, KIcon("edit-delete"));
 	m_savegameDialog->setMainWidget(m_savegameView);
-	connect(m_manageSavegameAct, SIGNAL(triggered()), m_savegameDialog, SLOT(show()));
+	connect(m_savegameDialog, SIGNAL(user1Clicked()), m_savegameView, SLOT(deleteSelected()));
 }
 
 void Palapeli::MainWindow::startGame()

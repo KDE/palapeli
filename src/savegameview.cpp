@@ -32,8 +32,10 @@ Palapeli::SavegameView::SavegameView(Manager* manager, QWidget* parent)
 	, m_view(new QListView)
 {
 	m_view->setModel(m_model);
+	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	m_layout->addWidget(m_view, 0, 0);
 	setLayout(m_layout);
+	connect(m_manager, SIGNAL(saveGameListUpdated()), m_model, SLOT(update()));
 }
 
 Palapeli::SavegameView::~SavegameView()
@@ -43,12 +45,23 @@ Palapeli::SavegameView::~SavegameView()
 	delete m_layout;
 }
 
+void Palapeli::SavegameView::deleteSelected()
+{
+	//supress updates until the deletions have been finished
+	disconnect(m_manager, SIGNAL(saveGameListUpdated()), m_model, SLOT(update()));
+	//delete indexes
+	foreach (QModelIndex item, m_view->selectionModel()->selectedIndexes())
+		m_manager->deleteGame(m_model->data(item, Qt::DisplayRole).toString());
+	//update model manually
+	connect(m_manager, SIGNAL(saveGameListUpdated()), m_model, SLOT(update()));
+	m_model->update();
+}
+
 Palapeli::SavegameModel::SavegameModel(Manager* manager)
 	: QAbstractListModel()
 	, m_manager(manager)
 	, m_saveGames(m_manager->availableSaveGames())
 {
-	connect(m_manager, SIGNAL(saveGameListUpdated()), this, SLOT(update()));
 }
 
 Palapeli::SavegameModel::~SavegameModel()
@@ -85,4 +98,5 @@ void Palapeli::SavegameModel::update()
 	reset();
 }
 
+#include "savegameview.moc"
 #include "savegameview_p.moc"

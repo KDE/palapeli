@@ -32,9 +32,12 @@ namespace Palapeli
 
 	class SavegameView : public QWidget
 	{
+		Q_OBJECT
 		public:
 			SavegameView(Manager* manager, QWidget* parent = 0);
 			~SavegameView();
+		public Q_SLOTS:
+			void deleteSelected();
 		private:
 			QGridLayout* m_layout;
 			Manager* m_manager;

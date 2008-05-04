@@ -279,6 +279,13 @@ void Palapeli::Manager::saveGame(const QString& name)
 	emit saveGameListUpdated();
 }
 
+void Palapeli::Manager::deleteGame(const QString& name)
+{
+	QFile(KStandardDirs::locateLocal("appdata", configPath.arg(name))).remove();
+	QFile(KStandardDirs::locateLocal("appdata", imagePath.arg(name))).remove();
+	emit saveGameListUpdated();
+}
+
 QList<QString> Palapeli::Manager::availableSaveGames()
 {
 	QList<QString> foundSaveGames;
