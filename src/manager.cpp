@@ -42,6 +42,7 @@ const QString saveGameDir("savegames");
 const QString configPattern("*.palapelisavegame");
 const QString configPath("savegames/%1.palapelisavegame");
 const QString imagePath("savegames/%1.png");
+const QString positionKey("Position-%1");
 
 Palapeli::Manager::Manager()
 	: QObject()
@@ -235,11 +236,10 @@ void Palapeli::Manager::loadGame(const QString& name)
 	m_pattern = new Palapeli::RectangularPattern(config.entryMap("Pattern"), this);
 	m_pieces = m_pattern->slice(m_image);
 	KConfigGroup piecesGroup(&config, "Pieces");
-	static const QString intToString("%1"); //args: int
 	for (int i = 0; i < m_pieces.count(); ++i)
 	{
 		Palapeli::Piece* piece = m_pieces.at(i);
-		piece->setPos(piecesGroup.readEntry(intToString.arg(i), QPointF()));
+		piece->setPos(piecesGroup.readEntry(positionKey.arg(i), QPointF()));
 		m_parts << new Palapeli::Part(piece, this);
 	}
 	searchConnections(); //reconnect everything which was already connected
@@ -267,11 +267,10 @@ void Palapeli::Manager::saveGame(const QString& name)
 	//piece positions
 	KConfigGroup pieceGroup(&config, "Pieces");
 	static const QString pieceData("%1,%2"); //args: X position, Y position
-	static const QString intToString("%1"); //args: int
 	for (int i = 0; i < m_pieces.count(); ++i)
 	{
 		Palapeli::Piece* piece = m_pieces.at(i);
-		pieceGroup.writeEntry(intToString.arg(i), QVariant(piece->pos()));
+		pieceGroup.writeEntry(positionKey.arg(i), QVariant(piece->pos()));
 	}
 	//save information and image
 	config.sync();
