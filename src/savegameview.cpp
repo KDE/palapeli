@@ -48,6 +48,7 @@ Palapeli::SavegameModel::SavegameModel(Manager* manager)
 	, m_manager(manager)
 	, m_saveGames(m_manager->availableSaveGames())
 {
+	connect(m_manager, SIGNAL(saveGameListUpdated()), this, SLOT(update()));
 }
 
 Palapeli::SavegameModel::~SavegameModel()
@@ -77,3 +78,11 @@ int Palapeli::SavegameModel::rowCount(const QModelIndex &parent) const
 {
 	return parent.isValid() ? 0 : m_saveGames.count();
 }
+
+void Palapeli::SavegameModel::update()
+{
+	m_saveGames = m_manager->availableSaveGames();
+	reset();
+}
+
+#include "savegameview_p.moc"

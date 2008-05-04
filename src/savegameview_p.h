@@ -29,6 +29,7 @@ namespace Palapeli
 
 	class SavegameModel : public QAbstractListModel
 	{
+		Q_OBJECT
 		public:
 			SavegameModel(Manager* manager);
 			~SavegameModel();
@@ -36,6 +37,8 @@ namespace Palapeli
 			QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 			QVariant headerData(int index, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 			int rowCount(const QModelIndex &parent = QModelIndex()) const;
+		public slots:
+			void update();
 		private:
 			Manager* m_manager;
 			QList<QString> m_saveGames;
