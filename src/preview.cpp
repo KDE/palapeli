@@ -25,6 +25,7 @@ Palapeli::Preview::Preview(QWidget* parent)
 	: QWidget(parent)
 	, m_image()
 {
+	setMinimumSize(150, 150);
 }
 
 void Palapeli::Preview::setImage(const QImage &image)

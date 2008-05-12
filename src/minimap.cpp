@@ -34,7 +34,7 @@ Palapeli::Minimap::Minimap(Palapeli::Manager* manager, QWidget* parent)
 	, m_viewportWasDragged(false)
 {
 	setBackgroundRole(QPalette::Window);
-	setMinimumSize(200, 200);
+	setMinimumSize(150, 150);
 }
 
 QRectF Palapeli::Minimap::viewport() const

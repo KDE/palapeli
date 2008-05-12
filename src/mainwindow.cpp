@@ -39,7 +39,6 @@
 
 //TODO: Request a proper icon for the savegame management action.
 //TODO: Eventually convert SavegameView from a dialog into a dock widget.
-//TODO: Add actions to toggle dock widgets. (Is there a standard way for this?)
 
 Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	: KXmlGuiWindow(parent)
@@ -48,7 +47,9 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	, m_saveAct(new Palapeli::SaveAction(m_manager, this))
 	, m_manageSavegameAct(new KAction(KIcon("document-save-as"), i18n("Manage saved games"), this))
 	, m_dockMinimap(new QDockWidget(i18n("Overview"), this))
+	, m_toggleMinimapAct(new KAction(i18n("Show minimap"), this))
 	, m_dockPreview(new QDockWidget(i18n("Image preview"), this))
+	, m_togglePreviewAct(new KAction(i18n("Show preview"), this))
 	, m_newDialog(new KDialog(this))
 	, m_newUi(new Ui::NewPuzzleDialog)
 	, m_savegameDialog(new KDialog(this))
@@ -56,13 +57,21 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 {
 	//Game actions
 	KStandardGameAction::gameNew(m_newDialog, SLOT(show()), actionCollection());
-	KStandardGameAction::quit(kapp, SLOT(quit()), actionCollection());
-	//KStandardGameAction::load(this, SLOT(loadGame()), actionCollection());
-	//KStandardGameAction::save(this, SLOT(saveGame()), actionCollection());
 	actionCollection()->addAction("game_load", m_loadAct);
 	actionCollection()->addAction("game_save", m_saveAct);
 	actionCollection()->addAction("palapeli_manage_savegames", m_manageSavegameAct);
 	connect(m_manageSavegameAct, SIGNAL(triggered()), m_savegameDialog, SLOT(show()));
+	//View actions
+	actionCollection()->addAction("view_toggle_minimap", m_toggleMinimapAct);
+	m_toggleMinimapAct->setCheckable(true);
+	m_toggleMinimapAct->setChecked(false);
+	connect(m_dockMinimap, SIGNAL(visibilityChanged(bool)), m_toggleMinimapAct, SLOT(setChecked(bool)));
+	connect(m_toggleMinimapAct, SIGNAL(triggered(bool)), m_dockMinimap, SLOT(setVisible(bool)));
+	actionCollection()->addAction("view_toggle_preview", m_togglePreviewAct);
+	m_togglePreviewAct->setCheckable(true);
+	m_togglePreviewAct->setChecked(false);
+	connect(m_dockPreview, SIGNAL(visibilityChanged(bool)), m_togglePreviewAct, SLOT(setChecked(bool)));
+	connect(m_togglePreviewAct, SIGNAL(triggered(bool)), m_dockPreview, SLOT(setVisible(bool)));
 	//GUI settings
 	setAutoSaveSettings();
 	setCentralWidget(m_manager->view());
@@ -70,12 +79,14 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	addDockWidget(Qt::RightDockWidgetArea, m_dockMinimap);
 	m_dockMinimap->setObjectName("DockMap");
 	m_dockMinimap->setWidget(m_manager->minimap());
+	m_dockMinimap->resize(1, 1); //lets the dock widget adapt to the content's minimum size (note that this minimum size will be overwritten by user configuration)
 	//preview
 	addDockWidget(Qt::RightDockWidgetArea, m_dockPreview);
 	m_dockPreview->setObjectName("DockPreview");
 	m_dockPreview->setWidget(m_manager->preview());
+	m_dockMinimap->resize(1, 1);
 	//late GUI settings
-	setupGUI(QSize(400, 400));
+	setupGUI(QSize(600, 500));
 	setCaption(i18nc("The application's name", "Palapeli"));
 	statusBar()->hide();
 	//initialise dialogs after entering the event loop (to speed up startup)
@@ -84,6 +95,8 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 
 Palapeli::MainWindow::~MainWindow()
 {
+	delete m_toggleMinimapAct;
+	delete m_togglePreviewAct;
 	delete m_loadAct;
 	delete m_saveAct;
 	delete m_dockMinimap;

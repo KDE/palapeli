@@ -11,6 +11,11 @@
 			<Separator/>
 			<Action name="game_quit"/>
 		</Menu>
+		<Menu name="views">
+			<Text>Views</Text>
+			<Action name="view_toggle_minimap"/>
+			<Action name="view_toggle_preview"/>
+		</Menu>
 	</MenuBar>
 	<ToolBar name="mainToolBar">
 		<text>Main Toolbar</text>
