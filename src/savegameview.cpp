@@ -18,7 +18,7 @@
  ***************************************************************************/
 
 #include "savegameview.h"
-#include "savegameview_p.h"
+#include "savegamemodel.h"
 #include "manager.h"
 
 #include <QListView>
@@ -47,7 +47,6 @@ Palapeli::SavegameView::SavegameView(Manager* manager, QWidget* parent)
 	m_view->setModel(m_model);
 	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	setCentralWidget(m_view);
-	connect(m_manager, SIGNAL(saveGameListUpdated()), m_model, SLOT(update()));
 	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(selectionChanged()));
 }
 
@@ -61,14 +60,13 @@ Palapeli::SavegameView::~SavegameView()
 
 void Palapeli::SavegameView::deleteSelected()
 {
-	//supress updates until the deletions have been finished
-	disconnect(m_manager, SIGNAL(saveGameListUpdated()), m_model, SLOT(update()));
-	//delete indexes
+	//gather list of games to delete
+	QList<QString> names;
 	foreach (QModelIndex item, m_view->selectionModel()->selectedIndexes())
-		m_manager->deleteGame(m_model->data(item, Qt::DisplayRole).toString());
-	//update model manually
-	connect(m_manager, SIGNAL(saveGameListUpdated()), m_model, SLOT(update()));
-	m_model->update();
+		names << m_model->data(item, Qt::DisplayRole).toString();
+	//delete games
+	foreach (QString name, names)
+		m_manager->deleteGame(name);
 }
 
 void Palapeli::SavegameView::loadSelected()
@@ -87,46 +85,4 @@ void Palapeli::SavegameView::selectionChanged()
 	m_loadAct->setEnabled(selectedCount == 1);
 }
 
-Palapeli::SavegameModel::SavegameModel(Manager* manager)
-	: QAbstractListModel()
-	, m_manager(manager)
-	, m_saveGames(m_manager->availableSaveGames())
-{
-}
-
-Palapeli::SavegameModel::~SavegameModel()
-{
-}
-
-QVariant Palapeli::SavegameModel::data(const QModelIndex &index, int role) const
-{
-	int row = index.row();
-	if (row < 0 || row >= m_saveGames.count())
-		return QVariant();
-	switch (role)
-	{
-		case Qt::DisplayRole:
-			return m_saveGames.at(row);
-		default:
-			return QVariant();
-	}
-}
-
-QVariant Palapeli::SavegameModel::headerData(int /*index*/, Qt::Orientation /*orientation*/, int /*role*/) const
-{
-	return QVariant();
-}
-
-int Palapeli::SavegameModel::rowCount(const QModelIndex &parent) const
-{
-	return parent.isValid() ? 0 : m_saveGames.count();
-}
-
-void Palapeli::SavegameModel::update()
-{
-	m_saveGames = m_manager->availableSaveGames();
-	reset();
-}
-
 #include "savegameview.moc"
-#include "savegameview_p.moc"

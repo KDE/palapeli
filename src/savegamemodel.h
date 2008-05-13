@@ -20,28 +20,24 @@
 #ifndef PALAPELI_SAVEGAMEVIEW_PRIVATE_H
 #define PALAPELI_SAVEGAMEVIEW_PRIVATE_H
 
-#include <QAbstractListModel>
+#include <QStringListModel>
 
 namespace Palapeli
 {
 
 	class Manager;
 
-	class SavegameModel : public QAbstractListModel
+	class SavegameModel : public QStringListModel
 	{
 		Q_OBJECT
 		public:
 			SavegameModel(Manager* manager);
 			~SavegameModel();
-
-			QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-			QVariant headerData(int index, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-			int rowCount(const QModelIndex &parent = QModelIndex()) const;
-		public slots:
-			void update();
+		public Q_SLOTS:
+			void savegameCreated(const QString& name);
+			void savegameDeleted(const QString& name);
 		private:
 			Manager* m_manager;
-			QList<QString> m_saveGames;
 	};
 	
 }

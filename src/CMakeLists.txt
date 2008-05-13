@@ -12,6 +12,7 @@ set(palapeli_SRCS
 	piecerelation.cpp
 	preview.cpp
 	saveaction.cpp
+	savegamemodel.cpp
 	savegameview.cpp
 	view.cpp
 )

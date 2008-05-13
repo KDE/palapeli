@@ -22,6 +22,8 @@
 
 #include <QImage>
 #include <QObject>
+#include <QStringList>
+class KConfigGroup;
 #include <KUrl>
 
 namespace Palapeli
@@ -44,8 +46,6 @@ namespace Palapeli
 			Manager();
 			~Manager();
 
-			QList<QString> availableSaveGames();
-	
 			void addRelation(Piece* piece1, Piece* piece2, const QPointF& positionDifference);
 			void searchConnections();
 			void combine(Part* part1, Part* part2);
@@ -67,14 +67,17 @@ namespace Palapeli
 			void saveGame(const QString& name);
 			void deleteGame(const QString& name);
 		Q_SIGNALS:
-			void saveGameListUpdated();
 			void gameLoaded(const QString& name);
+			void savegameCreated(const QString& name);
+			void savegameDeleted(const QString& name);
 		private:
 			QString toLocalFile(const KUrl& url);
 			void cleanupTempFiles();
 
+			KConfigGroup *m_gamesConfig;
+			QStringList m_games;
 			QImage m_image;
-			QList<QString> m_localFiles;
+			QStringList m_localFiles;
 			Minimap* m_minimap;
 			QList<Part*> m_parts;
 			Pattern* m_pattern;

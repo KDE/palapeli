@@ -39,20 +39,25 @@
 #include <KMessageBox>
 #include <KStandardDirs>
 
+//savegame storage strings
 const QString saveGameDir("savegames");
-const QString configPattern("*.palapelisavegame");
-const QString configPath("savegames/%1.palapelisavegame");
+const QString configPath("savegames/%1.psg");
 const QString imagePath("savegames/%1.png");
-
+//strings in .psg files
 const QString generalGroupKey("Palapeli");
 const QString patternKey("Pattern");
 const QString imageKey("ImageSource");
 const QString patternGroupKey("PatternArgs");
 const QString piecesGroupKey("Pieces");
 const QString positionKey("Position-%1");
+//strings in palapelirc
+const QString gamesGroupKey("Saved Games");
+const QString gamesListKey("Names");
 
 Palapeli::Manager::Manager()
 	: QObject()
+	, m_gamesConfig(new KConfigGroup(KGlobal::config(), gamesGroupKey))
+	, m_games(m_gamesConfig->readEntry(gamesListKey, QStringList()))
 	, m_image()
 	, m_minimap(new Palapeli::Minimap(this))
 	, m_pattern(0)
@@ -61,7 +66,11 @@ Palapeli::Manager::Manager()
 	, m_view(new Palapeli::View(this))
 	, m_window(new Palapeli::MainWindow(this))
 {
-	m_window->setAttribute(Qt::WA_DeleteOnClose, false); //main window is managed by this class because there are widely-spread references to m_view, and m_view will be deleted by m_window
+	//main window is managed by this class because there are widely-spread references to m_view, and m_view will be deleted by m_window
+	m_window->setAttribute(Qt::WA_DeleteOnClose, false);
+	//propagate list of save games to clients
+	foreach (QString name, m_games)
+		emit savegameCreated(name);
 }
 
 Palapeli::Manager::~Manager()
@@ -226,6 +235,8 @@ void Palapeli::Manager::createGame(const KUrl& url, int xPieceCount, int yPieceC
 
 void Palapeli::Manager::loadGame(const QString& name)
 {
+	if (!m_games.contains(name))
+		return;
 	//check if savegame exists
 	const QString configFileName = KStandardDirs::locate("appdata", configPath.arg(name));
 	const QString imageFileName = KStandardDirs::locate("appdata", imagePath.arg(name));
@@ -288,38 +299,27 @@ for (int i = 0; i < m_pieces.count(); ++i)
 	//save information and image
 	config.sync();
 	m_image.save(KStandardDirs::locateLocal("appdata", imagePath.arg(name)), "PNG"); //format should be lossless
-	emit saveGameListUpdated();
+	//insert game into savegame list
+	if (!m_games.contains(name))
+	{
+		m_games << name;
+		m_gamesConfig->writeEntry(gamesListKey, m_games);
+		m_gamesConfig->sync();
+	}
+	emit savegameCreated(name);
 }
 
 void Palapeli::Manager::deleteGame(const QString& name)
 {
+	if (!m_games.contains(name))
+		return;
 	QFile(KStandardDirs::locateLocal("appdata", configPath.arg(name))).remove();
 	QFile(KStandardDirs::locateLocal("appdata", imagePath.arg(name))).remove();
-	emit saveGameListUpdated();
-}
-
-QList<QString> Palapeli::Manager::availableSaveGames()
-{
-	QList<QString> foundSaveGames;
-	KStandardDirs *ksd = KGlobal::mainComponent().dirs();
-	QDir dir;
-	//find all savegames directories
-	foreach (QString saveGameDirectory, ksd->findDirs("data", "palapeli/" + saveGameDir))
-	{
-		//look for *.palapelisavegame files
-		dir.setPath(saveGameDirectory);
-		foreach (QFileInfo config, dir.entryInfoList(QStringList() << configPattern))
-			foundSaveGames << config.baseName();
-	}
-	//images need to be available
-	QMutableListIterator<QString> iterSaveGames(foundSaveGames);
-	while (iterSaveGames.hasNext())
-	{
-		QString name = iterSaveGames.next();
-		if (ksd->findResource("appdata", imagePath.arg(name)).isEmpty())
-			iterSaveGames.remove();
-	}
-	return foundSaveGames;
+	//remove game in savegame list
+	m_games.removeAll(name);
+	m_gamesConfig->writeEntry(gamesListKey, m_games);
+	m_gamesConfig->sync();
+	emit savegameDeleted(name);
 }
 
 #include "manager.moc"

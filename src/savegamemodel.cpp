@@ -17,33 +17,37 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_LOADACTION_H
-#define PALAPELI_LOADACTION_H
+#include "savegamemodel.h"
+#include "manager.h"
 
-#include <QHash>
-class QSignalMapper;
-#include <KActionMenu>
-
-namespace Palapeli
+Palapeli::SavegameModel::SavegameModel(Manager* manager)
+	: QStringListModel()
+	, m_manager(manager)
 {
-
-	class Manager;
-
-	class LoadAction : public KActionMenu
-	{
-		Q_OBJECT
-		public:
-			LoadAction(Manager *manager, QObject *parent = 0);
-			~LoadAction();
-		public Q_SLOTS:
-			void savegameCreated(const QString& name);
-			void savegameDeleted(const QString& name);
-		private:
-			Manager *m_manager;
-			QHash<QString, KAction *> m_actions;
-			QSignalMapper *m_mapper;
-	};
-
+	connect(m_manager, SIGNAL(savegameCreated(const QString&)), this, SLOT(savegameCreated(const QString&)));
+	connect(m_manager, SIGNAL(savegameDeleted(const QString&)), this, SLOT(savegameDeleted(const QString&)));
 }
 
-#endif // PALAPELI_LOADACTION_H
+Palapeli::SavegameModel::~SavegameModel()
+{
+}
+
+void Palapeli::SavegameModel::savegameCreated(const QString& name)
+{
+	const QStringList games = stringList();
+	if (!games.contains(name))
+	{
+		//insert new game at the end of the list
+		insertRows(games.count(), 1);
+		setData(createIndex(games.count(), 0), name, Qt::DisplayRole);
+	}
+}
+
+void Palapeli::SavegameModel::savegameDeleted(const QString& name)
+{
+	const QStringList games = stringList();
+	if (games.contains(name))
+		removeRows(games.indexOf(name), 1);
+}
+
+#include "savegamemodel.moc"
