@@ -37,8 +37,6 @@
 #include <KDE/KStandardGameAction>
 #include <KStatusBar>
 
-//TODO: Request a proper icon for the savegame management action.
-
 Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	: KXmlGuiWindow(parent)
 	, m_manager(manager)

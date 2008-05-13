@@ -25,8 +25,6 @@
 #include <KMenu>
 #include <KPushButton>
 
-//FIXME: Do not allow slashes and backslashes to be entered in the file name.
-
 Palapeli::SaveAction::SaveAction(Manager* manager, QObject* parent)
 	: KActionMenu(KIcon("document-save"), i18n("Save"), parent)
 	, m_manager(manager)

@@ -24,7 +24,7 @@
 #include <KAboutData>
 #include <KApplication>
 #include <KCmdLineArgs>
-#include <KCmdLineOptions>
+//#include <KCmdLineOptions>
 #include <KGlobal>
 #include <KIcon>
 #include <KLocale>
@@ -43,18 +43,18 @@ int main(int argc, char** argv)
 	about.addAuthor(ki18n("Stefan Majewsky"), KLocalizedString(), "majewsky@gmx.net");
 	KCmdLineArgs::init(argc, argv, &about);
 
-	KCmdLineOptions options;
+//	KCmdLineOptions options;
 //	options.add("i");
 //	options.add("image <path>", ki18n("Generate puzzle from the given image"), "/usr/share/wallpapers/Water01.jpg");
 //	options.add("x");
 //	options.add("xcount <int>", ki18n("Number of pieces in X direction"), "10");
 //	options.add("y");
 //	options.add("ycount <int>", ki18n("Number of pieces in Y direction"), "10");
-	KCmdLineArgs::addCmdLineOptions(options);
+//	KCmdLineArgs::addCmdLineOptions(options);
 
 	KApplication app;
 	app.setWindowIcon(KIcon("preferences-plugin"));
-    KGlobal::locale()->insertCatalog("libkdegames");
+	KGlobal::locale()->insertCatalog("libkdegames");
 
 //	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 //	QString fileName = args->getOption("image");
@@ -66,16 +66,6 @@ int main(int argc, char** argv)
 //		yCount = 10;
 //	args->clear();
 
-/*
-	//cannot use normal value or pointer type as Palapeli crashes then when calling Palapeli::MainWindow::quit
-	QPointer<Palapeli::MainWindow> window = new Palapeli::MainWindow();
-	window->show();
-	//make sure the window is deletes (to let it save its settings)
-	int ret = app.exec();
-	if (!window.isNull())
-		delete (Palapeli::MainWindow*) window;
-	return ret;
-*/
 	Palapeli::Manager manager;
 	manager.window()->show();
 	return app.exec();

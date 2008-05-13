@@ -32,10 +32,10 @@
 #include <QDir>
 #include <QFile>
 #include <QImage>
-#include <KComponentData>
 #include <KConfig>
 #include <KConfigGroup>
 #include <kio/netaccess.h>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include <KStandardDirs>
 
@@ -272,10 +272,21 @@ void Palapeli::Manager::loadGame(const QString& name)
 	emit gameLoaded(name);
 }
 
-void Palapeli::Manager::saveGame(const QString& name)
+bool Palapeli::Manager::saveGame(const QString& name)
 {
 	if (!m_pattern || m_pieces.empty())
-		return;
+		return false;
+	//FIXME: It is likely that more characters have to be excluded because of Windows. Can this be accomplished in a more elegant way?
+	if (name.contains(QChar('/')) || name.contains(QChar('\\')))
+	{
+		KMessageBox::error(window(), i18n("Please choose a name that does not contain slashes."));
+		return false;
+	}
+	if (name.startsWith(QLatin1String("__palapeli"), Qt::CaseInsensitive)) //case insensitivity because of Windows support
+	{
+		KMessageBox::error(window(), i18n("Please choose another name. Names starting with \"__palapeli\" are reserved for internal use."));
+		return false;
+	}
 	//open config file and write general information
 	KConfig config(KStandardDirs::locateLocal("appdata", configPath.arg(name)));
 	KConfigGroup generalGroup(&config, generalGroupKey);
@@ -307,6 +318,7 @@ for (int i = 0; i < m_pieces.count(); ++i)
 		m_gamesConfig->sync();
 	}
 	emit savegameCreated(name);
+	return true;
 }
 
 void Palapeli::Manager::deleteGame(const QString& name)
