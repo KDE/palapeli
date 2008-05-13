@@ -74,17 +74,17 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	setAutoSaveSettings();
 	setCentralWidget(m_manager->view());
 	//minimap
-	addDockWidget(Qt::RightDockWidgetArea, m_dockMinimap);
+	addDockWidget(Qt::LeftDockWidgetArea, m_dockMinimap);
 	m_dockMinimap->setObjectName("DockMap");
 	m_dockMinimap->setWidget(m_manager->minimap());
 	m_dockMinimap->resize(1, 1); //lets the dock widget adapt to the content's minimum size (note that this minimum size will be overwritten by user configuration)
 	//preview
-	addDockWidget(Qt::RightDockWidgetArea, m_dockPreview);
+	addDockWidget(Qt::LeftDockWidgetArea, m_dockPreview);
 	m_dockPreview->setObjectName("DockPreview");
 	m_dockPreview->setWidget(m_manager->preview());
 	m_dockMinimap->resize(1, 1);
 	//saved games view
-	addDockWidget(Qt::LeftDockWidgetArea, m_dockSavegames);
+	addDockWidget(Qt::RightDockWidgetArea, m_dockSavegames);
 	m_dockSavegames->setObjectName("DockSavegames");
 	m_dockSavegames->setWidget(m_manager->savegameView());
 	m_dockSavegames->resize(1, 1);

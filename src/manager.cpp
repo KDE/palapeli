@@ -43,6 +43,12 @@ const QString saveGameDir("savegames");
 const QString configPattern("*.palapelisavegame");
 const QString configPath("savegames/%1.palapelisavegame");
 const QString imagePath("savegames/%1.png");
+
+const QString generalGroupKey("Palapeli");
+const QString patternKey("Pattern");
+const QString imageKey("ImageSource");
+const QString patternGroupKey("PatternArgs");
+const QString piecesGroupKey("Pieces");
 const QString positionKey("Position-%1");
 
 Palapeli::Manager::Manager()
@@ -241,9 +247,9 @@ void Palapeli::Manager::loadGame(const QString& name)
 	//create pieces and parts
 	delete m_pattern;
 	//TODO: Support multiple types of patterns. There is only "rectangular" at the moment, so I don't care about the name specified in "General/Pattern" at all.
-	m_pattern = new Palapeli::RectangularPattern(config.entryMap("Pattern"), this);
+	m_pattern = new Palapeli::RectangularPattern(config.entryMap(patternGroupKey), this);
 	m_pieces = m_pattern->slice(m_image);
-	KConfigGroup piecesGroup(&config, "Pieces");
+	KConfigGroup piecesGroup(&config, piecesGroupKey);
 	for (int i = 0; i < m_pieces.count(); ++i)
 	{
 		Palapeli::Piece* piece = m_pieces.at(i);
@@ -261,10 +267,10 @@ void Palapeli::Manager::saveGame(const QString& name)
 		return;
 	//open config file and write general information
 	KConfig config(KStandardDirs::locateLocal("appdata", configPath.arg(name)));
-	KConfigGroup generalGroup(&config, "Palapeli");
-	generalGroup.writeEntry("Pattern", m_pattern->name());
+	KConfigGroup generalGroup(&config, generalGroupKey);
+	generalGroup.writeEntry(patternKey, m_pattern->name());
 	//pattern arguments
-	KConfigGroup patternGroup(&config, "Pattern");
+	KConfigGroup patternGroup(&config, patternGroupKey);
 	QMap<QString,QString> args = m_pattern->args();
 	QMapIterator<QString,QString> iterArgs(args);
 	while (iterArgs.hasNext())
@@ -273,9 +279,8 @@ void Palapeli::Manager::saveGame(const QString& name)
 		patternGroup.writeEntry(iterArgs.key(), iterArgs.value());
 	}
 	//piece positions
-	KConfigGroup pieceGroup(&config, "Pieces");
-	static const QString pieceData("%1,%2"); //args: X position, Y position
-	for (int i = 0; i < m_pieces.count(); ++i)
+	KConfigGroup pieceGroup(&config, piecesGroupKey);
+for (int i = 0; i < m_pieces.count(); ++i)
 	{
 		Palapeli::Piece* piece = m_pieces.at(i);
 		pieceGroup.writeEntry(positionKey.arg(i), QVariant(piece->pos()));

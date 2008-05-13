@@ -37,6 +37,7 @@ namespace Palapeli
 			SavegameView(Manager* manager, QWidget* parent = 0);
 			~SavegameView();
 		public Q_SLOTS:
+			void loadSelected();
 			void deleteSelected();
 		private Q_SLOTS:
 			void selectionChanged();
@@ -44,6 +45,7 @@ namespace Palapeli
 			Manager* m_manager;
 			SavegameModel* m_model;
 			QListView* m_view;
+			KAction* m_loadAct;
 			KAction* m_deleteAct;
 	};
 	

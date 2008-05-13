@@ -32,12 +32,16 @@ Palapeli::SavegameView::SavegameView(Manager* manager, QWidget* parent)
 	, m_manager(manager)
 	, m_model(new Palapeli::SavegameModel(manager))
 	, m_view(new QListView)
+	, m_loadAct(new KAction(KIcon("document-open"), i18nc("the verb, as in 'Load game'", "Load"), this))
 	, m_deleteAct(new KAction(KIcon("edit-delete"), i18n("Delete"), this))
 {
 	//fill toolbar
 	KToolBar *mainToolBar = toolBar("savegamesToolBar");
+	mainToolBar->addAction(m_loadAct);
+	m_loadAct->setEnabled(false); //nothing selected to load by now
+	connect(m_loadAct, SIGNAL(triggered()), this, SLOT(loadSelected()));
 	mainToolBar->addAction(m_deleteAct);
-	m_deleteAct->setEnabled(false); //nothing selected to delete by now
+	m_deleteAct->setEnabled(false); //like above
 	connect(m_deleteAct, SIGNAL(triggered()), this, SLOT(deleteSelected()));
 	//list view
 	m_view->setModel(m_model);
@@ -49,6 +53,8 @@ Palapeli::SavegameView::SavegameView(Manager* manager, QWidget* parent)
 
 Palapeli::SavegameView::~SavegameView()
 {
+	delete m_loadAct;
+	delete m_deleteAct;
 	delete m_view;
 	delete m_model;
 }
@@ -65,10 +71,20 @@ void Palapeli::SavegameView::deleteSelected()
 	m_model->update();
 }
 
+void Palapeli::SavegameView::loadSelected()
+{
+	//get name of first selected game and load this one
+	QModelIndex selected = m_view->selectionModel()->currentIndex();
+	if (!selected.isValid())
+		return;
+	m_manager->loadGame(m_model->data(selected, Qt::DisplayRole).toString());
+}
+
 void Palapeli::SavegameView::selectionChanged()
 {
-	bool somethingSelected = m_view->selectionModel()->hasSelection();
-	m_deleteAct->setEnabled(somethingSelected);
+	int selectedCount = m_view->selectionModel()->selectedIndexes().count();
+	m_deleteAct->setEnabled(selectedCount > 0);
+	m_loadAct->setEnabled(selectedCount == 1);
 }
 
 Palapeli::SavegameModel::SavegameModel(Manager* manager)
