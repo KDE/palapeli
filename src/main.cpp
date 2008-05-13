@@ -26,6 +26,7 @@
 #include <KCmdLineArgs>
 #include <KCmdLineOptions>
 #include <KGlobal>
+#include <KIcon>
 #include <KLocale>
 #include <KLocalizedString>
 
@@ -52,6 +53,7 @@ int main(int argc, char** argv)
 	KCmdLineArgs::addCmdLineOptions(options);
 
 	KApplication app;
+	app.setWindowIcon(KIcon("preferences-plugin"));
     KGlobal::locale()->insertCatalog("libkdegames");
 
 //	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
