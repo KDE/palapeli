@@ -34,6 +34,7 @@ namespace Palapeli
 	class Piece;
 	class PieceRelation;
 	class Preview;
+	class SavegameView;
 	class View;
 
 	class Manager : public QObject
@@ -55,6 +56,7 @@ namespace Palapeli
 			QListIterator<Piece*> pieces() const;
 			Preview* preview() const;
 			QListIterator<PieceRelation> relations() const;
+			SavegameView* savegameView() const;
 			View* view() const;
 			MainWindow* window() const;
 		public Q_SLOTS:
@@ -79,6 +81,7 @@ namespace Palapeli
 			QList<Piece*> m_pieces;
 			Preview* m_preview;
 			QList<PieceRelation> m_relations;
+			SavegameView* m_savegameView;
 			View* m_view;
 			MainWindow* m_window;
 	};

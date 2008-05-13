@@ -53,15 +53,14 @@ namespace Palapeli
 			Manager* m_manager;
 			LoadAction* m_loadAct;
 			SaveAction* m_saveAct;
-			KAction* m_manageSavegameAct;
 			QDockWidget* m_dockMinimap;
 			KAction* m_toggleMinimapAct;
 			QDockWidget* m_dockPreview;
 			KAction* m_togglePreviewAct;
+			QDockWidget* m_dockSavegames;
+			KAction* m_showSavegamesAct;
 			KDialog* m_newDialog;
 			Ui::NewPuzzleDialog* m_newUi;
-			KDialog* m_savegameDialog;
-			SavegameView* m_savegameView;
 	};
 
 }

@@ -38,29 +38,27 @@
 #include <KStatusBar>
 
 //TODO: Request a proper icon for the savegame management action.
-//TODO: Eventually convert SavegameView from a dialog into a dock widget.
 
 Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	: KXmlGuiWindow(parent)
 	, m_manager(manager)
 	, m_loadAct(new Palapeli::LoadAction(m_manager, this))
 	, m_saveAct(new Palapeli::SaveAction(m_manager, this))
-	, m_manageSavegameAct(new KAction(KIcon("document-save-as"), i18n("Manage saved games"), this))
 	, m_dockMinimap(new QDockWidget(i18n("Overview"), this))
 	, m_toggleMinimapAct(new KAction(i18n("Show minimap"), this))
 	, m_dockPreview(new QDockWidget(i18n("Image preview"), this))
 	, m_togglePreviewAct(new KAction(i18n("Show preview"), this))
+	, m_dockSavegames(new QDockWidget(i18n("Saved games"), this))
+	, m_showSavegamesAct(new KAction(KIcon("document-save-as"), i18n("Manage saved games"), this))
 	, m_newDialog(new KDialog(this))
 	, m_newUi(new Ui::NewPuzzleDialog)
-	, m_savegameDialog(new KDialog(this))
-	, m_savegameView(0)
 {
 	//Game actions
 	KStandardGameAction::gameNew(m_newDialog, SLOT(show()), actionCollection());
 	actionCollection()->addAction("game_load", m_loadAct);
 	actionCollection()->addAction("game_save", m_saveAct);
-	actionCollection()->addAction("palapeli_manage_savegames", m_manageSavegameAct);
-	connect(m_manageSavegameAct, SIGNAL(triggered()), m_savegameDialog, SLOT(show()));
+	actionCollection()->addAction("palapeli_manage_savegames", m_showSavegamesAct);
+	connect(m_showSavegamesAct, SIGNAL(triggered()), m_dockSavegames, SLOT(show()));
 	//View actions
 	actionCollection()->addAction("view_toggle_minimap", m_toggleMinimapAct);
 	m_toggleMinimapAct->setCheckable(true);
@@ -85,6 +83,12 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	m_dockPreview->setObjectName("DockPreview");
 	m_dockPreview->setWidget(m_manager->preview());
 	m_dockMinimap->resize(1, 1);
+	//saved games view
+	addDockWidget(Qt::LeftDockWidgetArea, m_dockSavegames);
+	m_dockSavegames->setObjectName("DockSavegames");
+	m_dockSavegames->setWidget(m_manager->savegameView());
+	m_dockSavegames->resize(1, 1);
+	m_dockSavegames->setVisible(false); //hidden by default
 	//late GUI settings
 	setupGUI(QSize(600, 500));
 	setCaption(i18nc("The application's name", "Palapeli"));
@@ -97,13 +101,14 @@ Palapeli::MainWindow::~MainWindow()
 {
 	delete m_toggleMinimapAct;
 	delete m_togglePreviewAct;
+	delete m_showSavegamesAct;
 	delete m_loadAct;
 	delete m_saveAct;
 	delete m_dockMinimap;
 	delete m_dockPreview;
+	delete m_dockSavegames;
 	delete m_newDialog;
 	delete m_newUi;
-	delete m_savegameDialog; //also deletes its content widget m_savegameView
 }
 
 void Palapeli::MainWindow::setupDialogs()
@@ -125,16 +130,6 @@ void Palapeli::MainWindow::setupDialogs()
 	m_newDialog->setButtons(KDialog::Ok | KDialog::Cancel);
 	m_newDialog->mainWidget()->layout()->setMargin(0);
 	connect(m_newDialog, SIGNAL(okClicked()), this, SLOT(startGame()));
-	//setup "Manage savegames" UI
-	m_savegameView = new SavegameView(m_manager);
-	//setup "Manage savegames" dialog
-	m_savegameDialog->setWindowIcon(KIcon("document-save-as"));
-	m_savegameDialog->setCaption(i18n("Manage saved games"));
-	m_savegameDialog->setButtons(KDialog::Close | KDialog::User1);
-	m_savegameDialog->setButtonText(KDialog::User1, i18n("Delete selected"));
-	m_savegameDialog->setButtonIcon(KDialog::User1, KIcon("edit-delete"));
-	m_savegameDialog->setMainWidget(m_savegameView);
-	connect(m_savegameDialog, SIGNAL(user1Clicked()), m_savegameView, SLOT(deleteSelected()));
 }
 
 void Palapeli::MainWindow::startGame()

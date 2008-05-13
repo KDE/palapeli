@@ -26,6 +26,7 @@
 #include "piece.h"
 #include "piecerelation.h"
 #include "preview.h"
+#include "savegameview.h"
 #include "view.h"
 
 #include <QDir>
@@ -50,6 +51,7 @@ Palapeli::Manager::Manager()
 	, m_minimap(new Palapeli::Minimap(this))
 	, m_pattern(0)
 	, m_preview(new Palapeli::Preview)
+	, m_savegameView(new Palapeli::SavegameView(this))
 	, m_view(new Palapeli::View(this))
 	, m_window(new Palapeli::MainWindow(this))
 {
@@ -63,6 +65,7 @@ Palapeli::Manager::~Manager()
 		delete part; //the pieces are deleted here
 	delete m_pattern;
 	delete m_preview;
+	delete m_savegameView;
 	delete m_window; //the view is deleted here
 }
 
@@ -96,6 +99,11 @@ Palapeli::Preview* Palapeli::Manager::preview() const
 QListIterator<Palapeli::PieceRelation> Palapeli::Manager::relations() const
 {
 	return QListIterator<Palapeli::PieceRelation>(m_relations);
+}
+
+Palapeli::SavegameView* Palapeli::Manager::savegameView() const
+{
+	return m_savegameView;
 }
 
 Palapeli::View* Palapeli::Manager::view() const

@@ -21,28 +21,36 @@
 #include "savegameview_p.h"
 #include "manager.h"
 
-#include <QGridLayout>
 #include <QListView>
+#include <KAction>
+#include <KIcon>
+#include <KLocalizedString>
+#include <KToolBar>
 
 Palapeli::SavegameView::SavegameView(Manager* manager, QWidget* parent)
-	: QWidget(parent)
-	, m_layout(new QGridLayout)
+	: KMainWindow(parent)
 	, m_manager(manager)
 	, m_model(new Palapeli::SavegameModel(manager))
 	, m_view(new QListView)
+	, m_deleteAct(new KAction(KIcon("edit-delete"), i18n("Delete"), this))
 {
+	//fill toolbar
+	KToolBar *mainToolBar = toolBar("savegamesToolBar");
+	mainToolBar->addAction(m_deleteAct);
+	m_deleteAct->setEnabled(false); //nothing selected to delete by now
+	connect(m_deleteAct, SIGNAL(triggered()), this, SLOT(deleteSelected()));
+	//list view
 	m_view->setModel(m_model);
 	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
-	m_layout->addWidget(m_view, 0, 0);
-	setLayout(m_layout);
+	setCentralWidget(m_view);
 	connect(m_manager, SIGNAL(saveGameListUpdated()), m_model, SLOT(update()));
+	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(selectionChanged()));
 }
 
 Palapeli::SavegameView::~SavegameView()
 {
 	delete m_view;
 	delete m_model;
-	delete m_layout;
 }
 
 void Palapeli::SavegameView::deleteSelected()
@@ -55,6 +63,12 @@ void Palapeli::SavegameView::deleteSelected()
 	//update model manually
 	connect(m_manager, SIGNAL(saveGameListUpdated()), m_model, SLOT(update()));
 	m_model->update();
+}
+
+void Palapeli::SavegameView::selectionChanged()
+{
+	bool somethingSelected = m_view->selectionModel()->hasSelection();
+	m_deleteAct->setEnabled(somethingSelected);
 }
 
 Palapeli::SavegameModel::SavegameModel(Manager* manager)

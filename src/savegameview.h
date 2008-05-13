@@ -20,9 +20,9 @@
 #ifndef PALAPELI_SAVEGAMEVIEW_H
 #define PALAPELI_SAVEGAMEVIEW_H
 
-class QGridLayout;
 class QListView;
-#include <QWidget>
+class KAction;
+#include <KMainWindow>
 
 namespace Palapeli
 {
@@ -30,7 +30,7 @@ namespace Palapeli
 	class Manager;
 	class SavegameModel;
 
-	class SavegameView : public QWidget
+	class SavegameView : public KMainWindow
 	{
 		Q_OBJECT
 		public:
@@ -38,11 +38,13 @@ namespace Palapeli
 			~SavegameView();
 		public Q_SLOTS:
 			void deleteSelected();
+		private Q_SLOTS:
+			void selectionChanged();
 		private:
-			QGridLayout* m_layout;
 			Manager* m_manager;
 			SavegameModel* m_model;
 			QListView* m_view;
+			KAction* m_deleteAct;
 	};
 	
 }
