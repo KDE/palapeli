@@ -54,26 +54,67 @@ const QString positionKey("Position-%1");
 const QString gamesGroupKey("Saved Games");
 const QString gamesListKey("Names");
 
-Palapeli::Manager::Manager()
-	: QObject()
-	, m_gamesConfig(new KConfigGroup(KGlobal::config(), gamesGroupKey))
-	, m_games(m_gamesConfig->readEntry(gamesListKey, QStringList()))
-	, m_image()
-	, m_minimap(new Palapeli::Minimap(this))
-	, m_pattern(0)
-	, m_preview(new Palapeli::Preview)
-	, m_savegameView(new Palapeli::SavegameView(this))
-	, m_view(new Palapeli::View(this))
-	, m_window(new Palapeli::MainWindow(this))
+namespace Palapeli
 {
-	//main window is managed by this class because there are widely-spread references to m_view, and m_view will be deleted by m_window
-	m_window->setAttribute(Qt::WA_DeleteOnClose, false);
-	//propagate list of save games to clients
-	foreach (QString name, m_games)
-		emit savegameCreated(name);
+
+	struct ManagerPrivate
+	{
+		ManagerPrivate(Manager* manager);
+		void init();
+		~ManagerPrivate();
+
+		QString toLocalFile(const KUrl& url);
+		void cleanupTempFiles();
+		void startGameInternal(Pattern* pattern);
+
+		Manager *m_manager;
+
+		QStringList m_localFiles;
+		//saved games
+		KConfigGroup m_gamesConfig;
+		QStringList m_games;
+		//current game
+		QImage m_image;
+		//game and UI objects
+		Minimap* m_minimap;
+		QList<Part*> m_parts;
+		Pattern* m_pattern;
+		QList<Piece*> m_pieces;
+		Preview* m_preview;
+		QList<PieceRelation> m_relations;
+		SavegameView* m_savegameView;
+		View* m_view;
+		MainWindow* m_window;
+
+	};
+
 }
 
-Palapeli::Manager::~Manager()
+Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
+	: m_manager(manager)
+	, m_gamesConfig(KGlobal::config(), gamesGroupKey)
+	, m_games(m_gamesConfig.readEntry(gamesListKey, QStringList()))
+	, m_minimap(0)
+	, m_pattern(0)
+	, m_preview(new Palapeli::Preview)
+	, m_savegameView(0)
+	, m_view(0)
+	, m_window(0)
+{
+}
+
+void Palapeli::ManagerPrivate::init()
+{
+	//The Manager needs a valid pointer to this ManagerPrivate instance before the following objects can be initialized.
+	m_minimap = new Palapeli::Minimap(m_manager);
+	m_savegameView = new Palapeli::SavegameView(m_manager);
+	m_view = new Palapeli::View(m_manager);
+	m_window = new Palapeli::MainWindow(m_manager);
+	//main window is deleted by Palapeli::ManagerPrivate::~ManagerPrivate because there are widely-spread references to m_view, and m_view will be deleted by m_window
+	m_window->setAttribute(Qt::WA_DeleteOnClose, false);
+}
+
+Palapeli::ManagerPrivate::~ManagerPrivate()
 {
 	delete m_minimap;
 	foreach (Palapeli::Part* part, m_parts)
@@ -84,70 +125,125 @@ Palapeli::Manager::~Manager()
 	delete m_window; //the view is deleted here
 }
 
+QString Palapeli::ManagerPrivate::toLocalFile(const KUrl& url)
+{
+	QString file;
+	if(KIO::NetAccess::download(url, file, m_window))
+	{
+		m_localFiles << file;
+		return file;
+	}
+	else
+	{
+		KMessageBox::error(m_window, KIO::NetAccess::lastErrorString());
+		return QString();
+	}
+}
+
+void Palapeli::ManagerPrivate::cleanupTempFiles()
+{
+	foreach (const QString& file, m_localFiles)
+		KIO::NetAccess::removeTempFile(file);
+}
+
+void Palapeli::ManagerPrivate::startGameInternal(Palapeli::Pattern* pattern)
+{
+	//ATTENTION: This function assumes that the new image has been loaded into m_image.
+	//flush all variables
+	foreach (Palapeli::Part* part, m_parts)
+		delete part; //also deletes pieces
+	m_parts.clear();
+	m_pieces.clear();
+	m_relations.clear();
+	//configure scene and preview
+	m_view->scene()->setSceneRect(0, 0, 2 * m_image.width(), 2 * m_image.height());
+	m_preview->setImage(m_image);
+	//create pieces and parts
+	delete m_pattern;
+	m_pattern = pattern;
+	m_pieces = m_pattern->slice(m_image);
+}
+
+//Palapeli::Manager class
+
+Palapeli::Manager::Manager()
+	: QObject()
+	, p(new Palapeli::ManagerPrivate(this))
+{
+	p->init();
+	//propagate list of save games to clients
+	foreach (QString name, p->m_games)
+		emit savegameCreated(name);
+}
+
+Palapeli::Manager::~Manager()
+{
+}
+
 //properties
 
 Palapeli::Minimap* Palapeli::Manager::minimap() const
 {
-	return m_minimap;
+	return p->m_minimap;
 }
 
 QListIterator<Palapeli::Part*> Palapeli::Manager::parts() const
 {
-	return QListIterator<Palapeli::Part*>(m_parts);
+	return QListIterator<Palapeli::Part*>(p->m_parts);
 }
 
 Palapeli::Pattern* Palapeli::Manager::pattern() const
 {
-	return m_pattern;
+	return p->m_pattern;
 }
 
 QListIterator<Palapeli::Piece*> Palapeli::Manager::pieces() const
 {
-	return QListIterator<Palapeli::Piece*>(m_pieces);
+	return QListIterator<Palapeli::Piece*>(p->m_pieces);
 }
 
 Palapeli::Preview* Palapeli::Manager::preview() const
 {
-	return m_preview;
+	return p->m_preview;
 }
 
 QListIterator<Palapeli::PieceRelation> Palapeli::Manager::relations() const
 {
-	return QListIterator<Palapeli::PieceRelation>(m_relations);
+	return QListIterator<Palapeli::PieceRelation>(p->m_relations);
 }
 
 Palapeli::SavegameView* Palapeli::Manager::savegameView() const
 {
-	return m_savegameView;
+	return p->m_savegameView;
 }
 
 Palapeli::View* Palapeli::Manager::view() const
 {
-	return m_view;
+	return p->m_view;
 }
 
 Palapeli::MainWindow* Palapeli::Manager::window() const
 {
-	return m_window;
+	return p->m_window;
 }
 
 void Palapeli::Manager::updateMinimap()
 {
-	m_minimap->update();
+	p->m_minimap->update();
 }
 
 //gameplay
 
 void Palapeli::Manager::addRelation(Palapeli::Piece* piece1, Palapeli::Piece* piece2, const QPointF& positionDifference)
 {
-	m_relations << Palapeli::PieceRelation(piece1, piece2, positionDifference);
+	p->m_relations << Palapeli::PieceRelation(piece1, piece2, positionDifference);
 }
 
 void Palapeli::Manager::searchConnections()
 {
 	static const qreal maxInaccuracyFactor = 0.1;
 	bool combinedSomething = false;
-	foreach (Palapeli::PieceRelation rel, m_relations)
+	foreach (Palapeli::PieceRelation rel, p->m_relations)
 	{
 		if (rel.piece1()->part() == rel.piece2()->part()) //already combined
 			continue;
@@ -173,69 +269,39 @@ void Palapeli::Manager::combine(Palapeli::Part* part1, Palapeli::Part* part2)
 		part2->remove(piece);
 		part1->add(piece);
 	}
-	m_parts.removeAll(part2);
+	p->m_parts.removeAll(part2);
 	part1->update();
 	delete part2;
 }
 
 //game instances
 
-QString Palapeli::Manager::toLocalFile(const KUrl& url)
-{
-	QString file;
-	if(KIO::NetAccess::download(url, file, m_window))
-	{
-		m_localFiles << file;
-		return file;
-	}
-	else
-	{
-		KMessageBox::error(m_window, KIO::NetAccess::lastErrorString());
-		return QString();
-	}
-}
-
-void Palapeli::Manager::cleanupTempFiles()
-{
-	foreach (const QString& file, m_localFiles)
-		KIO::NetAccess::removeTempFile(file);
-}
-
 void Palapeli::Manager::createGame(const KUrl& url, int xPieceCount, int yPieceCount)
 {
 	//load image
-	QString imageFile = toLocalFile(url);
+	QString imageFile = p->toLocalFile(url);
 	if (imageFile.isEmpty())
 		return;
-	m_image.load(imageFile);
-	cleanupTempFiles();
-	int sceneWidth = 2 * m_image.width(), sceneHeight = 2 * m_image.height();
-	//flush all variables
-	foreach (Palapeli::Part* part, m_parts)
-		delete part; //also deletes pieces
-	m_parts.clear();
-	m_pieces.clear();
-	m_relations.clear();
-	//configure scene and preview
-	m_view->scene()->setSceneRect(0, 0, sceneWidth, sceneHeight);
-	m_preview->setImage(m_image);
-	//create pieces and parts
-	delete m_pattern;
-	m_pattern = new Palapeli::RectangularPattern(xPieceCount, yPieceCount, this);
-	m_pieces = m_pattern->slice(m_image);
-	foreach (Palapeli::Piece* piece, m_pieces)
+	p->m_image.load(imageFile);
+	p->cleanupTempFiles();
+	//start game
+	p->startGameInternal(new Palapeli::RectangularPattern(xPieceCount, yPieceCount, this));
+	//random piece positions
+	int sceneWidth = 2 * p->m_image.width(), sceneHeight = 2 * p->m_image.height();
+	foreach (Palapeli::Piece* piece, p->m_pieces)
 	{
 		QRectF pieceRect = piece->sceneBoundingRect();
 		piece->setPos(qrand() % (sceneWidth - (int) pieceRect.width()), qrand() % (sceneHeight - (int) pieceRect.height()));
-		m_parts << new Palapeli::Part(piece, this);
+		p->m_parts << new Palapeli::Part(piece, this);
 	}
+	//propagate changes
 	updateMinimap();
 	emit gameLoaded(QString());
 }
 
 void Palapeli::Manager::loadGame(const QString& name)
 {
-	if (!m_games.contains(name))
+	if (!p->m_games.contains(name))
 		return;
 	//check if savegame exists
 	const QString configFileName = KStandardDirs::locate("appdata", configPath.arg(name));
@@ -244,37 +310,27 @@ void Palapeli::Manager::loadGame(const QString& name)
 		return;
 	//load image and configuration
 	KConfig config(configFileName);
-	m_image.load(imageFileName);
-	int sceneWidth = 2 * m_image.width(), sceneHeight = 2 * m_image.height();
-	//flush all variables
-	foreach (Palapeli::Part* part, m_parts)
-		delete part; //also deletes pieces
-	m_parts.clear();
-	m_pieces.clear();
-	m_relations.clear();
-	//configure scene and preview
-	m_view->scene()->setSceneRect(0, 0, sceneWidth, sceneHeight);
-	m_preview->setImage(m_image);
-	//create pieces and parts
-	delete m_pattern;
+	p->m_image.load(imageFileName);
+	//start game
 	//TODO: Support multiple types of patterns. There is only "rectangular" at the moment, so I don't care about the name specified in "General/Pattern" at all.
-	m_pattern = new Palapeli::RectangularPattern(config.entryMap(patternGroupKey), this);
-	m_pieces = m_pattern->slice(m_image);
+	p->startGameInternal(new Palapeli::RectangularPattern(config.entryMap(patternGroupKey), this));
+	//restore piece positions and connections
 	KConfigGroup piecesGroup(&config, piecesGroupKey);
-	for (int i = 0; i < m_pieces.count(); ++i)
+	for (int i = 0; i < p->m_pieces.count(); ++i)
 	{
-		Palapeli::Piece* piece = m_pieces.at(i);
+		Palapeli::Piece* piece = p->m_pieces.at(i);
 		piece->setPos(piecesGroup.readEntry(positionKey.arg(i), QPointF()));
-		m_parts << new Palapeli::Part(piece, this);
+		p->m_parts << new Palapeli::Part(piece, this);
 	}
-	searchConnections(); //reconnect everything which was already connected
+	searchConnections();
+	//propagate changes
 	updateMinimap();
 	emit gameLoaded(name);
 }
 
 bool Palapeli::Manager::saveGame(const QString& name)
 {
-	if (!m_pattern || m_pieces.empty())
+	if (!p->m_pattern || p->m_pieces.empty())
 		return false;
 	//FIXME: It is likely that more characters have to be excluded because of Windows. Can this be accomplished in a more elegant way?
 	if (name.contains(QChar('/')) || name.contains(QChar('\\')))
@@ -290,10 +346,10 @@ bool Palapeli::Manager::saveGame(const QString& name)
 	//open config file and write general information
 	KConfig config(KStandardDirs::locateLocal("appdata", configPath.arg(name)));
 	KConfigGroup generalGroup(&config, generalGroupKey);
-	generalGroup.writeEntry(patternKey, m_pattern->name());
+	generalGroup.writeEntry(patternKey, p->m_pattern->name());
 	//pattern arguments
 	KConfigGroup patternGroup(&config, patternGroupKey);
-	QMap<QString,QString> args = m_pattern->args();
+	QMap<QString,QString> args = p->m_pattern->args();
 	QMapIterator<QString,QString> iterArgs(args);
 	while (iterArgs.hasNext())
 	{
@@ -302,20 +358,20 @@ bool Palapeli::Manager::saveGame(const QString& name)
 	}
 	//piece positions
 	KConfigGroup pieceGroup(&config, piecesGroupKey);
-for (int i = 0; i < m_pieces.count(); ++i)
+	for (int i = 0; i < p->m_pieces.count(); ++i)
 	{
-		Palapeli::Piece* piece = m_pieces.at(i);
+		Palapeli::Piece* piece = p->m_pieces.at(i);
 		pieceGroup.writeEntry(positionKey.arg(i), QVariant(piece->pos()));
 	}
 	//save information and image
 	config.sync();
-	m_image.save(KStandardDirs::locateLocal("appdata", imagePath.arg(name)), "PNG"); //format should be lossless
+	p->m_image.save(KStandardDirs::locateLocal("appdata", imagePath.arg(name)), "PNG"); //format should be lossless
 	//insert game into savegame list
-	if (!m_games.contains(name))
+	if (!p->m_games.contains(name))
 	{
-		m_games << name;
-		m_gamesConfig->writeEntry(gamesListKey, m_games);
-		m_gamesConfig->sync();
+		p->m_games << name;
+		p->m_gamesConfig.writeEntry(gamesListKey, p->m_games);
+		p->m_gamesConfig.sync();
 	}
 	emit savegameCreated(name);
 	return true;
@@ -323,14 +379,14 @@ for (int i = 0; i < m_pieces.count(); ++i)
 
 void Palapeli::Manager::deleteGame(const QString& name)
 {
-	if (!m_games.contains(name))
+	if (!p->m_games.contains(name))
 		return;
 	QFile(KStandardDirs::locateLocal("appdata", configPath.arg(name))).remove();
 	QFile(KStandardDirs::locateLocal("appdata", imagePath.arg(name))).remove();
 	//remove game in savegame list
-	m_games.removeAll(name);
-	m_gamesConfig->writeEntry(gamesListKey, m_games);
-	m_gamesConfig->sync();
+	p->m_games.removeAll(name);
+	p->m_gamesConfig.writeEntry(gamesListKey, p->m_games);
+	p->m_gamesConfig.sync();
 	emit savegameDeleted(name);
 }
 

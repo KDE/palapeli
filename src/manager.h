@@ -20,16 +20,14 @@
 #ifndef PALAPELI_MANAGER_H
 #define PALAPELI_MANAGER_H
 
-#include <QImage>
 #include <QObject>
-#include <QStringList>
-class KConfigGroup;
 #include <KUrl>
 
 namespace Palapeli
 {
 
 	class MainWindow;
+	class ManagerPrivate;
 	class Minimap;
 	class Part;
 	class Pattern;
@@ -71,22 +69,7 @@ namespace Palapeli
 			void savegameCreated(const QString& name);
 			void savegameDeleted(const QString& name);
 		private:
-			QString toLocalFile(const KUrl& url);
-			void cleanupTempFiles();
-
-			KConfigGroup *m_gamesConfig;
-			QStringList m_games;
-			QImage m_image;
-			QStringList m_localFiles;
-			Minimap* m_minimap;
-			QList<Part*> m_parts;
-			Pattern* m_pattern;
-			QList<Piece*> m_pieces;
-			Preview* m_preview;
-			QList<PieceRelation> m_relations;
-			SavegameView* m_savegameView;
-			View* m_view;
-			MainWindow* m_window;
+			ManagerPrivate* p;
 	};
 
 }
