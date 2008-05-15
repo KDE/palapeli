@@ -59,6 +59,7 @@ namespace Palapeli
 			MainWindow* window() const;
 		public Q_SLOTS:
 			void updateMinimap();
+			void removeInvalidGames();
 
 			void createGame(const KUrl& url, int xPieceCount, int yPieceCount);
 			void loadGame(const QString& name);
