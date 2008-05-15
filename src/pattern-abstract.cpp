@@ -20,7 +20,12 @@
 #include "pattern-abstract.h"
 #include "manager.h"
 
-Palapeli::Pattern::Pattern(const QMap<QString,QString>&, Manager* manager)
+Palapeli::Pattern::Pattern(KConfigGroup*, Manager* manager)
+	: m_manager(manager)
+{
+}
+
+Palapeli::Pattern::Pattern(Manager* manager)
 	: m_manager(manager)
 {
 }

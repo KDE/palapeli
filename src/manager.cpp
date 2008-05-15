@@ -340,7 +340,8 @@ void Palapeli::Manager::loadGame(const QString& name)
 		return;
 	//start game
 	//TODO: Support multiple types of patterns. There is only "rectangular" at the moment, so I don't care about the name specified in "General/Pattern" at all.
-	p->startGameInternal(new Palapeli::RectangularPattern(config.entryMap(Palapeli::Strings::PatternGroupKey), this));
+	KConfigGroup patternGroup(&config, Palapeli::Strings::PatternGroupKey);
+	p->startGameInternal(new Palapeli::RectangularPattern(&patternGroup, this));
 	//restore piece positions and connections
 	KConfigGroup piecesGroup(&config, Palapeli::Strings::PiecesGroupKey);
 	for (int i = 0; i < p->m_pieces.count(); ++i)
@@ -377,13 +378,7 @@ bool Palapeli::Manager::saveGame(const QString& name)
 	generalGroup.writeEntry(Palapeli::Strings::ImageFileKey, p->m_imageFile);
 	//pattern arguments
 	KConfigGroup patternGroup(&config, Palapeli::Strings::PatternGroupKey);
-	QMap<QString,QString> args = p->m_pattern->args();
-	QMapIterator<QString,QString> iterArgs(args);
-	while (iterArgs.hasNext())
-	{
-		iterArgs.next();
-		patternGroup.writeEntry(iterArgs.key(), iterArgs.value());
-	}
+	p->m_pattern->writeArguments(&patternGroup);
 	//piece positions
 	KConfigGroup pieceGroup(&config, Palapeli::Strings::PiecesGroupKey);
 	for (int i = 0; i < p->m_pieces.count(); ++i)

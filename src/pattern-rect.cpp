@@ -22,38 +22,17 @@
 #include "piece.h"
 
 #include <QPainter>
+#include <KConfigGroup>
 
-Palapeli::RectangularPattern::RectangularPattern(const QMap<QString, QString>& arguments, Manager* manager)
+Palapeli::RectangularPattern::RectangularPattern(KConfigGroup* arguments, Manager* manager)
 	: Palapeli::Pattern(arguments, manager)
-	, m_xCount(10)
-	, m_yCount(10)
+	, m_xCount(arguments->readEntry("XCount", 10))
+	, m_yCount(arguments->readEntry("YCount", 10))
 {
-	//read arguments
-	QMapIterator<QString, QString> iterArgs(arguments);
-	while (iterArgs.hasNext())
-	{
-		iterArgs.next();
-		QString value = iterArgs.value();
-		if (iterArgs.key() == QLatin1String("XCount"))
-		{
-			//try to convert value to integer; reset to default if conversion fails
-			bool isNumeric = false;
-			m_xCount = value.toInt(&isNumeric);
-			if (!isNumeric)
-				m_xCount = 10;
-		}
-		else if (iterArgs.key() == QLatin1String("YCount"))
-		{
-			bool isNumeric = false;
-			m_yCount = value.toInt(&isNumeric);
-			if (!isNumeric)
-				m_yCount = 10;
-		}
-	}
 }
 
 Palapeli::RectangularPattern::RectangularPattern(int xCount, int yCount, Manager* manager)
-	: Palapeli::Pattern(QMap<QString,QString>(), manager)
+	: Palapeli::Pattern(0, manager)
 	, m_xCount(qMax(1, xCount))
 	, m_yCount(qMax(1, yCount))
 {
@@ -68,13 +47,10 @@ QString Palapeli::RectangularPattern::name() const
 	return QLatin1String("rectangular");
 }
 
-QMap<QString,QString> Palapeli::RectangularPattern::args() const
+void Palapeli::RectangularPattern::writeArguments(KConfigGroup* target) const
 {
-	QMap<QString,QString> args;
-	static const QString intToString = QLatin1String("%1");
-	args[QLatin1String("XCount")] = intToString.arg(m_xCount);
-	args[QLatin1String("YCount")] = intToString.arg(m_yCount);
-	return args;
+	target->writeEntry("XCount", m_xCount);
+	target->writeEntry("YCount", m_yCount);
 }
 
 QList<Palapeli::Piece*> Palapeli::RectangularPattern::slice(const QImage& image)

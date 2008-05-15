@@ -28,13 +28,13 @@ namespace Palapeli
 	class RectangularPattern : public Pattern
 	{
 	public:
-		RectangularPattern(const QMap<QString,QString>& arguments, Manager* manager);
+		RectangularPattern(KConfigGroup* arguments, Manager* manager);
 		RectangularPattern(int xCount, int yCount, Manager* manager);
 		virtual ~RectangularPattern();
 
 		virtual QList<Piece*> slice(const QImage& image);
 		virtual QString name() const;
-		virtual QMap<QString,QString> args() const;
+		virtual void writeArguments(KConfigGroup* target) const;
 	private:
 		int m_xCount, m_yCount;
 	};
