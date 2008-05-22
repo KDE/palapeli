@@ -50,6 +50,7 @@ namespace Palapeli
 			bool addDependency(const GameStorageItem& source, const GameStorageItem& target);
 			bool hasDependency(const GameStorageItem& source, const GameStorageItem& target);
 			bool removeDependency(const GameStorageItem& source, const GameStorageItem& target);
+
 		private:
 			Q_DISABLE_COPY(GameStorage)
 			GameStoragePrivate* d;
@@ -60,6 +61,8 @@ namespace Palapeli
 			QString itemExtension(const QUuid& id) const;
 			int itemType(const QUuid& id) const;
 			QString itemFilePath(const QUuid& id) const;
+			QString itemMetaData(const QUuid& id) const;
+			bool itemSetMetaData(const QUuid& id, const QString& text) const;
 	};
 
 }

@@ -83,21 +83,29 @@ Palapeli::GameStorage* Palapeli::GameStorageItem::container() const
 
 bool Palapeli::GameStorageItem::exists() const
 {
+	if (d->m_container == 0)
+		return false;
 	return d->m_container->itemExists(d->m_id);
 }
 
 QString Palapeli::GameStorageItem::extension() const
 {
+	if (d->m_container == 0)
+		return QString();
 	return d->m_container->itemExtension(d->m_id);
 }
 
 QString Palapeli::GameStorageItem::filePath() const
 {
+	if (d->m_container == 0)
+		return QString();
 	return d->m_container->itemFilePath(d->m_id);
 }
 
 QUuid Palapeli::GameStorageItem::id() const
 {
+	if (d->m_container == 0)
+		return QUuid();
 	return d->m_id;
 }
 
@@ -106,9 +114,25 @@ bool Palapeli::GameStorageItem::isNull() const
 	return d->m_id.isNull() || d->m_container == 0;
 }
 
+QString Palapeli::GameStorageItem::metaData() const
+{
+	if (d->m_container == 0)
+		return QString();
+	return d->m_container->itemMetaData(d->m_id);
+}
+
 int Palapeli::GameStorageItem::type() const
 {
+	if (d->m_container == 0)
+		return Palapeli::GameStorageItem::InvalidType;
 	return d->m_container->itemType(d->m_id);
+}
+
+bool Palapeli::GameStorageItem::setMetaData(const QString& text)
+{
+	if (d->m_container == 0)
+		return false;
+	return d->m_container->itemSetMetaData(d->m_id, text);
 }
 
 Palapeli::GameStorageItem::operator QUuid() const

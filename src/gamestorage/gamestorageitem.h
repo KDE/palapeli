@@ -33,11 +33,11 @@ namespace Palapeli
 		public:
 			enum Type
 			{
-				AnyType = 0,
-				Unspecified = 1,
-				GlobalConfig = 2,
-				GlobalResource = 3,
-				SavedGame = 4,
+				InvalidType = -1,
+				Unspecified = 0,
+				GlobalConfig = 1,
+				GlobalResource = 2,
+				SavedGame = 3,
 				UserType = 100 //applications can define their own types; the type IDs should start at GameStorageItem::UserType + 1
 			};
 
@@ -55,7 +55,10 @@ namespace Palapeli
 			QString filePath() const;
 			QUuid id() const;
 			bool isNull() const;
+			QString metaData() const;
 			int type() const;
+
+			bool setMetaData(const QString& text);
 
 			operator QUuid() const;
 		private:

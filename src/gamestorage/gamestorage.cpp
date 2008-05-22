@@ -53,6 +53,8 @@ namespace Palapeli
 			QHash<int, QString> m_extHash; //structure: item number -> extension
 			KConfigGroup *m_typeGroup;
 			QHash<int, int> m_typeHash; //structure: item number -> type
+			KConfigGroup *m_metaGroup;
+			QHash<int, QString> m_metaHash; //structure: item number -> meta data string
 			KConfigGroup *m_depGroup;
 			QList<int> m_depNumbers;
 			QHash<int, QPair<int, int> > m_depHash; //structure: dependency number -> (source item number, target item number)
@@ -64,6 +66,7 @@ const QString configPath("%1/gamestoragerc");
 const QString idGroupKey("Identifiers");
 const QString extGroupKey("Extensions");
 const QString typeGroupKey("Types");
+const QString metaGroupKey("Metadata");
 const QString depGroupKey("Dependencies");
 const QString entryKey("%1");
 const QString depListKey("DependencyKeys");
@@ -87,6 +90,7 @@ Palapeli::GameStoragePrivate::GameStoragePrivate(const QString& baseDirectory)
 	, m_idGroup(0)
 	, m_extGroup(0)
 	, m_typeGroup(0)
+	, m_metaGroup(0)
 {
 	//check availability of the base directory
 	QFileInfo fi(baseDirectory);
@@ -139,6 +143,15 @@ Palapeli::GameStoragePrivate::GameStoragePrivate(const QString& baseDirectory)
 		iterTypeMap.next();
 		m_typeHash[iterTypeMap.key().toInt()] = iterTypeMap.value().toInt();
 	}
+	//read meta data
+	m_metaGroup = new KConfigGroup(m_config, metaGroupKey);
+	QMap<QString,QString> metaMap = m_metaGroup->entryMap();
+	QMapIterator<QString,QString> iterMetaMap(metaMap);
+	while (iterMetaMap.hasNext())
+	{
+		iterMetaMap.next();
+		m_metaHash[iterMetaMap.key().toInt()] = iterMetaMap.value();
+	}
 	//read dependencies
 	m_depGroup = new KConfigGroup(m_config, depGroupKey);
 	m_depNumbers = m_depGroup->readEntry(depListKey, QList<int>());
@@ -161,6 +174,7 @@ Palapeli::GameStoragePrivate::~GameStoragePrivate()
 	delete m_idGroup;
 	delete m_extGroup;
 	delete m_typeGroup;
+	delete m_metaGroup;
 	delete m_depGroup;
 }
 
@@ -203,11 +217,13 @@ Palapeli::GameStorageItem Palapeli::GameStorage::addItem(const QString& rawExten
 	d->m_idHash[id] = d->m_nextItemNumber;
 	d->m_extHash[d->m_nextItemNumber] = extension;
 	d->m_typeHash[d->m_nextItemNumber] = type;
+	d->m_metaHash[d->m_nextItemNumber] = QString();
 	//insert item into configuration
 	QString key = entryKey.arg(d->m_nextItemNumber);
 	d->m_idGroup->writeEntry(key, id.toString());
 	d->m_extGroup->writeEntry(key, extension);
 	d->m_typeGroup->writeEntry(key, type);
+	d->m_metaGroup->writeEntry(key, QString());
 	d->m_config->sync();
 	//iterate item number for next object to be added
 	++d->m_nextItemNumber;
@@ -233,7 +249,8 @@ Palapeli::GameStorageItem Palapeli::GameStorage::addItem(const KUrl& source, int
 		if (!sourceFile.copy(localFile))
 		{
 			KMessageBox::error(0, i18n("File could not be copied to the local image storage."));
-			return Palapeli::GameStorageItem(); //null identifier
+			return Palapeli::GameStorageItem();
+			//null identifier
 		}
 	}
 	else
@@ -248,11 +265,13 @@ Palapeli::GameStorageItem Palapeli::GameStorage::addItem(const KUrl& source, int
 	d->m_idHash[id] = d->m_nextItemNumber;
 	d->m_extHash[d->m_nextItemNumber] = extension;
 	d->m_typeHash[d->m_nextItemNumber] = type;
+	d->m_metaHash[d->m_nextItemNumber] = QString();
 	//insert item into configuration
 	QString key = entryKey.arg(d->m_nextItemNumber);
 	d->m_idGroup->writeEntry(key, id.toString());
 	d->m_extGroup->writeEntry(key, extension);
 	d->m_typeGroup->writeEntry(key, type);
+	d->m_metaGroup->writeEntry(key, QString());
 	d->m_config->sync();
 	//iterate item number for next object to be added
 	++d->m_nextItemNumber;
@@ -296,11 +315,13 @@ bool Palapeli::GameStorage::removeItem(const Palapeli::GameStorageItem& item)
 	d->m_idHash.remove(id);
 	d->m_extHash.remove(itemNumber);
 	d->m_typeHash.remove(itemNumber);
+	d->m_metaHash.remove(itemNumber);
 	//remove item from configuration
 	QString key = entryKey.arg(itemNumber);
 	d->m_idGroup->deleteEntry(key);
 	d->m_extGroup->deleteEntry(key);
 	d->m_typeGroup->deleteEntry(key);
+	d->m_metaGroup->deleteEntry(key);
 	//remove dependencies
 	foreach (int depNumber, d->m_depNumbers)
 	{
@@ -405,4 +426,30 @@ QString Palapeli::GameStorage::itemFilePath(const QUuid& id) const
 		return QString();
 	int itemNumber = d->m_idHash[id]; //the numerical index of this item
 	return d->m_filePathTemplate.arg(id.toString()).arg(d->m_extHash.value(itemNumber, QString()));
+}
+
+QString Palapeli::GameStorage::itemMetaData(const QUuid& id) const
+{
+	if (!itemExists(id))
+		return QString();
+	int itemNumber = d->m_idHash[id]; //the numerical index of this item
+	return d->m_metaHash.value(itemNumber, QString());
+}
+
+bool Palapeli::GameStorage::itemSetMetaData(const QUuid& id, const QString& text) const
+{
+	if (!itemExists(id))
+		return false;
+	int itemNumber = d->m_idHash[id]; //the numerical index of this item
+	if (d->m_metaHash.value(itemNumber, QString()) == text)
+		return true;
+	//write new value into internal storage
+	d->m_metaHash[itemNumber] = text;
+	//write new value
+	if (text.isEmpty())
+		d->m_metaGroup->deleteEntry(entryKey.arg(itemNumber));
+	else
+		d->m_metaGroup->writeEntry(entryKey.arg(itemNumber), text);
+	d->m_config->sync();
+	return true;
 }
