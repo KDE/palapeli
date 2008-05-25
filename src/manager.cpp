@@ -85,6 +85,11 @@ Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	, m_view(0)
 	, m_window(0)
 {
+	//cleanup of now unused items (mostly images)
+	Palapeli::GameStorage gs;
+	Palapeli::GameStorageItems items = gs.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageNoDependencyAttribute);
+	foreach (Palapeli::GameStorageItem item, items)
+		gs.removeItem(item);
 }
 
 void Palapeli::ManagerPrivate::init()
@@ -373,15 +378,12 @@ bool Palapeli::Manager::saveGame(const QString& name)
 
 void Palapeli::Manager::deleteGame(const QString& name)
 {
-	//TODO: port "delete game"
-/*	if (!p->m_games.contains(name))
+	Palapeli::GameStorage gs;
+	Palapeli::GameStorageItems configs = gs.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame) << new Palapeli::GameStorageMetaAttribute(name));
+	if (configs.count() == 0)
 		return;
-	//remove game in savegame list
-	p->m_games.removeAll(name);
-	p->m_gamesConfig.writeEntry(Palapeli::Strings::GamesListKey, p->m_games);
-	p->m_gamesConfig.sync();
+	gs.removeItem(configs.at(0));
 	emit savegameDeleted(name);
-*/	//Annotation: The config and image file will be deleted when the cleanup thread runs the next time. This is normally when Palapeli is started the next time.
 }
 
 #include "manager.moc"

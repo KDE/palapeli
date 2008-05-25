@@ -51,9 +51,7 @@ namespace Palapeli
 	class GameStorageNoDependencyAttributePrivate
 	{
 		public:
-			GameStorageNoDependencyAttributePrivate(GameStorageDependencyAttribute::Direction direction) : m_direction(direction) {}
-
-			GameStorageDependencyAttribute::Direction m_direction;
+			GameStorageNoDependencyAttributePrivate() {}
 	};
 
 	class GameStorageAttributesPrivate
@@ -119,8 +117,9 @@ bool Palapeli::GameStorageDependencyAttribute::test(const Palapeli::GameStorageI
 	}
 }
 
-Palapeli::GameStorageNoDependencyAttribute::GameStorageNoDependencyAttribute(Palapeli::GameStorageDependencyAttribute::Direction direction)
-	: d(new Palapeli::GameStorageNoDependencyAttributePrivate(direction))
+Palapeli::GameStorageNoDependencyAttribute::GameStorageNoDependencyAttribute()
+	//: d(new Palapeli::GameStorageNoDependencyAttributePrivate)
+	: d(0)
 {
 }
 
@@ -131,9 +130,14 @@ Palapeli::GameStorageNoDependencyAttribute::~GameStorageNoDependencyAttribute()
 
 bool Palapeli::GameStorageNoDependencyAttribute::test(const Palapeli::GameStorageItem& item) const
 {
-	Palapeli::GameStorageAttributes attribs;
-	attribs << new Palapeli::GameStorageDependencyAttribute(item, d->m_direction);
-	return item.container()->queryItems(attribs).count() == 0;
+	Palapeli::GameStorageAttributes attribs1;
+	attribs1 << new Palapeli::GameStorageDependencyAttribute(item, Palapeli::GameStorageDependencyAttribute::SourceIsGiven);
+	if (item.container()->queryItems(attribs1).count() != 0)
+		return false;
+	Palapeli::GameStorageAttributes attribs2;
+	attribs2 << new Palapeli::GameStorageDependencyAttribute(item, Palapeli::GameStorageDependencyAttribute::TargetIsGiven);
+	return item.container()->queryItems(attribs2).count() == 0;
+	
 }
 
 Palapeli::GameStorageAttributes::GameStorageAttributes()

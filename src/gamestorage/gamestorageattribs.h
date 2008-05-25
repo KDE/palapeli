@@ -78,7 +78,7 @@ namespace Palapeli
 	class GameStorageNoDependencyAttribute : public GameStorageAttribute
 	{
 		public:
-			GameStorageNoDependencyAttribute(GameStorageDependencyAttribute::Direction direction);
+			GameStorageNoDependencyAttribute();
 			virtual ~GameStorageNoDependencyAttribute();
 			virtual bool test(const GameStorageItem& item) const;
 		private:

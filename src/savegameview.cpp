@@ -81,7 +81,7 @@ void Palapeli::SavegameView::loadSelected()
 void Palapeli::SavegameView::selectionChanged()
 {
 	int selectedCount = m_view->selectionModel()->selectedIndexes().count();
-	m_deleteAct->setEnabled(selectedCount > 0 && false); //disabled at the moment because of missing implementation in Manager
+	m_deleteAct->setEnabled(selectedCount > 0);
 	m_loadAct->setEnabled(selectedCount == 1);
 }
 
