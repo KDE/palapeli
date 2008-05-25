@@ -29,6 +29,9 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KStandardDirs>
+#include <KTar>
+#include <KTempDir>
+#include <KTemporaryFile>
 
 namespace Palapeli
 {
@@ -249,8 +252,7 @@ Palapeli::GameStorageItem Palapeli::GameStorage::addItem(const KUrl& source, int
 		if (!sourceFile.copy(localFile))
 		{
 			KMessageBox::error(0, i18n("File could not be copied to the local image storage."));
-			return Palapeli::GameStorageItem();
-			//null identifier
+			return Palapeli::GameStorageItem(); //null identifier
 		}
 	}
 	else
@@ -396,6 +398,178 @@ bool Palapeli::GameStorage::removeDependency(const Palapeli::GameStorageItem& so
 	d->m_depGroup->deleteEntry(depTargetKey.arg(depNumber));
 	d->m_depGroup->writeEntry(depListKey, d->m_depNumbers);
 	d->m_config->sync();
+	return true;
+}
+
+Palapeli::GameStorageItems Palapeli::GameStorage::importItems(GameStorage* storage, const Palapeli::GameStorageItems& items)
+{
+	if (!d->m_accessible || !storage->d->m_accessible)
+		return Palapeli::GameStorageItems();
+	Palapeli::GameStorageItems importedItems;
+	QHash<int, int> importedItemNumberHash; //needed because the item numbers change during import and the dependencies between items are mapped later; structure: item number in the other storage -> item number in this storage
+	QHashIterator<QUuid, int> iterIdHash(storage->d->m_idHash);
+	bool restrictedToGivenItemList = !items.empty();
+	//import items
+	while (iterIdHash.hasNext())
+	{
+		iterIdHash.next();
+		QUuid oldId = iterIdHash.key();
+		int oldItemNumber = iterIdHash.value();
+		//if restricted to an item list, make sure that this item is included in this list (if not, skip this item)
+		if (restrictedToGivenItemList)
+		{
+			bool found = false;
+			foreach (const Palapeli::GameStorageItem& item, items)
+			{
+				if (item.id() == oldId)
+				{
+					found = true;
+					break;
+				}
+			}
+			if (!found)
+				continue;
+		}
+		//translate ID and item number
+		QUuid newId = oldId;
+		if (d->m_idHash.contains(oldId))
+			newId = QUuid::createUuid();
+		int newItemNumber = d->m_nextItemNumber;
+		//copy data into this storage
+		d->m_idHash[newId] = newItemNumber;
+		d->m_extHash[newItemNumber] = storage->d->m_extHash.value(oldItemNumber, QString());
+		d->m_typeHash[newItemNumber] = storage->d->m_typeHash.value(oldItemNumber, Palapeli::GameStorageItem::Unspecified);
+		d->m_metaHash[newItemNumber] = storage->d->m_metaHash.value(oldItemNumber, QString());
+		//save data to configuration of this storage
+		QString key = entryKey.arg(newItemNumber);
+		d->m_idGroup->writeEntry(key, d->m_idHash.key(newItemNumber).toString());
+		d->m_extGroup->writeEntry(key, d->m_extHash[newItemNumber]);
+		d->m_typeGroup->writeEntry(key, d->m_typeHash[newItemNumber]);
+		d->m_metaGroup->writeEntry(key, d->m_metaHash[newItemNumber]);
+		//copy file into this storage
+		QFile oldFile(storage->itemFilePath(oldId));
+		QString newFilePath = itemFilePath(newId);
+		QFile newFile(newFilePath);
+		if (newFile.exists())
+			newFile.remove();
+		if (oldFile.exists())
+			oldFile.copy(newFilePath);
+		//insert mapping entry
+		importedItemNumberHash[oldItemNumber] = newItemNumber;
+		++d->m_nextItemNumber;
+		importedItems << Palapeli::GameStorageItem(newId, this);
+	}
+	//import dependencies
+	foreach (int oldDepNumber, storage->d->m_depNumbers)
+	{
+		static const QPair<int, int> defaultValue(0, 0);
+		QPair<int, int> oldDep = storage->d->m_depHash.value(oldDepNumber, defaultValue);
+		//skip this dependency if items for this dependency do not exist; otherwise map item numbers to new values
+		if (!importedItemNumberHash.contains(oldDep.first))
+			continue;
+		int newSource = importedItemNumberHash.value(oldDep.first);
+		if (!importedItemNumberHash.contains(oldDep.second))
+			continue;
+		int newTarget = importedItemNumberHash.value(oldDep.second);
+		//copy data into this storage
+		d->m_depNumbers << d->m_nextDepNumber;
+		d->m_depHash[d->m_nextDepNumber] = QPair<int, int>(newSource, newTarget);
+		//save data to configuration of this storage
+		d->m_depGroup->writeEntry(depSourceKey.arg(d->m_nextDepNumber), newSource);
+		d->m_depGroup->writeEntry(depTargetKey.arg(d->m_nextDepNumber), newTarget);
+		++d->m_nextDepNumber;
+	}
+	d->m_depGroup->writeEntry(depListKey, d->m_depNumbers);
+	d->m_config->sync();
+	return importedItems;
+}
+
+Palapeli::GameStorageItems Palapeli::GameStorage::importItems(const KUrl& archive)
+{
+	if (!d->m_accessible)
+		return Palapeli::GameStorageItems();
+	//download archive
+	QString localFile;
+	if (archive.isLocalFile())
+	{
+		if (!KIO::NetAccess::download(archive, localFile, 0))
+		{
+			KMessageBox::error(0, KIO::NetAccess::lastErrorString());
+			return Palapeli::GameStorageItems();
+		}
+	}
+	else
+		localFile = archive.path();
+	//open archive and extract into local directory
+	KTar tar(localFile, "application/x-bzip");
+	if (!tar.open(QIODevice::ReadOnly))
+		return Palapeli::GameStorageItems();
+	const KArchiveDirectory* archiveDir = tar.directory();
+	KTempDir tempDir;
+	archiveDir->copyTo(tempDir.name());
+	//import items from that storage
+	Palapeli::GameStorage* gs = new Palapeli::GameStorage(tempDir.name());
+	Palapeli::GameStorageItems items = this->importItems(gs);
+	delete gs;
+	//cleanup
+	tempDir.unlink();
+	KIO::NetAccess::removeTempFile(localFile);
+	return items;
+}
+
+bool Palapeli::GameStorage::exportItems(const KUrl& archive, const Palapeli::GameStorageItems& items)
+{
+	//resolve dependencies until no dependencies are left
+	Palapeli::GameStorageItems allItems(items);
+	while (true)
+	{
+		bool addedItem = false;
+		//for all items in the list...
+		foreach (const Palapeli::GameStorageItem& item, allItems)
+		{
+			//...look for items which have a dependency on that item, but are not in the list
+			QHashIterator<QUuid, int> iterIdHash(d->m_idHash);
+			while (iterIdHash.hasNext())
+			{
+				iterIdHash.next();
+				QUuid id = iterIdHash.key();
+				Palapeli::GameStorageItem otherItem = this->item(id);
+				if (allItems.contains(otherItem)) //item already in list -> uninteresting
+					continue;
+				if (hasDependency(item, otherItem) || hasDependency(otherItem, item)) //otherItem needs to be inserted
+				{
+					allItems << otherItem;
+					addedItem = true;
+				}
+			}
+		}
+		if (!addedItem)
+			break;
+		//This operation may need to be done more than one time if the inserted items introduce new dependencies.
+	}
+	//create a game storage in a temp directory
+	KTempDir tempDir;
+	Palapeli::GameStorage* gs = new Palapeli::GameStorage(tempDir.name());
+	gs->importItems(this, allItems);
+	delete gs; //really make sure that the configuration has been written
+	//save to archive
+	KTemporaryFile tempFile;
+	tempFile.setSuffix(".psga");
+	if (!tempFile.open())
+		return false;
+	KTar tar(tempFile.fileName(), "application/x-bzip");
+	if (!tar.open(QIODevice::WriteOnly))
+		return false;
+	if (!tar.addLocalDirectory(tempDir.name(), QLatin1String(".")))
+		return false;
+	if (!tar.close())
+		return false;
+	//upload archive
+	if (!KIO::NetAccess::upload(tempFile.fileName(), archive, 0))
+		KMessageBox::error(0, KIO::NetAccess::lastErrorString());
+	//cleanup
+	tempDir.unlink();
+	tempFile.remove();
 	return true;
 }
 

@@ -28,14 +28,6 @@ namespace Palapeli
 
 	namespace Strings
 	{
-		//savegame storage strings and convenience functions
-		const QString SavegameDir("savegames");
-		const QString ConfigPath("savegames/%1.psg");
-		inline QString configPath(const QString& gameName)
-			{ return KStandardDirs::locateLocal("appdata", ConfigPath.arg(gameName)); }
-		const QString DataPath("savegames/%1"); //used for images
-		inline QString dataPath(const QString& dataName)
-			{ return KStandardDirs::locateLocal("appdata", DataPath.arg(dataName)); }
 		//strings in .psg files
 		const QString GeneralGroupKey("Palapeli");
 		const QString PatternKey("Pattern");
@@ -43,9 +35,6 @@ namespace Palapeli
 		const QString PatternGroupKey("PatternArgs");
 		const QString PiecesGroupKey("Pieces");
 		const QString PositionKey("Position-%1");
-		//strings in palapelirc
-		const QString GamesGroupKey("Saved Games");
-		const QString GamesListKey("Names");
 	};
 
 }

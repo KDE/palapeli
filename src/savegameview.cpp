@@ -18,12 +18,17 @@
  ***************************************************************************/
 
 #include "savegameview.h"
-#include "savegamemodel.h"
+#include "gamestorage/gamestorageattribs.h"
+#include "gamestorage/gamestorage.h"
+#include "gamestorage/gamestorageitem.h"
 #include "manager.h"
+#include "mainwindow.h"
+#include "savegamemodel.h"
 
 #include <QListView>
 #include <KAction>
 #include <KIcon>
+#include <KFileDialog>
 #include <KLocalizedString>
 #include <KToolBar>
 
@@ -34,14 +39,22 @@ Palapeli::SavegameView::SavegameView(Manager* manager, QWidget* parent)
 	, m_view(new QListView)
 	, m_loadAct(new KAction(KIcon("document-open"), i18nc("the verb, as in 'Load game'", "Load"), this))
 	, m_deleteAct(new KAction(KIcon("edit-delete"), i18n("Delete"), this))
+	, m_importAct(new KAction(KIcon("document-import"), i18nc("the verb, as in 'Import games'", "Import"), this))
+	, m_exportAct(new KAction(KIcon("document-export"), i18nc("the verb, as in 'Export games'", "Export"), this))
 {
 	//fill toolbar
 	KToolBar *mainToolBar = toolBar("savegamesToolBar");
 	mainToolBar->addAction(m_loadAct);
 	m_loadAct->setEnabled(false); //nothing selected to load by now
 	connect(m_loadAct, SIGNAL(triggered()), this, SLOT(loadSelected()));
+	mainToolBar->addAction(m_importAct);
+	m_importAct->setEnabled(true); //always active
+	connect(m_importAct, SIGNAL(triggered()), this, SLOT(importSelected()));
+	mainToolBar->addAction(m_exportAct);
+	m_exportAct->setEnabled(false); //like for loadAct
+	connect(m_exportAct, SIGNAL(triggered()), this, SLOT(exportSelected()));
 	mainToolBar->addAction(m_deleteAct);
-	m_deleteAct->setEnabled(false); //like above
+	m_deleteAct->setEnabled(false); //like for loadAct
 	connect(m_deleteAct, SIGNAL(triggered()), this, SLOT(deleteSelected()));
 	//list view
 	m_view->setModel(m_model);
@@ -54,6 +67,8 @@ Palapeli::SavegameView::~SavegameView()
 {
 	delete m_loadAct;
 	delete m_deleteAct;
+	delete m_importAct;
+	delete m_exportAct;
 	delete m_view;
 	delete m_model;
 }
@@ -62,10 +77,10 @@ void Palapeli::SavegameView::deleteSelected()
 {
 	//gather list of games to delete
 	QList<QString> names;
-	foreach (QModelIndex item, m_view->selectionModel()->selectedIndexes())
+	foreach (const QModelIndex& item, m_view->selectionModel()->selectedIndexes())
 		names << m_model->data(item, Qt::DisplayRole).toString();
 	//delete games
-	foreach (QString name, names)
+	foreach (const QString& name, names)
 		m_manager->deleteGame(name);
 }
 
@@ -78,10 +93,44 @@ void Palapeli::SavegameView::loadSelected()
 	m_manager->loadGame(m_model->data(selected, Qt::DisplayRole).toString());
 }
 
+void Palapeli::SavegameView::importSelected()
+{
+	QString target = KFileDialog::getOpenFileName(KUrl("kfiledialog:///palapeli"), "*.psga|" + i18nc("Used as filter description in a file dialog.", "Palapeli Saved Game Archive (*.psga)"), m_manager->window(), i18nc("Used as caption for file dialog.", "Select archive to import games from - Palapeli"));
+	if (target.isEmpty()) //process aborted by user
+		return;
+	Palapeli::GameStorage gs;
+	Palapeli::GameStorageItems importedItems = gs.importItems(KUrl(target));
+	foreach (const Palapeli::GameStorageItem& item, importedItems)
+	{
+		if (item.type() == Palapeli::GameStorageItem::SavedGame)
+			m_manager->savegameWasCreated(item.metaData());
+	}
+}
+
+void Palapeli::SavegameView::exportSelected()
+{
+	Palapeli::GameStorage gs;
+	//gather a list of all game items to export
+	Palapeli::GameStorageItems exportableItems;
+	foreach (const QModelIndex& index, m_view->selectionModel()->selectedIndexes())
+	{
+		QString gameName = m_model->data(index, Qt::DisplayRole).toString();
+		exportableItems += gs.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageMetaAttribute(gameName) << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame));
+	}
+	if (exportableItems.count() == 0)
+		return;
+	//ask the user for a file name
+	QString target = KFileDialog::getSaveFileName(KUrl("kfiledialog:///palapeli"), "*.psga|" + i18nc("Used as filter description in a file dialog.", "Palapeli Saved Game Archive (*.psga)"), m_manager->window(), i18nc("Used as caption for file dialog.", "Select file to export selected games to - Palapeli"));
+	if (target.isEmpty()) //process aborted by user
+		return;
+	gs.exportItems(KUrl(target), exportableItems);
+}
+
 void Palapeli::SavegameView::selectionChanged()
 {
 	int selectedCount = m_view->selectionModel()->selectedIndexes().count();
 	m_deleteAct->setEnabled(selectedCount > 0);
+	m_exportAct->setEnabled(selectedCount > 0);
 	m_loadAct->setEnabled(selectedCount == 1);
 }
 

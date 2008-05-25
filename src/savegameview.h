@@ -39,6 +39,8 @@ namespace Palapeli
 		public Q_SLOTS:
 			void loadSelected();
 			void deleteSelected();
+			void importSelected();
+			void exportSelected();
 		private Q_SLOTS:
 			void selectionChanged();
 		private:
@@ -47,6 +49,8 @@ namespace Palapeli
 			QListView* m_view;
 			KAction* m_loadAct;
 			KAction* m_deleteAct;
+			KAction* m_importAct;
+			KAction* m_exportAct;
 	};
 	
 }

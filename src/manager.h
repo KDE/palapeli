@@ -64,6 +64,7 @@ namespace Palapeli
 			void loadGame(const QString& name);
 			bool saveGame(const QString& name);
 			void deleteGame(const QString& name);
+			void savegameWasCreated(const QString& name);
 		Q_SIGNALS:
 			void gameLoaded(const QString& name);
 			void savegameCreated(const QString& name);

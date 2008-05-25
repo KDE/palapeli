@@ -88,7 +88,7 @@ Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	//cleanup of now unused items (mostly images)
 	Palapeli::GameStorage gs;
 	Palapeli::GameStorageItems items = gs.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageNoDependencyAttribute);
-	foreach (Palapeli::GameStorageItem item, items)
+	foreach (const Palapeli::GameStorageItem& item, items)
 		gs.removeItem(item);
 }
 
@@ -168,7 +168,7 @@ Palapeli::Manager::Manager()
 	//propagate list of save games to clients
 	Palapeli::GameStorage storage;
 	Palapeli::GameStorageItems saveGames = storage.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame));
-	foreach (Palapeli::GameStorageItem item, saveGames)
+	foreach (const Palapeli::GameStorageItem& item, saveGames)
 		emit savegameCreated(item.metaData());
 }
 
@@ -239,7 +239,7 @@ void Palapeli::Manager::searchConnections()
 {
 	static const qreal maxInaccuracyFactor = 0.1;
 	bool combinedSomething = false;
-	foreach (Palapeli::PieceRelation rel, p->m_relations)
+	foreach (const Palapeli::PieceRelation& rel, p->m_relations)
 	{
 		if (rel.piece1()->part() == rel.piece2()->part()) //already combined
 			continue;
@@ -384,6 +384,11 @@ void Palapeli::Manager::deleteGame(const QString& name)
 		return;
 	gs.removeItem(configs.at(0));
 	emit savegameDeleted(name);
+}
+
+void Palapeli::Manager::savegameWasCreated(const QString& name)
+{
+	emit savegameCreated(name);
 }
 
 #include "manager.moc"

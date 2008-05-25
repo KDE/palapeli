@@ -43,13 +43,15 @@ namespace Palapeli
 			GameStorageItem addItem(const KUrl& source, int type);
 			GameStorageItem item(const QUuid& id);
 			GameStorageItems queryItems(const GameStorageAttributes& attributes);
-//			GameStorageItems importItems(const KUrl& archive);
-//			GameStorageItems exportItems(const KUrl& archive, const GameStorageItems& items);
 			bool removeItem(const GameStorageItem& item);
-			
+
 			bool addDependency(const GameStorageItem& source, const GameStorageItem& target);
 			bool hasDependency(const GameStorageItem& source, const GameStorageItem& target);
 			bool removeDependency(const GameStorageItem& source, const GameStorageItem& target);
+
+			GameStorageItems importItems(GameStorage* storage, const GameStorageItems& items = Palapeli::GameStorageItems());
+			GameStorageItems importItems(const KUrl& archive);
+			bool exportItems(const KUrl& archive, const GameStorageItems& items);
 
 		private:
 			Q_DISABLE_COPY(GameStorage)
