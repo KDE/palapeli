@@ -31,6 +31,14 @@ namespace Palapeli
 			int m_type;
 	};
 
+	class GameStorageMetaAttributePrivate
+	{
+		public:
+			GameStorageMetaAttributePrivate(const QString& text) : m_text(text) {}
+
+			QString m_text;
+	};
+
 	class GameStorageDependencyAttributePrivate
 	{
 		public:
@@ -73,6 +81,21 @@ Palapeli::GameStorageTypeAttribute::~GameStorageTypeAttribute()
 bool Palapeli::GameStorageTypeAttribute::test(const Palapeli::GameStorageItem& item) const
 {
 	return !item.isNull() && item.type() == d->m_type;
+}
+
+Palapeli::GameStorageMetaAttribute::GameStorageMetaAttribute(const QString& text)
+	: d(new Palapeli::GameStorageMetaAttributePrivate(text))
+{
+}
+
+Palapeli::GameStorageMetaAttribute::~GameStorageMetaAttribute()
+{
+	delete d;
+}
+
+bool Palapeli::GameStorageMetaAttribute::test(const Palapeli::GameStorageItem& item) const
+{
+	return !item.isNull() && item.metaData() == d->m_text;
 }
 
 Palapeli::GameStorageDependencyAttribute::GameStorageDependencyAttribute(const Palapeli::GameStorageItem& item, Palapeli::GameStorageDependencyAttribute::Direction direction)

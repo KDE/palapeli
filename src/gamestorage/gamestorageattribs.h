@@ -27,6 +27,7 @@ namespace Palapeli
 
 	class GameStorageItem;
 	class GameStorageTypeAttributePrivate;
+	class GameStorageMetaAttributePrivate;
 	class GameStorageDependencyAttributePrivate;
 	class GameStorageNoDependencyAttributePrivate;
 	class GameStorageAttributesPrivate;
@@ -46,6 +47,16 @@ namespace Palapeli
 			virtual bool test(const GameStorageItem& item) const;
 		private:
 			GameStorageTypeAttributePrivate* d;
+	};
+
+	class GameStorageMetaAttribute : public GameStorageAttribute
+	{
+		public:
+			GameStorageMetaAttribute(const QString& text);
+			virtual ~GameStorageMetaAttribute();
+			virtual bool test(const GameStorageItem& item) const;
+		private:
+			GameStorageMetaAttributePrivate* d;
 	};
 
 	class GameStorageDependencyAttribute : public GameStorageAttribute

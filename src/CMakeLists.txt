@@ -1,6 +1,5 @@
 # CMakeLists for /palapeli/src
 set(palapeli_SRCS
-	cleanupthread.cpp
 	loadaction.cpp
 	main.cpp
 	mainwindow.cpp
@@ -16,8 +15,12 @@ set(palapeli_SRCS
 	savegamemodel.cpp
 	savegameview.cpp
 	view.cpp
+	gamestorage/gamestorage.cpp
+	gamestorage/gamestorageattribs.cpp
+	gamestorage/gamestorageitem.cpp
 )
 kde4_add_ui_files(palapeli_SRCS dialognew.ui)
+#add_subdirectory(gamestorage)
 
 kde4_add_executable(palapeli ${palapeli_SRCS})
 target_link_libraries(palapeli ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDEGAMES_LIBRARY})

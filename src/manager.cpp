@@ -18,7 +18,9 @@
  ***************************************************************************/
 
 #include "manager.h"
-#include "cleanupthread.h"
+#include "gamestorage/gamestorageattribs.h"
+#include "gamestorage/gamestorage.h"
+#include "gamestorage/gamestorageitem.h"
 #include "mainwindow.h"
 #include "minimap.h"
 #include "part.h"
@@ -33,18 +35,12 @@
 
 #include <QDir>
 #include <QFile>
-#include <QFuture>
-#include <QFutureWatcher>
 #include <QImage>
-#include <QRegExp>
 #include <QUuid>
-#include <QtConcurrentRun>
 #include <KConfig>
 #include <KConfigGroup>
-#include <kio/netaccess.h>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KStandardDirs>
 
 namespace Palapeli
 {
@@ -56,20 +52,15 @@ namespace Palapeli
 		~ManagerPrivate();
 
 		bool loadImage(const KUrl& url);
-		bool loadImage(const QString& imageFile);
+		bool loadImage(const GameStorageItem& imageItem);
 		void startGameInternal(Pattern* pattern);
 
 		Manager *m_manager;
 
-		//saved games
-		KConfigGroup m_gamesConfig;
-		QStringList m_games;
-		//cleanup thread
-		QFuture<QStringList> m_invalidGames;
-		QFutureWatcher<QStringList> m_waitForInvalidGamesWatcher;
 		//current game
 		QImage m_image;
-		QString m_imageFile;
+		QUuid m_imageId;
+		QUuid m_gameId;
 		//game and UI objects
 		Minimap* m_minimap;
 		QList<Part*> m_parts;
@@ -87,10 +78,6 @@ namespace Palapeli
 
 Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	: m_manager(manager)
-	, m_gamesConfig(KGlobal::config(), Palapeli::Strings::GamesGroupKey)
-	, m_games(m_gamesConfig.readEntry(Palapeli::Strings::GamesListKey, QStringList()))
-	, m_invalidGames(QtConcurrent::run(Palapeli::cleanSavegameDirectory, m_games))
-	, m_waitForInvalidGamesWatcher()
 	, m_minimap(0)
 	, m_pattern(0)
 	, m_preview(new Palapeli::Preview)
@@ -98,8 +85,6 @@ Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	, m_view(0)
 	, m_window(0)
 {
-	QObject::connect(&m_waitForInvalidGamesWatcher, SIGNAL(finished()), m_manager, SLOT(removeInvalidGames()));
-	m_waitForInvalidGamesWatcher.setFuture(m_invalidGames);
 }
 
 void Palapeli::ManagerPrivate::init()
@@ -126,51 +111,27 @@ Palapeli::ManagerPrivate::~ManagerPrivate()
 
 bool Palapeli::ManagerPrivate::loadImage(const KUrl& url)
 {
-	//get extension of selected file
-	static QRegExp extensionExtractor("(\\..*)$");
-	QString extension = url.fileName();
-	if (extensionExtractor.indexIn(extension, 0) >= 0)
-		extension = extensionExtractor.cap(1);
-	//generate a hopefully unique filename
-	QUuid imageKey = QUuid::createUuid();
-	QString imageFile = imageKey.toString().remove('{').remove('}') + extension;
-	QString localFile = Palapeli::Strings::dataPath(imageFile);
-	//download file
-	if (url.isLocalFile())
-	{
-		QFile sourceFile(url.path());
-		if (!sourceFile.copy(localFile))
-		{
-			KMessageBox::error(m_window, i18n("File could not be copied to the local image storage."));
-			return false;
-		}
-	}
-	else
-	{
-		if (!KIO::NetAccess::download(url, localFile, m_window))
-		{
-			KMessageBox::error(m_window, KIO::NetAccess::lastErrorString());
-			return false;
-		}
-	}
-	if (!m_image.load(localFile))
+	Palapeli::GameStorage storage;
+	Palapeli::GameStorageItem item = storage.addItem(url, Palapeli::GameStorageItem::Image);
+	if (!item.exists())
+		return false;
+	if (!m_image.load(item.filePath()))
 	{
 		KMessageBox::error(m_window, i18n("File seems not to be an image file."));
 		return false;
 	}
-	m_imageFile = imageFile;
+	m_imageId = item.id();
 	return true;
 }
 
-bool Palapeli::ManagerPrivate::loadImage(const QString& imageFile)
+bool Palapeli::ManagerPrivate::loadImage(const Palapeli::GameStorageItem& item)
 {
-	QString localFile = Palapeli::Strings::dataPath(imageFile);
-	if (!m_image.load(localFile))
+	if (!m_image.load(item.filePath()))
 	{
 		KMessageBox::error(m_window, i18n("Image file is missing or corrupted."));
 		return false;
 	}
-	m_imageFile = imageFile;
+	m_imageId = item.id();
 	return true;
 }
 
@@ -200,8 +161,10 @@ Palapeli::Manager::Manager()
 {
 	p->init();
 	//propagate list of save games to clients
-	foreach (QString name, p->m_games)
-		emit savegameCreated(name);
+	Palapeli::GameStorage storage;
+	Palapeli::GameStorageItems saveGames = storage.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame));
+	foreach (Palapeli::GameStorageItem item, saveGames)
+		emit savegameCreated(item.metaData());
 }
 
 Palapeli::Manager::~Manager()
@@ -309,6 +272,7 @@ void Palapeli::Manager::createGame(const KUrl& url, int xPieceCount, int yPieceC
 	//load image
 	if (!p->loadImage(url))
 		return;
+	p->m_gameId = QUuid();
 	//start game
 	p->startGameInternal(new Palapeli::RectangularPattern(xPieceCount, yPieceCount, this));
 	//random piece positions
@@ -326,17 +290,21 @@ void Palapeli::Manager::createGame(const KUrl& url, int xPieceCount, int yPieceC
 
 void Palapeli::Manager::loadGame(const QString& name)
 {
-	if (!p->m_games.contains(name))
+	//find configuration for game
+	Palapeli::GameStorage storage;
+	Palapeli::GameStorageItems savegames = storage.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame) << new Palapeli::GameStorageMetaAttribute(name));
+	if (savegames.count() == 0)
 		return;
-	//check if savegame exists
-	const QString configFileName = Palapeli::Strings::configPath(name);
-	if (configFileName.isEmpty())
+	//find image for game
+	Palapeli::GameStorageItems images = storage.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageDependencyAttribute(savegames.at(0), Palapeli::GameStorageDependencyAttribute::SourceIsGiven));
+	if (images.count() == 0)
 		return;
-	//load configuration and image
+	//load configuration
+	const QString configFileName = savegames.at(0).filePath();
+	p->m_gameId = savegames.at(0).id();
 	KConfig config(configFileName);
-	KConfigGroup generalGroup(&config, Palapeli::Strings::GeneralGroupKey);
-	const QString imageFileName = generalGroup.readEntry(Palapeli::Strings::ImageFileKey, QString());
-	if (!p->loadImage(imageFileName))
+	//load image
+	if (!p->loadImage(images.at(0)))
 		return;
 	//start game
 	//TODO: Support multiple types of patterns. There is only "rectangular" at the moment, so I don't care about the name specified in "General/Pattern" at all.
@@ -371,11 +339,19 @@ bool Palapeli::Manager::saveGame(const QString& name)
 		KMessageBox::error(window(), i18n("Please choose another name. Names starting with \"__palapeli\" are reserved for internal use."));
 		return false;
 	}
+	//find or create configuration file
+	Palapeli::GameStorage gs;
+	Palapeli::GameStorageItems configs = gs.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame) << new Palapeli::GameStorageMetaAttribute(name));
+	Palapeli::GameStorageItem configItem;
+	if (configs.count() == 0)
+		configItem = gs.addItem("pgs", Palapeli::GameStorageItem::SavedGame);
+	else
+		configItem = configs.at(0);
+	p->m_gameId = configItem.id();
 	//open config file and write general information
-	KConfig config(Palapeli::Strings::configPath(name));
+	KConfig config(configItem.filePath());
 	KConfigGroup generalGroup(&config, Palapeli::Strings::GeneralGroupKey);
 	generalGroup.writeEntry(Palapeli::Strings::PatternKey, p->m_pattern->name());
-	generalGroup.writeEntry(Palapeli::Strings::ImageFileKey, p->m_imageFile);
 	//pattern arguments
 	KConfigGroup patternGroup(&config, Palapeli::Strings::PatternGroupKey);
 	p->m_pattern->writeArguments(&patternGroup);
@@ -386,41 +362,26 @@ bool Palapeli::Manager::saveGame(const QString& name)
 		Palapeli::Piece* piece = p->m_pieces.at(i);
 		pieceGroup.writeEntry(Palapeli::Strings::PositionKey.arg(i), QVariant(piece->pos()));
 	}
-	//save information and image
+	//save information
 	config.sync();
-	//insert game into savegame list
-	if (!p->m_games.contains(name))
-	{
-		p->m_games << name;
-		p->m_gamesConfig.writeEntry(Palapeli::Strings::GamesListKey, p->m_games);
-		p->m_gamesConfig.sync();
-	}
+	//create dependency from config to image
+	gs.addDependency(configItem, gs.item(p->m_imageId));
+	configItem.setMetaData(name);
 	emit savegameCreated(name);
 	return true;
 }
 
-void Palapeli::Manager::removeInvalidGames()
-{
-	p->m_invalidGames.waitForFinished(); //just to be sure that the result is really available
-	foreach (QString game, p->m_invalidGames.result())
-	{
-		p->m_games.removeAll(game);
-		emit savegameDeleted(game);
-	}
-	p->m_gamesConfig.writeEntry(Palapeli::Strings::GamesListKey, p->m_games);
-	p->m_gamesConfig.sync();
-}
-
 void Palapeli::Manager::deleteGame(const QString& name)
 {
-	if (!p->m_games.contains(name))
+	//TODO: port "delete game"
+/*	if (!p->m_games.contains(name))
 		return;
 	//remove game in savegame list
 	p->m_games.removeAll(name);
 	p->m_gamesConfig.writeEntry(Palapeli::Strings::GamesListKey, p->m_games);
 	p->m_gamesConfig.sync();
 	emit savegameDeleted(name);
-	//Annotation: The config and image file will be deleted when the cleanup thread runs the next time. This is normally when Palapeli is started the next time.
+*/	//Annotation: The config and image file will be deleted when the cleanup thread runs the next time. This is normally when Palapeli is started the next time.
 }
 
 #include "manager.moc"

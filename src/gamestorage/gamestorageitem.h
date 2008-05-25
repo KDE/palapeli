@@ -38,6 +38,7 @@ namespace Palapeli
 				GlobalConfig = 1,
 				GlobalResource = 2,
 				SavedGame = 3,
+				Image = 4,
 				UserType = 100 //applications can define their own types; the type IDs should start at GameStorageItem::UserType + 1
 			};
 
