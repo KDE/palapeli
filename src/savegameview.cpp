@@ -59,6 +59,7 @@ Palapeli::SavegameView::SavegameView(Manager* manager, QWidget* parent)
 	//list view
 	m_view->setModel(m_model);
 	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
+	m_view->setEditTriggers(QAbstractItemView::NoEditTriggers); //disable editing as the there is no rename function available in the model
 	setCentralWidget(m_view);
 	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(selectionChanged()));
 }

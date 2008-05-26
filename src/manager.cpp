@@ -391,4 +391,9 @@ void Palapeli::Manager::savegameWasCreated(const QString& name)
 	emit savegameCreated(name);
 }
 
+void Palapeli::Manager::savegameWasDeleted(const QString& name)
+{
+	emit savegameDeleted(name);
+}
+
 #include "manager.moc"
