@@ -65,6 +65,7 @@ namespace Palapeli
 
 }
 
+//strings used for/in the storage configuration file
 const QString configPath("%1/gamestoragerc");
 const QString idGroupKey("Identifiers");
 const QString extGroupKey("Extensions");
@@ -401,15 +402,26 @@ bool Palapeli::GameStorage::removeDependency(const Palapeli::GameStorageItem& so
 	return true;
 }
 
-Palapeli::GameStorageItems Palapeli::GameStorage::importItems(GameStorage* storage, const Palapeli::GameStorageItems& items)
+//Helper function for Palapeli::GameStorage::importItems
+bool GameStorage_doesItemWithThisMetaDataExist(Palapeli::GameStorage* storage, const QString& text)
+{
+	Palapeli::GameStorageItems items = storage->queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageMetaAttribute(text));
+	return items.count() != 0;
+}
+
+Palapeli::GameStorageItems Palapeli::GameStorage::importItems(GameStorage* storage, bool uniqueMetaData, const Palapeli::GameStorageItems& items)
 {
 	if (!d->m_accessible || !storage->d->m_accessible)
 		return Palapeli::GameStorageItems();
-	Palapeli::GameStorageItems importedItems;
-	QHash<int, int> importedItemNumberHash; //needed because the item numbers change during import and the dependencies between items are mapped later; structure: item number in the other storage -> item number in this storage
-	QHashIterator<QUuid, int> iterIdHash(storage->d->m_idHash);
 	bool restrictedToGivenItemList = !items.empty();
+	//list of items and map of old to new item numbers (needed for the dependency import)
+	Palapeli::GameStorageItems importedItems;
+	QHash<int, int> importedItemNumberHash; //structure: item number in the other storage -> item number in this storage
+	//static values for meta data (used for the case uniqueMetaData == true)
+	static QRegExp metaDataCleaner("^(.*)( \\[\\d+\\])?$"); //finds the name part in some meta data (i.e. an appended number in square brackets is cut off)
+	static const QString metaDataCountingSuffix(" [%1]"); //add to a name part (see above); argument should be of uint type
 	//import items
+	QHashIterator<QUuid, int> iterIdHash(storage->d->m_idHash);
 	while (iterIdHash.hasNext())
 	{
 		iterIdHash.next();
@@ -430,6 +442,23 @@ Palapeli::GameStorageItems Palapeli::GameStorage::importItems(GameStorage* stora
 			if (!found)
 				continue;
 		}
+		//find new meta data (if meta data is supposed to be unique, append or omit counter in square brackets at the end)
+		QString newMetaData = storage->d->m_metaHash.value(oldItemNumber, QString());
+		if (uniqueMetaData)
+		{
+			if (GameStorage_doesItemWithThisMetaDataExist(this, newMetaData))
+			{
+				//split off name part
+				metaDataCleaner.indexIn(newMetaData);
+				//try to find an index for which the resulting meta data is not assigned yet
+				for (int i = 1; i < 1000; ++i) //i < 1000 to avoid an infinite loop if the algo does not work correctly
+				{
+					newMetaData = metaDataCleaner.cap(1) + metaDataCountingSuffix.arg(i);
+					if (!GameStorage_doesItemWithThisMetaDataExist(this, newMetaData))
+						break;
+				}
+			}
+		}
 		//translate ID and item number
 		QUuid newId = oldId;
 		if (d->m_idHash.contains(oldId))
@@ -439,7 +468,7 @@ Palapeli::GameStorageItems Palapeli::GameStorage::importItems(GameStorage* stora
 		d->m_idHash[newId] = newItemNumber;
 		d->m_extHash[newItemNumber] = storage->d->m_extHash.value(oldItemNumber, QString());
 		d->m_typeHash[newItemNumber] = storage->d->m_typeHash.value(oldItemNumber, Palapeli::GameStorageItem::Unspecified);
-		d->m_metaHash[newItemNumber] = storage->d->m_metaHash.value(oldItemNumber, QString());
+		d->m_metaHash[newItemNumber] = newMetaData;
 		//save data to configuration of this storage
 		QString key = entryKey.arg(newItemNumber);
 		d->m_idGroup->writeEntry(key, d->m_idHash.key(newItemNumber).toString());
@@ -484,7 +513,7 @@ Palapeli::GameStorageItems Palapeli::GameStorage::importItems(GameStorage* stora
 	return importedItems;
 }
 
-Palapeli::GameStorageItems Palapeli::GameStorage::importItems(const KUrl& archive)
+Palapeli::GameStorageItems Palapeli::GameStorage::importItems(const KUrl& archive, bool uniqueMetaData)
 {
 	if (!d->m_accessible)
 		return Palapeli::GameStorageItems();
@@ -509,7 +538,7 @@ Palapeli::GameStorageItems Palapeli::GameStorage::importItems(const KUrl& archiv
 	archiveDir->copyTo(tempDir.name());
 	//import items from that storage
 	Palapeli::GameStorage* gs = new Palapeli::GameStorage(tempDir.name());
-	Palapeli::GameStorageItems items = this->importItems(gs);
+	Palapeli::GameStorageItems items = this->importItems(gs, uniqueMetaData);
 	delete gs;
 	//cleanup
 	tempDir.unlink();
@@ -517,7 +546,7 @@ Palapeli::GameStorageItems Palapeli::GameStorage::importItems(const KUrl& archiv
 	return items;
 }
 
-bool Palapeli::GameStorage::exportItems(const KUrl& archive, const Palapeli::GameStorageItems& items)
+bool Palapeli::GameStorage::exportItems(const KUrl& archive, const Palapeli::GameStorageItems& items, bool uniqueMetaData)
 {
 	//resolve dependencies until no dependencies are left
 	Palapeli::GameStorageItems allItems(items);
@@ -550,7 +579,7 @@ bool Palapeli::GameStorage::exportItems(const KUrl& archive, const Palapeli::Gam
 	//create a game storage in a temp directory
 	KTempDir tempDir;
 	Palapeli::GameStorage* gs = new Palapeli::GameStorage(tempDir.name());
-	gs->importItems(this, allItems);
+	gs->importItems(this, uniqueMetaData, allItems);
 	delete gs; //really make sure that the configuration has been written
 	//save to archive
 	KTemporaryFile tempFile;

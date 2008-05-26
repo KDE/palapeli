@@ -49,9 +49,9 @@ namespace Palapeli
 			bool hasDependency(const GameStorageItem& source, const GameStorageItem& target);
 			bool removeDependency(const GameStorageItem& source, const GameStorageItem& target);
 
-			GameStorageItems importItems(GameStorage* storage, const GameStorageItems& items = Palapeli::GameStorageItems());
-			GameStorageItems importItems(const KUrl& archive);
-			bool exportItems(const KUrl& archive, const GameStorageItems& items);
+			GameStorageItems importItems(GameStorage* storage, bool uniqueMetaData = true, const GameStorageItems& items = Palapeli::GameStorageItems());
+			GameStorageItems importItems(const KUrl& archive, bool uniqueMetaData = true);
+			bool exportItems(const KUrl& archive, const GameStorageItems& items, bool uniqueMetaData = true);
 
 		private:
 			Q_DISABLE_COPY(GameStorage)
