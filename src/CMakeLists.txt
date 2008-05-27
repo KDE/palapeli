@@ -25,5 +25,5 @@ kde4_add_ui_files(palapeli_SRCS dialognew.ui)
 kde4_add_executable(palapeli ${palapeli_SRCS})
 target_link_libraries(palapeli ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDEGAMES_LIBRARY})
 
-install(TARGETS palapeli DESTINATION ${BIN_INSTALL_DIR})
+install(TARGETS palapeli ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeliui.rc DESTINATION ${DATA_INSTALL_DIR}/palapeli)
