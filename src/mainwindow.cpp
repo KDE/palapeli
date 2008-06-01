@@ -85,11 +85,13 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	m_dockMinimap->setObjectName("DockMap");
 	m_dockMinimap->setWidget(m_manager->minimap());
 	m_dockMinimap->resize(1, 1); //lets the dock widget adapt to the content's minimum size (note that this minimum size will be overwritten by user configuration)
+        m_dockMinimap->setVisible(false); //hidden by default
 	//preview
 	addDockWidget(Qt::LeftDockWidgetArea, m_dockPreview);
 	m_dockPreview->setObjectName("DockPreview");
 	m_dockPreview->setWidget(m_manager->preview());
-	m_dockMinimap->resize(1, 1);
+	m_dockPreview->resize(1, 1);
+	m_dockPreview->setVisible(false); //hidden by default
 	//saved games view
 	addDockWidget(Qt::RightDockWidgetArea, m_dockSavegames);
 	m_dockSavegames->setObjectName("DockSavegames");
