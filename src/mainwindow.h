@@ -64,7 +64,6 @@ namespace Palapeli
 			KAction* m_showSavegamesAct;
 			KDialog* m_settingsDialog;
 			Ui::SettingsWidget* m_settingsUi;
-			KAction* m_showConfigureAct;
 	};
 
 }

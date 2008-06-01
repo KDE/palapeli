@@ -57,7 +57,6 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	, m_showSavegamesAct(new KAction(KIcon("document-save-as"), i18n("Manage saved games"), this))
 	, m_settingsDialog(new KDialog(this))
 	, m_settingsUi(new Ui::SettingsWidget)
-	, m_showConfigureAct(new KAction(KIcon("configure"), i18n("Configure Palapeli..."), this))
 {
 	//Game actions
 	KStandardGameAction::gameNew(m_newDialog, SLOT(show()), actionCollection());
@@ -77,8 +76,7 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	connect(m_dockPreview, SIGNAL(visibilityChanged(bool)), m_togglePreviewAct, SLOT(setChecked(bool)));
 	connect(m_togglePreviewAct, SIGNAL(triggered(bool)), m_dockPreview, SLOT(setVisible(bool)));
 	//Settings actions
-	actionCollection()->addAction("settings_configure", m_showConfigureAct);
-	connect(m_showConfigureAct, SIGNAL(triggered()), m_settingsDialog, SLOT(show()));
+        KStandardAction::preferences(m_settingsDialog, SLOT(show()), actionCollection());
 	//GUI settings
 	setAutoSaveSettings();
 	setCentralWidget(m_manager->view());
@@ -120,7 +118,6 @@ Palapeli::MainWindow::~MainWindow()
 	delete m_showSavegamesAct;
 	delete m_loadAct;
 	delete m_saveAct;
-	delete m_showConfigureAct;
 	delete m_dockMinimap;
 	delete m_dockPreview;
 	delete m_dockSavegames;
