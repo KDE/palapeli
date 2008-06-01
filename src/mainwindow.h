@@ -28,6 +28,7 @@ class KDialog;
 namespace Ui
 {
 	class NewPuzzleDialog;
+	class SettingsWidget;
 };
 
 namespace Palapeli
@@ -46,11 +47,13 @@ namespace Palapeli
 			~MainWindow();
 		private Q_SLOTS:
 			void setupDialogs();
+			void configurationChanged();
+			void configurationFinished();
 			void startGame();
-			void loadGame();
-			void saveGame();
 		private:
 			Manager* m_manager;
+			KDialog* m_newDialog;
+			Ui::NewPuzzleDialog* m_newUi;
 			LoadAction* m_loadAct;
 			SaveAction* m_saveAct;
 			QDockWidget* m_dockMinimap;
@@ -59,8 +62,9 @@ namespace Palapeli
 			KAction* m_togglePreviewAct;
 			QDockWidget* m_dockSavegames;
 			KAction* m_showSavegamesAct;
-			KDialog* m_newDialog;
-			Ui::NewPuzzleDialog* m_newUi;
+			KDialog* m_settingsDialog;
+			Ui::SettingsWidget* m_settingsUi;
+			KAction* m_showConfigureAct;
 	};
 
 }

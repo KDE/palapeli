@@ -24,10 +24,15 @@
 #include "preview.h"
 #include "saveaction.h"
 #include "savegameview.h"
+#include "settings.h"
 #include "ui_dialognew.h"
+#include "ui_settings.h"
 #include "view.h"
 
 #include <QDockWidget>
+#ifdef PALAPELI_WITH_OPENGL
+#	include <QGLWidget>
+#endif
 #include <QTimer>
 #include <KAction>
 #include <KActionCollection>
@@ -40,6 +45,8 @@
 Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	: KXmlGuiWindow(parent)
 	, m_manager(manager)
+	, m_newDialog(new KDialog(this))
+	, m_newUi(new Ui::NewPuzzleDialog)
 	, m_loadAct(new Palapeli::LoadAction(m_manager, this))
 	, m_saveAct(new Palapeli::SaveAction(m_manager, this))
 	, m_dockMinimap(new QDockWidget(i18n("Overview"), this))
@@ -48,8 +55,9 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	, m_togglePreviewAct(new KAction(i18n("Show preview"), this))
 	, m_dockSavegames(new QDockWidget(i18n("Saved games"), this))
 	, m_showSavegamesAct(new KAction(KIcon("document-save-as"), i18n("Manage saved games"), this))
-	, m_newDialog(new KDialog(this))
-	, m_newUi(new Ui::NewPuzzleDialog)
+	, m_settingsDialog(new KDialog(this))
+	, m_settingsUi(new Ui::SettingsWidget)
+	, m_showConfigureAct(new KAction(KIcon("configure"), i18n("Configure Palapeli..."), this))
 {
 	//Game actions
 	KStandardGameAction::gameNew(m_newDialog, SLOT(show()), actionCollection());
@@ -68,6 +76,9 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	m_togglePreviewAct->setChecked(false);
 	connect(m_dockPreview, SIGNAL(visibilityChanged(bool)), m_togglePreviewAct, SLOT(setChecked(bool)));
 	connect(m_togglePreviewAct, SIGNAL(triggered(bool)), m_dockPreview, SLOT(setVisible(bool)));
+	//Settings actions
+	actionCollection()->addAction("settings_configure", m_showConfigureAct);
+	connect(m_showConfigureAct, SIGNAL(triggered()), m_settingsDialog, SLOT(show()));
 	//GUI settings
 	setAutoSaveSettings();
 	setCentralWidget(m_manager->view());
@@ -93,6 +104,13 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	statusBar()->hide();
 	//initialise dialogs after entering the event loop (to speed up startup)
 	QTimer::singleShot(0, this, SLOT(setupDialogs()));
+	//apply saved view settings
+	Settings::self()->readConfig();
+	m_manager->view()->setRenderHint(QPainter::Antialiasing, Settings::antialiasing());
+#ifdef PALAPELI_WITH_OPENGL
+	if (Settings::hardwareAccel())
+		m_manager->view()->setViewport(new QGLWidget);
+#endif
 }
 
 Palapeli::MainWindow::~MainWindow()
@@ -102,11 +120,14 @@ Palapeli::MainWindow::~MainWindow()
 	delete m_showSavegamesAct;
 	delete m_loadAct;
 	delete m_saveAct;
+	delete m_showConfigureAct;
 	delete m_dockMinimap;
 	delete m_dockPreview;
 	delete m_dockSavegames;
 	delete m_newDialog;
+	delete m_settingsDialog;
 	delete m_newUi;
+	delete m_settingsUi;
 }
 
 void Palapeli::MainWindow::setupDialogs()
@@ -128,21 +149,58 @@ void Palapeli::MainWindow::setupDialogs()
 	m_newDialog->setButtons(KDialog::Ok | KDialog::Cancel);
 	m_newDialog->mainWidget()->layout()->setMargin(0);
 	connect(m_newDialog, SIGNAL(okClicked()), this, SLOT(startGame()));
+	//setup Settings UI
+	m_settingsUi->setupUi(m_settingsDialog->mainWidget());
+	m_settingsUi->checkAntialiasing->setCheckState(Settings::antialiasing() ? Qt::Checked : Qt::Unchecked);
+	connect(m_settingsUi->checkAntialiasing, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
+#ifdef PALAPELI_WITH_OPENGL
+	m_settingsUi->checkHardwareAccel->setCheckState(Settings::hardwareAccel() ? Qt::Checked : Qt::Unchecked);
+	connect(m_settingsUi->checkHardwareAccel, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
+#else
+	m_settingsUi->checkHardwareAccel->setVisible(false);
+#endif
+	//setup Settings dialog
+	m_settingsDialog->setWindowIcon(KIcon("configure"));
+	m_settingsDialog->setCaption(i18n("Configure Palapeli"));
+	m_settingsDialog->setButtons(KDialog::Ok | KDialog::Apply | KDialog::Cancel);
+	m_settingsDialog->mainWidget()->layout()->setMargin(0);
+	m_settingsDialog->enableButtonApply(false); //not until something has changed
+	connect(m_settingsDialog, SIGNAL(okClicked()), this, SLOT(configurationFinished()));
+	connect(m_settingsDialog, SIGNAL(applyClicked()), this, SLOT(configurationFinished()));
+}
+
+void Palapeli::MainWindow::configurationChanged() //because of user-invoked changes in the dialog
+{
+	m_settingsDialog->enableButtonApply(true);
+}
+
+void Palapeli::MainWindow::configurationFinished()
+{
+	//apply settings if they changed
+	bool newAntialiasing = m_settingsUi->checkAntialiasing->checkState() == Qt::Checked;
+	if (Settings::antialiasing() != newAntialiasing)
+	{
+		Settings::setAntialiasing(newAntialiasing);
+		m_manager->view()->setRenderHint(QPainter::Antialiasing, newAntialiasing);
+	}
+#ifdef PALAPELI_WITH_OPENGL
+	bool newHardwareAccel = m_settingsUi->checkHardwareAccel->checkState() == Qt::Checked;
+	if (Settings::hardwareAccel() != newHardwareAccel)
+	{
+		Settings::setHardwareAccel(newHardwareAccel);
+		m_manager->view()->setViewport(newHardwareAccel ? new QGLWidget : new QWidget);
+	}
+#else
+	Settings::setHardwareAccel(false);
+#endif
+	//save settings and mark them as saved in the dialog
+	Settings::self()->writeConfig();
+	m_settingsDialog->enableButtonApply(false);
 }
 
 void Palapeli::MainWindow::startGame()
 {
 	m_manager->createGame(m_newUi->urlImage->url(), m_newUi->spinHorizontalPieces->value(), m_newUi->spinVerticalPieces->value());
-}
-
-void Palapeli::MainWindow::loadGame()
-{
-	m_manager->loadGame("My Savegame");
-}
-
-void Palapeli::MainWindow::saveGame()
-{
-	m_manager->saveGame("My Savegame");
 }
 
 #include "mainwindow.moc"

@@ -1,4 +1,14 @@
 # CMakeLists for /palapeli/src
+set(palapeli_LINK_LIBS ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDEGAMES_LIBRARY})
+if(OPENGL_FOUND)
+	#set(COMPILE_DEFINITIONS PALAPELI_WITH_OPENGL) -- what's wrong about this?
+	add_definitions(-DPALAPELI_WITH_OPENGL)
+	if(WIN32)
+		set(opengl_libs opengl32.lib glu32.lib)
+	endif(WIN32)
+	set(palapeli_LINK_LIBS ${palapeli_LINK_LIBS} ${QT_QTOPENGL_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY})
+endif(OPENGL_FOUND)
+
 set(palapeli_SRCS
 	loadaction.cpp
 	main.cpp
@@ -19,11 +29,11 @@ set(palapeli_SRCS
 	gamestorage/gamestorageattribs.cpp
 	gamestorage/gamestorageitem.cpp
 )
-kde4_add_ui_files(palapeli_SRCS dialognew.ui)
-#add_subdirectory(gamestorage)
+kde4_add_ui_files(palapeli_SRCS dialognew.ui settings.ui)
+kde4_add_kcfg_files(palapeli_SRCS settings.kcfgc)
 
 kde4_add_executable(palapeli ${palapeli_SRCS})
-target_link_libraries(palapeli ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDEGAMES_LIBRARY})
+target_link_libraries(palapeli ${palapeli_LINK_LIBS})
 
-install(TARGETS palapeli ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS palapeli DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeliui.rc DESTINATION ${DATA_INSTALL_DIR}/palapeli)

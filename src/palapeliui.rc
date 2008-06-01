@@ -16,6 +16,9 @@
 			<Action name="view_toggle_minimap"/>
 			<Action name="view_toggle_preview"/>
 		</Menu>
+		<Menu name="settings">
+			<Action name="settings_configure"/>
+		</Menu>
 	</MenuBar>
 	<ToolBar name="mainToolBar">
 		<text>Main Toolbar</text>
@@ -23,6 +26,5 @@
 		<Action name="game_load"/>
 		<Action name="game_save"/>
 	</ToolBar>
-	<StatusBar/>
 </gui>
 

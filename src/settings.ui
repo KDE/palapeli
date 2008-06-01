@@ -1,0 +1,110 @@
+<ui version="4.0" >
+ <class>SettingsWidget</class>
+ <widget class="QWidget" name="SettingsWidget" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout" >
+   <item>
+    <widget class="QGroupBox" name="graphicsBox" >
+     <property name="title" >
+      <string>Appearance and performance</string>
+     </property>
+     <layout class="QVBoxLayout" name="graphicsLayout" >
+      <item>
+       <widget class="QCheckBox" name="checkAntialiasing" >
+        <property name="text" >
+         <string>Use antialiasing</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkHardwareAccel" >
+        <property name="text" >
+         <string>Use hardware acceleration</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="precisionBox" >
+     <property name="title" >
+      <string>Snapping precision</string>
+     </property>
+     <layout class="QGridLayout" name="precisionLayout" >
+      <item row="0" column="0" colspan="2" >
+       <widget class="QSlider" name="precisionSlider" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+        <property name="minimum" >
+         <number>5</number>
+        </property>
+        <property name="maximum" >
+         <number>30</number>
+        </property>
+        <property name="pageStep" >
+         <number>5</number>
+        </property>
+        <property name="value" >
+         <number>10</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickPosition" >
+         <enum>QSlider::TicksBelow</enum>
+        </property>
+        <property name="tickInterval" >
+         <number>5</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="labelLowPrecision" >
+        <property name="text" >
+         <string>Quite precise</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QLabel" name="labelHighPrecision" >
+        <property name="text" >
+         <string>Very unprecise</string>
+        </property>
+        <property name="alignment" >
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer" >
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
