@@ -37,3 +37,4 @@ target_link_libraries(palapeli ${palapeli_LINK_LIBS})
 
 install(TARGETS palapeli DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeliui.rc DESTINATION ${DATA_INSTALL_DIR}/palapeli)
+install(FILES palapeli.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
