@@ -30,7 +30,6 @@
 #include "piecerelation.h"
 #include "preview.h"
 #include "savegameview.h"
-#include "strings.h"
 #include "view.h"
 
 #include <QDir>
@@ -71,7 +70,17 @@ namespace Palapeli
 		SavegameView* m_savegameView;
 		View* m_view;
 		MainWindow* m_window;
+	};
 
+	namespace Strings
+	{
+		//strings in .psg files
+		const QString GeneralGroupKey("Palapeli");
+		const QString PatternKey("Pattern");
+		const QString ImageFileKey("ImageSource");
+		const QString PatternGroupKey("PatternArgs");
+		const QString PiecesGroupKey("Pieces");
+		const QString PositionKey("Position-%1");
 	};
 
 }
