@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=palapeli -caption "%c"
+Name=Palapeli
+GenericName=Jigsaw puzzle game
+Terminal=false
+Icon=preferences-plugin
+X-KDE-StartupNotify=true
+Categories=Qt;KDE;Game;PuzzleGame;
