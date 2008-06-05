@@ -11,7 +11,6 @@ endif(OPENGL_FOUND)
 
 set(palapeli_SRCS
 	listmenu.cpp
-	loadaction.cpp
 	main.cpp
 	mainwindow.cpp
 	manager.cpp
