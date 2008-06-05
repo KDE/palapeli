@@ -17,33 +17,40 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_LOADACTION_H
-#define PALAPELI_LOADACTION_H
+#ifndef PALAPELI_LISTMENU_H
+#define PALAPELI_LISTMENU_H
 
-#include <QHash>
-class QSignalMapper;
+class QAbstractListModel;
+#include <QObject>
+class QString;
 #include <KActionMenu>
+class KIcon;
 
 namespace Palapeli
 {
 
-	class Manager;
+	class ListMenuPrivate;
 
-	class LoadAction : public KActionMenu
+	//TODO: Enable only if actions are in the menu, otherwise disable.
+	class ListMenu : public KActionMenu
 	{
 		Q_OBJECT
 		public:
-			LoadAction(Manager *manager, QObject *parent = 0);
-			~LoadAction();
-		public Q_SLOTS:
-			void savegameCreated(const QString& name);
-			void savegameDeleted(const QString& name);
+			explicit ListMenu(const KIcon& icon, const QString& text, QObject* parent);
+			explicit ListMenu(const QString& text, QObject* parent);
+			explicit ListMenu(QObject* parent);
+			~ListMenu();
+
+			bool isDisabledWhenEmpty() const;
+			QAbstractListModel* model() const;
+			void setDisabledWhenEmpty(bool disabledWhenEmpty);
+			void setModel(QAbstractListModel* model);
+		Q_SIGNALS:
+			void clicked(const QString& displayRoleData);
 		private:
-			Manager *m_manager;
-			QHash<QString, KAction *> m_actions;
-			QSignalMapper *m_mapper;
+			ListMenuPrivate* p;
 	};
 
 }
 
-#endif // PALAPELI_LOADACTION_H
+#endif // PALAPELI_LISTMENU_H

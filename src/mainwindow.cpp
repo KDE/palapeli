@@ -18,11 +18,12 @@
  ***************************************************************************/
 
 #include "mainwindow.h"
-#include "loadaction.h"
+#include "listmenu.h"
 #include "manager.h"
 #include "minimap.h"
 #include "preview.h"
 #include "saveaction.h"
+#include "savegamemodel.h"
 #include "savegameview.h"
 #include "settings.h"
 #include "ui_dialognew.h"
@@ -47,7 +48,7 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	, m_manager(manager)
 	, m_newDialog(new KDialog(this))
 	, m_newUi(new Ui::NewPuzzleDialog)
-	, m_loadAct(new Palapeli::LoadAction(m_manager, this))
+	, m_loadAct(new Palapeli::ListMenu(KIcon("document-open"), i18n("Load"), this))
 	, m_saveAct(new Palapeli::SaveAction(m_manager, this))
 	, m_dockMinimap(new QDockWidget(i18n("Overview"), this))
 	, m_toggleMinimapAct(new KAction(i18n("Show minimap"), this))
@@ -61,6 +62,11 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	//Game actions
 	KStandardGameAction::gameNew(m_newDialog, SLOT(show()), actionCollection());
 	actionCollection()->addAction("game_load", m_loadAct);
+	m_loadAct->setDelayed(false);
+	m_loadAct->setStickyMenu(true);
+	m_loadAct->setDisabledWhenEmpty(true);
+	m_loadAct->setModel(m_manager->savegameModel());
+	connect(m_loadAct, SIGNAL(clicked(const QString&)), m_manager, SLOT(loadGame(const QString&)));
 	actionCollection()->addAction("game_save", m_saveAct);
 	actionCollection()->addAction("palapeli_manage_savegames", m_showSavegamesAct);
 	connect(m_showSavegamesAct, SIGNAL(triggered()), m_dockSavegames, SLOT(show()));

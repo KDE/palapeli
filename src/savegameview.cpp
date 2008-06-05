@@ -35,7 +35,6 @@
 Palapeli::SavegameView::SavegameView(Manager* manager, QWidget* parent)
 	: KMainWindow(parent)
 	, m_manager(manager)
-	, m_model(new Palapeli::SavegameModel(manager))
 	, m_view(new QListView)
 	, m_loadAct(new KAction(KIcon("document-open"), i18nc("the verb, as in 'Load game'", "Load"), this))
 	, m_deleteAct(new KAction(KIcon("edit-delete"), i18n("Delete"), this))
@@ -57,7 +56,7 @@ Palapeli::SavegameView::SavegameView(Manager* manager, QWidget* parent)
 	m_deleteAct->setEnabled(false); //like for loadAct
 	connect(m_deleteAct, SIGNAL(triggered()), this, SLOT(deleteSelected()));
 	//list view
-	m_view->setModel(m_model);
+	m_view->setModel(m_manager->savegameModel());
 	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	m_view->setEditTriggers(QAbstractItemView::NoEditTriggers); //disable editing as the there is no rename function available in the model
 	setCentralWidget(m_view);
@@ -71,7 +70,6 @@ Palapeli::SavegameView::~SavegameView()
 	delete m_importAct;
 	delete m_exportAct;
 	delete m_view;
-	delete m_model;
 }
 
 void Palapeli::SavegameView::deleteSelected()
@@ -79,7 +77,7 @@ void Palapeli::SavegameView::deleteSelected()
 	//gather list of games to delete
 	QList<QString> names;
 	foreach (const QModelIndex& item, m_view->selectionModel()->selectedIndexes())
-		names << m_model->data(item, Qt::DisplayRole).toString();
+		names << m_manager->savegameModel()->data(item, Qt::DisplayRole).toString();
 	//delete games
 	foreach (const QString& name, names)
 		m_manager->deleteGame(name);
@@ -91,7 +89,7 @@ void Palapeli::SavegameView::loadSelected()
 	QModelIndex selected = m_view->selectionModel()->currentIndex();
 	if (!selected.isValid())
 		return;
-	m_manager->loadGame(m_model->data(selected, Qt::DisplayRole).toString());
+	m_manager->loadGame(m_manager->savegameModel()->data(selected, Qt::DisplayRole).toString());
 }
 
 void Palapeli::SavegameView::importSelected()
@@ -115,7 +113,7 @@ void Palapeli::SavegameView::exportSelected()
 	Palapeli::GameStorageItems exportableItems;
 	foreach (const QModelIndex& index, m_view->selectionModel()->selectedIndexes())
 	{
-		QString gameName = m_model->data(index, Qt::DisplayRole).toString();
+		QString gameName = m_manager->savegameModel()->data(index, Qt::DisplayRole).toString();
 		exportableItems += gs.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageMetaAttribute(gameName) << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame));
 	}
 	if (exportableItems.count() == 0)

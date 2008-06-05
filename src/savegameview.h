@@ -28,7 +28,6 @@ namespace Palapeli
 {
 
 	class Manager;
-	class SavegameModel;
 
 	class SavegameView : public KMainWindow
 	{
@@ -45,7 +44,6 @@ namespace Palapeli
 			void selectionChanged();
 		private:
 			Manager* m_manager;
-			SavegameModel* m_model;
 			QListView* m_view;
 			KAction* m_loadAct;
 			KAction* m_deleteAct;

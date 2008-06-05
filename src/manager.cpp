@@ -29,6 +29,7 @@
 #include "piece.h"
 #include "piecerelation.h"
 #include "preview.h"
+#include "savegamemodel.h"
 #include "savegameview.h"
 #include "view.h"
 
@@ -67,6 +68,7 @@ namespace Palapeli
 		QList<Piece*> m_pieces;
 		Preview* m_preview;
 		QList<PieceRelation> m_relations;
+		SavegameModel* m_savegameModel;
 		SavegameView* m_savegameView;
 		View* m_view;
 		MainWindow* m_window;
@@ -90,6 +92,7 @@ Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	, m_minimap(0)
 	, m_pattern(0)
 	, m_preview(new Palapeli::Preview)
+	, m_savegameModel(0)
 	, m_savegameView(0)
 	, m_view(0)
 	, m_window(0)
@@ -105,6 +108,7 @@ void Palapeli::ManagerPrivate::init()
 {
 	//The Manager needs a valid pointer to this ManagerPrivate instance before the following objects can be initialized.
 	m_minimap = new Palapeli::Minimap(m_manager);
+	m_savegameModel = new Palapeli::SavegameModel(m_manager);
 	m_savegameView = new Palapeli::SavegameView(m_manager);
 	m_view = new Palapeli::View(m_manager);
 	m_window = new Palapeli::MainWindow(m_manager);
@@ -215,6 +219,11 @@ Palapeli::Preview* Palapeli::Manager::preview() const
 QListIterator<Palapeli::PieceRelation> Palapeli::Manager::relations() const
 {
 	return QListIterator<Palapeli::PieceRelation>(p->m_relations);
+}
+
+Palapeli::SavegameModel* Palapeli::Manager::savegameModel() const
+{
+	return p->m_savegameModel;
 }
 
 Palapeli::SavegameView* Palapeli::Manager::savegameView() const

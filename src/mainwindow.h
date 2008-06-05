@@ -34,7 +34,7 @@ namespace Ui
 namespace Palapeli
 {
 
-	class LoadAction;
+	class ListMenu;
 	class Manager;
 	class SaveAction;
 	class SavegameView;
@@ -54,7 +54,7 @@ namespace Palapeli
 			Manager* m_manager;
 			KDialog* m_newDialog;
 			Ui::NewPuzzleDialog* m_newUi;
-			LoadAction* m_loadAct;
+			ListMenu* m_loadAct;
 			SaveAction* m_saveAct;
 			QDockWidget* m_dockMinimap;
 			KAction* m_toggleMinimapAct;
