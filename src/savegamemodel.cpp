@@ -18,36 +18,39 @@
  ***************************************************************************/
 
 #include "savegamemodel.h"
-#include "manager.h"
 
-Palapeli::SavegameModel::SavegameModel(Manager* manager)
-	: QStringListModel()
-	, m_manager(manager)
+Palapeli::SavegameModel::SavegameModel(const QStringList& list)
+	: QStringListModel(list)
 {
-	connect(m_manager, SIGNAL(savegameCreated(const QString&)), this, SLOT(savegameCreated(const QString&)));
-	connect(m_manager, SIGNAL(savegameDeleted(const QString&)), this, SLOT(savegameDeleted(const QString&)));
 }
 
-Palapeli::SavegameModel::~SavegameModel()
+bool Palapeli::SavegameModel::lessThan(const QString& s1, const QString& s2)
 {
+	return QString::localeAwareCompare(s1, s2) < 0;
 }
 
 void Palapeli::SavegameModel::savegameCreated(const QString& name)
 {
 	const QStringList games = stringList();
-	if (!games.contains(name))
+	if (games.contains(name))
+		return;
+	//find right position to insert the new item (lexical order should be preserved)
+	int position = 0;
+	for (; position < games.count(); ++position)
 	{
-		//insert new game at the end of the list
-		insertRows(games.count(), 1);
-		setData(createIndex(games.count(), 0), name, Qt::DisplayRole);
+		if (Palapeli::SavegameModel::lessThan(name, games.at(position)))
+			break;
 	}
+	//insert new item
+	insertRows(position, 1);
+	setData(createIndex(position, 0), name, Qt::DisplayRole);
 }
 
 void Palapeli::SavegameModel::savegameDeleted(const QString& name)
 {
-	const QStringList games = stringList();
-	if (games.contains(name))
-		removeRows(games.indexOf(name), 1);
+	const int position = stringList().indexOf(name);
+	if (position > -1)
+		removeRows(position, 1);
 }
 
 #include "savegamemodel.moc"

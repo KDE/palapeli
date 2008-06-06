@@ -17,29 +17,25 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_SAVEGAMEVIEW_PRIVATE_H
-#define PALAPELI_SAVEGAMEVIEW_PRIVATE_H
+#ifndef PALAPELI_SAVEGAMEMODEL_H
+#define PALAPELI_SAVEGAMEMODEL_H
 
 #include <QStringListModel>
 
 namespace Palapeli
 {
 
-	class Manager;
-
 	class SavegameModel : public QStringListModel
 	{
 		Q_OBJECT
 		public:
-			SavegameModel(Manager* manager);
-			~SavegameModel();
+			SavegameModel(const QStringList& list = QStringList());
+			static bool lessThan(const QString& s1, const QString& s2); //to be used for sorting in a manner which is compatible to the way it's done by SavegameModel
 		public Q_SLOTS:
 			void savegameCreated(const QString& name);
 			void savegameDeleted(const QString& name);
-		private:
-			Manager* m_manager;
 	};
 	
 }
 
-#endif // PALAPELI_SAVEGAMEVIEW_H
+#endif // PALAPELI_SAVEGAMEMODEL_H

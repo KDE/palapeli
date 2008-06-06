@@ -33,10 +33,6 @@
 #include "savegameview.h"
 #include "view.h"
 
-#include <QDir>
-#include <QFile>
-#include <QImage>
-#include <QUuid>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -102,13 +98,22 @@ Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	Palapeli::GameStorageItems items = gs.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageNoDependencyAttribute);
 	foreach (const Palapeli::GameStorageItem& item, items)
 		gs.removeItem(item);
+	//get list of savegames
+	const Palapeli::GameStorageItems saveGames = gs.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame));
+	QStringList gameNames;
+	foreach (const Palapeli::GameStorageItem& item, saveGames)
+		gameNames << item.metaData();
+	qSort(gameNames.begin(), gameNames.end(), Palapeli::SavegameModel::lessThan);
+	//initialize savegame model
+	m_savegameModel = new Palapeli::SavegameModel(gameNames);
+	QObject::connect(m_manager, SIGNAL(savegameCreated(const QString&)), m_savegameModel, SLOT(savegameCreated(const QString&)));
+	QObject::connect(m_manager, SIGNAL(savegameDeleted(const QString&)), m_savegameModel, SLOT(savegameDeleted(const QString&)));
 }
 
 void Palapeli::ManagerPrivate::init()
 {
 	//The Manager needs a valid pointer to this ManagerPrivate instance before the following objects can be initialized.
 	m_minimap = new Palapeli::Minimap(m_manager);
-	m_savegameModel = new Palapeli::SavegameModel(m_manager);
 	m_savegameView = new Palapeli::SavegameView(m_manager);
 	m_view = new Palapeli::View(m_manager);
 	m_window = new Palapeli::MainWindow(m_manager);
@@ -123,6 +128,7 @@ Palapeli::ManagerPrivate::~ManagerPrivate()
 		delete part; //the pieces are deleted here
 	delete m_pattern;
 	delete m_preview;
+	delete m_savegameModel;
 	delete m_savegameView;
 	delete m_window; //the view is deleted here
 }
@@ -178,11 +184,6 @@ Palapeli::Manager::Manager()
 	, p(new Palapeli::ManagerPrivate(this))
 {
 	p->init();
-	//propagate list of save games to clients
-	Palapeli::GameStorage storage;
-	Palapeli::GameStorageItems saveGames = storage.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame));
-	foreach (const Palapeli::GameStorageItem& item, saveGames)
-		emit savegameCreated(item.metaData());
 }
 
 Palapeli::Manager::~Manager()
