@@ -3,6 +3,7 @@ Type=Application
 Exec=palapeli -caption "%c"
 Name=Palapeli
 GenericName=Jigsaw puzzle game
+GenericName[et]=Pusle
 Terminal=false
 Icon=preferences-plugin
 X-KDE-StartupNotify=true
