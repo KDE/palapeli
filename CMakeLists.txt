@@ -1,5 +1,5 @@
 # CMakeLists for /palapeli
 project(palapeli)
 
-add_subdirectory(pics)
-add_subdirectory(src)
+add_subdirectory(game)
+#add_subdirectory(editor)
