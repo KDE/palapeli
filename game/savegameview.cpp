@@ -94,11 +94,12 @@ void Palapeli::SavegameView::loadSelected()
 
 void Palapeli::SavegameView::importSelected()
 {
-	QString target = KFileDialog::getOpenFileName(KUrl("kfiledialog:///palapeli"), "*.psga|" + i18nc("Used as filter description in a file dialog.", "Palapeli Saved Game Archive (*.psga)"), m_manager->window(), i18nc("Used as caption for file dialog.", "Select archive to import games from - Palapeli"));
+	//ask the user for a target
+	KUrl target = KFileDialog::getOpenUrl(KUrl("kfiledialog:///palapeli"), "*.psga|" + i18nc("Used as filter description in a file dialog.", "Palapeli Saved Game Archive (*.psga)"), m_manager->window(), i18nc("Used as caption for file dialog.", "Select archive to import games from - Palapeli"));
 	if (target.isEmpty()) //process aborted by user
 		return;
 	Palapeli::GameStorage gs;
-	Palapeli::GameStorageItems importedItems = gs.importItems(KUrl(target));
+	Palapeli::GameStorageItems importedItems = gs.importItems(target);
 	foreach (const Palapeli::GameStorageItem& item, importedItems)
 	{
 		if (item.type() == Palapeli::GameStorageItem::SavedGame)
@@ -119,10 +120,10 @@ void Palapeli::SavegameView::exportSelected()
 	if (exportableItems.count() == 0)
 		return;
 	//ask the user for a file name
-	QString target = KFileDialog::getSaveFileName(KUrl("kfiledialog:///palapeli"), "*.psga|" + i18nc("Used as filter description in a file dialog.", "Palapeli Saved Game Archive (*.psga)"), m_manager->window(), i18nc("Used as caption for file dialog.", "Select file to export selected games to - Palapeli"));
+	KUrl target = KFileDialog::getSaveUrl(KUrl("kfiledialog:///palapeli"), "*.psga|" + i18nc("Used as filter description in a file dialog.", "Palapeli Saved Game Archive (*.psga)"), m_manager->window(), i18nc("Used as caption for file dialog.", "Select file to export selected games to - Palapeli"));
 	if (target.isEmpty()) //process aborted by user
 		return;
-	gs.exportItems(KUrl(target), exportableItems);
+	gs.exportItems(target, exportableItems);
 }
 
 void Palapeli::SavegameView::selectionChanged()

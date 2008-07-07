@@ -1,4 +1,4 @@
-/***************************************************************************
+ß/***************************************************************************
  *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
@@ -519,7 +519,7 @@ Palapeli::GameStorageItems Palapeli::GameStorage::importItems(const KUrl& archiv
 		return Palapeli::GameStorageItems();
 	//download archive
 	QString localFile;
-	if (archive.isLocalFile())
+	if (!archive.isLocalFile())
 	{
 		if (!KIO::NetAccess::download(archive, localFile, 0))
 		{
