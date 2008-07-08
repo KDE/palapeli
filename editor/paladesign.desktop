@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=paladesign -caption "%c"
+Name=Paladesign
+GenericName=Editor for Palapeli jigsaw puzzle patterns
+Terminal=false
+Icon=preferences-plugin
+X-KDE-StartupNotify=true
+Categories=Qt;KDE;Game;PuzzleGame;

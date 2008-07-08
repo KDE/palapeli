@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<gui name="paladesign" version="1">
+	<MenuBar>
+		<Menu name="docks">
+			<text>Docks</text>
+			<Action name="dock_objects"/>
+			<Action name="dock_properties"/>
+		</Menu>
+	</MenuBar>
+	<ToolBar name="editorToolbar">
+		<text>Editor tools</text>
+		<Action name="editor_selectshape"/>
+		<Action name="editor_addrelation"/>
+		<Action name="editor_removerelation"/>
+	</ToolBar>
+</gui>

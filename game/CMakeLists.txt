@@ -1,4 +1,5 @@
-# CMakeLists for /palapeli/src
+project(palapeli)
+
 set(palapeli_LINK_LIBS ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDEGAMES_LIBRARY})
 if(OPENGL_FOUND)
 	#set(COMPILE_DEFINITIONS PALAPELI_WITH_OPENGL) -- what's wrong about this?
