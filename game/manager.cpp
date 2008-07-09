@@ -18,9 +18,9 @@
  ***************************************************************************/
 
 #include "manager.h"
-#include "gamestorage/gamestorageattribs.h"
-#include "gamestorage/gamestorage.h"
-#include "gamestorage/gamestorageitem.h"
+#include "../storage/gamestorageattribs.h"
+#include "../storage/gamestorage.h"
+#include "../storage/gamestorageitem.h"
 #include "mainwindow.h"
 #include "minimap.h"
 #include "part.h"
