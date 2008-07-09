@@ -26,9 +26,9 @@ set(palapeli_SRCS
 	savegamemodel.cpp
 	savegameview.cpp
 	view.cpp
-	gamestorage/gamestorage.cpp
-	gamestorage/gamestorageattribs.cpp
-	gamestorage/gamestorageitem.cpp
+	../storage/gamestorage.cpp
+	../storage/gamestorageattribs.cpp
+	../storage/gamestorageitem.cpp
 )
 kde4_add_ui_files(palapeli_SRCS dialognew.ui settings.ui)
 kde4_add_kcfg_files(palapeli_SRCS settings.kcfgc)
