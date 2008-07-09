@@ -50,9 +50,9 @@ Paladesign::MainWindow::MainWindow(Paladesign::Manager* manager)
 {
 	//file actions
 	KStandardAction::openNew(this, SLOT(newPattern()), actionCollection());
-	KStandardAction::open(this, SLOT(loadPattern()), actionCollection())->setEnabled(false);
-	KStandardAction::save(this, SLOT(savePattern()), actionCollection())->setEnabled(false);
-	KStandardAction::saveAs(this, SLOT(savePatternAs()), actionCollection())->setEnabled(false);
+	KStandardAction::open(this, SLOT(loadPattern()), actionCollection());
+	KStandardAction::save(this, SLOT(savePattern()), actionCollection());
+	KStandardAction::saveAs(this, SLOT(savePatternAs()), actionCollection());
 	//docker actions
 	actionCollection()->addAction("dock_objects", m_toggleObjectDockAct);
 	m_toggleObjectDockAct->setCheckable(true);
@@ -72,7 +72,8 @@ Paladesign::MainWindow::MainWindow(Paladesign::Manager* manager)
 	connect(m_manager->objectView(), SIGNAL(selected(QObject*)), m_removeRelationAct, SLOT(selectedRelationChanged()), Qt::QueuedConnection); //queued connection because the RemoveRelationAction requires that the selection changes have already been applied to the relations
 	//early GUI settings
 	setAutoSaveSettings();
-	setCentralWidget(m_manager->view());
+	setCentralWidget(m_manager->tabWidget());
+	m_manager->tabWidget()->addTab(m_manager->view(), KIcon(""), i18n("Piece arrangement"));
 	//dock widgets
 	addDockWidget(Qt::RightDockWidgetArea, m_objectDock);
 	m_objectDock->setObjectName("ObjectDock");
@@ -102,15 +103,11 @@ Paladesign::MainWindow::~MainWindow()
 void Paladesign::MainWindow::selectShape()
 {
 	//ask user for name of SVG file
-	KUrl target = KFileDialog::getOpenUrl(KUrl("kfiledialog:///paladesign"), "*.svg *.svgz|" + i18nc("Used as filter description in a file dialog.", "Scalabale vector graphics(*.svg, *.svgz)"), m_manager->window(), i18nc("Used as caption for file dialog.", "Select shape - Paladesign"));
+	KUrl target = KFileDialog::getOpenUrl(KUrl("kfiledialog:///paladesign-shape"), "*.svg *.svgz|" + i18nc("Used as filter description in a file dialog.", "Scalable vector graphics (*.svg, *.svgz)"), m_manager->window(), i18nc("Used as caption for file dialog.", "Select shape - Paladesign"));
 	if (target.isEmpty()) //process aborted by user
 		return;
-	//download file if necessary (the manager takes care of any temporary files)
-	QString localFile = m_manager->fetchFile(target);
-	if (localFile.isEmpty())
-		return;
 	//load shape
-	m_manager->shapes()->setShape(localFile);
+	m_manager->shapes()->setShape(target);
 	m_manager->view()->update();
 }
 
@@ -127,14 +124,38 @@ void Paladesign::MainWindow::newPattern()
 
 void Paladesign::MainWindow::loadPattern()
 {
+	if (m_manager->isPatternChanged())
+	{
+		int returnValue = KMessageBox::warningContinueCancel(m_manager->window(), i18n("You have changed the current pattern without saving. Do you want to discard these changes?"));
+		if (returnValue != KMessageBox::Continue)
+			return;
+	}
+	//ask user for name of SVG file
+	KUrl target = KFileDialog::getOpenUrl(KUrl("kfiledialog:///paladesign-pattern"), "*.pprp|" + i18nc("Used as filter description in a file dialog.", "Palapeli Regular Patterns (*.pprp)"), m_manager->window(), i18nc("Used as caption for file dialog.", "Load pattern - Paladesign"));
+	if (target.isEmpty()) //process aborted by user
+		return;
+	//load pattern; remember target for future calls to Paladesign::MainWindow::savePattern
+	m_manager->loadPattern(target);
+	m_saveTarget = target;
 }
 
 void Paladesign::MainWindow::savePattern()
 {
+	if (m_saveTarget.isEmpty())
+		savePatternAs();
+	else
+		m_manager->savePattern(m_saveTarget);
 }
 
 void Paladesign::MainWindow::savePatternAs()
 {
+	//ask user for name of SVG file
+	KUrl target = KFileDialog::getSaveUrl(KUrl("kfiledialog:///paladesign-pattern"),"*.pprp|" + i18nc("Used as filter description in a file dialog.", "Palapeli Regular Patterns (*.pprp)"), m_manager->window(), i18nc("Used as caption for file dialog.", "Save pattern - Paladesign"));
+	if (target.isEmpty()) //process aborted by user
+		return;
+	//save pattern; remember target for future calls to Paladesign::MainWindow::savePattern
+	m_saveTarget = target;
+	m_manager->savePattern(m_saveTarget);
 }
 
 #include "mainwindow.moc"

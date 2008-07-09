@@ -42,9 +42,10 @@ void Paladesign::Point::paint(QPainter* painter, KSvgRenderer* shape, const QRec
 	painter->drawLine(center, top);
 	painter->drawEllipse(center, pointRadius, pointRadius);
 	//draw shape
+	static const QString elementId = QLatin1String("paladesign-shape");
 	painter->setOpacity(0.3);
 	painter->setBackgroundMode(Qt::TransparentMode);
-	shape->render(painter, shapeRect);
+	shape->render(painter, elementId, shapeRect);
 	painter->restore();
 }
 
@@ -75,5 +76,3 @@ void Paladesign::Points::paint(QPainter* painter, const QRectF& clipRect)
 	}
 	painter->restore();
 }
-
-#include "points.moc"

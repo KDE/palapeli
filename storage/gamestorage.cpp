@@ -301,6 +301,17 @@ Palapeli::GameStorageItems Palapeli::GameStorage::queryItems(const Palapeli::Gam
 	return items;
 }
 
+Palapeli::GameStorageItems Palapeli::GameStorage::filterItems(const Palapeli::GameStorageItems& items, const Palapeli::GameStorageAttributes& attributes)
+{
+	Palapeli::GameStorageItems filteredItems;
+	foreach (const Palapeli::GameStorageItem& item, items)
+	{
+		if (item.container() == this && attributes.test(item))
+			filteredItems << item;
+	}
+	return filteredItems;
+}
+
 bool Palapeli::GameStorage::removeItem(const Palapeli::GameStorageItem& item)
 {
 	QUuid id = item.id();

@@ -43,6 +43,7 @@ namespace Palapeli
 			GameStorageItem addItem(const KUrl& source, int type);
 			GameStorageItem item(const QUuid& id);
 			GameStorageItems queryItems(const GameStorageAttributes& attributes);
+			GameStorageItems filterItems(const GameStorageItems& items, const GameStorageAttributes& attributes);
 			bool removeItem(const GameStorageItem& item);
 
 			bool addDependency(const GameStorageItem& source, const GameStorageItem& target);

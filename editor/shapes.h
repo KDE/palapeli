@@ -19,10 +19,14 @@
 #ifndef PALADESIGN_SHAPES_H
 #define PALADESIGN_SHAPES_H
 
+#include "../storage/gamestorageitem.h"
+
 #include <QObject>
 #include <QRectF>
 class QString;
+#include <QUuid>
 class KSvgRenderer;
+class KUrl;
 
 namespace Paladesign
 {
@@ -36,13 +40,20 @@ namespace Paladesign
 
 			qreal heightForWidth(qreal width) const;
 			KSvgRenderer* shape() const;
+			QUuid shapeId() const;
 
-			void setShape(const QString& fileName);
-			void setShape(KSvgRenderer* shape);
+			void setShape(const QUuid& id);
+			void setShape(const KUrl& url);
+
+			enum GameStorageType //extension to the Palapeli::GameStorageItemType enumeration
+			{
+				RegularShape = Palapeli::GameStorageItem::UserType + 1
+			};
 		Q_SIGNALS:
 			void shapeChanged();
 		private:
 			KSvgRenderer* m_shape;
+			QUuid m_shapeId;
 	};
 
 }

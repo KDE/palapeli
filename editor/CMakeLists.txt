@@ -14,6 +14,9 @@ set(paladesign_SRCS
 	relation.cpp
 	shapes.cpp
 	view.cpp
+	../storage/gamestorage.cpp
+	../storage/gamestorageattribs.cpp
+	../storage/gamestorageitem.cpp
 )
 
 kde4_add_executable(paladesign ${paladesign_SRCS})

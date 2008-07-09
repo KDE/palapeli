@@ -22,6 +22,7 @@
 class QDockWidget;
 class QTableView;
 class KAction;
+#include <KUrl>
 #include <KXmlGuiWindow>
 
 namespace Paladesign
@@ -53,6 +54,7 @@ namespace Paladesign
 			KAction* m_selectShapeAct;
 			AddRelationAction* m_addRelationAct;
 			RemoveRelationAction* m_removeRelationAct;
+			KUrl m_saveTarget;
 	};
 
 }

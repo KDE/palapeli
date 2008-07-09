@@ -24,28 +24,60 @@
 #include "shapes.h"
 #include "relation.h"
 #include "view.h"
+#include "../storage/gamestorage.h"
+#include "../storage/gamestorageattribs.h"
+#include "../storage/gamestorageitem.h"
 
+#include <QTabWidget>
+#include <KConfig>
+#include <KConfigGroup>
 #include <KIO/NetAccess>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KStandardDirs>
 #include <KUrl>
+
+namespace Paladesign
+{
+
+	namespace Strings
+	{
+		//strings in .pprpc files (pprpc = PalaPeli Regular Pattern Configuration)
+		const QString GeneralGroupKey("Pattern");
+		const QString ShapeCountKey("ShapeCount");
+		const QString RelationCountKey("RelationCount");
+		const QString ShapeGroupKey("Shapes");
+		const QString ShapeIdKey("ShapeId-%1");
+		const QString RelationGroupKey("Relations");
+		const QString PhysicalDistanceKey("PieceDistance-%1");
+		const QString PhysicalAxisPitchKey("AxisPitch-%1");
+		const QString PhysicalAngleDifferenceKey("AngleDifference-%1");
+		const QString LogicalStepKey("PieceStep-%1");
+	};
+
+}
 
 Paladesign::Manager::Manager()
 	: m_points(new Paladesign::Points(this))
 	, m_shapes(0) //will be initialized in newPattern()
 	, m_propModel(new Paladesign::PropertyModel)
 	, m_objView(new Paladesign::ObjectView)
+	, m_tabWidget(new QTabWidget)
 	, m_view(new Paladesign::View(this))
 	, m_window(new Paladesign::MainWindow(this))
 	, m_patternChanged(false)
 {
 	//main window is deleted by Paladesign::Manager::~Manager because there are widely-spread references to m_view, and m_view will be deleted by m_window
 	m_window->setAttribute(Qt::WA_DeleteOnClose, false);
+	//cleanup of now unused items (will mostly be shapes)
+	Palapeli::GameStorage gs;
+	Palapeli::GameStorageItems items = gs.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageNoDependencyAttribute);
+	foreach (const Palapeli::GameStorageItem& item, items)
+		gs.removeItem(item);
 	//initialize editor
 	newPattern();
-	//object view
 	QObject::connect(m_objView, SIGNAL(selected(QObject*)), m_view, SLOT(select(QObject*)));
-	//property model
+	//initialize property model
 	m_propModel->setShowInheritedProperties(false);
 	m_propModel->addDisplayString("angleStep", i18nc("an angle in degrees (represented by the ° symbol as in 180°)", "%1°"));
 	m_propModel->addLocalizedCaption("angleStep", i18n("Angle difference"));
@@ -69,6 +101,7 @@ Paladesign::Manager::~Manager()
 		delete m_relations.takeFirst();
 	delete m_shapes;
 	delete m_points;
+	delete m_view;
 	//delete m_window; -- causes a crash (not so important anyway because we're exiting so nobody will notice the leak)
 }
 
@@ -95,6 +128,11 @@ Paladesign::PropertyModel* Paladesign::Manager::propertyModel() const
 Paladesign::ObjectView* Paladesign::Manager::objectView() const
 {
 	return m_objView;
+}
+
+QTabWidget* Paladesign::Manager::tabWidget() const
+{
+	return m_tabWidget;
 }
 
 Paladesign::View* Paladesign::Manager::view() const
@@ -189,31 +227,97 @@ void Paladesign::Manager::newPattern()
 
 void Paladesign::Manager::loadPattern(const KUrl& url)
 {
-#warning Implement Paladesign::Manager::loadPattern.
-	Q_UNUSED(url) //temporarily
+	//import items from pattern into storage
+	Palapeli::GameStorage gs;
+	Palapeli::GameStorageItems items = gs.importItems(url);
+	//find pattern configuration
+	Palapeli::GameStorageAttributes configurationAttributes;
+	configurationAttributes << new Palapeli::GameStorageExtensionAttribute(".pprpc");
+	Palapeli::GameStorageItems configurationItems = gs.filterItems(items, configurationAttributes);
+	if (configurationItems.count() == 0)
+	{
+		//no configuration found - remove all imported items and do nothing more
+		foreach (const Palapeli::GameStorageItem& item, items)
+			gs.removeItem(item);
+		return;
+	}
+	Palapeli::GameStorageItem configurationItem = configurationItems[0];
+	m_configurationId = configurationItem.id();
+	//load configuration
+	KConfig configuration(configurationItem.filePath());
+	//reset editor
+	newPattern();
+	//general information
+	KConfigGroup generalGroup(&configuration, Paladesign::Strings::GeneralGroupKey);
+	const int shapeCount = 1; //TODO: shapeCount = generalGroup.readEntry(Paladesign::Strings::ShapeCountKey, 0);
+	const int relationCount = generalGroup.readEntry(Paladesign::Strings::RelationCountKey, 2);
+	//shape information
+	KConfigGroup shapeGroup(&configuration, Paladesign::Strings::ShapeGroupKey);
+	for (int i = 0; i < shapeCount; ++i)
+		m_shapes->setShape(QUuid(shapeGroup.readEntry(Paladesign::Strings::ShapeIdKey.arg(i + 1), QString())));
+	//physical relation information
+	KConfigGroup relationGroup(&configuration, Paladesign::Strings::RelationGroupKey);
+	Paladesign::PhysicalRelation* relation = qobject_cast<Paladesign::PhysicalRelation*>(m_relations[0]);
+	relation->setDistance(relationGroup.readEntry(Paladesign::Strings::PhysicalDistanceKey.arg(1), 0.0));
+	relation->setAngle(relationGroup.readEntry(Paladesign::Strings::PhysicalAxisPitchKey.arg(1), 0));
+	relation->setAngleStep(relationGroup.readEntry(Paladesign::Strings::PhysicalAngleDifferenceKey.arg(1), 0));
+	relation = qobject_cast<Paladesign::PhysicalRelation*>(m_relations[1]);
+	relation->setDistance(relationGroup.readEntry(Paladesign::Strings::PhysicalDistanceKey.arg(2), 0.0));
+	relation->setAngle(relationGroup.readEntry(Paladesign::Strings::PhysicalAxisPitchKey.arg(2), 0));
+	relation->setAngleStep(relationGroup.readEntry(Paladesign::Strings::PhysicalAngleDifferenceKey.arg(2), 0));
+	for (int i = 2; i < relationCount; ++i)
+	{
+		QPoint relationStep = relationGroup.readEntry(Paladesign::Strings::LogicalStepKey.arg(i - 2), QPoint());
+		Paladesign::LogicalRelation* relation = new Paladesign::LogicalRelation(relationStep.x(), relationStep.y(), this);
+		addRelation(relation);
+	}
 }
 
 void Paladesign::Manager::savePattern(const KUrl& url)
 {
-#warning Implement Paladesign::Manager::savePattern.
-	Q_UNUSED(url) //temporarily
-}
-
-QString Paladesign::Manager::fetchFile(const KUrl& url)
-{
-	if (!url.isLocalFile())
+	//create configuration file if not available
+	Palapeli::GameStorage gs;
+	Palapeli::GameStorageItem configurationItem;
+	if (m_configurationId.isNull())
 	{
-		QString fileName;
-		if (!KIO::NetAccess::download(url, fileName, 0))
-		{
-			KMessageBox::error(0, KIO::NetAccess::lastErrorString());
-			return QString();
-		}
-		m_tempFiles << fileName;
-		return fileName;
+		//create a .pprpc file (= PalaPeli Regular Pattern Configuration)
+		configurationItem = gs.addItem(".pprpc", Palapeli::GameStorageItem::GlobalResource);
+		m_configurationId = configurationItem.id();
 	}
 	else
-		return url.path();
+		configurationItem = gs.item(m_configurationId);
+	//find shape file
+	Palapeli::GameStorageItem shapeItem = gs.item(m_shapes->shapeId());
+	//open configuration file
+	KConfig configuration(configurationItem.filePath());
+	//general information
+	KConfigGroup generalGroup(&configuration, Paladesign::Strings::GeneralGroupKey);
+	generalGroup.writeEntry(Paladesign::Strings::ShapeCountKey, 1);
+	generalGroup.writeEntry(Paladesign::Strings::RelationCountKey, m_relations.count());
+	//shape information
+	KConfigGroup shapeGroup(&configuration, Paladesign::Strings::ShapeGroupKey);
+	shapeGroup.writeEntry(Paladesign::Strings::ShapeIdKey.arg(1), m_shapes->shapeId().toString());
+	//physical relation information
+	KConfigGroup relationGroup(&configuration, Paladesign::Strings::RelationGroupKey);
+	Paladesign::PhysicalRelation* relation = qobject_cast<Paladesign::PhysicalRelation*>(m_relations[0]);
+	relationGroup.writeEntry(Paladesign::Strings::PhysicalDistanceKey.arg(1), relation->distance());
+	relationGroup.writeEntry(Paladesign::Strings::PhysicalAxisPitchKey.arg(1), relation->angle());
+	relationGroup.writeEntry(Paladesign::Strings::PhysicalAngleDifferenceKey.arg(1), relation->angleStep());
+	relation = qobject_cast<Paladesign::PhysicalRelation*>(m_relations[1]);
+	relationGroup.writeEntry(Paladesign::Strings::PhysicalDistanceKey.arg(2), relation->distance());
+	relationGroup.writeEntry(Paladesign::Strings::PhysicalAxisPitchKey.arg(2), relation->angle());
+	relationGroup.writeEntry(Paladesign::Strings::PhysicalAngleDifferenceKey.arg(2), relation->angleStep());
+	for (int i = 2; i < m_relations.count(); ++i)
+	{
+		Paladesign::LogicalRelation* relation = qobject_cast<Paladesign::LogicalRelation*>(m_relations[i]);
+		relationGroup.writeEntry(Paladesign::Strings::LogicalStepKey.arg(i - 2), QPoint(relation->relation1Step(), relation->relation2Step()));
+	}
+	//finish configuration
+	configuration.sync();
+	//export affected items
+	Palapeli::GameStorageItems items;
+	items << configurationItem << shapeItem;
+	gs.exportItems(url, items);
 }
 
 #include "manager.moc"

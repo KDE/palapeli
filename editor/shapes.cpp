@@ -17,9 +17,12 @@
  ***************************************************************************/
 
 #include "shapes.h"
+#include "../storage/gamestorage.h"
+#include "../storage/gamestorageitem.h"
 
-#include <KDebug>
+#include <KMessageBox>
 #include <KSvgRenderer>
+#include <KUrl>
 
 Paladesign::Shapes::Shapes()
 	: m_shape(new KSvgRenderer)
@@ -43,25 +46,40 @@ KSvgRenderer* Paladesign::Shapes::shape() const
 	return m_shape;
 }
 
-void Paladesign::Shapes::setShape(const QString& fileName)
+QUuid Paladesign::Shapes::shapeId() const
+{
+	return m_shapeId;
+}
+
+void Paladesign::Shapes::setShape(const QUuid& id)
 {
 	static const QString elementId = QLatin1String("paladesign-shape");
-	m_shape->load(fileName);
+	//import item into storage
+	Palapeli::GameStorage gs;
+	Palapeli::GameStorageItem shapeItem = gs.item(id);
+	if (shapeItem.isNull())
+		return;
+	//load shape
+	m_shapeId = id;
+	m_shape->load(shapeItem.filePath());
 	if (!m_shape->elementExists(elementId))
-		kDebug() << "Given shape does not contain an element with ID \"paladesign-shape\".";
+		KMessageBox::error(0, "Given shape does not contain an element with ID \"paladesign-shape\".");
 	emit shapeChanged();
 }
 
-void Paladesign::Shapes::setShape(KSvgRenderer* shape)
+void Paladesign::Shapes::setShape(const KUrl& url)
 {
 	static const QString elementId = QLatin1String("paladesign-shape");
-	if (m_shape != 0)
-	{
-		delete m_shape;
-		m_shape = shape;
-		if (!m_shape->elementExists(elementId))
-			kDebug() << "Given shape does not contain an element with ID \"paladesign-shape\".";
-	}
+	//import item into storage
+	Palapeli::GameStorage gs;
+	Palapeli::GameStorageItem shapeItem = gs.addItem(url, RegularShape);
+	if (shapeItem.isNull())
+		return;
+	//load shape
+	m_shapeId = shapeItem.id();
+	m_shape->load(shapeItem.filePath());
+	if (!m_shape->elementExists(elementId))
+		KMessageBox::error(0, "Given shape does not contain an element with ID \"paladesign-shape\".");
 	emit shapeChanged();
 }
 

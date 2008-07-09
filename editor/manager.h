@@ -22,6 +22,8 @@
 #include <QList>
 #include <QObject>
 #include <QString>
+class QTabWidget;
+#include <QUuid>
 class KUrl;
 
 namespace Paladesign
@@ -48,6 +50,7 @@ namespace Paladesign
 			Shapes* shapes() const;
 			PropertyModel* propertyModel() const;
 			ObjectView* objectView() const;
+			QTabWidget* tabWidget() const;
 			View* view() const;
 			MainWindow* window() const;
 
@@ -59,7 +62,6 @@ namespace Paladesign
 			void newPattern();
 			void loadPattern(const KUrl& url);
 			void savePattern(const KUrl& url);
-			QString fetchFile(const KUrl& url);
 		protected Q_SLOTS:
 			void patternChanged();
 		private:
@@ -69,11 +71,13 @@ namespace Paladesign
 
 			PropertyModel* m_propModel;
 			ObjectView* m_objView;
+			QTabWidget* m_tabWidget;
 			View* m_view;
 			MainWindow* m_window;
 
 			QList<QString> m_tempFiles;
 			bool m_patternChanged;
+			QUuid m_configurationId;
 	};
 
 }

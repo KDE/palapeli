@@ -39,6 +39,14 @@ namespace Palapeli
 			QString m_text;
 	};
 
+	class GameStorageExtensionAttributePrivate
+	{
+		public:
+			GameStorageExtensionAttributePrivate(const QString& extension) : m_extension(extension) {}
+
+			QString m_extension;
+	};
+
 	class GameStorageDependencyAttributePrivate
 	{
 		public:
@@ -94,6 +102,21 @@ Palapeli::GameStorageMetaAttribute::~GameStorageMetaAttribute()
 bool Palapeli::GameStorageMetaAttribute::test(const Palapeli::GameStorageItem& item) const
 {
 	return !item.isNull() && item.metaData() == d->m_text;
+}
+
+Palapeli::GameStorageExtensionAttribute::GameStorageExtensionAttribute(const QString& extension)
+	: d(new Palapeli::GameStorageExtensionAttributePrivate(extension))
+{
+}
+
+Palapeli::GameStorageExtensionAttribute::~GameStorageExtensionAttribute()
+{
+	delete d;
+}
+
+bool Palapeli::GameStorageExtensionAttribute::test(const Palapeli::GameStorageItem& item) const
+{
+	return !item.isNull() && item.extension() == d->m_extension;
 }
 
 Palapeli::GameStorageDependencyAttribute::GameStorageDependencyAttribute(const Palapeli::GameStorageItem& item, Palapeli::GameStorageDependencyAttribute::Direction direction)
