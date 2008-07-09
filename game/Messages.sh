@@ -1,3 +1,4 @@
 #!/bin/sh
 $EXTRACTRC *.ui >> rc.cpp
-$XGETTEXT  *.cpp -o $podir/palapeli.pot
+$XGETTEXT `find . -name \*.cpp` rc.cpp -o $podir/palapeli.pot
+rm -f rc.cpp
