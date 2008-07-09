@@ -49,6 +49,7 @@ void Paladesign::Shapes::setShape(const QString& fileName)
 	m_shape->load(fileName);
 	if (!m_shape->elementExists(elementId))
 		kDebug() << "Given shape does not contain an element with ID \"paladesign-shape\".";
+	emit shapeChanged();
 }
 
 void Paladesign::Shapes::setShape(KSvgRenderer* shape)
@@ -61,4 +62,7 @@ void Paladesign::Shapes::setShape(KSvgRenderer* shape)
 		if (!m_shape->elementExists(elementId))
 			kDebug() << "Given shape does not contain an element with ID \"paladesign-shape\".";
 	}
+	emit shapeChanged();
 }
+
+#include "shapes.moc"

@@ -19,6 +19,7 @@
 #ifndef PALADESIGN_SHAPES_H
 #define PALADESIGN_SHAPES_H
 
+#include <QObject>
 #include <QRectF>
 class QString;
 class KSvgRenderer;
@@ -26,8 +27,9 @@ class KSvgRenderer;
 namespace Paladesign
 {
 
-	class Shapes
+	class Shapes : public QObject
 	{
+		Q_OBJECT
 		public:
 			Shapes();
 			~Shapes();
@@ -37,6 +39,8 @@ namespace Paladesign
 
 			void setShape(const QString& fileName);
 			void setShape(KSvgRenderer* shape);
+		Q_SIGNALS:
+			void shapeChanged();
 		private:
 			KSvgRenderer* m_shape;
 	};

@@ -20,6 +20,9 @@
 #define PALADESIGN_MANAGER_H
 
 #include <QList>
+#include <QObject>
+#include <QString>
+class KUrl;
 
 namespace Paladesign
 {
@@ -33,12 +36,14 @@ namespace Paladesign
 	class Shapes;
 	class View;
 
-	class Manager
+	class Manager : public QObject
 	{
+		Q_OBJECT
 		public:
 			Manager();
 			~Manager();
 
+			bool isPatternChanged() const;
 			Points* points() const;
 			Shapes* shapes() const;
 			PropertyModel* propertyModel() const;
@@ -50,6 +55,13 @@ namespace Paladesign
 			int relationCount() const;
 			bool addRelation(Paladesign::LogicalRelation* relation);
 			bool removeRelation(int index);
+
+			void newPattern();
+			void loadPattern(const KUrl& url);
+			void savePattern(const KUrl& url);
+			QString fetchFile(const KUrl& url);
+		protected Q_SLOTS:
+			void patternChanged();
 		private:
 			Points* m_points;
 			Shapes* m_shapes;
@@ -59,6 +71,9 @@ namespace Paladesign
 			ObjectView* m_objView;
 			View* m_view;
 			MainWindow* m_window;
+
+			QList<QString> m_tempFiles;
+			bool m_patternChanged;
 	};
 
 }

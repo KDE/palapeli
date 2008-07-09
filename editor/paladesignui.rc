@@ -8,9 +8,10 @@
 			<Action name="dock_properties"/>
 		</Menu>
 	</MenuBar>
-	<ToolBar name="editorToolbar">
+	<ToolBar name="editorToolBar">
 		<text>Editor tools</text>
 		<Action name="editor_selectshape"/>
+		<Separator/>
 		<Action name="editor_addrelation"/>
 		<Action name="editor_removerelation"/>
 	</ToolBar>

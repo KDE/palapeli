@@ -25,31 +25,25 @@
 #include "relation.h"
 #include "view.h"
 
+#include <KIO/NetAccess>
 #include <KLocalizedString>
+#include <KMessageBox>
+#include <KUrl>
 
 Paladesign::Manager::Manager()
 	: m_points(new Paladesign::Points(this))
-	, m_shapes(new Paladesign::Shapes)
+	, m_shapes(0) //will be initialized in newPattern()
 	, m_propModel(new Paladesign::PropertyModel)
 	, m_objView(new Paladesign::ObjectView)
 	, m_view(new Paladesign::View(this))
 	, m_window(new Paladesign::MainWindow(this))
+	, m_patternChanged(false)
 {
 	//main window is deleted by Paladesign::Manager::~Manager because there are widely-spread references to m_view, and m_view will be deleted by m_window
 	m_window->setAttribute(Qt::WA_DeleteOnClose, false);
-	//physical relations
-	Paladesign::Relation* relation = new Paladesign::PhysicalRelation(1.0, 0, 0);
-	m_relations << relation;
-	QObject::connect(relation, SIGNAL(interactorChanged()), m_view, SLOT(update()));
-	QObject::connect(relation, SIGNAL(mouseStateChanged()), m_view, SLOT(update()));
-	relation = new Paladesign::PhysicalRelation(1.0, 90, 90);
-	m_relations << relation;
-	QObject::connect(relation, SIGNAL(interactorChanged()), m_view, SLOT(update()));
-	QObject::connect(relation, SIGNAL(mouseStateChanged()), m_view, SLOT(update()));
+	//initialize editor
+	newPattern();
 	//object view
-	static const QString physicalRelationCaption = i18n("Physical relation %1");
-	m_objView->addObject(m_relations[0], physicalRelationCaption.arg(1));
-	m_objView->addObject(m_relations[1], physicalRelationCaption.arg(2));
 	QObject::connect(m_objView, SIGNAL(selected(QObject*)), m_view, SLOT(select(QObject*)));
 	//property model
 	m_propModel->setShowInheritedProperties(false);
@@ -67,6 +61,8 @@ Paladesign::Manager::Manager()
 
 Paladesign::Manager::~Manager()
 {
+	foreach (QString tempFile, m_tempFiles)
+		KIO::NetAccess::removeTempFile(tempFile);
 	delete m_objView;
 	delete m_propModel;
 	while (!m_relations.isEmpty())
@@ -74,6 +70,11 @@ Paladesign::Manager::~Manager()
 	delete m_shapes;
 	delete m_points;
 	//delete m_window; -- causes a crash (not so important anyway because we're exiting so nobody will notice the leak)
+}
+
+bool Paladesign::Manager::isPatternChanged() const
+{
+	return m_patternChanged;
 }
 
 Paladesign::Points* Paladesign::Manager::points() const
@@ -124,12 +125,15 @@ bool Paladesign::Manager::addRelation(Paladesign::LogicalRelation* relation)
 		return false;
 	//add relation
 	m_relations << relation;
-	QObject::connect(relation, SIGNAL(interactorChanged()), m_view, SLOT(update()));
-	QObject::connect(relation, SIGNAL(mouseStateChanged()), m_view, SLOT(update()));
+	connect(relation, SIGNAL(interactorChanged()), m_view, SLOT(update()));
+	connect(relation, SIGNAL(mouseStateChanged()), m_view, SLOT(update()));
+	connect(relation, SIGNAL(interactorChanged()), this, SLOT(patternChanged()));
 	//connect to views
 	++relationIndex;
 	m_objView->addObject(relation, relationCaption.arg(relationIndex));
 	m_view->update();
+	//adding a relation is a change
+	m_patternChanged = true;
 	return true;
 }
 
@@ -142,5 +146,74 @@ bool Paladesign::Manager::removeRelation(int index)
 	m_objView->removeObject(relation);
 	delete relation;
 	m_view->update();
+	//removing a relation is a change
+	m_patternChanged = true;
 	return true;
 }
+
+void Paladesign::Manager::patternChanged()
+{
+	m_patternChanged = true;
+}
+
+void Paladesign::Manager::newPattern()
+{
+	//clear state
+	m_propModel->setObject(0);
+	m_objView->clear();
+	while (!m_relations.isEmpty())
+		delete m_relations.takeFirst();
+	delete m_shapes;
+	m_patternChanged = false;
+	//shapes
+	m_shapes = new Paladesign::Shapes();
+	connect(m_shapes, SIGNAL(shapeChanged()), this, SLOT(patternChanged()));
+	//physical relations
+	Paladesign::Relation* relation = new Paladesign::PhysicalRelation(1.0, 0, 0);
+	m_relations << relation;
+	connect(relation, SIGNAL(interactorChanged()), m_view, SLOT(update()));
+	connect(relation, SIGNAL(mouseStateChanged()), m_view, SLOT(update()));
+	connect(relation, SIGNAL(interactorChanged()), this, SLOT(patternChanged()));
+	relation = new Paladesign::PhysicalRelation(1.0, 90, 90);
+	m_relations << relation;
+	connect(relation, SIGNAL(interactorChanged()), m_view, SLOT(update()));
+	connect(relation, SIGNAL(mouseStateChanged()), m_view, SLOT(update()));
+	connect(relation, SIGNAL(interactorChanged()), this, SLOT(patternChanged()));
+	//object view
+	static const QString physicalRelationCaption = i18n("Physical relation %1");
+	m_objView->addObject(m_relations[0], physicalRelationCaption.arg(1));
+	m_objView->addObject(m_relations[1], physicalRelationCaption.arg(2));
+	//issue graphics update
+	m_view->update();
+}
+
+void Paladesign::Manager::loadPattern(const KUrl& url)
+{
+#warning Implement Paladesign::Manager::loadPattern.
+	Q_UNUSED(url) //temporarily
+}
+
+void Paladesign::Manager::savePattern(const KUrl& url)
+{
+#warning Implement Paladesign::Manager::savePattern.
+	Q_UNUSED(url) //temporarily
+}
+
+QString Paladesign::Manager::fetchFile(const KUrl& url)
+{
+	if (!url.isLocalFile())
+	{
+		QString fileName;
+		if (!KIO::NetAccess::download(url, fileName, 0))
+		{
+			KMessageBox::error(0, KIO::NetAccess::lastErrorString());
+			return QString();
+		}
+		m_tempFiles << fileName;
+		return fileName;
+	}
+	else
+		return url.path();
+}
+
+#include "manager.moc"

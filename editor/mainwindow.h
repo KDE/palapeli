@@ -38,6 +38,10 @@ namespace Paladesign
 			MainWindow(Manager* manager);
 			~MainWindow();
 		protected Q_SLOTS:
+			void newPattern();
+			void loadPattern();
+			void savePattern();
+			void savePatternAs();
 			void selectShape();
 		private:
 			Manager* m_manager;

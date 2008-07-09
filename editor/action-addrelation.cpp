@@ -18,7 +18,6 @@
 
 #include "action-addrelation.h"
 #include "manager.h"
-#include "mainwindow.h"
 #include "relation.h"
 
 #include <QGridLayout>
@@ -47,6 +46,9 @@ Paladesign::AddRelationAction::AddRelationAction(Paladesign::Manager* manager)
 	m_containerLayout->addWidget(m_relation2StepsCaption, 1, 0, 1, 1, Qt::AlignRight | Qt::AlignVCenter);
 	m_containerLayout->addWidget(m_relation2Steps, 1, 1, 1, 1, Qt::AlignLeft | Qt::AlignVCenter);
 	m_containerLayout->addWidget(m_actionButton, 2, 0, 1, 2, Qt::AlignCenter);
+	//TODO: Make a KIntSpinBox with returnPressed() signal.
+	//connect(m_relation1Steps, SIGNAL(editingFinished()), this, SLOT(addRelation()));
+	//connect(m_relation2Steps, SIGNAL(editingFinished()), this, SLOT(addRelation()));
 	connect(m_actionButton, SIGNAL(clicked()), this, SLOT(addRelation()));
 	//container widget
 	m_container->setLayout(m_containerLayout);

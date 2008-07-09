@@ -31,9 +31,9 @@
 #include <KAction>
 #include <KActionCollection>
 #include <KFileDialog>
-#include <KIO/NetAccess>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KStandardAction>
 #include <KStatusBar>
 
 Paladesign::MainWindow::MainWindow(Paladesign::Manager* manager)
@@ -48,7 +48,12 @@ Paladesign::MainWindow::MainWindow(Paladesign::Manager* manager)
 	, m_addRelationAct(new Paladesign::AddRelationAction(manager))
 	, m_removeRelationAct(new Paladesign::RemoveRelationAction(manager))
 {
-	//docker actionsß
+	//file actions
+	KStandardAction::openNew(this, SLOT(newPattern()), actionCollection());
+	KStandardAction::open(this, SLOT(loadPattern()), actionCollection())->setEnabled(false);
+	KStandardAction::save(this, SLOT(savePattern()), actionCollection())->setEnabled(false);
+	KStandardAction::saveAs(this, SLOT(savePatternAs()), actionCollection())->setEnabled(false);
+	//docker actions
 	actionCollection()->addAction("dock_objects", m_toggleObjectDockAct);
 	m_toggleObjectDockAct->setCheckable(true);
 	m_toggleObjectDockAct->setChecked(false);
@@ -97,25 +102,39 @@ Paladesign::MainWindow::~MainWindow()
 void Paladesign::MainWindow::selectShape()
 {
 	//ask user for name of SVG file
-	QString target = KFileDialog::getOpenFileName(KUrl("kfiledialog:///paladesign"), "*.svg *.svgz|" + i18nc("Used as filter description in a file dialog.", "Scalabale vector graphics(*.svg, *.svgz)"), m_manager->window(), i18nc("Used as caption for file dialog.", "Select shape - Paladesign"));
+	KUrl target = KFileDialog::getOpenUrl(KUrl("kfiledialog:///paladesign"), "*.svg *.svgz|" + i18nc("Used as filter description in a file dialog.", "Scalabale vector graphics(*.svg, *.svgz)"), m_manager->window(), i18nc("Used as caption for file dialog.", "Select shape - Paladesign"));
 	if (target.isEmpty()) //process aborted by user
 		return;
-	//download file if necessary
-	KUrl url(target); QString localFile;
-	if (url.isLocalFile())
-	{
-		if (!KIO::NetAccess::download(url, localFile, 0))
-		{
-			KMessageBox::error(0, KIO::NetAccess::lastErrorString());
-			return;
-		}
-	}
-	else
-		localFile = url.path();
+	//download file if necessary (the manager takes care of any temporary files)
+	QString localFile = m_manager->fetchFile(target);
+	if (localFile.isEmpty())
+		return;
 	//load shape
 	m_manager->shapes()->setShape(localFile);
 	m_manager->view()->update();
-	KIO::NetAccess::removeTempFile(localFile);
+}
+
+void Paladesign::MainWindow::newPattern()
+{
+	if (m_manager->isPatternChanged())
+	{
+		int returnValue = KMessageBox::warningContinueCancel(m_manager->window(), i18n("You have changed the current pattern without saving. Do you want to discard these changes?"));
+		if (returnValue != KMessageBox::Continue)
+			return;
+	}
+	m_manager->newPattern();
+}
+
+void Paladesign::MainWindow::loadPattern()
+{
+}
+
+void Paladesign::MainWindow::savePattern()
+{
+}
+
+void Paladesign::MainWindow::savePatternAs()
+{
 }
 
 #include "mainwindow.moc"
