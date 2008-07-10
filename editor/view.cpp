@@ -28,6 +28,8 @@
 #include <QMouseEvent>
 #include <QPainter>
 
+//TODO: Include in Manager a function for unified access to all interactors.
+
 Paladesign::View::View(Paladesign::Manager* manager, QWidget* parent)
 	: QWidget(parent)
 	, m_manager(manager)
@@ -49,11 +51,24 @@ void Paladesign::View::mousePressEvent(QMouseEvent* event)
 	const QPointF point = widgetToScene(event->pos());
 	if (event->button() != Qt::LeftButton)
 		return;
-	//click on selected interactor (if there is one)
+	//select hovered interactor (if there is one)
 	Paladesign::MouseInteractor* selectedInteractor = 0;
+	//check Points
+	Paladesign::MouseInteractor* interactor = m_manager->points();
+	const bool hovered = interactor->hovered();
+	interactor->setMousePosition(point);
+	interactor->setSelected(hovered);
+	if (hovered)
+	{
+		interactor->setClicked(interactor->clickAreaContains(point));
+		selectedInteractor = interactor;
+	}
+	else
+		interactor->setClicked(false);
+	//check Relations
 	for (int i = 0; i < m_manager->relationCount(); ++i)
 	{
-		Paladesign::MouseInteractor* interactor = m_manager->relation(i);
+		interactor = m_manager->relation(i);
 		const bool hovered = interactor->hovered();
 		interactor->setMousePosition(point);
 		interactor->setSelected(hovered);
@@ -81,30 +96,31 @@ void Paladesign::View::mouseMoveEvent(QMouseEvent* event)
 			m_manager->relation(i)->setMousePosition(point);
 		return;
 	}
-	//no dragging in progress
-	if (Paladesign::Algebra::vectorLength(point) > Paladesign::Points::MaximumSelectionDistance)
+	//no dragging in progress - find hovered object
+	bool foundHoveredObject = false; //select only one interactor at once
+	//check Points interactor
+	Paladesign::MouseInteractor* interactor = m_manager->points();
+	if (interactor->hoverAreaContains(point))
 	{
-		//mouse out of forbidden area in the center - find selected interactor
-		bool foundHoveredObject = false; //select only one interactor at once
-		for (int i = 0; i < m_manager->relationCount(); ++i)
-		{
-			Paladesign::MouseInteractor* interactor = m_manager->relation(i);
-			const bool hovered = interactor->hoverAreaContains(point);
-			if (foundHoveredObject || !hovered)
-				interactor->setHovered(false);
-			else
-			{
-				foundHoveredObject = true;
-				interactor->setHovered(true);
-			}
-			interactor->setClicked(false);
-		}
+		foundHoveredObject = true;
+		interactor->setHovered(true);
 	}
 	else
+		interactor->setHovered(false);
+	interactor->setClicked(false);
+	//check Relation interactors
+	for (int i = 0; i < m_manager->relationCount(); ++i)
 	{
-		//mouse in forbidden area (where many interactors overlap) - do not hover anything
-		for (int i = 0; i < m_manager->relationCount(); ++i)
-			m_manager->relation(i)->setHovered(false);
+		interactor = m_manager->relation(i);
+		const bool hovered = interactor->hoverAreaContains(point);
+		if (!foundHoveredObject && hovered)
+		{
+			foundHoveredObject = true;
+			interactor->setHovered(true);
+		}
+		else
+			interactor->setHovered(false);
+		interactor->setClicked(false);
 	}
 }
 
@@ -113,9 +129,13 @@ void Paladesign::View::mouseReleaseEvent(QMouseEvent* event)
 	const QPointF point = widgetToScene(event->pos());
 	if (event->button() != Qt::LeftButton)
 		return;
+	//propagate event to Points and Relations
+	Paladesign::MouseInteractor* interactor = m_manager->points();
+	interactor->setMousePosition(point);
+	interactor->setClicked(false);
 	for (int i = 0; i < m_manager->relationCount(); ++i)
 	{
-		Paladesign::MouseInteractor* interactor = m_manager->relation(i);
+		interactor = m_manager->relation(i);
 		interactor->setMousePosition(point);
 		interactor->setClicked(false);
 	}
@@ -123,10 +143,13 @@ void Paladesign::View::mouseReleaseEvent(QMouseEvent* event)
 
 void Paladesign::View::leaveEvent(QEvent*)
 {
+	//propagate event to Points and Relations - remove hover state if not clicked (i.e. dragging)
+	Paladesign::MouseInteractor* interactor = m_manager->points();
+	if (!interactor->clicked())
+		interactor->setHovered(false);
 	for (int i = 0; i < m_manager->relationCount(); ++i)
 	{
-		//remove hover state if not clicked (i.e. dragging)
-		Paladesign::MouseInteractor* interactor = m_manager->relation(i);
+		interactor = m_manager->relation(i);
 		if (!interactor->clicked())
 			interactor->setHovered(false);
 	}
@@ -163,12 +186,15 @@ void Paladesign::View::select(QObject* object)
 			//this interactor is already selected - nothing to do
 			return;
 	}
+	//apply selection to interactors (Points and relations)
+	Paladesign::MouseInteractor* interactor = m_manager->points();
+	interactor->setSelected(interactor == object);
 	for (int i = 0; i < m_manager->relationCount(); ++i)
 	{
-		Paladesign::MouseInteractor* interactor = m_manager->relation(i);
-		interactor->setSelected(interactor == selected);
+		interactor = m_manager->relation(i);
+		interactor->setSelected(interactor == object);
 	}
-	m_manager->propertyModel()->setObject(selected, SIGNAL(interactorChanged()));
+	m_manager->propertyModel()->setObject(object, SIGNAL(interactorChanged()));
 	update();
 }
 

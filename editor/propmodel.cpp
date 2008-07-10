@@ -20,7 +20,6 @@
 
 #include <QByteArray>
 #include <QMetaProperty>
-#include <KDebug>
 #include <KLocalizedString>
 
 Paladesign::PropertyModel::PropertyModel()

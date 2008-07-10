@@ -120,6 +120,7 @@ void Paladesign::MainWindow::newPattern()
 			return;
 	}
 	m_manager->newPattern();
+	m_saveTarget = QString();
 }
 
 void Paladesign::MainWindow::loadPattern()
@@ -141,6 +142,11 @@ void Paladesign::MainWindow::loadPattern()
 
 void Paladesign::MainWindow::savePattern()
 {
+	if (m_manager->points()->patternName().isEmpty())
+	{
+		KMessageBox::error(this, "You attempted to save a pattern without a name. Specify a pattern name by selecting the position array and entering a name in the property view.");
+		return;
+	}
 	if (m_saveTarget.isEmpty())
 		savePatternAs();
 	else
@@ -149,6 +155,11 @@ void Paladesign::MainWindow::savePattern()
 
 void Paladesign::MainWindow::savePatternAs()
 {
+	if (m_manager->points()->patternName().isEmpty())
+	{
+		KMessageBox::error(this, "You attempted to save a pattern without a name. Specify a pattern name by selecting the position array and entering a name in the property view.");
+		return;
+	}
 	//ask user for name of SVG file
 	KUrl target = KFileDialog::getSaveUrl(KUrl("kfiledialog:///paladesign-pattern"),"*.pprp|" + i18nc("Used as filter description in a file dialog.", "Palapeli Regular Patterns (*.pprp)"), m_manager->window(), i18nc("Used as caption for file dialog.", "Save pattern - Paladesign"));
 	if (target.isEmpty()) //process aborted by user

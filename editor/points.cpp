@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "points.h"
+#include "algebra.h"
 #include "manager.h"
 #include "relation.h"
 #include "shapes.h"
@@ -54,20 +55,46 @@ Paladesign::Points::Points(Paladesign::Manager* manager)
 {
 }
 
+QString Paladesign::Points::patternName() const
+{
+	return m_patternName;
+}
+
+void Paladesign::Points::setPatternName(const QString& name)
+{
+	m_patternName = name;
+}
+
 void Paladesign::Points::paint(QPainter* painter, const QRectF& clipRect)
 {
 	Q_UNUSED(clipRect)
 	static QColor pointColor(Qt::black);
+	static QColor selectionColor(Qt::black);
 	static const Paladesign::Point basePoint(QPointF(0.0, 0.0), 0);
+	//draw selector
+	painter->save();
+	if (clicked() || selected())
+	{
+		selectionColor.setAlpha(128);
+		painter->setBrush(selectionColor);
+		painter->drawEllipse(QPointF(0.0, 0.0), 3 * MaximumSelectionDistance, 3 * MaximumSelectionDistance);
+	}
+	else if (hovered())
+	{
+		selectionColor.setAlpha(64);
+		painter->setBrush(selectionColor);
+		painter->drawEllipse(QPointF(0.0, 0.0), 3 * MaximumSelectionDistance, 3 * MaximumSelectionDistance);
+	}
+	painter->restore();
 	//draw relations as the implied axes
 	for (int i = 0; i < m_manager->relationCount(); ++i)
 		m_manager->relation(i)->paint(painter);
 	//draw points
 	painter->save();
-	for (int x = -3; x <= 3; ++x)
+	for (int x = -ItemRange; x <= ItemRange; ++x)
 	{
 		Paladesign::Point basePoint2 = m_manager->relation(0)->next(basePoint, x);
-		for (int y = -3; y <= 3; ++y)
+		for (int y = -ItemRange; y <= ItemRange; ++y)
 		{
 			Paladesign::Point point = m_manager->relation(1)->next(basePoint2, y);
 			qreal height = m_manager->shapes()->heightForWidth(1.0);
@@ -76,3 +103,25 @@ void Paladesign::Points::paint(QPainter* painter, const QRectF& clipRect)
 	}
 	painter->restore();
 }
+
+bool Paladesign::Points::hoverAreaContains(const QPointF& point)
+{
+	return Paladesign::Algebra::vectorLength(point) <= 3 * MaximumSelectionDistance;
+}
+
+void Paladesign::Points::mouseDown()
+{
+	//no special interaction possible
+}
+
+void Paladesign::Points::mouseMove()
+{
+	//no special interaction possible
+}
+
+void Paladesign::Points::mouseUp()
+{
+	//no special interaction possible
+}
+
+#include "points.moc"

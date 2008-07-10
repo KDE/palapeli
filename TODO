@@ -2,10 +2,11 @@ TODO list:
 
 Paladesign
 * shape browser (assigned to Stefan Majewsky)
+* warn before changes are discarded on closing (JJ, not assigned)
 Palapeli
 * rotation of pieces (assigned to Felix Lemke)
 * generic algorithm for regular pieces (assigned to Stefan Majewsky)
 * plugin-based pattern loading (not assigned)
-* auto-save (every N moves, every T seconds, ...; not assigned)
+* auto-save (every N moves, every T seconds, ...; JJ, not assigned)
 * interface cleanup (requires user research; not assigned because interface is going to change when pattern plugins come in)
 * background pictures (TODO: assign to a skilled artist)

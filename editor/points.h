@@ -19,6 +19,8 @@
 #ifndef PALADESIGN_POINTS_H
 #define PALADESIGN_POINTS_H
 
+#include "mouseinteractor.h"
+
 class QPainter;
 #include <QPair>
 #include <QPointF>
@@ -39,19 +41,28 @@ namespace Paladesign
 		void paint(QPainter* painter, KSvgRenderer* shape, const QRectF& shapeRect) const;
 	};
 
-	class Points
+	class Points : public MouseInteractor
 	{
+		Q_OBJECT
+		Q_PROPERTY(QString patternName READ patternName WRITE setPatternName)
 		public:
 			Points(Manager* manager);
 
+			QString patternName() const;
+			void setPatternName(const QString& name);
+
 			void paint(QPainter* painter, const QRectF& clipRect);
+			virtual bool hoverAreaContains(const QPointF& point);
 
 			static const qreal MaximumSelectionDistance = 0.1;
-			static const int ItemRange = 5; //number of points displayed on each side of the points array
+			static const int ItemRange = 3; //number of points displayed on each side of the points array
 		protected:
-//			QPair<int, int> paint(QPainter* painter, int xCoordinate, const QRectF& clipRect);
+			virtual void mouseDown();
+			virtual void mouseMove();
+			virtual void mouseUp();
 		private:
 			Manager* m_manager;
+			QString m_patternName;
 	};
 
 }

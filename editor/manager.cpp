@@ -44,6 +44,7 @@ namespace Paladesign
 	{
 		//strings in .pprpc files (pprpc = PalaPeli Regular Pattern Configuration)
 		const QString GeneralGroupKey("Pattern");
+		const QString PatternNameKey("PatternName");
 		const QString ShapeCountKey("ShapeCount");
 		const QString RelationCountKey("RelationCount");
 		const QString ShapeGroupKey("Shapes");
@@ -76,9 +77,12 @@ Paladesign::Manager::Manager()
 		gs.removeItem(item);
 	//initialize editor
 	newPattern();
-	QObject::connect(m_objView, SIGNAL(selected(QObject*)), m_view, SLOT(select(QObject*)));
+	connect(m_objView, SIGNAL(selected(QObject*)), m_view, SLOT(select(QObject*)));
+	connect(m_points, SIGNAL(interactorChanged()), m_view, SLOT(update()));
+	connect(m_points, SIGNAL(mouseStateChanged()), m_view, SLOT(update()));
 	//initialize property model
 	m_propModel->setShowInheritedProperties(false);
+	m_propModel->addLocalizedCaption("patternName", i18n("Pattern name")); //no displayString necessary
 	m_propModel->addDisplayString("angleStep", i18nc("an angle in degrees (represented by the ° symbol as in 180°)", "%1°"));
 	m_propModel->addLocalizedCaption("angleStep", i18n("Angle difference"));
 	m_propModel->addDisplayString("distance", i18n("%1 units"));
@@ -202,6 +206,7 @@ void Paladesign::Manager::newPattern()
 	while (!m_relations.isEmpty())
 		delete m_relations.takeFirst();
 	delete m_shapes;
+	m_points->setPatternName(QString());
 	m_patternChanged = false;
 	//shapes
 	m_shapes = new Paladesign::Shapes();
@@ -219,6 +224,7 @@ void Paladesign::Manager::newPattern()
 	connect(relation, SIGNAL(interactorChanged()), this, SLOT(patternChanged()));
 	//object view
 	static const QString physicalRelationCaption = i18n("Physical relation %1");
+	m_objView->addObject(m_points, i18n("Position array"));
 	m_objView->addObject(m_relations[0], physicalRelationCaption.arg(1));
 	m_objView->addObject(m_relations[1], physicalRelationCaption.arg(2));
 	//issue graphics update
@@ -249,6 +255,7 @@ void Paladesign::Manager::loadPattern(const KUrl& url)
 	newPattern();
 	//general information
 	KConfigGroup generalGroup(&configuration, Paladesign::Strings::GeneralGroupKey);
+	m_points->setPatternName(generalGroup.readEntry(Paladesign::Strings::PatternNameKey, QString()));
 	const int shapeCount = 1; //TODO: shapeCount = generalGroup.readEntry(Paladesign::Strings::ShapeCountKey, 0);
 	const int relationCount = generalGroup.readEntry(Paladesign::Strings::RelationCountKey, 2);
 	//shape information
@@ -271,6 +278,8 @@ void Paladesign::Manager::loadPattern(const KUrl& url)
 		Paladesign::LogicalRelation* relation = new Paladesign::LogicalRelation(relationStep.x(), relationStep.y(), this);
 		addRelation(relation);
 	}
+	//the current state is already saved to disk, so we can safely allow to close etc.
+	m_patternChanged = false;
 }
 
 void Paladesign::Manager::savePattern(const KUrl& url)
@@ -292,6 +301,7 @@ void Paladesign::Manager::savePattern(const KUrl& url)
 	KConfig configuration(configurationItem.filePath());
 	//general information
 	KConfigGroup generalGroup(&configuration, Paladesign::Strings::GeneralGroupKey);
+	generalGroup.writeEntry(Paladesign::Strings::PatternNameKey, m_points->patternName());
 	generalGroup.writeEntry(Paladesign::Strings::ShapeCountKey, 1);
 	generalGroup.writeEntry(Paladesign::Strings::RelationCountKey, m_relations.count());
 	//shape information
@@ -318,6 +328,8 @@ void Paladesign::Manager::savePattern(const KUrl& url)
 	Palapeli::GameStorageItems items;
 	items << configurationItem << shapeItem;
 	gs.exportItems(url, items);
+	//the current state is already saved to disk, so we can safely allow to close etc.
+	m_patternChanged = false;
 }
 
 #include "manager.moc"
