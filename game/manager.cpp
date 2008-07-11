@@ -296,14 +296,14 @@ void Palapeli::Manager::searchConnections()
 
 void Palapeli::Manager::combine(Palapeli::Part* part1, Palapeli::Part* part2)
 {
-	while (part2->m_pieces.count() > 0)
+	while (part2->pieceCount() > 0)
 	{
-		Palapeli::Piece* piece = part2->m_pieces.takeFirst();
-		part2->remove(piece);
-		part1->add(piece);
+		Palapeli::Piece* piece = part2->pieceAt(0);
+		part2->removePiece(piece);
+		part1->addPiece(piece);
 	}
 	p->m_parts.removeAll(part2);
-	part1->update();
+	part1->update(); //adapt positions of added pieces
 	delete part2;
 }
 

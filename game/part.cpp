@@ -24,9 +24,9 @@
 int currentZValue = 0;
 
 Palapeli::Part::Part(Palapeli::Piece* piece)
-	: m_basePos(piece->pos() - piece->posInImage())
+	: m_basePosition(piece->pos() - piece->positionInImage())
 {
-	add(piece);
+	addPiece(piece);
 }
 
 Palapeli::Part::~Part()
@@ -35,27 +35,37 @@ Palapeli::Part::~Part()
 		delete piece;
 }
 
-void Palapeli::Part::add(Palapeli::Piece* piece)
+int Palapeli::Part::pieceCount() const
+{
+	return m_pieces.count();
+}
+
+Palapeli::Piece* Palapeli::Part::pieceAt(int index) const
+{
+	return m_pieces[index];
+}
+
+void Palapeli::Part::addPiece(Palapeli::Piece* piece)
 {
 	if (!m_pieces.contains(piece))
 		m_pieces << piece;
 	piece->setPart(this);
 }
 
-void Palapeli::Part::move(const QPointF& positionDifference)
-{
-	m_basePos += positionDifference;
-	update();
-	ppMgr()->updateMinimap();
-}
-
-void Palapeli::Part::remove(Palapeli::Piece* piece)
+void Palapeli::Part::removePiece(Palapeli::Piece* piece)
 {
 	if (m_pieces.contains(piece))
 	{
 		m_pieces.removeAll(piece);
 		piece->setPart(0);
 	}
+}
+
+void Palapeli::Part::move(const QPointF& positionDifference)
+{
+	m_basePosition += positionDifference;
+	update();
+	ppMgr()->updateMinimap();
 }
 
 void Palapeli::Part::update()
@@ -65,7 +75,7 @@ void Palapeli::Part::update()
 	//move every piece to the right position
 	foreach (Palapeli::Piece* piece, m_pieces)
 	{
-		piece->setPos(m_basePos + piece->posInImage());
+		piece->setPos(m_basePosition + piece->positionInImage());
 		piece->setZValue(currentZValue);
 	}
 }

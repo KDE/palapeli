@@ -24,11 +24,10 @@
 
 #include <QGraphicsSceneMouseEvent>
 
-Palapeli::Piece::Piece(const QPixmap& pixmap, const QSize& size, const QPointF& posInImage)
+Palapeli::Piece::Piece(const QPixmap& pixmap, const QRectF& positionInImage)
 	: QGraphicsPixmapItem(pixmap)
 	, m_part(0)
-	, m_size(size)
-	, m_posInImage(posInImage)
+	, m_positionInImage(positionInImage)
 	, m_moving(false)
 {
 	setAcceptedMouseButtons(Qt::LeftButton | Qt::RightButton);
@@ -37,24 +36,24 @@ Palapeli::Piece::Piece(const QPixmap& pixmap, const QSize& size, const QPointF& 
 	ppMgr()->view()->scene()->addItem(this);
 }
 
+QPointF Palapeli::Piece::positionInImage() const
+{
+	return m_positionInImage.topLeft();
+}
+
+QSizeF Palapeli::Piece::size() const
+{
+	return m_positionInImage.size();
+}
+
 Palapeli::Part* Palapeli::Piece::part() const
 {
 	return m_part;
 }
 
-QPointF Palapeli::Piece::posInImage() const
-{
-	return m_posInImage;
-}
-
 void Palapeli::Piece::setPart(Palapeli::Part* part)
 {
 	m_part = part;
-}
-
-QSize Palapeli::Piece::size() const
-{
-	return QSize(m_size.width() - 1.0, m_size.height() - 1.0);
 }
 
 void Palapeli::Piece::mousePressEvent(QGraphicsSceneMouseEvent* event)

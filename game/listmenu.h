@@ -31,7 +31,6 @@ namespace Palapeli
 
 	class ListMenuPrivate;
 
-	//TODO: Enable only if actions are in the menu, otherwise disable.
 	class ListMenu : public KActionMenu
 	{
 		Q_OBJECT

@@ -67,7 +67,7 @@ QList<Palapeli::Piece*> Palapeli::RectangularPattern::slice(const QImage& image)
 			QPainter painter(&pix);
 			painter.drawImage(QPoint(0, 0), image, QRect(x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight));
 			painter.end();
-			Palapeli::Piece* piece = new Palapeli::Piece(pix, QSize(pieceWidth, pieceHeight), QPointF(x * pieceWidth, y * pieceHeight));
+			Palapeli::Piece* piece = new Palapeli::Piece(pix, QRectF(x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight));
 			pieces << piece;
 		}
 	}

@@ -40,6 +40,7 @@ namespace Palapeli
 
 	class Manager : public QObject
 	{
+		//TODO: Rename updateMinimap() to updateGraphics() or such.
 		Q_OBJECT
 		public:
 			static Manager* self();

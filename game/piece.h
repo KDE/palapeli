@@ -30,21 +30,20 @@ namespace Palapeli
 	class Piece : public QGraphicsPixmapItem
 	{
 		public:
-			//TODO: QSize + QPointF -> QRectF
-			Piece(const QPixmap& pixmap, const QSize& size, const QPointF& posInImage);
+			Piece(const QPixmap& pixmap, const QRectF& positionInImage);
+
+			QPointF positionInImage() const;
+			QSizeF size() const;
 
 			Part* part() const;
-			QPointF posInImage() const;
 			void setPart(Part* part);
-			QSize size() const;
-
+		protected:
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 		private:
 			Part* m_part;
-			QSize m_size;
-			QPointF m_posInImage;
+			QRectF m_positionInImage;
 			bool m_moving;
 	};
 

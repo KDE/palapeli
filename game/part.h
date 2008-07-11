@@ -31,19 +31,21 @@ namespace Palapeli
 
 	class Part
 	{
-		//TODO: Replace with a proper interface.
-		friend void Manager::combine(Part* part1, Part* part2);
 		public:
 			Part(Piece* piece);
 			~Part();
 
-			void add(Piece* piece);
+			int pieceCount() const;
+			Piece* pieceAt(int index) const;
+
+			void addPiece(Piece* piece);
+			void removePiece(Piece* piece);
+
 			void move(const QPointF& positionDifference);
-			void remove(Piece* piece);
 			void update();
 		private:
 			QList<Piece*> m_pieces;
-			QPointF m_basePos; //resembles to (0,0) in image coordinates
+			QPointF m_basePosition; //the point which resembles to (0,0) in image coordinates
 	};
 
 }
