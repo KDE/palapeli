@@ -19,8 +19,12 @@
 
 #include "view.h"
 #include "manager.h"
+#include "settings.h"
 
 #include <QGraphicsScene>
+#ifdef PALAPELI_WITH_OPENGL
+#	include <QGLWidget>
+#endif
 #include <QScrollBar>
 #include <QWheelEvent>
 
@@ -31,6 +35,10 @@ Palapeli::View::View(QWidget* parent)
 	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateMinimap()));
 	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateMinimap()));
 	setScene(m_scene);
+	//load settings
+	Settings::self()->readConfig();
+	setAntialiasing(Settings::antialiasing(), true);
+	setHardwareAccelerated(Settings::hardwareAccel(), true);
 }
 
 void Palapeli::View::wheelEvent(QWheelEvent* event)
@@ -56,4 +64,28 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 	else
 		//just the mouse wheel - move the viewport up/down by adjusting the slider
 		verticalScrollBar()->triggerAction(delta < 0 ? QAbstractSlider::SliderSingleStepAdd : QAbstractSlider::SliderSingleStepSub);
+}
+
+void Palapeli::View::setAntialiasing(bool useAntialiasing, bool forceApplication)
+{
+	if (Settings::antialiasing() == useAntialiasing && !forceApplication) //nothing to do (and application not forced)
+		return;
+	Settings::setAntialiasing(useAntialiasing);
+	Settings::self()->writeConfig();
+	//apply settings
+	setRenderHint(QPainter::Antialiasing, useAntialiasing);
+	setRenderHint(QPainter::HighQualityAntialiasing, useAntialiasing);
+}
+
+void Palapeli::View::setHardwareAccelerated(bool useHardware, bool forceApplication)
+{
+	if (Settings::hardwareAccel() == useHardware && !forceApplication) //nothing to do (and application not forced)
+		return;
+	Settings::setHardwareAccel(useHardware);
+	Settings::self()->writeConfig();
+	//apply settings
+#ifdef PALAPELI_WITH_OPENGL
+	viewport()->deleteLater();
+	setViewport(useHardware ? new QGLWidget : new QWidget);
+#endif
 }

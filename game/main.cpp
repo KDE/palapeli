@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 {
 	qsrand(time(0));
 
-	KAboutData about("palapeli", "palapeli", ki18nc("The application's name", "Palapeli"), "0.1", ki18n("A jigsaw puzzle game"), KAboutData::License_GPL, ki18n("(c) 2008, the Palapeli team"));
+	KAboutData about("palapeli", "palapeli", ki18nc("The application's name", "Palapeli"), "0.1+", ki18n("A jigsaw puzzle game"), KAboutData::License_GPL, ki18n("(c) 2008, the Palapeli team"));
 	about.addAuthor(ki18n("Felix Lemke"), KLocalizedString(), "lemke.felix@ages-skripte.org");
 	about.addAuthor(ki18n("Stefan Majewsky"), KLocalizedString(), "majewsky@gmx.net");
 	KCmdLineArgs::init(argc, argv, &about);

@@ -134,10 +134,9 @@ void Palapeli::Minimap::paintEvent(QPaintEvent*)
 	painter.setBrush(palette().base());
 	painter.drawRect(viewport());
 	//draw piece positions
-	QListIterator<Palapeli::Piece*> iterPieces = ppMgr()->pieces();
-	while (iterPieces.hasNext())
+	for (int i = 0; i < ppMgr()->pieceCount(); ++i)
 	{
-		const Palapeli::Piece* piece = iterPieces.next();
+		const Palapeli::Piece* piece = ppMgr()->pieceAt(i);
 		const QRectF pieceRect = piece->sceneBoundingRect();
 		const qreal pieceX = pieceRect.x(), pieceY = pieceRect.y();
 		const qreal pieceWidth = pieceRect.width(), pieceHeight = pieceRect.height();
@@ -225,10 +224,9 @@ void Palapeli::Minimap::paintEvent(QPaintEvent*)
 		}
 	}
 	//draw lines to connected neighbors
-	QListIterator<Palapeli::PieceRelation> iterRelations = ppMgr()->relations();
-	while (iterRelations.hasNext())
+	for (int i = 0; i < ppMgr()->relationCount(); ++i)
 	{
-		Palapeli::PieceRelation rel = iterRelations.next();
+		Palapeli::PieceRelation rel = ppMgr()->relationAt(i);
 		if (rel.piece1()->part() == rel.piece2()->part())
 			painter.drawLine(rel.piece1()->sceneBoundingRect().center(), rel.piece2()->sceneBoundingRect().center());
 	}

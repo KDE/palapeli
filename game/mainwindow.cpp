@@ -18,129 +18,117 @@
  ***************************************************************************/
 
 #include "mainwindow.h"
-#include "listmenu.h"
+#include "mainwindow_p.h"
 #include "manager.h"
 #include "minimap.h"
 #include "preview.h"
-#include "saveaction.h"
 #include "savegamemodel.h"
-#include "savegameview.h"
 #include "settings.h"
-#include "ui_dialognew.h"
-#include "ui_settings.h"
 #include "view.h"
 
-#include <QDockWidget>
-#ifdef PALAPELI_WITH_OPENGL
-#	include <QGLWidget>
-#endif
 #include <QTimer>
-#include <KAction>
 #include <KActionCollection>
-#include <KApplication>
-#include <KDialog>
 #include <KLocalizedString>
 #include <KDE/KStandardGameAction>
 #include <KStatusBar>
 
-Palapeli::MainWindow::MainWindow(QWidget* parent)
-	: KXmlGuiWindow(parent)
-	, m_newDialog(new KDialog(this))
+Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
+	: m_parent(parent)
+	, m_loadAct(new Palapeli::ListMenu(KIcon("document-open"), i18n("Load"), parent))
+	, m_saveAct(new Palapeli::SaveAction(parent))
+	, m_showSavegamesAct(new KAction(KIcon("document-save-as"), i18n("Manage saved games"), parent))
+	, m_toggleMinimapAct(new KAction(i18n("Show minimap"), parent))
+	, m_togglePreviewAct(new KAction(i18n("Show preview"), parent))
+	, m_dockMinimap(new QDockWidget(i18n("Overview"), parent))
+	, m_dockPreview(new QDockWidget(i18n("Image preview"), parent))
+	, m_savegameView(new Palapeli::SavegameView)
+	, m_dockSavegames(new QDockWidget(i18n("Saved games"), parent))
+	, m_newDialog(new KDialog(parent))
 	, m_newUi(new Ui::NewPuzzleDialog)
-	, m_loadAct(new Palapeli::ListMenu(KIcon("document-open"), i18n("Load"), this))
-	, m_saveAct(new Palapeli::SaveAction(this))
-	, m_dockMinimap(new QDockWidget(i18n("Overview"), this))
-	, m_toggleMinimapAct(new KAction(i18n("Show minimap"), this))
-	, m_dockPreview(new QDockWidget(i18n("Image preview"), this))
-	, m_togglePreviewAct(new KAction(i18n("Show preview"), this))
-	, m_dockSavegames(new QDockWidget(i18n("Saved games"), this))
-	, m_showSavegamesAct(new KAction(KIcon("document-save-as"), i18n("Manage saved games"), this))
-	, m_settingsDialog(new KDialog(this))
+	, m_settingsDialog(new KDialog(parent))
 	, m_settingsUi(new Ui::SettingsWidget)
 {
-	//Game actions
-	KStandardGameAction::gameNew(m_newDialog, SLOT(show()), actionCollection());
-	actionCollection()->addAction("game_load", m_loadAct);
-	m_loadAct->setDelayed(false);
-	m_loadAct->setStickyMenu(true);
-	m_loadAct->setDisabledWhenEmpty(true);
-	m_loadAct->setModel(ppMgr()->savegameModel());
-	connect(m_loadAct, SIGNAL(clicked(const QString&)), ppMgr(), SLOT(loadGame(const QString&)));
-	actionCollection()->addAction("game_save", m_saveAct);
-	actionCollection()->addAction("palapeli_manage_savegames", m_showSavegamesAct);
-	connect(m_showSavegamesAct, SIGNAL(triggered()), m_dockSavegames, SLOT(show()));
-	//View actions
-	actionCollection()->addAction("view_toggle_minimap", m_toggleMinimapAct);
-	m_toggleMinimapAct->setCheckable(true);
-	m_toggleMinimapAct->setChecked(false);
-	connect(m_dockMinimap, SIGNAL(visibilityChanged(bool)), m_toggleMinimapAct, SLOT(setChecked(bool)));
-	connect(m_toggleMinimapAct, SIGNAL(triggered(bool)), m_dockMinimap, SLOT(setVisible(bool)));
-	actionCollection()->addAction("view_toggle_preview", m_togglePreviewAct);
-	m_togglePreviewAct->setCheckable(true);
-	m_togglePreviewAct->setChecked(false);
-	connect(m_dockPreview, SIGNAL(visibilityChanged(bool)), m_togglePreviewAct, SLOT(setChecked(bool)));
-	connect(m_togglePreviewAct, SIGNAL(triggered(bool)), m_dockPreview, SLOT(setVisible(bool)));
-	//Settings actions
-        KStandardAction::preferences(m_settingsDialog, SLOT(show()), actionCollection());
-	//GUI settings
-	setAutoSaveSettings();
-	setCentralWidget(ppMgr()->view());
-	//minimap
-	addDockWidget(Qt::LeftDockWidgetArea, m_dockMinimap);
-	m_dockMinimap->setObjectName("DockMap");
-	m_dockMinimap->setWidget(ppMgr()->minimap());
-	m_dockMinimap->resize(1, 1); //lets the dock widget adapt to the content's minimum size (note that this minimum size will be overwritten by user configuration)
-        m_dockMinimap->setVisible(false); //hidden by default
-	//preview
-	addDockWidget(Qt::LeftDockWidgetArea, m_dockPreview);
-	m_dockPreview->setObjectName("DockPreview");
-	m_dockPreview->setWidget(ppMgr()->preview());
-	m_dockPreview->resize(1, 1);
-	m_dockPreview->setVisible(false); //hidden by default
-	//saved games view
-	addDockWidget(Qt::RightDockWidgetArea, m_dockSavegames);
-	m_dockSavegames->setObjectName("DockSavegames");
-	m_dockSavegames->setWidget(ppMgr()->savegameView());
-	m_dockSavegames->resize(1, 1);
-	m_dockSavegames->setVisible(false); //hidden by default
-	//late GUI settings
-	setupGUI(QSize(600, 500));
-	setCaption(i18nc("The application's name", "Palapeli"));
-	statusBar()->hide();
-	//initialise dialogs after entering the event loop (to speed up startup)
-	QTimer::singleShot(0, this, SLOT(setupDialogs()));
-	//apply saved view settings
-	Settings::self()->readConfig();
-	ppMgr()->view()->setRenderHint(QPainter::Antialiasing, Settings::antialiasing());
-#ifdef PALAPELI_WITH_OPENGL
-	if (Settings::hardwareAccel())
-		ppMgr()->view()->setViewport(new QGLWidget);
-#endif
 }
 
-Palapeli::MainWindow::~MainWindow()
+Palapeli::MainWindowPrivate::~MainWindowPrivate()
 {
-	delete m_toggleMinimapAct;
-	delete m_togglePreviewAct;
-	delete m_showSavegamesAct;
+	//actions
 	delete m_loadAct;
 	delete m_saveAct;
+	delete m_showSavegamesAct;
+	delete m_toggleMinimapAct;
+	delete m_togglePreviewAct;
+	//docker widgets
 	delete m_dockMinimap;
 	delete m_dockPreview;
 	delete m_dockSavegames;
+	//docker contents
+	delete m_savegameView;
+	//dialogs
 	delete m_newDialog;
 	delete m_settingsDialog;
 	delete m_newUi;
 	delete m_settingsUi;
 }
 
-void Palapeli::MainWindow::setupDialogs()
+void Palapeli::MainWindowPrivate::setupActions()
+{
+	//Game actions
+	KStandardGameAction::gameNew(m_newDialog, SLOT(show()), m_parent->actionCollection());
+	m_parent->actionCollection()->addAction("game_load", m_loadAct);
+	m_loadAct->setDelayed(false);
+	m_loadAct->setStickyMenu(true);
+	m_loadAct->setDisabledWhenEmpty(true);
+	m_loadAct->setModel(ppMgr()->savegameModel());
+	connect(m_loadAct, SIGNAL(clicked(const QString&)), ppMgr(), SLOT(loadGame(const QString&)));
+	m_parent->actionCollection()->addAction("game_save", m_saveAct);
+	m_parent->actionCollection()->addAction("palapeli_manage_savegames", m_showSavegamesAct);
+	connect(m_showSavegamesAct, SIGNAL(triggered()), m_dockSavegames, SLOT(show()));
+	//View actions
+	m_parent->actionCollection()->addAction("view_toggle_minimap", m_toggleMinimapAct);
+	m_toggleMinimapAct->setCheckable(true);
+	m_toggleMinimapAct->setChecked(false);
+	connect(m_dockMinimap, SIGNAL(visibilityChanged(bool)), m_toggleMinimapAct, SLOT(setChecked(bool)));
+	connect(m_toggleMinimapAct, SIGNAL(triggered(bool)), m_dockMinimap, SLOT(setVisible(bool)));
+	m_parent->actionCollection()->addAction("view_toggle_preview", m_togglePreviewAct);
+	m_togglePreviewAct->setCheckable(true);
+	m_togglePreviewAct->setChecked(false);
+	connect(m_dockPreview, SIGNAL(visibilityChanged(bool)), m_togglePreviewAct, SLOT(setChecked(bool)));
+	connect(m_togglePreviewAct, SIGNAL(triggered(bool)), m_dockPreview, SLOT(setVisible(bool)));
+	//Settings actions
+        KStandardAction::preferences(m_settingsDialog, SLOT(show()), m_parent->actionCollection());
+}
+
+void Palapeli::MainWindowPrivate::setupDockers()
+{
+	//minimap
+	m_parent->addDockWidget(Qt::LeftDockWidgetArea, m_dockMinimap);
+	m_dockMinimap->setObjectName("DockMap");
+	m_dockMinimap->setWidget(ppMgr()->minimap());
+	m_dockMinimap->resize(1, 1); //lets the dock widget adapt to the content's minimum size (note that this minimum size will be overwritten by user configuration)
+        m_dockMinimap->setVisible(false); //hidden by default
+	//preview
+	m_parent->addDockWidget(Qt::LeftDockWidgetArea, m_dockPreview);
+	m_dockPreview->setObjectName("DockPreview");
+	m_dockPreview->setWidget(ppMgr()->preview());
+	m_dockPreview->resize(1, 1);
+	m_dockPreview->setVisible(false); //hidden by default
+	//saved games view
+	m_parent->addDockWidget(Qt::RightDockWidgetArea, m_dockSavegames);
+	m_dockSavegames->setObjectName("DockSavegames");
+	m_dockSavegames->setWidget(m_savegameView);
+	m_dockSavegames->resize(1, 1);
+	m_dockSavegames->setVisible(false); //hidden by default
+}
+
+void Palapeli::MainWindowPrivate::setupDialogs()
 {
 	//setup "New game" UI
 	const int minPieceCount = 0;
 	const int defaultPieceCount = 8;
 	const int maxPieceCount = 100;
 	m_newUi->setupUi(m_newDialog->mainWidget());
+	m_newDialog->mainWidget()->setMinimumWidth(400);
 	m_newUi->spinHorizontalPieces->setMinimum(minPieceCount);
 	m_newUi->spinHorizontalPieces->setMaximum(maxPieceCount);
 	m_newUi->spinHorizontalPieces->setValue(defaultPieceCount);
@@ -157,10 +145,9 @@ void Palapeli::MainWindow::setupDialogs()
 	m_settingsUi->setupUi(m_settingsDialog->mainWidget());
 	m_settingsUi->checkAntialiasing->setCheckState(Settings::antialiasing() ? Qt::Checked : Qt::Unchecked);
 	connect(m_settingsUi->checkAntialiasing, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
-#ifdef PALAPELI_WITH_OPENGL
 	m_settingsUi->checkHardwareAccel->setCheckState(Settings::hardwareAccel() ? Qt::Checked : Qt::Unchecked);
 	connect(m_settingsUi->checkHardwareAccel, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
-#else
+#ifndef PALAPELI_WITH_OPENGL
 	m_settingsUi->checkHardwareAccel->setVisible(false);
 #endif
 	//setup Settings dialog
@@ -173,38 +160,47 @@ void Palapeli::MainWindow::setupDialogs()
 	connect(m_settingsDialog, SIGNAL(applyClicked()), this, SLOT(configurationFinished()));
 }
 
-void Palapeli::MainWindow::configurationChanged() //because of user-invoked changes in the dialog
+void Palapeli::MainWindowPrivate::configurationChanged() //because of user-invoked changes in the dialog
 {
 	m_settingsDialog->enableButtonApply(true);
 }
 
-void Palapeli::MainWindow::configurationFinished()
+void Palapeli::MainWindowPrivate::configurationFinished()
 {
 	//apply settings if they changed
-	bool newAntialiasing = m_settingsUi->checkAntialiasing->checkState() == Qt::Checked;
-	if (Settings::antialiasing() != newAntialiasing)
-	{
-		Settings::setAntialiasing(newAntialiasing);
-		ppMgr()->view()->setRenderHint(QPainter::Antialiasing, newAntialiasing);
-	}
-#ifdef PALAPELI_WITH_OPENGL
-	bool newHardwareAccel = m_settingsUi->checkHardwareAccel->checkState() == Qt::Checked;
-	if (Settings::hardwareAccel() != newHardwareAccel)
-	{
-		Settings::setHardwareAccel(newHardwareAccel);
-		ppMgr()->view()->setViewport(newHardwareAccel ? new QGLWidget : new QWidget);
-	}
-#else
-	Settings::setHardwareAccel(false);
-#endif
-	//save settings and mark them as saved in the dialog
-	Settings::self()->writeConfig();
+	ppMgr()->view()->setAntialiasing(m_settingsUi->checkAntialiasing->checkState() == Qt::Checked);
+	ppMgr()->view()->setHardwareAccelerated(m_settingsUi->checkHardwareAccel->checkState() == Qt::Checked);
+	//mark settings as saved in the dialog
 	m_settingsDialog->enableButtonApply(false);
 }
 
-void Palapeli::MainWindow::startGame()
+void Palapeli::MainWindowPrivate::startGame()
 {
 	ppMgr()->createGame(m_newUi->urlImage->url(), m_newUi->spinHorizontalPieces->value(), m_newUi->spinVerticalPieces->value());
 }
 
-#include "mainwindow.moc"
+Palapeli::MainWindow::MainWindow(QWidget* parent)
+	: KXmlGuiWindow(parent)
+	, p(new Palapeli::MainWindowPrivate(this))
+{
+	//initialize actions
+	p->setupActions();
+	//early GUI settings
+	setAutoSaveSettings();
+	setCentralWidget(ppMgr()->view());
+	//initiailize dockers
+	p->setupDockers();
+	//late GUI settings
+	setupGUI(QSize(600, 500));
+	setCaption(i18nc("The application's name", "Palapeli"));
+	statusBar()->hide();
+	//initialise dialogs after entering the event loop (to speed up startup)
+	QTimer::singleShot(0, p, SLOT(setupDialogs()));
+}
+
+Palapeli::MainWindow::~MainWindow()
+{
+	delete p;
+}
+
+#include "mainwindow_p.moc"

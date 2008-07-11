@@ -27,14 +27,13 @@ namespace Palapeli
 
 	class Preview : public QWidget
 	{
-	public:
-		Preview(QWidget* parent = 0);
-
-		void setImage(const QImage &image);
-
-		virtual void paintEvent(QPaintEvent*);
-	private:
-		QImage m_image;
+		public:
+			Preview(QWidget* parent = 0);
+			void setImage(const QImage &image);
+		protected:
+			virtual void paintEvent(QPaintEvent*);
+		private:
+			QImage m_image;
 	};
 
 }

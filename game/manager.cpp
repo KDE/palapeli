@@ -30,7 +30,6 @@
 #include "piecerelation.h"
 #include "preview.h"
 #include "savegamemodel.h"
-#include "savegameview.h"
 #include "view.h"
 
 #include <KConfig>
@@ -65,7 +64,6 @@ namespace Palapeli
 		Preview* m_preview;
 		QList<PieceRelation> m_relations;
 		SavegameModel* m_savegameModel;
-		SavegameView* m_savegameView;
 		View* m_view;
 		MainWindow* m_window;
 	};
@@ -91,7 +89,6 @@ Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	, m_pattern(0)
 	, m_preview(new Palapeli::Preview)
 	, m_savegameModel(0)
-	, m_savegameView(0)
 	, m_view(0)
 	, m_window(0)
 {
@@ -116,7 +113,6 @@ void Palapeli::ManagerPrivate::init()
 {
 	//The Manager needs a valid pointer to this ManagerPrivate instance before the following objects can be initialized.
 	m_minimap = new Palapeli::Minimap;
-	m_savegameView = new Palapeli::SavegameView;
 	m_view = new Palapeli::View;
 	m_window = new Palapeli::MainWindow;
 	//main window is deleted by Palapeli::ManagerPrivate::~ManagerPrivate because there are widely-spread references to m_view, and m_view will be deleted by m_window
@@ -131,7 +127,6 @@ Palapeli::ManagerPrivate::~ManagerPrivate()
 	delete m_pattern;
 	delete m_preview;
 	delete m_savegameModel;
-	delete m_savegameView;
 	delete m_window; //the view is deleted here
 }
 
@@ -210,14 +205,44 @@ void Palapeli::Manager::init()
 
 //properties
 
+int Palapeli::Manager::partCount() const
+{
+	return p->m_parts.count();
+}
+
+Palapeli::Part* Palapeli::Manager::partAt(int index) const
+{
+	return p->m_parts[index];
+}
+
+int Palapeli::Manager::pieceCount() const
+{
+	return p->m_pieces.count();
+}
+
+Palapeli::Piece* Palapeli::Manager::pieceAt(int index) const
+{
+	return p->m_pieces[index];
+}
+
+int Palapeli::Manager::relationCount() const
+{
+	return p->m_relations.count();
+}
+
+Palapeli::PieceRelation Palapeli::Manager::relationAt(int index) const
+{
+	return p->m_relations[index];
+}
+
+Palapeli::View* Palapeli::Manager::view() const
+{
+	return p->m_view;
+}
+
 Palapeli::Minimap* Palapeli::Manager::minimap() const
 {
 	return p->m_minimap;
-}
-
-QListIterator<Palapeli::Part*> Palapeli::Manager::parts() const
-{
-	return QListIterator<Palapeli::Part*>(p->m_parts);
 }
 
 Palapeli::Pattern* Palapeli::Manager::pattern() const
@@ -225,34 +250,14 @@ Palapeli::Pattern* Palapeli::Manager::pattern() const
 	return p->m_pattern;
 }
 
-QListIterator<Palapeli::Piece*> Palapeli::Manager::pieces() const
-{
-	return QListIterator<Palapeli::Piece*>(p->m_pieces);
-}
-
 Palapeli::Preview* Palapeli::Manager::preview() const
 {
 	return p->m_preview;
 }
 
-QListIterator<Palapeli::PieceRelation> Palapeli::Manager::relations() const
-{
-	return QListIterator<Palapeli::PieceRelation>(p->m_relations);
-}
-
 Palapeli::SavegameModel* Palapeli::Manager::savegameModel() const
 {
 	return p->m_savegameModel;
-}
-
-Palapeli::SavegameView* Palapeli::Manager::savegameView() const
-{
-	return p->m_savegameView;
-}
-
-Palapeli::View* Palapeli::Manager::view() const
-{
-	return p->m_view;
 }
 
 Palapeli::MainWindow* Palapeli::Manager::window() const

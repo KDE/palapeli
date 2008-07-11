@@ -20,48 +20,20 @@
 #ifndef PALAPELI_MAINWINDOW_H
 #define PALAPELI_MAINWINDOW_H
 
-class QDockWidget;
-class KAction;
-class KDialog;
 #include <KXmlGuiWindow>
-
-namespace Ui
-{
-	class NewPuzzleDialog;
-	class SettingsWidget;
-};
 
 namespace Palapeli
 {
 
-	class ListMenu;
-	class SaveAction;
-	class SavegameView;
+	class MainWindowPrivate;
 
 	class MainWindow : public KXmlGuiWindow
 	{
-		Q_OBJECT
 		public:
 			MainWindow(QWidget* parent = 0);
 			~MainWindow();
-		private Q_SLOTS:
-			void setupDialogs();
-			void configurationChanged();
-			void configurationFinished();
-			void startGame();
 		private:
-			KDialog* m_newDialog;
-			Ui::NewPuzzleDialog* m_newUi;
-			ListMenu* m_loadAct;
-			SaveAction* m_saveAct;
-			QDockWidget* m_dockMinimap;
-			KAction* m_toggleMinimapAct;
-			QDockWidget* m_dockPreview;
-			KAction* m_togglePreviewAct;
-			QDockWidget* m_dockSavegames;
-			KAction* m_showSavegamesAct;
-			KDialog* m_settingsDialog;
-			Ui::SettingsWidget* m_settingsUi;
+			MainWindowPrivate* p;
 	};
 
 }

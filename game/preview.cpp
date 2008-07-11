@@ -23,7 +23,6 @@
 
 Palapeli::Preview::Preview(QWidget* parent)
 	: QWidget(parent)
-	, m_image()
 {
 	setMinimumSize(150, 150);
 }

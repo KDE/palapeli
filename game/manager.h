@@ -35,12 +35,13 @@ namespace Palapeli
 	class PieceRelation;
 	class Preview;
 	class SavegameModel;
-	class SavegameView;
 	class View;
 
 	class Manager : public QObject
 	{
 		//TODO: Rename updateMinimap() to updateGraphics() or such.
+		//TODO: Make combine() private.
+		//TODO: Group functions in manager.cpp not by class, but by purpose.
 		Q_OBJECT
 		public:
 			static Manager* self();
@@ -48,16 +49,19 @@ namespace Palapeli
 
 			void addRelation(Piece* piece1, Piece* piece2, const QPointF& positionDifference);
 			void combine(Part* part1, Part* part2);
-	
-			Minimap* minimap() const;
-			QListIterator<Part*> parts() const;
-			Pattern* pattern() const;
-			QListIterator<Piece*> pieces() const;
-			Preview* preview() const;
-			QListIterator<PieceRelation> relations() const;
-			SavegameModel* savegameModel() const;
-			SavegameView* savegameView() const;
+			//core objects (i.e. everything which is immediately relevant to gameplay)
+			int partCount() const;
+			Part* partAt(int index) const;
+			int pieceCount() const;
+			Piece* pieceAt(int index) const;
+			int relationCount() const;
+			PieceRelation relationAt(int index) const;
 			View* view() const;
+			//other objects (mostly user interface)
+			Minimap* minimap() const;
+			Pattern* pattern() const;
+			Preview* preview() const;
+			SavegameModel* savegameModel() const;
 			MainWindow* window() const;
 		public Q_SLOTS:
 			void searchConnections();
