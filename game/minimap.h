@@ -25,12 +25,10 @@
 namespace Palapeli
 {
 
-	class Manager;
-
 	class Minimap : public QWidget
 	{
 		public:
-			Minimap(Manager* manager, QWidget* parent = 0);
+			Minimap(QWidget* parent = 0);
 	
 			virtual void mousePressEvent(QMouseEvent* event);
 			virtual void mouseMoveEvent(QMouseEvent* event);
@@ -41,7 +39,6 @@ namespace Palapeli
 			QPointF widgetToScene(const QPointF& point) const;
 			void moveViewport(const QPointF& widgetTo, const QPointF& widgetFrom = QPointF());
 		private:
-			Manager* m_manager;
 			bool m_draggingViewport, m_viewportWasDragged;
 			QPoint m_draggingPreviousPos;
 	};

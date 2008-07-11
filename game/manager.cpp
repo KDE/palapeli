@@ -83,6 +83,8 @@ namespace Palapeli
 
 }
 
+//BEGIN Palapeli::ManagerPrivate
+
 Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	: m_manager(manager)
 	, m_minimap(0)
@@ -113,10 +115,10 @@ Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 void Palapeli::ManagerPrivate::init()
 {
 	//The Manager needs a valid pointer to this ManagerPrivate instance before the following objects can be initialized.
-	m_minimap = new Palapeli::Minimap(m_manager);
-	m_savegameView = new Palapeli::SavegameView(m_manager);
-	m_view = new Palapeli::View(m_manager);
-	m_window = new Palapeli::MainWindow(m_manager);
+	m_minimap = new Palapeli::Minimap;
+	m_savegameView = new Palapeli::SavegameView;
+	m_view = new Palapeli::View;
+	m_window = new Palapeli::MainWindow;
 	//main window is deleted by Palapeli::ManagerPrivate::~ManagerPrivate because there are widely-spread references to m_view, and m_view will be deleted by m_window
 	m_window->setAttribute(Qt::WA_DeleteOnClose, false);
 }
@@ -177,17 +179,33 @@ void Palapeli::ManagerPrivate::startGameInternal(Palapeli::Pattern* pattern)
 	m_pieces = m_pattern->slice(m_image);
 }
 
-//Palapeli::Manager class
+//END Palapeli::ManagerPrivate
+
+//BEGIN Palapeli::Manager
 
 Palapeli::Manager::Manager()
 	: QObject()
 	, p(new Palapeli::ManagerPrivate(this))
 {
-	p->init();
 }
 
 Palapeli::Manager::~Manager()
 {
+}
+
+Palapeli::Manager* Palapeli::Manager::self()
+{
+	static Palapeli::Manager* theOneAndOnly = new Palapeli::Manager();
+	return theOneAndOnly;
+}
+
+void Palapeli::Manager::init()
+{
+	static bool initialized = false; //make sure this happens only once
+	if (initialized)
+		return;
+	p->init(); //This cannot be done automatically be done in the constructor: In this case, there would be another call to ppMgr() before theOneAndOnly in Palapeli::Manager::self is fully constructed, i.e. ppMgr() returns an uninitialized int.
+	initialized = true;
 }
 
 //properties
@@ -298,14 +316,14 @@ void Palapeli::Manager::createGame(const KUrl& url, int xPieceCount, int yPieceC
 		return;
 	p->m_gameId = QUuid();
 	//start game
-	p->startGameInternal(new Palapeli::RectangularPattern(xPieceCount, yPieceCount, this));
+	p->startGameInternal(new Palapeli::RectangularPattern(xPieceCount, yPieceCount));
 	//random piece positions
 	int sceneWidth = 2 * p->m_image.width(), sceneHeight = 2 * p->m_image.height();
 	foreach (Palapeli::Piece* piece, p->m_pieces)
 	{
 		QRectF pieceRect = piece->sceneBoundingRect();
 		piece->setPos(qrand() % (sceneWidth - (int) pieceRect.width()), qrand() % (sceneHeight - (int) pieceRect.height()));
-		p->m_parts << new Palapeli::Part(piece, this);
+		p->m_parts << new Palapeli::Part(piece);
 	}
 	//propagate changes
 	updateMinimap();
@@ -333,14 +351,14 @@ void Palapeli::Manager::loadGame(const QString& name)
 	//start game
 	//TODO: Support multiple types of patterns. There is only "rectangular" at the moment, so I don't care about the name specified in "General/Pattern" at all.
 	KConfigGroup patternGroup(&config, Palapeli::Strings::PatternGroupKey);
-	p->startGameInternal(new Palapeli::RectangularPattern(&patternGroup, this));
+	p->startGameInternal(new Palapeli::RectangularPattern(&patternGroup));
 	//restore piece positions and connections
 	KConfigGroup piecesGroup(&config, Palapeli::Strings::PiecesGroupKey);
 	for (int i = 0; i < p->m_pieces.count(); ++i)
 	{
 		Palapeli::Piece* piece = p->m_pieces.at(i);
 		piece->setPos(piecesGroup.readEntry(Palapeli::Strings::PositionKey.arg(i), QPointF()));
-		p->m_parts << new Palapeli::Part(piece, this);
+		p->m_parts << new Palapeli::Part(piece);
 	}
 	searchConnections();
 	//propagate changes
@@ -414,5 +432,7 @@ void Palapeli::Manager::savegameWasDeleted(const QString& name)
 {
 	emit savegameDeleted(name);
 }
+
+//END Palapeli::Manager
 
 #include "manager.moc"

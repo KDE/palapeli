@@ -24,15 +24,15 @@
 #include <QPainter>
 #include <KConfigGroup>
 
-Palapeli::RectangularPattern::RectangularPattern(KConfigGroup* arguments, Manager* manager)
-	: Palapeli::Pattern(arguments, manager)
+Palapeli::RectangularPattern::RectangularPattern(KConfigGroup* arguments)
+	: Palapeli::Pattern(arguments)
 	, m_xCount(arguments->readEntry("XCount", 10))
 	, m_yCount(arguments->readEntry("YCount", 10))
 {
 }
 
-Palapeli::RectangularPattern::RectangularPattern(int xCount, int yCount, Manager* manager)
-	: Palapeli::Pattern(0, manager)
+Palapeli::RectangularPattern::RectangularPattern(int xCount, int yCount)
+	: Palapeli::Pattern()
 	, m_xCount(qMax(1, xCount))
 	, m_yCount(qMax(1, yCount))
 {
@@ -67,7 +67,7 @@ QList<Palapeli::Piece*> Palapeli::RectangularPattern::slice(const QImage& image)
 			QPainter painter(&pix);
 			painter.drawImage(QPoint(0, 0), image, QRect(x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight));
 			painter.end();
-			Palapeli::Piece* piece = new Palapeli::Piece(pix, QSize(pieceWidth, pieceHeight), QPointF(x * pieceWidth, y * pieceHeight), m_manager);
+			Palapeli::Piece* piece = new Palapeli::Piece(pix, QSize(pieceWidth, pieceHeight), QPointF(x * pieceWidth, y * pieceHeight));
 			pieces << piece;
 		}
 	}
@@ -78,16 +78,16 @@ QList<Palapeli::Piece*> Palapeli::RectangularPattern::slice(const QImage& image)
 		{
 			//left
 			if (x != 0)
-				m_manager->addRelation(pieces[x * m_yCount + y], pieces[(x - 1) * m_yCount + y], QPointF(-pieceWidth, 0));
+				ppMgr()->addRelation(pieces[x * m_yCount + y], pieces[(x - 1) * m_yCount + y], QPointF(-pieceWidth, 0));
 			//right
 			if (x != m_xCount - 1)
-				m_manager->addRelation(pieces[x * m_yCount + y], pieces[(x + 1) * m_yCount + y], QPointF(pieceWidth, 0));
+				ppMgr()->addRelation(pieces[x * m_yCount + y], pieces[(x + 1) * m_yCount + y], QPointF(pieceWidth, 0));
 			//top
 			if (y != 0)
-				m_manager->addRelation(pieces[x * m_yCount + y], pieces[x * m_yCount + (y - 1)], QPointF(0, -pieceHeight));
+				ppMgr()->addRelation(pieces[x * m_yCount + y], pieces[x * m_yCount + (y - 1)], QPointF(0, -pieceHeight));
 			//bottom
 			if (y != m_yCount - 1)
-				m_manager->addRelation(pieces[x * m_yCount + y], pieces[x * m_yCount + (y + 1)], QPointF(0, pieceHeight));
+				ppMgr()->addRelation(pieces[x * m_yCount + y], pieces[x * m_yCount + (y + 1)], QPointF(0, pieceHeight));
 		}
 	}
 	return pieces;

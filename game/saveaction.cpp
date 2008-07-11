@@ -25,9 +25,8 @@
 #include <KMenu>
 #include <KPushButton>
 
-Palapeli::SaveAction::SaveAction(Manager* manager, QObject* parent)
+Palapeli::SaveAction::SaveAction(QObject* parent)
 	: KActionMenu(KIcon("document-save"), i18n("Save"), parent)
-	, m_manager(manager)
 	, m_menu(new KMenu)
 	, m_nameInput(new KLineEdit)
 	, m_saveButton(new KPushButton(KIcon("document-save"), i18n("Save game")))
@@ -38,7 +37,7 @@ Palapeli::SaveAction::SaveAction(Manager* manager, QObject* parent)
 	setDelayed(false);
 	setStickyMenu(true);
 	setToolTip(i18n("Save the current game"));
-	connect(m_manager, SIGNAL(gameLoaded(const QString&)), this, SLOT(setPredefinedName(const QString&)));
+	connect(ppMgr(), SIGNAL(gameLoaded(const QString&)), this, SLOT(setPredefinedName(const QString&)));
 	//setup actions in menu
 	m_nameInputAct->setDefaultWidget(m_nameInput);
 	connect(m_nameInput, SIGNAL(returnPressed()), this, SLOT(save()));
@@ -67,7 +66,7 @@ void Palapeli::SaveAction::save()
 {
 	QString name = m_nameInput->text();
 	if (!name.isEmpty())
-		m_manager->saveGame(m_nameInput->text());
+		ppMgr()->saveGame(m_nameInput->text());
 	m_menu->hide();
 }
 

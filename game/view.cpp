@@ -24,13 +24,12 @@
 #include <QScrollBar>
 #include <QWheelEvent>
 
-Palapeli::View::View(Palapeli::Manager* manager, QWidget* parent)
+Palapeli::View::View(QWidget* parent)
 	: QGraphicsView(parent)
-	, m_manager(manager)
 	, m_scene(new QGraphicsScene)
 {
-	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), m_manager, SLOT(updateMinimap()));
-	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), m_manager, SLOT(updateMinimap()));
+	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateMinimap()));
+	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateMinimap()));
 	setScene(m_scene);
 }
 
@@ -49,7 +48,7 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 				scalingFactor = 0.01;
 		}
 		scale(scalingFactor, scalingFactor);
-		m_manager->updateMinimap();
+		ppMgr()->updateMinimap();
 	}
 	else if ((event->modifiers() & Qt::ShiftModifier) || event->orientation() == Qt::Horizontal)
 		//shift + mouse wheel - move the viewport left/right by adjusting the slider

@@ -27,9 +27,8 @@
 #include <QPainter>
 #include <QScrollBar>
 
-Palapeli::Minimap::Minimap(Palapeli::Manager* manager, QWidget* parent)
+Palapeli::Minimap::Minimap(QWidget* parent)
 	: QWidget(parent)
-	, m_manager(manager)
 	, m_draggingViewport(false)
 	, m_viewportWasDragged(false)
 {
@@ -39,20 +38,20 @@ Palapeli::Minimap::Minimap(Palapeli::Manager* manager, QWidget* parent)
 
 QRectF Palapeli::Minimap::viewport() const
 {
-	const QRect viewRect(QPoint(0, 0), m_manager->view()->viewport()->size());
-	return m_manager->view()->mapToScene(viewRect).boundingRect();
+	const QRect viewRect(QPoint(0, 0), ppMgr()->view()->viewport()->size());
+	return ppMgr()->view()->mapToScene(viewRect).boundingRect();
 }
 
 QPointF Palapeli::Minimap::widgetToScene(const QPointF& point) const
 {
-	const QSizeF sceneSize = m_manager->view()->scene()->sceneRect().size();
+	const QSizeF sceneSize = ppMgr()->view()->scene()->sceneRect().size();
 	const qreal sceneScalingFactor = qMin(width() / sceneSize.width(), height() / sceneSize.height());
 	return QPointF(point.x() / sceneScalingFactor, point.y() / sceneScalingFactor);
 }
 
 void Palapeli::Minimap::moveViewport(const QPointF& widgetTo, const QPointF& widgetFrom)
 {
-	Palapeli::View* view = m_manager->view();
+	Palapeli::View* view = ppMgr()->view();
 	//translate range of sliders in their coordinates and scene coordinates
 	const qreal sliderMinimumX = view->horizontalScrollBar()->minimum();
 	const qreal sliderMaximumX = view->horizontalScrollBar()->maximum();
@@ -123,7 +122,7 @@ void Palapeli::Minimap::paintEvent(QPaintEvent*)
 {
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
-	const QRectF sceneRect = m_manager->view()->scene()->sceneRect();
+	const QRectF sceneRect = ppMgr()->view()->scene()->sceneRect();
 	const QSizeF sceneSize = sceneRect.size();
 	const qreal sceneWidth = sceneSize.width(), sceneHeight = sceneSize.height();
 	const qreal scalingFactor = qMin(width() / sceneWidth, height() / sceneHeight);
@@ -135,7 +134,7 @@ void Palapeli::Minimap::paintEvent(QPaintEvent*)
 	painter.setBrush(palette().base());
 	painter.drawRect(viewport());
 	//draw piece positions
-	QListIterator<Palapeli::Piece*> iterPieces = m_manager->pieces();
+	QListIterator<Palapeli::Piece*> iterPieces = ppMgr()->pieces();
 	while (iterPieces.hasNext())
 	{
 		const Palapeli::Piece* piece = iterPieces.next();
@@ -226,7 +225,7 @@ void Palapeli::Minimap::paintEvent(QPaintEvent*)
 		}
 	}
 	//draw lines to connected neighbors
-	QListIterator<Palapeli::PieceRelation> iterRelations = m_manager->relations();
+	QListIterator<Palapeli::PieceRelation> iterRelations = ppMgr()->relations();
 	while (iterRelations.hasNext())
 	{
 		Palapeli::PieceRelation rel = iterRelations.next();

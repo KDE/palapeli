@@ -24,9 +24,8 @@
 
 #include <QGraphicsSceneMouseEvent>
 
-Palapeli::Piece::Piece(const QPixmap& pixmap, const QSize& size, const QPointF& posInImage, Palapeli::Manager* manager)
+Palapeli::Piece::Piece(const QPixmap& pixmap, const QSize& size, const QPointF& posInImage)
 	: QGraphicsPixmapItem(pixmap)
-	, m_manager(manager)
 	, m_part(0)
 	, m_size(size)
 	, m_posInImage(posInImage)
@@ -35,7 +34,7 @@ Palapeli::Piece::Piece(const QPixmap& pixmap, const QSize& size, const QPointF& 
 	setAcceptedMouseButtons(Qt::LeftButton | Qt::RightButton);
 	setOffset(0.0, 0.0);
 
-	m_manager->view()->scene()->addItem(this);
+	ppMgr()->view()->scene()->addItem(this);
 }
 
 Palapeli::Part* Palapeli::Piece::part() const
@@ -74,7 +73,7 @@ void Palapeli::Piece::mouseReleaseEvent(QGraphicsSceneMouseEvent*)
 {
 	if (m_part && m_moving)
 	{
-		m_manager->searchConnections();
+		ppMgr()->searchConnections();
 		m_moving = false;
 	}
 }

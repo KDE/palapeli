@@ -27,13 +27,11 @@ class KAction;
 namespace Palapeli
 {
 
-	class Manager;
-
 	class SavegameView : public KMainWindow
 	{
 		Q_OBJECT
 		public:
-			SavegameView(Manager* manager, QWidget* parent = 0);
+			SavegameView(QWidget* parent = 0);
 			~SavegameView();
 		public Q_SLOTS:
 			void loadSelected();
@@ -43,7 +41,6 @@ namespace Palapeli
 		private Q_SLOTS:
 			void selectionChanged();
 		private:
-			Manager* m_manager;
 			QListView* m_view;
 			KAction* m_loadAct;
 			KAction* m_deleteAct;

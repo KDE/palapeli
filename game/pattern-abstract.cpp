@@ -18,15 +18,13 @@
  ***************************************************************************/
 
 #include "pattern-abstract.h"
-#include "manager.h"
 
-Palapeli::Pattern::Pattern(KConfigGroup*, Manager* manager)
-	: m_manager(manager)
+Palapeli::Pattern::Pattern(KConfigGroup* arguments)
 {
+	Q_UNUSED(arguments)
 }
 
-Palapeli::Pattern::Pattern(Manager* manager)
-	: m_manager(manager)
+Palapeli::Pattern::Pattern()
 {
 }
 

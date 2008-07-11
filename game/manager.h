@@ -42,11 +42,10 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			Manager();
-			~Manager();
+			static Manager* self();
+			void init();
 
 			void addRelation(Piece* piece1, Piece* piece2, const QPointF& positionDifference);
-			void searchConnections();
 			void combine(Part* part1, Part* part2);
 	
 			Minimap* minimap() const;
@@ -60,6 +59,7 @@ namespace Palapeli
 			View* view() const;
 			MainWindow* window() const;
 		public Q_SLOTS:
+			void searchConnections();
 			void updateMinimap();
 
 			void createGame(const KUrl& url, int xPieceCount, int yPieceCount);
@@ -73,9 +73,16 @@ namespace Palapeli
 			void savegameCreated(const QString& name);
 			void savegameDeleted(const QString& name);
 		private:
+			Manager();
+			~Manager();
+			Q_DISABLE_COPY(Manager)
+
 			ManagerPrivate* p;
 	};
 
 }
+
+//abbreviation for Palapeli::Manager::self()
+inline Palapeli::Manager* ppMgr() { return Palapeli::Manager::self(); }
 
 #endif //PALAPELI_MANAGER_H

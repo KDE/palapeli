@@ -66,7 +66,7 @@ int main(int argc, char** argv)
 //		yCount = 10;
 //	args->clear();
 
-	Palapeli::Manager manager;
-	manager.window()->show();
+	ppMgr()->init();
+	ppMgr()->window()->show();
 	return app.exec();
 }

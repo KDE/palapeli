@@ -23,9 +23,8 @@
 
 int currentZValue = 0;
 
-Palapeli::Part::Part(Palapeli::Piece* piece, Palapeli::Manager* manager)
-	: m_manager(manager)
-	, m_basePos(piece->pos() - piece->posInImage())
+Palapeli::Part::Part(Palapeli::Piece* piece)
+	: m_basePos(piece->pos() - piece->posInImage())
 {
 	add(piece);
 }
@@ -47,7 +46,7 @@ void Palapeli::Part::move(const QPointF& positionDifference)
 {
 	m_basePos += positionDifference;
 	update();
-	m_manager->updateMinimap();
+	ppMgr()->updateMinimap();
 }
 
 void Palapeli::Part::remove(Palapeli::Piece* piece)

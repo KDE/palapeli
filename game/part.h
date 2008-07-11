@@ -31,9 +31,10 @@ namespace Palapeli
 
 	class Part
 	{
+		//TODO: Replace with a proper interface.
 		friend void Manager::combine(Part* part1, Part* part2);
 		public:
-			Part(Piece* piece, Manager* manager);
+			Part(Piece* piece);
 			~Part();
 
 			void add(Piece* piece);
@@ -41,7 +42,6 @@ namespace Palapeli
 			void remove(Piece* piece);
 			void update();
 		private:
-			Manager* m_manager;
 			QList<Piece*> m_pieces;
 			QPointF m_basePos; //resembles to (0,0) in image coordinates
 	};

@@ -28,8 +28,8 @@ namespace Palapeli
 	class RectangularPattern : public Pattern
 	{
 	public:
-		RectangularPattern(KConfigGroup* arguments, Manager* manager);
-		RectangularPattern(int xCount, int yCount, Manager* manager);
+		RectangularPattern(KConfigGroup* arguments);
+		RectangularPattern(int xCount, int yCount);
 		virtual ~RectangularPattern();
 
 		virtual QList<Piece*> slice(const QImage& image);

@@ -25,13 +25,13 @@
 namespace Palapeli
 {
 
-	class Manager;
 	class Part;
 
 	class Piece : public QGraphicsPixmapItem
 	{
 		public:
-			Piece(const QPixmap& pixmap, const QSize& size, const QPointF& posInImage, Manager* manager);
+			//TODO: QSize + QPointF -> QRectF
+			Piece(const QPixmap& pixmap, const QSize& size, const QPointF& posInImage);
 
 			Part* part() const;
 			QPointF posInImage() const;
@@ -42,7 +42,6 @@ namespace Palapeli
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 		private:
-			Manager* m_manager;
 			Part* m_part;
 			QSize m_size;
 			QPointF m_posInImage;

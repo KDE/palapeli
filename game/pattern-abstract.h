@@ -28,21 +28,19 @@ class KConfigGroup;
 namespace Palapeli
 {
 
-	class Manager;
 	class Piece;
 
 	class Pattern
 	{
+		//TODO: Major refactoring of pattern base class.
 		public:
-			Pattern(KConfigGroup* arguments, Manager* manager);
-			Pattern(Manager* manager);
+			Pattern(KConfigGroup* arguments);
+			Pattern();
 			virtual ~Pattern();
 	
 			virtual QList<Piece*> slice(const QImage& image) = 0;
 			virtual QString name() const = 0;
 			virtual void writeArguments(KConfigGroup* target) const = 0;
-		protected:
-			Manager* m_manager;
 	};
 
 }

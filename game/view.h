@@ -27,16 +27,13 @@ class QWheelEvent;
 namespace Palapeli
 {
 
-	class Manager;
-
 	class View : public QGraphicsView
 	{
 		public:
-			View(Manager* manager, QWidget* parent = 0);
+			View(QWidget* parent = 0);
 		protected:
 			virtual void wheelEvent(QWheelEvent* event);
 		private:
-			Manager* m_manager;
 			QGraphicsScene* m_scene;
 	};
 

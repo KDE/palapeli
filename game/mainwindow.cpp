@@ -43,13 +43,12 @@
 #include <KDE/KStandardGameAction>
 #include <KStatusBar>
 
-Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
+Palapeli::MainWindow::MainWindow(QWidget* parent)
 	: KXmlGuiWindow(parent)
-	, m_manager(manager)
 	, m_newDialog(new KDialog(this))
 	, m_newUi(new Ui::NewPuzzleDialog)
 	, m_loadAct(new Palapeli::ListMenu(KIcon("document-open"), i18n("Load"), this))
-	, m_saveAct(new Palapeli::SaveAction(m_manager, this))
+	, m_saveAct(new Palapeli::SaveAction(this))
 	, m_dockMinimap(new QDockWidget(i18n("Overview"), this))
 	, m_toggleMinimapAct(new KAction(i18n("Show minimap"), this))
 	, m_dockPreview(new QDockWidget(i18n("Image preview"), this))
@@ -65,8 +64,8 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	m_loadAct->setDelayed(false);
 	m_loadAct->setStickyMenu(true);
 	m_loadAct->setDisabledWhenEmpty(true);
-	m_loadAct->setModel(m_manager->savegameModel());
-	connect(m_loadAct, SIGNAL(clicked(const QString&)), m_manager, SLOT(loadGame(const QString&)));
+	m_loadAct->setModel(ppMgr()->savegameModel());
+	connect(m_loadAct, SIGNAL(clicked(const QString&)), ppMgr(), SLOT(loadGame(const QString&)));
 	actionCollection()->addAction("game_save", m_saveAct);
 	actionCollection()->addAction("palapeli_manage_savegames", m_showSavegamesAct);
 	connect(m_showSavegamesAct, SIGNAL(triggered()), m_dockSavegames, SLOT(show()));
@@ -85,23 +84,23 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
         KStandardAction::preferences(m_settingsDialog, SLOT(show()), actionCollection());
 	//GUI settings
 	setAutoSaveSettings();
-	setCentralWidget(m_manager->view());
+	setCentralWidget(ppMgr()->view());
 	//minimap
 	addDockWidget(Qt::LeftDockWidgetArea, m_dockMinimap);
 	m_dockMinimap->setObjectName("DockMap");
-	m_dockMinimap->setWidget(m_manager->minimap());
+	m_dockMinimap->setWidget(ppMgr()->minimap());
 	m_dockMinimap->resize(1, 1); //lets the dock widget adapt to the content's minimum size (note that this minimum size will be overwritten by user configuration)
         m_dockMinimap->setVisible(false); //hidden by default
 	//preview
 	addDockWidget(Qt::LeftDockWidgetArea, m_dockPreview);
 	m_dockPreview->setObjectName("DockPreview");
-	m_dockPreview->setWidget(m_manager->preview());
+	m_dockPreview->setWidget(ppMgr()->preview());
 	m_dockPreview->resize(1, 1);
 	m_dockPreview->setVisible(false); //hidden by default
 	//saved games view
 	addDockWidget(Qt::RightDockWidgetArea, m_dockSavegames);
 	m_dockSavegames->setObjectName("DockSavegames");
-	m_dockSavegames->setWidget(m_manager->savegameView());
+	m_dockSavegames->setWidget(ppMgr()->savegameView());
 	m_dockSavegames->resize(1, 1);
 	m_dockSavegames->setVisible(false); //hidden by default
 	//late GUI settings
@@ -112,10 +111,10 @@ Palapeli::MainWindow::MainWindow(Palapeli::Manager* manager, QWidget* parent)
 	QTimer::singleShot(0, this, SLOT(setupDialogs()));
 	//apply saved view settings
 	Settings::self()->readConfig();
-	m_manager->view()->setRenderHint(QPainter::Antialiasing, Settings::antialiasing());
+	ppMgr()->view()->setRenderHint(QPainter::Antialiasing, Settings::antialiasing());
 #ifdef PALAPELI_WITH_OPENGL
 	if (Settings::hardwareAccel())
-		m_manager->view()->setViewport(new QGLWidget);
+		ppMgr()->view()->setViewport(new QGLWidget);
 #endif
 }
 
@@ -186,14 +185,14 @@ void Palapeli::MainWindow::configurationFinished()
 	if (Settings::antialiasing() != newAntialiasing)
 	{
 		Settings::setAntialiasing(newAntialiasing);
-		m_manager->view()->setRenderHint(QPainter::Antialiasing, newAntialiasing);
+		ppMgr()->view()->setRenderHint(QPainter::Antialiasing, newAntialiasing);
 	}
 #ifdef PALAPELI_WITH_OPENGL
 	bool newHardwareAccel = m_settingsUi->checkHardwareAccel->checkState() == Qt::Checked;
 	if (Settings::hardwareAccel() != newHardwareAccel)
 	{
 		Settings::setHardwareAccel(newHardwareAccel);
-		m_manager->view()->setViewport(newHardwareAccel ? new QGLWidget : new QWidget);
+		ppMgr()->view()->setViewport(newHardwareAccel ? new QGLWidget : new QWidget);
 	}
 #else
 	Settings::setHardwareAccel(false);
@@ -205,7 +204,7 @@ void Palapeli::MainWindow::configurationFinished()
 
 void Palapeli::MainWindow::startGame()
 {
-	m_manager->createGame(m_newUi->urlImage->url(), m_newUi->spinHorizontalPieces->value(), m_newUi->spinVerticalPieces->value());
+	ppMgr()->createGame(m_newUi->urlImage->url(), m_newUi->spinHorizontalPieces->value(), m_newUi->spinVerticalPieces->value());
 }
 
 #include "mainwindow.moc"

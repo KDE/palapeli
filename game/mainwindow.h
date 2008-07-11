@@ -35,7 +35,6 @@ namespace Palapeli
 {
 
 	class ListMenu;
-	class Manager;
 	class SaveAction;
 	class SavegameView;
 
@@ -43,7 +42,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			MainWindow(Manager* manager, QWidget* parent = 0);
+			MainWindow(QWidget* parent = 0);
 			~MainWindow();
 		private Q_SLOTS:
 			void setupDialogs();
@@ -51,7 +50,6 @@ namespace Palapeli
 			void configurationFinished();
 			void startGame();
 		private:
-			Manager* m_manager;
 			KDialog* m_newDialog;
 			Ui::NewPuzzleDialog* m_newUi;
 			ListMenu* m_loadAct;

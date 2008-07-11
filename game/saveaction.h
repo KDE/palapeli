@@ -28,19 +28,16 @@ class KPushButton;
 namespace Palapeli
 {
 
-	class Manager;
-
 	class SaveAction : public KActionMenu
 	{
 		Q_OBJECT
 		public:
-			SaveAction(Manager* manager, QObject* parent = 0);
+			SaveAction(QObject* parent = 0);
 			~SaveAction();
 		private Q_SLOTS:
 			void setPredefinedName(const QString& name);
 			void save();
 		private:
-			Manager* m_manager;
 			KMenu* m_menu;
 			KLineEdit* m_nameInput;
 			KPushButton* m_saveButton;
