@@ -18,6 +18,7 @@
  ***************************************************************************/
 
 #include "piecerelation.h"
+#include "part.h"
 #include "piece.h"
 
 Palapeli::PieceRelation::PieceRelation(Palapeli::Piece* piece1, Palapeli::Piece* piece2, const QPointF& positionDifference)
@@ -40,4 +41,29 @@ Palapeli::Piece* Palapeli::PieceRelation::piece2() const
 QPointF Palapeli::PieceRelation::positionDifference() const
 {
 	return m_positionDifference;
+}
+
+bool Palapeli::PieceRelation::piecesInRightPosition() const
+{
+	static const qreal maxInaccuracyFactor = 0.1;
+	const QSizeF maxInaccuracy = maxInaccuracyFactor * m_piece1->size();
+	const QPointF realPositionDifference = m_piece2->pos() - m_piece1->pos();
+	const QPointF inaccuracy = realPositionDifference - m_positionDifference;
+	return qAbs(inaccuracy.x()) <= maxInaccuracy.width() && qAbs(inaccuracy.y()) <= maxInaccuracy.height();
+}
+
+void Palapeli::PieceRelation::combine()
+{
+	Palapeli::Part* part1 = piece1()->part();
+	Palapeli::Part* part2 = piece2()->part();
+	while (part2->pieceCount() > 0)
+	{
+		Palapeli::Piece* piece = part2->pieceAt(0);
+		part2->removePiece(piece);
+		part1->addPiece(piece);
+	}
+	ppMgr()->removePart(part2);
+	part1->update(); //adapt positions of added pieces
+	delete part2;
+
 }

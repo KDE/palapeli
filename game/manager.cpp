@@ -171,7 +171,7 @@ void Palapeli::ManagerPrivate::startGameInternal(Palapeli::Pattern* pattern)
 	//create pieces and parts
 	delete m_pattern;
 	m_pattern = pattern;
-	m_pieces = m_pattern->slice(m_image);
+	m_pattern->slice(m_image);
 }
 
 //END Palapeli::ManagerPrivate
@@ -265,51 +265,57 @@ Palapeli::MainWindow* Palapeli::Manager::window() const
 	return p->m_window;
 }
 
-void Palapeli::Manager::updateMinimap()
+void Palapeli::Manager::updateGraphics()
 {
 	p->m_minimap->update();
 }
 
 //gameplay
 
-void Palapeli::Manager::addRelation(Palapeli::Piece* piece1, Palapeli::Piece* piece2, const QPointF& positionDifference)
+void Palapeli::Manager::addPiece(Piece* piece)
 {
-	p->m_relations << Palapeli::PieceRelation(piece1, piece2, positionDifference);
+	//random position
+	const int sceneWidth = 2 * p->m_image.width();
+	const int sceneHeight = 2 * p->m_image.height();
+	const QRectF pieceRect = piece->sceneBoundingRect();
+	const int xPosition = qrand() % (sceneWidth - (int) pieceRect.width());
+	const int yPosition = qrand() % (sceneHeight - (int) pieceRect.height());
+	addPiece(piece, QPointF(xPosition, yPosition));
+}
+
+void Palapeli::Manager::addPiece(Piece* piece, const QPointF& position)
+{
+	QRectF pieceRect = piece->sceneBoundingRect();
+	piece->setPos(position);
+	p->m_pieces << piece;
+	p->m_parts << new Palapeli::Part(piece);
+}
+
+void Palapeli::Manager::addRelation(const PieceRelation& relation)
+{
+	p->m_relations << relation;
+}
+
+void Palapeli::Manager::removePart(Part* part)
+{
+	p->m_parts.removeAll(part);
 }
 
 void Palapeli::Manager::searchConnections()
 {
-	static const qreal maxInaccuracyFactor = 0.1;
 	bool combinedSomething = false;
-	foreach (const Palapeli::PieceRelation& rel, p->m_relations)
+	foreach (Palapeli::PieceRelation rel, p->m_relations)
 	{
 		if (rel.piece1()->part() == rel.piece2()->part()) //already combined
 			continue;
-		const qreal xMaxInaccuracy = maxInaccuracyFactor * rel.piece1()->size().width();
-		const qreal yMaxInaccuracy = maxInaccuracyFactor * rel.piece1()->size().height();
-		const QPointF posDiff = rel.piece2()->pos() - rel.piece1()->pos();
-		const QPointF inaccuracy = posDiff - rel.positionDifference();
-		if (qAbs(inaccuracy.x()) <= xMaxInaccuracy && qAbs(inaccuracy.y()) <= yMaxInaccuracy)
+		if (rel.piecesInRightPosition())
 		{
-			combine(rel.piece1()->part(), rel.piece2()->part());
+			rel.combine();
 			combinedSomething = true;
 		}
 	}
 	if (combinedSomething)
-		updateMinimap();
-}
-
-void Palapeli::Manager::combine(Palapeli::Part* part1, Palapeli::Part* part2)
-{
-	while (part2->pieceCount() > 0)
-	{
-		Palapeli::Piece* piece = part2->pieceAt(0);
-		part2->removePiece(piece);
-		part1->addPiece(piece);
-	}
-	p->m_parts.removeAll(part2);
-	part1->update(); //adapt positions of added pieces
-	delete part2;
+		updateGraphics();
 }
 
 //game instances
@@ -322,16 +328,8 @@ void Palapeli::Manager::createGame(const KUrl& url, int xPieceCount, int yPieceC
 	p->m_gameId = QUuid();
 	//start game
 	p->startGameInternal(new Palapeli::RectangularPattern(xPieceCount, yPieceCount));
-	//random piece positions
-	int sceneWidth = 2 * p->m_image.width(), sceneHeight = 2 * p->m_image.height();
-	foreach (Palapeli::Piece* piece, p->m_pieces)
-	{
-		QRectF pieceRect = piece->sceneBoundingRect();
-		piece->setPos(qrand() % (sceneWidth - (int) pieceRect.width()), qrand() % (sceneHeight - (int) pieceRect.height()));
-		p->m_parts << new Palapeli::Part(piece);
-	}
 	//propagate changes
-	updateMinimap();
+	updateGraphics();
 	emit gameLoaded(QString());
 }
 
@@ -367,7 +365,7 @@ void Palapeli::Manager::loadGame(const QString& name)
 	}
 	searchConnections();
 	//propagate changes
-	updateMinimap();
+	updateGraphics();
 	emit gameLoaded(name);
 }
 

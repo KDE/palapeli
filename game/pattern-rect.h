@@ -32,7 +32,7 @@ namespace Palapeli
 		RectangularPattern(int xCount, int yCount);
 		virtual ~RectangularPattern();
 
-		virtual QList<Piece*> slice(const QImage& image);
+		virtual void slice(const QImage& image);
 		virtual QString name() const;
 		virtual void writeArguments(KConfigGroup* target) const;
 	private:

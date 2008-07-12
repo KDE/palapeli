@@ -32,8 +32,8 @@ Palapeli::View::View(QWidget* parent)
 	: QGraphicsView(parent)
 	, m_scene(new QGraphicsScene)
 {
-	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateMinimap()));
-	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateMinimap()));
+	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateGraphics()));
+	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateGraphics()));
 	setScene(m_scene);
 	//load settings
 	Settings::self()->readConfig();
@@ -56,7 +56,7 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 				scalingFactor = 0.01;
 		}
 		scale(scalingFactor, scalingFactor);
-		ppMgr()->updateMinimap();
+		ppMgr()->updateGraphics();
 	}
 	else if ((event->modifiers() & Qt::ShiftModifier) || event->orientation() == Qt::Horizontal)
 		//shift + mouse wheel - move the viewport left/right by adjusting the slider

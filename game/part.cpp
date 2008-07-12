@@ -65,7 +65,7 @@ void Palapeli::Part::move(const QPointF& positionDifference)
 {
 	m_basePosition += positionDifference;
 	update();
-	ppMgr()->updateMinimap();
+	ppMgr()->updateGraphics();
 }
 
 void Palapeli::Part::update()

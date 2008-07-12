@@ -28,8 +28,6 @@ class KConfigGroup;
 namespace Palapeli
 {
 
-	class Piece;
-
 	class Pattern
 	{
 		//TODO: Major refactoring of pattern base class.
@@ -38,7 +36,7 @@ namespace Palapeli
 			Pattern();
 			virtual ~Pattern();
 	
-			virtual QList<Piece*> slice(const QImage& image) = 0;
+			virtual void slice(const QImage& image) = 0;
 			virtual QString name() const = 0;
 			virtual void writeArguments(KConfigGroup* target) const = 0;
 	};

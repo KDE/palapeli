@@ -39,16 +39,15 @@ namespace Palapeli
 
 	class Manager : public QObject
 	{
-		//TODO: Rename updateMinimap() to updateGraphics() or such.
-		//TODO: Make combine() private.
-		//TODO: Group functions in manager.cpp not by class, but by purpose.
 		Q_OBJECT
 		public:
 			static Manager* self();
 			void init();
 
-			void addRelation(Piece* piece1, Piece* piece2, const QPointF& positionDifference);
-			void combine(Part* part1, Part* part2);
+			void addPiece(Piece* piece); //with random position
+			void addPiece(Piece* piece, const QPointF& position);
+			void addRelation(const PieceRelation& relation);
+			void removePart(Part* part);
 			//core objects (i.e. everything which is immediately relevant to gameplay)
 			int partCount() const;
 			Part* partAt(int index) const;
@@ -65,7 +64,7 @@ namespace Palapeli
 			MainWindow* window() const;
 		public Q_SLOTS:
 			void searchConnections();
-			void updateMinimap();
+			void updateGraphics();
 
 			void createGame(const KUrl& url, int xPieceCount, int yPieceCount);
 			void loadGame(const QString& name);

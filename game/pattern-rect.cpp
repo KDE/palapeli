@@ -20,6 +20,7 @@
 #include "pattern-rect.h"
 #include "manager.h"
 #include "piece.h"
+#include "piecerelation.h"
 
 #include <QPainter>
 #include <KConfigGroup>
@@ -53,7 +54,7 @@ void Palapeli::RectangularPattern::writeArguments(KConfigGroup* target) const
 	target->writeEntry("YCount", m_yCount);
 }
 
-QList<Palapeli::Piece*> Palapeli::RectangularPattern::slice(const QImage& image)
+void Palapeli::RectangularPattern::slice(const QImage& image)
 {
 	QList<Palapeli::Piece*> pieces;
 	int width = image.width(), height = image.height();
@@ -69,6 +70,7 @@ QList<Palapeli::Piece*> Palapeli::RectangularPattern::slice(const QImage& image)
 			painter.end();
 			Palapeli::Piece* piece = new Palapeli::Piece(pix, QRectF(x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight));
 			pieces << piece;
+			ppMgr()->addPiece(piece);
 		}
 	}
 	//build relationships between pieces
@@ -78,17 +80,16 @@ QList<Palapeli::Piece*> Palapeli::RectangularPattern::slice(const QImage& image)
 		{
 			//left
 			if (x != 0)
-				ppMgr()->addRelation(pieces[x * m_yCount + y], pieces[(x - 1) * m_yCount + y], QPointF(-pieceWidth, 0));
+				ppMgr()->addRelation(Palapeli::PieceRelation(pieces[x * m_yCount + y], pieces[(x - 1) * m_yCount + y], QPointF(-pieceWidth, 0)));
 			//right
 			if (x != m_xCount - 1)
-				ppMgr()->addRelation(pieces[x * m_yCount + y], pieces[(x + 1) * m_yCount + y], QPointF(pieceWidth, 0));
+				ppMgr()->addRelation(Palapeli::PieceRelation(pieces[x * m_yCount + y], pieces[(x + 1) * m_yCount + y], QPointF(pieceWidth, 0)));
 			//top
 			if (y != 0)
-				ppMgr()->addRelation(pieces[x * m_yCount + y], pieces[x * m_yCount + (y - 1)], QPointF(0, -pieceHeight));
+				ppMgr()->addRelation(Palapeli::PieceRelation(pieces[x * m_yCount + y], pieces[x * m_yCount + (y - 1)], QPointF(0, -pieceHeight)));
 			//bottom
 			if (y != m_yCount - 1)
-				ppMgr()->addRelation(pieces[x * m_yCount + y], pieces[x * m_yCount + (y + 1)], QPointF(0, pieceHeight));
+				ppMgr()->addRelation(Palapeli::PieceRelation(pieces[x * m_yCount + y], pieces[x * m_yCount + (y + 1)], QPointF(0, pieceHeight)));
 		}
 	}
-	return pieces;
 }
