@@ -17,6 +17,8 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
+//ATTENTION: This code is part of the old pattern implementation which will soon be deprecated.
+
 #include "pattern-abstract.h"
 
 Palapeli::Pattern::Pattern(KConfigGroup* arguments)

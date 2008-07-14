@@ -1,5 +1,4 @@
 /***************************************************************************
- *   Copyright (C) 2008 Felix Lemke <lemke.felix@ages-skripte.org>
  *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
@@ -17,32 +16,37 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-//ATTENTION: This code is part of the old pattern implementation which will soon be deprecated.
+//ATTENTION: This code is part of the new pattern implementation which is not included in the build yet (because there is no UI code to make use of it). It may therefore not compile correctly.
 
-#ifndef PALAPELI_PATTERN_ABSTRACT_H
-#define PALAPELI_PATTERN_ABSTRACT_H
+#ifndef PALAPELI_PATTERN_H
+#define PALAPELI_PATTERN_H
 
-#include <QImage>
-#include <QMap>
-#include <QString>
-class KConfigGroup;
+class QImage;
+#include <QObject>
 
 namespace Palapeli
 {
 
-	class Pattern
+	class PatternPrivate;
+
+	class Pattern : public QObject
 	{
-		//TODO: Major refactoring of pattern base class.
+		//TODO: documentation (I will include that once this class move into installable headers)
+		//TODO: signals for progress reporting
+		Q_OBJECT
 		public:
-			Pattern(KConfigGroup* arguments);
 			Pattern();
 			virtual ~Pattern();
-	
-			virtual void slice(const QImage& image) = 0;
-			virtual QString name() const = 0;
-			virtual void writeArguments(KConfigGroup* target) const = 0;
-	};
 
+			//implementation of subclasses (i.e. plugins); interface to Palapeli core
+			virtual void slice(const QImage& image) = 0;
+		protected:
+			//interface to subclasses (i.e. plugins)
+			void addPiece(const QPixmap& pixmap, const QRectF& positionInImage);
+			void addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference);
+		private:
+			PatternPrivate* p;
+	};
 }
 
-#endif // PALAPELI_PATTERN_ABSTRACT_H
+#endif // PALAPELI_PATTERN_H

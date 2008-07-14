@@ -1,5 +1,4 @@
 /***************************************************************************
- *   Copyright (C) 2008 Felix Lemke <lemke.felix@ages-skripte.org>
  *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
@@ -17,32 +16,53 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-//ATTENTION: This code is part of the old pattern implementation which will soon be deprecated.
+//ATTENTION: This code is part of the new pattern implementation which is not included in the build yet (because there is no UI code to make use of it). It may therefore not compile correctly.
 
-#ifndef PALAPELI_PATTERN_ABSTRACT_H
-#define PALAPELI_PATTERN_ABSTRACT_H
-
-#include <QImage>
-#include <QMap>
-#include <QString>
-class KConfigGroup;
+#include "pattern.h"
+#include "manager.h"
+#include "piece.h"
+#include "piecerelation.h"
 
 namespace Palapeli
 {
 
-	class Pattern
+	class PatternPrivate
 	{
-		//TODO: Major refactoring of pattern base class.
 		public:
-			Pattern(KConfigGroup* arguments);
-			Pattern();
-			virtual ~Pattern();
-	
-			virtual void slice(const QImage& image) = 0;
-			virtual QString name() const = 0;
-			virtual void writeArguments(KConfigGroup* target) const = 0;
+			PatternPrivate();
+			~PatternPrivate();
+
+			QList<Piece*> m_pieces;
 	};
 
 }
 
-#endif // PALAPELI_PATTERN_ABSTRACT_H
+Palapeli::PatternPrivate::PatternPrivate()
+{
+}
+
+Palapeli::PatternPrivate::~PatternPrivate()
+{
+}
+
+Palapeli::Pattern::Pattern()
+{
+}
+
+Palapeli::Pattern::~Pattern()
+{
+}
+
+void Palapeli::Pattern::addPiece(const QPixmap& pixmap, const QRectF& positionInImage)
+{
+	Palapeli::Piece* piece = new Palapeli::Piece(pixmap, positionInImage)
+	ppMgr()->addPiece(piece);
+	m_pieces << piece;
+}
+
+void Palapeli::Pattern::addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference)
+{
+	ppMgr()->addRelation(Palapeli::PieceRelation(m_pieces[piece1Id], m_pieces[piece2Id], positionDifference);
+}
+
+#include "pattern.moc"

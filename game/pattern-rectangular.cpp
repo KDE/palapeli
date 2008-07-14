@@ -1,5 +1,4 @@
 /***************************************************************************
- *   Copyright (C) 2008 Felix Lemke <lemke.felix@ages-skripte.org>
  *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
@@ -17,22 +16,14 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-//ATTENTION: This code is part of the old pattern implementation which will soon be deprecated.
+//ATTENTION: This code is part of the new pattern implementation which is not included in the build yet (because there is no UI code to make use of it). It may therefore not compile correctly.
 
 #include "pattern-rect.h"
-#include "manager.h"
-#include "piece.h"
-#include "piecerelation.h"
 
 #include <QPainter>
-#include <KConfigGroup>
+#include <KLocalizedString>
 
-Palapeli::RectangularPattern::RectangularPattern(KConfigGroup* arguments)
-	: Palapeli::Pattern(arguments)
-	, m_xCount(arguments->readEntry("XCount", 10))
-	, m_yCount(arguments->readEntry("YCount", 10))
-{
-}
+//BEGIN Palapeli::RectangularPattern
 
 Palapeli::RectangularPattern::RectangularPattern(int xCount, int yCount)
 	: Palapeli::Pattern()
@@ -43,17 +34,6 @@ Palapeli::RectangularPattern::RectangularPattern(int xCount, int yCount)
 
 Palapeli::RectangularPattern::~RectangularPattern()
 {
-}
-
-QString Palapeli::RectangularPattern::name() const
-{
-	return QLatin1String("rectangular");
-}
-
-void Palapeli::RectangularPattern::writeArguments(KConfigGroup* target) const
-{
-	target->writeEntry("XCount", m_xCount);
-	target->writeEntry("YCount", m_yCount);
 }
 
 void Palapeli::RectangularPattern::slice(const QImage& image)
@@ -70,9 +50,7 @@ void Palapeli::RectangularPattern::slice(const QImage& image)
 			QPainter painter(&pix);
 			painter.drawImage(QPoint(0, 0), image, QRect(x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight));
 			painter.end();
-			Palapeli::Piece* piece = new Palapeli::Piece(pix, QRectF(x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight));
-			pieces << piece;
-			ppMgr()->addPiece(piece);
+			addPiece(pix, QRectF(x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight));
 		}
 	}
 	//build relationships between pieces
@@ -82,16 +60,47 @@ void Palapeli::RectangularPattern::slice(const QImage& image)
 		{
 			//left
 			if (x != 0)
-				ppMgr()->addRelation(Palapeli::PieceRelation(pieces[x * m_yCount + y], pieces[(x - 1) * m_yCount + y], QPointF(-pieceWidth, 0)));
+				addRelation(x * m_yCount + y, (x - 1) * m_yCount + y, QPointF(-pieceWidth, 0));
 			//right
 			if (x != m_xCount - 1)
-				ppMgr()->addRelation(Palapeli::PieceRelation(pieces[x * m_yCount + y], pieces[(x + 1) * m_yCount + y], QPointF(pieceWidth, 0)));
+				addRelation(x * m_yCount + y, (x + 1) * m_yCount + y, QPointF(pieceWidth, 0));
 			//top
 			if (y != 0)
-				ppMgr()->addRelation(Palapeli::PieceRelation(pieces[x * m_yCount + y], pieces[x * m_yCount + (y - 1)], QPointF(0, -pieceHeight)));
+				addRelation(x * m_yCount + y, x * m_yCount + (y - 1), QPointF(0, -pieceHeight));
 			//bottom
 			if (y != m_yCount - 1)
-				ppMgr()->addRelation(Palapeli::PieceRelation(pieces[x * m_yCount + y], pieces[x * m_yCount + (y + 1)], QPointF(0, pieceHeight)));
+				addRelation(x * m_yCount + y, x * m_yCount + (y + 1), QPointF(0, pieceHeight));
 		}
 	}
 }
+
+//END Palapeli::RectangularPattern
+
+//BEGIN Palapeli::RectangularPatternConfiguration
+
+Palapeli::RectangularPatternConfiguration::RectangularPatternConfiguration()
+	: Palapeli::PatternConfiguration("rectangular", i18n("Simple rectangles"))
+{
+	setSizeDefinitionMode(Palapeli::PatternConfiguration::CountSizeDefinition);
+}
+
+Palapeli::RectangularPatternConfiguration::~RectangularPatternConfiguration()
+{
+}
+
+void Palapeli::RectangularPatternConfiguration::readArguments(KConfigGroup* config)
+{
+	readArgumentsBase(config);
+}
+
+void Palapeli::RectangularPatternConfiguration::writeArguments(KConfigGroup* config) const
+{
+	writeArgumentsBase(config);
+}
+
+Palapeli::Pattern* Palapeli::RectangularPatternConfiguration::createPattern() const
+{
+	return new Palapeli::RectangularPattern(xCount(), yCount());
+}
+
+//END Palapeli::RectangularPatternConfiguration
