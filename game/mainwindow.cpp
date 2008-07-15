@@ -43,8 +43,7 @@ Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
 	, m_dockPreview(new QDockWidget(i18n("Image preview"), parent))
 	, m_savegameView(new Palapeli::SavegameView)
 	, m_dockSavegames(new QDockWidget(i18n("Saved games"), parent))
-	, m_newDialog(new KDialog(parent))
-	, m_newUi(new Ui::NewPuzzleDialog)
+	, m_newDialog(0) //cannot be created until Manager has loaded the pattern plugins
 	, m_settingsDialog(new KDialog(parent))
 	, m_settingsUi(new Ui::SettingsWidget)
 {
@@ -67,14 +66,13 @@ Palapeli::MainWindowPrivate::~MainWindowPrivate()
 	//dialogs
 	delete m_newDialog;
 	delete m_settingsDialog;
-	delete m_newUi;
 	delete m_settingsUi;
 }
 
 void Palapeli::MainWindowPrivate::setupActions()
 {
 	//Game actions
-	KStandardGameAction::gameNew(m_newDialog, SLOT(show()), m_parent->actionCollection());
+	KStandardGameAction::gameNew(0, "", m_parent->actionCollection()); //no slot given because m_newDialog is not available yet
 	m_parent->actionCollection()->addAction("game_load", m_loadAct);
 	m_loadAct->setDelayed(false);
 	m_loadAct->setStickyMenu(true);
@@ -123,24 +121,10 @@ void Palapeli::MainWindowPrivate::setupDockers()
 
 void Palapeli::MainWindowPrivate::setupDialogs()
 {
-	//setup "New game" UI
-	const int minPieceCount = 0;
-	const int defaultPieceCount = 8;
-	const int maxPieceCount = 100;
-	m_newUi->setupUi(m_newDialog->mainWidget());
-	m_newDialog->mainWidget()->setMinimumWidth(400);
-	m_newUi->spinHorizontalPieces->setMinimum(minPieceCount);
-	m_newUi->spinHorizontalPieces->setMaximum(maxPieceCount);
-	m_newUi->spinHorizontalPieces->setValue(defaultPieceCount);
-	m_newUi->spinVerticalPieces->setMinimum(minPieceCount);
-	m_newUi->spinVerticalPieces->setMaximum(maxPieceCount);
-	m_newUi->spinVerticalPieces->setValue(defaultPieceCount);
-	//setup "New game" dialog
-	m_newDialog->setWindowIcon(KIcon("document-new"));
-	m_newDialog->setCaption(i18n("New puzzle"));
-	m_newDialog->setButtons(KDialog::Ok | KDialog::Cancel);
-	m_newDialog->mainWidget()->layout()->setMargin(0);
-	connect(m_newDialog, SIGNAL(okClicked()), this, SLOT(startGame()));
+	//setup "New game" dialog - it is now safe to do that because Manager has loaded its pattern plugins
+	m_newDialog = new Palapeli::NewPuzzleDialog;
+	connect(m_parent->actionCollection()->action(KStandardGameAction::name(KStandardGameAction::New)), SIGNAL(triggered()), m_newDialog, SLOT(show()));
+	connect(m_newDialog, SIGNAL(startGame(const KUrl&, int)), ppMgr(), SLOT(createGame(const KUrl&, int)));
 	//setup Settings UI
 	m_settingsUi->setupUi(m_settingsDialog->mainWidget());
 	m_settingsUi->checkAntialiasing->setCheckState(Settings::antialiasing() ? Qt::Checked : Qt::Unchecked);
@@ -172,11 +156,6 @@ void Palapeli::MainWindowPrivate::configurationFinished()
 	ppMgr()->view()->setHardwareAccelerated(m_settingsUi->checkHardwareAccel->checkState() == Qt::Checked);
 	//mark settings as saved in the dialog
 	m_settingsDialog->enableButtonApply(false);
-}
-
-void Palapeli::MainWindowPrivate::startGame()
-{
-	ppMgr()->createGame(m_newUi->urlImage->url(), m_newUi->spinHorizontalPieces->value(), m_newUi->spinVerticalPieces->value());
 }
 
 Palapeli::MainWindow::MainWindow(QWidget* parent)

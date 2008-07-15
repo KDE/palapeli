@@ -16,9 +16,11 @@ set(palapeli_SRCS
 	mainwindow.cpp
 	manager.cpp
 	minimap.cpp
+	newpuzzledialog.cpp
 	part.cpp
-	pattern-abstract.cpp
-	pattern-rect.cpp
+	pattern.cpp
+	pattern-configuration.cpp
+	pattern-rectangular.cpp
 	piece.cpp
 	piecerelation.cpp
 	preview.cpp
@@ -30,7 +32,7 @@ set(palapeli_SRCS
 	../storage/gamestorageattribs.cpp
 	../storage/gamestorageitem.cpp
 )
-kde4_add_ui_files(palapeli_SRCS dialognew.ui settings.ui)
+kde4_add_ui_files(palapeli_SRCS settings.ui)
 kde4_add_kcfg_files(palapeli_SRCS settings.kcfgc)
 
 kde4_add_executable(palapeli ${palapeli_SRCS})

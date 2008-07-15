@@ -16,8 +16,6 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-//ATTENTION: This code is part of the new pattern implementation which is not included in the build yet (because there is no UI code to make use of it). It may therefore not compile correctly.
-
 #ifndef PALAPELI_PATTERN_CONFIGURATION_H
 #define PALAPELI_PATTERN_CONFIGURATION_H
 
@@ -57,7 +55,7 @@ namespace Palapeli
 		protected:
 			//functionality of base class
 			void readArgumentsBase(KConfigGroup* config);
-			void writeArgumentsBase(KConfigGroup* config);
+			void writeArgumentsBase(KConfigGroup* config) const;
 
 			//interface to subclasses (i.e. plugins)
 			void addWidget(QWidget* widget, const QString& caption);

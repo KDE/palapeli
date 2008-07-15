@@ -16,9 +16,7 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-//ATTENTION: This code is part of the new pattern implementation which is not included in the build yet (because there is no UI code to make use of it). It may therefore not compile correctly.
-
-#include "pattern-rect.h"
+#include "pattern-rectangular.h"
 
 #include <QPainter>
 #include <KLocalizedString>
@@ -38,7 +36,6 @@ Palapeli::RectangularPattern::~RectangularPattern()
 
 void Palapeli::RectangularPattern::slice(const QImage& image)
 {
-	QList<Palapeli::Piece*> pieces;
 	int width = image.width(), height = image.height();
 	int pieceWidth = width / m_xCount, pieceHeight = height / m_yCount;
 	//make pieces

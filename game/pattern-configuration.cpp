@@ -16,8 +16,6 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-//ATTENTION: This code is part of the new pattern implementation which is not included in the build yet (because there is no UI code to make use of it). It may therefore not compile correctly.
-
 #include "pattern-configuration.h"
 
 #include <QFormLayout>
@@ -55,7 +53,6 @@ Palapeli::PatternConfigurationPrivate::PatternConfigurationPrivate(const QByteAr
 	, m_displayName(displayName)
 	, m_xCountSpinner(0) //this makes CustomSizeDefinition the implicit default for SizeDefinitionMode of PatternConfiguration
 	, m_yCountSpinner(0)
-	, m_layout(0)
 {
 }
 
@@ -63,11 +60,7 @@ Palapeli::PatternConfigurationPrivate::~PatternConfigurationPrivate()
 {
 	delete m_xCountSpinner;
 	delete m_yCountSpinner;
-	//the map is not flushed; it will not harm if the pointers are only deleted but not removed from the list
-	//only the QLabel instances are deleted which were created in this class (internally); the other widgets need to be removed by the subclass (i.e. plugin)
-	QHashIterator<QWidget*, QLabel*> iterConfigWidgets(m_configurationWidgets);
-	while (iterConfigWidgets.hasNext())
-		delete iterConfigWidgets.next().value();
+	//the configuration map is not flushed
 }
 
 //END Palapeli::PatternConfigurationPrivate
@@ -75,7 +68,7 @@ Palapeli::PatternConfigurationPrivate::~PatternConfigurationPrivate()
 //BEGIN Palapeli::PatternConfiguration
 
 Palapeli::PatternConfiguration::PatternConfiguration(const QByteArray& patternName, const QString& displayName)
-	: p(patternName, displayName)
+	: p(new Palapeli::PatternConfigurationPrivate(patternName, displayName))
 {
 }
 
@@ -94,13 +87,13 @@ void Palapeli::PatternConfiguration::addWidget(QWidget* widget, const QString& c
 
 void Palapeli::PatternConfiguration::removeWidget(QWidget* widget)
 {
-	p->m_configurationWidgets.takeAll(widget);
+	p->m_configurationWidgets.take(widget);
 }
 
 void Palapeli::PatternConfiguration::setSizeDefinitionMode(SizeDefinitionMode mode)
 {
 	//find out old mode
-	SizeDefinitionMode oldMode = (m_xCountSpinner == 0) ? CustomSizeDefinition : CountSizeDefinition;
+	SizeDefinitionMode oldMode = (p->m_xCountSpinner == 0) ? CustomSizeDefinition : CountSizeDefinition;
 	if (oldMode == mode)
 		return; //nothing to do
 	//set new mode
@@ -155,7 +148,7 @@ QWidget* Palapeli::PatternConfiguration::createConfigurationWidget() const
 {
 	//build layout
 	QFormLayout* layout = new QFormLayout;
-	QHashIterator<QWidget*, QLabel*> iterConfigWidgets(m_configurationWidgets);
+	QMapIterator<QWidget*, QString> iterConfigWidgets(p->m_configurationWidgets);
 	while (iterConfigWidgets.hasNext())
 	{
 		iterConfigWidgets.next();
@@ -175,7 +168,7 @@ void Palapeli::PatternConfiguration::readArgumentsBase(KConfigGroup* config)
 		p->m_yCountSpinner->setValue(config->readEntry("YCount", 10));
 }
 
-void Palapeli::PatternConfiguration::writeArgumentsBase(KConfigGroup* config)
+void Palapeli::PatternConfiguration::writeArgumentsBase(KConfigGroup* config) const
 {
 	if (p->m_xCountSpinner != 0)
 		config->writeEntry("XCount", p->m_xCountSpinner->value());

@@ -21,7 +21,8 @@
 #define PALAPELI_MANAGER_H
 
 #include <QObject>
-#include <KUrl>
+#include <QPointF>
+class KUrl;
 
 namespace Palapeli
 {
@@ -30,7 +31,7 @@ namespace Palapeli
 	class ManagerPrivate;
 	class Minimap;
 	class Part;
-	class Pattern;
+	class PatternConfiguration;
 	class Piece;
 	class PieceRelation;
 	class Preview;
@@ -58,7 +59,8 @@ namespace Palapeli
 			View* view() const;
 			//other objects (mostly user interface)
 			Minimap* minimap() const;
-			Pattern* pattern() const;
+			int patternConfigCount() const;
+			PatternConfiguration* patternConfig(int index) const;
 			Preview* preview() const;
 			SavegameModel* savegameModel() const;
 			MainWindow* window() const;
@@ -66,7 +68,7 @@ namespace Palapeli
 			void searchConnections();
 			void updateGraphics();
 
-			void createGame(const KUrl& url, int xPieceCount, int yPieceCount);
+			void createGame(const KUrl& imageUrl, int patternIndex);
 			void loadGame(const QString& name);
 			bool saveGame(const QString& name);
 			void deleteGame(const QString& name);

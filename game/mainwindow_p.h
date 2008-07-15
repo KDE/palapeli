@@ -23,9 +23,9 @@
 #include "mainwindow.h"
 
 #include "listmenu.h"
+#include "newpuzzledialog.h"
 #include "saveaction.h"
 #include "savegameview.h"
-#include "ui_dialognew.h"
 #include "ui_settings.h"
 
 #include <QDockWidget>
@@ -50,7 +50,6 @@ namespace Palapeli
 			//event handlers
 			void configurationChanged();
 			void configurationFinished();
-			void startGame();
 		public:
 			//actions
 			ListMenu* m_loadAct;
@@ -64,8 +63,7 @@ namespace Palapeli
 			SavegameView* m_savegameView;
 			QDockWidget* m_dockSavegames;
 			//dialogs
-			KDialog* m_newDialog;
-			Ui::NewPuzzleDialog* m_newUi;
+			NewPuzzleDialog* m_newDialog;
 			KDialog* m_settingsDialog;
 			Ui::SettingsWidget* m_settingsUi;
 	};

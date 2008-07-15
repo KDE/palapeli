@@ -16,12 +16,13 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-//ATTENTION: This code is part of the new pattern implementation which is not included in the build yet (because there is no UI code to make use of it). It may therefore not compile correctly.
-
 #include "pattern.h"
 #include "manager.h"
 #include "piece.h"
 #include "piecerelation.h"
+
+#include <QImage>
+#include <QPixmap>
 
 namespace Palapeli
 {
@@ -46,23 +47,25 @@ Palapeli::PatternPrivate::~PatternPrivate()
 }
 
 Palapeli::Pattern::Pattern()
+	: p(new Palapeli::PatternPrivate)
 {
 }
 
 Palapeli::Pattern::~Pattern()
 {
+	delete p;
 }
 
 void Palapeli::Pattern::addPiece(const QPixmap& pixmap, const QRectF& positionInImage)
 {
-	Palapeli::Piece* piece = new Palapeli::Piece(pixmap, positionInImage)
+	Palapeli::Piece* piece = new Palapeli::Piece(pixmap, positionInImage);
 	ppMgr()->addPiece(piece);
-	m_pieces << piece;
+	p->m_pieces << piece;
 }
 
 void Palapeli::Pattern::addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference)
 {
-	ppMgr()->addRelation(Palapeli::PieceRelation(m_pieces[piece1Id], m_pieces[piece2Id], positionDifference);
+	ppMgr()->addRelation(Palapeli::PieceRelation(p->m_pieces[piece1Id], p->m_pieces[piece2Id], positionDifference));
 }
 
 #include "pattern.moc"

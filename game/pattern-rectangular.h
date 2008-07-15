@@ -16,8 +16,6 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-//ATTENTION: This code is part of the new pattern implementation which is not included in the build yet (because there is no UI code to make use of it). It may therefore not compile correctly.
-
 #ifndef PALAPELI_PATTERN_RECT_H
 #define PALAPELI_PATTERN_RECT_H
 

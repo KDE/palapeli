@@ -24,8 +24,9 @@
 #include "mainwindow.h"
 #include "minimap.h"
 #include "part.h"
-#include "pattern-abstract.h"
-#include "pattern-rect.h"
+#include "pattern.h"
+#include "pattern-configuration.h"
+#include "pattern-rectangular.h"
 #include "piece.h"
 #include "piecerelation.h"
 #include "preview.h"
@@ -36,6 +37,7 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KUrl>
 
 namespace Palapeli
 {
@@ -48,7 +50,7 @@ namespace Palapeli
 
 		bool loadImage(const KUrl& url);
 		bool loadImage(const GameStorageItem& imageItem);
-		void startGameInternal(Pattern* pattern);
+		void startGameInternal();
 
 		Manager *m_manager;
 
@@ -56,10 +58,11 @@ namespace Palapeli
 		QImage m_image;
 		QUuid m_imageId;
 		QUuid m_gameId;
+		PatternConfiguration* m_patternConfiguration;
 		//game and UI objects
 		Minimap* m_minimap;
 		QList<Part*> m_parts;
-		Pattern* m_pattern;
+		QList<PatternConfiguration*> m_patternConfigurations;
 		QList<Piece*> m_pieces;
 		Preview* m_preview;
 		QList<PieceRelation> m_relations;
@@ -85,8 +88,8 @@ namespace Palapeli
 
 Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	: m_manager(manager)
+	, m_patternConfiguration(0)
 	, m_minimap(0)
-	, m_pattern(0)
 	, m_preview(new Palapeli::Preview)
 	, m_savegameModel(0)
 	, m_view(0)
@@ -107,6 +110,8 @@ Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	m_savegameModel = new Palapeli::SavegameModel(gameNames);
 	QObject::connect(m_manager, SIGNAL(savegameCreated(const QString&)), m_savegameModel, SLOT(savegameCreated(const QString&)));
 	QObject::connect(m_manager, SIGNAL(savegameDeleted(const QString&)), m_savegameModel, SLOT(savegameDeleted(const QString&)));
+	//TODO: replace with KPluginLoader etc.
+	m_patternConfigurations << new Palapeli::RectangularPatternConfiguration;
 }
 
 void Palapeli::ManagerPrivate::init()
@@ -124,7 +129,8 @@ Palapeli::ManagerPrivate::~ManagerPrivate()
 	delete m_minimap;
 	foreach (Palapeli::Part* part, m_parts)
 		delete part; //the pieces are deleted here
-	delete m_pattern;
+	foreach (Palapeli::PatternConfiguration* patternConfiguration, m_patternConfigurations)
+		delete patternConfiguration;
 	delete m_preview;
 	delete m_savegameModel;
 	delete m_window; //the view is deleted here
@@ -156,7 +162,7 @@ bool Palapeli::ManagerPrivate::loadImage(const Palapeli::GameStorageItem& item)
 	return true;
 }
 
-void Palapeli::ManagerPrivate::startGameInternal(Palapeli::Pattern* pattern)
+void Palapeli::ManagerPrivate::startGameInternal()
 {
 	//ATTENTION: This function assumes that the new image has been loaded into m_image.
 	//flush all variables
@@ -169,9 +175,9 @@ void Palapeli::ManagerPrivate::startGameInternal(Palapeli::Pattern* pattern)
 	m_view->scene()->setSceneRect(0, 0, 2 * m_image.width(), 2 * m_image.height());
 	m_preview->setImage(m_image);
 	//create pieces and parts
-	delete m_pattern;
-	m_pattern = pattern;
-	m_pattern->slice(m_image);
+	Palapeli::Pattern* pattern = m_patternConfiguration->createPattern();
+	pattern->slice(m_image);
+	delete pattern;
 }
 
 //END Palapeli::ManagerPrivate
@@ -245,9 +251,14 @@ Palapeli::Minimap* Palapeli::Manager::minimap() const
 	return p->m_minimap;
 }
 
-Palapeli::Pattern* Palapeli::Manager::pattern() const
+int Palapeli::Manager::patternConfigCount() const
 {
-	return p->m_pattern;
+	return p->m_patternConfigurations.count();
+}
+
+Palapeli::PatternConfiguration* Palapeli::Manager::patternConfig(int index) const
+{
+	return p->m_patternConfigurations[index];
 }
 
 Palapeli::Preview* Palapeli::Manager::preview() const
@@ -320,14 +331,18 @@ void Palapeli::Manager::searchConnections()
 
 //game instances
 
-void Palapeli::Manager::createGame(const KUrl& url, int xPieceCount, int yPieceCount)
+#include <KDebug>
+
+void Palapeli::Manager::createGame(const KUrl& url, int patternIndex)
 {
 	//load image
 	if (!p->loadImage(url))
 		return;
 	p->m_gameId = QUuid();
 	//start game
-	p->startGameInternal(new Palapeli::RectangularPattern(xPieceCount, yPieceCount));
+	kDebug() << patternIndex;
+	p->m_patternConfiguration = p->m_patternConfigurations[patternIndex];
+	p->startGameInternal();
 	//propagate changes
 	updateGraphics();
 	emit gameLoaded(QString());
@@ -346,22 +361,36 @@ void Palapeli::Manager::loadGame(const QString& name)
 		return;
 	//load configuration
 	const QString configFileName = savegames.at(0).filePath();
-	p->m_gameId = savegames.at(0).id();
 	KConfig config(configFileName);
-	//load image
+	//find pattern
+	KConfigGroup generalGroup(&config, Palapeli::Strings::GeneralGroupKey);
+	const QString patternName = generalGroup.readEntry(Palapeli::Strings::PatternKey, QString());
+	Palapeli::PatternConfiguration* patternConfiguration = 0;
+	foreach (Palapeli::PatternConfiguration* patternConfig, p->m_patternConfigurations)
+	{
+		if (patternConfig->patternName() == patternName)
+		{
+			patternConfiguration = patternConfig;
+			break;
+		}
+	}
+	if (patternConfiguration == 0)
+		return; //no pattern found
+	p->m_patternConfiguration = patternConfiguration;
+	KConfigGroup patternGroup(&config, Palapeli::Strings::PatternGroupKey);
+	p->m_patternConfiguration->readArguments(&patternGroup);
+	//load image and save reference to configuration file
 	if (!p->loadImage(images.at(0)))
 		return;
+	p->m_gameId = savegames.at(0).id();
 	//start game
-	//TODO: Support multiple types of patterns. There is only "rectangular" at the moment, so I don't care about the name specified in "General/Pattern" at all.
-	KConfigGroup patternGroup(&config, Palapeli::Strings::PatternGroupKey);
-	p->startGameInternal(new Palapeli::RectangularPattern(&patternGroup));
+	p->startGameInternal();
 	//restore piece positions and connections
 	KConfigGroup piecesGroup(&config, Palapeli::Strings::PiecesGroupKey);
 	for (int i = 0; i < p->m_pieces.count(); ++i)
 	{
 		Palapeli::Piece* piece = p->m_pieces.at(i);
 		piece->setPos(piecesGroup.readEntry(Palapeli::Strings::PositionKey.arg(i), QPointF()));
-		p->m_parts << new Palapeli::Part(piece);
 	}
 	searchConnections();
 	//propagate changes
@@ -371,7 +400,7 @@ void Palapeli::Manager::loadGame(const QString& name)
 
 bool Palapeli::Manager::saveGame(const QString& name)
 {
-	if (!p->m_pattern || p->m_pieces.empty())
+	if (!p->m_patternConfiguration || p->m_pieces.empty())
 		return false;
 	//FIXME: It is likely that more characters have to be excluded because of Windows. Can this be accomplished in a more elegant way?
 	if (name.contains(QChar('/')) || name.contains(QChar('\\')))
@@ -396,10 +425,9 @@ bool Palapeli::Manager::saveGame(const QString& name)
 	//open config file and write general information
 	KConfig config(configItem.filePath());
 	KConfigGroup generalGroup(&config, Palapeli::Strings::GeneralGroupKey);
-	generalGroup.writeEntry(Palapeli::Strings::PatternKey, p->m_pattern->name());
-	//pattern arguments
+	generalGroup.writeEntry(Palapeli::Strings::PatternKey, p->m_patternConfiguration->patternName());
 	KConfigGroup patternGroup(&config, Palapeli::Strings::PatternGroupKey);
-	p->m_pattern->writeArguments(&patternGroup);
+	p->m_patternConfiguration->writeArguments(&patternGroup);
 	//piece positions
 	KConfigGroup pieceGroup(&config, Palapeli::Strings::PiecesGroupKey);
 	for (int i = 0; i < p->m_pieces.count(); ++i)
