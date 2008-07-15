@@ -29,11 +29,14 @@ namespace Palapeli
 
 	class View : public QGraphicsView
 	{
+		Q_OBJECT
 		public:
 			View(QWidget* parent = 0);
 
 			void setAntialiasing(bool antialiasing, bool forceApplication = false);
 			void setHardwareAccelerated(bool useHardware, bool forceApplication = false);
+		public Q_SLOTS:
+			void gameStarted();
 		protected:
 			virtual void wheelEvent(QWheelEvent* event);
 		private:

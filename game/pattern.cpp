@@ -21,6 +21,7 @@
 #include "piece.h"
 #include "piecerelation.h"
 
+#include <QApplication>
 #include <QImage>
 #include <QPixmap>
 
@@ -61,6 +62,7 @@ void Palapeli::Pattern::addPiece(const QPixmap& pixmap, const QRectF& positionIn
 	Palapeli::Piece* piece = new Palapeli::Piece(pixmap, positionInImage);
 	ppMgr()->addPiece(piece);
 	p->m_pieces << piece;
+	QApplication::processEvents();
 }
 
 void Palapeli::Pattern::addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference)

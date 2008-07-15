@@ -331,8 +331,6 @@ void Palapeli::Manager::searchConnections()
 
 //game instances
 
-#include <KDebug>
-
 void Palapeli::Manager::createGame(const KUrl& url, int patternIndex)
 {
 	//load image
@@ -340,7 +338,6 @@ void Palapeli::Manager::createGame(const KUrl& url, int patternIndex)
 		return;
 	p->m_gameId = QUuid();
 	//start game
-	kDebug() << patternIndex;
 	p->m_patternConfiguration = p->m_patternConfigurations[patternIndex];
 	p->startGameInternal();
 	//propagate changes
