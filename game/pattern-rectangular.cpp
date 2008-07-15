@@ -43,11 +43,9 @@ void Palapeli::RectangularPattern::slice(const QImage& image)
 	{
 		for (int y = 0; y < m_yCount; ++y)
 		{
-			QPixmap pix(pieceWidth, pieceHeight);
-			QPainter painter(&pix);
-			painter.drawImage(QPoint(0, 0), image, QRect(x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight));
-			painter.end();
-			addPiece(pix, QRectF(x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight));
+			QRectF pieceRect(x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight);
+			QPixmap pix = QPixmap::fromImage(image.copy(pieceRect.toRect()));
+			addPiece(pix, pieceRect);
 		}
 	}
 	//build relationships between pieces

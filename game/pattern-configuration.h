@@ -23,15 +23,23 @@
 class QWidget;
 class KConfigGroup;
 
+//TODO: bool function whether there are configurable things at all (add spacerItem in NewPuzzleDialog to not totally break the layout in that case)
+
 namespace Palapeli
 {
 
 	class Pattern;
 	class PatternConfigurationPrivate;
 
+	/**
+	 * \class PatternConfiguration pattern-configuration.h Palapeli/PatternConfiguration
+	 *
+	 * This class is not documented yet.
+	 *
+	 * \author Stefan Majewsky <majewsky@gmx.net>
+	 */
 	class PatternConfiguration : public QObject
 	{
-		//TODO: documentation (I will include that once this class move into installable headers)
 		Q_OBJECT
 		public:
 			enum SizeDefinitionMode
