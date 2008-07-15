@@ -78,6 +78,7 @@ Palapeli::NewPuzzleDialogPrivate::NewPuzzleDialogPrivate()
 	//main layout
 	m_mainLayout->addWidget(m_generalGroupBox);
 	m_mainLayout->addWidget(m_patternGroupBox);
+	m_mainLayout->setMargin(0); //margin is added by KDialog's layout
 }
 
 Palapeli::NewPuzzleDialogPrivate::~NewPuzzleDialogPrivate()
