@@ -2,7 +2,9 @@
 Type=Application
 Exec=paladesign -caption "%c"
 Name=Paladesign
+Name[et]=Palapeli disain
 GenericName=Editor for Palapeli jigsaw puzzle patterns
+GenericName[et]=Palapeli puslemustrite redaktor
 Terminal=false
 Icon=preferences-plugin
 X-KDE-StartupNotify=true
