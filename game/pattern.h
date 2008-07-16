@@ -19,6 +19,12 @@
 #ifndef PALAPELI_PATTERN_H
 #define PALAPELI_PATTERN_H
 
+#if defined(MAKE_LIBPALAPELICORE)
+ #include "macros.h"
+#else
+ #include <Palapeli/Macros>
+#endif
+
 class QImage;
 #include <QObject>
 class QPointF;
@@ -62,7 +68,7 @@ class MyPattern : public Palapeli::Pattern {
 	 *
 	 * \author Stefan Majewsky <majewsky@gmx.net>
 	 */
-	class Pattern : public QObject
+	class PALAPELICORE_EXPORT Pattern : public QObject
 	{
 		Q_OBJECT
 		public:

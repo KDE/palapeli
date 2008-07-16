@@ -17,14 +17,12 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#include "manager.h"
-#include "mainwindow.h"
+#include "runtime.h"
 
 #include <time.h>
 #include <KAboutData>
 #include <KApplication>
 #include <KCmdLineArgs>
-//#include <KCmdLineOptions>
 #include <KGlobal>
 #include <KIcon>
 #include <KLocale>
@@ -42,30 +40,10 @@ int main(int argc, char** argv)
 	about.addAuthor(ki18n("Stefan Majewsky"), KLocalizedString(), "majewsky@gmx.net");
 	KCmdLineArgs::init(argc, argv, &about);
 
-//	KCmdLineOptions options;
-//	options.add("i");
-//	options.add("image <path>", ki18n("Generate puzzle from the given image"), "/usr/share/wallpapers/Water01.jpg");
-//	options.add("x");
-//	options.add("xcount <int>", ki18n("Number of pieces in X direction"), "10");
-//	options.add("y");
-//	options.add("ycount <int>", ki18n("Number of pieces in Y direction"), "10");
-//	KCmdLineArgs::addCmdLineOptions(options);
-
 	KApplication app;
 	app.setWindowIcon(KIcon("preferences-plugin"));
 	KGlobal::locale()->insertCatalog("libkdegames");
 
-//	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-//	QString fileName = args->getOption("image");
-//	int xCount = args->getOption("xcount").toInt();
-//	if (xCount <= 0)
-//		xCount = 10;
-//	int yCount = args->getOption("ycount").toInt();
-//	if (yCount <= 0)
-//		yCount = 10;
-//	args->clear();
-
-	ppMgr()->init();
-	ppMgr()->window()->show();
+	Palapeli::Runtime::startGame();
 	return app.exec();
 }

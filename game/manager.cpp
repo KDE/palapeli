@@ -18,6 +18,7 @@
  ***************************************************************************/
 
 #include "manager.h"
+#include "runtime.h" //the functions declared in this file are also defined here
 #include "../storage/gamestorageattribs.h"
 #include "../storage/gamestorage.h"
 #include "../storage/gamestorageitem.h"
@@ -462,5 +463,11 @@ void Palapeli::Manager::savegameWasDeleted(const QString& name)
 }
 
 //END Palapeli::Manager
+
+void Palapeli::Runtime::startGame()
+{
+	ppMgr()->init();
+	ppMgr()->window()->show();
+}
 
 #include "manager.moc"

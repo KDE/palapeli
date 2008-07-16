@@ -19,6 +19,12 @@
 #ifndef PALAPELI_PATTERN_CONFIGURATION_H
 #define PALAPELI_PATTERN_CONFIGURATION_H
 
+#if defined(MAKE_LIBPALAPELICORE)
+ #include "macros.h"
+#else
+ #include <Palapeli/Macros>
+#endif
+
 #include <QObject>
 class QWidget;
 class KConfigGroup;
@@ -38,7 +44,7 @@ namespace Palapeli
 	 *
 	 * \author Stefan Majewsky <majewsky@gmx.net>
 	 */
-	class PatternConfiguration : public QObject
+	class PALAPELICORE_EXPORT PatternConfiguration : public QObject
 	{
 		Q_OBJECT
 		public:
