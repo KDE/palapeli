@@ -17,7 +17,7 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#include "runtime.h"
+#include "manager.h"
 
 #include <time.h>
 #include <KAboutData>
@@ -44,6 +44,6 @@ int main(int argc, char** argv)
 	app.setWindowIcon(KIcon("preferences-plugin"));
 	KGlobal::locale()->insertCatalog("libkdegames");
 
-	Palapeli::Runtime::startGame();
+	ppMgr()->init();
 	return app.exec();
 }

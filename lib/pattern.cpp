@@ -17,13 +17,10 @@
  ***************************************************************************/
 
 #include "pattern.h"
-#include "manager.h"
-#include "piece.h"
-#include "piecerelation.h"
 
 #include <QApplication>
 #include <QImage>
-#include <QPixmap>
+#include <QList>
 
 namespace Palapeli
 {
@@ -34,12 +31,18 @@ namespace Palapeli
 			PatternPrivate();
 			~PatternPrivate();
 
-			QList<Piece*> m_pieces;
+			int m_pieceCounter;
+			QSize m_imageSize;
+			
+			QList<QPointF> m_sceneBasePositions;
+			bool m_loadSceneBasePositions;
 	};
 
 }
 
 Palapeli::PatternPrivate::PatternPrivate()
+	: m_pieceCounter(0)
+	, m_loadSceneBasePositions(false)
 {
 }
 
@@ -57,17 +60,37 @@ Palapeli::Pattern::~Pattern()
 	delete p;
 }
 
-void Palapeli::Pattern::addPiece(const QPixmap& pixmap, const QRectF& positionInImage)
+void Palapeli::Pattern::loadPiecePositions(const QList<QPointF>& points)
 {
-	Palapeli::Piece* piece = new Palapeli::Piece(pixmap, positionInImage);
-	ppMgr()->addPiece(piece);
-	p->m_pieces << piece;
-	QApplication::processEvents();
+	p->m_sceneBasePositions = points;
+	p->m_loadSceneBasePositions = true;
+}
+
+void Palapeli::Pattern::slice(const QImage& image)
+{
+	p->m_imageSize = image.size();
+	doSlice(image);
+}
+
+void Palapeli::Pattern::addPiece(const QImage& image, const QRectF& positionInImage)
+{
+	if (p->m_loadSceneBasePositions)
+		emit pieceGenerated(image, positionInImage, p->m_sceneBasePositions.value(p->m_pieceCounter));
+	else
+	{
+		const int sceneWidth = 2 * p->m_imageSize.width();
+		const int sceneHeight = 2 * p->m_imageSize.height();
+		const int leftEdgePos = qrand() % (sceneWidth - (int) positionInImage.width());
+		const int topEdgePos = qrand() % (sceneHeight - (int) positionInImage.height());
+		const QPointF basePosition(leftEdgePos - positionInImage.left(), topEdgePos - positionInImage.top());
+		emit pieceGenerated(image, positionInImage, basePosition);
+	}
+	++p->m_pieceCounter;
 }
 
 void Palapeli::Pattern::addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference)
 {
-	ppMgr()->addRelation(Palapeli::PieceRelation(p->m_pieces[piece1Id], p->m_pieces[piece2Id], positionDifference));
+	emit relationGenerated(piece1Id, piece2Id, positionDifference);
 }
 
 #include "pattern.moc"

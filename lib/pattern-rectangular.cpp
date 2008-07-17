@@ -18,7 +18,7 @@
 
 #include "pattern-rectangular.h"
 
-#include <QPainter>
+#include <QImage>
 #include <KLocalizedString>
 
 //BEGIN Palapeli::RectangularPattern
@@ -34,7 +34,7 @@ Palapeli::RectangularPattern::~RectangularPattern()
 {
 }
 
-void Palapeli::RectangularPattern::slice(const QImage& image)
+void Palapeli::RectangularPattern::doSlice(const QImage& image)
 {
 	int width = image.width(), height = image.height();
 	int pieceWidth = width / m_xCount, pieceHeight = height / m_yCount;
@@ -47,8 +47,7 @@ void Palapeli::RectangularPattern::slice(const QImage& image)
 			const int thisPieceHeight = (y + 1 == m_yCount) ? pieceHeight : pieceHeight + 1;
 			//the +1 makes the pieces overlap, therefore preventing infitesimally small spaces between the pieces resulting in white lines; but we have to check if the right and bottom edge are still inside of the image (or on its border)
 			QRectF pieceRect(x * pieceWidth, y * pieceHeight, thisPieceWidth, thisPieceHeight);
-			QPixmap pix = QPixmap::fromImage(image.copy(pieceRect.toRect()));
-			addPiece(pix, pieceRect);
+			addPiece(image.copy(pieceRect.toRect()), pieceRect);
 		}
 	}
 	//build relationships between pieces

@@ -30,13 +30,14 @@ namespace Palapeli
 		public:
 			RectangularPattern(int xCount, int yCount);
 			virtual ~RectangularPattern();
-
-			virtual void slice(const QImage& image);
+		protected:
+			virtual void doSlice(const QImage& image);
 		private:
 			int m_xCount, m_yCount;
 	};
 
-	class RectangularPatternConfiguration : public PatternConfiguration
+	//TODO: do not export this class, but implement a proper pattern discovery interface
+	class PALAPELIPATTERN_EXPORT RectangularPatternConfiguration : public PatternConfiguration
 	{
 		public:
 			RectangularPatternConfiguration();

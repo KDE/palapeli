@@ -20,8 +20,10 @@
 #ifndef PALAPELI_MANAGER_H
 #define PALAPELI_MANAGER_H
 
+class QImage;
 #include <QObject>
-#include <QPointF>
+class QPointF;
+class QRectF;
 class KUrl;
 
 namespace Palapeli
@@ -45,9 +47,6 @@ namespace Palapeli
 			static Manager* self();
 			void init();
 
-			void addPiece(Piece* piece); //with random position
-			void addPiece(Piece* piece, const QPointF& position);
-			void addRelation(const PieceRelation& relation);
 			void removePart(Part* part);
 			//core objects (i.e. everything which is immediately relevant to gameplay)
 			int partCount() const;
@@ -74,6 +73,9 @@ namespace Palapeli
 			void deleteGame(const QString& name);
 			void savegameWasCreated(const QString& name);
 			void savegameWasDeleted(const QString& name);
+		protected Q_SLOTS:
+			void addPiece(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition);
+			void addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference);
 		Q_SIGNALS:
 			void gameLoaded(const QString& name);
 			void savegameCreated(const QString& name);

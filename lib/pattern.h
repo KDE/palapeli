@@ -19,16 +19,16 @@
 #ifndef PALAPELI_PATTERN_H
 #define PALAPELI_PATTERN_H
 
-#if defined(MAKE_LIBPALAPELICORE)
+#if defined(MAKE_LIBPALAPELIPATTERN)
  #include "macros.h"
 #else
  #include <Palapeli/Macros>
 #endif
 
 class QImage;
+#include <QList>
 #include <QObject>
 class QPointF;
-class QPixmap;
 class QRectF;
 
 //TODO: signals for progress reporting
@@ -50,8 +50,9 @@ namespace Palapeli
 	 \code
 class MyPattern : public Palapeli::Pattern {
 
-	//implement constructor and destructor here
+//implement public constructor and public and virtual destructor here
 
+protected:
 	virtual void slice(const QImage& image) {
 		//construct pixmaps for the pieces
 		const int pieceWidth = image.width() / 2, pieceHeight = image.height();
@@ -68,7 +69,7 @@ class MyPattern : public Palapeli::Pattern {
 	 *
 	 * \author Stefan Majewsky <majewsky@gmx.net>
 	 */
-	class PALAPELICORE_EXPORT Pattern : public QObject
+	class PALAPELIPATTERN_EXPORT Pattern : public QObject
 	{
 		Q_OBJECT
 		public:
@@ -83,30 +84,45 @@ class MyPattern : public Palapeli::Pattern {
 			virtual ~Pattern();
 
 			/**
+			 * \brief For internal use only.
+			 * The Palapeli game engine will call this function if a game is loaded from the storage, in order to give the previous piece positions to the pattern. The base class will handle this process automatically as you create the pieces.
+			 */
+			void loadPiecePositions(const QList<QPointF>& points);
+			/**
+			 * \brief For internal use only.
+			 * The Palapeli game engine will call this function to create pieces from a given \a image. You will not need this function, but you will need to implement the actual slicing in the doSlice function.
+			 * \sa doSlice
+			 */
+			void slice(const QImage& image);
+		protected:
+			/**
+			 * \brief Adds a piece to the puzzle scene.
+			 * Internally, the piece is assigned a consecutive index (0 for the first piece, 1 for the second piece, and so on) which has to be used when defining relations between the pieces.
+			 * \param image the visible image (may contain transparent areas to gain a non-rectangular piece shape)
+			 * \param positionInImage the bounding box of the piece (or more precisely, the bounding box of the \a image, including any transparent areas!)
+			 */
+			void addPiece(const QImage& image, const QRectF& positionInImage);
+			/**
+			 * \brief Adds a neighbor relation between two pieces.
+			 * \param piece1Id the index of the first piece (assigned by order of addPiece operations, starting at zero)
+			 * \param piece2Id the index of the second piece
+			 * \param positionDifference the difference between the positions of both pieces
+			 * \see addPiece
+			 */
+			void addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference);
+			/**
 			 * \brief Provides the slicing algorithm.
 			 * This function splits a given image into pieces and defines relations between them. These pieces and relations are used to build the puzzle.
 			 * \param image the image to be sliced
 			 * \see addPiece
 			 * \see addRelation
 			 */
-			virtual void slice(const QImage& image) = 0;
-		protected:
-			//interface to subclasses (i.e. plugins)
-			/**
-			 * \brief Adds a piece to the puzzle scene.
-			 * Internally, the piece is assigned a consecutive index (0 for the first piece, 1 for the second piece, and so on) which has to be used when defining relations between the pieces.
-			 * \param pixmap the visible pixmap (may contain transparent areas to gain a non-rectangular piece shape)
-			 * \param positionInImage the bounding box of the piece (or more precisely, the bounding box of the \a pixmap, including any transparent areas!)
-			 */
-			void addPiece(const QPixmap& pixmap, const QRectF& positionInImage);
-			/**
-			 * \brief Adds a neighbor relation between two pieces.
-			 * \param piece1Id the index of the first piece (assigned by order of addPiece operations)
-			 * \param piece2Id the index of the second piece (assigned by order of addPiece operations)
-			 * \param positionDifference the difference between the positions of both pieces
-			 * \see addPiece
-			 */
-			void addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference);
+			virtual void doSlice(const QImage& image) = 0;
+		Q_SIGNALS:
+			/// \internal
+			void pieceGenerated(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition);
+			/// \internal
+			void relationGenerated(int piece1Id, int piece2Id, const QPointF& positionDifference);
 		private:
 			PatternPrivate* p;
 	};

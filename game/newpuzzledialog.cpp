@@ -17,8 +17,8 @@
  ***************************************************************************/
 
 #include "newpuzzledialog.h"
+#include "../lib/pattern-configuration.h"
 #include "manager.h"
-#include "pattern-configuration.h"
 
 #include <QComboBox>
 #include <QFormLayout>

@@ -19,7 +19,7 @@
 #ifndef PALAPELI_PATTERN_CONFIGURATION_H
 #define PALAPELI_PATTERN_CONFIGURATION_H
 
-#if defined(MAKE_LIBPALAPELICORE)
+#if defined(MAKE_LIBPALAPELIPATTERN)
  #include "macros.h"
 #else
  #include <Palapeli/Macros>
@@ -30,6 +30,7 @@ class QWidget;
 class KConfigGroup;
 
 //TODO: bool function whether there are configurable things at all (add spacerItem in NewPuzzleDialog to not totally break the layout in that case)
+//TODO: allow to add multiple entries to the pattern selector
 
 namespace Palapeli
 {
@@ -44,7 +45,7 @@ namespace Palapeli
 	 *
 	 * \author Stefan Majewsky <majewsky@gmx.net>
 	 */
-	class PALAPELICORE_EXPORT PatternConfiguration : public QObject
+	class PALAPELIPATTERN_EXPORT PatternConfiguration : public QObject
 	{
 		Q_OBJECT
 		public:

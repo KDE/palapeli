@@ -32,7 +32,6 @@ Palapeli::View::View(QWidget* parent)
 	: QGraphicsView(parent)
 	, m_scene(new QGraphicsScene)
 {
-	connect(ppMgr(), SIGNAL(gameLoaded(const QString&)), this, SLOT(gameStarted()));
 	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateGraphics()));
 	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateGraphics()));
 	setScene(m_scene);
@@ -90,11 +89,3 @@ void Palapeli::View::setHardwareAccelerated(bool useHardware, bool forceApplicat
 	setViewport(useHardware ? new QGLWidget : new QWidget);
 #endif
 }
-
-void Palapeli::View::gameStarted()
-{
-	//reset view to show the whole scene
-	fitInView(m_scene->sceneRect(), Qt::KeepAspectRatio);
-}
-
-#include "view.moc"
