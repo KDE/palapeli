@@ -40,6 +40,20 @@ int Palapeli::Part::pieceCount() const
 	return m_pieces.count();
 }
 
+QPointF Palapeli::Part::basePosition() const
+{
+	return m_basePosition;
+}
+
+void Palapeli::Part::setBasePosition(const QPointF& basePosition)
+{
+	if (m_basePosition == basePosition)
+		return;
+	m_basePosition = basePosition;
+	update();
+	ppMgr()->updateGraphics();
+}
+
 Palapeli::Piece* Palapeli::Part::pieceAt(int index) const
 {
 	return m_pieces[index];
@@ -63,6 +77,8 @@ void Palapeli::Part::removePiece(Palapeli::Piece* piece)
 
 void Palapeli::Part::move(const QPointF& positionDifference)
 {
+	if (positionDifference.isNull())
+		return;
 	m_basePosition += positionDifference;
 	update();
 	ppMgr()->updateGraphics();

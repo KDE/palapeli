@@ -58,18 +58,18 @@ namespace Palapeli
 			virtual ~PatternConfiguration();
 
 			//implementation of subclasses (i.e. plugins); interface to Palapeli core
-			virtual void readArguments(KConfigGroup* config) = 0;
-			virtual void writeArguments(KConfigGroup* config) const = 0;
 			virtual Pattern* createPattern() const = 0;
 
 			//interface to Palapeli core
 			QByteArray patternName() const;
 			QString displayName() const;
 			QWidget* createConfigurationWidget() const; //DOC: talk about ownership issues
+			void readArguments(KConfigGroup* config);
+			void writeArguments(KConfigGroup* config) const;
 		protected:
-			//functionality of base class
-			void readArgumentsBase(KConfigGroup* config);
-			void writeArgumentsBase(KConfigGroup* config) const;
+			//implementation of subclasses (i.e. plugins); interface to Palapeli core
+			virtual void readCustomArguments(KConfigGroup* config);
+			virtual void writeCustomArguments(KConfigGroup* config) const;
 
 			//interface to subclasses (i.e. plugins)
 			void addWidget(QWidget* widget, const QString& caption);

@@ -160,20 +160,32 @@ QWidget* Palapeli::PatternConfiguration::createConfigurationWidget() const
 	return parentWidget;
 }
 
-void Palapeli::PatternConfiguration::readArgumentsBase(KConfigGroup* config)
+void Palapeli::PatternConfiguration::readArguments(KConfigGroup* config)
 {
 	if (p->m_xCountSpinner != 0)
 		p->m_xCountSpinner->setValue(config->readEntry("XCount", 10));
 	if (p->m_yCountSpinner != 0)
 		p->m_yCountSpinner->setValue(config->readEntry("YCount", 10));
+	readCustomArguments(config);
 }
 
-void Palapeli::PatternConfiguration::writeArgumentsBase(KConfigGroup* config) const
+void Palapeli::PatternConfiguration::readCustomArguments(KConfigGroup* config)
+{
+	Q_UNUSED(config)
+}
+
+void Palapeli::PatternConfiguration::writeArguments(KConfigGroup* config) const
 {
 	if (p->m_xCountSpinner != 0)
 		config->writeEntry("XCount", p->m_xCountSpinner->value());
 	if (p->m_yCountSpinner != 0)
 		config->writeEntry("YCount", p->m_yCountSpinner->value());
+	writeCustomArguments(config);
+}
+
+void Palapeli::PatternConfiguration::writeCustomArguments(KConfigGroup* config) const
+{
+	Q_UNUSED(config)
 }
 
 //END Palapeli::PatternConfiguration

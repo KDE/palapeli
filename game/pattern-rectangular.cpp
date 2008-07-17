@@ -43,7 +43,10 @@ void Palapeli::RectangularPattern::slice(const QImage& image)
 	{
 		for (int y = 0; y < m_yCount; ++y)
 		{
-			QRectF pieceRect(x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight);
+			const int thisPieceWidth = (x + 1 == m_xCount) ? pieceWidth : pieceWidth + 1;
+			const int thisPieceHeight = (y + 1 == m_yCount) ? pieceHeight : pieceHeight + 1;
+			//the +1 makes the pieces overlap, therefore preventing infitesimally small spaces between the pieces resulting in white lines; but we have to check if the right and bottom edge are still inside of the image (or on its border)
+			QRectF pieceRect(x * pieceWidth, y * pieceHeight, thisPieceWidth, thisPieceHeight);
 			QPixmap pix = QPixmap::fromImage(image.copy(pieceRect.toRect()));
 			addPiece(pix, pieceRect);
 		}
@@ -81,16 +84,6 @@ Palapeli::RectangularPatternConfiguration::RectangularPatternConfiguration()
 
 Palapeli::RectangularPatternConfiguration::~RectangularPatternConfiguration()
 {
-}
-
-void Palapeli::RectangularPatternConfiguration::readArguments(KConfigGroup* config)
-{
-	readArgumentsBase(config);
-}
-
-void Palapeli::RectangularPatternConfiguration::writeArguments(KConfigGroup* config) const
-{
-	writeArgumentsBase(config);
 }
 
 Palapeli::Pattern* Palapeli::RectangularPatternConfiguration::createPattern() const

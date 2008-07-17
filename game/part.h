@@ -35,6 +35,8 @@ namespace Palapeli
 			Part(Piece* piece);
 			~Part();
 
+			QPointF basePosition() const;
+			void setBasePosition(const QPointF& basePosition);
 			int pieceCount() const;
 			Piece* pieceAt(int index) const;
 

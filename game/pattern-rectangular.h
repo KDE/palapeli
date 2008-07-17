@@ -41,9 +41,6 @@ namespace Palapeli
 		public:
 			RectangularPatternConfiguration();
 			virtual ~RectangularPatternConfiguration();
-
-			virtual void readArguments(KConfigGroup* config);
-			virtual void writeArguments(KConfigGroup* config) const;
 			virtual Pattern* createPattern() const;
 	};
 

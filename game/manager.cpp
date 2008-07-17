@@ -388,7 +388,7 @@ void Palapeli::Manager::loadGame(const QString& name)
 	for (int i = 0; i < p->m_pieces.count(); ++i)
 	{
 		Palapeli::Piece* piece = p->m_pieces.at(i);
-		piece->setPos(piecesGroup.readEntry(Palapeli::Strings::PositionKey.arg(i), QPointF()));
+		piece->part()->setBasePosition(piecesGroup.readEntry(Palapeli::Strings::PositionKey.arg(i), QPointF()));
 	}
 	searchConnections();
 	//propagate changes
@@ -431,7 +431,7 @@ bool Palapeli::Manager::saveGame(const QString& name)
 	for (int i = 0; i < p->m_pieces.count(); ++i)
 	{
 		Palapeli::Piece* piece = p->m_pieces.at(i);
-		pieceGroup.writeEntry(Palapeli::Strings::PositionKey.arg(i), QVariant(piece->pos()));
+		pieceGroup.writeEntry(Palapeli::Strings::PositionKey.arg(i), piece->part()->basePosition());
 	}
 	//save information
 	config.sync();
