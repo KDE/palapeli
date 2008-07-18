@@ -37,7 +37,7 @@ Palapeli::SaveAction::SaveAction(QObject* parent)
 	setDelayed(false);
 	setStickyMenu(true);
 	setToolTip(i18n("Save the current game"));
-	connect(ppMgr(), SIGNAL(gameLoaded(const QString&)), this, SLOT(setPredefinedName(const QString&)));
+	connect(ppMgr(), SIGNAL(gameNameChanged(const QString&)), this, SLOT(setPredefinedName(const QString&)));
 	//setup actions in menu
 	m_nameInputAct->setDefaultWidget(m_nameInput);
 	connect(m_nameInput, SIGNAL(returnPressed()), this, SLOT(save()));

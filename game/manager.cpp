@@ -292,7 +292,7 @@ void Palapeli::Manager::addPiece(const QImage& image, const QRectF& positionInIm
 	piece->part()->setBasePosition(sceneBasePosition);
 	//keep application responsive
 	int realPieceCount = p->m_pieces.count();
-	int updateStep = p->m_estimatePieceCount / 20;
+	int updateStep = qMax(p->m_estimatePieceCount / 15, 5);
 	if ((realPieceCount + updateStep/2) % updateStep == 0) //do not redraw every time; this slows down the creation massively
 	{
 		int maxPieceCount = qMax(p->m_estimatePieceCount, realPieceCount);
@@ -363,7 +363,7 @@ void Palapeli::Manager::createGame(const KUrl& url, int patternIndex)
 	QApplication::processEvents();
 	//propagate changes
 	updateGraphics();
-	emit gameLoaded(QString());
+	emit gameNameChanged(QString());
 }
 
 void Palapeli::Manager::loadGame(const QString& name)
@@ -426,7 +426,7 @@ void Palapeli::Manager::loadGame(const QString& name)
 	QApplication::processEvents();
 	//propagate changes
 	updateGraphics();
-	emit gameLoaded(name);
+	emit gameNameChanged(name);
 }
 
 bool Palapeli::Manager::saveGame(const QString& name)
@@ -467,6 +467,7 @@ bool Palapeli::Manager::saveGame(const QString& name)
 	config.sync();
 	//create dependency from config to image
 	gs.addDependency(configItem, gs.item(p->m_imageId));
+	emit gameNameChanged(name);
 	emit savegameCreated(name);
 	return true;
 }

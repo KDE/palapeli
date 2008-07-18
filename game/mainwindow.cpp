@@ -174,7 +174,8 @@ Palapeli::MainWindow::MainWindow(QWidget* parent)
 	p->setupDockers();
 	//late GUI settings
 	setupGUI(QSize(600, 500));
-	setCaption(i18nc("The application's name", "Palapeli"));
+	gameNameWasChanged(QString());
+	connect(ppMgr(), SIGNAL(gameNameChanged(const QString&)), this, SLOT(gameNameWasChanged(const QString&)));
 	//status bar
 	statusBar()->show();
 	statusBar()->addPermanentWidget(p->m_universalProgress, 1);
@@ -202,6 +203,14 @@ void Palapeli::MainWindow::reportProgress(int minimum, int value, int maximum, c
 void Palapeli::MainWindow::flushProgress()
 {
 	p->m_universalProgress->reset();
+}
+
+void Palapeli::MainWindow::gameNameWasChanged(const QString& name)
+{
+	if (name.isEmpty())
+		setCaption(i18nc("The application's name", "Palapeli"));
+	else
+		setCaption(i18nc("For usage as window title", "%1 - Palapeli").arg(name));
 }
 
 #include "mainwindow.moc"

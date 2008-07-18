@@ -78,7 +78,7 @@ namespace Palapeli
 			void endAddPiece();
 			void addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference);
 		Q_SIGNALS:
-			void gameLoaded(const QString& name);
+			void gameNameChanged(const QString& name);
 			void savegameCreated(const QString& name);
 			void savegameDeleted(const QString& name);
 		private:
