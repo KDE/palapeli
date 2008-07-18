@@ -34,6 +34,7 @@
 #include "view.h"
 
 #include <QApplication>
+#include <QTimer>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -60,6 +61,7 @@ namespace Palapeli
 		QUuid m_imageId;
 		QUuid m_gameId;
 		PatternConfiguration* m_patternConfiguration;
+		int m_estimatePieceCount; //used during slice process to show progress
 		//game and UI objects
 		Minimap* m_minimap;
 		QList<Part*> m_parts;
@@ -288,7 +290,22 @@ void Palapeli::Manager::addPiece(const QImage& image, const QRectF& positionInIm
 	p->m_pieces << piece;
 	p->m_parts << new Palapeli::Part(piece);
 	piece->part()->setBasePosition(sceneBasePosition);
-	//keep application repsonsive
+	//keep application responsive
+	int realPieceCount = p->m_pieces.count();
+	int updateStep = p->m_estimatePieceCount / 20;
+	if ((realPieceCount + updateStep/2) % updateStep == 0) //do not redraw every time; this slows down the creation massively
+	{
+		int maxPieceCount = qMax(p->m_estimatePieceCount, realPieceCount);
+		p->m_window->reportProgress(0, realPieceCount, maxPieceCount, i18np("1 piece generated", "%1 pieces generated", realPieceCount));
+		QApplication::processEvents();
+	}
+}
+
+void Palapeli::Manager::endAddPiece()
+{
+	//keep application responsive
+	int maxPieceCount = qMax(p->m_estimatePieceCount, p->m_pieces.count());
+	p->m_window->reportProgress(0, maxPieceCount + 1, maxPieceCount + 1, i18n("Finding neighbors"));
 	QApplication::processEvents();
 }
 
@@ -332,12 +349,18 @@ void Palapeli::Manager::createGame(const KUrl& url, int patternIndex)
 	p->startGameInternal();
 	//create pieces, parts, relations
 	Palapeli::Pattern* pattern = p->m_patternConfiguration->createPattern();
+	p->m_estimatePieceCount = pattern->estimatePieceCount();
 	connect(pattern, SIGNAL(pieceGenerated(const QImage&, const QRectF&, const QPointF&)),
 		this, SLOT(addPiece(const QImage&, const QRectF&, const QPointF&)));
+	connect(pattern, SIGNAL(allPiecesGenerated()), this, SLOT(endAddPiece()));
 	connect(pattern, SIGNAL(relationGenerated(int, int, const QPointF&)),
 		this, SLOT(addRelation(int, int, const QPointF&)));
 	pattern->slice(p->m_image);
 	delete pattern;
+	//keep application responsive
+	p->m_window->reportProgress(0, 1, 1, i18n("Game started."));
+	QTimer::singleShot(1000, p->m_window, SLOT(flushProgress()));
+	QApplication::processEvents();
 	//propagate changes
 	updateGraphics();
 	emit gameLoaded(QString());
@@ -387,14 +410,20 @@ void Palapeli::Manager::loadGame(const QString& name)
 	p->startGameInternal();
 	//create pieces, parts, relations; restore relations
 	Palapeli::Pattern* pattern = p->m_patternConfiguration->createPattern();
+	p->m_estimatePieceCount = pattern->estimatePieceCount();
 	connect(pattern, SIGNAL(pieceGenerated(const QImage&, const QRectF&, const QPointF&)),
 		this, SLOT(addPiece(const QImage&, const QRectF&, const QPointF&)));
+	connect(pattern, SIGNAL(allPiecesGenerated()), this, SLOT(endAddPiece()));
 	connect(pattern, SIGNAL(relationGenerated(int, int, const QPointF&)),
 		this, SLOT(addRelation(int, int, const QPointF&)));
 	pattern->loadPiecePositions(pieceBasePositions);
 	pattern->slice(p->m_image);
 	delete pattern;
 	searchConnections();
+	//keep application responsive
+	p->m_window->reportProgress(0, 1, 1, i18n("Game loaded."));
+	QTimer::singleShot(1000, p->m_window, SLOT(flushProgress()));
+	QApplication::processEvents();
 	//propagate changes
 	updateGraphics();
 	emit gameLoaded(name);

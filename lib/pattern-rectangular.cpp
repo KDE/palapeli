@@ -34,6 +34,11 @@ Palapeli::RectangularPattern::~RectangularPattern()
 {
 }
 
+int Palapeli::RectangularPattern::estimatePieceCount()
+{
+	return m_xCount * m_yCount;
+}
+
 void Palapeli::RectangularPattern::doSlice(const QImage& image)
 {
 	int width = image.width(), height = image.height();

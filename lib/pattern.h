@@ -84,6 +84,11 @@ protected:
 			virtual ~Pattern();
 
 			/**
+			 * \brief Estimates the final piece count.
+			 * The Palapeli game engine will use this function in order to show a progress bar to the user.
+			 */
+			virtual int estimatePieceCount() = 0;
+			/**
 			 * \brief For internal use only.
 			 * The Palapeli game engine will call this function if a game is loaded from the storage, in order to give the previous piece positions to the pattern. The base class will handle this process automatically as you create the pieces.
 			 */
@@ -121,6 +126,8 @@ protected:
 		Q_SIGNALS:
 			/// \internal
 			void pieceGenerated(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition);
+			/// \internal
+			void allPiecesGenerated();
 			/// \internal
 			void relationGenerated(int piece1Id, int piece2Id, const QPointF& positionDifference);
 		private:

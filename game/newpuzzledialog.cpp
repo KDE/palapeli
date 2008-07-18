@@ -110,7 +110,10 @@ Palapeli::NewPuzzleDialog::~NewPuzzleDialog()
 void Palapeli::NewPuzzleDialog::okWasClicked()
 {
 	if (p->m_patternLayout->currentWidget() != 0 || p->m_generalImage->url().isEmpty())
+	{
+		hide();
 		emit startGame(p->m_generalImage->url(), p->m_patternLayout->currentIndex());
+	}
 }
 
 #include "newpuzzledialog.moc"

@@ -46,6 +46,7 @@ Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
 	, m_newDialog(0) //cannot be created until Manager has loaded the pattern plugins
 	, m_settingsDialog(new KDialog(parent))
 	, m_settingsUi(new Ui::SettingsWidget)
+	, m_universalProgress(new Palapeli::TextProgressBar)
 {
 }
 
@@ -67,6 +68,8 @@ Palapeli::MainWindowPrivate::~MainWindowPrivate()
 	delete m_newDialog;
 	delete m_settingsDialog;
 	delete m_settingsUi;
+	//status bar
+	delete m_universalProgress;
 }
 
 void Palapeli::MainWindowPrivate::setupActions()
@@ -172,7 +175,10 @@ Palapeli::MainWindow::MainWindow(QWidget* parent)
 	//late GUI settings
 	setupGUI(QSize(600, 500));
 	setCaption(i18nc("The application's name", "Palapeli"));
-	statusBar()->hide();
+	//status bar
+	statusBar()->show();
+	statusBar()->addPermanentWidget(p->m_universalProgress, 1);
+	p->m_universalProgress->setText(i18n("Welcome to Palapeli."));
 	//initialise dialogs after entering the event loop (to speed up startup)
 	QTimer::singleShot(0, p, SLOT(setupDialogs()));
 }
@@ -182,4 +188,21 @@ Palapeli::MainWindow::~MainWindow()
 	delete p;
 }
 
+void Palapeli::MainWindow::reportProgress(int minimum, int value, int maximum, const QString& message)
+{
+	if (p->m_universalProgress->minimum() != minimum)
+		p->m_universalProgress->setMinimum(minimum);
+	if (p->m_universalProgress->maximum() != maximum)
+		p->m_universalProgress->setMaximum(maximum);
+	if (p->m_universalProgress->value() != value)
+		p->m_universalProgress->setValue(value);
+	p->m_universalProgress->setText(message);
+}
+
+void Palapeli::MainWindow::flushProgress()
+{
+	p->m_universalProgress->reset();
+}
+
+#include "mainwindow.moc"
 #include "mainwindow_p.moc"

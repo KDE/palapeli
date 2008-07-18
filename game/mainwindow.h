@@ -29,9 +29,13 @@ namespace Palapeli
 
 	class MainWindow : public KXmlGuiWindow
 	{
+		Q_OBJECT
 		public:
 			MainWindow(QWidget* parent = 0);
 			~MainWindow();
+		public Q_SLOTS:
+			void reportProgress(int minimum, int value, int maximum, const QString& message);
+			void flushProgress();
 		private:
 			MainWindowPrivate* p;
 	};

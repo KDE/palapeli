@@ -26,9 +26,11 @@
 #include "newpuzzledialog.h"
 #include "saveaction.h"
 #include "savegameview.h"
+#include "textprogressbar.h"
 #include "ui_settings.h"
 
 #include <QDockWidget>
+#include <QProgressBar>
 #include <KAction>
 #include <KDialog>
 
@@ -66,6 +68,8 @@ namespace Palapeli
 			NewPuzzleDialog* m_newDialog;
 			KDialog* m_settingsDialog;
 			Ui::SettingsWidget* m_settingsUi;
+			//status bar
+			Palapeli::TextProgressBar* m_universalProgress;
 	};
 
 }

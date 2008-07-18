@@ -25,6 +25,7 @@ set(palapeli_SRCS
 	saveaction.cpp
 	savegamemodel.cpp
 	savegameview.cpp
+	textprogressbar.cpp
 	view.cpp
 	../storage/gamestorage.cpp
 	../storage/gamestorageattribs.cpp

@@ -75,6 +75,7 @@ namespace Palapeli
 			void savegameWasDeleted(const QString& name);
 		protected Q_SLOTS:
 			void addPiece(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition);
+			void endAddPiece();
 			void addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference);
 		Q_SIGNALS:
 			void gameLoaded(const QString& name);
