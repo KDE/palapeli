@@ -19,6 +19,7 @@
 #include "gamestorage.h"
 #include "gamestorageattribs.h"
 
+#include <QApplication>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -420,7 +421,7 @@ bool GameStorage_doesItemWithThisMetaDataExist(Palapeli::GameStorage* storage, c
 	return items.count() != 0;
 }
 
-Palapeli::GameStorageItems Palapeli::GameStorage::importItems(GameStorage* storage, bool uniqueMetaData, const Palapeli::GameStorageItems& items)
+Palapeli::GameStorageItems Palapeli::GameStorage::importItems(GameStorage* storage, bool uniqueMetaData, const Palapeli::GameStorageItems& items, const QString& reportOnThisExtension)
 {
 	if (!d->m_accessible || !storage->d->m_accessible)
 		return Palapeli::GameStorageItems();
@@ -431,6 +432,20 @@ Palapeli::GameStorageItems Palapeli::GameStorage::importItems(GameStorage* stora
 	//static values for meta data (used for the case uniqueMetaData == true)
 	static QRegExp metaDataCleaner("^(.*)( \\[\\d+\\])?$"); //finds the name part in some meta data (i.e. an appended number in square brackets is cut off)
 	static const QString metaDataCountingSuffix(" [%1]"); //add to a name part (see above); argument should be of uint type
+	//count items for report
+	int maxCountReportItems = 0, countReportItems = 0;
+	if (!reportOnThisExtension.isEmpty())
+	{
+		QHashIterator<int, QString> iterExtHash(storage->d->m_extHash);
+		while (iterExtHash.hasNext())
+		{
+			//TODO: this does not calculate correctly with restrictedToGivenItemList == true
+			if (iterExtHash.next().value() == reportOnThisExtension)
+				++maxCountReportItems;
+		}
+		emit progress(0, 0, maxCountReportItems, i18n("Importing items"));
+		QApplication::processEvents();
+	}
 	//import items
 	QHashIterator<QUuid, int> iterIdHash(storage->d->m_idHash);
 	while (iterIdHash.hasNext())
@@ -498,6 +513,21 @@ Palapeli::GameStorageItems Palapeli::GameStorage::importItems(GameStorage* stora
 		importedItemNumberHash[oldItemNumber] = newItemNumber;
 		++d->m_nextItemNumber;
 		importedItems << Palapeli::GameStorageItem(newId, this);
+		//show progress if necessary
+		if (!reportOnThisExtension.isEmpty())
+		{
+			if (d->m_extHash[newItemNumber] == reportOnThisExtension)
+			{
+				++countReportItems;
+				emit progress(0, countReportItems, maxCountReportItems, i18np("1 item imported", "%1 items imported", countReportItems));
+				QApplication::processEvents();
+			}
+		}
+	}
+	if (!reportOnThisExtension.isEmpty())
+	{
+		emit progress(0, maxCountReportItems, maxCountReportItems, i18n("Importing dependencies"));
+		QApplication::processEvents();
 	}
 	//import dependencies
 	foreach (int oldDepNumber, storage->d->m_depNumbers)
@@ -521,10 +551,15 @@ Palapeli::GameStorageItems Palapeli::GameStorage::importItems(GameStorage* stora
 	}
 	d->m_depGroup->writeEntry(depListKey, d->m_depNumbers);
 	d->m_config->sync();
+	if (!reportOnThisExtension.isEmpty())
+	{
+		emit progress(0, maxCountReportItems, maxCountReportItems, i18np("1 item imported", "%1 items imported", countReportItems));
+		QApplication::processEvents();
+	}
 	return importedItems;
 }
 
-Palapeli::GameStorageItems Palapeli::GameStorage::importItems(const KUrl& archive, bool uniqueMetaData)
+Palapeli::GameStorageItems Palapeli::GameStorage::importItems(const KUrl& archive, bool uniqueMetaData, const QString& reportOnThisExtension)
 {
 	if (!d->m_accessible)
 		return Palapeli::GameStorageItems();
@@ -549,7 +584,7 @@ Palapeli::GameStorageItems Palapeli::GameStorage::importItems(const KUrl& archiv
 	archiveDir->copyTo(tempDir.name());
 	//import items from that storage
 	Palapeli::GameStorage* gs = new Palapeli::GameStorage(tempDir.name());
-	Palapeli::GameStorageItems items = this->importItems(gs, uniqueMetaData);
+	Palapeli::GameStorageItems items = this->importItems(gs, uniqueMetaData, Palapeli::GameStorageItems(), reportOnThisExtension);
 	delete gs;
 	//cleanup
 	tempDir.unlink();
@@ -650,7 +685,7 @@ QString Palapeli::GameStorage::itemMetaData(const QUuid& id) const
 	return d->m_metaHash.value(itemNumber, QString());
 }
 
-bool Palapeli::GameStorage::itemSetMetaData(const QUuid& id, const QString& text) const
+bool Palapeli::GameStorage::itemSetMetaData(const QUuid& id, const QString& text)
 {
 	if (!itemExists(id))
 		return false;
@@ -667,3 +702,5 @@ bool Palapeli::GameStorage::itemSetMetaData(const QUuid& id, const QString& text
 	d->m_config->sync();
 	return true;
 }
+
+#include "gamestorage.moc"

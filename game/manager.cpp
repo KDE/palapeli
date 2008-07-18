@@ -449,7 +449,7 @@ bool Palapeli::Manager::saveGame(const QString& name)
 	Palapeli::GameStorageItem configItem;
 	if (configs.count() == 0)
 	{
-		configItem = gs.addItem("pgs", Palapeli::GameStorageItem::SavedGame);
+		configItem = gs.addItem("psg", Palapeli::GameStorageItem::SavedGame);
 		configItem.setMetaData(name);
 	}
 	else

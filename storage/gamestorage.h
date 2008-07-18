@@ -21,6 +21,7 @@
 
 #include "gamestorageitem.h"
 
+#include <QObject>
 #include <KUrl>
 
 namespace Palapeli
@@ -29,8 +30,9 @@ namespace Palapeli
 	class GameStorageAttributes;
 	class GameStoragePrivate;
 
-	class GameStorage
+	class GameStorage : public QObject
 	{
+		Q_OBJECT
 		public:
 			GameStorage();
 			GameStorage(const QString& baseDirectory);
@@ -50,9 +52,12 @@ namespace Palapeli
 			bool hasDependency(const GameStorageItem& source, const GameStorageItem& target);
 			bool removeDependency(const GameStorageItem& source, const GameStorageItem& target);
 
-			GameStorageItems importItems(GameStorage* storage, bool uniqueMetaData = true, const GameStorageItems& items = Palapeli::GameStorageItems());
-			GameStorageItems importItems(const KUrl& archive, bool uniqueMetaData = true);
+			GameStorageItems importItems(GameStorage* storage, bool uniqueMetaData = true, const GameStorageItems& items = Palapeli::GameStorageItems(), const QString& reportOnThisExtension = QString());
+			GameStorageItems importItems(const KUrl& archive, bool uniqueMetaData = true, const QString& reportOnThisExtension = QString());
 			bool exportItems(const KUrl& archive, const GameStorageItems& items, bool uniqueMetaData = true);
+
+		Q_SIGNALS:
+			void progress(int minimum, int value, int maximum, const QString& caption);
 
 		private:
 			Q_DISABLE_COPY(GameStorage)
@@ -65,7 +70,7 @@ namespace Palapeli
 			int itemType(const QUuid& id) const;
 			QString itemFilePath(const QUuid& id) const;
 			QString itemMetaData(const QUuid& id) const;
-			bool itemSetMetaData(const QUuid& id, const QString& text) const;
+			bool itemSetMetaData(const QUuid& id, const QString& text);
 	};
 
 }
