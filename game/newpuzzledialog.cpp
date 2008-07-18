@@ -107,6 +107,12 @@ Palapeli::NewPuzzleDialog::~NewPuzzleDialog()
 	delete p;
 }
 
+void Palapeli::NewPuzzleDialog::showDialog()
+{
+	show();
+	p->m_generalImage->setFocus(Qt::OtherFocusReason);
+}
+
 void Palapeli::NewPuzzleDialog::okWasClicked()
 {
 	if (p->m_patternLayout->currentWidget() != 0 || p->m_generalImage->url().isEmpty())

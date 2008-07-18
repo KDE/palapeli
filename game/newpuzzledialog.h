@@ -36,6 +36,7 @@ namespace Palapeli
 		Q_SIGNALS:
 			void startGame(const KUrl& imageUrl, int patternIndex);
 		public Q_SLOTS:
+			void showDialog();
 			void okWasClicked();
 		private:
 			NewPuzzleDialogPrivate* p;
