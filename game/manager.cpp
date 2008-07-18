@@ -404,13 +404,7 @@ bool Palapeli::Manager::saveGame(const QString& name)
 {
 	if (!p->m_patternConfiguration || p->m_pieces.empty())
 		return false;
-	//FIXME: It is likely that more characters have to be excluded because of Windows. Can this be accomplished in a more elegant way?
-	if (name.contains(QChar('/')) || name.contains(QChar('\\')))
-	{
-		KMessageBox::error(window(), i18n("Please choose a name that does not contain slashes."));
-		return false;
-	}
-	if (name.startsWith(QLatin1String("__palapeli"), Qt::CaseInsensitive)) //case insensitivity because of Windows support
+	if (name.startsWith(QLatin1String("__palapeli"), Qt::CaseSensitive))
 	{
 		KMessageBox::error(window(), i18n("Please choose another name. Names starting with \"__palapeli\" are reserved for internal use."));
 		return false;

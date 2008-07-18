@@ -1,4 +1,4 @@
-project(palapeli)
+project(libpalapelipattern)
 
 set(palapelipattern_LIB_MAJOR_VERSION "0")
 set(palapelipattern_LIB_MINOR_VERSION "1")
