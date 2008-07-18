@@ -176,6 +176,7 @@ Palapeli::MainWindow::MainWindow(QWidget* parent)
 	setupGUI(QSize(600, 500));
 	gameNameWasChanged(QString());
 	connect(ppMgr(), SIGNAL(gameNameChanged(const QString&)), this, SLOT(gameNameWasChanged(const QString&)));
+	connect(ppMgr(), SIGNAL(interactionModeChanged(bool)), this, SLOT(changeInteractionMode(bool)));
 	//status bar
 	statusBar()->show();
 	statusBar()->addPermanentWidget(p->m_universalProgress, 1);
@@ -211,6 +212,14 @@ void Palapeli::MainWindow::gameNameWasChanged(const QString& name)
 		setCaption(i18nc("The application's name", "Palapeli"));
 	else
 		setCaption(i18nc("For usage as window title", "%1 - Palapeli").arg(name));
+}
+
+void Palapeli::MainWindow::changeInteractionMode(bool allowGameInteraction)
+{
+	QAction* newAct = actionCollection()->action(KStandardGameAction::name(KStandardGameAction::New));
+	newAct->setEnabled(allowGameInteraction);
+	p->m_loadAct->setEnabled(allowGameInteraction);
+	p->m_saveAct->setEnabled(allowGameInteraction);
 }
 
 #include "mainwindow.moc"

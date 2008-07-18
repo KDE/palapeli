@@ -40,6 +40,7 @@ namespace Palapeli
 			void exportSelected();
 		private Q_SLOTS:
 			void selectionChanged();
+			void changeInteractionMode(bool allowGameInteraction);
 		private:
 			QListView* m_view;
 			KAction* m_loadAct;

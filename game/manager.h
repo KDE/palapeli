@@ -81,6 +81,7 @@ namespace Palapeli
 			void gameNameChanged(const QString& name);
 			void savegameCreated(const QString& name);
 			void savegameDeleted(const QString& name);
+			void interactionModeChanged(bool gameInteractionAvailable);
 		private:
 			Manager();
 			~Manager();

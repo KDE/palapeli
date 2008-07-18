@@ -344,6 +344,7 @@ void Palapeli::Manager::createGame(const KUrl& url, int patternIndex)
 	if (!p->loadImage(url))
 		return;
 	p->m_gameId = QUuid();
+	emit interactionModeChanged(false);
 	//start game
 	p->m_patternConfiguration = p->m_patternConfigurations[patternIndex];
 	p->startGameInternal();
@@ -364,6 +365,7 @@ void Palapeli::Manager::createGame(const KUrl& url, int patternIndex)
 	//propagate changes
 	updateGraphics();
 	emit gameNameChanged(QString());
+	emit interactionModeChanged(true);
 }
 
 void Palapeli::Manager::loadGame(const QString& name)
@@ -401,6 +403,7 @@ void Palapeli::Manager::loadGame(const QString& name)
 	if (!p->loadImage(images.at(0)))
 		return;
 	p->m_gameId = savegames.at(0).id(); //this is not done earlier because I won't change any internal variables before everything necessary (i.e. config, image, pattern) has been located - if not, the internal state would be inconsistent
+	emit interactionModeChanged(false);
 	//read piece positions
 	QList<QPointF> pieceBasePositions;
 	KConfigGroup piecesGroup(&config, Palapeli::Strings::PiecesGroupKey);
@@ -427,6 +430,7 @@ void Palapeli::Manager::loadGame(const QString& name)
 	//propagate changes
 	updateGraphics();
 	emit gameNameChanged(name);
+	emit interactionModeChanged(true);
 }
 
 bool Palapeli::Manager::saveGame(const QString& name)
@@ -438,6 +442,7 @@ bool Palapeli::Manager::saveGame(const QString& name)
 		KMessageBox::error(window(), i18n("Please choose another name. Names starting with \"__palapeli\" are reserved for internal use."));
 		return false;
 	}
+	emit interactionModeChanged(false);
 	//find or create configuration file
 	Palapeli::GameStorage gs;
 	Palapeli::GameStorageItems configs = gs.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame) << new Palapeli::GameStorageMetaAttribute(name));
@@ -469,6 +474,7 @@ bool Palapeli::Manager::saveGame(const QString& name)
 	gs.addDependency(configItem, gs.item(p->m_imageId));
 	emit gameNameChanged(name);
 	emit savegameCreated(name);
+	emit interactionModeChanged(true);
 	return true;
 }
 

@@ -37,6 +37,7 @@ namespace Palapeli
 			void reportProgress(int minimum, int value, int maximum, const QString& message);
 			void flushProgress();
 			void gameNameWasChanged(const QString& name);
+			void changeInteractionMode(bool allowGameInteraction);
 		private:
 			MainWindowPrivate* p;
 	};

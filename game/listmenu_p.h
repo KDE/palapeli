@@ -48,7 +48,7 @@ namespace Palapeli
 			QSignalMapper* m_mapper;
 			ListMenu* m_menu;
 
-			bool m_disableWhenEmpty;
+			bool m_disableWhenEmpty, m_enabled;
 
 			ListMenuPrivate(ListMenu* menu);
 			~ListMenuPrivate();

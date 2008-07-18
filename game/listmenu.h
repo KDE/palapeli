@@ -41,8 +41,11 @@ namespace Palapeli
 			~ListMenu();
 
 			bool isDisabledWhenEmpty() const;
+			bool listMenuEnabled() const;
 			QAbstractListModel* model() const;
+
 			void setDisabledWhenEmpty(bool disabledWhenEmpty);
+			void setEnabled(bool enabled);
 			void setModel(QAbstractListModel* model);
 		Q_SIGNALS:
 			void clicked(const QString& displayRoleData);

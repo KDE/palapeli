@@ -40,6 +40,7 @@ Palapeli::SavegameView::SavegameView(QWidget* parent)
 	, m_importAct(new KAction(KIcon("document-import"), i18nc("the verb, as in 'Import games'", "Import"), this))
 	, m_exportAct(new KAction(KIcon("document-export"), i18nc("the verb, as in 'Export games'", "Export"), this))
 {
+	connect(ppMgr(), SIGNAL(interactionModeChanged(bool)), this, SLOT(changeInteractionMode(bool)));
 	//fill toolbar
 	KToolBar *mainToolBar = toolBar("savegamesToolBar");
 	mainToolBar->addAction(m_loadAct);
@@ -131,6 +132,19 @@ void Palapeli::SavegameView::selectionChanged()
 	m_deleteAct->setEnabled(selectedCount > 0);
 	m_exportAct->setEnabled(selectedCount > 0);
 	m_loadAct->setEnabled(selectedCount == 1);
+}
+
+void Palapeli::SavegameView::changeInteractionMode(bool allowGameInteraction)
+{
+	m_importAct->setEnabled(allowGameInteraction);
+	if (allowGameInteraction)
+		selectionChanged(); //this function knows better when the other actions can be enabled
+	else
+	{
+		m_deleteAct->setEnabled(false);
+		m_exportAct->setEnabled(false);
+		m_loadAct->setEnabled(false);
+	}
 }
 
 #include "savegameview.moc"

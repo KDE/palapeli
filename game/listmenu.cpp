@@ -28,6 +28,7 @@ Palapeli::ListMenuPrivate::ListMenuPrivate(Palapeli::ListMenu* menu)
 	, m_mapper(new QSignalMapper(menu))
 	, m_menu(menu)
 	, m_disableWhenEmpty(false)
+	, m_enabled(true)
 {
 	connect(m_mapper, SIGNAL(mapped(const QString&)), menu, SIGNAL(clicked(const QString&)));
 }
@@ -84,8 +85,7 @@ void Palapeli::ListMenuPrivate::modelReset()
 		m_menu->addAction(item->action);
 		m_items << item;
 	}
-	if (m_disableWhenEmpty)
-		m_menu->setEnabled(rowCount > 0);
+	m_menu->setEnabled(m_menu->listMenuEnabled());
 }
 
 void Palapeli::ListMenuPrivate::rowsInserted(const QModelIndex& parent, int start, int end)
@@ -112,8 +112,7 @@ void Palapeli::ListMenuPrivate::rowsInserted(const QModelIndex& parent, int star
 			m_menu->addAction(item->action);
 		iterItems.insert(item);
 	}
-	if (m_disableWhenEmpty)
-		m_menu->setEnabled(true);
+	m_menu->setEnabled(m_menu->listMenuEnabled());
 }
 
 void Palapeli::ListMenuPrivate::rowsAboutToBeRemoved(const QModelIndex& parent, int start, int end)
@@ -129,8 +128,7 @@ void Palapeli::ListMenuPrivate::rowsAboutToBeRemoved(const QModelIndex& parent, 
 		delete item->action;
 		delete item;
 	}
-	if (m_disableWhenEmpty)
-		m_menu->setEnabled(m_model->rowCount() > removeCount);
+	m_menu->setEnabled(m_menu->listMenuEnabled());
 }
 
 Palapeli::ListMenu::ListMenu(const KIcon& icon, const QString& text, QObject* parent)
@@ -163,6 +161,11 @@ bool Palapeli::ListMenu::isDisabledWhenEmpty() const
 	return p->m_disableWhenEmpty;
 }
 
+bool Palapeli::ListMenu::listMenuEnabled() const
+{
+	return p->m_enabled;
+}
+
 QAbstractListModel* Palapeli::ListMenu::model() const
 {
 	return p->m_model;
@@ -171,6 +174,16 @@ QAbstractListModel* Palapeli::ListMenu::model() const
 void Palapeli::ListMenu::setDisabledWhenEmpty(bool disabledWhenEmpty)
 {
 	p->m_disableWhenEmpty = disabledWhenEmpty;
+}
+
+void Palapeli::ListMenu::setEnabled(bool enabled)
+{
+	p->m_enabled = enabled;
+	//apply setting
+	if (enabled)
+		KActionMenu::setEnabled(p->m_disableWhenEmpty ? p->m_model->rowCount() > 0 : true);
+	else
+		KActionMenu::setEnabled(false);
 }
 
 void Palapeli::ListMenu::setModel(QAbstractListModel* model)
