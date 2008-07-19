@@ -5,6 +5,7 @@ Name=Paladesign
 Name[et]=Palapeli disain
 GenericName=Editor for Palapeli jigsaw puzzle patterns
 GenericName[et]=Palapeli puslemustrite redaktor
+GenericName[sv]=Editor för pusselmönster till Palapeli
 Terminal=false
 Icon=preferences-plugin
 X-KDE-StartupNotify=true

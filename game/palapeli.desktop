@@ -4,6 +4,7 @@ Exec=palapeli -caption "%c"
 Name=Palapeli
 GenericName=Jigsaw puzzle game
 GenericName[et]=Pusle
+GenericName[sv]=Pusselspel
 Terminal=false
 Icon=preferences-plugin
 X-KDE-StartupNotify=true
