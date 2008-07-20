@@ -33,10 +33,10 @@ namespace Palapeli
 	class PatternConfigurationPrivate
 	{
 		public:
-			PatternConfigurationPrivate(const QByteArray& patternName, const QString& displayName);
+			PatternConfigurationPrivate();
 			~PatternConfigurationPrivate();
 
-			QByteArray m_patternName;
+			QString m_patternName;
 			QString m_displayName;
 
 			KIntSpinBox* m_xCountSpinner;
@@ -48,10 +48,8 @@ namespace Palapeli
 
 //BEGIN Palapeli::PatternConfigurationPrivate
 
-Palapeli::PatternConfigurationPrivate::PatternConfigurationPrivate(const QByteArray& patternName, const QString& displayName)
-	: m_patternName(patternName)
-	, m_displayName(displayName)
-	, m_xCountSpinner(0) //this makes CustomSizeDefinition the implicit default for SizeDefinitionMode of PatternConfiguration
+Palapeli::PatternConfigurationPrivate::PatternConfigurationPrivate()
+	: m_xCountSpinner(0) //this makes CustomSizeDefinition the implicit default for SizeDefinitionMode of PatternConfiguration
 	, m_yCountSpinner(0)
 {
 }
@@ -67,8 +65,8 @@ Palapeli::PatternConfigurationPrivate::~PatternConfigurationPrivate()
 
 //BEGIN Palapeli::PatternConfiguration
 
-Palapeli::PatternConfiguration::PatternConfiguration(const QByteArray& patternName, const QString& displayName)
-	: p(new Palapeli::PatternConfigurationPrivate(patternName, displayName))
+Palapeli::PatternConfiguration::PatternConfiguration()
+	: p(new Palapeli::PatternConfigurationPrivate)
 {
 }
 
@@ -134,7 +132,7 @@ int Palapeli::PatternConfiguration::yCount() const
 		return p->m_yCountSpinner->value();
 }
 
-QByteArray Palapeli::PatternConfiguration::patternName() const
+QString Palapeli::PatternConfiguration::patternName() const
 {
 	return p->m_patternName;
 }
@@ -142,6 +140,12 @@ QByteArray Palapeli::PatternConfiguration::patternName() const
 QString Palapeli::PatternConfiguration::displayName() const
 {
 	return p->m_displayName;
+}
+
+void Palapeli::PatternConfiguration::setNames(const QString& patternName, const QString& displayName)
+{
+	p->m_patternName = patternName;
+	p->m_displayName = displayName;
 }
 
 QWidget* Palapeli::PatternConfiguration::createConfigurationWidget() const
@@ -186,6 +190,16 @@ void Palapeli::PatternConfiguration::writeArguments(KConfigGroup* config) const
 void Palapeli::PatternConfiguration::writeCustomArguments(KConfigGroup* config) const
 {
 	Q_UNUSED(config)
+}
+
+int Palapeli::PatternConfiguration::choiceCount() const
+{
+	return 1; //default to one choice (i.e. no choice)
+}
+
+void Palapeli::PatternConfiguration::setChoice(int index)
+{
+	Q_UNUSED(index) //only one choice (by default) - do nothing
 }
 
 //END Palapeli::PatternConfiguration

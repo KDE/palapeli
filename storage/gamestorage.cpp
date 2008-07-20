@@ -83,8 +83,6 @@ inline uint qHash(const QUuid& id)
 	return qHash(id.toString());
 }
 
-#include <KDebug>
-
 Palapeli::GameStoragePrivate::GameStoragePrivate(const QString& baseDirectory)
 	: m_baseDirectory(baseDirectory)
 	, m_filePathTemplate(baseDirectory + "/%1%2")

@@ -20,7 +20,7 @@
 #include "manager.h"
 #include "../lib/pattern.h"
 #include "../lib/pattern-configuration.h"
-#include "../lib/pattern-rectangular.h"
+#include "../lib/pattern-trader.h"
 #include "../storage/gamestorageattribs.h"
 #include "../storage/gamestorage.h"
 #include "../storage/gamestorageitem.h"
@@ -114,7 +114,8 @@ Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	QObject::connect(m_manager, SIGNAL(savegameCreated(const QString&)), m_savegameModel, SLOT(savegameCreated(const QString&)));
 	QObject::connect(m_manager, SIGNAL(savegameDeleted(const QString&)), m_savegameModel, SLOT(savegameDeleted(const QString&)));
 	//TODO: replace with KPluginLoader etc.
-	m_patternConfigurations << new Palapeli::RectangularPatternConfiguration;
+	for (int i = 0; i < Palapeli::PatternTrader::self()->configurationCount(); ++i)
+		m_patternConfigurations << Palapeli::PatternTrader::self()->configurationAt(i);
 }
 
 void Palapeli::ManagerPrivate::init()

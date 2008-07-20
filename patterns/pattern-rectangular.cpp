@@ -19,7 +19,11 @@
 #include "pattern-rectangular.h"
 
 #include <QImage>
-#include <KLocalizedString>
+#include <KPluginFactory>
+#include <KPluginLoader>
+
+K_PLUGIN_FACTORY(RectangularPatternFactory, registerPlugin<Palapeli::RectangularPatternConfiguration>();)
+K_EXPORT_PLUGIN(RectangularPatternFactory("palapeli_rectangularpattern"))
 
 //BEGIN Palapeli::RectangularPattern
 
@@ -80,9 +84,11 @@ void Palapeli::RectangularPattern::doSlice(const QImage& image)
 
 //BEGIN Palapeli::RectangularPatternConfiguration
 
-Palapeli::RectangularPatternConfiguration::RectangularPatternConfiguration()
-	: Palapeli::PatternConfiguration("rectangular", i18n("Simple rectangles"))
+Palapeli::RectangularPatternConfiguration::RectangularPatternConfiguration(QObject* parent, const QVariantList& args)
+	: Palapeli::PatternConfiguration()
 {
+	Q_UNUSED(parent)
+	Q_UNUSED(args)
 	setSizeDefinitionMode(Palapeli::PatternConfiguration::CountSizeDefinition);
 }
 

@@ -26,6 +26,7 @@
 #endif
 
 #include <QObject>
+#include <QVariant>
 class QWidget;
 class KConfigGroup;
 
@@ -55,15 +56,20 @@ namespace Palapeli
 				CountSizeDefinition
 			};
 
-			PatternConfiguration(const QByteArray& patternName, const QString& displayName);
+			PatternConfiguration();
 			virtual ~PatternConfiguration();
 
 			//implementation of subclasses (i.e. plugins); interface to Palapeli core
 			virtual Pattern* createPattern() const = 0;
 
 			//interface to Palapeli core
-			QByteArray patternName() const;
+			QString patternName() const;
 			QString displayName() const;
+			void setNames(const QString& patternName, const QString& displayName);
+
+			virtual int choiceCount() const; //TODO: implement usage in Palapeli app
+			virtual void setChoice(int index); //TODO: implement usage in Palapeli app
+
 			QWidget* createConfigurationWidget() const; //DOC: talk about ownership issues
 			void readArguments(KConfigGroup* config);
 			void writeArguments(KConfigGroup* config) const;

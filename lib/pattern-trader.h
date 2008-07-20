@@ -16,39 +16,38 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_PATTERN_RECT_H
-#define PALAPELI_PATTERN_RECT_H
+#ifndef PALAPELI_PATTERN_TRADER_H
+#define PALAPELI_PATTERN_TRADER_H
 
-#include "pattern.h"
-#include "pattern-configuration.h"
+#if defined(MAKE_LIBPALAPELIPATTERN)
+ #include "macros.h"
+#else
+ #include <Palapeli/Macros>
+#endif
+
+#include <QtGlobal>
 
 namespace Palapeli
 {
 
-	/// \internal
-	class RectangularPattern : public Pattern
+	class PatternConfiguration;
+	class PatternTraderPrivate;
+
+	class PALAPELIPATTERN_EXPORT PatternTrader
 	{
 		public:
-			RectangularPattern(int xCount, int yCount);
-			virtual ~RectangularPattern();
+			static PatternTrader* self();
 
-			virtual int estimatePieceCount() const;
-		protected:
-			virtual void doSlice(const QImage& image);
+			int configurationCount() const;
+			PatternConfiguration* configurationAt(int index) const;
 		private:
-			int m_xCount, m_yCount;
-	};
+			PatternTrader();
+			~PatternTrader();
+			Q_DISABLE_COPY(PatternTrader)
 
-	//TODO: do not export this class, but implement a proper pattern discovery interface
-	/// \internal
-	class PALAPELIPATTERN_EXPORT RectangularPatternConfiguration : public PatternConfiguration
-	{
-		public:
-			RectangularPatternConfiguration();
-			virtual ~RectangularPatternConfiguration();
-			virtual Pattern* createPattern() const;
+			PatternTraderPrivate* p;
 	};
 
 }
 
-#endif // PALAPELI_PATTERN_RECT_H
+#endif // PALAPELI_PATTERN_TRADER_H

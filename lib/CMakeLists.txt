@@ -9,7 +9,7 @@ set(palapelipattern_LIB_SOVERSION "0")
 set(palapelipattern_SRCS
 	pattern.cpp
 	pattern-configuration.cpp
-	pattern-rectangular.cpp
+	pattern-trader.cpp
 )
 
 kde4_add_library(palapelipattern SHARED ${palapelipattern_SRCS})
@@ -22,6 +22,7 @@ set_target_properties(palapelipattern PROPERTIES
 )
 
 install(TARGETS palapelipattern DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(FILES palapelipatternplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 install(FILES macros.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME Macros)
 install(FILES pattern.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME Pattern)
 install(FILES pattern-configuration.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME PatternConfiguration)
