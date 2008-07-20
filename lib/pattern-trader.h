@@ -27,18 +27,44 @@
 
 #include <QtGlobal>
 
+//TODO: method to reload the plugin list (necessary once Palapeli has a plugin selection dialog)
+
 namespace Palapeli
 {
 
 	class PatternConfiguration;
 	class PatternTraderPrivate;
 
+	/**
+	 * \class PatternTrader pattern-trader.h Palapeli/PatternTrader
+	 *
+	 * The pattern trader is a thin wrapper class around the KServiceTypeTrader that is used to locate the pattern plugins.
+	 *
+	 * The following code can be used to fetch a list of all available Palapeli::PatternConfiguration objects from the pattern trader.
+\code
+QList<Palapeli::PatternConfiguration*> configs;
+Palapeli::PatternTrader* trader = Palapeli::PatternTrader::self();
+
+for (int i = 0; i < trader->configurationCount(); ++i)
+	configs << trader->configurationAt(i);
+\endcode
+	 *
+	 * \author Stefan Majewsky <majewsky@gmx.net>
+	 */
 	class PALAPELIPATTERN_EXPORT PatternTrader
 	{
 		public:
+			/**
+			 * Returns a pointer to the global pattern trader object.
+			 */
 			static PatternTrader* self();
-
+			/**
+			 * Returns how many pattern plugins are available.
+			 */
 			int configurationCount() const;
+			/**
+			 * Returns an Palapeli::PatternConfiguration instance for the index-th pattern plugin.
+			 */
 			PatternConfiguration* configurationAt(int index) const;
 		private:
 			PatternTrader();

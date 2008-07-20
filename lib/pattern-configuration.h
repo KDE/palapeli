@@ -42,7 +42,7 @@ namespace Palapeli
 	/**
 	 * \class PatternConfiguration pattern-configuration.h Palapeli/PatternConfiguration
 	 *
-	 * This class is not documented yet.
+	 * This class is not documented yet because its design is not yet finalized.
 	 *
 	 * \author Stefan Majewsky <majewsky@gmx.net>
 	 */
@@ -67,8 +67,8 @@ namespace Palapeli
 			QString displayName() const;
 			void setNames(const QString& patternName, const QString& displayName);
 
-			virtual int choiceCount() const; //TODO: implement usage in Palapeli app
-			virtual void setChoice(int index); //TODO: implement usage in Palapeli app
+			//virtual int choiceCount() const; //TODO: implement usage in Palapeli app
+			//virtual void setChoice(int index); //TODO: implement usage in Palapeli app
 
 			QWidget* createConfigurationWidget() const; //DOC: talk about ownership issues
 			void readArguments(KConfigGroup* config);
@@ -85,7 +85,7 @@ namespace Palapeli
 			int xCount() const;
 			int yCount() const;
 		private:
-			PatternConfigurationPrivate* p;
+			PatternConfigurationPrivate* const p;
 	};
 
 }

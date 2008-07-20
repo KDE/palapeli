@@ -194,6 +194,7 @@ void Palapeli::PatternConfiguration::writeCustomArguments(KConfigGroup* config) 
 	Q_UNUSED(config)
 }
 
+/*
 int Palapeli::PatternConfiguration::choiceCount() const
 {
 	return 1; //default to one choice (i.e. no choice)
@@ -203,6 +204,7 @@ void Palapeli::PatternConfiguration::setChoice(int index)
 {
 	Q_UNUSED(index) //only one choice (by default) - do nothing
 }
+*/
 
 //END Palapeli::PatternConfiguration
 

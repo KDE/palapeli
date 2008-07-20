@@ -131,11 +131,9 @@ protected:
 			/// \internal
 			void pieceGenerated(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition);
 			/// \internal
-			void allPiecesGenerated();
-			/// \internal
 			void relationGenerated(int piece1Id, int piece2Id, const QPointF& positionDifference);
 		private:
-			PatternPrivate* p;
+			PatternPrivate* const p;
 	};
 }
 
