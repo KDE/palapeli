@@ -56,7 +56,7 @@ namespace Palapeli
 				CountSizeDefinition
 			};
 
-			PatternConfiguration();
+			PatternConfiguration(QObject* parent = 0, const QVariantList& args = QVariantList());
 			virtual ~PatternConfiguration();
 
 			//implementation of subclasses (i.e. plugins); interface to Palapeli core

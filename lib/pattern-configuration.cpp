@@ -65,9 +65,11 @@ Palapeli::PatternConfigurationPrivate::~PatternConfigurationPrivate()
 
 //BEGIN Palapeli::PatternConfiguration
 
-Palapeli::PatternConfiguration::PatternConfiguration()
+Palapeli::PatternConfiguration::PatternConfiguration(QObject* parent, const QVariantList& args)
 	: p(new Palapeli::PatternConfigurationPrivate)
 {
+	Q_UNUSED(parent)
+	Q_UNUSED(args)
 }
 
 Palapeli::PatternConfiguration::~PatternConfiguration()

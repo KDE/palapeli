@@ -1,0 +1,3 @@
+set(MODULE_INSTALL_DIR ${DATA_INSTALL_DIR}/cmake/modules)
+install(FILES FindPalapeli.cmake DESTINATION ${MODULE_INSTALL_DIR})
+

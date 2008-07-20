@@ -85,7 +85,7 @@ void Palapeli::RectangularPattern::doSlice(const QImage& image)
 //BEGIN Palapeli::RectangularPatternConfiguration
 
 Palapeli::RectangularPatternConfiguration::RectangularPatternConfiguration(QObject* parent, const QVariantList& args)
-	: Palapeli::PatternConfiguration()
+	: Palapeli::PatternConfiguration(parent, args)
 {
 	Q_UNUSED(parent)
 	Q_UNUSED(args)

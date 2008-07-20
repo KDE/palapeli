@@ -26,3 +26,4 @@ install(FILES palapelipatternplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_D
 install(FILES macros.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME Macros)
 install(FILES pattern.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME Pattern)
 install(FILES pattern-configuration.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME PatternConfiguration)
+install(FILES pattern-trader.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME PatternTrader)
