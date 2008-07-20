@@ -125,7 +125,7 @@ void Palapeli::MainWindowPrivate::setupDockers()
 void Palapeli::MainWindowPrivate::setupDialogs()
 {
 	//setup "New game" dialog - it is now safe to do that because Manager has loaded its pattern plugins
-	m_newDialog = new Palapeli::NewPuzzleDialog;
+	m_newDialog = new Palapeli::NewPuzzleDialog(m_parent);
 	connect(m_parent->actionCollection()->action(KStandardGameAction::name(KStandardGameAction::New)), SIGNAL(triggered()), m_newDialog, SLOT(showDialog()));
 	connect(m_newDialog, SIGNAL(startGame(const KUrl&, int)), ppMgr(), SLOT(createGame(const KUrl&, int)));
 	//setup Settings UI

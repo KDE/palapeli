@@ -31,7 +31,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			NewPuzzleDialog();
+			NewPuzzleDialog(QWidget*);
 			~NewPuzzleDialog();
 		Q_SIGNALS:
 			void startGame(const KUrl& imageUrl, int patternIndex);

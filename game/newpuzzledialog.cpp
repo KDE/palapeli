@@ -92,8 +92,8 @@ Palapeli::NewPuzzleDialogPrivate::~NewPuzzleDialogPrivate()
 	delete m_generalPattern;
 }
 
-Palapeli::NewPuzzleDialog::NewPuzzleDialog()
-	: p(new Palapeli::NewPuzzleDialogPrivate)
+Palapeli::NewPuzzleDialog::NewPuzzleDialog(QWidget* parent)
+	: KDialog(parent), p(new Palapeli::NewPuzzleDialogPrivate)
 {
 	setCaption(i18n("Create a new jigsaw puzzle"));
 	setButtons(KDialog::Ok | KDialog::Cancel);
