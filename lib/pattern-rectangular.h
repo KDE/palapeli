@@ -25,13 +25,14 @@
 namespace Palapeli
 {
 
+	/// \internal
 	class RectangularPattern : public Pattern
 	{
 		public:
 			RectangularPattern(int xCount, int yCount);
 			virtual ~RectangularPattern();
 
-			virtual int estimatePieceCount();
+			virtual int estimatePieceCount() const;
 		protected:
 			virtual void doSlice(const QImage& image);
 		private:
@@ -39,6 +40,7 @@ namespace Palapeli
 	};
 
 	//TODO: do not export this class, but implement a proper pattern discovery interface
+	/// \internal
 	class PALAPELIPATTERN_EXPORT RectangularPatternConfiguration : public PatternConfiguration
 	{
 		public:

@@ -34,7 +34,7 @@ Palapeli::RectangularPattern::~RectangularPattern()
 {
 }
 
-int Palapeli::RectangularPattern::estimatePieceCount()
+int Palapeli::RectangularPattern::estimatePieceCount() const
 {
 	return m_xCount * m_yCount;
 }

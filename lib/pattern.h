@@ -53,7 +53,11 @@ class MyPattern : public Palapeli::Pattern {
 //implement public constructor and public and virtual destructor here
 
 protected:
-	virtual void slice(const QImage& image) {
+	virtual int estimatePieceCount() const {
+		return 2; //quite easy in this case
+	}
+
+	virtual void doSlice(const QImage& image) {
 		//construct pixmaps for the pieces
 		const int pieceWidth = image.width() / 2, pieceHeight = image.height();
 		QPixmap leftPiecePixmap = QPixmap::fromImage(image.copy(QRect(0, 0, pieceWidth, pieceHeight)));
@@ -87,7 +91,7 @@ protected:
 			 * \brief Estimates the final piece count.
 			 * The Palapeli game engine will use this function in order to show a progress bar to the user.
 			 */
-			virtual int estimatePieceCount() = 0;
+			virtual int estimatePieceCount() const = 0;
 			/**
 			 * \brief For internal use only.
 			 * The Palapeli game engine will call this function if a game is loaded from the storage, in order to give the previous piece positions to the pattern. The base class will handle this process automatically as you create the pieces.
