@@ -3,6 +3,7 @@ Type=ServiceType
 X-KDE-ServiceType=Palapeli/PatternPlugin
 X-KDE-Derived=
 Comment=Palapeli pattern
+Comment[sv]=Palapeli-mönster
 
 [PropertyDef::PatternIdentifier]
 Type=string

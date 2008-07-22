@@ -15,4 +15,5 @@ Type=Service
 Icon=preferences-plugin
 PatternIdentifier=rectangular
 Name=Rectangular pieces
+Name[sv]=Rektangulära bitar
 Comment=
