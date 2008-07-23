@@ -25,6 +25,7 @@
 namespace Palapeli
 {
 
+	///\internal
 	class VariantMapper : public QObject
 	{
 		Q_OBJECT
