@@ -31,7 +31,6 @@ class QWidget;
 class KConfigGroup;
 
 //TODO: bool function whether there are configurable things at all (add spacerItem in NewPuzzleDialog to not totally break the layout in that case)
-//TODO: allow to add multiple entries to the pattern selector
 
 namespace Palapeli
 {
@@ -50,40 +49,32 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			enum SizeDefinitionMode
+			enum DataType
 			{
-				CustomSizeDefinition = 0,
-				CountSizeDefinition
+				Variant = 0,
+				String,
+				Integer
 			};
 
 			PatternConfiguration(QObject* parent = 0, const QVariantList& args = QVariantList());
 			virtual ~PatternConfiguration();
-
-			//implementation of subclasses (i.e. plugins); interface to Palapeli core
-			virtual Pattern* createPattern() const = 0;
-
 			//interface to Palapeli core
-			QString patternName() const;
-			QString displayName() const;
-			void setNames(const QString& patternName, const QString& displayName);
-
-			//virtual int choiceCount() const; //TODO: implement usage in Palapeli app
-			//virtual void setChoice(int index); //TODO: implement usage in Palapeli app
-
-			QWidget* createConfigurationWidget() const; //DOC: talk about ownership issues
+			virtual Pattern* createPattern() const = 0;
+			QVariant property(const QByteArray& key) const;
 			void readArguments(KConfigGroup* config);
 			void writeArguments(KConfigGroup* config) const;
+			void populateWidget(QWidget* widget);
+		public Q_SLOTS:
+			void setProperty(const QByteArray& key, const QVariant& value);
+		Q_SIGNALS:
+			void propertyChanged(const QByteArray& key, const QVariant& value);
 		protected:
-			//implementation of subclasses (i.e. plugins); interface to Palapeli core
 			virtual void readCustomArguments(KConfigGroup* config);
 			virtual void writeCustomArguments(KConfigGroup* config) const;
-
-			//interface to subclasses (i.e. plugins)
-			void addWidget(QWidget* widget, const QString& caption);
-			void removeWidget(QWidget* widget);
-			void setSizeDefinitionMode(SizeDefinitionMode mode);
-			int xCount() const;
-			int yCount() const;
+			//interface to subclasses
+			void addProperty(const QByteArray& key, DataType type, const QString& caption);
+			void addPropertyParameters(const QByteArray& key, const QVariantList& parameters);
+			void removeProperty(const QByteArray& key);
 		private:
 			PatternConfigurationPrivate* const p;
 	};

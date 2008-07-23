@@ -19,6 +19,7 @@
 #include "pattern-rectangular.h"
 
 #include <QImage>
+#include <KLocalizedString>
 #include <KPluginFactory>
 #include <KPluginLoader>
 
@@ -89,7 +90,11 @@ Palapeli::RectangularPatternConfiguration::RectangularPatternConfiguration(QObje
 {
 	Q_UNUSED(parent)
 	Q_UNUSED(args)
-	setSizeDefinitionMode(Palapeli::PatternConfiguration::CountSizeDefinition);
+	addProperty("xcount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in horizontal direction:"));
+	addProperty("ycount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in vertical direction:"));
+	QVariantList params; params << 3 << 100; //minimum and maximum value
+	addPropertyParameters("xcount", params);
+	addPropertyParameters("ycount", params);
 }
 
 Palapeli::RectangularPatternConfiguration::~RectangularPatternConfiguration()
@@ -98,7 +103,7 @@ Palapeli::RectangularPatternConfiguration::~RectangularPatternConfiguration()
 
 Palapeli::Pattern* Palapeli::RectangularPatternConfiguration::createPattern() const
 {
-	return new Palapeli::RectangularPattern(xCount(), yCount());
+	return new Palapeli::RectangularPattern(property("xcount").toInt(), property("ycount").toInt());
 }
 
 //END Palapeli::RectangularPatternConfiguration

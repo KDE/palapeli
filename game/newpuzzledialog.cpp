@@ -18,6 +18,7 @@
 
 #include "newpuzzledialog.h"
 #include "../lib/pattern-configuration.h"
+#include "../lib/pattern-trader.h"
 #include "manager.h"
 
 #include <QComboBox>
@@ -64,13 +65,14 @@ Palapeli::NewPuzzleDialogPrivate::NewPuzzleDialogPrivate()
 	m_generalLayout->addRow(i18n("Pattern:"), m_generalPattern);
 	m_generalGroupBox->setLayout(m_generalLayout);
 	//"Pattern settings" box
-	for (int i = 0; i < ppMgr()->patternConfigCount(); ++i)
+	for (int i = 0; i < Palapeli::PatternTrader::self()->configurationCount(); ++i)
 	{
-		//get pattern config
-		Palapeli::PatternConfiguration* configuration = ppMgr()->patternConfig(i);
-		QWidget* configWidget = configuration->createConfigurationWidget();
+		//create configuration widget for PatternConfiguration
+		Palapeli::PatternConfiguration* configuration = Palapeli::PatternTrader::self()->configurationAt(i);
+		QWidget* configWidget = new QWidget;
+		configuration->populateWidget(configWidget);
 		//add pattern config to UI
-		m_generalPattern->addItem(configuration->displayName());
+		m_generalPattern->addItem(configuration->property("displayName").toString());
 		m_patternLayout->addWidget(configWidget);
 	}
 	QObject::connect(m_generalPattern, SIGNAL(activated(int)), m_patternLayout, SLOT(setCurrentIndex(int)));

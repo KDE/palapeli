@@ -33,7 +33,6 @@ namespace Palapeli
 	class ManagerPrivate;
 	class Minimap;
 	class Part;
-	class PatternConfiguration;
 	class Piece;
 	class PieceRelation;
 	class Preview;
@@ -58,8 +57,6 @@ namespace Palapeli
 			View* view() const;
 			//other objects (mostly user interface)
 			Minimap* minimap() const;
-			int patternConfigCount() const;
-			PatternConfiguration* patternConfig(int index) const;
 			Preview* preview() const;
 			SavegameModel* savegameModel() const;
 			MainWindow* window() const;

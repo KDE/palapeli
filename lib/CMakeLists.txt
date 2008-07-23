@@ -10,6 +10,7 @@ set(palapelipattern_SRCS
 	pattern.cpp
 	pattern-configuration.cpp
 	pattern-trader.cpp
+	variantmapper.cpp
 )
 
 kde4_add_library(palapelipattern SHARED ${palapelipattern_SRCS})

@@ -17,14 +17,16 @@
  ***************************************************************************/
 
 #include "pattern-configuration.h"
+#include "variantmapper.h"
 
 #include <QFormLayout>
 #include <QLabel>
 #include <QMap>
-#include <QPointer>
 #include <QWidget>
+#include <KComboBox>
 #include <KConfigGroup>
 #include <KIntSpinBox>
+#include <KLineEdit>
 #include <KLocalizedString>
 
 namespace Palapeli
@@ -36,12 +38,11 @@ namespace Palapeli
 			PatternConfigurationPrivate();
 			~PatternConfigurationPrivate();
 
-			QString m_patternName;
-			QString m_displayName;
-
-			KIntSpinBox* m_xCountSpinner;
-			KIntSpinBox* m_yCountSpinner;
-			QMap<QWidget*, QString> m_configurationWidgets;
+			QMap<QByteArray, QVariant> m_configurationValues;
+			QMap<QByteArray, PatternConfiguration::DataType> m_configurationDataTypes;
+			QMap<QByteArray, QString> m_configurationCaptions;
+			QMap<QByteArray, QVariantList> m_configurationParameters;
+			Palapeli::VariantMapper m_mapper;
 	};
 
 }
@@ -49,16 +50,16 @@ namespace Palapeli
 //BEGIN Palapeli::PatternConfigurationPrivate
 
 Palapeli::PatternConfigurationPrivate::PatternConfigurationPrivate()
-	: m_xCountSpinner(0) //this makes CustomSizeDefinition the implicit default for SizeDefinitionMode of PatternConfiguration
-	, m_yCountSpinner(0)
 {
+	m_configurationValues["patternName"] = QString();
+	m_configurationDataTypes["patternName"] = Palapeli::PatternConfiguration::String;
+	m_configurationValues["displayName"] = QString();
+	m_configurationDataTypes["displayName"] = Palapeli::PatternConfiguration::String;
 }
 
 Palapeli::PatternConfigurationPrivate::~PatternConfigurationPrivate()
 {
-	delete m_xCountSpinner;
-	delete m_yCountSpinner;
-	//the configuration map is not flushed
+	//the QMaps are not flushed
 }
 
 //END Palapeli::PatternConfigurationPrivate
@@ -70,6 +71,7 @@ Palapeli::PatternConfiguration::PatternConfiguration(QObject* parent, const QVar
 {
 	Q_UNUSED(parent)
 	Q_UNUSED(args)
+	connect(&p->m_mapper, SIGNAL(mapped(const QByteArray&, const QVariant&)), this, SLOT(setProperty(const QByteArray&, const QVariant&)));
 }
 
 Palapeli::PatternConfiguration::~PatternConfiguration()
@@ -77,102 +79,68 @@ Palapeli::PatternConfiguration::~PatternConfiguration()
 	delete p;
 }
 
-void Palapeli::PatternConfiguration::addWidget(QWidget* widget, const QString& caption)
+QVariant Palapeli::PatternConfiguration::property(const QByteArray& key) const
 {
-	//do not add a widget twice
-	if (p->m_configurationWidgets.contains(widget))
+	QVariant value = p->m_configurationValues.value(key, QVariant());
+	switch (p->m_configurationDataTypes.value(key, Variant))
+	{
+		case String: value.convert(QVariant::String); return value;
+		case Integer: value.convert(QVariant::Int); return value;
+		case Variant: default: return value;
+	}
+}
+
+#include <KDebug>
+
+void Palapeli::PatternConfiguration::setProperty(const QByteArray& key, const QVariant& value)
+{
+	if (!p->m_configurationValues.contains(key))
 		return;
-	p->m_configurationWidgets[widget] = caption;
+	p->m_configurationValues[key] = value;
+	kDebug() << key << value;
 }
 
-void Palapeli::PatternConfiguration::removeWidget(QWidget* widget)
+void Palapeli::PatternConfiguration::addProperty(const QByteArray& key, Palapeli::PatternConfiguration::DataType type, const QString& caption)
 {
-	p->m_configurationWidgets.take(widget);
+	if (p->m_configurationValues.contains(key))
+		return;
+	p->m_configurationValues[key] = QVariant();
+	p->m_configurationDataTypes[key] = type;
+	p->m_configurationCaptions[key] = caption;
+	p->m_configurationParameters[key] = QVariantList();
 }
 
-void Palapeli::PatternConfiguration::setSizeDefinitionMode(SizeDefinitionMode mode)
+void Palapeli::PatternConfiguration::addPropertyParameters(const QByteArray& key, const QVariantList& parameters)
 {
-	//find out old mode
-	SizeDefinitionMode oldMode = (p->m_xCountSpinner == 0) ? CustomSizeDefinition : CountSizeDefinition;
-	if (oldMode == mode)
-		return; //nothing to do
-	//set new mode
-	switch (mode)
-	{
-		case CustomSizeDefinition:
-			//coming from CountSizeDefinition - remove spin boxes (it is important that the pointer is set to 0 because this is used as condition for the CustomSizeDefinition in this code file)
-			removeWidget(p->m_xCountSpinner);
-			delete p->m_xCountSpinner;
-			p->m_xCountSpinner = 0;
-			removeWidget(p->m_yCountSpinner);
-			delete p->m_yCountSpinner;
-			p->m_yCountSpinner = 0;
-			break;
-		case CountSizeDefinition:
-			//coming from CustomSizeDefinition - create and add spin boxes
-			p->m_xCountSpinner = new KIntSpinBox(0, 100, 1, 10, 0); //parameters: min, max, step, value, parent
-			addWidget(p->m_xCountSpinner, i18n("Piece count in horizontal direction:"));
-			p->m_yCountSpinner = new KIntSpinBox(0, 100, 1, 10, 0);
-			addWidget(p->m_yCountSpinner, i18n("Piece count in vertical direction:"));
-			break;
-	}
+	p->m_configurationParameters[key] = parameters;
 }
 
-int Palapeli::PatternConfiguration::xCount() const
+void Palapeli::PatternConfiguration::removeProperty(const QByteArray& key)
 {
-	if (p->m_xCountSpinner == 0)
-		return -1; //logically invalid call (requesting CountSize but size mode not set to CountSizeDefinition)
-	else
-		return p->m_xCountSpinner->value();
-}
-
-int Palapeli::PatternConfiguration::yCount() const
-{
-	if (p->m_yCountSpinner == 0)
-		return -1;
-	else
-		return p->m_yCountSpinner->value();
-}
-
-QString Palapeli::PatternConfiguration::patternName() const
-{
-	return p->m_patternName;
-}
-
-QString Palapeli::PatternConfiguration::displayName() const
-{
-	return p->m_displayName;
-}
-
-void Palapeli::PatternConfiguration::setNames(const QString& patternName, const QString& displayName)
-{
-	p->m_patternName = patternName;
-	p->m_displayName = displayName;
-}
-
-QWidget* Palapeli::PatternConfiguration::createConfigurationWidget() const
-{
-	//build layout
-	QFormLayout* layout = new QFormLayout;
-	QMapIterator<QWidget*, QString> iterConfigWidgets(p->m_configurationWidgets);
-	while (iterConfigWidgets.hasNext())
-	{
-		iterConfigWidgets.next();
-		layout->addRow(iterConfigWidgets.value(), iterConfigWidgets.key());
-	}
-	//build widget
-	QWidget* parentWidget = new QWidget;
-	parentWidget->setLayout(layout);
-	return parentWidget;
+	p->m_configurationValues.take(key);
+	p->m_configurationDataTypes.take(key);
+	p->m_configurationCaptions.take(key);
+	p->m_configurationParameters.take(key);
 }
 
 void Palapeli::PatternConfiguration::readArguments(KConfigGroup* config)
 {
-	if (p->m_xCountSpinner != 0)
-		p->m_xCountSpinner->setValue(config->readEntry("XCount", 10));
-	if (p->m_yCountSpinner != 0)
-		p->m_yCountSpinner->setValue(config->readEntry("YCount", 10));
-	readCustomArguments(config);
+	QMutableMapIterator<QByteArray, QVariant> iterConfigValues(p->m_configurationValues);
+	while (iterConfigValues.hasNext())
+	{
+		iterConfigValues.next();
+		iterConfigValues.value() = config->readEntry(iterConfigValues.key().data(), QVariant());
+	}
+}
+
+void Palapeli::PatternConfiguration::writeArguments(KConfigGroup* config) const
+{
+	QMapIterator<QByteArray, QVariant> iterConfigValues(p->m_configurationValues);
+	while (iterConfigValues.hasNext())
+	{
+		QByteArray key = iterConfigValues.next().key();
+		config->writeEntry(key.data(), property(iterConfigValues.key()));
+	}
 }
 
 void Palapeli::PatternConfiguration::readCustomArguments(KConfigGroup* config)
@@ -180,31 +148,40 @@ void Palapeli::PatternConfiguration::readCustomArguments(KConfigGroup* config)
 	Q_UNUSED(config)
 }
 
-void Palapeli::PatternConfiguration::writeArguments(KConfigGroup* config) const
-{
-	if (p->m_xCountSpinner != 0)
-		config->writeEntry("XCount", p->m_xCountSpinner->value());
-	if (p->m_yCountSpinner != 0)
-		config->writeEntry("YCount", p->m_yCountSpinner->value());
-	writeCustomArguments(config);
-}
-
 void Palapeli::PatternConfiguration::writeCustomArguments(KConfigGroup* config) const
 {
 	Q_UNUSED(config)
 }
 
-/*
-int Palapeli::PatternConfiguration::choiceCount() const
+void Palapeli::PatternConfiguration::populateWidget(QWidget* parentWidget)
 {
-	return 1; //default to one choice (i.e. no choice)
+	QFormLayout* layout = new QFormLayout;
+	QMapIterator<QByteArray, QString> iterConfigCaptions(p->m_configurationCaptions); //iterate over this to exclude everything which should not be visible to the user
+	while (iterConfigCaptions.hasNext())
+	{
+		QByteArray key = iterConfigCaptions.next().key();
+		QVariant value = p->m_configurationValues[key];
+		QVariantList params = p->m_configurationParameters.value(key);
+		QWidget* widget = 0; KIntSpinBox* spinner = 0;
+		switch (p->m_configurationDataTypes[key])
+		{
+			case Integer:
+				widget = spinner = new KIntSpinBox(parentWidget);
+				spinner->setMinimum(params.value(0, 0).toInt());
+				spinner->setMaximum(params.value(1, 100).toInt());
+				connect(spinner, SIGNAL(valueChanged(int)), &p->m_mapper, SLOT(map(int)));
+				break;
+			case String: case Variant:
+				//TODO: if parameters are given, construct a combo box with these entries instead
+				widget = new KLineEdit(parentWidget);
+				connect(widget, SIGNAL(textChanged(const QString&)), &p->m_mapper, SLOT(map(const QString&)));
+				break;
+		}
+		p->m_mapper.addMapping(widget, key);
+		layout->addRow(iterConfigCaptions.value(), widget);
+	}
+	parentWidget->setLayout(layout);
 }
-
-void Palapeli::PatternConfiguration::setChoice(int index)
-{
-	Q_UNUSED(index) //only one choice (by default) - do nothing
-}
-*/
 
 //END Palapeli::PatternConfiguration
 

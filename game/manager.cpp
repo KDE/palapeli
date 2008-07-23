@@ -65,7 +65,6 @@ namespace Palapeli
 		//game and UI objects
 		Minimap* m_minimap;
 		QList<Part*> m_parts;
-		QList<PatternConfiguration*> m_patternConfigurations;
 		QList<Piece*> m_pieces;
 		Preview* m_preview;
 		QList<PieceRelation> m_relations;
@@ -113,9 +112,6 @@ Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	m_savegameModel = new Palapeli::SavegameModel(gameNames);
 	QObject::connect(m_manager, SIGNAL(savegameCreated(const QString&)), m_savegameModel, SLOT(savegameCreated(const QString&)));
 	QObject::connect(m_manager, SIGNAL(savegameDeleted(const QString&)), m_savegameModel, SLOT(savegameDeleted(const QString&)));
-	//TODO: replace with KPluginLoader etc.
-	for (int i = 0; i < Palapeli::PatternTrader::self()->configurationCount(); ++i)
-		m_patternConfigurations << Palapeli::PatternTrader::self()->configurationAt(i);
 }
 
 void Palapeli::ManagerPrivate::init()
@@ -133,8 +129,6 @@ Palapeli::ManagerPrivate::~ManagerPrivate()
 	delete m_minimap;
 	foreach (Palapeli::Part* part, m_parts)
 		delete part; //the pieces are deleted here
-	foreach (Palapeli::PatternConfiguration* patternConfiguration, m_patternConfigurations)
-		delete patternConfiguration;
 	delete m_preview;
 	delete m_savegameModel;
 	delete m_window; //the view is deleted here
@@ -253,16 +247,6 @@ Palapeli::Minimap* Palapeli::Manager::minimap() const
 	return p->m_minimap;
 }
 
-int Palapeli::Manager::patternConfigCount() const
-{
-	return p->m_patternConfigurations.count();
-}
-
-Palapeli::PatternConfiguration* Palapeli::Manager::patternConfig(int index) const
-{
-	return p->m_patternConfigurations[index];
-}
-
 Palapeli::Preview* Palapeli::Manager::preview() const
 {
 	return p->m_preview;
@@ -347,7 +331,7 @@ void Palapeli::Manager::createGame(const KUrl& url, int patternIndex)
 	p->m_gameId = QUuid();
 	emit interactionModeChanged(false);
 	//start game
-	p->m_patternConfiguration = p->m_patternConfigurations[patternIndex];
+	p->m_patternConfiguration = Palapeli::PatternTrader::self()->configurationAt(patternIndex);
 	p->startGameInternal();
 	//create pieces, parts, relations
 	Palapeli::Pattern* pattern = p->m_patternConfiguration->createPattern();
@@ -387,9 +371,10 @@ void Palapeli::Manager::loadGame(const QString& name)
 	KConfigGroup generalGroup(&config, Palapeli::Strings::GeneralGroupKey);
 	const QString patternName = generalGroup.readEntry(Palapeli::Strings::PatternKey, QString());
 	Palapeli::PatternConfiguration* patternConfiguration = 0;
-	foreach (Palapeli::PatternConfiguration* patternConfig, p->m_patternConfigurations)
+	for (int i = 0; i < Palapeli::PatternTrader::self()->configurationCount(); ++i)
 	{
-		if (patternConfig->patternName() == patternName)
+		Palapeli::PatternConfiguration* patternConfig = Palapeli::PatternTrader::self()->configurationAt(i);
+		if (patternConfig->property("patternName").toString() == patternName)
 		{
 			patternConfiguration = patternConfig;
 			break;
@@ -459,7 +444,7 @@ bool Palapeli::Manager::saveGame(const QString& name)
 	//open config file and write general information
 	KConfig config(configItem.filePath());
 	KConfigGroup generalGroup(&config, Palapeli::Strings::GeneralGroupKey);
-	generalGroup.writeEntry(Palapeli::Strings::PatternKey, p->m_patternConfiguration->patternName());
+	generalGroup.writeEntry(Palapeli::Strings::PatternKey, p->m_patternConfiguration->property("patternName").toString());
 	KConfigGroup patternGroup(&config, Palapeli::Strings::PatternGroupKey);
 	p->m_patternConfiguration->writeArguments(&patternGroup);
 	//piece positions

@@ -42,7 +42,8 @@ Palapeli::PatternTrader::PatternTrader()
 		Palapeli::PatternConfiguration* config = offer->createInstance<Palapeli::PatternConfiguration>();
 		if (config == 0)
 			continue;
-		config->setNames(offer->property("PatternIdentifier", QVariant::String).toString(), offer->name());
+		config->setProperty("patternName", offer->property("PatternIdentifier", QVariant::String).toString());
+		config->setProperty("displayName", offer->name());
 		p->m_configs << config;
 	}
 }
