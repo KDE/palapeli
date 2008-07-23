@@ -15,5 +15,6 @@ Type=Service
 Icon=preferences-plugin
 PatternIdentifier=rectangular
 Name=Rectangular pieces
+Name[et]=Ristkülikukujulised klotsid
 Name[sv]=Rektangulära bitar
 Comment=
