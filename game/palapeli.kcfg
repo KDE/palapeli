@@ -6,12 +6,18 @@
   <kcfgfile name="palapelirc"/>
   <group name="Graphics">
     <entry name="HardwareAccel" type="Bool">
-	 <label>Whether hardware acceleration should be used for the puzzle view (change requires restart to take affect).</label>
-	 <default>false</default>
-	</entry>
-	<entry name="Antialiasing" type="Bool">
-	 <label>Whether antialiasing should be used on the puzzle view.</label>
-	 <default>false</default>
-	</entry>
+      <label>Whether hardware acceleration should be used for the puzzle view.</label>
+      <default>false</default>
+    </entry>
+    <entry name="Antialiasing" type="Bool">
+      <label>Whether antialiasing should be used on the puzzle view.</label>
+      <default>false</default>
+    </entry>
+  </group>
+  <group name="Gameplay">
+    <entry name="SnappingPrecision" type="Int">
+      <label>Precision of snapping (in percent of piece size).</label>
+      <default>10</default>
+    </entry>
   </group>
 </kcfg>

@@ -20,6 +20,7 @@
 #include "piecerelation.h"
 #include "part.h"
 #include "piece.h"
+#include "settings.h"
 
 Palapeli::PieceRelation::PieceRelation(Palapeli::Piece* piece1, Palapeli::Piece* piece2)
 	: m_piece1(piece1)
@@ -39,7 +40,7 @@ Palapeli::Piece* Palapeli::PieceRelation::piece2() const
 
 bool Palapeli::PieceRelation::piecesInRightPosition() const
 {
-	static const qreal maxInaccuracyFactor = 0.1;
+	const qreal maxInaccuracyFactor = qreal(Settings::snappingPrecision()) / 100.0;
 	const QSizeF maxInaccuracy = maxInaccuracyFactor * m_piece1->size();
 	const QPointF positionDifference = m_piece2->part()->basePosition() - m_piece1->part()->basePosition();
 	return qAbs(positionDifference.x()) <= maxInaccuracy.width() && qAbs(positionDifference.y()) <= maxInaccuracy.height();

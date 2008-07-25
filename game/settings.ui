@@ -41,17 +41,17 @@
      <layout class="QGridLayout" name="precisionLayout" >
       <item row="0" column="0" colspan="2" >
        <widget class="QSlider" name="precisionSlider" >
-        <property name="enabled" >
-         <bool>false</bool>
-        </property>
         <property name="minimum" >
          <number>5</number>
         </property>
         <property name="maximum" >
          <number>30</number>
         </property>
-        <property name="pageStep" >
+        <property name="singleStep" >
          <number>5</number>
+        </property>
+        <property name="pageStep" >
+         <number>10</number>
         </property>
         <property name="value" >
          <number>10</number>

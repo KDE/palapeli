@@ -134,6 +134,8 @@ void Palapeli::MainWindowPrivate::setupDialogs()
 	connect(m_settingsUi->checkAntialiasing, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
 	m_settingsUi->checkHardwareAccel->setCheckState(Settings::hardwareAccel() ? Qt::Checked : Qt::Unchecked);
 	connect(m_settingsUi->checkHardwareAccel, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
+	m_settingsUi->precisionSlider->setValue(Settings::snappingPrecision());
+	connect(m_settingsUi->precisionSlider, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
 #ifndef PALAPELI_WITH_OPENGL
 	m_settingsUi->checkHardwareAccel->setVisible(false);
 #endif
@@ -154,9 +156,11 @@ void Palapeli::MainWindowPrivate::configurationChanged() //because of user-invok
 
 void Palapeli::MainWindowPrivate::configurationFinished()
 {
-	//apply settings if they changed
+	//apply settings
 	ppMgr()->view()->setAntialiasing(m_settingsUi->checkAntialiasing->checkState() == Qt::Checked);
 	ppMgr()->view()->setHardwareAccelerated(m_settingsUi->checkHardwareAccel->checkState() == Qt::Checked);
+	Settings::setSnappingPrecision(m_settingsUi->precisionSlider->value());
+	Settings::self()->writeConfig();
 	//mark settings as saved in the dialog
 	m_settingsDialog->enableButtonApply(false);
 }
