@@ -21,10 +21,9 @@
 #include "part.h"
 #include "piece.h"
 
-Palapeli::PieceRelation::PieceRelation(Palapeli::Piece* piece1, Palapeli::Piece* piece2, const QPointF& positionDifference)
+Palapeli::PieceRelation::PieceRelation(Palapeli::Piece* piece1, Palapeli::Piece* piece2)
 	: m_piece1(piece1)
 	, m_piece2(piece2)
-	, m_positionDifference(positionDifference)
 {
 }
 
@@ -38,18 +37,12 @@ Palapeli::Piece* Palapeli::PieceRelation::piece2() const
 	return m_piece2;
 }
 
-QPointF Palapeli::PieceRelation::positionDifference() const
-{
-	return m_positionDifference;
-}
-
 bool Palapeli::PieceRelation::piecesInRightPosition() const
 {
 	static const qreal maxInaccuracyFactor = 0.1;
 	const QSizeF maxInaccuracy = maxInaccuracyFactor * m_piece1->size();
-	const QPointF realPositionDifference = m_piece2->pos() - m_piece1->pos();
-	const QPointF inaccuracy = realPositionDifference - m_positionDifference;
-	return qAbs(inaccuracy.x()) <= maxInaccuracy.width() && qAbs(inaccuracy.y()) <= maxInaccuracy.height();
+	const QPointF positionDifference = m_piece2->part()->basePosition() - m_piece1->part()->basePosition();
+	return qAbs(positionDifference.x()) <= maxInaccuracy.width() && qAbs(positionDifference.y()) <= maxInaccuracy.height();
 }
 
 void Palapeli::PieceRelation::combine()

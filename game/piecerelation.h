@@ -30,18 +30,16 @@ namespace Palapeli
 	class PieceRelation
 	{
 		public:
-			PieceRelation(Piece* piece1, Piece* piece2, const QPointF& positionDifference);
+			PieceRelation(Piece* piece1, Piece* piece2);
 
 			Piece* piece1() const;
 			Piece* piece2() const;
-			QPointF positionDifference() const;
 
 			bool piecesInRightPosition() const;
 			void combine();
 		private:
 			Piece* m_piece1;
 			Piece* m_piece2;
-			QPointF m_positionDifference;
 	};
 
 }

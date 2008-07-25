@@ -230,8 +230,8 @@ bool Palapeli::ManagerPrivate::initGame()
 		m_manager, SLOT(addPiece(const QImage&, const QRectF&, const QPointF&)));
 	QObject::connect(pattern, SIGNAL(allPiecesGenerated()),
 		m_manager, SLOT(endAddPiece()));
-	QObject::connect(pattern, SIGNAL(relationGenerated(int, int, const QPointF&)),
-		m_manager, SLOT(addRelation(int, int, const QPointF&)));
+	QObject::connect(pattern, SIGNAL(relationGenerated(int, int)),
+		m_manager, SLOT(addRelation(int, int)));
 	//create pieces, parts, relations (in another thread)
 	Palapeli::PatternExecutor* patternExec = new Palapeli::PatternExecutor(pattern);
 	patternExec->setImage(m_image);
@@ -394,9 +394,9 @@ void Palapeli::Manager::endAddPiece()
 	p->m_window->reportProgress(0, maxPieceCount + 1, maxPieceCount + 1, i18n("Finding neighbors"));
 }
 
-void Palapeli::Manager::addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference)
+void Palapeli::Manager::addRelation(int piece1Id, int piece2Id)
 {
-	p->m_relations << Palapeli::PieceRelation(p->m_pieces[piece1Id], p->m_pieces[piece2Id], positionDifference);
+	p->m_relations << Palapeli::PieceRelation(p->m_pieces[piece1Id], p->m_pieces[piece2Id]);
 }
 
 void Palapeli::Manager::removePart(Part* part)

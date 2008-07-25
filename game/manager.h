@@ -73,7 +73,7 @@ namespace Palapeli
 		protected Q_SLOTS:
 			void addPiece(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition);
 			void endAddPiece();
-			void addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference);
+			void addRelation(int piece1Id, int piece2Id);
 		private Q_SLOTS:
 			void finishGameLoading();
 		Q_SIGNALS:

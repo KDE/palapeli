@@ -90,7 +90,7 @@ void Palapeli::Pattern::addPiece(const QImage& image, const QRectF& positionInIm
 	++p->m_pieceCounter;
 }
 
-void Palapeli::Pattern::addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference)
+void Palapeli::Pattern::addRelation(int piece1Id, int piece2Id)
 {
 	//at this point, we assume that all pieces have been created
 	if (!p->m_emittedAllPiecesGeneratedSignal)
@@ -98,7 +98,7 @@ void Palapeli::Pattern::addRelation(int piece1Id, int piece2Id, const QPointF& p
 		emit allPiecesGenerated();
 		p->m_emittedAllPiecesGeneratedSignal = true;
 	}
-	emit relationGenerated(piece1Id, piece2Id, positionDifference);
+	emit relationGenerated(piece1Id, piece2Id);
 }
 
 #include "pattern.moc"

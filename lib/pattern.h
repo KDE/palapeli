@@ -115,10 +115,9 @@ protected:
 			 * \brief Adds a neighbor relation between two pieces.
 			 * \param piece1Id the index of the first piece (assigned by order of addPiece operations, starting at zero)
 			 * \param piece2Id the index of the second piece
-			 * \param positionDifference the difference between the positions of both pieces
 			 * \see addPiece
 			 */
-			void addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference);
+			void addRelation(int piece1Id, int piece2Id);
 			/**
 			 * \brief Provides the slicing algorithm.
 			 * This function splits a given image into pieces and defines relations between them. These pieces and relations are used to build the puzzle.
@@ -133,7 +132,7 @@ protected:
 			/// \internal
 			void allPiecesGenerated();
 			/// \internal
-			void relationGenerated(int piece1Id, int piece2Id, const QPointF& positionDifference);
+			void relationGenerated(int piece1Id, int piece2Id);
 		private:
 			PatternPrivate* const p;
 	};

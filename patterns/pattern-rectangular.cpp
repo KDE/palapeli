@@ -67,16 +67,16 @@ void Palapeli::RectangularPattern::doSlice(const QImage& image)
 		{
 			//left
 			if (x != 0)
-				addRelation(x * m_yCount + y, (x - 1) * m_yCount + y, QPointF(-pieceWidth, 0));
+				addRelation(x * m_yCount + y, (x - 1) * m_yCount + y);
 			//right
 			if (x != m_xCount - 1)
-				addRelation(x * m_yCount + y, (x + 1) * m_yCount + y, QPointF(pieceWidth, 0));
+				addRelation(x * m_yCount + y, (x + 1) * m_yCount + y);
 			//top
 			if (y != 0)
-				addRelation(x * m_yCount + y, x * m_yCount + (y - 1), QPointF(0, -pieceHeight));
+				addRelation(x * m_yCount + y, x * m_yCount + (y - 1));
 			//bottom
 			if (y != m_yCount - 1)
-				addRelation(x * m_yCount + y, x * m_yCount + (y + 1), QPointF(0, pieceHeight));
+				addRelation(x * m_yCount + y, x * m_yCount + (y + 1));
 		}
 	}
 }
