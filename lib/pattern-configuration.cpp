@@ -154,6 +154,14 @@ void Palapeli::PatternConfiguration::writeCustomArguments(KConfigGroup* config) 
 
 void Palapeli::PatternConfiguration::populateWidget(QWidget* parentWidget)
 {
+	//temporary variables
+	QWidget* widget = 0;
+	KIntSpinBox* spinner = 0;
+	QCheckBox* checker = 0;
+	KLineEdit* lineEditor = 0;
+	KComboBox* combo = 0;
+	int currentIndex = -1;
+	//create layout with configuration widgets in it
 	QFormLayout* layout = new QFormLayout;
 	QMapIterator<QByteArray, QString> iterConfigCaptions(p->m_configurationCaptions); //iterate over this to exclude everything which should not be visible to the user
 	while (iterConfigCaptions.hasNext())
@@ -161,7 +169,6 @@ void Palapeli::PatternConfiguration::populateWidget(QWidget* parentWidget)
 		QByteArray key = iterConfigCaptions.next().key();
 		QVariant value = p->m_configurationValues[key];
 		QVariantList params = p->m_configurationParameters.value(key);
-		QWidget* widget = 0; KIntSpinBox* spinner = 0; QCheckBox* checker = 0; KLineEdit* lineEditor = 0;
 		switch (p->m_configurationDataTypes[key])
 		{
 			case Integer:
@@ -177,10 +184,27 @@ void Palapeli::PatternConfiguration::populateWidget(QWidget* parentWidget)
 				connect(checker, SIGNAL(toggled(bool)), &p->m_mapper, SLOT(map(bool)));
 				break;
 			case String: case Variant:
-				//TODO: if parameters are given, construct a combo box with these entries instead
-				widget = lineEditor = new KLineEdit(parentWidget);
-				lineEditor->setText(value.toString());
-				connect(lineEditor, SIGNAL(textChanged(const QString&)), &p->m_mapper, SLOT(map(const QString&)));
+				if (params.isEmpty())
+				{
+					widget = lineEditor = new KLineEdit(parentWidget);
+					lineEditor->setText(value.toString());
+					connect(lineEditor, SIGNAL(textChanged(const QString&)), &p->m_mapper, SLOT(map(const QString&)));
+				}
+				else //use parameters as possible values
+				{
+					widget = combo = new KComboBox(parentWidget);
+					//while adding the options, try to locate the currently selected one
+					currentIndex = -1;
+					foreach (QVariant option, params)
+					{
+						combo->addItem(option.toString());
+						if (option.toString() == value.toString())
+							currentIndex = combo->count() - 1; //because the item was inserted at the end of the list
+					}
+					if (currentIndex != -1)
+						combo->setCurrentIndex(currentIndex);
+					connect(combo, SIGNAL(currentIndexChanged(const QString&)), &p->m_mapper, SLOT(map(const QString&)));
+				}
 				break;
 		}
 		p->m_mapper.addMapping(widget, key);
