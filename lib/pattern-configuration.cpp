@@ -119,8 +119,9 @@ void Palapeli::PatternConfiguration::readArguments(KConfigGroup* config)
 	QMutableMapIterator<QByteArray, QVariant> iterConfigValues(p->m_configurationValues);
 	while (iterConfigValues.hasNext())
 	{
-		iterConfigValues.next();
-		iterConfigValues.value() = config->readEntry(iterConfigValues.key().data(), QVariant());
+		QByteArray key = iterConfigValues.next().key();
+		if (p->m_configurationCaptions.contains(key)) //do not read internal values (patternName and displayName)
+			iterConfigValues.value() = config->readEntry(key.data(), QString());
 	}
 }
 
@@ -130,7 +131,8 @@ void Palapeli::PatternConfiguration::writeArguments(KConfigGroup* config) const
 	while (iterConfigValues.hasNext())
 	{
 		QByteArray key = iterConfigValues.next().key();
-		config->writeEntry(key.data(), property(iterConfigValues.key()));
+		if (p->m_configurationCaptions.contains(key)) //do not write internal values (patternName and displayName)
+			config->writeEntry(key.data(), property(key));
 	}
 }
 
