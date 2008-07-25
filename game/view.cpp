@@ -89,3 +89,15 @@ void Palapeli::View::setHardwareAccelerated(bool useHardware, bool forceApplicat
 	setViewport(useHardware ? new QGLWidget : new QWidget);
 #endif
 }
+
+QGraphicsScene* Palapeli::View::realScene() const
+{
+	return m_scene;
+}
+
+void Palapeli::View::useScene(bool useScene)
+{
+	setScene(useScene ? m_scene : 0);
+	if (useScene)
+		fitInView(m_scene->sceneRect(), Qt::KeepAspectRatio);
+}

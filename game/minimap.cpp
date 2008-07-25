@@ -44,7 +44,7 @@ QRectF Palapeli::Minimap::viewport() const
 
 QPointF Palapeli::Minimap::widgetToScene(const QPointF& point) const
 {
-	const QSizeF sceneSize = ppMgr()->view()->scene()->sceneRect().size();
+	const QSizeF sceneSize = ppMgr()->view()->realScene()->sceneRect().size();
 	const qreal sceneScalingFactor = qMin(width() / sceneSize.width(), height() / sceneSize.height());
 	return QPointF(point.x() / sceneScalingFactor, point.y() / sceneScalingFactor);
 }
@@ -62,7 +62,7 @@ void Palapeli::Minimap::moveViewport(const QPointF& widgetTo, const QPointF& wid
 	const qreal sceneMinimumX = sceneViewport.width() / 2.0;
 	const qreal sceneMinimumY = sceneViewport.height() / 2.0;
 	//how to translate scene to slider coordinates
-	const QSizeF sceneSize = view->scene()->sceneRect().size();
+	const QSizeF sceneSize = view->realScene()->sceneRect().size();
 	const qreal scalingX = (sliderMaximumX - sliderMinimumX) / (sceneSize.width() - sceneViewport.width());
 	const qreal scalingY = (sliderMaximumY - sliderMinimumY) / (sceneSize.height() - sceneViewport.height());
 	//widgetFrom.isNull() -> move to widgetFrom, !widgetFrom.isNull() -> move by widgetTo - widgetFrom
@@ -122,7 +122,7 @@ void Palapeli::Minimap::paintEvent(QPaintEvent*)
 {
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
-	const QRectF sceneRect = ppMgr()->view()->scene()->sceneRect();
+	const QRectF sceneRect = ppMgr()->view()->realScene()->sceneRect();
 	const QSizeF sceneSize = sceneRect.size();
 	const qreal sceneWidth = sceneSize.width(), sceneHeight = sceneSize.height();
 	const qreal scalingFactor = qMin(width() / sceneWidth, height() / sceneHeight);

@@ -32,6 +32,9 @@ namespace Palapeli
 
 			void setAntialiasing(bool antialiasing, bool forceApplication = false);
 			void setHardwareAccelerated(bool useHardware, bool forceApplication = false);
+
+			QGraphicsScene* realScene() const;
+			void useScene(bool useScene);
 		protected:
 			virtual void wheelEvent(QWheelEvent* event);
 		private:

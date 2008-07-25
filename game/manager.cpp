@@ -217,8 +217,9 @@ bool Palapeli::ManagerPrivate::initGame()
 	m_pieces.clear();
 	m_relations.clear();
 	//configure scene and preview
-	m_view->scene()->setSceneRect(0, 0, 2 * m_image.width(), 2 * m_image.height());
-	m_view->fitInView(m_view->scene()->sceneRect(), Qt::KeepAspectRatio);
+	m_view->useScene(false); //disable the scene until the pieces have been built
+	QRectF sceneRect(0, 0, 2 * m_image.width(), 2 * m_image.height());
+	m_view->realScene()->setSceneRect(sceneRect);
 	m_preview->setImage(m_image);
 	//instantiate a pattern
 	Palapeli::Pattern* pattern = m_patternConfiguration->createPattern();
@@ -448,6 +449,7 @@ void Palapeli::Manager::finishGameLoading()
 	p->m_window->reportProgress(0, 1, 1, i18n("Game loaded."));
 	QTimer::singleShot(1000, p->m_window, SLOT(flushProgress()));
 	updateGraphics();
+	p->m_view->useScene(true);
 	emit interactionModeChanged(true);
 }
 

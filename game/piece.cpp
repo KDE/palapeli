@@ -33,7 +33,7 @@ Palapeli::Piece::Piece(const QPixmap& pixmap, const QRectF& positionInImage)
 	setAcceptedMouseButtons(Qt::LeftButton | Qt::RightButton);
 	setOffset(0.0, 0.0);
 
-	ppMgr()->view()->scene()->addItem(this);
+	ppMgr()->view()->realScene()->addItem(this);
 }
 
 QPointF Palapeli::Piece::positionInImage() const
