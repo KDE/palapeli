@@ -236,6 +236,7 @@ bool Palapeli::ManagerPrivate::initGame()
 	patternExec->setImage(m_image);
 	QObject::connect(patternExec, SIGNAL(finished()), m_manager, SLOT(finishGameLoading()));
 	patternExec->start();
+	patternExec->wait();
 	return true;
 }
 
