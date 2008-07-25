@@ -26,7 +26,6 @@
 #include "savegamemodel.h"
 
 #include <QListView>
-#include <QTimer>
 #include <KAction>
 #include <KIcon>
 #include <KFileDialog>
@@ -101,14 +100,13 @@ void Palapeli::SavegameView::importSelected()
 		return;
 	Palapeli::GameStorage gs;
 	connect(&gs, SIGNAL(progress(int, int, int, const QString&)), ppMgr()->window(), SLOT(reportProgress(int, int, int, const QString&)));
-	QTimer::singleShot(1000, ppMgr()->window(), SLOT(flushProgress()));
+	ppMgr()->window()->flushProgress(2);
 	Palapeli::GameStorageItems importedItems = gs.importItems(target, true, QLatin1String(".psg"));
 	foreach (const Palapeli::GameStorageItem& item, importedItems)
 	{
 		if (item.type() == Palapeli::GameStorageItem::SavedGame)
 			ppMgr()->savegameWasCreated(item.metaData());
 	}
-	
 }
 
 void Palapeli::SavegameView::exportSelected()

@@ -21,6 +21,7 @@
 Palapeli::TextProgressBar::TextProgressBar(QWidget* parent)
 	: QProgressBar(parent)
 {
+	connect(&m_flushTimer, SIGNAL(timeout()), this, SLOT(reset()));
 }
 
 QString Palapeli::TextProgressBar::text() const
@@ -30,12 +31,22 @@ QString Palapeli::TextProgressBar::text() const
 
 void Palapeli::TextProgressBar::setText(const QString& text)
 {
+	m_flushTimer.stop();
 	m_text = text;
 	update();
 }
 
+void Palapeli::TextProgressBar::flush(int secondsDelay)
+{
+	if (secondsDelay == 0)
+		reset();
+	else
+		m_flushTimer.start(1000 * secondsDelay);
+}
+
 void Palapeli::TextProgressBar::reset()
 {
+	m_flushTimer.stop();
 	m_text = QString();
 	QProgressBar::reset();
 }

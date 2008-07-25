@@ -163,6 +163,9 @@ void Palapeli::MainWindowPrivate::configurationFinished()
 	Settings::self()->writeConfig();
 	//mark settings as saved in the dialog
 	m_settingsDialog->enableButtonApply(false);
+	//report progress
+	m_parent->reportProgress(0, 1, 1, i18n("Settings saved."));
+	m_parent->flushProgress(2);
 }
 
 Palapeli::MainWindow::MainWindow(QWidget* parent)
@@ -185,6 +188,7 @@ Palapeli::MainWindow::MainWindow(QWidget* parent)
 	statusBar()->show();
 	statusBar()->addPermanentWidget(p->m_universalProgress, 1);
 	p->m_universalProgress->setText(i18n("Welcome to Palapeli."));
+	p->m_universalProgress->flush(5);
 	//initialise dialogs after entering the event loop (to speed up startup)
 	QTimer::singleShot(0, p, SLOT(setupDialogs()));
 }
@@ -205,9 +209,9 @@ void Palapeli::MainWindow::reportProgress(int minimum, int value, int maximum, c
 	p->m_universalProgress->setText(message);
 }
 
-void Palapeli::MainWindow::flushProgress()
+void Palapeli::MainWindow::flushProgress(int secondsDelay)
 {
-	p->m_universalProgress->reset();
+	p->m_universalProgress->flush(secondsDelay);
 }
 
 void Palapeli::MainWindow::gameNameWasChanged(const QString& name)

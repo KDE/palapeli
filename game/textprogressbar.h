@@ -20,6 +20,7 @@
 #define PALAPELI_TEXTPROGRESSBAR_H
 
 #include <QProgressBar>
+#include <QTimer>
 
 namespace Palapeli
 {
@@ -32,9 +33,11 @@ namespace Palapeli
 			virtual QString text() const;
 		public Q_SLOTS:
 			void setText(const QString& text);
+			void flush(int secondsDelay = 0);
 			void reset();
 		private:
 			QString m_text;
+			QTimer m_flushTimer;
 	};
 	
 }

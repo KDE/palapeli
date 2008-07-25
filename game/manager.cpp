@@ -34,7 +34,6 @@
 #include "savegamemodel.h"
 #include "view.h"
 
-#include <QTimer>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -447,7 +446,7 @@ void Palapeli::Manager::finishGameLoading()
 	searchConnections();
 	//propagate changes
 	p->m_window->reportProgress(0, 1, 1, i18n("Game loaded."));
-	QTimer::singleShot(1000, p->m_window, SLOT(flushProgress()));
+	p->m_window->flushProgress(2);
 	updateGraphics();
 	p->m_view->useScene(true);
 	emit interactionModeChanged(true);
