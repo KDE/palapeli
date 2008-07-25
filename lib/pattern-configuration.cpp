@@ -114,14 +114,6 @@ void Palapeli::PatternConfiguration::addPropertyParameters(const QByteArray& key
 	p->m_configurationParameters[key] = parameters;
 }
 
-void Palapeli::PatternConfiguration::removeProperty(const QByteArray& key)
-{
-	p->m_configurationValues.take(key);
-	p->m_configurationDataTypes.take(key);
-	p->m_configurationCaptions.take(key);
-	p->m_configurationParameters.take(key);
-}
-
 void Palapeli::PatternConfiguration::readArguments(KConfigGroup* config)
 {
 	QMutableMapIterator<QByteArray, QVariant> iterConfigValues(p->m_configurationValues);
