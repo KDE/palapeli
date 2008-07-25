@@ -44,7 +44,6 @@ namespace Palapeli
 			int m_xCount, m_yCount;
 	};
 
-	//TODO: do not export this class, but implement a proper pattern discovery interface
 	/// \internal
 	class RectangularPatternConfiguration : public PatternConfiguration
 	{

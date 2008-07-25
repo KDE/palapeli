@@ -50,7 +50,7 @@ namespace Palapeli
 	 \code
 class MyPattern : public Palapeli::Pattern {
 
-//implement public constructor and public and virtual destructor here
+//implement public constructor and public virtual destructor here
 
 protected:
 	virtual int estimatePieceCount() const {

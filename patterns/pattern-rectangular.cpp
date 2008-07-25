@@ -90,11 +90,16 @@ Palapeli::RectangularPatternConfiguration::RectangularPatternConfiguration(QObje
 {
 	Q_UNUSED(parent)
 	Q_UNUSED(args)
+	//add properties
 	addProperty("xcount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in horizontal direction:"));
 	addProperty("ycount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in vertical direction:"));
-	QVariantList params; params << 3 << 100; //minimum and maximum value
+	//set parameters (minimum and maximum in this case)
+	QVariantList params; params << 3 << 100;
 	addPropertyParameters("xcount", params);
 	addPropertyParameters("ycount", params);
+	//set default values
+	setProperty("xcount", 10);
+	setProperty("ycount", 10);
 }
 
 Palapeli::RectangularPatternConfiguration::~RectangularPatternConfiguration()

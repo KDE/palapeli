@@ -19,6 +19,7 @@
 #include "pattern-configuration.h"
 #include "variantmapper.h"
 
+#include <QCheckBox>
 #include <QFormLayout>
 #include <QLabel>
 #include <QMap>
@@ -86,6 +87,7 @@ QVariant Palapeli::PatternConfiguration::property(const QByteArray& key) const
 	{
 		case String: value.convert(QVariant::String); return value;
 		case Integer: value.convert(QVariant::Int); return value;
+		case Boolean: value.convert(QVariant::Bool); return value;
 		case Variant: default: return value;
 	}
 }
@@ -159,19 +161,26 @@ void Palapeli::PatternConfiguration::populateWidget(QWidget* parentWidget)
 		QByteArray key = iterConfigCaptions.next().key();
 		QVariant value = p->m_configurationValues[key];
 		QVariantList params = p->m_configurationParameters.value(key);
-		QWidget* widget = 0; KIntSpinBox* spinner = 0;
+		QWidget* widget = 0; KIntSpinBox* spinner = 0; QCheckBox* checker = 0; KLineEdit* lineEditor = 0;
 		switch (p->m_configurationDataTypes[key])
 		{
 			case Integer:
 				widget = spinner = new KIntSpinBox(parentWidget);
 				spinner->setMinimum(params.value(0, 0).toInt());
 				spinner->setMaximum(params.value(1, 100).toInt());
+				spinner->setValue(value.toInt());
 				connect(spinner, SIGNAL(valueChanged(int)), &p->m_mapper, SLOT(map(int)));
+				break;
+			case Boolean:
+				widget = checker = new QCheckBox(parentWidget);
+				checker->setChecked(value.toBool());
+				connect(checker, SIGNAL(toggled(bool)), &p->m_mapper, SLOT(map(bool)));
 				break;
 			case String: case Variant:
 				//TODO: if parameters are given, construct a combo box with these entries instead
-				widget = new KLineEdit(parentWidget);
-				connect(widget, SIGNAL(textChanged(const QString&)), &p->m_mapper, SLOT(map(const QString&)));
+				widget = lineEditor = new KLineEdit(parentWidget);
+				lineEditor->setText(value.toString());
+				connect(lineEditor, SIGNAL(textChanged(const QString&)), &p->m_mapper, SLOT(map(const QString&)));
 				break;
 		}
 		p->m_mapper.addMapping(widget, key);

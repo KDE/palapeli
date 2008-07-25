@@ -35,6 +35,7 @@ namespace Palapeli
 		public Q_SLOTS:
 			void map(const QVariant& value) { mapInternal(sender(), value); }
 			void map(const QString& value) { mapInternal(sender(), value); }
+			void map(bool value) { mapInternal(sender(), value); }
 			void map(int value) { mapInternal(sender(), value); }
 			void map(double value) { mapInternal(sender(), value); }
 		Q_SIGNALS:

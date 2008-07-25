@@ -53,7 +53,8 @@ namespace Palapeli
 			{
 				Variant = 0,
 				String,
-				Integer
+				Integer,
+				Boolean
 			};
 
 			PatternConfiguration(QObject* parent = 0, const QVariantList& args = QVariantList());
