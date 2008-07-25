@@ -90,14 +90,11 @@ QVariant Palapeli::PatternConfiguration::property(const QByteArray& key) const
 	}
 }
 
-#include <KDebug>
-
 void Palapeli::PatternConfiguration::setProperty(const QByteArray& key, const QVariant& value)
 {
 	if (!p->m_configurationValues.contains(key))
 		return;
 	p->m_configurationValues[key] = value;
-	kDebug() << key << value;
 }
 
 void Palapeli::PatternConfiguration::addProperty(const QByteArray& key, Palapeli::PatternConfiguration::DataType type, const QString& caption)

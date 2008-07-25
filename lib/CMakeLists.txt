@@ -9,6 +9,7 @@ set(palapelipattern_LIB_SOVERSION "0")
 set(palapelipattern_SRCS
 	pattern.cpp
 	pattern-configuration.cpp
+	pattern-executor.cpp
 	pattern-trader.cpp
 	variantmapper.cpp
 )

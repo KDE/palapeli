@@ -36,6 +36,7 @@ namespace Palapeli
 			
 			QList<QPointF> m_sceneBasePositions;
 			bool m_loadSceneBasePositions;
+			bool m_emittedAllPiecesGeneratedSignal;
 	};
 
 }
@@ -43,6 +44,7 @@ namespace Palapeli
 Palapeli::PatternPrivate::PatternPrivate()
 	: m_pieceCounter(0)
 	, m_loadSceneBasePositions(false)
+	, m_emittedAllPiecesGeneratedSignal(false)
 {
 }
 
@@ -90,6 +92,12 @@ void Palapeli::Pattern::addPiece(const QImage& image, const QRectF& positionInIm
 
 void Palapeli::Pattern::addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference)
 {
+	//at this point, we assume that all pieces have been created
+	if (!p->m_emittedAllPiecesGeneratedSignal)
+	{
+		emit allPiecesGenerated();
+		p->m_emittedAllPiecesGeneratedSignal = true;
+	}
 	emit relationGenerated(piece1Id, piece2Id, positionDifference);
 }
 

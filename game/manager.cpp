@@ -20,6 +20,7 @@
 #include "manager.h"
 #include "../lib/pattern.h"
 #include "../lib/pattern-configuration.h"
+#include "../lib/pattern-executor.h"
 #include "../lib/pattern-trader.h"
 #include "../storage/gamestorageattribs.h"
 #include "../storage/gamestorage.h"
@@ -33,7 +34,6 @@
 #include "savegamemodel.h"
 #include "view.h"
 
-#include <QApplication>
 #include <QTimer>
 #include <KConfig>
 #include <KConfigGroup>
@@ -50,9 +50,10 @@ namespace Palapeli
 		void init();
 		~ManagerPrivate();
 
-		bool loadImage(const KUrl& url);
-		bool loadImage(const GameStorageItem& imageItem);
-		void startGameInternal();
+		bool canCreateGame(const KUrl& imageUrl, int patternIndex);
+		bool canLoadGame(const QString& name);
+		bool initGame();
+		bool saveGame(const QString& name);
 
 		Manager *m_manager;
 
@@ -134,10 +135,11 @@ Palapeli::ManagerPrivate::~ManagerPrivate()
 	delete m_window; //the view is deleted here
 }
 
-bool Palapeli::ManagerPrivate::loadImage(const KUrl& url)
+bool Palapeli::ManagerPrivate::canCreateGame(const KUrl& imageUrl, int patternIndex)
 {
+	//load image into storage
 	Palapeli::GameStorage storage;
-	Palapeli::GameStorageItem item = storage.addItem(url, Palapeli::GameStorageItem::Image);
+	Palapeli::GameStorageItem item = storage.addItem(imageUrl, Palapeli::GameStorageItem::Image);
 	if (!item.exists())
 		return false;
 	if (!m_image.load(item.filePath()))
@@ -146,23 +148,68 @@ bool Palapeli::ManagerPrivate::loadImage(const KUrl& url)
 		return false;
 	}
 	m_imageId = item.id();
+	//game not saved - no GameStorage ID available
+	m_gameId = QUuid();
+	//load pattern configuration
+	m_patternConfiguration = Palapeli::PatternTrader::self()->configurationAt(patternIndex);
 	return true;
 }
 
-bool Palapeli::ManagerPrivate::loadImage(const Palapeli::GameStorageItem& item)
+bool Palapeli::ManagerPrivate::canLoadGame(const QString& name)
 {
-	if (!m_image.load(item.filePath()))
+	Palapeli::GameStorage storage;
+	//find configuration for game
+	Palapeli::GameStorageItems savegames = storage.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame) << new Palapeli::GameStorageMetaAttribute(name));
+	if (savegames.count() == 0)
+		return false; //no image found
+	//find image for game
+	Palapeli::GameStorageItems images = storage.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageDependencyAttribute(savegames.at(0), Palapeli::GameStorageDependencyAttribute::SourceIsGiven));
+	if (images.count() == 0)
+		return false; //no image found
+	//load configuration
+	KConfig config(savegames.at(0).filePath());
+	//find pattern
+	KConfigGroup generalGroup(&config, Palapeli::Strings::GeneralGroupKey);
+	const QString patternName = generalGroup.readEntry(Palapeli::Strings::PatternKey, QString());
+	Palapeli::PatternConfiguration* patternConfiguration = 0;
+	for (int i = 0; i < Palapeli::PatternTrader::self()->configurationCount(); ++i)
+	{
+		Palapeli::PatternConfiguration* patternConfig = Palapeli::PatternTrader::self()->configurationAt(i);
+		if (patternConfig->property("patternName").toString() == patternName)
+		{
+			patternConfiguration = patternConfig; //pattern found
+			break;
+		}
+	}
+	if (patternConfiguration == 0)
+		return false; //no pattern found
+	//load image
+	if (!m_image.load(images.at(0).filePath()))
 	{
 		KMessageBox::error(m_window, i18n("Image file is missing or corrupted."));
 		return false;
 	}
-	m_imageId = item.id();
+	m_imageId = images.at(0).id();
+	//save reference to configuration file, pattern configuration - this is not done earlier because the internal variables shouldn't change until everything has been located (to keep the internal state consistent)
+	m_gameId = savegames.at(0).id();
+	m_patternConfiguration = patternConfiguration;
+	KConfigGroup patternGroup(&config, Palapeli::Strings::PatternGroupKey);
+	m_patternConfiguration->readArguments(&patternGroup);
 	return true;
 }
 
-void Palapeli::ManagerPrivate::startGameInternal()
+bool Palapeli::ManagerPrivate::initGame()
 {
-	//ATTENTION: This function assumes that the new image has been loaded into m_image.
+	//read piece positions if we're loading a game
+	QList<QPointF> pieceBasePositions;
+	if (!m_gameId.isNull())
+	{
+		Palapeli::GameStorage storage;
+		KConfig config(storage.item(m_gameId).filePath());
+		KConfigGroup piecesGroup(&config, Palapeli::Strings::PiecesGroupKey);
+		for (int i = 0; piecesGroup.hasKey(Palapeli::Strings::PositionKey.arg(i)); ++i)
+			pieceBasePositions << piecesGroup.readEntry(Palapeli::Strings::PositionKey.arg(i), QPointF());
+	}
 	//flush all variables
 	foreach (Palapeli::Part* part, m_parts)
 		delete part; //also deletes pieces
@@ -173,6 +220,59 @@ void Palapeli::ManagerPrivate::startGameInternal()
 	m_view->scene()->setSceneRect(0, 0, 2 * m_image.width(), 2 * m_image.height());
 	m_view->fitInView(m_view->scene()->sceneRect(), Qt::KeepAspectRatio);
 	m_preview->setImage(m_image);
+	//instantiate a pattern
+	Palapeli::Pattern* pattern = m_patternConfiguration->createPattern();
+	m_estimatePieceCount = pattern->estimatePieceCount();
+	if (!pieceBasePositions.isEmpty())
+		pattern->loadPiecePositions(pieceBasePositions);
+	QObject::connect(pattern, SIGNAL(pieceGenerated(const QImage&, const QRectF&, const QPointF&)),
+		m_manager, SLOT(addPiece(const QImage&, const QRectF&, const QPointF&)));
+	QObject::connect(pattern, SIGNAL(allPiecesGenerated()),
+		m_manager, SLOT(endAddPiece()));
+	QObject::connect(pattern, SIGNAL(relationGenerated(int, int, const QPointF&)),
+		m_manager, SLOT(addRelation(int, int, const QPointF&)));
+	//create pieces, parts, relations (in another thread)
+	Palapeli::PatternExecutor* patternExec = new Palapeli::PatternExecutor(pattern);
+	patternExec->setImage(m_image);
+	QObject::connect(patternExec, SIGNAL(finished()), m_manager, SLOT(finishGameLoading()));
+	patternExec->start();
+	return true;
+}
+
+bool Palapeli::ManagerPrivate::saveGame(const QString& name)
+{
+	Palapeli::GameStorage gs;
+	//find or create configuration file
+	Palapeli::GameStorageItems configs = gs.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame) << new Palapeli::GameStorageMetaAttribute(name));
+	Palapeli::GameStorageItem configItem;
+	if (configs.count() == 0)
+	{
+		configItem = gs.addItem("psg", Palapeli::GameStorageItem::SavedGame);
+		configItem.setMetaData(name);
+	}
+	else
+		configItem = configs.at(0);
+	m_gameId = configItem.id();
+	//open config file and write general information
+	KConfig config(configItem.filePath());
+	KConfigGroup generalGroup(&config, Palapeli::Strings::GeneralGroupKey);
+	//write pattern name and configuration
+	QString patternName = m_patternConfiguration->property("patternName").toString();
+	generalGroup.writeEntry(Palapeli::Strings::PatternKey, patternName);
+	KConfigGroup patternGroup(&config, Palapeli::Strings::PatternGroupKey);
+	m_patternConfiguration->writeArguments(&patternGroup);
+	//write piece positions
+	KConfigGroup pieceGroup(&config, Palapeli::Strings::PiecesGroupKey);
+	for (int i = 0; i < m_pieces.count(); ++i)
+	{
+		Palapeli::Piece* piece = m_pieces.at(i);
+		pieceGroup.writeEntry(Palapeli::Strings::PositionKey.arg(i), piece->part()->basePosition());
+	}
+	//finalize configuration file
+	config.sync();
+	//create dependency from config to image
+	gs.addDependency(configItem, gs.item(m_imageId));
+	return true;
 }
 
 //END Palapeli::ManagerPrivate
@@ -282,7 +382,6 @@ void Palapeli::Manager::addPiece(const QImage& image, const QRectF& positionInIm
 	{
 		int maxPieceCount = qMax(p->m_estimatePieceCount, realPieceCount);
 		p->m_window->reportProgress(0, realPieceCount, maxPieceCount, i18np("1 piece generated", "%1 pieces generated", realPieceCount));
-		QApplication::processEvents();
 	}
 }
 
@@ -291,7 +390,6 @@ void Palapeli::Manager::endAddPiece()
 	//keep application responsive
 	int maxPieceCount = qMax(p->m_estimatePieceCount, p->m_pieces.count());
 	p->m_window->reportProgress(0, maxPieceCount + 1, maxPieceCount + 1, i18n("Finding neighbors"));
-	QApplication::processEvents();
 }
 
 void Palapeli::Manager::addRelation(int piece1Id, int piece2Id, const QPointF& positionDifference)
@@ -325,97 +423,30 @@ void Palapeli::Manager::searchConnections()
 
 void Palapeli::Manager::createGame(const KUrl& url, int patternIndex)
 {
-	//load image
-	if (!p->loadImage(url))
+	if (!p->canCreateGame(url, patternIndex))
 		return;
-	p->m_gameId = QUuid();
 	emit interactionModeChanged(false);
-	//start game
-	p->m_patternConfiguration = Palapeli::PatternTrader::self()->configurationAt(patternIndex);
-	p->startGameInternal();
-	//create pieces, parts, relations
-	Palapeli::Pattern* pattern = p->m_patternConfiguration->createPattern();
-	p->m_estimatePieceCount = pattern->estimatePieceCount();
-	connect(pattern, SIGNAL(pieceGenerated(const QImage&, const QRectF&, const QPointF&)),
-		this, SLOT(addPiece(const QImage&, const QRectF&, const QPointF&)));
-	connect(pattern, SIGNAL(allPiecesGenerated()), this, SLOT(endAddPiece()));
-	connect(pattern, SIGNAL(relationGenerated(int, int, const QPointF&)),
-		this, SLOT(addRelation(int, int, const QPointF&)));
-	pattern->slice(p->m_image);
-	delete pattern;
-	//keep application responsive
-	p->m_window->reportProgress(0, 1, 1, i18n("Game started."));
-	QTimer::singleShot(1000, p->m_window, SLOT(flushProgress()));
-	QApplication::processEvents();
-	//propagate changes
-	updateGraphics();
 	emit gameNameChanged(QString());
-	emit interactionModeChanged(true);
+	p->initGame(); //partially asynchronous; slot finishGameLoading() will be called when finished
 }
 
 void Palapeli::Manager::loadGame(const QString& name)
 {
-	//find configuration for game
-	Palapeli::GameStorage storage;
-	Palapeli::GameStorageItems savegames = storage.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame) << new Palapeli::GameStorageMetaAttribute(name));
-	if (savegames.count() == 0)
+	if (!p->canLoadGame(name))
 		return;
-	//find image for game
-	Palapeli::GameStorageItems images = storage.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageDependencyAttribute(savegames.at(0), Palapeli::GameStorageDependencyAttribute::SourceIsGiven));
-	if (images.count() == 0)
-		return;
-	//load configuration
-	const QString configFileName = savegames.at(0).filePath();
-	KConfig config(configFileName);
-	//find pattern
-	KConfigGroup generalGroup(&config, Palapeli::Strings::GeneralGroupKey);
-	const QString patternName = generalGroup.readEntry(Palapeli::Strings::PatternKey, QString());
-	Palapeli::PatternConfiguration* patternConfiguration = 0;
-	for (int i = 0; i < Palapeli::PatternTrader::self()->configurationCount(); ++i)
-	{
-		Palapeli::PatternConfiguration* patternConfig = Palapeli::PatternTrader::self()->configurationAt(i);
-		if (patternConfig->property("patternName").toString() == patternName)
-		{
-			patternConfiguration = patternConfig;
-			break;
-		}
-	}
-	if (patternConfiguration == 0)
-		return; //no pattern found
-	p->m_patternConfiguration = patternConfiguration;
-	KConfigGroup patternGroup(&config, Palapeli::Strings::PatternGroupKey);
-	p->m_patternConfiguration->readArguments(&patternGroup);
-	//load image, save reference to configuration file
-	if (!p->loadImage(images.at(0)))
-		return;
-	p->m_gameId = savegames.at(0).id(); //this is not done earlier because I won't change any internal variables before everything necessary (i.e. config, image, pattern) has been located - if not, the internal state would be inconsistent
 	emit interactionModeChanged(false);
-	//read piece positions
-	QList<QPointF> pieceBasePositions;
-	KConfigGroup piecesGroup(&config, Palapeli::Strings::PiecesGroupKey);
-	for (int i = 0; piecesGroup.hasKey(Palapeli::Strings::PositionKey.arg(i)); ++i)
-		pieceBasePositions << piecesGroup.readEntry(Palapeli::Strings::PositionKey.arg(i), QPointF());
-	//start game
-	p->startGameInternal();
-	//create pieces, parts, relations; restore relations
-	Palapeli::Pattern* pattern = p->m_patternConfiguration->createPattern();
-	p->m_estimatePieceCount = pattern->estimatePieceCount();
-	connect(pattern, SIGNAL(pieceGenerated(const QImage&, const QRectF&, const QPointF&)),
-		this, SLOT(addPiece(const QImage&, const QRectF&, const QPointF&)));
-	connect(pattern, SIGNAL(allPiecesGenerated()), this, SLOT(endAddPiece()));
-	connect(pattern, SIGNAL(relationGenerated(int, int, const QPointF&)),
-		this, SLOT(addRelation(int, int, const QPointF&)));
-	pattern->loadPiecePositions(pieceBasePositions);
-	pattern->slice(p->m_image);
-	delete pattern;
+	emit gameNameChanged(name);
+	p->initGame(); //partially asynchronous; slot finishGameLoading() will be called when finished
+}
+
+void Palapeli::Manager::finishGameLoading()
+{
+	//restore relations
 	searchConnections();
-	//keep application responsive
+	//propagate changes
 	p->m_window->reportProgress(0, 1, 1, i18n("Game loaded."));
 	QTimer::singleShot(1000, p->m_window, SLOT(flushProgress()));
-	QApplication::processEvents();
-	//propagate changes
 	updateGraphics();
-	emit gameNameChanged(name);
 	emit interactionModeChanged(true);
 }
 
@@ -429,35 +460,7 @@ bool Palapeli::Manager::saveGame(const QString& name)
 		return false;
 	}
 	emit interactionModeChanged(false);
-	//find or create configuration file
-	Palapeli::GameStorage gs;
-	Palapeli::GameStorageItems configs = gs.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame) << new Palapeli::GameStorageMetaAttribute(name));
-	Palapeli::GameStorageItem configItem;
-	if (configs.count() == 0)
-	{
-		configItem = gs.addItem("psg", Palapeli::GameStorageItem::SavedGame);
-		configItem.setMetaData(name);
-	}
-	else
-		configItem = configs.at(0);
-	p->m_gameId = configItem.id();
-	//open config file and write general information
-	KConfig config(configItem.filePath());
-	KConfigGroup generalGroup(&config, Palapeli::Strings::GeneralGroupKey);
-	generalGroup.writeEntry(Palapeli::Strings::PatternKey, p->m_patternConfiguration->property("patternName").toString());
-	KConfigGroup patternGroup(&config, Palapeli::Strings::PatternGroupKey);
-	p->m_patternConfiguration->writeArguments(&patternGroup);
-	//piece positions
-	KConfigGroup pieceGroup(&config, Palapeli::Strings::PiecesGroupKey);
-	for (int i = 0; i < p->m_pieces.count(); ++i)
-	{
-		Palapeli::Piece* piece = p->m_pieces.at(i);
-		pieceGroup.writeEntry(Palapeli::Strings::PositionKey.arg(i), piece->part()->basePosition());
-	}
-	//save information
-	config.sync();
-	//create dependency from config to image
-	gs.addDependency(configItem, gs.item(p->m_imageId));
+	p->saveGame(name);
 	emit gameNameChanged(name);
 	emit savegameCreated(name);
 	emit interactionModeChanged(true);

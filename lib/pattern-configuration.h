@@ -41,7 +41,7 @@ namespace Palapeli
 	/**
 	 * \class PatternConfiguration pattern-configuration.h Palapeli/PatternConfiguration
 	 *
-	 * This class is not documented yet because its design is not yet finalized.
+	 * This class is not documented yet.
 	 *
 	 * \author Stefan Majewsky <majewsky@gmx.net>
 	 */
