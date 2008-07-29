@@ -117,7 +117,6 @@ Palapeli::GameStoragePrivate::GameStoragePrivate(const QString& baseDirectory)
 	}
 	//open configuration file
 	m_config = new KConfig(configPath.arg(baseDirectory));
-	m_typeGroup = new KConfigGroup(m_config, typeGroupKey);
 	//read IDs
 	m_idGroup = new KConfigGroup(m_config, idGroupKey);
 	QMap<QString,QString> idMap = m_idGroup->entryMap();
