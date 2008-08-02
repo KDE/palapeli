@@ -189,7 +189,7 @@ void Palapeli::PatternConfiguration::populateWidget(QWidget* parentWidget)
 					widget = combo = new KComboBox(parentWidget);
 					//while adding the options, try to locate the currently selected one
 					currentIndex = -1;
-					foreach (QVariant option, params)
+					foreach (const QVariant &option, params)
 					{
 						combo->addItem(option.toString());
 						if (option.toString() == value.toString())

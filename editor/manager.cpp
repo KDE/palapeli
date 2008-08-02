@@ -97,7 +97,7 @@ Paladesign::Manager::Manager()
 
 Paladesign::Manager::~Manager()
 {
-	foreach (QString tempFile, m_tempFiles)
+	foreach (const QString &tempFile, m_tempFiles)
 		KIO::NetAccess::removeTempFile(tempFile);
 	delete m_objView;
 	delete m_propModel;
