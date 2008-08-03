@@ -23,7 +23,7 @@
 #include <KPluginFactory>
 #include <KPluginLoader>
 
-K_PLUGIN_FACTORY(RectangularPatternFactory, registerPlugin<Palapeli::RectangularPatternConfiguration>();)
+K_PLUGIN_FACTORY(RectangularPatternFactory, registerPlugin<Palapeli::RectangularPatternPlugin>();)
 K_EXPORT_PLUGIN(RectangularPatternFactory("palapeli_rectangularpattern"))
 
 //BEGIN Palapeli::RectangularPattern
@@ -85,11 +85,9 @@ void Palapeli::RectangularPattern::doSlice(const QImage& image)
 
 //BEGIN Palapeli::RectangularPatternConfiguration
 
-Palapeli::RectangularPatternConfiguration::RectangularPatternConfiguration(QObject* parent, const QVariantList& args)
-	: Palapeli::PatternConfiguration(parent, args)
+Palapeli::RectangularPatternConfiguration::RectangularPatternConfiguration(const QString& pluginName, const QString& displayName)
+	: Palapeli::PatternConfiguration(pluginName, displayName)
 {
-	Q_UNUSED(parent)
-	Q_UNUSED(args)
 	//add properties
 	addProperty("xcount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in horizontal direction:"));
 	addProperty("ycount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in vertical direction:"));
@@ -112,3 +110,23 @@ Palapeli::Pattern* Palapeli::RectangularPatternConfiguration::createPattern() co
 }
 
 //END Palapeli::RectangularPatternConfiguration
+
+//BEGIN Palapeli::RectangularPatternPlugin
+
+Palapeli::RectangularPatternPlugin::RectangularPatternPlugin(QObject* parent, const QVariantList& args)
+	: Palapeli::PatternPlugin(parent, args)
+{
+}
+
+Palapeli::RectangularPatternPlugin::~RectangularPatternPlugin()
+{
+}
+
+QList<Palapeli::PatternConfiguration*> Palapeli::RectangularPatternPlugin::createInstances() const
+{
+	QList<Palapeli::PatternConfiguration*> list;
+	list << new Palapeli::RectangularPatternConfiguration(pluginName(), displayName());
+	return list;
+}
+
+//END Palapeli::RectangularPatternPlugin

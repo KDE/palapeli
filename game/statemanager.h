@@ -1,5 +1,4 @@
 /***************************************************************************
- *   Copyright (C) 2008 Felix Lemke <lemke.felix@ages-skripte.org>
  *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
@@ -17,30 +16,38 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#include "manager.h"
+#ifndef PALAPELI_STATEMANAGER_H
+#define PALAPELI_STATEMANAGER_H
 
-#include <time.h>
-#include <KAboutData>
-#include <KApplication>
-#include <KCmdLineArgs>
-#include <KGlobal>
-#include <KIcon>
-#include <KLocale>
-#include <KLocalizedString>
+#include <QObject>
+class KConfig;
+class KConfigGroup;
 
-int main(int argc, char** argv)
+namespace Palapeli
 {
-	qsrand(time(0));
 
-	KAboutData about("palapeli", "palapeli", ki18nc("The application's name", "Palapeli"), "0.1+", ki18n("A jigsaw puzzle game"), KAboutData::License_GPL, ki18n("(c) 2008, the Palapeli team"));
-	about.addAuthor(ki18n("Felix Lemke"), KLocalizedString(), "lemke.felix@ages-skripte.org");
-	about.addAuthor(ki18n("Stefan Majewsky"), KLocalizedString(), "majewsky@gmx.net");
-	KCmdLineArgs::init(argc, argv, &about);
+	class StateManager : public QObject
+	{
+		Q_OBJECT
+		public:
+			StateManager();
+			~StateManager();
 
-	KApplication app;
-	app.setWindowIcon(KIcon("preferences-plugin"));
-	KGlobal::locale()->insertCatalog("libkdegames");
+			QString gameName() const;
+			int id() const; //equals the process ID
+			bool isPersistent() const;
+			
+			void setPersistent(bool isPersistent);
+		public Q_SLOTS:
+			void setGameName(const QString& name);
+		private:
+			QString m_gameName;
+			bool m_isPersistent;
+			int m_id;
+			KConfig* m_config;
+			KConfigGroup* m_configGroup;
+	};
 
-	ppMgr()->init();
-	return app.exec();
 }
+
+#endif // PALAPELI_STATEMANAGER_H

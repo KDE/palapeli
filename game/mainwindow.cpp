@@ -19,6 +19,7 @@
 
 #include "mainwindow.h"
 #include "mainwindow_p.h"
+#include "autosaver.h"
 #include "manager.h"
 #include "minimap.h"
 #include "preview.h"
@@ -85,6 +86,7 @@ void Palapeli::MainWindowPrivate::setupActions()
 	m_parent->actionCollection()->addAction("game_save", m_saveAct);
 	m_parent->actionCollection()->addAction("palapeli_manage_savegames", m_showSavegamesAct);
 	connect(m_showSavegamesAct, SIGNAL(triggered()), m_dockSavegames, SLOT(show()));
+	KStandardGameAction::quit(m_parent, SLOT(close()), m_parent->actionCollection());
 	//View actions
 	m_parent->actionCollection()->addAction("view_toggle_minimap", m_toggleMinimapAct);
 	m_toggleMinimapAct->setCheckable(true);
@@ -97,7 +99,7 @@ void Palapeli::MainWindowPrivate::setupActions()
 	connect(m_dockPreview, SIGNAL(visibilityChanged(bool)), m_togglePreviewAct, SLOT(setChecked(bool)));
 	connect(m_togglePreviewAct, SIGNAL(triggered(bool)), m_dockPreview, SLOT(setVisible(bool)));
 	//Settings actions
-        KStandardAction::preferences(m_settingsDialog, SLOT(show()), m_parent->actionCollection());
+	KStandardAction::preferences(m_settingsDialog, SLOT(show()), m_parent->actionCollection());
 }
 
 void Palapeli::MainWindowPrivate::setupDockers()
@@ -139,6 +141,22 @@ void Palapeli::MainWindowPrivate::setupDialogs()
 #ifndef PALAPELI_WITH_OPENGL
 	m_settingsUi->checkHardwareAccel->setVisible(false);
 #endif
+	connect(m_settingsUi->checkAutosaveTime, SIGNAL(toggled(bool)), m_settingsUi->spinAutosaveTime, SLOT(setEnabled(bool)));
+	connect(m_settingsUi->checkAutosaveTime, SIGNAL(toggled(bool)), this, SLOT(configurationChanged()));
+	connect(m_settingsUi->spinAutosaveTime, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
+	if (Settings::autosaveTime() != 0)
+	{
+		m_settingsUi->checkAutosaveTime->setChecked(true);
+		m_settingsUi->spinAutosaveTime->setValue(Settings::autosaveTime());
+	}
+	connect(m_settingsUi->checkAutosaveMoves, SIGNAL(toggled(bool)), m_settingsUi->spinAutosaveMoves, SLOT(setEnabled(bool)));
+	connect(m_settingsUi->checkAutosaveMoves, SIGNAL(toggled(bool)), this, SLOT(configurationChanged()));
+	connect(m_settingsUi->spinAutosaveMoves, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
+	if (Settings::autosaveMoves() != 0)
+	{
+		m_settingsUi->checkAutosaveMoves->setChecked(true);
+		m_settingsUi->spinAutosaveMoves->setValue(Settings::autosaveMoves());
+	}
 	//setup Settings dialog
 	m_settingsDialog->setWindowIcon(KIcon("configure"));
 	m_settingsDialog->setCaption(i18n("Configure Palapeli"));
@@ -157,8 +175,16 @@ void Palapeli::MainWindowPrivate::configurationChanged() //because of user-invok
 void Palapeli::MainWindowPrivate::configurationFinished()
 {
 	//apply settings
-	ppMgr()->view()->setAntialiasing(m_settingsUi->checkAntialiasing->checkState() == Qt::Checked);
-	ppMgr()->view()->setHardwareAccelerated(m_settingsUi->checkHardwareAccel->checkState() == Qt::Checked);
+	ppMgr()->view()->setAntialiasing(m_settingsUi->checkAntialiasing->isChecked());
+	ppMgr()->view()->setHardwareAccelerated(m_settingsUi->checkHardwareAccel->isChecked());
+	if (m_settingsUi->checkAutosaveTime->isChecked())
+		ppMgr()->autosaver()->setTimeInterval(m_settingsUi->spinAutosaveTime->value());
+	else
+		ppMgr()->autosaver()->setTimeInterval(0);
+	if (m_settingsUi->checkAutosaveMoves->isChecked())
+		ppMgr()->autosaver()->setMoveInterval(m_settingsUi->spinAutosaveMoves->value());
+	else
+		ppMgr()->autosaver()->setMoveInterval(0);
 	Settings::setSnappingPrecision(m_settingsUi->precisionSlider->value());
 	Settings::self()->writeConfig();
 	//mark settings as saved in the dialog

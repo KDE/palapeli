@@ -12,6 +12,7 @@ if(OPENGL_FOUND)
 endif(OPENGL_FOUND)
 
 set(palapeli_SRCS
+	autosaver.cpp
 	listmenu.cpp
 	main.cpp
 	mainwindow.cpp
@@ -25,6 +26,7 @@ set(palapeli_SRCS
 	saveaction.cpp
 	savegamemodel.cpp
 	savegameview.cpp
+	statemanager.cpp
 	textprogressbar.cpp
 	view.cpp
 	../storage/gamestorage.cpp

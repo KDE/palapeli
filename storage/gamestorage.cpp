@@ -436,7 +436,7 @@ Palapeli::GameStorageItems Palapeli::GameStorage::importItems(GameStorage* stora
 		QHashIterator<int, QString> iterExtHash(storage->d->m_extHash);
 		while (iterExtHash.hasNext())
 		{
-			//TODO: this does not calculate correctly with restrictedToGivenItemList == true
+			//BUG: this does not calculate correctly with restrictedToGivenItemList == true
 			if (iterExtHash.next().value() == reportOnThisExtension)
 				++maxCountReportItems;
 		}

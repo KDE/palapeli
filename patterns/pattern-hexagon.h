@@ -16,8 +16,8 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_PATTERN_RECT_H
-#define PALAPELI_PATTERN_RECT_H
+#ifndef PALAPELI_PATTERN_HEXAGON_H
+#define PALAPELI_PATTERN_HEXAGON_H
 
 #if defined(MAKE_LIBPALAPELIPATTERN)
  #include "../lib/pattern.h"
@@ -33,37 +33,39 @@ namespace Palapeli
 {
 
 	/// \internal
-	class RectangularPattern : public Pattern
+	class HexagonalPattern : public Pattern
 	{
 		public:
-			RectangularPattern(int xCount, int yCount);
-			virtual ~RectangularPattern();
+			HexagonalPattern(int xCount, int yCount);
+			virtual ~HexagonalPattern();
 
 			virtual int estimatePieceCount() const;
 		protected:
+			QPoint pieceBasePosition(int x, int y, const QSize& piece, const QSize& image) const;
+
 			virtual void doSlice(const QImage& image);
 		private:
 			int m_xCount, m_yCount;
 	};
 
 	/// \internal
-	class RectangularPatternConfiguration : public PatternConfiguration
+	class HexagonalPatternConfiguration : public PatternConfiguration
 	{
 		public:
-			RectangularPatternConfiguration(const QString& pluginName, const QString& displayName);
-			virtual ~RectangularPatternConfiguration();
+			HexagonalPatternConfiguration(const QString& pluginName, const QString& displayName);
+			virtual ~HexagonalPatternConfiguration();
 			virtual Pattern* createPattern() const;
 	};
 
 	/// \internal
-	class RectangularPatternPlugin : public PatternPlugin
+	class HexagonalPatternPlugin : public PatternPlugin
 	{
 		public:
-			RectangularPatternPlugin(QObject* parent = 0, const QVariantList& args = QVariantList());
-			virtual ~RectangularPatternPlugin();
+			HexagonalPatternPlugin(QObject* parent = 0, const QVariantList& args = QVariantList());
+			virtual ~HexagonalPatternPlugin();
 			virtual QList<PatternConfiguration*> createInstances() const;
 	};
 
 }
 
-#endif // PALAPELI_PATTERN_RECT_H
+#endif // PALAPELI_PATTERN_HEXAGON_H

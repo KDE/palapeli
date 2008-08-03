@@ -38,6 +38,11 @@ Palapeli::Piece* Palapeli::PieceRelation::piece2() const
 	return m_piece2;
 }
 
+bool Palapeli::PieceRelation::operator==(const PieceRelation& relation) const
+{
+	return (m_piece1 == relation.m_piece1 && m_piece2 == relation.m_piece2) || (m_piece1 == relation.m_piece2 && m_piece2 == relation.m_piece1);
+}
+
 bool Palapeli::PieceRelation::piecesInRightPosition() const
 {
 	const qreal maxInaccuracyFactor = qreal(Settings::snappingPrecision()) / 100.0;
@@ -48,8 +53,8 @@ bool Palapeli::PieceRelation::piecesInRightPosition() const
 
 void Palapeli::PieceRelation::combine()
 {
-	Palapeli::Part* part1 = piece1()->part();
-	Palapeli::Part* part2 = piece2()->part();
+	Palapeli::Part* part1 = m_piece1->part();
+	Palapeli::Part* part2 = m_piece2->part();
 	while (part2->pieceCount() > 0)
 	{
 		Palapeli::Piece* piece = part2->pieceAt(0);
@@ -59,5 +64,4 @@ void Palapeli::PieceRelation::combine()
 	ppMgr()->removePart(part2);
 	part1->update(); //adapt positions of added pieces
 	delete part2;
-
 }

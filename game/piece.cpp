@@ -72,7 +72,7 @@ void Palapeli::Piece::mouseReleaseEvent(QGraphicsSceneMouseEvent*)
 {
 	if (m_part && m_moving)
 	{
-		ppMgr()->searchConnections();
+		ppMgr()->pieceMoveFinished();
 		m_moving = false;
 	}
 }

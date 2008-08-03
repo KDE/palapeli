@@ -27,8 +27,6 @@
 
 #include <QtGlobal>
 
-//TODO: method to reload the plugin list (necessary once Palapeli has a plugin selection dialog)
-
 namespace Palapeli
 {
 
@@ -59,13 +57,21 @@ for (int i = 0; i < trader->configurationCount(); ++i)
 			 */
 			static PatternTrader* self();
 			/**
-			 * Returns how many pattern plugins are available.
+			 * Returns how many Palapeli::PatternConfiguration instances are available.
+			 * \sa configurationAt()
 			 */
 			int configurationCount() const;
 			/**
-			 * Returns an Palapeli::PatternConfiguration instance for the index-th pattern plugin.
+			 * Returns the index-th Palapeli::PatternConfiguration instance.
+			 * \warning The trader will delete this instance automatically when rebuilding its configuration list or on exit.
+			 * \sa configurationCount()
 			 */
 			PatternConfiguration* configurationAt(int index) const;
+			/**
+			 * Flushes and rebuilds the list of available Palapeli::PalapeliConfiguration instances.
+			 * \warning This method invalidates Palapeli::PatternConfiguration instances previously fetched from the trader.
+			 */
+			void rescanConfigurations();
 		private:
 			PatternTrader();
 			~PatternTrader();

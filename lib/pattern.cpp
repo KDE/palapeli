@@ -18,6 +18,7 @@
 
 #include "pattern.h"
 
+#include <ctime>
 #include <QApplication>
 #include <QImage>
 #include <QList>
@@ -71,6 +72,7 @@ void Palapeli::Pattern::loadPiecePositions(const QList<QPointF>& points)
 void Palapeli::Pattern::slice(const QImage& image)
 {
 	p->m_imageSize = image.size();
+	qsrand(time(0));
 	doSlice(image);
 }
 

@@ -18,6 +18,7 @@
 
 #include "pattern-trader.h"
 #include "pattern-configuration.h"
+#include "pattern-plugin.h"
 
 #include <kdemacros.h>
 #include <KServiceTypeTrader>
@@ -36,16 +37,7 @@ namespace Palapeli
 Palapeli::PatternTrader::PatternTrader()
 	: p(new Palapeli::PatternTraderPrivate)
 {
-	KService::List offers = KServiceTypeTrader::self()->query("Palapeli/PatternPlugin");
-	foreach (KService::Ptr offer, offers)
-	{
-		Palapeli::PatternConfiguration* config = offer->createInstance<Palapeli::PatternConfiguration>();
-		if (config == 0)
-			continue;
-		config->setProperty("patternName", offer->property("PatternIdentifier", QVariant::String).toString());
-		config->setProperty("displayName", offer->name());
-		p->m_configs << config;
-	}
+	rescanConfigurations();
 }
 
 Palapeli::PatternTrader::~PatternTrader()
@@ -69,4 +61,24 @@ Palapeli::PatternConfiguration* Palapeli::PatternTrader::configurationAt(int ind
 	if (index < 0 || index >= p->m_configs.count())
 		return 0;
 	return p->m_configs[index];
+}
+
+void Palapeli::PatternTrader::rescanConfigurations()
+{
+	//flush configuration list
+	while (p->m_configs.count() != 0)
+		delete p->m_configs.takeFirst();
+	//fill configuration list
+	KService::List offers = KServiceTypeTrader::self()->query("Palapeli/PatternPlugin");
+	foreach (KService::Ptr offer, offers)
+	{
+		QVariantList args;
+		args << offer->property("PluginIdentifier", QVariant::String).toString();
+		args << offer->name();
+		Palapeli::PatternPlugin* plugin = offer->createInstance<Palapeli::PatternPlugin>(0, args);
+		if (plugin == 0)
+			continue;
+		p->m_configs << plugin->createInstances();
+		delete plugin;
+	}
 }

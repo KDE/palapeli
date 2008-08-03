@@ -1,5 +1,4 @@
 /***************************************************************************
- *   Copyright (C) 2008 Felix Lemke <lemke.felix@ages-skripte.org>
  *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
@@ -17,32 +16,56 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_PIECERELATION_H
-#define PALAPELI_PIECERELATION_H
-
-#include <QPointF>
+#include "pattern-plugin.h"
+#include "pattern-configuration.h"
 
 namespace Palapeli
 {
 
-	class Piece;
-
-	class PieceRelation
+	class PatternPluginPrivate
 	{
 		public:
-			PieceRelation(Piece* piece1, Piece* piece2);
+			PatternPluginPrivate(const QVariantList& args);
 
-			Piece* piece1() const;
-			Piece* piece2() const;
-			bool operator==(const PieceRelation& relation) const;
-
-			bool piecesInRightPosition() const;
-			void combine();
-		private:
-			Piece* m_piece1;
-			Piece* m_piece2;
+			QString m_pluginName;
+			QString m_displayName;
 	};
-
+	
 }
 
-#endif //PALAPELI_PIECERELATION_H
+//BEGIN Palapeli::PatternPluginPrivate
+
+Palapeli::PatternPluginPrivate::PatternPluginPrivate(const QVariantList& args)
+	: m_pluginName(args.value(0, QVariant()).toString())
+	, m_displayName(args.value(1, QVariant()).toString())
+{
+}
+
+//END Palapeli::PatternPluginPrivate
+
+//BEGIN Palapeli::PatternPlugin
+
+Palapeli::PatternPlugin::PatternPlugin(QObject* parent, const QVariantList& args)
+	: p(new Palapeli::PatternPluginPrivate(args))
+{
+	Q_UNUSED(parent)
+}
+
+Palapeli::PatternPlugin::~PatternPlugin()
+{
+	delete p;
+}
+
+QString Palapeli::PatternPlugin::pluginName() const
+{
+	return p->m_pluginName;
+}
+
+QString Palapeli::PatternPlugin::displayName() const
+{
+	return p->m_displayName;
+}
+
+//END Palapeli::PatternPlugin
+
+#include "pattern-plugin.moc"

@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>412</width>
+    <height>316</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="mainLayout" >
@@ -88,6 +88,70 @@
     </widget>
    </item>
    <item>
+    <widget class="QGroupBox" name="autosaveBox" >
+     <property name="title" >
+      <string>Automatic backup</string>
+     </property>
+     <layout class="QGridLayout" name="autosaveLayout" >
+      <item row="0" column="0" >
+       <widget class="QCheckBox" name="checkAutosaveTime" >
+        <property name="text" >
+         <string>Automatically save every</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="KIntSpinBox" name="spinAutosaveTime" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+        <property name="suffix" >
+         <string> minutes</string>
+        </property>
+        <property name="minimum" >
+         <number>1</number>
+        </property>
+        <property name="maximum" >
+         <number>100</number>
+        </property>
+        <property name="value" >
+         <number>2</number>
+        </property>
+        <property name="base" >
+         <number>10</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QCheckBox" name="checkAutosaveMoves" >
+        <property name="text" >
+         <string>Automatically save after</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="KIntSpinBox" name="spinAutosaveMoves" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+        <property name="suffix" >
+         <string> moves</string>
+        </property>
+        <property name="minimum" >
+         <number>1</number>
+        </property>
+        <property name="maximum" >
+         <number>100</number>
+        </property>
+        <property name="value" >
+         <number>5</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer" >
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
@@ -102,6 +166,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

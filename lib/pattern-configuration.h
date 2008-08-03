@@ -49,6 +49,8 @@ addPropertyParameters("myprop", range); //set minimum and maximum value
 setProperty("myprop", 3); //set default value
 \endcode
 	 *
+	 * Instances of Palapeli::PatternConfiguration instances are created in the Palapeli::PatternPlugin::createInstances() method for the Palapeli::PatternPlugin subclass of the plugin.
+	 *
 	 * \author Stefan Majewsky <majewsky@gmx.net>
 	 */
 	class PALAPELIPATTERN_EXPORT PatternConfiguration : public QObject
@@ -69,11 +71,13 @@ setProperty("myprop", 3); //set default value
 			};
 			/**
 			 * \brief Constructs a new PatternConfiguration object.
-			 * This constructor creates the two properties "patternName" and "displayName" which are filled with values internally. You should not modify these properties.
+			 * This constructor creates the two properties \a "patternName" and \a "displayName" which are filled with the given values. You should not modify these properties after this initialisation.
+			 *
+			 * For the parameters \a patternName and \a displayName, you should modify the plugin name and the display name in Palapeli::PatternPlugin.
 			 *
 			 * In your subclass implementation, this is the recommended point to add properties.
 			 */
-			PatternConfiguration(QObject* parent = 0, const QVariantList& args = QVariantList());
+			PatternConfiguration(const QString& patternName, const QString& displayName);
 			/**
 			 * \brief Destructor.
 			 */

@@ -10,6 +10,7 @@ set(palapelipattern_SRCS
 	pattern.cpp
 	pattern-configuration.cpp
 	pattern-executor.cpp
+	pattern-plugin.cpp
 	pattern-trader.cpp
 	variantmapper.cpp
 )
@@ -28,4 +29,6 @@ install(FILES palapelipatternplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_D
 install(FILES macros.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME Macros)
 install(FILES pattern.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME Pattern)
 install(FILES pattern-configuration.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME PatternConfiguration)
+install(FILES pattern-executor.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME PatternExecutor)
+install(FILES pattern-plugin.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME PatternPlugin)
 install(FILES pattern-trader.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME PatternTrader)

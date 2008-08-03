@@ -31,8 +31,6 @@ class QImage;
 class QPointF;
 class QRectF;
 
-//TODO: signals for progress reporting
-//TODO: remove positionDifference in addRelation function
 //TODO: add \since command once we move to kdegames
 
 namespace Palapeli

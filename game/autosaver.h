@@ -1,5 +1,4 @@
 /***************************************************************************
- *   Copyright (C) 2008 Felix Lemke <lemke.felix@ages-skripte.org>
  *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
@@ -17,30 +16,34 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#include "manager.h"
+#ifndef PALAPELI_AUTOSAVER_H
+#define PALAPELI_AUTOSAVER_H
 
-#include <time.h>
-#include <KAboutData>
-#include <KApplication>
-#include <KCmdLineArgs>
-#include <KGlobal>
-#include <KIcon>
-#include <KLocale>
-#include <KLocalizedString>
+#include <QObject>
 
-int main(int argc, char** argv)
+namespace Palapeli
 {
-	qsrand(time(0));
 
-	KAboutData about("palapeli", "palapeli", ki18nc("The application's name", "Palapeli"), "0.1+", ki18n("A jigsaw puzzle game"), KAboutData::License_GPL, ki18n("(c) 2008, the Palapeli team"));
-	about.addAuthor(ki18n("Felix Lemke"), KLocalizedString(), "lemke.felix@ages-skripte.org");
-	about.addAuthor(ki18n("Stefan Majewsky"), KLocalizedString(), "majewsky@gmx.net");
-	KCmdLineArgs::init(argc, argv, &about);
+	class AutosaverPrivate;
 
-	KApplication app;
-	app.setWindowIcon(KIcon("preferences-plugin"));
-	KGlobal::locale()->insertCatalog("libkdegames");
+	class Autosaver : public QObject
+	{
+		Q_OBJECT
+		public:
+			Autosaver();
+			~Autosaver();
 
-	ppMgr()->init();
-	return app.exec();
+			void setTimeInterval(int minutes, bool saveChange = true);
+			void setMoveInterval(int moveCount, bool saveChange = true);
+		public Q_SLOTS:
+			void countMove();
+
+			void reset();
+			void setEnabled(bool enabled);
+		private:
+			AutosaverPrivate* p;
+	};
+
 }
+
+#endif // PALAPELI_AUTOSAVER_H

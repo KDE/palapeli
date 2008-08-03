@@ -1,8 +1,8 @@
 [Desktop Entry]
-X-KDE-Library=palapeli_rectangularpattern
+X-KDE-Library=palapeli_hexagonpattern
 X-KDE-PluginInfo-Author=Stefan Majewsky
 X-KDE-PluginInfo-Email=majewsky@gmx.net
-X-KDE-PluginInfo-Name=palapeli_rectangularpattern
+X-KDE-PluginInfo-Name=palapeli_hexagonpattern
 X-KDE-PluginInfo-Version=0.1
 X-KDE-PluginInfo-Website=http://games.kde.org/palapeli
 X-KDE-PluginInfo-Category=
@@ -12,9 +12,7 @@ X-KDE-PluginInfo-EnabledByDefault=true
 X-KDE-ParentApp=libpalapelipattern
 X-KDE-ServiceTypes=Palapeli/PatternPlugin
 Type=Service
-Icon=palapeli-pattern-rectangular
-PluginIdentifier=rectangular
-Name=Rectangular pieces
-Name[et]=Ristkülikukujulised klotsid
-Name[sv]=Rektangulära bitar
+Icon=palapeli-pattern-hexagon
+PluginIdentifier=hexagon
+Name=Hexagonal pieces
 Comment=
