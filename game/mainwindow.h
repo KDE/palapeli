@@ -38,6 +38,8 @@ namespace Palapeli
 			void flushProgress(int secondsDelay);
 			void gameNameWasChanged(const QString& name);
 			void changeInteractionMode(bool allowGameInteraction);
+		protected:
+			virtual void closeEvent(QCloseEvent* event);
 		private:
 			MainWindowPrivate* p;
 	};

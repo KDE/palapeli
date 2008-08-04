@@ -27,6 +27,7 @@
 #include "settings.h"
 #include "view.h"
 
+#include <QCloseEvent>
 #include <QTimer>
 #include <KActionCollection>
 #include <KLocalizedString>
@@ -254,6 +255,11 @@ void Palapeli::MainWindow::changeInteractionMode(bool allowGameInteraction)
 	newAct->setEnabled(allowGameInteraction);
 	p->m_loadAct->setEnabled(allowGameInteraction);
 	p->m_saveAct->setEnabled(allowGameInteraction);
+}
+
+void Palapeli::MainWindow::closeEvent(QCloseEvent* event)
+{
+	ppMgr()->ensurePersistence() ? event->accept() : event->ignore();
 }
 
 #include "mainwindow.moc"
