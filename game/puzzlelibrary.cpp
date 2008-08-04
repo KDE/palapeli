@@ -25,7 +25,9 @@
 #include <QAbstractListModel>
 #include <QApplication>
 #include <QPainter>
+#include <QMutex>
 #include <QTimer>
+#include <QtConcurrentRun>
 #include <KConfigGroup>
 #include <KDesktopFile>
 #include <KIcon> //for temporary code
@@ -49,7 +51,7 @@ namespace Palapeli
 	{
 		public:
 			PuzzleLibraryModel(QObject* parent = 0);
-			virtual ~PuzzleLibraryModel() {}
+			virtual ~PuzzleLibraryModel();
 			virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
 			virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 			void reload();
@@ -59,8 +61,12 @@ namespace Palapeli
 				CommentRole = Qt::UserRole,
 				AuthorRole
 			};
+		protected:
+			void doReload();
 		private:
 			QList<PuzzleLibraryEntry> m_entries;
+			QMutex* m_entriesMutex;
+			QFuture<void> m_entriesReloading;
 	};
 
 	class PuzzleLibraryDelegate : public QAbstractItemDelegate
@@ -99,22 +105,36 @@ Palapeli::PuzzleLibraryEntry::PuzzleLibraryEntry(const QString& entryIdentifier,
 
 Palapeli::PuzzleLibraryModel::PuzzleLibraryModel(QObject* parent)
 	: QAbstractListModel(parent)
+	, m_entriesMutex(new QMutex)
 {
+	reload();
+}
+
+Palapeli::PuzzleLibraryModel::~PuzzleLibraryModel()
+{
+	if (m_entriesReloading.isRunning())
+		m_entriesReloading.waitForFinished(); //the running thread would otherwise cause a crash
+	delete m_entriesMutex;
 }
 
 int Palapeli::PuzzleLibraryModel::rowCount(const QModelIndex& parent) const
 {
 	Q_UNUSED(parent)
-	return m_entries.count();
+	m_entriesMutex->lock();
+	int count = m_entries.count();
+	m_entriesMutex->unlock();
+	return count;
 }
 
 QVariant Palapeli::PuzzleLibraryModel::data(const QModelIndex& index, int role) const
 {
 	if (!index.isValid())
 		return QVariant();
+	m_entriesMutex->lock();
 	if (index.row() >= m_entries.count())
 		return QVariant();
 	const Palapeli::PuzzleLibraryEntry& entry = m_entries[index.row()];
+	m_entriesMutex->unlock();
 	switch (role)
 	{
 		case Qt::DisplayRole:
@@ -130,31 +150,41 @@ QVariant Palapeli::PuzzleLibraryModel::data(const QModelIndex& index, int role) 
 	}
 }
 
+#include <KDebug>
+
 void Palapeli::PuzzleLibraryModel::reload()
 {
+	if (!m_entriesReloading.isRunning())
+		m_entriesReloading = QtConcurrent::run(this, &Palapeli::PuzzleLibraryModel::doReload);
+}
+
+void Palapeli::PuzzleLibraryModel::doReload() //to be executed in a separate thread
+{
+	m_entriesMutex->lock();
 	m_entries.clear();
-	//temporary entry
-	m_entries << Palapeli::PuzzleLibraryEntry(QString(), QLatin1String("This view does not work yet."), QString(), QString(), KIcon("dialog-cancel").pixmap(64, 64).toImage());
-	//locate entries
+	m_entriesMutex->unlock();
+	//find entries
 	KStandardDirs dirs;
 	QStringList puzzleFiles = dirs.findAllResources("data", QLatin1String("palapeli/puzzlelibrary/*.desktop"), KStandardDirs::NoDuplicates);
 	foreach (const QString& puzzleFile, puzzleFiles)
 	{
-		 const QString identifier = puzzleFile.section('/', -1, -1).section('.', 1, 1);
-		 const KDesktopFile df(puzzleFile);
-		 //gather data - name and comment
-		 QString name = df.readName();
-		 if (name.isEmpty())
-			 name = identifier;
-		 const QString comment = df.readComment();
-		 const QString author = df.desktopGroup().readEntry("X-KDE-PluginInfo-Author", QString());
-		 //gather data - image (scale down to the icon size used in the list view)
-		 const QString iconName = df.readIcon().remove('/'); //slashes are removed to avoid directory changing
-		 const QString iconFile = dirs.locate("data", QLatin1String("palapeli/puzzlelibrary/") + iconName);
-		 const QImage baseImage(iconFile);
-		 const QImage scaledImage = baseImage.scaled(Palapeli::PuzzleLibraryDelegate::IconSize, Palapeli::PuzzleLibraryDelegate::IconSize, Qt::KeepAspectRatio);
-		 //save entry
-		 m_entries << Palapeli::PuzzleLibraryEntry(identifier, name, comment, author, scaledImage);
+		const QString identifier = puzzleFile.section('/', -1, -1).section('.', 1, 1);
+		const KDesktopFile df(puzzleFile);
+		//gather data - name and comment
+		QString name = df.readName();
+		if (name.isEmpty())
+			name = identifier;
+		const QString comment = df.readComment();
+		const QString author = df.desktopGroup().readEntry("X-KDE-PluginInfo-Author", QString());
+		//gather data - image (scale down to the icon size used in the list view)
+		const QString iconName = df.readIcon().remove('/'); //slashes are removed to avoid directory changing
+		const QString iconFile = dirs.locate("data", QLatin1String("palapeli/puzzlelibrary/") + iconName);
+		const QImage baseImage(iconFile);
+		const QImage scaledImage = baseImage.scaled(Palapeli::PuzzleLibraryDelegate::IconSize, Palapeli::PuzzleLibraryDelegate::IconSize, Qt::KeepAspectRatio);
+		//save entry
+		m_entriesMutex->lock();
+		m_entries << Palapeli::PuzzleLibraryEntry(identifier, name, comment, author, scaledImage);
+		m_entriesMutex->unlock();
 	}
 	//propagate changes
 	reset();
@@ -253,7 +283,6 @@ Palapeli::PuzzleLibrary::PuzzleLibrary(QWidget* parent)
 {
 	setModel(&p->m_model);
 	setItemDelegate(&p->m_delegate);
-	QTimer::singleShot(0, this, SLOT(reload()));
 }
 
 Palapeli::PuzzleLibrary::~PuzzleLibrary()

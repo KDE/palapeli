@@ -132,13 +132,18 @@ void Palapeli::NewPuzzleDialog::showDialog()
 	}
 }
 
+#include <KMessageBox>
+
 void Palapeli::NewPuzzleDialog::okWasClicked()
 {
-	if (p->m_patternLayout->currentWidget() != 0 || p->m_generalImage->url().isEmpty())
+	hide();
+	if (p->m_tabWidget->currentIndex() == 1) //temporarily deactivate puzzle library (not yet functional)
 	{
-		hide();
-		emit startGame(p->m_generalImage->url(), p->m_patternLayout->currentIndex());
+		KMessageBox::sorry(0, QLatin1String("The puzzle library is not functional yet."));
+		return;
 	}
+	if (p->m_patternLayout->currentWidget() != 0 && !p->m_generalImage->url().isEmpty())
+		emit startGame(p->m_generalImage->url(), p->m_patternLayout->currentIndex());
 }
 
 #include "newpuzzledialog.moc"
