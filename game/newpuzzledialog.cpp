@@ -20,11 +20,13 @@
 #include "../lib/pattern-configuration.h"
 #include "../lib/pattern-trader.h"
 #include "manager.h"
+#include "puzzlelibrary.h"
 
 #include <QComboBox>
 #include <QFormLayout>
 #include <QGroupBox>
 #include <QStackedLayout>
+#include <QTabWidget>
 #include <QVBoxLayout>
 #include <KLocalizedString>
 #include <KUrlRequester>
@@ -38,7 +40,10 @@ namespace Palapeli
 			NewPuzzleDialogPrivate();
 			~NewPuzzleDialogPrivate();
 
-			QVBoxLayout* m_mainLayout;
+			QTabWidget* m_tabWidget;
+			QWidget* m_newPuzzleWidget;
+			QVBoxLayout* m_newPuzzleLayout;
+			Palapeli::PuzzleLibrary* m_library;
 
 			QGroupBox* m_generalGroupBox;
 			QFormLayout* m_generalLayout;
@@ -52,7 +57,10 @@ namespace Palapeli
 }
 
 Palapeli::NewPuzzleDialogPrivate::NewPuzzleDialogPrivate()
-	: m_mainLayout(new QVBoxLayout)
+	: m_tabWidget(new QTabWidget)
+	, m_newPuzzleWidget(new QWidget)
+	, m_newPuzzleLayout(new QVBoxLayout)
+	, m_library(new Palapeli::PuzzleLibrary)
 	, m_generalGroupBox(new QGroupBox(i18n("General settings")))
 	, m_generalLayout(new QFormLayout)
 	, m_generalImage(new KUrlRequester)
@@ -60,11 +68,11 @@ Palapeli::NewPuzzleDialogPrivate::NewPuzzleDialogPrivate()
 	, m_patternGroupBox(new QGroupBox(i18n("Pattern settings")))
 	, m_patternLayout(new QStackedLayout)
 {
-	//"General settings" box
+	//"General settings" box of first page
 	m_generalLayout->addRow(i18n("Image:"), m_generalImage);
 	m_generalLayout->addRow(i18n("Pattern:"), m_generalPattern);
 	m_generalGroupBox->setLayout(m_generalLayout);
-	//"Pattern settings" box
+	//"Pattern settings" box of first page
 	for (int i = 0; i < Palapeli::PatternTrader::self()->configurationCount(); ++i)
 	{
 		//create configuration widget for PatternConfiguration
@@ -77,21 +85,27 @@ Palapeli::NewPuzzleDialogPrivate::NewPuzzleDialogPrivate()
 	}
 	QObject::connect(m_generalPattern, SIGNAL(activated(int)), m_patternLayout, SLOT(setCurrentIndex(int)));
 	m_patternGroupBox->setLayout(m_patternLayout);
-	//main layout
-	m_mainLayout->addWidget(m_generalGroupBox);
-	m_mainLayout->addWidget(m_patternGroupBox);
-	m_mainLayout->setMargin(0); //margin is added by KDialog's layout
+	//main widget for first page
+	m_newPuzzleLayout->addWidget(m_generalGroupBox);
+	m_newPuzzleLayout->addWidget(m_patternGroupBox);
+	m_newPuzzleWidget->setLayout(m_newPuzzleLayout);
+	//setup tab widget
+	m_tabWidget->addTab(m_newPuzzleWidget, KIcon("document-new"), i18n("Create new puzzle"));
+	m_tabWidget->addTab(m_library, KIcon("document-open"), i18n("Choose from library"));
 }
 
 Palapeli::NewPuzzleDialogPrivate::~NewPuzzleDialogPrivate()
 {
-	delete m_mainLayout;
+	delete m_tabWidget;
+	delete m_newPuzzleWidget;
+	delete m_newPuzzleLayout;
 	delete m_patternGroupBox;
 	delete m_patternLayout;
 	delete m_generalGroupBox;
 	delete m_generalLayout;
 	delete m_generalImage;
 	delete m_generalPattern;
+	delete m_library;
 }
 
 Palapeli::NewPuzzleDialog::NewPuzzleDialog(QWidget* parent)
@@ -100,7 +114,7 @@ Palapeli::NewPuzzleDialog::NewPuzzleDialog(QWidget* parent)
 	setCaption(i18n("Create a new jigsaw puzzle"));
 	setButtons(KDialog::Ok | KDialog::Cancel);
 	setButtonText(KDialog::Ok, i18n("Start game"));
-	mainWidget()->setLayout(p->m_mainLayout);
+	setMainWidget(p->m_tabWidget);
 	connect(this, SIGNAL(okClicked()), this, SLOT(okWasClicked()));
 }
 

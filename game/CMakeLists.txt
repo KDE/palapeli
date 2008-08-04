@@ -23,6 +23,7 @@ set(palapeli_SRCS
 	piece.cpp
 	piecerelation.cpp
 	preview.cpp
+	puzzlelibrary.cpp
 	saveaction.cpp
 	savegamemodel.cpp
 	savegameview.cpp
