@@ -21,7 +21,6 @@
 #include <QCoreApplication>
 #include <KConfig>
 #include <KConfigGroup>
-#include <KDebug>
 #include <KStandardDirs>
 
 Palapeli::StateManager::StateManager()
@@ -30,7 +29,6 @@ Palapeli::StateManager::StateManager()
 	, m_config(new KConfig(KStandardDirs::locateLocal("config", "palapeli-staterc"), KConfig::SimpleConfig))
 	, m_configGroup(new KConfigGroup(m_config, QString::number(m_id)))
 {
-	kDebug() << KStandardDirs::locateLocal("config", "palapeli-staterc");
 }
 
 Palapeli::StateManager::~StateManager()

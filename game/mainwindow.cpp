@@ -142,21 +142,19 @@ void Palapeli::MainWindowPrivate::setupDialogs()
 #ifndef PALAPELI_WITH_OPENGL
 	m_settingsUi->checkHardwareAccel->setVisible(false);
 #endif
-	connect(m_settingsUi->checkAutosaveTime, SIGNAL(toggled(bool)), m_settingsUi->spinAutosaveTime, SLOT(setEnabled(bool)));
-	connect(m_settingsUi->checkAutosaveTime, SIGNAL(toggled(bool)), this, SLOT(configurationChanged()));
+	connect(m_settingsUi->radioAutosaveTime, SIGNAL(toggled(bool)), this, SLOT(configurationChanged()));
 	connect(m_settingsUi->spinAutosaveTime, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
 	if (Settings::autosaveTime() != 0)
 	{
-		m_settingsUi->checkAutosaveTime->setChecked(true);
+		m_settingsUi->radioAutosaveTime->setChecked(true);
 		m_settingsUi->spinAutosaveTime->setValue(Settings::autosaveTime());
 	}
-	connect(m_settingsUi->checkAutosaveMoves, SIGNAL(toggled(bool)), m_settingsUi->spinAutosaveMoves, SLOT(setEnabled(bool)));
-	connect(m_settingsUi->checkAutosaveMoves, SIGNAL(toggled(bool)), this, SLOT(configurationChanged()));
-	connect(m_settingsUi->spinAutosaveMoves, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
+	connect(m_settingsUi->radioAutosaveMove, SIGNAL(toggled(bool)), this, SLOT(configurationChanged()));
+	connect(m_settingsUi->spinAutosaveMove, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
 	if (Settings::autosaveMoves() != 0)
 	{
-		m_settingsUi->checkAutosaveMoves->setChecked(true);
-		m_settingsUi->spinAutosaveMoves->setValue(Settings::autosaveMoves());
+		m_settingsUi->radioAutosaveMove->setChecked(true);
+		m_settingsUi->spinAutosaveMove->setValue(Settings::autosaveMoves());
 	}
 	//setup Settings dialog
 	m_settingsDialog->setWindowIcon(KIcon("configure"));
@@ -164,6 +162,7 @@ void Palapeli::MainWindowPrivate::setupDialogs()
 	m_settingsDialog->setButtons(KDialog::Ok | KDialog::Apply | KDialog::Cancel);
 	m_settingsDialog->mainWidget()->layout()->setMargin(0);
 	m_settingsDialog->enableButtonApply(false); //not until something has changed
+	m_settingsDialog->resize(1, 1); //this lets the dialog scale down to its recommended (i.e. minimum) size
 	connect(m_settingsDialog, SIGNAL(okClicked()), this, SLOT(configurationFinished()));
 	connect(m_settingsDialog, SIGNAL(applyClicked()), this, SLOT(configurationFinished()));
 }
@@ -178,12 +177,12 @@ void Palapeli::MainWindowPrivate::configurationFinished()
 	//apply settings
 	ppMgr()->view()->setAntialiasing(m_settingsUi->checkAntialiasing->isChecked());
 	ppMgr()->view()->setHardwareAccelerated(m_settingsUi->checkHardwareAccel->isChecked());
-	if (m_settingsUi->checkAutosaveTime->isChecked())
+	if (m_settingsUi->radioAutosaveTime->isChecked())
 		ppMgr()->autosaver()->setTimeInterval(m_settingsUi->spinAutosaveTime->value());
 	else
 		ppMgr()->autosaver()->setTimeInterval(0);
-	if (m_settingsUi->checkAutosaveMoves->isChecked())
-		ppMgr()->autosaver()->setMoveInterval(m_settingsUi->spinAutosaveMoves->value());
+	if (m_settingsUi->radioAutosaveMove->isChecked())
+		ppMgr()->autosaver()->setMoveInterval(m_settingsUi->spinAutosaveMove->value());
 	else
 		ppMgr()->autosaver()->setMoveInterval(0);
 	Settings::setSnappingPrecision(m_settingsUi->precisionSlider->value());

@@ -81,6 +81,7 @@ namespace Palapeli
 
 	namespace Strings
 	{
+		const QString AutosaveName("__palapeli_autosave_%1");
 		//strings in .psg files
 		const QString GeneralGroupKey("Palapeli");
 		const QString PatternKey("Pattern");
@@ -528,7 +529,7 @@ bool Palapeli::Manager::autosaveGame()
 	p->m_window->reportProgress(0, 1, 2, i18n("Automatic backup..."));
 	emit interactionModeChanged(false);
 	p->m_silent = true;
-	p->saveGame(QLatin1String("__palapeli_autosave"));
+	p->saveGame(Palapeli::Strings::AutosaveName.arg(p->m_state.id()));
 	p->m_silent = false;
 	emit interactionModeChanged(true);
 	p->m_window->reportProgress(0, 2, 2, i18n("Automatic backup finished."));
