@@ -132,8 +132,6 @@ void Palapeli::NewPuzzleDialog::showDialog()
 	}
 }
 
-#include <KMessageBox>
-
 void Palapeli::NewPuzzleDialog::okWasClicked()
 {
 	hide();

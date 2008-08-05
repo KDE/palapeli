@@ -507,8 +507,6 @@ void Palapeli::Manager::searchConnections()
 
 void Palapeli::Manager::createGame(const KUrl& url, int patternIndex)
 {
-	if (!ensurePersistence())
-		return;
 	if (!p->canCreateGame(url, patternIndex))
 		return;
 	p->m_state.setPersistent(false); //current state was generated from user input (therefore not persistent)
@@ -525,8 +523,6 @@ void Palapeli::Manager::createGame(const QString& templateName)
 	if (templateFile.isEmpty())
 		return; //template does not exist
 	//usual creation sequence
-	if (!ensurePersistence())
-		return;
 	if (!p->canCreateGame(templateFile))
 		return;
 	p->m_state.setPersistent(false); //current state was generated from user input (therefore not persistent)
