@@ -109,13 +109,15 @@ Palapeli::NewPuzzleDialogPrivate::~NewPuzzleDialogPrivate()
 }
 
 Palapeli::NewPuzzleDialog::NewPuzzleDialog(QWidget* parent)
-	: KDialog(parent), p(new Palapeli::NewPuzzleDialogPrivate)
+	: KDialog(parent)
+	, p(new Palapeli::NewPuzzleDialogPrivate)
 {
 	setCaption(i18n("Create a new jigsaw puzzle"));
 	setButtons(KDialog::Ok | KDialog::Cancel);
 	setButtonText(KDialog::Ok, i18n("Start game"));
 	setMainWidget(p->m_tabWidget);
 	connect(this, SIGNAL(okClicked()), this, SLOT(okWasClicked()));
+	setMinimumWidth(500);
 }
 
 Palapeli::NewPuzzleDialog::~NewPuzzleDialog()

@@ -319,7 +319,7 @@ QSize Palapeli::PuzzleLibraryDelegate::sizeHint(const QStyleOptionViewItem& opti
 	Q_UNUSED(option)
 	Q_UNUSED(index)
 	static const int iconAreaSize = 2 * Margin + IconSize;
-	return QSize(6 * iconAreaSize, iconAreaSize); //height is the important point, width is determined by widget bounds
+	return QSize(100, iconAreaSize); //height is the important point, width is determined by widget bounds
 }
 
 //END Palapeli::PuzzleLibraryDelegate
