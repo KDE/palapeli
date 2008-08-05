@@ -24,6 +24,7 @@
 #include <QAbstractItemDelegate>
 #include <QAbstractListModel>
 #include <QApplication>
+#include <QFutureWatcher>
 #include <QPainter>
 #include <QMutex>
 #include <QTimer>
@@ -39,12 +40,13 @@ namespace Palapeli
 
 	struct PuzzleLibraryEntry
 	{
-		PuzzleLibraryEntry(const QString& identifier, const QString& name, const QString& comment, const QString& author, const QImage& image);
+		PuzzleLibraryEntry(const QString& identifier, const QString& name, const QString& comment, const QString& author, const QImage& image, int pieceCount);
 		QString identifier;
 		QString name;
 		QString comment;
 		QString author;
 		QImage image;
+		int pieceCount;
 	};
 
 	class PuzzleLibraryModel : public QAbstractListModel
@@ -55,12 +57,14 @@ namespace Palapeli
 			virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
 			virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 			void reload();
+			QFutureWatcher<void>* reloadingWatcher() const;
 
 			enum
 			{
 				IdentifierRole = Qt::UserRole,
 				CommentRole,
-				AuthorRole
+				AuthorRole,
+				PieceCountRole
 			};
 		protected:
 			void doReload();
@@ -68,6 +72,7 @@ namespace Palapeli
 			QList<PuzzleLibraryEntry> m_entries;
 			QMutex* m_entriesMutex;
 			QFuture<void> m_entriesReloading;
+			QFutureWatcher<void>* m_reloadingWatcher;
 	};
 
 	class PuzzleLibraryDelegate : public QAbstractItemDelegate
@@ -95,18 +100,20 @@ namespace Palapeli
 
 //BEGIN Palapeli::PuzzleLibraryModel
 
-Palapeli::PuzzleLibraryEntry::PuzzleLibraryEntry(const QString& entryIdentifier, const QString& entryName, const QString& entryComment, const QString& entryAuthor, const QImage& entryImage)
+Palapeli::PuzzleLibraryEntry::PuzzleLibraryEntry(const QString& entryIdentifier, const QString& entryName, const QString& entryComment, const QString& entryAuthor, const QImage& entryImage, int entryPieceCount)
 	: identifier(entryIdentifier)
 	, name(entryName)
 	, comment(entryComment)
 	, author(entryAuthor)
 	, image(entryImage)
+	, pieceCount(entryPieceCount)
 {
 }
 
 Palapeli::PuzzleLibraryModel::PuzzleLibraryModel(QObject* parent)
 	: QAbstractListModel(parent)
 	, m_entriesMutex(new QMutex)
+	, m_reloadingWatcher(new QFutureWatcher<void>)
 {
 	reload();
 }
@@ -116,6 +123,7 @@ Palapeli::PuzzleLibraryModel::~PuzzleLibraryModel()
 	if (m_entriesReloading.isRunning())
 		m_entriesReloading.waitForFinished(); //the running thread would otherwise cause a crash
 	delete m_entriesMutex;
+	delete m_reloadingWatcher;
 }
 
 int Palapeli::PuzzleLibraryModel::rowCount(const QModelIndex& parent) const
@@ -148,17 +156,25 @@ QVariant Palapeli::PuzzleLibraryModel::data(const QModelIndex& index, int role) 
 			return entry.comment;
 		case Palapeli::PuzzleLibraryModel::AuthorRole:
 			return entry.author;
+		case Palapeli::PuzzleLibraryModel::PieceCountRole:
+			return entry.pieceCount;
 		default:
 			return QVariant();
 	}
 }
 
-#include <KDebug>
-
 void Palapeli::PuzzleLibraryModel::reload()
 {
 	if (!m_entriesReloading.isRunning())
+	{
 		m_entriesReloading = QtConcurrent::run(this, &Palapeli::PuzzleLibraryModel::doReload);
+		m_reloadingWatcher->setFuture(m_entriesReloading);
+	}
+}
+
+QFutureWatcher<void>* Palapeli::PuzzleLibraryModel::reloadingWatcher() const
+{
+	return m_reloadingWatcher;
 }
 
 void Palapeli::PuzzleLibraryModel::doReload() //to be executed in a separate thread
@@ -173,7 +189,7 @@ void Palapeli::PuzzleLibraryModel::doReload() //to be executed in a separate thr
 	{
 		const QString identifier = puzzleFile.section('/', -1, -1).section('.', 0, 0);
 		const KDesktopFile df(puzzleFile);
-		//gather data - name and comment
+		//gather data - name, comment and author
 		QString name = df.readName();
 		if (name.isEmpty())
 			name = identifier;
@@ -184,9 +200,11 @@ void Palapeli::PuzzleLibraryModel::doReload() //to be executed in a separate thr
 		const QString iconFile = dirs.locate("data", QLatin1String("palapeli/puzzlelibrary/") + iconName);
 		const QImage baseImage(iconFile);
 		const QImage scaledImage = baseImage.scaled(Palapeli::PuzzleLibraryDelegate::IconSize, Palapeli::PuzzleLibraryDelegate::IconSize, Qt::KeepAspectRatio);
+		//gather data - piece count
+		const int pieceCount = KConfigGroup(&df, "Palapeli").readEntry("PieceCount", 0);
 		//save entry
 		m_entriesMutex->lock();
-		m_entries << Palapeli::PuzzleLibraryEntry(identifier, name, comment, author, scaledImage);
+		m_entries << Palapeli::PuzzleLibraryEntry(identifier, name, comment, author, scaledImage, pieceCount);
 		m_entriesMutex->unlock();
 	}
 	//propagate changes
@@ -208,26 +226,58 @@ void Palapeli::PuzzleLibraryDelegate::paint(QPainter* painter, const QStyleOptio
 	QStyleOptionViewItemV4 opt = option;
 	QStyle* style = opt.widget ? opt.widget->style() : QApplication::style();
 	style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
-	//draw icon - resize to fit into QRect((Margin, Margin) IconSize x IconSize); and center in this area
+	//block 1: draw thumbnail icon
 	const QImage icon = index.data(Qt::DecorationRole).value<QImage>();
 	if (!icon.isNull())
 	{
 		//find metrics
 		const int xPadding = (IconSize - icon.width()) / 2;
 		const int yPadding = (IconSize - icon.height()) / 2;
-		int x = option.rect.x() + Margin + xPadding;
+		int x = option.rect.left() + Margin + xPadding;
 		if (option.direction == Qt::RightToLeft)
 			x = option.rect.right() - (Margin + xPadding + IconSize);
 		//draw icon
 		painter->save();
-		painter->translate(x, option.rect.y() + Margin + yPadding);
-		painter->drawImage(QPointF(0, 0), icon);
+		painter->drawImage(QPointF(x, option.rect.y() + Margin + yPadding), icon);
 		painter->restore();
 	}
-	//draw text besides the icon space
+	//block 2: draw piece count
+	static const QPixmap pieceCountIcon = KIcon("preferences-plugin").pixmap(IconSize, IconSize);
+	if (!pieceCountIcon.isNull())
+	{
+		//find metrics
+		int x = option.rect.right() - (Margin + IconSize);
+		if (option.direction == Qt::RightToLeft)
+			x = option.rect.left() + Margin;
+		//draw icon
+		painter->save();
+		painter->setOpacity(0.2);
+		painter->drawPixmap(QPointF(x, option.rect.y() + Margin), pieceCountIcon);
+		painter->restore();
+		//get piece count
+		const int pieceCount = index.data(Palapeli::PuzzleLibraryModel::PieceCountRole).toInt();
+		const QString pieceCountText = QString::number(pieceCount);
+		painter->save();
+		if (pieceCount != 0)
+		{
+			//adjust size of text to make text fit (this code assumes that the text's width is always >= its height, and that the relation between height and width is linear for different font sizes)
+			QFont font = option.font;
+			font.setWeight(QFont::Normal);
+			painter->setFont(font);
+			const QFontMetrics fm(font);
+			const QRect textRect = fm.boundingRect(pieceCountText);
+			static const int desiredTextWidth = IconSize / 2;
+			font.setPointSizeF(font.pointSizeF() * desiredTextWidth / textRect.width());
+			painter->setFont(font);
+			//draw text
+			painter->drawText(QRect(x, option.rect.y() + Margin, IconSize, IconSize), Qt::AlignCenter, pieceCountText);
+		}
+		painter->restore();
+	}
+	//block 3: draw text between the icons
 	painter->save();
 	static const int iconAreaWidth = IconSize + 2 * Margin;
-	QRect boundingRect(option.rect.x() + iconAreaWidth, option.rect.y(), option.rect.width() - iconAreaWidth, option.rect.height());
+	QRect boundingRect(option.rect.x() + iconAreaWidth, option.rect.y(), option.rect.width() - 2 * iconAreaWidth, option.rect.height());
 	//font for first line
 	QFont font = option.font;
 	font.setWeight(QFont::Bold);
@@ -269,7 +319,8 @@ QSize Palapeli::PuzzleLibraryDelegate::sizeHint(const QStyleOptionViewItem& opti
 {
 	Q_UNUSED(option)
 	Q_UNUSED(index)
-	return QSize(100, 2 * Margin + IconSize); //height is the important point, width is determined by widget bounds
+	static const int iconAreaSize = 2 * Margin + IconSize;
+	return QSize(6 * iconAreaSize, iconAreaSize); //height is the important point, width is determined by widget bounds
 }
 
 //END Palapeli::PuzzleLibraryDelegate
