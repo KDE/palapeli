@@ -15,4 +15,6 @@ Type=Service
 Icon=palapeli-pattern-hexagon
 PluginIdentifier=hexagon
 Name=Hexagonal pieces
+Name[et]=Kuusnurksed klotsid
+Name[sv]=Sexkantiga bitar
 Comment=
