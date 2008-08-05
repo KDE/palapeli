@@ -115,7 +115,6 @@ Palapeli::PuzzleLibraryModel::PuzzleLibraryModel(QObject* parent)
 	, m_entriesMutex(new QMutex)
 	, m_reloadingWatcher(new QFutureWatcher<void>)
 {
-	reload();
 }
 
 Palapeli::PuzzleLibraryModel::~PuzzleLibraryModel()
@@ -337,6 +336,7 @@ Palapeli::PuzzleLibrary::PuzzleLibrary(QWidget* parent)
 {
 	setModel(&p->m_model);
 	setItemDelegate(&p->m_delegate);
+	reload();
 }
 
 Palapeli::PuzzleLibrary::~PuzzleLibrary()
@@ -353,7 +353,12 @@ QString Palapeli::PuzzleLibrary::selectedTemplate() const
 void Palapeli::PuzzleLibrary::reload()
 {
 	p->m_model.reload();
-	//TODO: set selection on first item
+	connect(p->m_model.reloadingWatcher(), SIGNAL(finished()), this, SLOT(resetSelection()));
+}
+
+void Palapeli::PuzzleLibrary::resetSelection()
+{
+	selectionModel()->select(model()->index(0, 0), QItemSelectionModel::ClearAndSelect);
 }
 
 //END Palapeli::PuzzleLibrary

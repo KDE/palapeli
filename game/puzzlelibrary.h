@@ -36,6 +36,7 @@ namespace Palapeli
 			QString selectedTemplate() const;
 		public Q_SLOTS:
 			void reload();
+			void resetSelection();
 		private:
 			PuzzleLibraryPrivate* const p;
 	};
