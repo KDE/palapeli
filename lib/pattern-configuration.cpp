@@ -52,10 +52,10 @@ namespace Palapeli
 
 Palapeli::PatternConfigurationPrivate::PatternConfigurationPrivate(const QString& patternName, const QString& displayName)
 {
-	m_configurationValues["patternName"] = patternName;
-	m_configurationDataTypes["patternName"] = Palapeli::PatternConfiguration::String;
-	m_configurationValues["displayName"] = displayName;
-	m_configurationDataTypes["displayName"] = Palapeli::PatternConfiguration::String;
+	m_configurationValues["PatternName"] = patternName;
+	m_configurationDataTypes["PatternName"] = Palapeli::PatternConfiguration::String;
+	m_configurationValues["DisplayName"] = displayName;
+	m_configurationDataTypes["DisplayName"] = Palapeli::PatternConfiguration::String;
 }
 
 Palapeli::PatternConfigurationPrivate::~PatternConfigurationPrivate()

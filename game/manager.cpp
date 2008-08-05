@@ -188,7 +188,7 @@ bool Palapeli::ManagerPrivate::canLoadGame(const QString& name)
 	for (int i = 0; i < Palapeli::PatternTrader::self()->configurationCount(); ++i)
 	{
 		Palapeli::PatternConfiguration* patternConfig = Palapeli::PatternTrader::self()->configurationAt(i);
-		if (patternConfig->property("patternName").toString() == patternName)
+		if (patternConfig->property("PatternName").toString() == patternName)
 		{
 			patternConfiguration = patternConfig; //pattern found
 			break;
@@ -274,7 +274,7 @@ bool Palapeli::ManagerPrivate::saveGame(const QString& name)
 	KConfigGroup generalGroup(&config, Palapeli::Strings::GeneralGroupKey);
 	//write game name, pattern name, and configuration
 	generalGroup.writeEntry(Palapeli::Strings::GameNameKey, m_gameName);
-	QString patternName = m_patternConfiguration->property("patternName").toString();
+	QString patternName = m_patternConfiguration->property("PatternName").toString();
 	generalGroup.writeEntry(Palapeli::Strings::PatternKey, patternName);
 	KConfigGroup patternGroup(&config, Palapeli::Strings::PatternGroupKey);
 	m_patternConfiguration->writeArguments(&patternGroup);

@@ -71,7 +71,7 @@ setProperty("myprop", 3); //set default value
 			};
 			/**
 			 * \brief Constructs a new PatternConfiguration object.
-			 * This constructor creates the two properties \a "patternName" and \a "displayName" which are filled with the given values. You should not modify these properties after this initialisation.
+			 * This constructor creates the two properties \a "PatternName" and \a "DisplayName" which are filled with the given values. You should not modify these properties after this initialisation.
 			 *
 			 * For the parameters \a patternName and \a displayName, you should modify the plugin name and the display name in Palapeli::PatternPlugin.
 			 *

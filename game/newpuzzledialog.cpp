@@ -80,7 +80,7 @@ Palapeli::NewPuzzleDialogPrivate::NewPuzzleDialogPrivate()
 		QWidget* configWidget = new QWidget;
 		configuration->populateWidget(configWidget);
 		//add pattern config to UI
-		m_generalPattern->addItem(configuration->property("displayName").toString());
+		m_generalPattern->addItem(configuration->property("DisplayName").toString());
 		m_patternLayout->addWidget(configWidget);
 	}
 	QObject::connect(m_generalPattern, SIGNAL(activated(int)), m_patternLayout, SLOT(setCurrentIndex(int)));
