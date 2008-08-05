@@ -16,33 +16,3 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_NEWPUZZLEDIALOG_H
-#define PALAPELI_NEWPUZZLEDIALOG_H
-
-#include <KDialog>
-
-namespace Palapeli
-{
-
-	class NewPuzzleDialogPrivate;
-	class PatternConfiguration;
-
-	class NewPuzzleDialog : public KDialog
-	{
-		Q_OBJECT
-		public:
-			NewPuzzleDialog(QWidget*);
-			~NewPuzzleDialog();
-		Q_SIGNALS:
-			void startGame(const KUrl& imageUrl, int patternIndex);
-			void startGame(const QString& templateName);
-		public Q_SLOTS:
-			void showDialog();
-			void okWasClicked();
-		private:
-			NewPuzzleDialogPrivate* p;
-	};
-
-}
-
-#endif // PALAPELI_NEWPUZZLEDIALOG_H

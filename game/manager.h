@@ -69,6 +69,7 @@ namespace Palapeli
 			void updateGraphics();
 
 			void createGame(const KUrl& imageUrl, int patternIndex);
+			void createGame(const QString& templateName);
 			void loadGame(const QString& name);
 			bool saveGame(const QString& name);
 			bool autosaveGame();

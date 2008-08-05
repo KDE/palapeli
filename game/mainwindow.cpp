@@ -131,6 +131,7 @@ void Palapeli::MainWindowPrivate::setupDialogs()
 	m_newDialog = new Palapeli::NewPuzzleDialog(m_parent);
 	connect(m_parent->actionCollection()->action(KStandardGameAction::name(KStandardGameAction::New)), SIGNAL(triggered()), m_newDialog, SLOT(showDialog()));
 	connect(m_newDialog, SIGNAL(startGame(const KUrl&, int)), ppMgr(), SLOT(createGame(const KUrl&, int)));
+	connect(m_newDialog, SIGNAL(startGame(const QString&)), ppMgr(), SLOT(createGame(const QString&)));
 	//setup Settings UI
 	m_settingsUi->setupUi(m_settingsDialog->mainWidget());
 	m_settingsUi->checkAntialiasing->setCheckState(Settings::antialiasing() ? Qt::Checked : Qt::Unchecked);

@@ -7,3 +7,11 @@ X-KDE-PluginInfo-Author=John Severns
 X-KDE-PluginInfo-Email=
 X-KDE-PluginInfo-Website=http://commons.wikimedia.org/wiki/Image:European_honey_bee_extracts_nectar.jpg
 X-KDE-PluginInfo-License=Public Domain
+
+[Palapeli]
+Pattern=rectangular
+PieceCount=100
+
+[PatternArgs]
+XCount=10
+YCount=10

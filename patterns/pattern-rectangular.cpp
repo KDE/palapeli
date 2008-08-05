@@ -89,15 +89,15 @@ Palapeli::RectangularPatternConfiguration::RectangularPatternConfiguration(const
 	: Palapeli::PatternConfiguration(pluginName, displayName)
 {
 	//add properties
-	addProperty("xcount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in horizontal direction:"));
-	addProperty("ycount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in vertical direction:"));
+	addProperty("XCount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in horizontal direction:"));
+	addProperty("YCount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in vertical direction:"));
 	//set parameters (minimum and maximum in this case)
 	QVariantList params; params << 3 << 100;
-	addPropertyParameters("xcount", params);
-	addPropertyParameters("ycount", params);
+	addPropertyParameters("XCount", params);
+	addPropertyParameters("YCount", params);
 	//set default values
-	setProperty("xcount", 10);
-	setProperty("ycount", 10);
+	setProperty("XCount", 10);
+	setProperty("YCount", 10);
 }
 
 Palapeli::RectangularPatternConfiguration::~RectangularPatternConfiguration()
@@ -106,7 +106,7 @@ Palapeli::RectangularPatternConfiguration::~RectangularPatternConfiguration()
 
 Palapeli::Pattern* Palapeli::RectangularPatternConfiguration::createPattern() const
 {
-	return new Palapeli::RectangularPattern(property("xcount").toInt(), property("ycount").toInt());
+	return new Palapeli::RectangularPattern(property("XCount").toInt(), property("YCount").toInt());
 }
 
 //END Palapeli::RectangularPatternConfiguration

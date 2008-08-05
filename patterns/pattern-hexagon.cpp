@@ -160,14 +160,14 @@ Palapeli::HexagonalPatternConfiguration::HexagonalPatternConfiguration(const QSt
 {
 	//add properties
 	addProperty("xcount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in horizontal direction:"));
-	addProperty("ycount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in vertical direction:"));
+	addProperty("YCount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in vertical direction:"));
 	//set parameters (minimum and maximum in this case)
 	QVariantList params; params << 3 << 100;
 	addPropertyParameters("xcount", params);
-	addPropertyParameters("ycount", params);
+	addPropertyParameters("YCount", params);
 	//set default values
 	setProperty("xcount", 10);
-	setProperty("ycount", 10);
+	setProperty("YCount", 10);
 }
 
 Palapeli::HexagonalPatternConfiguration::~HexagonalPatternConfiguration()
@@ -176,7 +176,7 @@ Palapeli::HexagonalPatternConfiguration::~HexagonalPatternConfiguration()
 
 Palapeli::Pattern* Palapeli::HexagonalPatternConfiguration::createPattern() const
 {
-	return new Palapeli::HexagonalPattern(property("xcount").toInt(), property("ycount").toInt());
+	return new Palapeli::HexagonalPattern(property("xcount").toInt(), property("YCount").toInt());
 }
 
 //END Palapeli::HexagonalPatternConfiguration

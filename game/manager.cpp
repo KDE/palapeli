@@ -36,10 +36,14 @@
 #include "statemanager.h"
 #include "view.h"
 
+#include <QFile>
 #include <KConfig>
 #include <KConfigGroup>
+#include <KDebug>
+#include <KDesktopFile>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KStandardDirs>
 #include <KUrl>
 
 namespace Palapeli
@@ -52,6 +56,7 @@ namespace Palapeli
 		~ManagerPrivate();
 
 		bool canCreateGame(const KUrl& imageUrl, int patternIndex);
+		bool canCreateGame(const QString& templateFile);
 		bool canLoadGame(const QString& name);
 		bool initGame();
 		bool saveGame(const QString& name);
@@ -165,6 +170,48 @@ bool Palapeli::ManagerPrivate::canCreateGame(const KUrl& imageUrl, int patternIn
 	m_gameId = QUuid();
 	//load pattern configuration
 	m_patternConfiguration = Palapeli::PatternTrader::self()->configurationAt(patternIndex);
+	return true;
+}
+
+bool Palapeli::ManagerPrivate::canCreateGame(const QString& templateFile)
+{
+	KDesktopFile df(templateFile);
+	const QString path = templateFile.left(templateFile.lastIndexOf('/') + 1); //ends with a slash
+	//find image
+	const QString imageFile = path + df.readIcon();
+	//find pattern configuration
+	KConfigGroup generalGroup(&df, Palapeli::Strings::GeneralGroupKey);
+	const QString patternName = generalGroup.readEntry(Palapeli::Strings::PatternKey, QString());
+	Palapeli::PatternConfiguration* patternConfiguration = 0;
+	for (int i = 0; i < Palapeli::PatternTrader::self()->configurationCount(); ++i)
+	{
+		Palapeli::PatternConfiguration* patternConfig = Palapeli::PatternTrader::self()->configurationAt(i);
+		if (patternConfig->property("PatternName").toString() == patternName)
+		{
+			patternConfiguration = patternConfig; //pattern found
+			break;
+		}
+	}
+	if (patternConfiguration == 0)
+		return false; //no pattern found
+	//import image
+	Palapeli::GameStorage storage;
+	Palapeli::GameStorageItem item = storage.addItem(KUrl(imageFile), Palapeli::GameStorageItem::Image);
+	if (!item.exists())
+		return false;
+	if (!m_image.load(item.filePath()))
+	{
+		KMessageBox::error(m_window, i18n("File seems not to be an image file."));
+		return false;
+	}
+	m_imageId = item.id();
+	//game not saved - no GameStorage ID available
+	m_gameId = QUuid();
+	//load pattern configuration
+	m_patternConfiguration = patternConfiguration;
+	KConfigGroup patternGroup(&df, Palapeli::Strings::PatternGroupKey);
+	kDebug() << patternGroup.entryMap();
+	m_patternConfiguration->readArguments(&patternGroup);
 	return true;
 }
 
@@ -463,6 +510,24 @@ void Palapeli::Manager::createGame(const KUrl& url, int patternIndex)
 	if (!ensurePersistence())
 		return;
 	if (!p->canCreateGame(url, patternIndex))
+		return;
+	p->m_state.setPersistent(false); //current state was generated from user input (therefore not persistent)
+	p->m_gameName = QString();
+	emit interactionModeChanged(false);
+	p->initGame(); //partially asynchronous; slot finishGameLoading() will be called when finished
+}
+
+void Palapeli::Manager::createGame(const QString& templateName)
+{
+	//find configuration file for template
+	static const QString templateLocation = QLatin1String("puzzlelibrary/%1.desktop");
+	const QString templateFile = KStandardDirs::locate("appdata", templateLocation.arg(templateName));
+	if (templateFile.isEmpty())
+		return; //template does not exist
+	//usual creation sequence
+	if (!ensurePersistence())
+		return;
+	if (!p->canCreateGame(templateFile))
 		return;
 	p->m_state.setPersistent(false); //current state was generated from user input (therefore not persistent)
 	p->m_gameName = QString();

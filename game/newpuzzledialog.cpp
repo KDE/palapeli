@@ -137,13 +137,18 @@ void Palapeli::NewPuzzleDialog::showDialog()
 void Palapeli::NewPuzzleDialog::okWasClicked()
 {
 	hide();
-	if (p->m_tabWidget->currentIndex() == 1) //temporarily deactivate puzzle library (not yet functional)
+	switch (p->m_tabWidget->currentIndex())
 	{
-		KMessageBox::sorry(0, QLatin1String("The puzzle library is not functional yet."));
-		return;
+		case 0: //create new puzzle
+			if (p->m_patternLayout->currentWidget() != 0 && !p->m_generalImage->url().isEmpty())
+				emit startGame(p->m_generalImage->url(), p->m_patternLayout->currentIndex());
+			break;
+		case 1: //choose from library
+			QString selectedTemplate = p->m_library->selectedTemplate();
+			if (!selectedTemplate.isEmpty())
+				emit startGame(selectedTemplate);
+			break;
 	}
-	if (p->m_patternLayout->currentWidget() != 0 && !p->m_generalImage->url().isEmpty())
-		emit startGame(p->m_generalImage->url(), p->m_patternLayout->currentIndex());
 }
 
 #include "newpuzzledialog.moc"

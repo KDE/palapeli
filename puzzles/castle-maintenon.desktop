@@ -7,3 +7,11 @@ X-KDE-PluginInfo-Author=Eric Pouhier
 X-KDE-PluginInfo-Email=
 X-KDE-PluginInfo-Website=http://commons.wikimedia.org/wiki/Image:EPO_2432_wiki.jpg
 X-KDE-PluginInfo-License=FDL
+
+[Palapeli]
+Pattern=rectangular
+PieceCount=100
+
+[PatternArgs]
+XCount=10
+YCount=10

@@ -58,7 +58,8 @@ namespace Palapeli
 
 			enum
 			{
-				CommentRole = Qt::UserRole,
+				IdentifierRole = Qt::UserRole,
+				CommentRole,
 				AuthorRole
 			};
 		protected:
@@ -141,6 +142,8 @@ QVariant Palapeli::PuzzleLibraryModel::data(const QModelIndex& index, int role) 
 			return entry.name;
 		case Qt::DecorationRole:
 			return entry.image;
+		case Palapeli::PuzzleLibraryModel::IdentifierRole:
+			return entry.identifier;
 		case Palapeli::PuzzleLibraryModel::CommentRole:
 			return entry.comment;
 		case Palapeli::PuzzleLibraryModel::AuthorRole:
@@ -168,7 +171,7 @@ void Palapeli::PuzzleLibraryModel::doReload() //to be executed in a separate thr
 	QStringList puzzleFiles = dirs.findAllResources("data", QLatin1String("palapeli/puzzlelibrary/*.desktop"), KStandardDirs::NoDuplicates);
 	foreach (const QString& puzzleFile, puzzleFiles)
 	{
-		const QString identifier = puzzleFile.section('/', -1, -1).section('.', 1, 1);
+		const QString identifier = puzzleFile.section('/', -1, -1).section('.', 0, 0);
 		const KDesktopFile df(puzzleFile);
 		//gather data - name and comment
 		QString name = df.readName();
@@ -290,14 +293,16 @@ Palapeli::PuzzleLibrary::~PuzzleLibrary()
 	delete p;
 }
 
+QString Palapeli::PuzzleLibrary::selectedTemplate() const
+{
+	QModelIndexList selected = selectionModel()->selectedIndexes();
+	return selected.isEmpty() ? QString() : selected[0].data(Palapeli::PuzzleLibraryModel::IdentifierRole).toString();
+}
+
 void Palapeli::PuzzleLibrary::reload()
 {
 	p->m_model.reload();
 	//TODO: set selection on first item
-}
-
-void Palapeli::PuzzleLibrary::startSelectedGame()
-{
 }
 
 //END Palapeli::PuzzleLibrary

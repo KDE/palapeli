@@ -32,9 +32,10 @@ namespace Palapeli
 		public:
 			PuzzleLibrary(QWidget* parent = 0);
 			~PuzzleLibrary();
+
+			QString selectedTemplate() const;
 		public Q_SLOTS:
 			void reload();
-			void startSelectedGame();
 		private:
 			PuzzleLibraryPrivate* p;
 	};
