@@ -241,8 +241,10 @@ void Palapeli::PuzzleLibraryDelegate::paint(QPainter* painter, const QStyleOptio
 		painter->restore();
 	}
 	//block 2: draw piece count
-	static const QPixmap pieceCountIcon = KIcon("preferences-plugin").pixmap(IconSize, IconSize);
-	if (!pieceCountIcon.isNull())
+	static const QPixmap pieceCountIcon = KIcon("preferences-plugin").pixmap(IconSize, QIcon::Disabled);
+	const int pieceCount = index.data(Palapeli::PuzzleLibraryModel::PieceCountRole).toInt();
+	const QString pieceCountText = QString::number(pieceCount);
+	if (!pieceCountIcon.isNull() && pieceCount != 0)
 	{
 		//find metrics
 		int x = option.rect.right() - (Margin + IconSize);
@@ -250,27 +252,21 @@ void Palapeli::PuzzleLibraryDelegate::paint(QPainter* painter, const QStyleOptio
 			x = option.rect.left() + Margin;
 		//draw icon
 		painter->save();
-		painter->setOpacity(0.2);
+		painter->setOpacity(0.5);
 		painter->drawPixmap(QPointF(x, option.rect.y() + Margin), pieceCountIcon);
 		painter->restore();
-		//get piece count
-		const int pieceCount = index.data(Palapeli::PuzzleLibraryModel::PieceCountRole).toInt();
-		const QString pieceCountText = QString::number(pieceCount);
+		//adjust size of text to make text fit (this code assumes that the text's width is always >= its height, and that the relation between height and width is linear for different font sizes)
 		painter->save();
-		if (pieceCount != 0)
-		{
-			//adjust size of text to make text fit (this code assumes that the text's width is always >= its height, and that the relation between height and width is linear for different font sizes)
-			QFont font = option.font;
-			font.setWeight(QFont::Normal);
-			painter->setFont(font);
-			const QFontMetrics fm(font);
-			const QRect textRect = fm.boundingRect(pieceCountText);
-			static const int desiredTextWidth = IconSize / 2;
-			font.setPointSizeF(font.pointSizeF() * desiredTextWidth / textRect.width());
-			painter->setFont(font);
-			//draw text
-			painter->drawText(QRect(x, option.rect.y() + Margin, IconSize, IconSize), Qt::AlignCenter, pieceCountText);
-		}
+		QFont font = option.font;
+		font.setWeight(QFont::Normal);
+		painter->setFont(font);
+		const QFontMetrics fm(font);
+		const QRect textRect = fm.boundingRect(pieceCountText);
+		static const int desiredTextWidth = IconSize / 2;
+		font.setPointSizeF(font.pointSizeF() * desiredTextWidth / textRect.width());
+		painter->setFont(font);
+		//draw text
+		painter->drawText(QRect(x, option.rect.y() + Margin, IconSize, IconSize), Qt::AlignCenter, pieceCountText);
 		painter->restore();
 	}
 	//block 3: draw text between the icons
