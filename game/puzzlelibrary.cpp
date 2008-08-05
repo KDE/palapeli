@@ -31,7 +31,7 @@
 #include <QtConcurrentRun>
 #include <KConfigGroup>
 #include <KDesktopFile>
-#include <KIcon> //for temporary code
+#include <KIcon>
 #include <KLocalizedString>
 #include <KStandardDirs>
 
@@ -305,7 +305,12 @@ void Palapeli::PuzzleLibraryDelegate::paintLine(const QString& text, QRect& boun
 	const QRect textRect = fm.boundingRect(text);
 	int left = boundingRect.left() + Margin;
 	if (option.direction == Qt::RightToLeft)
-		left = boundingRect.right() - textRect.width() - Margin;
+	{
+		if (textRect.width() < boundingRect.width())
+			left = boundingRect.right() - textRect.width() - Margin;
+		else
+			left = boundingRect.left() + Margin;
+	}
 	boundingRect.setTop(boundingRect.top() + textRect.height());
 	painter->drawText(left, boundingRect.y(), fm.elidedText(text, option.textElideMode, boundingRect.width() - Margin));
 }
