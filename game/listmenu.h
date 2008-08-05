@@ -50,7 +50,7 @@ namespace Palapeli
 		Q_SIGNALS:
 			void clicked(const QString& displayRoleData);
 		private:
-			ListMenuPrivate* p;
+			ListMenuPrivate* const p;
 	};
 
 }

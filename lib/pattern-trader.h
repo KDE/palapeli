@@ -77,7 +77,7 @@ for (int i = 0; i < trader->configurationCount(); ++i)
 			~PatternTrader();
 			Q_DISABLE_COPY(PatternTrader)
 
-			PatternTraderPrivate* p;
+			PatternTraderPrivate* const p;
 	};
 
 }

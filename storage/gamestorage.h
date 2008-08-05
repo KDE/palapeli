@@ -61,7 +61,7 @@ namespace Palapeli
 
 		private:
 			Q_DISABLE_COPY(GameStorage)
-			GameStoragePrivate* d;
+			GameStoragePrivate* const d;
 
 			//interface for GameStorageItem
 			friend class GameStorageItem;

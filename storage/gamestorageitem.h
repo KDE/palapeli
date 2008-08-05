@@ -63,7 +63,7 @@ namespace Palapeli
 
 			operator QUuid() const;
 		private:
-			GameStorageItemPrivate* d;
+			GameStorageItemPrivate* const d;
 
 			//interface for GameStorage
 			friend class GameStorage;

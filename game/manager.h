@@ -91,7 +91,7 @@ namespace Palapeli
 			~Manager();
 			Q_DISABLE_COPY(Manager)
 
-			ManagerPrivate* p;
+			ManagerPrivate* const p;
 	};
 
 }

@@ -41,7 +41,7 @@ namespace Palapeli
 			void reset();
 			void setEnabled(bool enabled);
 		private:
-			AutosaverPrivate* p;
+			AutosaverPrivate* const p;
 	};
 
 }

@@ -40,7 +40,7 @@ namespace Palapeli
 			void showDialog();
 			void okWasClicked();
 		private:
-			NewPuzzleDialogPrivate* p;
+			NewPuzzleDialogPrivate* const p;
 	};
 
 }

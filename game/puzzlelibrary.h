@@ -37,7 +37,7 @@ namespace Palapeli
 		public Q_SLOTS:
 			void reload();
 		private:
-			PuzzleLibraryPrivate* p;
+			PuzzleLibraryPrivate* const p;
 	};
 
 }

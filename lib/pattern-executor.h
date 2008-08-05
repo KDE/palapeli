@@ -76,7 +76,7 @@ executor.start();
 		private Q_SLOTS:
 			void slotFinished();
 		private:
-			PatternExecutorPrivate* p;
+			PatternExecutorPrivate* const p;
 	};
 
 }

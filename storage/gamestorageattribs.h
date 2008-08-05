@@ -47,7 +47,7 @@ namespace Palapeli
 			virtual ~GameStorageTypeAttribute();
 			virtual bool test(const GameStorageItem& item) const;
 		private:
-			GameStorageTypeAttributePrivate* d;
+			GameStorageTypeAttributePrivate* const d;
 	};
 
 	class GameStorageMetaAttribute : public GameStorageAttribute
@@ -57,7 +57,7 @@ namespace Palapeli
 			virtual ~GameStorageMetaAttribute();
 			virtual bool test(const GameStorageItem& item) const;
 		private:
-			GameStorageMetaAttributePrivate* d;
+			GameStorageMetaAttributePrivate* const d;
 	};
 
 	class GameStorageExtensionAttribute : public GameStorageAttribute
@@ -67,7 +67,7 @@ namespace Palapeli
 			virtual ~GameStorageExtensionAttribute();
 			virtual bool test(const GameStorageItem& item) const;
 		private:
-			GameStorageExtensionAttributePrivate* d;
+			GameStorageExtensionAttributePrivate* const d;
 	};
 
 	class GameStorageDependencyAttribute : public GameStorageAttribute
@@ -83,7 +83,7 @@ namespace Palapeli
 			virtual ~GameStorageDependencyAttribute();
 			virtual bool test(const GameStorageItem& item) const;
 		private:
-			GameStorageDependencyAttributePrivate* d;
+			GameStorageDependencyAttributePrivate* const d;
 	};
 
 	class GameStorageNoDependencyAttribute : public GameStorageAttribute
@@ -93,7 +93,7 @@ namespace Palapeli
 			virtual ~GameStorageNoDependencyAttribute();
 			virtual bool test(const GameStorageItem& item) const;
 		private:
-			GameStorageNoDependencyAttributePrivate* d;
+			GameStorageNoDependencyAttributePrivate* const d;
 	};
 
 	class GameStorageAttributes
@@ -104,7 +104,7 @@ namespace Palapeli
 			GameStorageAttributes& operator<<(GameStorageAttribute* attribute);
 			bool test(const GameStorageItem& item) const;
 		private:
-			GameStorageAttributesPrivate* d;
+			GameStorageAttributesPrivate* const d;
 			Q_DISABLE_COPY(GameStorageAttributes)
 	};
 

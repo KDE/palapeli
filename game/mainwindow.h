@@ -41,7 +41,7 @@ namespace Palapeli
 		protected:
 			virtual void closeEvent(QCloseEvent* event);
 		private:
-			MainWindowPrivate* p;
+			MainWindowPrivate* const p;
 	};
 
 }

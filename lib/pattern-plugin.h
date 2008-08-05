@@ -82,7 +82,7 @@ K_EXPORT_PLUGIN(MyPatternFactory("mypattern"))
 			 */
 			QString displayName() const;
 		private:
-			PatternPluginPrivate* p;
+			PatternPluginPrivate* const p;
 	};
 
 }
