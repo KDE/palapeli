@@ -43,13 +43,9 @@ Palapeli::HexagonalPattern::~HexagonalPattern()
 {
 }
 
-int Palapeli::HexagonalPattern::estimatePieceCount() const
-{
-	return m_xCount * m_yCount;
-}
-
 void Palapeli::HexagonalPattern::doSlice(const QImage& image)
 {
+	reportPieceCount(2 * m_xCount * m_yCount); //rough estimate
 	const int width = image.width(), height = image.height();
 	const QSize imageSize(width, height);
 	const QRect imageRect(0, 0, width, height);

@@ -86,11 +86,6 @@ protected:
 			virtual ~Pattern();
 
 			/**
-			 * \brief Estimates the final piece count.
-			 * The Palapeli game engine will use this function in order to show a progress bar to the user.
-			 */
-			virtual int estimatePieceCount() const = 0;
-			/**
 			 * \brief For internal use only.
 			 * The Palapeli game engine will call this function if a game is loaded from the storage, in order to give the previous piece positions to the pattern. The base class will handle this process automatically as you create the pieces.
 			 */
@@ -117,14 +112,20 @@ protected:
 			 */
 			void addRelation(int piece1Id, int piece2Id);
 			/**
+			 * \brief Informs Palapeli about the number of pieces to expect.
+			 * Call this from your slicing algorithm to inform Palapeli about the number of pieces to be expected. (This should, of course, be done before any pieces are added to the scene.) The Palapeli game engine will use this information to show a progress bar to the user.
+			 */
+			void reportPieceCount(int pieceCount);
+			/**
 			 * \brief Provides the slicing algorithm.
 			 * This function splits a given image into pieces and defines relations between them. These pieces and relations are used to build the puzzle.
 			 * \param image the image to be sliced
-			 * \see addPiece
-			 * \see addRelation
+			 * \sa addPiece, addRelation, reportPieceCount
 			 */
 			virtual void doSlice(const QImage& image) = 0;
 		Q_SIGNALS:
+			/// \internal
+			void estimatePieceCountAvailable(int pieceCount);
 			/// \internal
 			void pieceGenerated(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition);
 			/// \internal

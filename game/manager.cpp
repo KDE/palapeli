@@ -284,9 +284,10 @@ bool Palapeli::ManagerPrivate::initGame()
 	m_preview->setImage(m_image);
 	//instantiate a pattern
 	Palapeli::Pattern* pattern = m_patternConfiguration->createPattern();
-	m_estimatePieceCount = pattern->estimatePieceCount();
+	m_estimatePieceCount = 0; //by now, we do not know how much pieces to await
 	if (!pieceBasePositions.isEmpty())
 		pattern->loadPiecePositions(pieceBasePositions);
+	QObject::connect(pattern, SIGNAL(estimatePieceCountAvailable(int)), m_manager, SLOT(estimatePieceCount(int)));
 	QObject::connect(pattern, SIGNAL(pieceGenerated(const QImage&, const QRectF&, const QPointF&)),
 		m_manager, SLOT(addPiece(const QImage&, const QRectF&, const QPointF&)));
 	QObject::connect(pattern, SIGNAL(allPiecesGenerated()),
@@ -441,6 +442,11 @@ void Palapeli::Manager::updateGraphics()
 }
 
 //gameplay
+
+void Palapeli::Manager::estimatePieceCount(int pieceCount)
+{
+	p->m_estimatePieceCount = qMax(0, pieceCount);
+}
 
 void Palapeli::Manager::addPiece(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition)
 {

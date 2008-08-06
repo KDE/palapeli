@@ -38,8 +38,6 @@ namespace Palapeli
 		public:
 			RectangularPattern(int xCount, int yCount);
 			virtual ~RectangularPattern();
-
-			virtual int estimatePieceCount() const;
 		protected:
 			virtual void doSlice(const QImage& image);
 		private:

@@ -38,8 +38,6 @@ namespace Palapeli
 		public:
 			HexagonalPattern(int xCount, int yCount);
 			virtual ~HexagonalPattern();
-
-			virtual int estimatePieceCount() const;
 		protected:
 			QPoint pieceBasePosition(int x, int y, const QSize& piece, const QSize& image) const;
 

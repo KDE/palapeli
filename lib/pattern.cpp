@@ -76,6 +76,11 @@ void Palapeli::Pattern::slice(const QImage& image)
 	doSlice(image);
 }
 
+void Palapeli::Pattern::reportPieceCount(int pieceCount)
+{
+	emit estimatePieceCountAvailable(pieceCount);
+}
+
 void Palapeli::Pattern::addPiece(const QImage& image, const QRectF& positionInImage)
 {
 	if (p->m_loadSceneBasePositions)
