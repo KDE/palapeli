@@ -1,6 +1,8 @@
 [Desktop Entry]
 Name=Castle of Maintenon
+Name[sv]=Maintenon-slottet
 Comment=Eure-et-Loir département, France
+Comment[sv]=Eure-et-Loir, franskt departement
 Icon=castle-maintenon.jpg
 
 X-KDE-PluginInfo-Author=Eric Pouhier

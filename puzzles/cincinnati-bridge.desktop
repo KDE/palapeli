@@ -1,6 +1,8 @@
 [Desktop Entry]
 Name=Roebling Suspension Bridge
+Name[sv]=Roebling-hängbron
 Comment=in Cincinnati
+Comment[sv]=I Cincinnati
 Icon=cincinnati-bridge.jpg
 
 X-KDE-PluginInfo-Author=Derek Jensen
