@@ -48,6 +48,7 @@ Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
 	, m_newDialog(0) //cannot be created until Manager has loaded the pattern plugins
 	, m_settingsDialog(new KDialog(parent))
 	, m_settingsUi(new Ui::SettingsWidget)
+	, m_puzzleProgress(new Palapeli::TextProgressBar)
 	, m_universalProgress(new Palapeli::TextProgressBar)
 {
 }
@@ -71,6 +72,7 @@ Palapeli::MainWindowPrivate::~MainWindowPrivate()
 	delete m_settingsDialog;
 	delete m_settingsUi;
 	//status bar
+	delete m_puzzleProgress;
 	delete m_universalProgress;
 }
 
@@ -214,7 +216,9 @@ Palapeli::MainWindow::MainWindow(QWidget* parent)
 	//status bar
 	statusBar()->show();
 	statusBar()->addPermanentWidget(p->m_universalProgress, 1);
+	statusBar()->addPermanentWidget(p->m_puzzleProgress, 1);
 	p->m_universalProgress->setText(i18n("Welcome to Palapeli."));
+	p->m_puzzleProgress->setText("Click \"New\" to start a new puzzle game.");
 	p->m_universalProgress->flush(5);
 	//initialise dialogs after entering the event loop (to speed up startup)
 	QTimer::singleShot(0, p, SLOT(setupDialogs()));
@@ -223,6 +227,31 @@ Palapeli::MainWindow::MainWindow(QWidget* parent)
 Palapeli::MainWindow::~MainWindow()
 {
 	delete p;
+}
+
+void Palapeli::MainWindow::reportPuzzleProgress(int pieceCount, int partCount)
+{
+	if (p->m_puzzleProgress->minimum() != 0)
+		p->m_puzzleProgress->setMinimum(0);
+	if (p->m_puzzleProgress->maximum() != pieceCount - 1)
+		p->m_puzzleProgress->setMaximum(pieceCount - 1);
+	const int value = pieceCount - partCount;
+	if (p->m_puzzleProgress->value() != value)
+	{
+		p->m_puzzleProgress->setValue(value);
+		if (partCount == 1)
+			p->m_puzzleProgress->setText(i18n("You finished the puzzle."));
+		else
+		{
+			int percentFinished = qreal(value) / qreal(pieceCount - 1) * 100;
+			p->m_puzzleProgress->setText(i18n("%1% finished", percentFinished));
+		}
+	}
+}
+
+void Palapeli::MainWindow::flushPuzzleProgress()
+{
+	p->m_universalProgress->flush(0);
 }
 
 void Palapeli::MainWindow::reportProgress(int minimum, int value, int maximum, const QString& message)

@@ -34,8 +34,11 @@ namespace Palapeli
 			MainWindow(QWidget* parent = 0);
 			~MainWindow();
 		public Q_SLOTS:
+			void reportPuzzleProgress(int pieceCount, int partCount);
+			void flushPuzzleProgress();
 			void reportProgress(int minimum, int value, int maximum, const QString& message);
 			void flushProgress(int secondsDelay);
+
 			void gameNameWasChanged(const QString& name);
 			void changeInteractionMode(bool allowGameInteraction);
 		protected:

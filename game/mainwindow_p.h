@@ -69,6 +69,7 @@ namespace Palapeli
 			KDialog* m_settingsDialog;
 			Ui::SettingsWidget* m_settingsUi;
 			//status bar
+			Palapeli::TextProgressBar* m_puzzleProgress;
 			Palapeli::TextProgressBar* m_universalProgress;
 	};
 

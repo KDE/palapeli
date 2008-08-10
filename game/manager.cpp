@@ -39,7 +39,6 @@
 #include <QFile>
 #include <KConfig>
 #include <KConfigGroup>
-#include <KDebug>
 #include <KDesktopFile>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -210,7 +209,6 @@ bool Palapeli::ManagerPrivate::canCreateGame(const QString& templateFile)
 	//load pattern configuration
 	m_patternConfiguration = patternConfiguration;
 	KConfigGroup patternGroup(&df, Palapeli::Strings::PatternGroupKey);
-	kDebug() << patternGroup.entryMap();
 	m_patternConfiguration->readArguments(&patternGroup);
 	return true;
 }
@@ -261,6 +259,7 @@ bool Palapeli::ManagerPrivate::canLoadGame(const QString& name)
 
 bool Palapeli::ManagerPrivate::initGame()
 {
+	m_window->flushPuzzleProgress();
 	//read piece positions if we're loading a game
 	QList<QPointF> pieceBasePositions;
 	if (!m_gameId.isNull())
@@ -506,7 +505,10 @@ void Palapeli::Manager::searchConnections()
 		}
 	}
 	if (combinedSomething)
+	{
+		p->m_window->reportPuzzleProgress(p->m_pieces.count(), p->m_parts.count());
 		updateGraphics();
+	}
 }
 
 //game instances
@@ -563,6 +565,7 @@ void Palapeli::Manager::finishGameLoading()
 	p->m_view->useScene(true);
 	p->m_autosaver->setEnabled(true);
 	p->m_autosaver->reset();
+	p->m_window->reportPuzzleProgress(p->m_pieces.count(), p->m_parts.count());
 	emit interactionModeChanged(true);
 	emit gameNameChanged(p->m_gameName);
 }

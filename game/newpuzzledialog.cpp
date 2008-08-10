@@ -37,7 +37,7 @@ namespace Palapeli
 	class NewPuzzleDialogPrivate
 	{
 		public:
-			NewPuzzleDialogPrivate();
+			NewPuzzleDialogPrivate(Palapeli::NewPuzzleDialog* parent);
 			~NewPuzzleDialogPrivate();
 
 			QTabWidget* m_tabWidget;
@@ -56,7 +56,7 @@ namespace Palapeli
 
 }
 
-Palapeli::NewPuzzleDialogPrivate::NewPuzzleDialogPrivate()
+Palapeli::NewPuzzleDialogPrivate::NewPuzzleDialogPrivate(Palapeli::NewPuzzleDialog* parent)
 	: m_tabWidget(new QTabWidget)
 	, m_newPuzzleWidget(new QWidget)
 	, m_newPuzzleLayout(new QVBoxLayout)
@@ -92,6 +92,8 @@ Palapeli::NewPuzzleDialogPrivate::NewPuzzleDialogPrivate()
 	//setup tab widget
 	m_tabWidget->addTab(m_newPuzzleWidget, KIcon("document-new"), i18n("Create new puzzle"));
 	m_tabWidget->addTab(m_library, KIcon("document-open"), i18n("Choose from library"));
+	//emulate "OK" button by double clicking on the puzzle library
+	QObject::connect(m_library, SIGNAL(doubleClicked(const QModelIndex&)), parent, SLOT(okWasClicked()));
 }
 
 Palapeli::NewPuzzleDialogPrivate::~NewPuzzleDialogPrivate()
@@ -110,7 +112,7 @@ Palapeli::NewPuzzleDialogPrivate::~NewPuzzleDialogPrivate()
 
 Palapeli::NewPuzzleDialog::NewPuzzleDialog(QWidget* parent)
 	: KDialog(parent)
-	, p(new Palapeli::NewPuzzleDialogPrivate)
+	, p(new Palapeli::NewPuzzleDialogPrivate(this))
 {
 	setCaption(i18n("Create a new jigsaw puzzle"));
 	setButtons(KDialog::Ok | KDialog::Cancel);
