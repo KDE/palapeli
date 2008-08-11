@@ -44,10 +44,16 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
+			enum PersistenceRequirement
+			{
+				ClosingApp,
+				StartingGame
+			};
+
 			static Manager* self();
 			void init();
 
-			bool ensurePersistence();
+			bool ensurePersistence(PersistenceRequirement requirement);
 			void removePart(Part* part);
 			//core objects (i.e. everything which is immediately relevant to gameplay)
 			int partCount() const;

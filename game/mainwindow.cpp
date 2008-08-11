@@ -288,7 +288,7 @@ void Palapeli::MainWindow::changeInteractionMode(bool allowGameInteraction)
 
 void Palapeli::MainWindow::closeEvent(QCloseEvent* event)
 {
-	ppMgr()->ensurePersistence() ? event->accept() : event->ignore();
+	ppMgr()->ensurePersistence(Palapeli::Manager::ClosingApp) ? event->accept() : event->ignore();
 }
 
 #include "mainwindow.moc"

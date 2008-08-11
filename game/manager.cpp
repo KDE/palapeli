@@ -541,7 +541,7 @@ void Palapeli::Manager::createGame(const QString& templateName)
 
 void Palapeli::Manager::loadGame(const QString& name)
 {
-	if (!ensurePersistence())
+	if (!ensurePersistence(Palapeli::Manager::StartingGame))
 		return;
 	if (!p->canLoadGame(name))
 		return;
@@ -622,20 +622,29 @@ void Palapeli::Manager::savegameWasCreated(const QString& name)
 	emit savegameCreated(name);
 }
 
-bool Palapeli::Manager::ensurePersistence()
+bool Palapeli::Manager::ensurePersistence(Palapeli::Manager::PersistenceRequirement requirement)
 {
 	if (p->m_state.isPersistent())
 		return true; //nothing to do
+	//this GuiItem is used in both of the following cases
+	KGuiItem continueItem(KStandardGuiItem::dontSave());
+	continueItem.setText(i18n("Continue to play"));
 	if (p->m_gameName.isEmpty())
 	{
 		//game has not yet been saved
-		const int answer = KMessageBox::warningContinueCancel(p->m_window, i18n("This will discard the game you're currently playing."));
-		return answer == KMessageBox::Continue;
+		KGuiItem cancelItem(KStandardGuiItem::cont());
+		switch (requirement)
+		{
+			case Palapeli::Manager::ClosingApp: cancelItem.setText(i18n("Close Palapeli")); break;
+			case Palapeli::Manager::StartingGame: cancelItem.setText(i18n("Start new puzzle")); break;
+		}
+		const int answer = KMessageBox::warningContinueCancel(p->m_window, i18n("This will discard the game you're currently playing."), QString(), continueItem, cancelItem);
+		return answer == KMessageBox::Cancel;
 	}
 	else
 	{
 		//game has already been saved previously - ask to save under same name again
-		const int answer = KMessageBox::warningYesNoCancel(p->m_window, i18n("Do you want to save the changes you made in this game?"));
+		const int answer = KMessageBox::warningYesNoCancel(p->m_window, i18n("Do you want to save the changes you made in this game?"), QString(), KStandardGuiItem::yes(), KStandardGuiItem::no(), continueItem);
 		switch (answer)
 		{
 			case KMessageBox::Yes:

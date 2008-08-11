@@ -129,7 +129,7 @@ Palapeli::NewPuzzleDialog::~NewPuzzleDialog()
 
 void Palapeli::NewPuzzleDialog::showDialog()
 {
-	if (ppMgr()->ensurePersistence())
+	if (ppMgr()->ensurePersistence(Palapeli::Manager::StartingGame))
 	{
 		show();
 		p->m_generalImage->setFocus(Qt::OtherFocusReason);
