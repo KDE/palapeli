@@ -1,2 +1,2 @@
 #! /bin/sh
-$XGETTEXT *.cpp -o $podir/paladesign.pot 
+$XGETTEXT ../storage/*.cpp *.cpp -o $podir/paladesign.pot 
