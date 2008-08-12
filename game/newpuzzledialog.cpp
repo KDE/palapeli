@@ -26,7 +26,6 @@
 #include <QFormLayout>
 #include <QGroupBox>
 #include <QStackedLayout>
-#include <QTabWidget>
 #include <QVBoxLayout>
 #include <KLocalizedString>
 #include <KUrlRequester>
@@ -40,7 +39,6 @@ namespace Palapeli
 			NewPuzzleDialogPrivate(Palapeli::NewPuzzleDialog* parent);
 			~NewPuzzleDialogPrivate();
 
-			QTabWidget* m_tabWidget;
 			QWidget* m_newPuzzleWidget;
 			QVBoxLayout* m_newPuzzleLayout;
 			Palapeli::PuzzleLibrary* m_library;
@@ -57,8 +55,7 @@ namespace Palapeli
 }
 
 Palapeli::NewPuzzleDialogPrivate::NewPuzzleDialogPrivate(Palapeli::NewPuzzleDialog* parent)
-	: m_tabWidget(new QTabWidget)
-	, m_newPuzzleWidget(new QWidget)
+	: m_newPuzzleWidget(new QWidget)
 	, m_newPuzzleLayout(new QVBoxLayout)
 	, m_library(new Palapeli::PuzzleLibrary)
 	, m_generalGroupBox(new QGroupBox(i18n("General settings")))
@@ -85,20 +82,16 @@ Palapeli::NewPuzzleDialogPrivate::NewPuzzleDialogPrivate(Palapeli::NewPuzzleDial
 	}
 	QObject::connect(m_generalPattern, SIGNAL(activated(int)), m_patternLayout, SLOT(setCurrentIndex(int)));
 	m_patternGroupBox->setLayout(m_patternLayout);
-	//main widget for first page
+	//setup main widget for first page
 	m_newPuzzleLayout->addWidget(m_generalGroupBox);
 	m_newPuzzleLayout->addWidget(m_patternGroupBox);
 	m_newPuzzleWidget->setLayout(m_newPuzzleLayout);
-	//setup tab widget
-	m_tabWidget->addTab(m_newPuzzleWidget, KIcon("document-new"), i18n("Create new puzzle"));
-	m_tabWidget->addTab(m_library, KIcon("document-open"), i18n("Choose from library"));
-	//emulate "OK" button by double clicking on the puzzle library
+	//setup puzzle library - emulate "OK" button by double clicking on the puzzle library
 	QObject::connect(m_library, SIGNAL(doubleClicked(const QModelIndex&)), parent, SLOT(okWasClicked()));
 }
 
 Palapeli::NewPuzzleDialogPrivate::~NewPuzzleDialogPrivate()
 {
-	delete m_tabWidget;
 	delete m_newPuzzleWidget;
 	delete m_newPuzzleLayout;
 	delete m_patternGroupBox;
@@ -111,15 +104,25 @@ Palapeli::NewPuzzleDialogPrivate::~NewPuzzleDialogPrivate()
 }
 
 Palapeli::NewPuzzleDialog::NewPuzzleDialog(QWidget* parent)
-	: KDialog(parent)
+	: KPageDialog(parent)
 	, p(new Palapeli::NewPuzzleDialogPrivate(this))
 {
-	setCaption(i18n("Create a new jigsaw puzzle"));
+	//setup KDialog
+	setCaption(i18n("New jigsaw puzzle"));
 	setButtons(KDialog::Ok | KDialog::Cancel);
 	setButtonText(KDialog::Ok, i18n("Start game"));
-	setMainWidget(p->m_tabWidget);
 	connect(this, SIGNAL(okClicked()), this, SLOT(okWasClicked()));
-	setMinimumWidth(500);
+	//setup KPageDialog
+	KPageWidgetItem* fromLibPage = new KPageWidgetItem(p->m_library, i18n("From library"));
+	fromLibPage->setHeader(i18n("Select a jigsaw puzzle from Palapeli's library"));
+	fromLibPage->setIcon(KIcon("document-open"));
+	addPage(fromLibPage);
+	KPageWidgetItem* fromImagePage = new KPageWidgetItem(p->m_newPuzzleWidget, i18n("From image"));
+	fromImagePage->setHeader(i18n("Create a new jigsaw puzzle from an image"));
+	fromImagePage->setIcon(KIcon("document-new"));
+	addPage(fromImagePage);
+	//scale the dialog down to its recommended (i.e. minimum) size
+	resize(1, 1);
 }
 
 Palapeli::NewPuzzleDialog::~NewPuzzleDialog()
@@ -139,17 +142,18 @@ void Palapeli::NewPuzzleDialog::showDialog()
 void Palapeli::NewPuzzleDialog::okWasClicked()
 {
 	hide();
-	switch (p->m_tabWidget->currentIndex())
+	if (currentPage()->widget() == p->m_newPuzzleWidget)
 	{
-		case 0: //create new puzzle
-			if (p->m_patternLayout->currentWidget() != 0 && !p->m_generalImage->url().isEmpty())
-				emit startGame(p->m_generalImage->url(), p->m_patternLayout->currentIndex());
-			break;
-		case 1: //choose from library
-			QString selectedTemplate = p->m_library->selectedTemplate();
-			if (!selectedTemplate.isEmpty())
-				emit startGame(selectedTemplate);
-			break;
+		//create new puzzle
+		if (p->m_patternLayout->currentWidget() != 0 && !p->m_generalImage->url().isEmpty())
+			emit startGame(p->m_generalImage->url(), p->m_patternLayout->currentIndex());
+	}
+	else
+	{
+		//choose from library
+		QString selectedTemplate = p->m_library->selectedTemplate();
+		if (!selectedTemplate.isEmpty())
+			emit startGame(selectedTemplate);
 	}
 }
 

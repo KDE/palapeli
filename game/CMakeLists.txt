@@ -34,7 +34,7 @@ set(palapeli_SRCS
 	../storage/gamestorageattribs.cpp
 	../storage/gamestorageitem.cpp
 )
-kde4_add_ui_files(palapeli_SRCS settings.ui)
+kde4_add_ui_files(palapeli_SRCS settings_appearance.ui settings_gameplay.ui)
 kde4_add_kcfg_files(palapeli_SRCS settings.kcfgc)
 
 kde4_add_executable(palapeli ${palapeli_SRCS})

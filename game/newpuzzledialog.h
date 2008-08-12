@@ -19,7 +19,7 @@
 #ifndef PALAPELI_NEWPUZZLEDIALOG_H
 #define PALAPELI_NEWPUZZLEDIALOG_H
 
-#include <KDialog>
+#include <KPageDialog>
 
 namespace Palapeli
 {
@@ -27,7 +27,7 @@ namespace Palapeli
 	class NewPuzzleDialogPrivate;
 	class PatternConfiguration;
 
-	class NewPuzzleDialog : public KDialog
+	class NewPuzzleDialog : public KPageDialog
 	{
 		Q_OBJECT
 		public:

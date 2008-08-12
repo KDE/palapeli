@@ -156,7 +156,6 @@ void Palapeli::Minimap::paintEvent(QPaintEvent*)
 		const Palapeli::Piece* piece = ppMgr()->pieceAt(i);
 		const QRectF pieceRect = piece->sceneBoundingRect();
 		//check if piece is out of range of minimap; in this case draw some marker on the border to indicate the piece
-		const qreal pieceX = pieceRect.x(), pieceY = pieceRect.y();
 		const qreal pieceWidth = pieceRect.width(), pieceHeight = pieceRect.height();
 		const QPointF pieceCenter = pieceRect.center();
 		const bool isBeyondLeft = pieceRect.left() <= 0, isBeyondRight = pieceRect.right() >= sceneSize.width();

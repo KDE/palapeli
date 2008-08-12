@@ -33,7 +33,7 @@ namespace Palapeli
 			Autosaver();
 			~Autosaver();
 
-			void setTimeInterval(int minutes, bool saveChange = true);
+			void setTimeInterval(int seconds, bool saveChange = true);
 			void setMoveInterval(int moveCount, bool saveChange = true);
 		public Q_SLOTS:
 			void countMove();

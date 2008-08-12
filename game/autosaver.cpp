@@ -59,26 +59,20 @@ Palapeli::Autosaver::~Autosaver()
 	delete p;
 }
 
-void Palapeli::Autosaver::setTimeInterval(int minutes, bool saveChange)
+void Palapeli::Autosaver::setTimeInterval(int seconds, bool saveChange)
 {
-	p->m_timer.setInterval(minutes * 60000); //interval is given in milliseconds
-	if (minutes == 0)
+	p->m_timer.setInterval(seconds * 1000); //interval is given in milliseconds
+	if (seconds == 0)
 		p->m_timer.stop(); //disable timer permanently
 	if (saveChange)
-	{
-		Settings::setAutosaveTime(minutes);
-		Settings::self()->writeConfig();
-	}
+		Settings::setAutosaveTime(seconds);
 }
 
 void Palapeli::Autosaver::setMoveInterval(int moveCount, bool saveChange)
 {
 	p->m_moveCount = moveCount;
 	if (saveChange)
-	{
 		Settings::setAutosaveMoves(moveCount);
-		Settings::self()->writeConfig();
-	}
 }
 
 void Palapeli::Autosaver::countMove()

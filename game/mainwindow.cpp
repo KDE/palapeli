@@ -46,8 +46,11 @@ Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
 	, m_savegameView(new Palapeli::SavegameView)
 	, m_dockSavegames(new QDockWidget(i18n("Saved games"), parent))
 	, m_newDialog(0) //cannot be created until Manager has loaded the pattern plugins
-	, m_settingsDialog(new KDialog(parent))
-	, m_settingsUi(new Ui::SettingsWidget)
+	, m_settingsDialog(new KPageDialog(parent))
+	, m_appearanceUi(new Ui::AppearanceSettingsWidget)
+	, m_appearanceContainer(new QWidget)
+	, m_gameplayUi(new Ui::GameplaySettingsWidget)
+	, m_gameplayContainer(new QWidget)
 	, m_puzzleProgress(new Palapeli::TextProgressBar)
 	, m_universalProgress(new Palapeli::TextProgressBar)
 {
@@ -70,7 +73,10 @@ Palapeli::MainWindowPrivate::~MainWindowPrivate()
 	//dialogs
 	delete m_newDialog;
 	delete m_settingsDialog;
-	delete m_settingsUi;
+	delete m_appearanceUi;
+	delete m_appearanceContainer;
+	delete m_gameplayUi;
+	delete m_gameplayContainer;
 	//status bar
 	delete m_puzzleProgress;
 	delete m_universalProgress;
@@ -134,42 +140,51 @@ void Palapeli::MainWindowPrivate::setupDialogs()
 	connect(m_parent->actionCollection()->action(KStandardGameAction::name(KStandardGameAction::New)), SIGNAL(triggered()), m_newDialog, SLOT(showDialog()));
 	connect(m_newDialog, SIGNAL(startGame(const KUrl&, int)), ppMgr(), SLOT(createGame(const KUrl&, int)));
 	connect(m_newDialog, SIGNAL(startGame(const QString&)), ppMgr(), SLOT(createGame(const QString&)));
-	//setup Settings UI
-	m_settingsUi->setupUi(m_settingsDialog->mainWidget());
-	m_settingsUi->checkAntialiasing->setChecked(Settings::antialiasing());
-	connect(m_settingsUi->checkAntialiasing, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
-	m_settingsUi->checkHardwareAccel->setChecked(Settings::hardwareAccel());
-	connect(m_settingsUi->checkHardwareAccel, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
-	m_settingsUi->checkMinimapQuality->setChecked(Settings::minimapQuality());
-	connect(m_settingsUi->checkMinimapQuality, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
-	m_settingsUi->precisionSlider->setValue(Settings::snappingPrecision());
-	connect(m_settingsUi->precisionSlider, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
+	//setup Settings UIs
+	m_appearanceUi->setupUi(m_appearanceContainer);
+	m_gameplayUi->setupUi(m_gameplayContainer);
+	m_appearanceUi->checkAntialiasing->setChecked(Settings::antialiasing());
+	connect(m_appearanceUi->checkAntialiasing, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
+	m_appearanceUi->checkHardwareAccel->setChecked(Settings::hardwareAccel());
+	connect(m_appearanceUi->checkHardwareAccel, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
+	m_appearanceUi->checkMinimapQuality->setChecked(Settings::minimapQuality());
+	connect(m_appearanceUi->checkMinimapQuality, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
+	m_gameplayUi->precisionSlider->setValue(Settings::snappingPrecision());
+	connect(m_gameplayUi->precisionSlider, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
 #ifndef PALAPELI_WITH_OPENGL
-	m_settingsUi->checkHardwareAccel->setVisible(false);
+	m_appearanceUi->checkHardwareAccel->setVisible(false);
 #endif
-	connect(m_settingsUi->radioAutosaveTime, SIGNAL(toggled(bool)), this, SLOT(configurationChanged()));
-	connect(m_settingsUi->spinAutosaveTime, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
+	connect(m_gameplayUi->radioAutosaveTime, SIGNAL(toggled(bool)), this, SLOT(configurationChanged()));
+	connect(m_gameplayUi->spinAutosaveTime, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
 	if (Settings::autosaveTime() != 0)
 	{
-		m_settingsUi->radioAutosaveTime->setChecked(true);
-		m_settingsUi->spinAutosaveTime->setValue(Settings::autosaveTime());
+		m_gameplayUi->radioAutosaveTime->setChecked(true);
+		m_gameplayUi->spinAutosaveTime->setValue(Settings::autosaveTime());
 	}
-	connect(m_settingsUi->radioAutosaveMove, SIGNAL(toggled(bool)), this, SLOT(configurationChanged()));
-	connect(m_settingsUi->spinAutosaveMove, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
+	connect(m_gameplayUi->radioAutosaveMove, SIGNAL(toggled(bool)), this, SLOT(configurationChanged()));
+	connect(m_gameplayUi->spinAutosaveMove, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
 	if (Settings::autosaveMoves() != 0)
 	{
-		m_settingsUi->radioAutosaveMove->setChecked(true);
-		m_settingsUi->spinAutosaveMove->setValue(Settings::autosaveMoves());
+		m_gameplayUi->radioAutosaveMove->setChecked(true);
+		m_gameplayUi->spinAutosaveMove->setValue(Settings::autosaveMoves());
 	}
-	//setup Settings dialog
+	//setup Settings KDialog
 	m_settingsDialog->setWindowIcon(KIcon("configure"));
 	m_settingsDialog->setCaption(i18n("Configure Palapeli"));
 	m_settingsDialog->setButtons(KDialog::Ok | KDialog::Apply | KDialog::Cancel);
-	m_settingsDialog->mainWidget()->layout()->setMargin(0);
 	m_settingsDialog->enableButtonApply(false); //not until something has changed
 	m_settingsDialog->resize(1, 1); //this lets the dialog scale down to its recommended (i.e. minimum) size
 	connect(m_settingsDialog, SIGNAL(okClicked()), this, SLOT(configurationFinished()));
 	connect(m_settingsDialog, SIGNAL(applyClicked()), this, SLOT(configurationFinished()));
+	//setups Settings KPageDialog
+	KPageWidgetItem* appearancePage = new KPageWidgetItem(m_appearanceContainer, i18n("Appearance"));
+	appearancePage->setHeader(i18n("Adjust the visual appearance and performance of Palapeli"));
+	appearancePage->setIcon(KIcon("games-config-board"));
+	m_settingsDialog->addPage(appearancePage);
+	KPageWidgetItem* gameplayPage = new KPageWidgetItem(m_gameplayContainer, i18n("Gameplay"));
+	gameplayPage->setHeader(i18n("Adjust the gameplay of Palapeli")); //TODO: this is not optimal from my POV
+	gameplayPage->setIcon(KIcon("games-config-custom"));
+	m_settingsDialog->addPage(gameplayPage);
 }
 
 void Palapeli::MainWindowPrivate::configurationChanged() //because of user-invoked changes in the dialog
@@ -180,18 +195,18 @@ void Palapeli::MainWindowPrivate::configurationChanged() //because of user-invok
 void Palapeli::MainWindowPrivate::configurationFinished()
 {
 	//apply settings
-	ppMgr()->view()->setAntialiasing(m_settingsUi->checkAntialiasing->isChecked());
-	ppMgr()->view()->setHardwareAccelerated(m_settingsUi->checkHardwareAccel->isChecked());
-	ppMgr()->minimap()->setQualityLevel(m_settingsUi->checkMinimapQuality->isChecked() ? 1 : 0);
-	if (m_settingsUi->radioAutosaveTime->isChecked())
-		ppMgr()->autosaver()->setTimeInterval(m_settingsUi->spinAutosaveTime->value());
+	ppMgr()->view()->setAntialiasing(m_appearanceUi->checkAntialiasing->isChecked());
+	ppMgr()->view()->setHardwareAccelerated(m_appearanceUi->checkHardwareAccel->isChecked());
+	ppMgr()->minimap()->setQualityLevel(m_appearanceUi->checkMinimapQuality->isChecked() ? 1 : 0);
+	if (m_gameplayUi->radioAutosaveTime->isChecked())
+		ppMgr()->autosaver()->setTimeInterval(m_gameplayUi->spinAutosaveTime->value());
 	else
 		ppMgr()->autosaver()->setTimeInterval(0);
-	if (m_settingsUi->radioAutosaveMove->isChecked())
-		ppMgr()->autosaver()->setMoveInterval(m_settingsUi->spinAutosaveMove->value());
+	if (m_gameplayUi->radioAutosaveMove->isChecked())
+		ppMgr()->autosaver()->setMoveInterval(m_gameplayUi->spinAutosaveMove->value());
 	else
 		ppMgr()->autosaver()->setMoveInterval(0);
-	Settings::setSnappingPrecision(m_settingsUi->precisionSlider->value());
+	Settings::setSnappingPrecision(m_gameplayUi->precisionSlider->value());
 	Settings::self()->writeConfig();
 	//mark settings as saved in the dialog
 	m_settingsDialog->enableButtonApply(false);

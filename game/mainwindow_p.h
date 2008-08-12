@@ -27,12 +27,12 @@
 #include "saveaction.h"
 #include "savegameview.h"
 #include "textprogressbar.h"
-#include "ui_settings.h"
+#include "ui_settings_appearance.h"
+#include "ui_settings_gameplay.h"
 
 #include <QDockWidget>
 #include <QProgressBar>
 #include <KAction>
-#include <KDialog>
 
 namespace Palapeli
 {
@@ -66,8 +66,11 @@ namespace Palapeli
 			QDockWidget* m_dockSavegames;
 			//dialogs
 			NewPuzzleDialog* m_newDialog;
-			KDialog* m_settingsDialog;
-			Ui::SettingsWidget* m_settingsUi;
+			KPageDialog* m_settingsDialog;
+			Ui::AppearanceSettingsWidget* m_appearanceUi;
+			QWidget* m_appearanceContainer;
+			Ui::GameplaySettingsWidget* m_gameplayUi;
+			QWidget* m_gameplayContainer;
 			//status bar
 			Palapeli::TextProgressBar* m_puzzleProgress;
 			Palapeli::TextProgressBar* m_universalProgress;

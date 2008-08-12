@@ -1,0 +1,67 @@
+<ui version="4.0" >
+ <class>AppearanceSettingsWidget</class>
+ <widget class="QWidget" name="AppearanceSettingsWidget" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>412</width>
+    <height>345</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout" >
+   <item>
+    <widget class="QGroupBox" name="tableBox" >
+     <property name="title" >
+      <string>Puzzle table</string>
+     </property>
+     <layout class="QVBoxLayout" name="graphicsLayout" >
+      <item>
+       <widget class="QCheckBox" name="checkAntialiasing" >
+        <property name="text" >
+         <string>Use antialiasing</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkHardwareAccel" >
+        <property name="text" >
+         <string>Use hardware acceleration</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="minimapBox" >
+     <property name="title" >
+      <string>Minimap</string>
+     </property>
+     <layout class="QVBoxLayout" name="graphicsLayout" >
+      <item>
+       <widget class="QCheckBox" name="checkMinimapQuality" >
+        <property name="text" >
+         <string>Enable transparency effects</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer" >
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+</ui>
