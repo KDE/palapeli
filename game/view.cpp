@@ -71,7 +71,6 @@ void Palapeli::View::setAntialiasing(bool useAntialiasing, bool forceApplication
 	if (Settings::antialiasing() == useAntialiasing && !forceApplication) //nothing to do (and application not forced)
 		return;
 	Settings::setAntialiasing(useAntialiasing);
-	Settings::self()->writeConfig();
 	//apply settings
 	setRenderHint(QPainter::Antialiasing, useAntialiasing);
 	setRenderHint(QPainter::HighQualityAntialiasing, useAntialiasing);
@@ -82,7 +81,6 @@ void Palapeli::View::setHardwareAccelerated(bool useHardware, bool forceApplicat
 	if (Settings::hardwareAccel() == useHardware && !forceApplication) //nothing to do (and application not forced)
 		return;
 	Settings::setHardwareAccel(useHardware);
-	Settings::self()->writeConfig();
 	//apply settings
 #ifdef PALAPELI_WITH_OPENGL
 	viewport()->deleteLater();

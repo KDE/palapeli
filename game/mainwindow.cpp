@@ -136,10 +136,12 @@ void Palapeli::MainWindowPrivate::setupDialogs()
 	connect(m_newDialog, SIGNAL(startGame(const QString&)), ppMgr(), SLOT(createGame(const QString&)));
 	//setup Settings UI
 	m_settingsUi->setupUi(m_settingsDialog->mainWidget());
-	m_settingsUi->checkAntialiasing->setCheckState(Settings::antialiasing() ? Qt::Checked : Qt::Unchecked);
+	m_settingsUi->checkAntialiasing->setChecked(Settings::antialiasing());
 	connect(m_settingsUi->checkAntialiasing, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
-	m_settingsUi->checkHardwareAccel->setCheckState(Settings::hardwareAccel() ? Qt::Checked : Qt::Unchecked);
+	m_settingsUi->checkHardwareAccel->setChecked(Settings::hardwareAccel());
 	connect(m_settingsUi->checkHardwareAccel, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
+	m_settingsUi->checkMinimapQuality->setChecked(Settings::minimapQuality());
+	connect(m_settingsUi->checkMinimapQuality, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
 	m_settingsUi->precisionSlider->setValue(Settings::snappingPrecision());
 	connect(m_settingsUi->precisionSlider, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
 #ifndef PALAPELI_WITH_OPENGL
@@ -180,6 +182,7 @@ void Palapeli::MainWindowPrivate::configurationFinished()
 	//apply settings
 	ppMgr()->view()->setAntialiasing(m_settingsUi->checkAntialiasing->isChecked());
 	ppMgr()->view()->setHardwareAccelerated(m_settingsUi->checkHardwareAccel->isChecked());
+	ppMgr()->minimap()->setQualityLevel(m_settingsUi->checkMinimapQuality->isChecked() ? 1 : 0);
 	if (m_settingsUi->radioAutosaveTime->isChecked())
 		ppMgr()->autosaver()->setTimeInterval(m_settingsUi->spinAutosaveTime->value());
 	else

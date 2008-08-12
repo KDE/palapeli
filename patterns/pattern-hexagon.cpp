@@ -45,7 +45,6 @@ Palapeli::HexagonalPattern::~HexagonalPattern()
 
 void Palapeli::HexagonalPattern::doSlice(const QImage& image)
 {
-	reportPieceCount(2 * m_xCount * m_yCount); //rough estimate
 	const int width = image.width(), height = image.height();
 	const QSize imageSize(width, height);
 	const QRect imageRect(0, 0, width, height);
@@ -75,15 +74,18 @@ void Palapeli::HexagonalPattern::doSlice(const QImage& image)
 	//Note that the pieces are ordered linearly in y direction, but not in x direction; i.e. (x,y + 1) and (x,y) have the same position in X direction, but (x + 1,y) and (x,y). That is the main characteristic of a hexagonal grid: One of the three main axes of this grid can equal a normal carthesic axis (the Y axis in this case), but the other carthesic axis is not an axis in this grid.
 	QList<QPoint> pieceIndices; //index (0,0) is at the center
 	//get (approximate) coordinate range for pieces
-	int maxX = 0, maxY = 0;
+	int maxX = 0, maxY = 0; int pieceCount = 1; //piece (0,0) is already counted
 	for (int x = 0; imageRect.intersects(pieceRect.translated(pieceBasePosition(x, 0, pieceSize, imageSize))); ++x)
 	{
+		maxX = qMax(x, maxX);
 		for (int y = 0; imageRect.intersects(pieceRect.translated(pieceBasePosition(x, y, pieceSize, imageSize))); ++y)
 		{
-			maxX = qMax(x, maxX);
 			maxY = qMax(y, maxY);
+			if (x + y >= 0)
+				pieceCount += 4; //because signs have not yet been taken into account, each piece has to be counted as four (except for (0,0) which was already counted once)
 		}
 	}
+	reportPieceCount(pieceCount);
 	//iterate through possible pieces
 	for (int x = -maxX; x <= maxX; ++x)
 	{

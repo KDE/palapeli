@@ -29,6 +29,8 @@ namespace Palapeli
 	{
 		public:
 			Minimap(QWidget* parent = 0);
+
+			void setQualityLevel(int level);
 		protected:
 			virtual void mousePressEvent(QMouseEvent* event);
 			virtual void mouseMoveEvent(QMouseEvent* event);
@@ -41,6 +43,7 @@ namespace Palapeli
 		private:
 			bool m_draggingViewport, m_viewportWasDragged;
 			QPoint m_draggingPreviousPos;
+			int m_qualityLevel;
 	};
 
 }

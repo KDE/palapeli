@@ -21,6 +21,7 @@
 #include "manager.h"
 #include "piece.h"
 #include "piecerelation.h"
+#include "settings.h"
 #include "view.h"
 
 #include <QMouseEvent>
@@ -31,9 +32,19 @@ Palapeli::Minimap::Minimap(QWidget* parent)
 	: QWidget(parent)
 	, m_draggingViewport(false)
 	, m_viewportWasDragged(false)
+	, m_qualityLevel(Settings::minimapQuality())
 {
 	setBackgroundRole(QPalette::Window);
 	setMinimumSize(150, 150);
+}
+
+void Palapeli::Minimap::setQualityLevel(int level)
+{
+	if (m_qualityLevel == level)
+		return;
+	m_qualityLevel = level;
+	update();
+	Settings::setMinimapQuality(level);
 }
 
 QRectF Palapeli::Minimap::viewport() const
@@ -122,112 +133,64 @@ void Palapeli::Minimap::paintEvent(QPaintEvent*)
 {
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
+
+	//set painting metrics
 	const QRectF sceneRect = ppMgr()->view()->realScene()->sceneRect();
 	const QSizeF sceneSize = sceneRect.size();
 	const qreal sceneWidth = sceneSize.width(), sceneHeight = sceneSize.height();
 	const qreal scalingFactor = qMin(width() / sceneWidth, height() / sceneHeight);
 	painter.scale(scalingFactor, scalingFactor);
 	painter.setClipRect(sceneRect);
-	const QPen pen(palette().highlight().color());
 
 	//draw view rectangle
 	painter.setBrush(palette().base());
 	painter.drawRect(viewport());
+
 	//draw piece positions
+	const QPen piecePen = painter.pen();
+	QColor pieceColor = palette().highlight().color();
+	pieceColor.setAlpha(m_qualityLevel == 1 ? 192 : 255);
+	const QBrush pieceBrush(pieceColor);
 	for (int i = 0; i < ppMgr()->pieceCount(); ++i)
 	{
 		const Palapeli::Piece* piece = ppMgr()->pieceAt(i);
 		const QRectF pieceRect = piece->sceneBoundingRect();
+		//check if piece is out of range of minimap; in this case draw some marker on the border to indicate the piece
 		const qreal pieceX = pieceRect.x(), pieceY = pieceRect.y();
 		const qreal pieceWidth = pieceRect.width(), pieceHeight = pieceRect.height();
-		qreal pieceCenterX = pieceX + 0.5 * pieceWidth, pieceCenterY = pieceY + 0.5 * pieceHeight; //may change!
-		const bool isBeyondLeft = pieceCenterX <= 0, isBeyondRight = pieceCenterX >= sceneSize.width();
-		const bool isAboveTop = pieceCenterY <= 0, isBelowBottom = pieceCenterY >= sceneSize.height();
-		//out of range of minimap - draw arrow which points to piece position
+		const QPointF pieceCenter = pieceRect.center();
+		const bool isBeyondLeft = pieceRect.left() <= 0, isBeyondRight = pieceRect.right() >= sceneSize.width();
+		const bool isAboveTop = pieceRect.top() <= 0, isBelowBottom = pieceRect.bottom() >= sceneSize.height();
+		const qreal markerWidth = pieceRect.width() / 3.0, markerHeight = pieceRect.height() / 3.0;
+		painter.setPen(Qt::NoPen);
+		painter.setBrush(pieceBrush); //TODO
 		if (isAboveTop)
 		{
-			if (isBeyondLeft)
-			{
-				painter.drawLine(0, 0, 0.5 * pieceWidth, 0.5 * pieceHeight);
-				painter.drawLine(0, 0, 0.25 * pieceWidth, 0);
-				painter.drawLine(0, 0, 0, 0.25 * pieceHeight);
-				pieceCenterX = 0;
-				pieceCenterY = 0;
-			}
-			else if (isBeyondRight)
-			{
-				painter.drawLine(sceneWidth, 0, sceneWidth - 0.5 * pieceWidth, 0.5 * pieceHeight);
-				painter.drawLine(sceneWidth, 0, sceneWidth - 0.25 * pieceWidth, 0);
-				painter.drawLine(sceneWidth, 0, sceneWidth, 0.25 * pieceHeight);
-				pieceCenterX = sceneWidth;
-				pieceCenterY = 0;
-			}
-			else
-			{
-				painter.drawLine(pieceCenterX, 0, pieceCenterX, 0.5 * pieceHeight);
-				painter.drawLine(pieceCenterX, 0, pieceCenterX - 0.25 * pieceWidth, 0.25 * pieceHeight);
-				painter.drawLine(pieceCenterX, 0, pieceCenterX + 0.25 * pieceWidth, 0.25 * pieceHeight);
-				pieceCenterY = 0;
-			}
+			const qreal left = qBound(markerWidth - pieceWidth, pieceRect.x(), sceneSize.width() - markerWidth);
+			const QRectF markerRect(left, 0, pieceRect.width(), markerHeight);
+			painter.drawRect(markerRect);
 		}
-		else if (isBelowBottom)
+		if (isBelowBottom)
 		{
-			if (isBeyondLeft)
-			{
-				painter.drawLine(0, sceneHeight, 0.5 * pieceWidth, sceneHeight - 0.5 * pieceHeight);
-				painter.drawLine(0, sceneHeight, 0.25 * pieceWidth, sceneHeight);
-				painter.drawLine(0, sceneHeight, 0, sceneHeight - 0.25 * pieceHeight);
-				pieceCenterX = 0;
-				pieceCenterY = sceneHeight;
-			}
-			else if (isBeyondRight)
-			{
-				painter.drawLine(sceneWidth, sceneHeight, sceneWidth - 0.5 * pieceWidth, sceneHeight - 0.5 * pieceHeight);
-				painter.drawLine(sceneWidth, sceneHeight, sceneWidth - 0.25 * pieceWidth, sceneHeight);
-				painter.drawLine(sceneWidth, sceneHeight, sceneWidth, sceneHeight - 0.25 * pieceHeight);
-				pieceCenterX = sceneWidth;
-				pieceCenterY = sceneHeight;
-			}
-			else
-			{
-				painter.drawLine(pieceCenterX, sceneHeight, pieceCenterX, sceneHeight - 0.5 * pieceHeight);
-				painter.drawLine(pieceCenterX, sceneHeight, pieceCenterX - 0.25 * pieceWidth, sceneHeight - 0.25 * pieceHeight);
-				painter.drawLine(pieceCenterX, sceneHeight, pieceCenterX + 0.25 * pieceWidth, sceneHeight - 0.25 * pieceHeight);
-				pieceCenterY = sceneHeight;
-			}
+			const qreal left = qBound(markerWidth - pieceWidth, pieceRect.x(), sceneSize.width() - markerWidth);
+			const QRectF markerRect(left, sceneSize.height(), pieceRect.width(), -markerHeight);
+			painter.drawRect(markerRect);
 		}
-		else if (isBeyondLeft)
+		if (isBeyondLeft)
 		{
-			painter.drawLine(0, pieceCenterY, 0.5 * pieceWidth, pieceCenterY);
-			painter.drawLine(0, pieceCenterY, 0.25 * pieceWidth, pieceCenterY - 0.25 * pieceHeight);
-			painter.drawLine(0, pieceCenterY, 0.25 * pieceWidth, pieceCenterY + 0.25 * pieceHeight);
-			pieceCenterX = 0;
+			const qreal top = qBound(markerHeight - pieceHeight, pieceRect.y(), sceneSize.height() - markerHeight);
+			const QRectF markerRect(0, top, markerWidth, pieceRect.height());
+			painter.drawRect(markerRect);
 		}
-		else if (isBeyondRight)
+		if (isBeyondRight)
 		{
-			painter.drawLine(sceneWidth, pieceCenterY, sceneWidth - 0.5 * pieceWidth, pieceCenterY);
-			painter.drawLine(sceneWidth, pieceCenterY, sceneWidth - 0.25 * pieceWidth, pieceCenterY - 0.25 * pieceHeight);
-			painter.drawLine(sceneWidth, pieceCenterY, sceneWidth - 0.25 * pieceWidth, pieceCenterY + 0.25 * pieceHeight);
-			pieceCenterX = sceneWidth;
+			const qreal top = qBound(markerHeight - pieceHeight, pieceRect.y(), sceneSize.height() - markerHeight);
+			const QRectF markerRect(sceneSize.width(), top, -markerWidth, pieceRect.height());
+			painter.drawRect(markerRect);
 		}
-		else
-		{
-			//draw cross at piece position
-			painter.drawLine(
-				pieceX + 0.25 * pieceWidth, pieceY + 0.25 * pieceHeight,
-				pieceX + 0.75 * pieceWidth, pieceY + 0.75 * pieceHeight
-			);
-			painter.drawLine(
-				pieceX + 0.75 * pieceWidth, pieceY + 0.25 * pieceHeight,
-				pieceX + 0.25 * pieceWidth, pieceY + 0.75 * pieceHeight
-			);
-		}
-	}
-	//draw lines to connected neighbors
-	for (int i = 0; i < ppMgr()->relationCount(); ++i)
-	{
-		Palapeli::PieceRelation rel = ppMgr()->relationAt(i);
-		if (rel.piece1()->part() == rel.piece2()->part())
-			painter.drawLine(rel.piece1()->sceneBoundingRect().center(), rel.piece2()->sceneBoundingRect().center());
+		//draw piece position - this has to be done after the above markers because the border would otherwise be destroyed
+		painter.setPen(piecePen);
+		painter.setBrush(pieceBrush);
+		painter.drawRect(pieceRect);
 	}
 }

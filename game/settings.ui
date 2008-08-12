@@ -30,6 +30,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QCheckBox" name="checkMinimapQuality" >
+        <property name="text" >
+         <string>Enable transparency effects on minimap</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
