@@ -96,10 +96,10 @@ void Palapeli::HexagonalPattern::doSlice(const QImage& image)
 			if (!pieceRect.translated(piecePosition).intersects(imageRect))
 				continue;
 			QImage thisPiece = image.copy(pieceRect.translated(piecePosition));
-			painter.begin(&thisPiece);
-			painter.setCompositionMode(QPainter::CompositionMode_DestinationIn);
-			painter.drawImage(pieceRect, mask, pieceRect);
-			painter.end();
+			QPainter thisPainter(&thisPiece);
+			thisPainter.setCompositionMode(QPainter::CompositionMode_DestinationIn);
+			thisPainter.drawImage(pieceRect.topLeft(), mask);
+			thisPainter.end();
 			addPiece(thisPiece, pieceRect.translated(piecePosition));
 			pieceIndices << QPoint(x, y);
 		}
