@@ -43,7 +43,7 @@ namespace Palapeli
 			void addPiece(Piece* piece);
 			void removePiece(Piece* piece);
 
-			void move(const QPointF& positionDifference);
+			void move(const QPointF& newBasePosition);
 			void update();
 		private:
 			QList<Piece*> m_pieces;

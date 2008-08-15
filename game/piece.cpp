@@ -30,7 +30,7 @@ Palapeli::Piece::Piece(const QPixmap& pixmap, const QRectF& positionInImage)
 	, m_positionInImage(positionInImage)
 	, m_moving(false)
 {
-	setAcceptedMouseButtons(Qt::LeftButton | Qt::RightButton);
+	setAcceptedMouseButtons(Qt::LeftButton);
 	setOffset(0.0, 0.0);
 
 	ppMgr()->view()->realScene()->addItem(this);
@@ -56,16 +56,29 @@ void Palapeli::Piece::setPart(Palapeli::Part* part)
 	m_part = part;
 }
 
+void Palapeli::Piece::makePositionValid(QPointF& basePosition) const
+{
+	//add constraints to the given base position to make this piece be placed in the scene boundaries
+	const QRectF sceneRect = ppMgr()->view()->realScene()->sceneRect();
+	basePosition.rx() = qBound(sceneRect.left() - m_positionInImage.left(), basePosition.x(), sceneRect.right() - m_positionInImage.right());
+	basePosition.ry() = qBound(sceneRect.top() - m_positionInImage.top(), basePosition.y(), sceneRect.bottom() - m_positionInImage.bottom());
+}
+
 void Palapeli::Piece::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
 	if (m_part)
+	{
 		m_moving = event->button() & Qt::LeftButton;
+		m_grabPosition = event->scenePos() - m_part->basePosition();
+	}
 }
 
 void Palapeli::Piece::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
 	if (m_part && m_moving)
-		m_part->move(event->scenePos() - event->lastScenePos());
+	{
+		m_part->move(event->scenePos() - m_grabPosition);
+	}
 }
 
 void Palapeli::Piece::mouseReleaseEvent(QGraphicsSceneMouseEvent*)

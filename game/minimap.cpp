@@ -147,49 +147,9 @@ void Palapeli::Minimap::paintEvent(QPaintEvent*)
 	painter.drawRect(viewport());
 
 	//draw piece positions
-	const QPen piecePen = painter.pen();
 	QColor pieceColor = palette().highlight().color();
 	pieceColor.setAlpha(m_qualityLevel == 1 ? 192 : 255);
-	const QBrush pieceBrush(pieceColor);
+	painter.setBrush(pieceColor);
 	for (int i = 0; i < ppMgr()->pieceCount(); ++i)
-	{
-		const Palapeli::Piece* piece = ppMgr()->pieceAt(i);
-		const QRectF pieceRect = piece->sceneBoundingRect();
-		//check if piece is out of range of minimap; in this case draw some marker on the border to indicate the piece
-		const qreal pieceWidth = pieceRect.width(), pieceHeight = pieceRect.height();
-		const QPointF pieceCenter = pieceRect.center();
-		const bool isBeyondLeft = pieceRect.left() <= 0, isBeyondRight = pieceRect.right() >= sceneSize.width();
-		const bool isAboveTop = pieceRect.top() <= 0, isBelowBottom = pieceRect.bottom() >= sceneSize.height();
-		const qreal markerWidth = pieceRect.width() / 3.0, markerHeight = pieceRect.height() / 3.0;
-		painter.setPen(Qt::NoPen);
-		painter.setBrush(pieceBrush); //TODO
-		if (isAboveTop)
-		{
-			const qreal left = qBound(markerWidth - pieceWidth, pieceRect.x(), sceneSize.width() - markerWidth);
-			const QRectF markerRect(left, 0, pieceRect.width(), markerHeight);
-			painter.drawRect(markerRect);
-		}
-		if (isBelowBottom)
-		{
-			const qreal left = qBound(markerWidth - pieceWidth, pieceRect.x(), sceneSize.width() - markerWidth);
-			const QRectF markerRect(left, sceneSize.height(), pieceRect.width(), -markerHeight);
-			painter.drawRect(markerRect);
-		}
-		if (isBeyondLeft)
-		{
-			const qreal top = qBound(markerHeight - pieceHeight, pieceRect.y(), sceneSize.height() - markerHeight);
-			const QRectF markerRect(0, top, markerWidth, pieceRect.height());
-			painter.drawRect(markerRect);
-		}
-		if (isBeyondRight)
-		{
-			const qreal top = qBound(markerHeight - pieceHeight, pieceRect.y(), sceneSize.height() - markerHeight);
-			const QRectF markerRect(sceneSize.width(), top, -markerWidth, pieceRect.height());
-			painter.drawRect(markerRect);
-		}
-		//draw piece position - this has to be done after the above markers because the border would otherwise be destroyed
-		painter.setPen(piecePen);
-		painter.setBrush(pieceBrush);
-		painter.drawRect(pieceRect);
-	}
+		painter.drawRect(ppMgr()->pieceAt(i)->sceneBoundingRect());
 }

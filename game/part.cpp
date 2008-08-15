@@ -75,11 +75,17 @@ void Palapeli::Part::removePiece(Palapeli::Piece* piece)
 	}
 }
 
-void Palapeli::Part::move(const QPointF& positionDifference)
+void Palapeli::Part::move(const QPointF& newBasePosition)
 {
-	if (positionDifference.isNull())
+	//check if a change is necessary at all
+	if (newBasePosition == m_basePosition)
 		return;
-	m_basePosition += positionDifference;
+	//check if pieces would go out of the scene because of this move
+	QPointF mutableNewBasePosition(newBasePosition);
+	foreach (Palapeli::Piece* piece, m_pieces)
+		piece->makePositionValid(mutableNewBasePosition);
+	//do move
+	m_basePosition = mutableNewBasePosition;
 	update();
 	ppMgr()->updateGraphics();
 }

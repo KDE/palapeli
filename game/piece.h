@@ -37,6 +37,8 @@ namespace Palapeli
 
 			Part* part() const;
 			void setPart(Part* part);
+
+			void makePositionValid(QPointF& basePosition) const;
 		protected:
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
@@ -44,7 +46,9 @@ namespace Palapeli
 		private:
 			Part* m_part;
 			QRectF m_positionInImage;
+
 			bool m_moving;
+			QPointF m_grabPosition;
 	};
 
 }
