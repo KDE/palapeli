@@ -71,7 +71,7 @@ void Palapeli::HexagonalPattern::doSlice(const QImage& image)
 	painter.drawPath(path);
 	painter.end();
 	//block 2: create pieces
-	//Note that the pieces are ordered linearly in y direction, but not in x direction; i.e. (x,y + 1) and (x,y) have the same position in X direction, but (x + 1,y) and (x,y). That is the main characteristic of a hexagonal grid: One of the three main axes of this grid can equal a normal carthesic axis (the Y axis in this case), but the other carthesic axis is not an axis in this grid.
+	//Note that the pieces are ordered linearly in y direction, but not in x direction; i.e. (x,y + 1) and (x,y) have the same position in X direction, but (x + 1,y) and (x,y) do not have the same position in Y direction. That is the main characteristic of a hexagonal grid: One of the three main axes of this grid can equal a normal carthesic axis (the Y axis in this case), but the other carthesic axis may not.
 	QList<QPoint> pieceIndices; //index (0,0) is at the center
 	//get (approximate) coordinate range for pieces
 	int maxX = 0, maxY = 0; int pieceCount = 1; //piece (0,0) is already counted
@@ -91,16 +91,16 @@ void Palapeli::HexagonalPattern::doSlice(const QImage& image)
 	{
 		for (int y = -maxY; y <= maxY; ++y)
 		{
-			//create mask for this piece - TODO: optimise this
-			const QPoint piecePosition = pieceBasePosition(x, y, pieceSize, imageSize);
-			if (!pieceRect.translated(piecePosition).intersects(imageRect))
+			//find position of this piece
+			const QPoint thisPiecePosition = pieceBasePosition(x, y, pieceSize, imageSize);
+			const QRect thisPieceFullRect = pieceRect.translated(thisPiecePosition);
+			if (!thisPieceFullRect.intersects(imageRect))
 				continue;
-			QImage thisPiece = image.copy(pieceRect.translated(piecePosition));
-			QPainter thisPainter(&thisPiece);
-			thisPainter.setCompositionMode(QPainter::CompositionMode_DestinationIn);
-			thisPainter.drawImage(pieceRect.topLeft(), mask);
-			thisPainter.end();
-			addPiece(thisPiece, pieceRect.translated(piecePosition));
+			//find actual size of this piece (may be smaller than expected because of the image boundaries)
+			const QRect thisPieceRect = thisPieceFullRect.intersected(imageRect); //only the part of thisPieceFullRect that actually contains an image
+			const QRect thisMaskRect(thisPieceRect.topLeft() - thisPieceFullRect.topLeft(), thisPieceRect.size()); //only the part of the mask that belongs to the image in thisPieceRect (the full mask is for the thisPieceFullRect)
+			//crop image and mask (if necessary), pass them to Palapeli
+			addPiece(image.copy(thisPieceRect), mask.copy(thisMaskRect), thisPieceRect);
 			pieceIndices << QPoint(x, y);
 		}
 	}

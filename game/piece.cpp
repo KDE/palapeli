@@ -23,6 +23,7 @@
 #include "view.h"
 
 #include <QGraphicsSceneMouseEvent>
+#include <QPainter>
 
 Palapeli::Piece::Piece(const QPixmap& pixmap, const QRectF& positionInImage)
 	: QGraphicsPixmapItem(pixmap)
@@ -34,6 +35,17 @@ Palapeli::Piece::Piece(const QPixmap& pixmap, const QRectF& positionInImage)
 	setOffset(0.0, 0.0);
 
 	ppMgr()->view()->realScene()->addItem(this);
+}
+
+Palapeli::Piece* Palapeli::Piece::fromPixmapPair(const QPixmap& pixmap, const QPixmap& mask, const QRectF& positionInImage)
+{
+	//return new Palapeli::Piece(pixmap, positionInImage);
+	QPixmap compositePixmap(mask); //need a non-const QPixmap
+	QPainter painter(&compositePixmap);
+	painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+	painter.drawPixmap(QPoint(0, 0), pixmap);
+	painter.end();
+	return new Palapeli::Piece(compositePixmap, positionInImage);
 }
 
 QPointF Palapeli::Piece::positionInImage() const

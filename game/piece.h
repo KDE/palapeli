@@ -31,6 +31,7 @@ namespace Palapeli
 	{
 		public:
 			Piece(const QPixmap& pixmap, const QRectF& positionInImage);
+			static Piece* fromPixmapPair(const QPixmap& pixmap, const QPixmap& mask, const QRectF& positionInImage);
 
 			QPointF positionInImage() const;
 			QSizeF size() const;

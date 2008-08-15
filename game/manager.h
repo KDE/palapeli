@@ -84,6 +84,8 @@ namespace Palapeli
 		protected Q_SLOTS:
 			void estimatePieceCount(int pieceCount);
 			void addPiece(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition);
+			void addPiece(const QImage& baseImage, const QImage& mask, const QRectF& positionInImage, const QPointF& sceneBasePosition);
+			void addPiece(Palapeli::Piece* piece, const QPointF& sceneBasePosition);
 			void endAddPiece();
 			void addRelation(int piece1Id, int piece2Id);
 		private Q_SLOTS:

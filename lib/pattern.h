@@ -86,12 +86,12 @@ protected:
 			virtual ~Pattern();
 
 			/**
-			 * \brief For internal use only.
+			 * \internal
 			 * The Palapeli game engine will call this function if a game is loaded from the storage, in order to give the previous piece positions to the pattern. The base class will handle this process automatically as you create the pieces.
 			 */
 			void loadPiecePositions(const QList<QPointF>& points);
 			/**
-			 * \brief For internal use only.
+			 * \internal
 			 * The Palapeli game engine will call this function to create pieces from a given \a image. You will not need this function, but you will need to implement the actual slicing in the doSlice function.
 			 * \sa doSlice
 			 */
@@ -104,6 +104,12 @@ protected:
 			 * \param positionInImage the bounding box of the piece (or more precisely, the bounding box of the \a image, including any transparent areas!)
 			 */
 			void addPiece(const QImage& image, const QRectF& positionInImage);
+			/**
+			 * \brief Adds a piece to the puzzle scene.
+			 * \overload
+			 * This overload adds the possibility to pass a \a mask which will define a shape to be cut out from the given \a baseImage. This is useful because some environments seem to have problems with image composition in non-GUI threads.
+			 */
+			void addPiece(const QImage& baseImage, const QImage& mask, const QRectF& positionInImage);
 			/**
 			 * \brief Adds a neighbor relation between two pieces.
 			 * \param piece1Id the index of the first piece (assigned by order of addPiece operations, starting at zero)
@@ -129,10 +135,14 @@ protected:
 			/// \internal
 			void pieceGenerated(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition);
 			/// \internal
+			void pieceGenerated(const QImage& image, const QImage& mask, const QRectF& positionInImage, const QPointF& sceneBasePosition);
+			/// \internal
 			void allPiecesGenerated();
 			/// \internal
 			void relationGenerated(int piece1Id, int piece2Id);
 		private:
+			QPointF generateNextBasePosition(const QRectF& positionInImage);
+
 			PatternPrivate* const p;
 	};
 }

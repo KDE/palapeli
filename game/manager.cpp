@@ -289,6 +289,8 @@ bool Palapeli::ManagerPrivate::initGame()
 	QObject::connect(pattern, SIGNAL(estimatePieceCountAvailable(int)), m_manager, SLOT(estimatePieceCount(int)));
 	QObject::connect(pattern, SIGNAL(pieceGenerated(const QImage&, const QRectF&, const QPointF&)),
 		m_manager, SLOT(addPiece(const QImage&, const QRectF&, const QPointF&)));
+	QObject::connect(pattern, SIGNAL(pieceGenerated(const QImage&, const QImage&, const QRectF&, const QPointF&)),
+		m_manager, SLOT(addPiece(const QImage&, const QImage&, const QRectF&, const QPointF&)));
 	QObject::connect(pattern, SIGNAL(allPiecesGenerated()),
 		m_manager, SLOT(endAddPiece()));
 	QObject::connect(pattern, SIGNAL(relationGenerated(int, int)),
@@ -450,6 +452,17 @@ void Palapeli::Manager::estimatePieceCount(int pieceCount)
 void Palapeli::Manager::addPiece(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition)
 {
 	Palapeli::Piece* piece = new Palapeli::Piece(QPixmap::fromImage(image), positionInImage);
+	addPiece(piece, sceneBasePosition);
+}
+
+void Palapeli::Manager::addPiece(const QImage& baseImage, const QImage& mask, const QRectF& positionInImage, const QPointF& sceneBasePosition)
+{
+	Palapeli::Piece* piece = Palapeli::Piece::fromPixmapPair(QPixmap::fromImage(baseImage), QPixmap::fromImage(mask), positionInImage);
+	addPiece(piece, sceneBasePosition);
+}
+
+void Palapeli::Manager::addPiece(Palapeli::Piece* piece, const QPointF& sceneBasePosition)
+{
 	p->m_pieces << piece;
 	p->m_parts << new Palapeli::Part(piece);
 	piece->part()->setBasePosition(sceneBasePosition);

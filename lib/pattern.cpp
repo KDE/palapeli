@@ -17,11 +17,13 @@
  ***************************************************************************/
 
 #include "pattern.h"
+#include "pattern-executor.h"
 
 #include <ctime>
 #include <QApplication>
 #include <QImage>
 #include <QList>
+#include <QPainter>
 
 namespace Palapeli
 {
@@ -31,6 +33,8 @@ namespace Palapeli
 		public:
 			PatternPrivate();
 			~PatternPrivate();
+
+			PatternExecutor* m_executor;
 
 			int m_pieceCounter;
 			QSize m_imageSize;
@@ -43,7 +47,8 @@ namespace Palapeli
 }
 
 Palapeli::PatternPrivate::PatternPrivate()
-	: m_pieceCounter(0)
+	: m_executor(0)
+	, m_pieceCounter(0)
 	, m_loadSceneBasePositions(false)
 	, m_emittedAllPiecesGeneratedSignal(false)
 {
@@ -76,6 +81,21 @@ void Palapeli::Pattern::slice(const QImage& image)
 	doSlice(image);
 }
 
+QPointF Palapeli::Pattern::generateNextBasePosition(const QRectF& positionInImage)
+{
+	if (p->m_loadSceneBasePositions)
+		return p->m_sceneBasePositions.value(p->m_pieceCounter++);
+	else
+	{
+		++p->m_pieceCounter; //unused in this case
+		const int sceneWidth = 2 * p->m_imageSize.width();
+		const int sceneHeight = 2 * p->m_imageSize.height();
+		const int leftEdgePos = qrand() % (sceneWidth - (int) positionInImage.width());
+		const int topEdgePos = qrand() % (sceneHeight - (int) positionInImage.height());
+		return QPointF(leftEdgePos - positionInImage.left(), topEdgePos - positionInImage.top());
+	}
+}
+
 void Palapeli::Pattern::reportPieceCount(int pieceCount)
 {
 	emit estimatePieceCountAvailable(pieceCount);
@@ -83,18 +103,12 @@ void Palapeli::Pattern::reportPieceCount(int pieceCount)
 
 void Palapeli::Pattern::addPiece(const QImage& image, const QRectF& positionInImage)
 {
-	if (p->m_loadSceneBasePositions)
-		emit pieceGenerated(image, positionInImage, p->m_sceneBasePositions.value(p->m_pieceCounter));
-	else
-	{
-		const int sceneWidth = 2 * p->m_imageSize.width();
-		const int sceneHeight = 2 * p->m_imageSize.height();
-		const int leftEdgePos = qrand() % (sceneWidth - (int) positionInImage.width());
-		const int topEdgePos = qrand() % (sceneHeight - (int) positionInImage.height());
-		const QPointF basePosition(leftEdgePos - positionInImage.left(), topEdgePos - positionInImage.top());
-		emit pieceGenerated(image, positionInImage, basePosition);
-	}
-	++p->m_pieceCounter;
+	emit pieceGenerated(image, positionInImage, generateNextBasePosition(positionInImage));
+}
+
+void Palapeli::Pattern::addPiece(const QImage& baseImage, const QImage& mask, const QRectF& positionInImage)
+{
+	emit pieceGenerated(baseImage, mask, positionInImage, generateNextBasePosition(positionInImage));
 }
 
 void Palapeli::Pattern::addRelation(int piece1Id, int piece2Id)
