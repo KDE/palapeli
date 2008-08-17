@@ -133,7 +133,7 @@ void Palapeli::PuzzleLibraryModel::reload()
 	if (!m_loader.isRunning())
 	{
 		//flush entries list
-		beginRemoveRows(QModelIndex(), 0, m_entries.count() - 1);
+		beginRemoveRows(QModelIndex(), 0, qMax(m_entries.count() - 1, 0));
 		m_entries.clear();
 		endRemoveRows();
 		//start to load new entries
