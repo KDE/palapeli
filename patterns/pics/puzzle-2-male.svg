@@ -6,21 +6,21 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.0"
-   width="150"
-   height="150"
+   width="200"
+   height="200"
    id="svg2">
   <defs
      id="defs4">
     <inkscape:perspective
-       sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 75 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="150 : 75 : 1"
+       id="perspective2453"
        inkscape:persp3d-origin="75 : 50 : 1"
-       id="perspective2453" />
+       inkscape:vp_z="150 : 75 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 75 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <path
-     d="M 69.999852,75.000006 L 119.99986,25.000005 L 124.99986,25.000005 C 127.32246,30.827825 123.82479,40.470975 129.67123,43.861335 C 138.52944,48.998235 147.30188,40.293415 148.56396,65.032775 C 149.9043,91.306455 147.96029,112.81986 128.84759,90.544385 C 121.37142,81.831055 126.15279,113.59258 124.99986,125 L 119.99986,125 L 69.999852,75.000006 z "
+     d="M 95,100.00001 L 145.00001,50.000005 L 150.00001,50.000005 C 152.32261,55.827825 148.82494,65.470975 154.67138,68.861335 C 163.52959,73.998235 172.30203,65.293415 173.56411,90.032775 C 174.90445,116.30645 172.96044,137.81986 153.84774,115.54439 C 146.37157,106.83106 151.15294,138.59258 150.00001,150 L 145.00001,150 L 95,100.00001 z "
      style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
      id="path2462" />
 </svg>

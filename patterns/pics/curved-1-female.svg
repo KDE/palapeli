@@ -4,13 +4,13 @@
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    version="1.0"
-   width="150"
-   height="150"
+   width="200"
+   height="200"
    id="svg2">
   <defs
      id="defs4" />
   <path
-     d="M 80,75 L 30,25 L 25,25 C 25,25 35,50 35,75 C 35,100 25,125 25,125 L 30,125 L 80,75 z "
+     d="M 105,100 L 55,50 L 50,50 C 50,50 60,75 60,100 C 60,125 50,150 50,150 L 55,150 L 105,100 z "
      style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
      id="rect2385" />
 </svg>

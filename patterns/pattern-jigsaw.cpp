@@ -76,7 +76,7 @@ void Palapeli::JigsawPattern::doSlice(const QImage& image)
 	reportPieceCount(m_xCount * m_yCount);
 	const int width = image.width(), height = image.height();
 	const int pieceWidth = width / m_xCount, pieceHeight = height / m_yCount;
-	const int plugPaddingX = pieceWidth / 4, plugPaddingY = pieceHeight / 4; //see below
+	const int plugPaddingX = pieceWidth / 2, plugPaddingY = pieceHeight / 2; //see below
 	//find plug shape types, based on given seed
 	qsrand(m_seed);
 	int** horizontalPlugShapeTypes = new int*[m_xCount];
