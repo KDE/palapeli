@@ -15,4 +15,6 @@ Type=Service
 Icon=palapeli-pattern-jigsaw
 PluginIdentifier=jigsaw-%1
 Name=Jigsaw pieces - %1 theme
+Name[et]=Pusletükid - %1 teema
+Name[sv]=Pusselbitar - %1 tema
 Comment=
