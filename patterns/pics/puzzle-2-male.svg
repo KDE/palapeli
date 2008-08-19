@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -11,41 +8,7 @@
    version="1.0"
    width="150"
    height="150"
-   id="svg2"
-   sodipodi:version="0.32"
-   inkscape:version="0.46"
-   sodipodi:docname="puzzle-2-male.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
-  <metadata
-     id="metadata2451">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <sodipodi:namedview
-     inkscape:window-height="741"
-     inkscape:window-width="925"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     guidetolerance="10.0"
-     gridtolerance="10.0"
-     objecttolerance="10.0"
-     borderopacity="1.0"
-     bordercolor="#666666"
-     pagecolor="#ffffff"
-     id="base"
-     showgrid="false"
-     inkscape:zoom="0.44166667"
-     inkscape:cx="-249.0566"
-     inkscape:cy="393.47552"
-     inkscape:window-x="0"
-     inkscape:window-y="10"
-     inkscape:current-layer="svg2" />
+   id="svg2">
   <defs
      id="defs4">
     <inkscape:perspective
@@ -57,8 +20,7 @@
        id="perspective2453" />
   </defs>
   <path
+     d="M 69.999852,75.000006 L 119.99986,25.000005 L 124.99986,25.000005 C 127.32246,30.827825 123.82479,40.470975 129.67123,43.861335 C 138.52944,48.998235 147.30188,40.293415 148.56396,65.032775 C 149.9043,91.306455 147.96029,112.81986 128.84759,90.544385 C 121.37142,81.831055 126.15279,113.59258 124.99986,125 L 119.99986,125 L 69.999852,75.000006 z "
      style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
-     id="path2462"
-     d="M 60.114452,75.000006 L 110.11446,25.000005 L 115.11446,25.000005 C 117.43706,30.827825 113.93939,40.470975 119.78583,43.861335 C 128.64404,48.998235 137.41648,40.293415 138.67856,65.032775 C 140.0189,91.306455 138.07489,112.81986 118.96219,90.544385 C 111.48602,81.831055 116.26739,113.59258 115.11446,124.99999 L 110.11446,124.99999 L 60.114452,75.000006 z"
-     sodipodi:nodetypes="cccsssccc" />
+     id="path2462" />
 </svg>

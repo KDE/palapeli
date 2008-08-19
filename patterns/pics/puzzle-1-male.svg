@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -11,41 +8,7 @@
    version="1.0"
    width="150"
    height="150"
-   id="svg2"
-   sodipodi:version="0.32"
-   inkscape:version="0.46"
-   sodipodi:docname="puzzle-1-male.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
-  <metadata
-     id="metadata2451">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <sodipodi:namedview
-     inkscape:window-height="741"
-     inkscape:window-width="925"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     guidetolerance="10.0"
-     gridtolerance="10.0"
-     objecttolerance="10.0"
-     borderopacity="1.0"
-     bordercolor="#666666"
-     pagecolor="#ffffff"
-     id="base"
-     showgrid="false"
-     inkscape:zoom="0.44166667"
-     inkscape:cx="-249.0566"
-     inkscape:cy="393.47552"
-     inkscape:window-x="0"
-     inkscape:window-y="10"
-     inkscape:current-layer="svg2" />
+   id="svg2">
   <defs
      id="defs4">
     <inkscape:perspective
@@ -57,8 +20,7 @@
        id="perspective2453" />
   </defs>
   <path
-     d="M 66.886793,74.999999 L 116.88679,24.999999 L 121.88679,24.999999 C 121.91405,29.826059 116.71691,53.331967 119.72727,53.498681 C 140.74031,41.830492 141.77362,68.509446 141.07822,73.05066 C 139.09433,105.88809 124.46926,83.766391 118.88731,88.880433 C 116.72578,100.49425 121.37505,112.91657 121.88679,125 L 116.88679,125 L 66.886793,74.999999 z"
-     id="rect2385"
+     d="M 70.000003,75 L 120,25 L 125,25 C 125.02726,29.826059 119.83012,53.331967 122.84048,53.498681 C 143.85352,41.830492 144.88683,68.509446 144.19143,73.05066 C 142.20754,105.88809 127.58247,83.766391 122.00052,88.880433 C 119.83899,100.49425 124.48826,112.91657 125,125 L 120,125 L 70.000003,75 z "
      style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
-     sodipodi:nodetypes="ccccccccc" />
+     id="rect2385" />
 </svg>
