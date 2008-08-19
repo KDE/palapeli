@@ -21,20 +21,35 @@
 #include "manager.h"
 #include "settings.h"
 
+#include <QBrush>
 #include <QGraphicsScene>
 #ifdef PALAPELI_WITH_OPENGL
 #	include <QGLWidget>
 #endif
+#include <QPainter>
 #include <QScrollBar>
+#include <QSvgRenderer>
 #include <QWheelEvent>
+#include <KStandardDirs>
+
+const QString BackgroundTileLocation("background.svg");
 
 Palapeli::View::View(QWidget* parent)
 	: QGraphicsView(parent)
 	, m_scene(new QGraphicsScene)
+	, m_backgroundTile(64, 64)
 {
+	//background pixmap
+	QSvgRenderer backgroundRenderer(KStandardDirs::locate("appdata", BackgroundTileLocation));
+	m_backgroundTile.fill(Qt::transparent);
+	QPainter backgroundPainter(&m_backgroundTile);
+	backgroundRenderer.render(&backgroundPainter);
+	backgroundPainter.end();
+	//initialize view and scene
 	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateGraphics()));
 	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateGraphics()));
 	setScene(m_scene);
+	m_scene->setBackgroundBrush(QBrush(m_backgroundTile));
 	//load settings
 	Settings::self()->readConfig();
 	setAntialiasing(Settings::antialiasing(), true);

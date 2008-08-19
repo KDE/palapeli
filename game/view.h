@@ -21,6 +21,7 @@
 #define PALAPELI_VIEW_H
 
 #include <QGraphicsView>
+#include <QPixmap>
 
 namespace Palapeli
 {
@@ -39,6 +40,7 @@ namespace Palapeli
 			virtual void wheelEvent(QWheelEvent* event);
 		private:
 			QGraphicsScene* m_scene;
+			QPixmap m_backgroundTile;
 	};
 
 }

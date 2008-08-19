@@ -1,4 +1,5 @@
 project(palapeli)
+add_subdirectory(pics)
 
 add_definitions(-DMAKE_LIBPALAPELIPATTERN) #needed to correctly include the headers of libpalapelipattern
 
