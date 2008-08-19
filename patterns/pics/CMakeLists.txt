@@ -11,5 +11,20 @@ set(palapeli_blockjigsaw_PICS
 	curved-1-male.svg
 	curved-2-female.svg
 	curved-2-male.svg
+	puzzle-0.svg
+	puzzle-1-female.svg
+	puzzle-1-male.svg
+	puzzle-2-female.svg
+	puzzle-2-male.svg
+	puzzle-3-female.svg
+	puzzle-3-male.svg
+	puzzle-4-female.svg
+	puzzle-4-male.svg
+	puzzle-5-female.svg
+	puzzle-5-male.svg
+	puzzle-6-female.svg
+	puzzle-6-male.svg
+	puzzle-7-female.svg
+	puzzle-7-male.svg
 )
 install(FILES ${palapeli_blockjigsaw_PICS} DESTINATION ${DATA_INSTALL_DIR}/palapeli/jigsaw-pics)
