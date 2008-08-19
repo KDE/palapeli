@@ -31,8 +31,8 @@
 K_PLUGIN_FACTORY(JigsawPatternFactory, registerPlugin<Palapeli::JigsawPatternPlugin>();)
 K_EXPORT_PLUGIN(JigsawPatternFactory("palapeli_jigsawpattern"))
 
-const QString NullShapeName("palapeli/jigsaw-pics/%1-0.svg");
-QRegExp NullShapeNameExtractor("palapeli/jigsaw-pics/(.*)-0.svg$");
+const QString NullShapeName("palapeli/jigsaw-pics/shape-0.svg");
+QRegExp ShapeNameExtractor("palapeli/jigsaw-pics/(.*)-\\d*-(fe)?male.svg$");
 const QString MaleShapeName("palapeli/jigsaw-pics/%1-%2-male.svg");
 const QString FemaleShapeName("palapeli/jigsaw-pics/%1-%2-female.svg");
 
@@ -47,7 +47,7 @@ Palapeli::JigsawPattern::JigsawPattern(int xCount, int yCount, const QString& th
 {
 	//load renderers
 	KStandardDirs dirs;
-	m_shapes << new KSvgRenderer(dirs.locate("data", NullShapeName.arg(theme)));
+	m_shapes << new KSvgRenderer(dirs.locate("data", NullShapeName));
 	const QString maleShapeName = MaleShapeName.arg(theme);
 	const QString femaleShapeName = FemaleShapeName.arg(theme);
 	for (int i = 1; ; ++i) // attention: i = 1..n because i = 0 is used for the null shape (without plug)
@@ -324,11 +324,11 @@ Palapeli::JigsawPatternPlugin::JigsawPatternPlugin(QObject* parent, const QVaria
 	: Palapeli::PatternPlugin(parent, args)
 {
 	//get possible shape themes
-	const QStringList shapeFiles = KStandardDirs().findAllResources("data", NullShapeName.arg("*"), KStandardDirs::NoDuplicates);
+	const QStringList shapeFiles = KStandardDirs().findAllResources("data", MaleShapeName.arg("*").arg("1"), KStandardDirs::NoDuplicates);
 	foreach (const QString& shapeFile, shapeFiles)
 	{
-		NullShapeNameExtractor.indexIn(shapeFile);
-		const QString themeName = NullShapeNameExtractor.cap(1);
+		ShapeNameExtractor.indexIn(shapeFile);
+		const QString themeName = ShapeNameExtractor.cap(1);
 		if (!themeName.isEmpty())
 			m_themeNames << themeName;
 	}
