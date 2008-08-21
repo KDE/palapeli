@@ -278,7 +278,7 @@ bool Palapeli::ManagerPrivate::initGame()
 	m_relations.clear();
 	//configure scene and preview
 	m_view->useScene(false); //disable the scene until the pieces have been built
-	QRectF sceneRect(0, 0, 2 * m_image.width(), 2 * m_image.height());
+	QRectF sceneRect(QPointF(0.0, 0.0), 3 * m_image.size());
 	m_view->realScene()->setSceneRect(sceneRect);
 	m_preview->setImage(m_image);
 	//instantiate a pattern

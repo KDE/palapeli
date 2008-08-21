@@ -88,10 +88,9 @@ QPointF Palapeli::Pattern::generateNextBasePosition(const QRectF& positionInImag
 	else
 	{
 		++p->m_pieceCounter; //unused in this case
-		const int sceneWidth = 2 * p->m_imageSize.width();
-		const int sceneHeight = 2 * p->m_imageSize.height();
-		const int leftEdgePos = qrand() % (sceneWidth - (int) positionInImage.width());
-		const int topEdgePos = qrand() % (sceneHeight - (int) positionInImage.height());
+		const QSize sceneSize = 3 * p->m_imageSize;
+		const int leftEdgePos = qrand() % (sceneSize.width() - (int) positionInImage.width());
+		const int topEdgePos = qrand() % (sceneSize.height() - (int) positionInImage.height());
 		return QPointF(leftEdgePos - positionInImage.left(), topEdgePos - positionInImage.top());
 	}
 }
