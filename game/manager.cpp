@@ -93,7 +93,7 @@ namespace Palapeli
 		const QString PatternGroupKey("PatternArgs");
 		const QString PiecesGroupKey("Pieces");
 		const QString PositionKey("Position-%1");
-	};
+	}
 
 }
 
