@@ -31,6 +31,9 @@ set(palapeli_SRCS
 	statemanager.cpp
 	textprogressbar.cpp
 	view.cpp
+	interface/onscreenanimator.cpp
+	interface/onscreendialog.cpp
+	interface/onscreenwidget.cpp
 	../storage/gamestorage.cpp
 	../storage/gamestorageattribs.cpp
 	../storage/gamestorageitem.cpp
