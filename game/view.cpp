@@ -50,6 +50,7 @@ Palapeli::View::View(QWidget* parent)
 	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateGraphics()));
 	setScene(m_scene);
 	m_scene->setBackgroundBrush(QBrush(m_backgroundTile));
+	m_scene->setSceneRect(QRectF(-2000, -2000, 4000, 4000)); //the exact values are not important as long as there is some specific scene rect
 	//load settings
 	Settings::self()->readConfig();
 	setAntialiasing(Settings::antialiasing(), true);

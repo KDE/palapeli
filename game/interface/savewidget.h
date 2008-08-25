@@ -16,51 +16,29 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_INTERFACEMANAGER_H
-#define PALAPELI_INTERFACEMANAGER_H
+#ifndef PALAPELI_SAVEWIDGET_H
+#define PALAPELI_SAVEWIDGET_H
 
-#include <QObject>
-#include <QVariant>
+#include "onscreendialog.h"
+
+class KLineEdit;
 
 namespace Palapeli
 {
 
-	class OnScreenWidget;
-
-	class InterfaceManager : public QObject
+	class SaveWidget : public OnScreenDialog
 	{
 		Q_OBJECT
 		public:
-			enum WidgetType
-			{
-				NoWidget,
-				LoadWidget,
-				SaveWidget,
-				ExportWidget,
-				DeleteWidget
-			};
-
-			static InterfaceManager* self();
-			void shutdown();
+			static SaveWidget* create(QGraphicsItem* parent = 0);
 		public Q_SLOTS:
-			OnScreenWidget* show(WidgetType type, const QVariantList& args = QVariantList());
-			void hide(WidgetType type);
-		private Q_SLOTS:
-			void next();
+			void setPredefinedName(const QString& name);
+			void handleButton(int id);
 		private:
-			InterfaceManager();
-			~InterfaceManager();
-			Q_DISABLE_COPY(InterfaceManager)
-
-			OnScreenWidget* m_currentWidget;
-			WidgetType m_currentWidgetType;
-			OnScreenWidget* m_nextWidget;
-			WidgetType m_nextWidgetType;
+			SaveWidget(KLineEdit* edit, QGraphicsItem* parent);
+			KLineEdit* m_edit;
 	};
 
 }
 
-//abbreviation for Palapeli::InterfaceManager::self()
-inline Palapeli::InterfaceManager* ppIMgr() { return Palapeli::InterfaceManager::self(); }
-
-#endif // PALAPELI_INTERFACEMANAGER_H
+#endif // PALAPELI_SAVEWIDGET_H

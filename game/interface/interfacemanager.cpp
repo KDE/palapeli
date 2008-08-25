@@ -20,6 +20,7 @@
 #include "../manager.h"
 #include "onscreenanimator.h"
 #include "onscreenwidget.h"
+#include "savewidget.h"
 #include "../view.h"
 
 Palapeli::InterfaceManager::InterfaceManager()
@@ -32,8 +33,15 @@ Palapeli::InterfaceManager::InterfaceManager()
 
 Palapeli::InterfaceManager::~InterfaceManager()
 {
-	delete m_currentWidget;
-	delete m_nextWidget;
+	//This causes a crash, as we do not know when the Manager or the InterfaceManager (or, the scene or the widget items) are deleted.
+//	delete m_currentWidget;
+//	delete m_nextWidget;
+}
+
+Palapeli::InterfaceManager* Palapeli::InterfaceManager::self()
+{
+	static Palapeli::InterfaceManager theOneAndOnly;
+	return &theOneAndOnly;
 }
 
 Palapeli::OnScreenWidget* Palapeli::InterfaceManager::show(Palapeli::InterfaceManager::WidgetType type, const QVariantList& args)
@@ -48,7 +56,8 @@ Palapeli::OnScreenWidget* Palapeli::InterfaceManager::show(Palapeli::InterfaceMa
 	{
 		case NoWidget: //invalid input
 			break;
-		//TODO: create widgets for the different types here
+		case SaveWidget:
+			widget = Palapeli::SaveWidget::create();
 		default: //for unimplemented widgets
 			break;
 	}
@@ -94,8 +103,9 @@ void Palapeli::InterfaceManager::next()
 	//mark queue as vacant
 	m_nextWidget = 0;
 	m_nextWidgetType = NoWidget;
-	//start to show new current widget
-	m_currentWidget->showAnimated();
+	//start to show new current widget if there is one
+	if (m_currentWidget)
+		m_currentWidget->showAnimated();
 }
 
 #include "interfacemanager.moc"

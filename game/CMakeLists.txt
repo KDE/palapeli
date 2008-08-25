@@ -35,6 +35,7 @@ set(palapeli_SRCS
 	interface/onscreenanimator.cpp
 	interface/onscreendialog.cpp
 	interface/onscreenwidget.cpp
+	interface/savewidget.cpp
 	../storage/gamestorage.cpp
 	../storage/gamestorageattribs.cpp
 	../storage/gamestorageitem.cpp
