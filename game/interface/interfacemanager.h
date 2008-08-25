@@ -16,36 +16,44 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_ONSCREENDIALOG_H
-#define PALAPELI_ONSCREENDIALOG_H
+#ifndef PALAPELI_INTERFACEMANAGER_H
+#define PALAPELI_INTERFACEMANAGER_H
 
-#include "onscreenwidget.h"
-
-class QSignalMapper;
-class KGuiItem;
-class KIcon;
-class KPushButton;
+#include <QObject>
+#include <QVariant>
 
 namespace Palapeli
 {
 
-	class OnScreenDialog : public OnScreenWidget
+	class OnScreenWidget;
+
+	class InterfaceManager : public QObject
 	{
 		Q_OBJECT
 		public:
-			OnScreenDialog(QWidget* widget, QList<KGuiItem> buttons, const QString& title = QString(), QGraphicsItem* parent = 0); //takes ownership of widget
-			~OnScreenDialog();
+			enum WidgetType
+			{
+				NoWidget,
+				LoadWidget,
+				SaveWidget,
+				ExportWidget,
+				DeleteWidget
+			};
 
-			void setButtonGuiItem(int id, const KGuiItem& item);
-			void setButtonIcon(int id, const KIcon& icon);
-			void setButtonText(int id, const QString& text);
-		Q_SIGNALS:
-			void buttonPressed(int id);
+			InterfaceManager();
+			~InterfaceManager();
+		public Q_SLOTS:
+			OnScreenWidget* show(WidgetType type, const QVariantList& args);
+			void hide(WidgetType type);
+		private Q_SLOTS:
+			void next();
 		private:
-			QSignalMapper* m_mapper;
-			QList<KPushButton*> m_buttons;
+			OnScreenWidget* m_currentWidget;
+			WidgetType m_currentWidgetType;
+			OnScreenWidget* m_nextWidget;
+			WidgetType m_nextWidgetType;
 	};
 
 }
 
-#endif // PALAPELI_ONSCREENDIALOG_H
+#endif // PALAPELI_INTERFACEMANAGER_H

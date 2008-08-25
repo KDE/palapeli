@@ -1,3 +1,21 @@
+/***************************************************************************
+ *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
+ *
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU General Public
+ *   License as published by the Free Software Foundation; either
+ *   version 2 of the License, or (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, write to the Free Software
+ *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ ***************************************************************************/
+
 #include "onscreenanimator.h"
 #include "onscreenwidget.h"
 
@@ -10,6 +28,11 @@ Palapeli::OnScreenAnimator::OnScreenAnimator(Palapeli::OnScreenWidget* widget)
 {
 	setFrameRange(0, 15); //that is 30 fps which should be sufficient
 	connect(this, SIGNAL(valueChanged(qreal)), this, SLOT(changeValue(qreal)));
+}
+
+Palapeli::OnScreenAnimator::Direction Palapeli::OnScreenAnimator::direction() const
+{
+	return m_direction;
 }
 
 void Palapeli::OnScreenAnimator::changeValue(qreal value)
@@ -48,6 +71,11 @@ void Palapeli::OnScreenAnimator::start(Palapeli::OnScreenAnimator::Direction dir
 	QTimeLine::start();
 	changeValue(0); //move widget to start point
 	m_widget->show(); //make sure the widget is visible during the animation
+}
+
+void Palapeli::OnScreenAnimator::animationEnd()
+{
+	m_direction = NoDirection; //ensures that m_direction != NoDirection only during animations
 }
 
 #include "onscreenanimator.moc"

@@ -1,0 +1,101 @@
+/***************************************************************************
+ *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
+ *
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU General Public
+ *   License as published by the Free Software Foundation; either
+ *   version 2 of the License, or (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, write to the Free Software
+ *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ ***************************************************************************/
+
+#include "interfacemanager.h"
+#include "../manager.h"
+#include "onscreenanimator.h"
+#include "onscreenwidget.h"
+#include "../view.h"
+
+Palapeli::InterfaceManager::InterfaceManager()
+	: m_currentWidget(0)
+	, m_currentWidgetType(NoWidget)
+	, m_nextWidget(0)
+	, m_nextWidgetType(NoWidget)
+{
+}
+
+Palapeli::InterfaceManager::~InterfaceManager()
+{
+	delete m_currentWidget;
+	delete m_nextWidget;
+}
+
+Palapeli::OnScreenWidget* Palapeli::InterfaceManager::show(Palapeli::InterfaceManager::WidgetType type, const QVariantList& args)
+{
+	if (type == m_currentWidgetType) //already shown
+		return m_currentWidget;
+	if (type == m_nextWidgetType) //already scheduled to be shown next
+		return m_nextWidget;
+	//create widget
+	Palapeli::OnScreenWidget* widget = 0;
+	switch (type)
+	{
+		case NoWidget: //invalid input
+			break;
+		//TODO: create widgets for the different types here
+		default: //for unimplemented widgets
+			break;
+	}
+	if (!widget)
+		return 0;
+	ppMgr()->view()->realScene()->addItem(widget);
+	//set this widget as the one to be shown next
+	if (m_nextWidget)
+		delete m_nextWidget;
+	m_nextWidget = widget;
+	m_nextWidgetType = type;
+	//if nothing shown currently, directly proceed with showing this one
+	if (!m_currentWidget)
+		next();
+	return widget;
+}
+
+void Palapeli::InterfaceManager::hide(Palapeli::InterfaceManager::WidgetType type)
+{
+	if (type == m_currentWidgetType)
+	{
+		//widget is being shown currently - hide it
+		m_currentWidget->hideAnimated();
+		connect(m_currentWidget->animator(), SIGNAL(finished()), this, SLOT(next()));
+	}
+	else if (type == m_nextWidgetType)
+	{
+		//widget is scheduled to be shown next - remove from the schedule
+		delete m_nextWidget;
+		m_nextWidget = 0;
+		m_nextWidgetType = NoWidget;
+	}
+}
+
+void Palapeli::InterfaceManager::next()
+{
+	//delete current widget
+	if (m_currentWidget)
+		delete m_currentWidget;
+	//move next widget to the place of the current widget
+	m_currentWidget = m_nextWidget;
+	m_currentWidgetType = m_nextWidgetType;
+	//mark queue as vacant
+	m_nextWidget = 0;
+	m_nextWidgetType = NoWidget;
+	//start to show new current widget
+	m_currentWidget->showAnimated();
+}
+
+#include "interfacemanager.moc"
