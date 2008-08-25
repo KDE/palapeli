@@ -33,7 +33,7 @@ namespace Paladesign
 		QPointF mirrored(const QPointF& point, const QLineF& axis);
 
 		int greatestCommonDivisor(int a, int b);
-	};
+	}
 
 }
 
