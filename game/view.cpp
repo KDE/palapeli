@@ -50,7 +50,7 @@ Palapeli::View::View(QWidget* parent)
 	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateGraphics()));
 	setScene(m_scene);
 	m_scene->setBackgroundBrush(QBrush(m_backgroundTile));
-	m_scene->setSceneRect(QRectF(-2000, -2000, 4000, 4000)); //the exact values are not important as long as there is some specific scene rect
+	m_scene->setSceneRect(QRectF(-1, -1, 2, 2)); //the exact values are not important as long as there is some specific scene rect
 	//load settings
 	Settings::self()->readConfig();
 	setAntialiasing(Settings::antialiasing(), true);
@@ -58,6 +58,12 @@ Palapeli::View::View(QWidget* parent)
 	//report viewport moves
 	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportMoved()));
 	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportMoved()));
+}
+
+void Palapeli::View::resizeEvent(QResizeEvent* event)
+{
+	Q_UNUSED(event)
+	emit viewportMoved();
 }
 
 void Palapeli::View::wheelEvent(QWheelEvent* event)

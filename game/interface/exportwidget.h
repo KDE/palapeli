@@ -16,41 +16,41 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_LOADWIDGET_H
-#define PALAPELI_LOADWIDGET_H
+#ifndef PALAPELI_EXPORTWIDGET_H
+#define PALAPELI_EXPORTWIDGET_H
 
 #include "onscreendialog.h"
 
-#include <KAction>
 class QListView;
+#include <KAction>
 
 namespace Palapeli
 {
 
-	class LoadWidget : public OnScreenDialog
+	class ExportWidget : public OnScreenDialog
 	{
 		Q_OBJECT
 		public:
-			static LoadWidget* create(Palapeli::AutoscalingItem* parent = 0);
+			static ExportWidget* create(AutoscalingItem* parent = 0);
 		public Q_SLOTS:
 			void handleButton(int id);
 			void handleSelectionChange();
-			void load();
 		private:
-			LoadWidget(QListView* view, Palapeli::AutoscalingItem* parent);
+			ExportWidget(QListView* view, AutoscalingItem* parent);
 			QListView* m_view;
 	};
 
-	class LoadWidgetAction : public KAction
+	class ExportWidgetAction : public KAction
 	{
 		Q_OBJECT
 		public:
-			LoadWidgetAction(QObject* parent);
+			ExportWidgetAction(QObject* parent);
 		public Q_SLOTS:
 			void gameCountChanged();
 			void trigger();
 	};
 
+
 }
 
-#endif // PALAPELI_LOADWIDGET_H
+#endif // PALAPELI_EXPORTWIDGET_H

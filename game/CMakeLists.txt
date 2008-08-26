@@ -32,6 +32,8 @@ set(palapeli_SRCS
 	textprogressbar.cpp
 	view.cpp
 	interface/autoscalingitem.cpp
+	interface/exportwidget.cpp
+	interface/importwidget.cpp
 	interface/interfacemanager.cpp
 	interface/loadwidget.cpp
 	interface/onscreenanimator.cpp

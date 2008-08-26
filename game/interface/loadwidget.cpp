@@ -83,10 +83,18 @@ Palapeli::LoadWidgetAction::LoadWidgetAction(QObject* parent)
 	setToolTip(i18n("Open a saved game"));
 
 	connect(this, SIGNAL(triggered(bool)), this, SLOT(trigger()));
+	connect(ppMgr(), SIGNAL(savegameCreated(const QString&)), this, SLOT(gameCountChanged()));
+	connect(ppMgr(), SIGNAL(savegameDeleted(const QString&)), this, SLOT(gameCountChanged()));
+	gameCountChanged(); //adapt to initial state
 
 	KActionCollection* collection = qobject_cast<KActionCollection*>(parent);
 	if (collection)
 		collection->addAction(objectName(), this);
+}
+
+void Palapeli::LoadWidgetAction::gameCountChanged()
+{
+	setEnabled(ppMgr()->savegameModel()->savegameCount() > 0);
 }
 
 void Palapeli::LoadWidgetAction::trigger()

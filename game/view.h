@@ -41,6 +41,7 @@ namespace Palapeli
 			void viewportMoved();
 			void viewportScaled();
 		protected:
+			virtual void resizeEvent(QResizeEvent* event);
 			virtual void wheelEvent(QWheelEvent* event);
 		private:
 			QGraphicsScene* m_scene;

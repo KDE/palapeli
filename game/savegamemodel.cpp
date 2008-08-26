@@ -24,6 +24,11 @@ Palapeli::SavegameModel::SavegameModel(const QStringList& list)
 {
 }
 
+int Palapeli::SavegameModel::savegameCount() const
+{
+	return stringList().count();
+}
+
 Qt::ItemFlags Palapeli::SavegameModel::flags(const QModelIndex& index) const
 {
 	//like base implementation, but remove Qt::ItemIsEditable flag

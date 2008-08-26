@@ -32,6 +32,8 @@ namespace Palapeli
 			SavegameModel(const QStringList& list = QStringList());
 
 			virtual Qt::ItemFlags flags(const QModelIndex& index) const;
+			int savegameCount() const;
+
 			static bool lessThan(const QString& s1, const QString& s2); //to be used for sorting in a manner which is compatible to the way it's done by SavegameModel
 		public Q_SLOTS:
 			void savegameCreated(const QString& name);

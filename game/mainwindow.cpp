@@ -20,6 +20,8 @@
 #include "mainwindow.h"
 #include "mainwindow_p.h"
 #include "autosaver.h"
+#include "interface/exportwidget.h"
+#include "interface/importwidget.h"
 #include "interface/loadwidget.h"
 #include "interface/savewidget.h"
 #include "manager.h"
@@ -115,6 +117,8 @@ void Palapeli::MainWindowPrivate::setupActions()
 	//TODO: changeInteractionMode
 	new Palapeli::LoadWidgetAction(m_parent->actionCollection());
 	new Palapeli::SaveWidgetAction(m_parent->actionCollection());
+	new Palapeli::ImportWidgetAction(m_parent->actionCollection());
+	new Palapeli::ExportWidgetAction(m_parent->actionCollection());
 }
 
 void Palapeli::MainWindowPrivate::setupDockers()

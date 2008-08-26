@@ -15,6 +15,9 @@
 			<Text>New interface</Text>
 			<Action name="palapeli_load"/>
 			<Action name="palapeli_save"/>
+			<Separator/>
+			<Action name="palapeli_import"/>
+			<Action name="palapeli_export"/>
 		</Menu>
 		<Menu name="views">
 			<Text>Views</Text>
@@ -35,6 +38,9 @@
 		<text>New interface</text>
 		<Action name="palapeli_load"/>
 		<Action name="palapeli_save"/>
+		<Separator/>
+		<Action name="palapeli_import"/>
+		<Action name="palapeli_export"/>
 	</ToolBar>
 </gui>
 

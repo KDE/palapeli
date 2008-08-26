@@ -18,6 +18,7 @@
 
 #include "interfacemanager.h"
 #include "autoscalingitem.h"
+#include "exportwidget.h"
 #include "../manager.h"
 #include "loadwidget.h"
 #include "onscreenanimator.h"
@@ -61,6 +62,9 @@ Palapeli::OnScreenWidget* Palapeli::InterfaceManager::show(Palapeli::InterfaceMa
 	switch (type)
 	{
 		case NoWidget: //invalid input
+			break;
+		case ExportWidget:
+			widget = Palapeli::ExportWidget::create(m_autoscaler);
 			break;
 		case LoadWidget:
 			widget = Palapeli::LoadWidget::create(m_autoscaler);
