@@ -19,6 +19,8 @@
 #include "onscreenanimator.h"
 #include "onscreenwidget.h"
 
+#include <QApplication>
+
 const int Duration = 500;
 
 Palapeli::OnScreenAnimator::OnScreenAnimator(Palapeli::OnScreenWidget* widget)
@@ -42,7 +44,6 @@ int Palapeli::OnScreenAnimator::duration() const
 
 void Palapeli::OnScreenAnimator::changeValue(qreal value)
 {
-	//TODO: LTR/RTL
 	if (!m_widget)
 		return;
 	//find size of widget
@@ -52,15 +53,34 @@ void Palapeli::OnScreenAnimator::changeValue(qreal value)
 	switch (m_direction)
 	{
 		case NoDirection:
-			startPoint = endPoint = QPointF(0.0, 0.0);
+			if (QApplication::isLeftToRight())
+				startPoint = endPoint = QPointF(0.0, 0.0);
+			else
+				startPoint = endPoint = QPointF(-widgetSize.width(), 0.0);
 			break;
 		case ShowDirection:
-			startPoint = QPointF(-widgetSize.width(), -widgetSize.height());
-			endPoint = QPointF(0.0, 0.0);
+			if (QApplication::isLeftToRight())
+			{
+				startPoint = QPointF(-widgetSize.width(), -widgetSize.height());
+				endPoint = QPointF(0.0, 0.0);
+			}
+			else
+			{
+				startPoint = QPointF(0.0, -widgetSize.height());
+				endPoint = QPointF(-widgetSize.width(), 0.0);
+			}
 			break;
 		case HideDirection:
-			startPoint = QPointF(0.0, 0.0);
-			endPoint = QPointF(-widgetSize.width(), -widgetSize.height());
+			if (QApplication::isLeftToRight())
+			{
+				startPoint = QPointF(0.0, 0.0);
+				endPoint = QPointF(-widgetSize.width(), -widgetSize.height());
+			}
+			else
+			{
+				startPoint = QPointF(-widgetSize.width(), 0.0);
+				endPoint = QPointF(0.0, -widgetSize.height());
+			}
 			break;
 	}
 	m_widget->setPos(startPoint + value * (endPoint - startPoint));

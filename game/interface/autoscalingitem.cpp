@@ -18,6 +18,7 @@
 
 #include "autoscalingitem.h"
 
+#include <QApplication>
 #include <QGraphicsView>
 
 Palapeli::AutoscalingItem::AutoscalingItem(QGraphicsView* view)
@@ -38,8 +39,9 @@ void Palapeli::AutoscalingItem::updateScalingFactor()
 	const QPointF point1 = m_view->mapToScene(0.0, 0.0);
 	const QPointF point2 = m_view->mapToScene(distance, distance);
 	const QPointF newScalingFactor((point2.x() - point1.x()) / distance, (point2.y() - point1.y()) / distance);
+	const QPointF basePoint = QApplication::isLeftToRight() ? point1 : m_view->mapToScene(m_view->width() - 2.0 * m_view->frameWidth(), 0.0);
 	//adapt to and save scaling factor
-	setPos(point1); //set base position of coordinate system to top left edge of viewport
+	setPos(basePoint); //set base position of coordinate system to top left edge of viewport
 	scale(newScalingFactor.x() / m_currentScalingFactor.x(), newScalingFactor.y() / m_currentScalingFactor.y());
 	m_currentScalingFactor = newScalingFactor;
 }
