@@ -33,6 +33,7 @@ namespace Palapeli
 
 	class AutoscalingItem;
 	class OnScreenAnimator;
+	class OnScreenBackground;
 
 	class OnScreenWidget : public QGraphicsWidget
 	{
@@ -48,6 +49,7 @@ namespace Palapeli
 			virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0);
 			virtual void setGeometry(const QRectF& rect);
 		public Q_SLOTS:
+			void setForegroundOpacity(qreal opacity);
 			void showAnimated();
 			void hideAnimated();
 		protected:
@@ -56,6 +58,8 @@ namespace Palapeli
 			virtual void showEvent(QShowEvent* event);
 		private:
 			Q_DISABLE_COPY(OnScreenWidget)
+			OnScreenBackground* m_background;
+			OnScreenBackground* m_foreground;
 			QGraphicsProxyWidget* m_proxy;
 			OnScreenAnimator* m_animator;
 	};

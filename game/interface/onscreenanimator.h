@@ -19,14 +19,15 @@
 #ifndef PALAPELI_ONSCREENANIMATOR_H
 #define PALAPELI_ONSCREENANIMATOR_H
 
-#include <QTimeLine>
+#include <QObject>
+class QTimeLine;
 
 namespace Palapeli
 {
 
 	class OnScreenWidget;
 
-	class OnScreenAnimator : public QTimeLine
+	class OnScreenAnimator : public QObject
 	{
 		Q_OBJECT
 		public:
@@ -38,15 +39,23 @@ namespace Palapeli
 			};
 
 			OnScreenAnimator(OnScreenWidget* widget);
+			~OnScreenAnimator();
 
 			Direction direction() const;
 			int duration() const; //in milliseconds
 		public Q_SLOTS:
 			void start(Direction direction);
+		Q_SIGNALS:
+			void finished();
 		private Q_SLOTS:
-			void changeValue(qreal value);
-			void animationEnd();
+			void changeValue1(qreal value);
+			void changeValue2(qreal value);
+			void changeValuePosition(qreal value);
+			void changeValueOpacity(qreal value);
+			void animationEnd1();
+			void animationEnd2();
 		private:
+			QTimeLine* m_timeLine;
 			OnScreenWidget* m_widget;
 			Direction m_direction;
 	};

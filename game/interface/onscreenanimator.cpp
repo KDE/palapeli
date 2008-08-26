@@ -20,16 +20,21 @@
 #include "onscreenwidget.h"
 
 #include <QApplication>
+#include <QTimeLine>
 
-const int Duration = 500;
+const int Duration = 300;
 
 Palapeli::OnScreenAnimator::OnScreenAnimator(Palapeli::OnScreenWidget* widget)
-	: QTimeLine(Duration)
+	: m_timeLine(new QTimeLine(Duration))
 	, m_widget(widget)
 	, m_direction(NoDirection)
 {
-	setFrameRange(0, 15); //that is 30 fps which should be sufficient
-	connect(this, SIGNAL(valueChanged(qreal)), this, SLOT(changeValue(qreal)));
+	m_timeLine->setFrameRange(0, 10); //that is ~30 fps which should be sufficient
+}
+
+Palapeli::OnScreenAnimator::~OnScreenAnimator()
+{
+	delete m_timeLine;
 }
 
 Palapeli::OnScreenAnimator::Direction Palapeli::OnScreenAnimator::direction() const
@@ -39,10 +44,26 @@ Palapeli::OnScreenAnimator::Direction Palapeli::OnScreenAnimator::direction() co
 
 int Palapeli::OnScreenAnimator::duration() const
 {
-	return Duration;
+	return 2 * Duration;
 }
 
-void Palapeli::OnScreenAnimator::changeValue(qreal value)
+void Palapeli::OnScreenAnimator::changeValue1(qreal value)
+{
+	if (m_direction == ShowDirection)
+		changeValuePosition(value);
+	else //m_direction == HideDirection
+		changeValueOpacity(value);
+}
+
+void Palapeli::OnScreenAnimator::changeValue2(qreal value)
+{
+	if (m_direction == ShowDirection)
+		changeValueOpacity(value);
+	else //m_direction == HideDirection
+		changeValuePosition(value);
+}
+
+void Palapeli::OnScreenAnimator::changeValuePosition(qreal value)
 {
 	if (!m_widget)
 		return;
@@ -86,17 +107,47 @@ void Palapeli::OnScreenAnimator::changeValue(qreal value)
 	m_widget->setPos(startPoint + value * (endPoint - startPoint));
 }
 
+void Palapeli::OnScreenAnimator::changeValueOpacity(qreal value)
+{
+	if (m_direction == ShowDirection)
+		m_widget->setForegroundOpacity(value);
+	else //HideDirection
+		m_widget->setForegroundOpacity(1.0 - value);
+}
+
 void Palapeli::OnScreenAnimator::start(Palapeli::OnScreenAnimator::Direction direction)
 {
 	m_direction = direction;
-	QTimeLine::start();
-	changeValue(0); //move widget to start point
-	m_widget->show(); //make sure the widget is visible during the animation
+	m_timeLine->setCurveShape(QTimeLine::EaseInCurve);
+	m_timeLine->start();
+	//change connections
+	m_timeLine->disconnect();
+	connect(m_timeLine, SIGNAL(valueChanged(qreal)), this, SLOT(changeValue1(qreal)));
+	connect(m_timeLine, SIGNAL(finished()), this, SLOT(animationEnd1()));
+	//ensure correct start values
+	changeValue1(0.0);
+	changeValue2(0.0);
+	//make sure the widget is visible during the animation
+	m_widget->show();
 }
 
-void Palapeli::OnScreenAnimator::animationEnd()
+void Palapeli::OnScreenAnimator::animationEnd1()
+{
+	m_timeLine->setCurveShape(QTimeLine::EaseOutCurve);
+	m_timeLine->start();
+	//change connections
+	m_timeLine->disconnect();
+	connect(m_timeLine, SIGNAL(valueChanged(qreal)), this, SLOT(changeValue2(qreal)));
+	connect(m_timeLine, SIGNAL(finished()), this, SLOT(animationEnd2()));
+	//ensure correct start values
+	changeValue1(1.0);
+	changeValue2(0.0);
+}
+
+void Palapeli::OnScreenAnimator::animationEnd2()
 {
 	m_direction = NoDirection; //ensures that m_direction != NoDirection only during animations
+	emit finished();
 }
 
 #include "onscreenanimator.moc"

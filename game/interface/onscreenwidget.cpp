@@ -29,11 +29,61 @@
 
 const qreal ItemPadding = 5.0;
 
+namespace Palapeli
+{
+
+	class OnScreenBackground : public QGraphicsItem
+	{
+		public:
+			OnScreenBackground(Palapeli::OnScreenWidget* parent)
+				: QGraphicsItem(parent)
+				, m_parent(parent)
+				, m_opacity(1.0)
+			{
+			}
+			virtual ~OnScreenBackground()
+			{
+			}
+
+			void setOpacity(qreal opacity)
+			{
+				m_opacity = opacity;
+				update();
+			}
+
+			virtual QRectF boundingRect() const
+			{
+				return QRectF(QPointF(0.0, 0.0), m_parent->boundingRect().size());
+			}
+			virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0)
+			{
+				QStyleOptionButton opt;
+				opt.initFrom(widget);
+				opt.rect = option->rect;
+				opt.state = QStyle::State_None;
+				painter->save();
+				painter->setOpacity(m_opacity);
+				widget->style()->drawControl(QStyle::CE_PushButton, &opt, painter);
+				painter->restore();
+			}
+		private:
+			Palapeli::OnScreenWidget* m_parent;
+			qreal m_opacity;
+	};
+
+}
+
 Palapeli::OnScreenWidget::OnScreenWidget(QWidget* widget, Palapeli::AutoscalingItem* parent)
 	: QGraphicsWidget(parent)
+	, m_background(new Palapeli::OnScreenBackground(this))
+	, m_foreground(new Palapeli::OnScreenBackground(this))
 	, m_proxy(new QGraphicsProxyWidget(this))
 	, m_animator(new Palapeli::OnScreenAnimator(this))
 {
+	m_background->setZValue(-1);
+	m_proxy->setZValue(0);
+	m_foreground->setZValue(1);
+	m_foreground->setOpacity(0.0);
 	setWidget(widget);
 	hide(); //start hidden, waiting for a showAnimated() call
 	m_proxy->hide();
@@ -66,9 +116,6 @@ void Palapeli::OnScreenWidget::setWidget(QWidget* widget)
 
 void Palapeli::OnScreenWidget::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
-//	Q_UNUSED(widget)
-//	painter->fillRect(option->rect, QColor(255, 128, 128));
-	//construct QStyleOption
 	QStyleOptionButton opt;
 	opt.initFrom(widget);
 	opt.rect = option->rect;
@@ -91,6 +138,11 @@ void Palapeli::OnScreenWidget::showAnimated()
 void Palapeli::OnScreenWidget::hideAnimated()
 {
 	m_animator->start(Palapeli::OnScreenAnimator::HideDirection);
+}
+
+void Palapeli::OnScreenWidget::setForegroundOpacity(qreal opacity)
+{
+	m_foreground->setOpacity(1.0 - opacity);
 }
 
 QSizeF Palapeli::OnScreenWidget::sizeHint(Qt::SizeHint which, const QSizeF& constraint) const
