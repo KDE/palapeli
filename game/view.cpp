@@ -55,6 +55,9 @@ Palapeli::View::View(QWidget* parent)
 	Settings::self()->readConfig();
 	setAntialiasing(Settings::antialiasing(), true);
 	setHardwareAccelerated(Settings::hardwareAccel(), true);
+	//report viewport moves
+	connect(horizontalScrollBar(), SIGNAL(sliderMoved(int)), this, SIGNAL(viewportMoved()));
+	connect(verticalScrollBar(), SIGNAL(sliderMoved(int)), this, SIGNAL(viewportMoved()));
 }
 
 void Palapeli::View::wheelEvent(QWheelEvent* event)
@@ -73,6 +76,7 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 		}
 		scale(scalingFactor, scalingFactor);
 		ppMgr()->updateGraphics();
+		emit viewportScaled();
 	}
 	else if ((event->modifiers() & Qt::ShiftModifier) || event->orientation() == Qt::Horizontal)
 		//shift + mouse wheel - move the viewport left/right by adjusting the slider
@@ -115,3 +119,5 @@ void Palapeli::View::useScene(bool useScene)
 	if (useScene)
 		fitInView(m_scene->sceneRect(), Qt::KeepAspectRatio);
 }
+
+#include "view.moc"

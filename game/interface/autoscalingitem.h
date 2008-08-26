@@ -16,40 +16,33 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_SAVEWIDGET_H
-#define PALAPELI_SAVEWIDGET_H
+#ifndef PALAPELI_AUTOSCALINGITEM_H
+#define PALAPELI_AUTOSCALINGITEM_H
 
-#include "onscreendialog.h"
-
-#include <KAction>
-class KLineEdit;
+#include <QGraphicsItem>
+class QGraphicsView;
+#include <QObject>
+#include <QPointF>
 
 namespace Palapeli
 {
 
-	class SaveWidget : public OnScreenDialog
+	//This class requires that the viewport is not rotated or sheared, only translated or scaled.
+	class AutoscalingItem : public QObject, public QGraphicsItem
 	{
 		Q_OBJECT
 		public:
-			static SaveWidget* create(Palapeli::AutoscalingItem* parent = 0);
-		public Q_SLOTS:
-			void setGameName(const QString& name);
-			void handleButton(int id);
-		private:
-			SaveWidget(KLineEdit* edit, Palapeli::AutoscalingItem* parent);
-			KLineEdit* m_edit;
-	};
+			AutoscalingItem(QGraphicsView* view);
 
-	class SaveWidgetAction : public KAction
-	{
-		Q_OBJECT
-		public:
-			SaveWidgetAction(QObject* parent);
+			virtual QRectF boundingRect() const { return QRectF(); }
+			virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget* = 0) {}
 		public Q_SLOTS:
-			void setGameName(const QString& name);
-			void trigger();
+			void updateScalingFactor();
+		private:
+			QPointF m_currentScalingFactor;
+			QGraphicsView* m_view;
 	};
 
 }
 
-#endif // PALAPELI_SAVEWIDGET_H
+#endif // PALAPELI_AUTOSCALINGITEM_H

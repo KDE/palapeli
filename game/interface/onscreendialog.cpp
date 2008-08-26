@@ -28,7 +28,7 @@
 #include <KPageWidgetItem>
 #include <KPushButton>
 
-Palapeli::OnScreenDialog::OnScreenDialog(QWidget* widget, QList<KGuiItem> buttons, const QString& title, QGraphicsItem* parent)
+Palapeli::OnScreenDialog::OnScreenDialog(QWidget* widget, QList<KGuiItem> buttons, const QString& title, Palapeli::AutoscalingItem* parent)
 	: Palapeli::OnScreenWidget(0, parent)
 	, m_mapper(new QSignalMapper)
 {

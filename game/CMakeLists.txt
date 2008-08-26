@@ -31,6 +31,7 @@ set(palapeli_SRCS
 	statemanager.cpp
 	textprogressbar.cpp
 	view.cpp
+	interface/autoscalingitem.cpp
 	interface/interfacemanager.cpp
 	interface/onscreenanimator.cpp
 	interface/onscreendialog.cpp

@@ -28,6 +28,7 @@ namespace Palapeli
 
 	class View : public QGraphicsView
 	{
+		Q_OBJECT
 		public:
 			View(QWidget* parent = 0);
 
@@ -36,6 +37,9 @@ namespace Palapeli
 
 			QGraphicsScene* realScene() const;
 			void useScene(bool useScene);
+		Q_SIGNALS:
+			void viewportMoved();
+			void viewportScaled();
 		protected:
 			virtual void wheelEvent(QWheelEvent* event);
 		private:

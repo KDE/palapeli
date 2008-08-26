@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "interfacemanager.h"
+#include "autoscalingitem.h"
 #include "../manager.h"
 #include "onscreenanimator.h"
 #include "onscreenwidget.h"
@@ -24,7 +25,8 @@
 #include "../view.h"
 
 Palapeli::InterfaceManager::InterfaceManager()
-	: m_currentWidget(0)
+	: m_autoscaler(new Palapeli::AutoscalingItem(ppMgr()->view()))
+	, m_currentWidget(0)
 	, m_currentWidgetType(NoWidget)
 	, m_nextWidget(0)
 	, m_nextWidgetType(NoWidget)
@@ -34,6 +36,7 @@ Palapeli::InterfaceManager::InterfaceManager()
 Palapeli::InterfaceManager::~InterfaceManager()
 {
 	//This causes a crash, as we do not know when the Manager or the InterfaceManager (or, the scene or the widget items) are deleted.
+//	delete m_autoscaler;
 //	delete m_currentWidget;
 //	delete m_nextWidget;
 }
@@ -57,7 +60,7 @@ Palapeli::OnScreenWidget* Palapeli::InterfaceManager::show(Palapeli::InterfaceMa
 		case NoWidget: //invalid input
 			break;
 		case SaveWidget:
-			widget = Palapeli::SaveWidget::create();
+			widget = Palapeli::SaveWidget::create(m_autoscaler);
 		default: //for unimplemented widgets
 			break;
 	}

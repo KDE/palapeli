@@ -31,13 +31,14 @@ class QWidget;
 namespace Palapeli
 {
 
+	class AutoscalingItem;
 	class OnScreenAnimator;
 
 	class OnScreenWidget : public QGraphicsWidget
 	{
 		Q_OBJECT
 		public:
-			OnScreenWidget(QWidget* widget, QGraphicsItem* parent = 0); //takes ownership of widget
+			OnScreenWidget(QWidget* widget, Palapeli::AutoscalingItem* parent = 0); //takes ownership of widget
 			~OnScreenWidget();
 
 			const OnScreenAnimator* animator() const;

@@ -20,6 +20,7 @@
 #include "mainwindow.h"
 #include "mainwindow_p.h"
 #include "autosaver.h"
+#include "interface/savewidget.h"
 #include "manager.h"
 #include "minimap.h"
 #include "preview.h"
@@ -109,6 +110,8 @@ void Palapeli::MainWindowPrivate::setupActions()
 	connect(m_togglePreviewAct, SIGNAL(triggered(bool)), m_dockPreview, SLOT(setVisible(bool)));
 	//Settings actions
 	KStandardAction::preferences(m_settingsDialog, SLOT(show()), m_parent->actionCollection());
+	//actions for new interface
+	new Palapeli::SaveWidgetAction(m_parent->actionCollection());
 }
 
 void Palapeli::MainWindowPrivate::setupDockers()

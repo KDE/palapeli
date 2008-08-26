@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "onscreenwidget.h"
+#include "autoscalingitem.h"
 #include "onscreenanimator.h"
 
 #include <QGraphicsItemAnimation>
@@ -28,7 +29,7 @@
 
 const qreal ItemPadding = 5.0;
 
-Palapeli::OnScreenWidget::OnScreenWidget(QWidget* widget, QGraphicsItem* parent)
+Palapeli::OnScreenWidget::OnScreenWidget(QWidget* widget, Palapeli::AutoscalingItem* parent)
 	: QGraphicsWidget(parent)
 	, m_proxy(new QGraphicsProxyWidget(this))
 	, m_animator(new Palapeli::OnScreenAnimator(this))

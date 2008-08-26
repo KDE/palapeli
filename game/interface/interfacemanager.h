@@ -25,6 +25,7 @@
 namespace Palapeli
 {
 
+	class AutoscalingItem;
 	class OnScreenWidget;
 
 	class InterfaceManager : public QObject
@@ -52,6 +53,7 @@ namespace Palapeli
 			~InterfaceManager();
 			Q_DISABLE_COPY(InterfaceManager)
 
+			AutoscalingItem* m_autoscaler;
 			OnScreenWidget* m_currentWidget;
 			WidgetType m_currentWidgetType;
 			OnScreenWidget* m_nextWidget;

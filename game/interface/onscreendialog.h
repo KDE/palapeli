@@ -33,7 +33,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			OnScreenDialog(QWidget* widget, QList<KGuiItem> buttons, const QString& title = QString(), QGraphicsItem* parent = 0); //takes ownership of widget
+			OnScreenDialog(QWidget* widget, QList<KGuiItem> buttons, const QString& title = QString(), Palapeli::AutoscalingItem* parent = 0); //takes ownership of widget
 			~OnScreenDialog();
 
 			void setButtonGuiItem(int id, const KGuiItem& item);

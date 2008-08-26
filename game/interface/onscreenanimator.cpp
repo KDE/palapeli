@@ -40,26 +40,22 @@ void Palapeli::OnScreenAnimator::changeValue(qreal value)
 	//TODO: LTR/RTL
 	if (!m_widget)
 		return;
-	//find base point of animation, and size of widget
-	QList<QGraphicsView*> views = m_widget->scene()->views();
-	if (views.isEmpty())
-		return;
-	const QPointF basePoint = views[0]->mapToScene(0, 0);
+	//find size of widget
 	const QSizeF widgetSize = m_widget->boundingRect().size();
 	//find start and end point of animation
 	QPointF startPoint, endPoint;
 	switch (m_direction)
 	{
 		case NoDirection:
-			startPoint = endPoint = basePoint;
+			startPoint = endPoint = QPointF(0.0, 0.0);
 			break;
 		case ShowDirection:
-			startPoint = QPointF(basePoint.x() - widgetSize.width(), basePoint.y() - widgetSize.height());
-			endPoint = basePoint;
+			startPoint = QPointF(-widgetSize.width(), -widgetSize.height());
+			endPoint = QPointF(0.0, 0.0);
 			break;
 		case HideDirection:
-			startPoint = basePoint;
-			endPoint = QPointF(basePoint.x() - widgetSize.width(), basePoint.y() - widgetSize.height());
+			startPoint = QPointF(0.0, 0.0);
+			endPoint = QPointF(-widgetSize.width(), -widgetSize.height());
 			break;
 	}
 	m_widget->setPos(startPoint + value * (endPoint - startPoint));
