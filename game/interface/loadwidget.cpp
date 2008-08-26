@@ -40,7 +40,7 @@ Palapeli::LoadWidget* Palapeli::LoadWidget::create(Palapeli::AutoscalingItem* pa
 }
 
 Palapeli::LoadWidget::LoadWidget(QListView* view, Palapeli::AutoscalingItem* parent)
-	: Palapeli::OnScreenDialog(view, QList<KGuiItem>() << KStandardGuiItem::open() << KStandardGuiItem::cancel(), i18n("Open a saved game"), parent)
+	: Palapeli::OnScreenDialog(view, QList<KGuiItem>() << KStandardGuiItem::open() << KStandardGuiItem::del() << KStandardGuiItem::cancel(), i18n("Open a saved game"), parent)
 	, m_view(view)
 {
 	connect(this, SIGNAL(buttonPressed(int)), this, SLOT(handleButton(int)));
@@ -51,9 +51,18 @@ Palapeli::LoadWidget::LoadWidget(QListView* view, Palapeli::AutoscalingItem* par
 
 void Palapeli::LoadWidget::handleButton(int id)
 {
-	if (id == 0) //the "Load" button
-		QTimer::singleShot(animator()->duration(), this, SLOT(load())); //start loading after this item has been hidden
-	ppIMgr()->hide(Palapeli::InterfaceManager::LoadWidget);
+	if (id == 1) //the "Delete" button
+	{
+		//delete selected games
+		foreach (const QModelIndex& item, m_view->selectionModel()->selectedIndexes())
+			ppMgr()->deleteGame(ppMgr()->savegameModel()->data(item, Qt::DisplayRole).toString());
+	}
+	else
+	{
+		if (id == 0) //the "Load" button
+			QTimer::singleShot(animator()->duration(), this, SLOT(load())); //start loading after this item has been hidden
+		ppIMgr()->hide(Palapeli::InterfaceManager::LoadWidget);
+	}
 }
 
 void Palapeli::LoadWidget::handleSelectionChange()
