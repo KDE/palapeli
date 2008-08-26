@@ -30,6 +30,7 @@ Palapeli::OnScreenAnimator::OnScreenAnimator(Palapeli::OnScreenWidget* widget)
 	, m_direction(NoDirection)
 {
 	m_timeLine->setFrameRange(0, 10); //that is ~30 fps which should be sufficient
+	m_timeLine->setCurveShape(QTimeLine::EaseInCurve);
 }
 
 Palapeli::OnScreenAnimator::~OnScreenAnimator()
@@ -118,7 +119,6 @@ void Palapeli::OnScreenAnimator::changeValueOpacity(qreal value)
 void Palapeli::OnScreenAnimator::start(Palapeli::OnScreenAnimator::Direction direction)
 {
 	m_direction = direction;
-	m_timeLine->setCurveShape(QTimeLine::EaseInCurve);
 	m_timeLine->start();
 	//change connections
 	m_timeLine->disconnect();
@@ -133,7 +133,6 @@ void Palapeli::OnScreenAnimator::start(Palapeli::OnScreenAnimator::Direction dir
 
 void Palapeli::OnScreenAnimator::animationEnd1()
 {
-	m_timeLine->setCurveShape(QTimeLine::EaseOutCurve);
 	m_timeLine->start();
 	//change connections
 	m_timeLine->disconnect();
