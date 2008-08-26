@@ -6,5 +6,4 @@ Paladesign
 * warn before changes are discarded on closing (JJ)
 Palapeli
 * rotation of pieces (requires redesign of the game engine - Piece/Part/PieceRelation)
-* interface cleanup (requires user research)
-* scene background picture
+* GHNS support for diverse resource files and puzzle library entries
