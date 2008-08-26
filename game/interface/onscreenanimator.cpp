@@ -22,7 +22,7 @@
 #include <QApplication>
 #include <QTimeLine>
 
-const int Duration = 300;
+const int Duration = 350;
 
 Palapeli::OnScreenAnimator::OnScreenAnimator(Palapeli::OnScreenWidget* widget)
 	: m_timeLine(new QTimeLine(Duration))
