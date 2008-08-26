@@ -33,6 +33,7 @@ set(palapeli_SRCS
 	view.cpp
 	interface/autoscalingitem.cpp
 	interface/interfacemanager.cpp
+	interface/loadwidget.cpp
 	interface/onscreenanimator.cpp
 	interface/onscreendialog.cpp
 	interface/onscreenwidget.cpp

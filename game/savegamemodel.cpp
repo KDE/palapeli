@@ -24,6 +24,14 @@ Palapeli::SavegameModel::SavegameModel(const QStringList& list)
 {
 }
 
+Qt::ItemFlags Palapeli::SavegameModel::flags(const QModelIndex& index) const
+{
+	//like base implementation, but remove Qt::ItemIsEditable flag
+	Qt::ItemFlags flags = QStringListModel::flags(index);
+	flags &= ~Qt::ItemIsEditable;
+	return flags;
+}
+
 bool Palapeli::SavegameModel::lessThan(const QString& s1, const QString& s2)
 {
 	return QString::localeAwareCompare(s1, s2) < 0;

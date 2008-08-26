@@ -16,41 +16,40 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_ONSCREENANIMATOR_H
-#define PALAPELI_ONSCREENANIMATOR_H
+#ifndef PALAPELI_LOADWIDGET_H
+#define PALAPELI_LOADWIDGET_H
 
-#include <QTimeLine>
+#include "onscreendialog.h"
+
+#include <KAction>
+class QListView;
 
 namespace Palapeli
 {
 
-	class OnScreenWidget;
-
-	class OnScreenAnimator : public QTimeLine
+	class LoadWidget : public OnScreenDialog
 	{
 		Q_OBJECT
 		public:
-			enum Direction
-			{
-				NoDirection,
-				ShowDirection,
-				HideDirection
-			};
-
-			OnScreenAnimator(OnScreenWidget* widget);
-
-			Direction direction() const;
-			int duration() const; //in milliseconds
+			static LoadWidget* create(Palapeli::AutoscalingItem* parent = 0);
 		public Q_SLOTS:
-			void start(Direction direction);
-		private Q_SLOTS:
-			void changeValue(qreal value);
-			void animationEnd();
+			void handleButton(int id);
+			void handleSelectionChange();
+			void load();
 		private:
-			OnScreenWidget* m_widget;
-			Direction m_direction;
+			LoadWidget(QListView* view, Palapeli::AutoscalingItem* parent);
+			QListView* m_view;
+	};
+
+	class LoadWidgetAction : public KAction
+	{
+		Q_OBJECT
+		public:
+			LoadWidgetAction(QObject* parent);
+		public Q_SLOTS:
+			void trigger();
 	};
 
 }
 
-#endif // PALAPELI_ONSCREENANIMATOR_H
+#endif // PALAPELI_LOADWIDGET_H

@@ -31,9 +31,8 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			static SaveWidget* create(Palapeli::AutoscalingItem* parent = 0);
+			static SaveWidget* create(const QString& gameName, Palapeli::AutoscalingItem* parent = 0);
 		public Q_SLOTS:
-			void setGameName(const QString& name);
 			void handleButton(int id);
 		private:
 			SaveWidget(KLineEdit* edit, Palapeli::AutoscalingItem* parent);
@@ -48,6 +47,8 @@ namespace Palapeli
 		public Q_SLOTS:
 			void setGameName(const QString& name);
 			void trigger();
+		private:
+			QString m_name;
 	};
 
 }

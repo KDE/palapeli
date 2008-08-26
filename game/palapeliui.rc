@@ -13,6 +13,7 @@
 		</Menu>
 		<Menu name="newiface">
 			<Text>New interface</Text>
+			<Action name="palapeli_load"/>
 			<Action name="palapeli_save"/>
 		</Menu>
 		<Menu name="views">
@@ -32,6 +33,7 @@
 	</ToolBar>
 	<ToolBar name="newInterface">
 		<text>New interface</text>
+		<Action name="palapeli_load"/>
 		<Action name="palapeli_save"/>
 	</ToolBar>
 </gui>

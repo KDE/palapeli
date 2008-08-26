@@ -56,8 +56,8 @@ Palapeli::View::View(QWidget* parent)
 	setAntialiasing(Settings::antialiasing(), true);
 	setHardwareAccelerated(Settings::hardwareAccel(), true);
 	//report viewport moves
-	connect(horizontalScrollBar(), SIGNAL(sliderMoved(int)), this, SIGNAL(viewportMoved()));
-	connect(verticalScrollBar(), SIGNAL(sliderMoved(int)), this, SIGNAL(viewportMoved()));
+	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportMoved()));
+	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportMoved()));
 }
 
 void Palapeli::View::wheelEvent(QWheelEvent* event)
@@ -117,7 +117,10 @@ void Palapeli::View::useScene(bool useScene)
 {
 	setScene(useScene ? m_scene : 0);
 	if (useScene)
+	{
 		fitInView(m_scene->sceneRect(), Qt::KeepAspectRatio);
+		emit viewportMoved();
+	}
 }
 
 #include "view.moc"

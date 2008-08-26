@@ -19,10 +19,10 @@
 #include "onscreenanimator.h"
 #include "onscreenwidget.h"
 
-#include <QGraphicsView>
+const int Duration = 500;
 
 Palapeli::OnScreenAnimator::OnScreenAnimator(Palapeli::OnScreenWidget* widget)
-	: QTimeLine(500)
+	: QTimeLine(Duration)
 	, m_widget(widget)
 	, m_direction(NoDirection)
 {
@@ -33,6 +33,11 @@ Palapeli::OnScreenAnimator::OnScreenAnimator(Palapeli::OnScreenWidget* widget)
 Palapeli::OnScreenAnimator::Direction Palapeli::OnScreenAnimator::direction() const
 {
 	return m_direction;
+}
+
+int Palapeli::OnScreenAnimator::duration() const
+{
+	return Duration;
 }
 
 void Palapeli::OnScreenAnimator::changeValue(qreal value)

@@ -82,6 +82,13 @@ Palapeli::OnScreenDialog::~OnScreenDialog()
 	delete m_mapper; //everything else is deleted together with the container widget
 }
 
+void Palapeli::OnScreenDialog::setButtonEnabled(int id, bool enabled)
+{
+	if (id < 0 || id >= m_buttons.count())
+		return;
+	m_buttons[id]->setEnabled(enabled);
+}
+
 void Palapeli::OnScreenDialog::setButtonGuiItem(int id, const KGuiItem& item)
 {
 	if (id < 0 || id >= m_buttons.count())

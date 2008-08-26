@@ -20,6 +20,7 @@
 #include "mainwindow.h"
 #include "mainwindow_p.h"
 #include "autosaver.h"
+#include "interface/loadwidget.h"
 #include "interface/savewidget.h"
 #include "manager.h"
 #include "minimap.h"
@@ -111,6 +112,8 @@ void Palapeli::MainWindowPrivate::setupActions()
 	//Settings actions
 	KStandardAction::preferences(m_settingsDialog, SLOT(show()), m_parent->actionCollection());
 	//actions for new interface
+	//TODO: changeInteractionMode
+	new Palapeli::LoadWidgetAction(m_parent->actionCollection());
 	new Palapeli::SaveWidgetAction(m_parent->actionCollection());
 }
 

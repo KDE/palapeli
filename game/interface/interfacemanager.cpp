@@ -19,10 +19,13 @@
 #include "interfacemanager.h"
 #include "autoscalingitem.h"
 #include "../manager.h"
+#include "loadwidget.h"
 #include "onscreenanimator.h"
 #include "onscreenwidget.h"
 #include "savewidget.h"
 #include "../view.h"
+
+//FIXME: give focus to widget
 
 Palapeli::InterfaceManager::InterfaceManager()
 	: m_autoscaler(new Palapeli::AutoscalingItem(ppMgr()->view()))
@@ -59,22 +62,28 @@ Palapeli::OnScreenWidget* Palapeli::InterfaceManager::show(Palapeli::InterfaceMa
 	{
 		case NoWidget: //invalid input
 			break;
+		case LoadWidget:
+			widget = Palapeli::LoadWidget::create(m_autoscaler);
+			break;
 		case SaveWidget:
-			widget = Palapeli::SaveWidget::create(m_autoscaler);
+			if (args.count() < 1) //not enough arguments
+				break;
+			widget = Palapeli::SaveWidget::create(args[0].toString(), m_autoscaler);
+			break;
 		default: //for unimplemented widgets
 			break;
 	}
 	if (!widget)
 		return 0;
-	ppMgr()->view()->realScene()->addItem(widget);
 	//set this widget as the one to be shown next
 	if (m_nextWidget)
-		delete m_nextWidget;
+		m_nextWidget->deleteLater();
 	m_nextWidget = widget;
 	m_nextWidgetType = type;
-	//if nothing shown currently, directly proceed with showing this one
-	if (!m_currentWidget)
-		next();
+	if (m_currentWidget)
+		hide(m_currentWidgetType); //another widget shown - hide the one that is shown currently
+	else
+		next(); //nothing shown currently - directly proceed with showing this one
 	return widget;
 }
 
@@ -89,7 +98,7 @@ void Palapeli::InterfaceManager::hide(Palapeli::InterfaceManager::WidgetType typ
 	else if (type == m_nextWidgetType)
 	{
 		//widget is scheduled to be shown next - remove from the schedule
-		delete m_nextWidget;
+		m_nextWidget->deleteLater();
 		m_nextWidget = 0;
 		m_nextWidgetType = NoWidget;
 	}
@@ -99,7 +108,7 @@ void Palapeli::InterfaceManager::next()
 {
 	//delete current widget
 	if (m_currentWidget)
-		delete m_currentWidget;
+		m_currentWidget->deleteLater();
 	//move next widget to the place of the current widget
 	m_currentWidget = m_nextWidget;
 	m_currentWidgetType = m_nextWidgetType;
