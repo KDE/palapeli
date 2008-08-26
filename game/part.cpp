@@ -20,8 +20,7 @@
 #include "part.h"
 #include "manager.h"
 #include "piece.h"
-
-int currentZValue = 0;
+#include "view.h"
 
 Palapeli::Part::Part(Palapeli::Piece* piece)
 	: m_basePosition(piece->pos() - piece->positionInImage())
@@ -92,12 +91,10 @@ void Palapeli::Part::move(const QPointF& newBasePosition)
 
 void Palapeli::Part::update()
 {
-	//iterate Z value to make elements of this part appear on top
-	++currentZValue;
 	//move every piece to the right position
 	foreach (Palapeli::Piece* piece, m_pieces)
 	{
 		piece->setPos(m_basePosition + piece->positionInImage());
-		piece->setZValue(currentZValue);
+		ppMgr()->view()->moveToTop(piece);
 	}
 }

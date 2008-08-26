@@ -22,6 +22,7 @@
 #include "settings.h"
 
 #include <QBrush>
+#include <QGraphicsItem>
 #include <QGraphicsScene>
 #ifdef PALAPELI_WITH_OPENGL
 #	include <QGLWidget>
@@ -127,6 +128,12 @@ void Palapeli::View::useScene(bool useScene)
 		fitInView(m_scene->sceneRect(), Qt::KeepAspectRatio);
 		emit viewportMoved();
 	}
+}
+
+void Palapeli::View::moveToTop(QGraphicsItem* item) const
+{
+	static int currentZValue = 0;
+	item->setZValue(++currentZValue);
 }
 
 #include "view.moc"

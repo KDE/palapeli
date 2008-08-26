@@ -121,7 +121,10 @@ void Palapeli::InterfaceManager::next()
 	m_nextWidgetType = NoWidget;
 	//start to show new current widget if there is one
 	if (m_currentWidget)
+	{
 		m_currentWidget->showAnimated();
+		ppMgr()->view()->moveToTop(m_autoscaler);
+	}
 }
 
 #include "interfacemanager.moc"
