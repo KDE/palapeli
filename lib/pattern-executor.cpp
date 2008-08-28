@@ -47,6 +47,7 @@ Palapeli::PatternExecutor::PatternExecutor(Palapeli::Pattern* pattern)
 
 Palapeli::PatternExecutor::~PatternExecutor()
 {
+        delete p;
 }
 
 void Palapeli::PatternExecutor::setImage(const QImage& image)
