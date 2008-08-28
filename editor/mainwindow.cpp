@@ -144,7 +144,7 @@ void Paladesign::MainWindow::savePattern()
 {
 	if (m_manager->points()->patternName().isEmpty())
 	{
-		KMessageBox::error(this, "You attempted to save a pattern without a name. Specify a pattern name by selecting the position array and entering a name in the property view.");
+		KMessageBox::error(this, i18n("You attempted to save a pattern without a name. Specify a pattern name by selecting the position array and entering a name in the property view."));
 		return;
 	}
 	if (m_saveTarget.isEmpty())
@@ -157,7 +157,7 @@ void Paladesign::MainWindow::savePatternAs()
 {
 	if (m_manager->points()->patternName().isEmpty())
 	{
-		KMessageBox::error(this, "You attempted to save a pattern without a name. Specify a pattern name by selecting the position array and entering a name in the property view.");
+		KMessageBox::error(this, i18n("You attempted to save a pattern without a name. Specify a pattern name by selecting the position array and entering a name in the property view."));
 		return;
 	}
 	//ask user for name of SVG file

@@ -63,7 +63,7 @@ void Paladesign::Shapes::setShape(const QUuid& id)
 	m_shapeId = id;
 	m_shape->load(shapeItem.filePath());
 	if (!m_shape->elementExists(elementId))
-		KMessageBox::error(0, "Given shape does not contain an element with ID \"paladesign-shape\".");
+		KMessageBox::error(0, i18n("Given shape does not contain an element with ID \"paladesign-shape\"."));
 	emit shapeChanged();
 }
 
@@ -79,7 +79,7 @@ void Paladesign::Shapes::setShape(const KUrl& url)
 	m_shapeId = shapeItem.id();
 	m_shape->load(shapeItem.filePath());
 	if (!m_shape->elementExists(elementId))
-		KMessageBox::error(0, "Given shape does not contain an element with ID \"paladesign-shape\".");
+		KMessageBox::error(0, ("Given shape does not contain an element with ID \"paladesign-shape\"."));
 	emit shapeChanged();
 }
 
