@@ -38,6 +38,7 @@ namespace Palapeli
 
 			int m_pieceCounter;
 			QSize m_imageSize;
+			qreal m_sceneSizeFactor;
 			
 			QList<QPointF> m_sceneBasePositions;
 			bool m_loadSceneBasePositions;
@@ -49,6 +50,7 @@ namespace Palapeli
 Palapeli::PatternPrivate::PatternPrivate()
 	: m_executor(0)
 	, m_pieceCounter(0)
+	, m_sceneSizeFactor(2.0) //a reasonable default
 	, m_loadSceneBasePositions(false)
 	, m_emittedAllPiecesGeneratedSignal(false)
 {
@@ -74,6 +76,11 @@ void Palapeli::Pattern::loadPiecePositions(const QList<QPointF>& points)
 	p->m_loadSceneBasePositions = true;
 }
 
+void Palapeli::Pattern::setSceneSizeFactor(qreal factor)
+{
+	p->m_sceneSizeFactor = factor;
+}
+
 void Palapeli::Pattern::slice(const QImage& image)
 {
 	p->m_imageSize = image.size();
@@ -88,7 +95,7 @@ QPointF Palapeli::Pattern::generateNextBasePosition(const QRectF& positionInImag
 	else
 	{
 		++p->m_pieceCounter; //unused in this case
-		const QSize sceneSize = 3 * p->m_imageSize;
+		const QSize sceneSize = p->m_sceneSizeFactor * p->m_imageSize;
 		const int leftEdgePos = qrand() % (sceneSize.width() - (int) positionInImage.width());
 		const int topEdgePos = qrand() % (sceneSize.height() - (int) positionInImage.height());
 		return QPointF(leftEdgePos - positionInImage.left(), topEdgePos - positionInImage.top());

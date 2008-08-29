@@ -92,6 +92,11 @@ protected:
 			void loadPiecePositions(const QList<QPointF>& points);
 			/**
 			 * \internal
+			 * The Palapeli game engine will use this function to indicate how big the scene is (in multiples of the image size).
+			 */
+			void setSceneSizeFactor(qreal factor);
+			/**
+			 * \internal
 			 * The Palapeli game engine will call this function to create pieces from a given \a image. You will not need this function, but you will need to implement the actual slicing in the doSlice function.
 			 * \sa doSlice
 			 */
