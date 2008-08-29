@@ -14,7 +14,6 @@ endif(OPENGL_FOUND)
 
 set(palapeli_SRCS
 	autosaver.cpp
-	listmenu.cpp
 	main.cpp
 	mainwindow.cpp
 	manager.cpp
@@ -25,9 +24,7 @@ set(palapeli_SRCS
 	piecerelation.cpp
 	preview.cpp
 	puzzlelibrary.cpp
-	saveaction.cpp
 	savegamemodel.cpp
-	savegameview.cpp
 	statemanager.cpp
 	textprogressbar.cpp
 	view.cpp

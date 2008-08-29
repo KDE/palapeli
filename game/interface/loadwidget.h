@@ -34,6 +34,7 @@ namespace Palapeli
 			static LoadWidget* create(Palapeli::AutoscalingItem* parent = 0);
 		public Q_SLOTS:
 			void handleButton(int id);
+			void handleDoubleClick();
 			void handleSelectionChange();
 			void load();
 		private:

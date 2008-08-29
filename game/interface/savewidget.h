@@ -33,6 +33,7 @@ namespace Palapeli
 		public:
 			static SaveWidget* create(const QString& gameName, Palapeli::AutoscalingItem* parent = 0);
 		public Q_SLOTS:
+			void handleReturnPressed();
 			void handleButton(int id);
 		private:
 			SaveWidget(KLineEdit* edit, Palapeli::AutoscalingItem* parent);

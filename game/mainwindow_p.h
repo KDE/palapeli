@@ -22,10 +22,7 @@
 
 #include "mainwindow.h"
 
-#include "listmenu.h"
 #include "newpuzzledialog.h"
-#include "saveaction.h"
-#include "savegameview.h"
 #include "textprogressbar.h"
 #include "ui_settings_appearance.h"
 #include "ui_settings_gameplay.h"
@@ -52,18 +49,14 @@ namespace Palapeli
 			//event handlers
 			void configurationChanged();
 			void configurationFinished();
+			void setFullScreen(bool full);
 		public:
 			//actions
-			ListMenu* m_loadAct;
-			SaveAction* m_saveAct;
-			KAction* m_showSavegamesAct;
 			KAction* m_toggleMinimapAct;
 			KAction* m_togglePreviewAct;
 			//dockers
 			QDockWidget* m_dockMinimap;
 			QDockWidget* m_dockPreview;
-			SavegameView* m_savegameView;
-			QDockWidget* m_dockSavegames;
 			//dialogs
 			NewPuzzleDialog* m_newDialog;
 			KPageDialog* m_settingsDialog;

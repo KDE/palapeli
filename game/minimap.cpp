@@ -97,6 +97,8 @@ void Palapeli::Minimap::moveViewport(const QPointF& widgetTo, const QPointF& wid
 
 void Palapeli::Minimap::mousePressEvent(QMouseEvent* event)
 {
+	if (ppMgr()->pieceCount() == 0) //no game running
+		return;
 	if (event->button() & Qt::LeftButton)
 	{
 		//if user did not click on view rectangle, move viewport to the click position
@@ -112,6 +114,8 @@ void Palapeli::Minimap::mousePressEvent(QMouseEvent* event)
 
 void Palapeli::Minimap::mouseMoveEvent(QMouseEvent* event)
 {
+	if (ppMgr()->pieceCount() == 0) //no game running
+		return;
 	if (m_draggingViewport)
 	{
 		moveViewport(event->pos(), m_draggingPreviousPos);
@@ -123,6 +127,8 @@ void Palapeli::Minimap::mouseMoveEvent(QMouseEvent* event)
 
 void Palapeli::Minimap::mouseReleaseEvent(QMouseEvent* event)
 {
+	if (ppMgr()->pieceCount() == 0) //no game running
+		return;
 	if (m_draggingViewport && !m_viewportWasDragged)
 		//viewport was not dragged after mousePressEvent -> mouse did not move -> move viewport to this position
 		moveViewport(event->pos());
@@ -131,6 +137,8 @@ void Palapeli::Minimap::mouseReleaseEvent(QMouseEvent* event)
 
 void Palapeli::Minimap::paintEvent(QPaintEvent*)
 {
+	if (ppMgr()->pieceCount() == 0) //no game running
+		return;
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
 

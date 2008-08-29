@@ -27,7 +27,6 @@
 #include "manager.h"
 #include "minimap.h"
 #include "preview.h"
-#include "savegamemodel.h"
 #include "settings.h"
 #include "view.h"
 
@@ -35,20 +34,17 @@
 #include <QTimer>
 #include <KActionCollection>
 #include <KLocalizedString>
+#include <KMenuBar>
 #include <KDE/KStandardGameAction>
 #include <KStatusBar>
+#include <KToggleFullScreenAction>
 
 Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
 	: m_parent(parent)
-	, m_loadAct(new Palapeli::ListMenu(KIcon("document-open"), i18n("Load"), parent))
-	, m_saveAct(new Palapeli::SaveAction(parent))
-	, m_showSavegamesAct(new KAction(KIcon("document-save-as"), i18n("Manage saved games"), parent))
-	, m_toggleMinimapAct(new KAction(i18n("Show minimap"), parent))
-	, m_togglePreviewAct(new KAction(i18n("Show preview"), parent))
+	, m_toggleMinimapAct(new KAction(KIcon("document-preview"), i18n("Show minimap"), parent))
+	, m_togglePreviewAct(new KAction(KIcon("games-config-background"), i18n("Show preview"), parent))
 	, m_dockMinimap(new QDockWidget(i18n("Overview"), parent))
 	, m_dockPreview(new QDockWidget(i18n("Image preview"), parent))
-	, m_savegameView(new Palapeli::SavegameView)
-	, m_dockSavegames(new QDockWidget(i18n("Saved games"), parent))
 	, m_newDialog(0) //cannot be created until Manager has loaded the pattern plugins
 	, m_settingsDialog(new KPageDialog(parent))
 	, m_appearanceUi(new Ui::AppearanceSettingsWidget)
@@ -63,17 +59,11 @@ Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
 Palapeli::MainWindowPrivate::~MainWindowPrivate()
 {
 	//actions
-	delete m_loadAct;
-	delete m_saveAct;
-	delete m_showSavegamesAct;
 	delete m_toggleMinimapAct;
 	delete m_togglePreviewAct;
 	//docker widgets
 	delete m_dockMinimap;
 	delete m_dockPreview;
-	delete m_dockSavegames;
-	//docker contents
-	delete m_savegameView;
 	//dialogs
 	delete m_newDialog;
 	delete m_settingsDialog;
@@ -90,15 +80,10 @@ void Palapeli::MainWindowPrivate::setupActions()
 {
 	//Game actions
 	KStandardGameAction::gameNew(0, "", m_parent->actionCollection()); //no slot given because m_newDialog is not available yet
-	m_parent->actionCollection()->addAction("game_load", m_loadAct);
-	m_loadAct->setDelayed(false);
-	m_loadAct->setStickyMenu(true);
-	m_loadAct->setDisabledWhenEmpty(true);
-	m_loadAct->setModel(ppMgr()->savegameModel());
-	connect(m_loadAct, SIGNAL(clicked(const QString&)), ppMgr(), SLOT(loadGame(const QString&)));
-	m_parent->actionCollection()->addAction("game_save", m_saveAct);
-	m_parent->actionCollection()->addAction("palapeli_manage_savegames", m_showSavegamesAct);
-	connect(m_showSavegamesAct, SIGNAL(triggered()), m_dockSavegames, SLOT(show()));
+	new Palapeli::LoadWidgetAction(m_parent->actionCollection());
+	new Palapeli::SaveWidgetAction(m_parent->actionCollection());
+	new Palapeli::ImportWidgetAction(m_parent->actionCollection());
+	new Palapeli::ExportWidgetAction(m_parent->actionCollection());
 	KStandardGameAction::quit(m_parent, SLOT(close()), m_parent->actionCollection());
 	//View actions
 	m_parent->actionCollection()->addAction("view_toggle_minimap", m_toggleMinimapAct);
@@ -111,14 +96,9 @@ void Palapeli::MainWindowPrivate::setupActions()
 	m_togglePreviewAct->setChecked(false);
 	connect(m_dockPreview, SIGNAL(visibilityChanged(bool)), m_togglePreviewAct, SLOT(setChecked(bool)));
 	connect(m_togglePreviewAct, SIGNAL(triggered(bool)), m_dockPreview, SLOT(setVisible(bool)));
+	KStandardAction::fullScreen(this, SLOT(setFullScreen(bool)), m_parent, m_parent->actionCollection());
 	//Settings actions
 	KStandardAction::preferences(m_settingsDialog, SLOT(show()), m_parent->actionCollection());
-	//actions for new interface
-	//TODO: changeInteractionMode
-	new Palapeli::LoadWidgetAction(m_parent->actionCollection());
-	new Palapeli::SaveWidgetAction(m_parent->actionCollection());
-	new Palapeli::ImportWidgetAction(m_parent->actionCollection());
-	new Palapeli::ExportWidgetAction(m_parent->actionCollection());
 }
 
 void Palapeli::MainWindowPrivate::setupDockers()
@@ -135,12 +115,6 @@ void Palapeli::MainWindowPrivate::setupDockers()
 	m_dockPreview->setWidget(ppMgr()->preview());
 	m_dockPreview->resize(1, 1);
 	m_dockPreview->setVisible(false); //hidden by default
-	//saved games view
-	m_parent->addDockWidget(Qt::RightDockWidgetArea, m_dockSavegames);
-	m_dockSavegames->setObjectName("DockSavegames");
-	m_dockSavegames->setWidget(m_savegameView);
-	m_dockSavegames->resize(1, 1);
-	m_dockSavegames->setVisible(false); //hidden by default
 }
 
 void Palapeli::MainWindowPrivate::setupDialogs()
@@ -157,6 +131,8 @@ void Palapeli::MainWindowPrivate::setupDialogs()
 	connect(m_appearanceUi->checkAntialiasing, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
 	m_appearanceUi->checkHardwareAccel->setChecked(Settings::hardwareAccel());
 	connect(m_appearanceUi->checkHardwareAccel, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
+	m_appearanceUi->sceneSizeSlider->setValue(100.0 * Settings::sceneSizeFactor());
+	connect(m_appearanceUi->sceneSizeSlider, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
 	m_appearanceUi->checkMinimapQuality->setChecked(Settings::minimapQuality());
 	connect(m_appearanceUi->checkMinimapQuality, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
 	m_gameplayUi->precisionSlider->setValue(Settings::snappingPrecision());
@@ -216,6 +192,7 @@ void Palapeli::MainWindowPrivate::configurationFinished()
 		ppMgr()->autosaver()->setMoveInterval(m_gameplayUi->spinAutosaveMove->value());
 	else
 		ppMgr()->autosaver()->setMoveInterval(0);
+	Settings::setSceneSizeFactor(qreal(m_appearanceUi->sceneSizeSlider->value()) / 100.0);
 	Settings::setSnappingPrecision(m_gameplayUi->precisionSlider->value());
 	Settings::self()->writeConfig();
 	//mark settings as saved in the dialog
@@ -223,6 +200,12 @@ void Palapeli::MainWindowPrivate::configurationFinished()
 	//report progress
 	m_parent->reportProgress(0, 1, 1, i18n("Settings saved."));
 	m_parent->flushProgress(2);
+}
+
+void Palapeli::MainWindowPrivate::setFullScreen(bool full)
+{
+	m_parent->menuBar()->setVisible(!full);
+	KToggleFullScreenAction::setFullScreen(m_parent, full);
 }
 
 Palapeli::MainWindow::MainWindow(QWidget* parent)
@@ -241,7 +224,8 @@ Palapeli::MainWindow::MainWindow(QWidget* parent)
 	gameNameWasChanged(QString());
 	connect(ppMgr(), SIGNAL(gameNameChanged(const QString&)), this, SLOT(gameNameWasChanged(const QString&)));
 	connect(ppMgr(), SIGNAL(interactionModeChanged(bool)), this, SLOT(changeInteractionMode(bool)));
-	//status bar
+	//menu bar and status bar
+	menuBar()->show();
 	statusBar()->show();
 	statusBar()->addPermanentWidget(p->m_universalProgress, 1);
 	statusBar()->addPermanentWidget(p->m_puzzleProgress, 1);
@@ -308,10 +292,11 @@ void Palapeli::MainWindow::gameNameWasChanged(const QString& name)
 
 void Palapeli::MainWindow::changeInteractionMode(bool allowGameInteraction)
 {
-	QAction* newAct = actionCollection()->action(KStandardGameAction::name(KStandardGameAction::New));
-	newAct->setEnabled(allowGameInteraction);
-	p->m_loadAct->setEnabled(allowGameInteraction);
-	p->m_saveAct->setEnabled(allowGameInteraction);
+	actionCollection()->action(KStandardGameAction::name(KStandardGameAction::New))->setEnabled(allowGameInteraction);
+	actionCollection()->action(QLatin1String("palapeli_load"))->setEnabled(allowGameInteraction);
+	actionCollection()->action(QLatin1String("palapeli_save"))->setEnabled(allowGameInteraction);
+	actionCollection()->action(QLatin1String("palapeli_import"))->setEnabled(allowGameInteraction);
+	actionCollection()->action(QLatin1String("palapeli_export"))->setEnabled(allowGameInteraction);
 }
 
 void Palapeli::MainWindow::closeEvent(QCloseEvent* event)

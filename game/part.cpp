@@ -76,9 +76,6 @@ void Palapeli::Part::removePiece(Palapeli::Piece* piece)
 
 void Palapeli::Part::move(const QPointF& newBasePosition)
 {
-	//check if a change is necessary at all
-	if (newBasePosition == m_basePosition)
-		return;
 	//check if pieces would go out of the scene because of this move
 	QPointF mutableNewBasePosition(newBasePosition);
 	foreach (Palapeli::Piece* piece, m_pieces)

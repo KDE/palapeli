@@ -4,23 +4,18 @@
 	<MenuBar>
 		<Menu name="game">
 			<Action name="game_new"/>
-			<Action name="game_load"/>
-			<Separator/>
-			<Action name="game_save"/>
-			<Action name="palapeli_manage_savegames"/>
-			<Separator/>
-			<Action name="game_quit"/>
-		</Menu>
-		<Menu name="newiface">
-			<Text>New interface</Text>
 			<Action name="palapeli_load"/>
 			<Action name="palapeli_save"/>
 			<Separator/>
 			<Action name="palapeli_import"/>
 			<Action name="palapeli_export"/>
+			<Separator/>
+			<Action name="game_quit"/>
 		</Menu>
 		<Menu name="views">
-			<Text>Views</Text>
+			<Text>View</Text>
+			<Action name="fullscreen"/>
+			<Separator/>
 			<Action name="view_toggle_minimap"/>
 			<Action name="view_toggle_preview"/>
 		</Menu>
@@ -29,18 +24,20 @@
 		</Menu>
 	</MenuBar>
 	<ToolBar name="mainToolBar">
-		<text>Main Toolbar</text>
+		<text>Main toolbar</text>
 		<Action name="game_new"/>
-		<Action name="game_load"/>
-		<Action name="game_save"/>
-	</ToolBar>
-	<ToolBar name="newInterface">
-		<text>New interface</text>
 		<Action name="palapeli_load"/>
 		<Action name="palapeli_save"/>
 		<Separator/>
 		<Action name="palapeli_import"/>
 		<Action name="palapeli_export"/>
+	</ToolBar>
+	<ToolBar name="viewToolBar">
+		<text>View toolbar</text>
+		<Action name="view_toggle_minimap"/>
+		<Action name="view_toggle_preview"/>
+		<Separator/>
+		<Action name="fullscreen"/>
 	</ToolBar>
 </gui>
 

@@ -13,6 +13,10 @@
       <label>Whether antialiasing should be used on the puzzle view.</label>
       <default>false</default>
     </entry>
+	<entry name="SceneSizeFactor" type="Double">
+	  <label>Scene size (in multiples of the image size).</label>
+	  <default>2.0</default>
+	</entry>
     <entry name="MinimapQuality" type="Int">
       <label>Quality of the minimap rendering (values: 0 = no translucent blocks, 1 = translucent blocks.)</label>
       <default>0</default>

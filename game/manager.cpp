@@ -33,6 +33,7 @@
 #include "piecerelation.h"
 #include "preview.h"
 #include "savegamemodel.h"
+#include "settings.h"
 #include "statemanager.h"
 #include "view.h"
 
@@ -278,7 +279,7 @@ bool Palapeli::ManagerPrivate::initGame()
 	m_relations.clear();
 	//configure scene and preview
 	m_view->useScene(false); //disable the scene until the pieces have been built
-	QRectF sceneRect(QPointF(0.0, 0.0), 3 * m_image.size());
+	QRectF sceneRect(QPointF(0.0, 0.0), Settings::sceneSizeFactor() * m_image.size());
 	m_view->realScene()->setSceneRect(sceneRect);
 	m_preview->setImage(m_image);
 	//instantiate a pattern
@@ -286,6 +287,7 @@ bool Palapeli::ManagerPrivate::initGame()
 	m_estimatePieceCount = 0; //by now, we do not know how much pieces to await
 	if (!pieceBasePositions.isEmpty())
 		pattern->loadPiecePositions(pieceBasePositions);
+	pattern->setSceneSizeFactor(Settings::sceneSizeFactor());
 	QObject::connect(pattern, SIGNAL(estimatePieceCountAvailable(int)), m_manager, SLOT(estimatePieceCount(int)));
 	QObject::connect(pattern, SIGNAL(pieceGenerated(const QImage&, const QRectF&, const QPointF&)),
 		m_manager, SLOT(addPiece(const QImage&, const QRectF&, const QPointF&)));
@@ -568,6 +570,14 @@ void Palapeli::Manager::finishGameLoading()
 {
 	//restore relations
 	searchConnections();
+	//ensure that all pieces are inside the sceneRect (useful if user has changed the scene size after saving this game)
+	const QRectF sceneRect = p->m_view->realScene()->sceneRect();
+	foreach (Palapeli::Piece* piece, p->m_pieces)
+	{
+		const QRectF boundingRect = piece->sceneBoundingRect();
+		if (!boundingRect.contains(sceneRect))
+			piece->part()->move(piece->part()->basePosition()); //let's the part re-apply all movement constraints
+	}
 	//propagate changes
 	if (!p->m_silent)
 	{

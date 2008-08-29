@@ -37,17 +37,23 @@ Palapeli::SaveWidget::SaveWidget(KLineEdit* edit, Palapeli::AutoscalingItem* par
 	: Palapeli::OnScreenDialog(edit, QList<KGuiItem>() << KStandardGuiItem::save() << KStandardGuiItem::cancel(), i18n("Enter a name"), parent)
 	, m_edit(edit)
 {
+	connect(m_edit, SIGNAL(returnPressed()), this, SLOT(handleReturnPressed()));
 	connect(this, SIGNAL(buttonPressed(int)), this, SLOT(handleButton(int)));
+}
+
+void Palapeli::SaveWidget::handleReturnPressed()
+{
+	if (!m_edit->text().isEmpty())
+		ppMgr()->saveGame(m_edit->text());
+	ppIMgr()->hide(Palapeli::InterfaceManager::SaveWidget);
 }
 
 void Palapeli::SaveWidget::handleButton(int id)
 {
 	if (id == 0) // save (the other option, cancel, does nothing)
-	{
-		if (!m_edit->text().isEmpty())
-			ppMgr()->saveGame(m_edit->text());
-	}
-	ppIMgr()->hide(Palapeli::InterfaceManager::SaveWidget);
+		handleReturnPressed();
+	else
+		ppIMgr()->hide(Palapeli::InterfaceManager::SaveWidget);
 }
 
 //END Palapeli::SaveWidget

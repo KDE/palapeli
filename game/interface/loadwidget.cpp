@@ -44,6 +44,7 @@ Palapeli::LoadWidget::LoadWidget(QListView* view, Palapeli::AutoscalingItem* par
 	, m_view(view)
 {
 	connect(this, SIGNAL(buttonPressed(int)), this, SLOT(handleButton(int)));
+	connect(m_view, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(handleDoubleClick()));
 	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(handleSelectionChange()));
 	setButtonEnabled(0, false); //FIXME: does not work
 	update();
@@ -63,6 +64,12 @@ void Palapeli::LoadWidget::handleButton(int id)
 			QTimer::singleShot(animator()->duration(), this, SLOT(load())); //start loading after this item has been hidden
 		ppIMgr()->hide(Palapeli::InterfaceManager::LoadWidget);
 	}
+}
+
+void Palapeli::LoadWidget::handleDoubleClick()
+{
+	QTimer::singleShot(animator()->duration(), this, SLOT(load()));
+	ppIMgr()->hide(Palapeli::InterfaceManager::LoadWidget);
 }
 
 void Palapeli::LoadWidget::handleSelectionChange()
