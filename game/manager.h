@@ -29,7 +29,6 @@ class KUrl;
 namespace Palapeli
 {
 
-	class Autosaver;
 	class MainWindow;
 	class ManagerPrivate;
 	class Minimap;
@@ -64,7 +63,6 @@ namespace Palapeli
 			PieceRelation relationAt(int index) const;
 			View* view() const;
 			//other objects (mostly user interface)
-			Autosaver* autosaver() const;
 			Minimap* minimap() const;
 			Preview* preview() const;
 			SavegameModel* savegameModel() const;
@@ -78,7 +76,6 @@ namespace Palapeli
 			void createGame(const QString& templateName);
 			void loadGame(const QString& name);
 			bool saveGame(const QString& name);
-			bool autosaveGame();
 			void deleteGame(const QString& name);
 			void savegameWasCreated(const QString& name);
 		protected Q_SLOTS:

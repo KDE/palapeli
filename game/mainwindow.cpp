@@ -19,7 +19,6 @@
 
 #include "mainwindow.h"
 #include "mainwindow_p.h"
-#include "autosaver.h"
 #include "interface/exportwidget.h"
 #include "interface/importwidget.h"
 #include "interface/loadwidget.h"
@@ -140,20 +139,6 @@ void Palapeli::MainWindowPrivate::setupDialogs()
 #ifndef PALAPELI_WITH_OPENGL
 	m_appearanceUi->checkHardwareAccel->setVisible(false);
 #endif
-	connect(m_gameplayUi->radioAutosaveTime, SIGNAL(toggled(bool)), this, SLOT(configurationChanged()));
-	connect(m_gameplayUi->spinAutosaveTime, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
-	if (Settings::autosaveTime() != 0)
-	{
-		m_gameplayUi->radioAutosaveTime->setChecked(true);
-		m_gameplayUi->spinAutosaveTime->setValue(Settings::autosaveTime());
-	}
-	connect(m_gameplayUi->radioAutosaveMove, SIGNAL(toggled(bool)), this, SLOT(configurationChanged()));
-	connect(m_gameplayUi->spinAutosaveMove, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
-	if (Settings::autosaveMoves() != 0)
-	{
-		m_gameplayUi->radioAutosaveMove->setChecked(true);
-		m_gameplayUi->spinAutosaveMove->setValue(Settings::autosaveMoves());
-	}
 	//setup Settings KDialog
 	m_settingsDialog->setWindowIcon(KIcon("configure"));
 	m_settingsDialog->setCaption(i18n("Configure Palapeli"));
@@ -184,14 +169,6 @@ void Palapeli::MainWindowPrivate::configurationFinished()
 	ppMgr()->view()->setAntialiasing(m_appearanceUi->checkAntialiasing->isChecked());
 	ppMgr()->view()->setHardwareAccelerated(m_appearanceUi->checkHardwareAccel->isChecked());
 	ppMgr()->minimap()->setQualityLevel(m_appearanceUi->checkMinimapQuality->isChecked() ? 1 : 0);
-	if (m_gameplayUi->radioAutosaveTime->isChecked())
-		ppMgr()->autosaver()->setTimeInterval(m_gameplayUi->spinAutosaveTime->value());
-	else
-		ppMgr()->autosaver()->setTimeInterval(0);
-	if (m_gameplayUi->radioAutosaveMove->isChecked())
-		ppMgr()->autosaver()->setMoveInterval(m_gameplayUi->spinAutosaveMove->value());
-	else
-		ppMgr()->autosaver()->setMoveInterval(0);
 	Settings::setSceneSizeFactor(qreal(m_appearanceUi->sceneSizeSlider->value()) / 100.0);
 	Settings::setSnappingPrecision(m_gameplayUi->precisionSlider->value());
 	Settings::self()->writeConfig();

@@ -25,7 +25,6 @@
 #include "../storage/gamestorageattribs.h"
 #include "../storage/gamestorage.h"
 #include "../storage/gamestorageitem.h"
-#include "autosaver.h"
 #include "mainwindow.h"
 #include "minimap.h"
 #include "part.h"
@@ -34,7 +33,6 @@
 #include "preview.h"
 #include "savegamemodel.h"
 #include "settings.h"
-#include "statemanager.h"
 #include "view.h"
 
 #include <QFile>
@@ -62,7 +60,7 @@ namespace Palapeli
 		bool saveGame(const QString& name);
 
 		Manager *m_manager;
-		bool m_silent;
+		bool m_hasChanges;
 
 		//current game
 		QImage m_image;
@@ -72,14 +70,12 @@ namespace Palapeli
 		PatternConfiguration* m_patternConfiguration;
 		int m_estimatePieceCount; //used during slice process to show progress
 		//game and UI objects
-		Autosaver* m_autosaver;
 		Minimap* m_minimap;
 		QList<Part*> m_parts;
 		QList<Piece*> m_pieces;
 		Preview* m_preview;
 		QList<PieceRelation> m_relations;
 		SavegameModel* m_savegameModel;
-		StateManager m_state;
 		View* m_view;
 		MainWindow* m_window;
 	};
@@ -102,9 +98,8 @@ namespace Palapeli
 
 Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	: m_manager(manager)
-	, m_silent(false)
+	, m_hasChanges(false)
 	, m_patternConfiguration(0)
-	, m_autosaver(0)
 	, m_minimap(0)
 	, m_preview(new Palapeli::Preview)
 	, m_savegameModel(0)
@@ -134,7 +129,6 @@ Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 void Palapeli::ManagerPrivate::init()
 {
 	//The Manager needs a valid pointer to this ManagerPrivate instance before the following objects can be initialized.
-	m_autosaver = new Palapeli::Autosaver;
 	m_minimap = new Palapeli::Minimap;
 	m_view = new Palapeli::View;
 	m_window = new Palapeli::MainWindow;
@@ -144,7 +138,6 @@ void Palapeli::ManagerPrivate::init()
 
 Palapeli::ManagerPrivate::~ManagerPrivate()
 {
-	delete m_autosaver;
 	delete m_minimap;
 	foreach (Palapeli::Part* part, m_parts)
 		delete part; //the pieces are deleted here
@@ -340,8 +333,6 @@ bool Palapeli::ManagerPrivate::saveGame(const QString& name)
 	config.sync();
 	//create dependency from config to image
 	gs.addDependency(configItem, gs.item(m_imageId));
-	//reset autosaver to prevent autosaving immediately after this save
-	m_autosaver->reset();
 	return true;
 }
 
@@ -353,8 +344,6 @@ Palapeli::Manager::Manager()
 	: QObject()
 	, p(new Palapeli::ManagerPrivate(this))
 {
-	connect(this, SIGNAL(gameNameChanged(const QString&)), &p->m_state, SLOT(setGameName(const QString&)));
-	p->m_state.setPersistent(true); //there is nothing that has not been saved (at the moment)
 }
 
 Palapeli::Manager::~Manager()
@@ -414,11 +403,6 @@ Palapeli::View* Palapeli::Manager::view() const
 	return p->m_view;
 }
 
-Palapeli::Autosaver* Palapeli::Manager::autosaver() const
-{
-	return p->m_autosaver;
-}
-
 Palapeli::Minimap* Palapeli::Manager::minimap() const
 {
 	return p->m_minimap;
@@ -474,8 +458,7 @@ void Palapeli::Manager::addPiece(Palapeli::Piece* piece, const QPointF& sceneBas
 	if ((realPieceCount + updateStep/2) % updateStep == 0) //do not redraw every time; this slows down the creation massively
 	{
 		int maxPieceCount = qMax(p->m_estimatePieceCount, realPieceCount);
-		if (!p->m_silent)
-			p->m_window->reportProgress(0, realPieceCount, maxPieceCount, i18np("1 piece generated", "%1 pieces generated", realPieceCount));
+		p->m_window->reportProgress(0, realPieceCount, maxPieceCount, i18np("1 piece generated", "%1 pieces generated", realPieceCount));
 	}
 }
 
@@ -483,8 +466,7 @@ void Palapeli::Manager::endAddPiece()
 {
 	//keep application responsive
 	int maxPieceCount = qMax(p->m_estimatePieceCount, p->m_pieces.count());
-	if (!p->m_silent)
-		p->m_window->reportProgress(0, maxPieceCount + 1, maxPieceCount + 1, i18n("Finding neighbors"));
+	p->m_window->reportProgress(0, maxPieceCount + 1, maxPieceCount + 1, i18n("Finding neighbors"));
 }
 
 void Palapeli::Manager::addRelation(int piece1Id, int piece2Id)
@@ -502,8 +484,7 @@ void Palapeli::Manager::removePart(Part* part)
 void Palapeli::Manager::pieceMoveFinished()
 {
 	searchConnections();
-	p->m_autosaver->countMove();
-	p->m_state.setPersistent(false); //current state was generated from user input (therefore not persistent)
+	p->m_hasChanges = true;
 }
 
 void Palapeli::Manager::searchConnections()
@@ -532,7 +513,7 @@ void Palapeli::Manager::createGame(const KUrl& url, int patternIndex)
 {
 	if (!p->canCreateGame(url, patternIndex))
 		return;
-	p->m_state.setPersistent(false); //current state was generated from user input (therefore not persistent)
+	p->m_hasChanges = true; //current state was generated from user input (therefore not persistent)
 	p->m_gameName = QString();
 	emit interactionModeChanged(false);
 	p->initGame(); //partially asynchronous; slot finishGameLoading() will be called when finished
@@ -548,7 +529,7 @@ void Palapeli::Manager::createGame(const QString& templateName)
 	//usual creation sequence
 	if (!p->canCreateGame(templateFile))
 		return;
-	p->m_state.setPersistent(false); //current state was generated from user input (therefore not persistent)
+	p->m_hasChanges = true; //current state was generated from user input (therefore not persistent)
 	p->m_gameName = QString();
 	emit interactionModeChanged(false);
 	p->initGame(); //partially asynchronous; slot finishGameLoading() will be called when finished
@@ -560,7 +541,7 @@ void Palapeli::Manager::loadGame(const QString& name)
 		return;
 	if (!p->canLoadGame(name))
 		return;
-	p->m_state.setPersistent(true); //current state was loaded from the hard disk (therefore persistent)
+	p->m_hasChanges = false; //current state was loaded from the hard disk (therefore persistent)
 	p->m_gameName = name;
 	emit interactionModeChanged(false);
 	p->initGame(); //partially asynchronous; slot finishGameLoading() will be called when finished
@@ -579,15 +560,10 @@ void Palapeli::Manager::finishGameLoading()
 			piece->part()->move(piece->part()->basePosition()); //let's the part re-apply all movement constraints
 	}
 	//propagate changes
-	if (!p->m_silent)
-	{
-		p->m_window->reportProgress(0, 1, 1, i18n("Game loaded."));
-		p->m_window->flushProgress(2);
-	}
+	p->m_window->reportProgress(0, 1, 1, i18n("Game loaded."));
+	p->m_window->flushProgress(2);
 	updateGraphics();
 	p->m_view->useScene(true);
-	p->m_autosaver->setEnabled(true);
-	p->m_autosaver->reset();
 	p->m_window->reportPuzzleProgress(p->m_pieces.count(), p->m_parts.count());
 	emit interactionModeChanged(true);
 	emit gameNameChanged(p->m_gameName);
@@ -606,26 +582,11 @@ bool Palapeli::Manager::saveGame(const QString& name)
 	emit interactionModeChanged(false);
 	p->m_gameName = name;
 	p->saveGame(name);
-	p->m_state.setPersistent(true); //state has been written to disk and is therefore persistent
+	p->m_hasChanges = true; //state has been written to disk and is therefore persistent
 	emit gameNameChanged(name);
 	emit savegameCreated(name);
 	emit interactionModeChanged(true);
 	p->m_window->reportProgress(0, 2, 2, i18n("Game saved."));
-	p->m_window->flushProgress(2);
-	return true;
-}
-
-bool Palapeli::Manager::autosaveGame()
-{
-	if (!p->m_patternConfiguration || p->m_pieces.empty())
-		return false;
-	p->m_window->reportProgress(0, 1, 2, i18n("Automatic backup..."));
-	emit interactionModeChanged(false);
-	p->m_silent = true;
-	p->saveGame(Palapeli::Strings::AutosaveName.arg(p->m_state.id()));
-	p->m_silent = false;
-	emit interactionModeChanged(true);
-	p->m_window->reportProgress(0, 2, 2, i18n("Automatic backup finished."));
 	p->m_window->flushProgress(2);
 	return true;
 }
@@ -647,7 +608,7 @@ void Palapeli::Manager::savegameWasCreated(const QString& name)
 
 bool Palapeli::Manager::ensurePersistence(Palapeli::Manager::PersistenceRequirement requirement)
 {
-	if (p->m_state.isPersistent())
+	if (!p->m_hasChanges)
 		return true; //nothing to do
 	//this GuiItem is used in both of the following cases
 	KGuiItem continueItem(KStandardGuiItem::dontSave());
