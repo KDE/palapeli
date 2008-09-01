@@ -24,7 +24,7 @@ set_target_properties(palapelipattern PROPERTIES
 	DEFINE_SYMBOL MAKE_LIBPALAPELIPATTERN
 )
 
-install(TARGETS palapelipattern DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS palapelipattern ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapelipatternplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 install(FILES macros.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME Macros)
 install(FILES pattern.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME Pattern)

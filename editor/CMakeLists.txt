@@ -22,6 +22,6 @@ set(paladesign_SRCS
 kde4_add_executable(paladesign ${paladesign_SRCS})
 target_link_libraries(paladesign ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
 
-install(TARGETS paladesign DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS paladesign ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES paladesignui.rc DESTINATION ${DATA_INSTALL_DIR}/paladesign)
 install(FILES paladesign.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})

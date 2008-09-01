@@ -45,6 +45,6 @@ kde4_add_kcfg_files(palapeli_SRCS settings.kcfgc)
 kde4_add_executable(palapeli ${palapeli_SRCS})
 target_link_libraries(palapeli palapelipattern ${palapeli_LINK_LIBS})
 
-install(TARGETS palapeli DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS palapeli ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeliui.rc DESTINATION ${DATA_INSTALL_DIR}/palapeli)
 install(FILES palapeli.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
