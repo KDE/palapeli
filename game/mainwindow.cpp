@@ -32,6 +32,7 @@
 #include <QCloseEvent>
 #include <QTimer>
 #include <KActionCollection>
+#include <KApplication>
 #include <KLocalizedString>
 #include <KMenuBar>
 #include <KDE/KStandardGameAction>
@@ -278,7 +279,13 @@ void Palapeli::MainWindow::changeInteractionMode(bool allowGameInteraction)
 
 void Palapeli::MainWindow::closeEvent(QCloseEvent* event)
 {
-	ppMgr()->ensurePersistence(Palapeli::Manager::ClosingApp) ? event->accept() : event->ignore();
+	if (ppMgr()->ensurePersistence(Palapeli::Manager::ClosingApp))
+	{
+		event->accept();
+		kapp->quit();
+	}
+	else
+		event->ignore();
 }
 
 #include "mainwindow.moc"
