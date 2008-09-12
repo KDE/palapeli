@@ -8,4 +8,4 @@ GenericName[sv]=Pusselspel
 Terminal=false
 Icon=preferences-plugin
 X-KDE-StartupNotify=true
-Categories=Qt;KDE;Game;PuzzleGame;
+Categories=Qt;KDE;Game;LogicGame;

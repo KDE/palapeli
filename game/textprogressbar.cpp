@@ -47,7 +47,7 @@ void Palapeli::TextProgressBar::flush(int secondsDelay)
 void Palapeli::TextProgressBar::reset()
 {
 	m_flushTimer.stop();
-	m_text = QString();
+	m_text.clear();
 	QProgressBar::reset();
 }
 

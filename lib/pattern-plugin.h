@@ -25,8 +25,8 @@
  #include <Palapeli/Macros>
 #endif
 
-#include <QObject>
-#include <QVariant>
+#include <QtCore/QObject>
+#include <QtCore/QVariant>
 
 namespace Palapeli
 {
@@ -58,7 +58,7 @@ K_EXPORT_PLUGIN(MyPatternFactory("mypattern"))
 			 * \brief Constructs a new PatternPlugin object.
 			 * The parameter signature has to be the same one in all subclasses, because these are passed by the plugin loader. Usually, you will not have to bother with these parameters.
 			 */
-			PatternPlugin(QObject* parent = 0, const QVariantList& args = QVariantList());
+			explicit PatternPlugin(QObject* parent = 0, const QVariantList& args = QVariantList());
 			/**
 			 * \brief Destructor.
 			 */

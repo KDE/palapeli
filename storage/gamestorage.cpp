@@ -216,10 +216,10 @@ Palapeli::GameStorageItem Palapeli::GameStorage::addItem(const QString& rawExten
 		extension.prepend(theDot);
 	//insert item into internal hashes
 	QUuid id = QUuid::createUuid();
-	d->m_idHash[id] = d->m_nextItemNumber;
-	d->m_extHash[d->m_nextItemNumber] = extension;
-	d->m_typeHash[d->m_nextItemNumber] = type;
-	d->m_metaHash[d->m_nextItemNumber] = QString();
+	d->m_idHash.insert(id, d->m_nextItemNumber);
+	d->m_extHash.insert(d->m_nextItemNumber, extension);
+	d->m_typeHash.insert(d->m_nextItemNumber, type);
+	d->m_metaHash.insert(d->m_nextItemNumber, QString());
 	//insert item into configuration
 	QString key = entryKey.arg(d->m_nextItemNumber);
 	d->m_idGroup->writeEntry(key, id.toString());

@@ -37,7 +37,7 @@ namespace Palapeli
 			bool operator==(const PieceRelation& relation) const;
 
 			bool piecesInRightPosition() const;
-			void combine();
+			void combine() const;
 		private:
 			Piece* m_piece1;
 			Piece* m_piece2;

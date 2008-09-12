@@ -6,16 +6,17 @@ Comment=in Cincinnati
 Comment[et]=Cincinnatis
 Comment[sv]=I Cincinnati
 Icon=cincinnati-bridge.jpg
+Type=X-Palapeli-Puzzle
 
 X-KDE-PluginInfo-Author=Derek Jensen
 X-KDE-PluginInfo-Email=
 X-KDE-PluginInfo-Website=http://commons.wikimedia.org/wiki/Image:Cincinnati-roebling-suspension-bridge.jpg
 X-KDE-PluginInfo-License=Public Domain
 
-[Palapeli]
+[X-Palapeli]
 Pattern=rectangular
 PieceCount=56
 
-[PatternArgs]
+[X-PatternArgs]
 XCount=8
 YCount=7

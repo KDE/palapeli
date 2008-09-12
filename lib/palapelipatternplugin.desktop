@@ -6,5 +6,5 @@ Comment=Palapeli pattern
 Comment[et]=Palapeli muster
 Comment[sv]=Palapeli-mönster
 
-[PropertyDef::PluginIdentifier]
+[PropertyDef::X-PluginIdentifier]
 Type=string

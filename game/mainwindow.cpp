@@ -264,7 +264,7 @@ void Palapeli::MainWindow::gameNameWasChanged(const QString& name)
 	if (name.isEmpty())
 		setCaption(i18nc("The application's name", "Palapeli"));
 	else
-		setCaption(i18nc("For usage as window title", "%1 - Palapeli").arg(name));
+		setCaption(i18nc("For usage as window title", "%1 - Palapeli", name));
 }
 
 void Palapeli::MainWindow::changeInteractionMode(bool allowGameInteraction)

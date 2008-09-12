@@ -4,16 +4,17 @@ Comment=Female panther chameleon
 Comment[et]=Emane panterkameeleon
 Comment[sv]=Panterkameleont
 Icon=panther-chameleon-female.jpg
+Type=X-Palapeli-Puzzle
 
 X-KDE-PluginInfo-Author=B. Navez and others
 X-KDE-PluginInfo-Email=
 X-KDE-PluginInfo-Website=http://commons.wikimedia.org/wiki/Image:FurciferPardalisFemale.JPG
 X-KDE-PluginInfo-License=GNU-FDL
 
-[Palapeli]
+[X-Palapeli]
 Pattern=rectangular
 PieceCount=48
 
-[PatternArgs]
+[X-PatternArgs]
 XCount=6
 YCount=8

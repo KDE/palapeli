@@ -39,7 +39,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			OnScreenWidget(QWidget* widget, Palapeli::AutoscalingItem* parent = 0); //takes ownership of widget
+			explicit OnScreenWidget(QWidget* widget, Palapeli::AutoscalingItem* parent = 0); //takes ownership of widget
 			~OnScreenWidget();
 
 			const OnScreenAnimator* animator() const;

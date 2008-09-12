@@ -73,7 +73,7 @@ void Palapeli::PatternTrader::rescanConfigurations()
 	foreach (KService::Ptr offer, offers)
 	{
 		QVariantList args;
-		args << offer->property("PluginIdentifier", QVariant::String).toString();
+		args << offer->property("X-PluginIdentifier", QVariant::String).toString();
 		args << offer->name();
 		Palapeli::PatternPlugin* plugin = offer->createInstance<Palapeli::PatternPlugin>(0, args);
 		if (plugin == 0)

@@ -59,7 +59,7 @@ namespace Palapeli
 	class HexagonalPatternPlugin : public PatternPlugin
 	{
 		public:
-			HexagonalPatternPlugin(QObject* parent = 0, const QVariantList& args = QVariantList());
+			explicit HexagonalPatternPlugin(QObject* parent = 0, const QVariantList& args = QVariantList());
 			virtual ~HexagonalPatternPlugin();
 			virtual QList<PatternConfiguration*> createInstances() const;
 	};

@@ -57,7 +57,7 @@ namespace Palapeli
 	class RectangularPatternPlugin : public PatternPlugin
 	{
 		public:
-			RectangularPatternPlugin(QObject* parent = 0, const QVariantList& args = QVariantList());
+			explicit RectangularPatternPlugin(QObject* parent = 0, const QVariantList& args = QVariantList());
 			virtual ~RectangularPatternPlugin();
 			virtual QList<PatternConfiguration*> createInstances() const;
 	};

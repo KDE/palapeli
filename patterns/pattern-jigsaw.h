@@ -68,7 +68,7 @@ namespace Palapeli
 	class JigsawPatternPlugin : public PatternPlugin
 	{
 		public:
-			JigsawPatternPlugin(QObject* parent = 0, const QVariantList& args = QVariantList());
+			explicit JigsawPatternPlugin(QObject* parent = 0, const QVariantList& args = QVariantList());
 			virtual ~JigsawPatternPlugin();
 			virtual QList<PatternConfiguration*> createInstances() const;
 		private:

@@ -26,8 +26,8 @@
 #endif
 
 class QImage;
-#include <QList>
-#include <QObject>
+#include <QtCore/QList>
+#include <QtCore/QObject>
 class QPointF;
 class QRectF;
 

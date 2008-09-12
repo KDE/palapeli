@@ -25,7 +25,7 @@
  #include <Palapeli/Macros>
 #endif
 
-#include <QtGlobal>
+#include <QtCore/QtGlobal>
 
 namespace Palapeli
 {

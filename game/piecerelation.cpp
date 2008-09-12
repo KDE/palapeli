@@ -51,7 +51,7 @@ bool Palapeli::PieceRelation::piecesInRightPosition() const
 	return qAbs(positionDifference.x()) <= maxInaccuracy.width() && qAbs(positionDifference.y()) <= maxInaccuracy.height();
 }
 
-void Palapeli::PieceRelation::combine()
+void Palapeli::PieceRelation::combine() const
 {
 	Palapeli::Part* part1 = m_piece1->part();
 	Palapeli::Part* part2 = m_piece2->part();

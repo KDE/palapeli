@@ -26,7 +26,7 @@
 #endif
 
 class QImage;
-#include <QThread>
+#include <QtCore/QThread>
 
 namespace Palapeli
 {

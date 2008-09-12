@@ -25,8 +25,8 @@
  #include <Palapeli/Macros>
 #endif
 
-#include <QObject>
-#include <QVariant>
+#include <QtCore/QObject>
+#include <QtCore/QVariant>
 class QWidget;
 class KConfigGroup;
 

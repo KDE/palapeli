@@ -84,11 +84,11 @@ namespace Palapeli
 	{
 		const QString AutosaveName("__palapeli_autosave_%1");
 		//strings in .psg files
-		const QString GeneralGroupKey("Palapeli");
+		const QString GeneralGroupKey("X-Palapeli");
 		const QString PatternKey("Pattern");
 		const QString GameNameKey("GameName");
-		const QString PatternGroupKey("PatternArgs");
-		const QString PiecesGroupKey("Pieces");
+		const QString PatternGroupKey("X-PatternArgs");
+		const QString PiecesGroupKey("X-Pieces");
 		const QString PositionKey("Position-%1");
 	}
 
@@ -490,7 +490,7 @@ void Palapeli::Manager::pieceMoveFinished()
 void Palapeli::Manager::searchConnections()
 {
 	bool combinedSomething = false;
-	foreach (Palapeli::PieceRelation rel, p->m_relations)
+	foreach (const Palapeli::PieceRelation& rel, p->m_relations)
 	{
 		if (rel.piece1()->part() == rel.piece2()->part()) //already combined
 			continue;
@@ -514,7 +514,7 @@ void Palapeli::Manager::createGame(const KUrl& url, int patternIndex)
 	if (!p->canCreateGame(url, patternIndex))
 		return;
 	p->m_hasChanges = true; //current state was generated from user input (therefore not persistent)
-	p->m_gameName = QString();
+	p->m_gameName.clear();
 	emit interactionModeChanged(false);
 	p->initGame(); //partially asynchronous; slot finishGameLoading() will be called when finished
 }
@@ -530,7 +530,7 @@ void Palapeli::Manager::createGame(const QString& templateName)
 	if (!p->canCreateGame(templateFile))
 		return;
 	p->m_hasChanges = true; //current state was generated from user input (therefore not persistent)
-	p->m_gameName = QString();
+	p->m_gameName.clear();
 	emit interactionModeChanged(false);
 	p->initGame(); //partially asynchronous; slot finishGameLoading() will be called when finished
 }
@@ -622,7 +622,7 @@ bool Palapeli::Manager::ensurePersistence(Palapeli::Manager::PersistenceRequirem
 			case Palapeli::Manager::ClosingApp: cancelItem.setText(i18n("Close Palapeli")); break;
 			case Palapeli::Manager::StartingGame: cancelItem.setText(i18n("Start new puzzle")); break;
 		}
-		const int answer = KMessageBox::warningContinueCancel(p->m_window, i18n("This will discard the game you're currently playing."), QString(), continueItem, cancelItem);
+		const int answer = KMessageBox::warningContinueCancel(p->m_window, i18n("This will discard the game you are currently playing."), QString(), continueItem, cancelItem);
 		return answer == KMessageBox::Cancel;
 	}
 	else
