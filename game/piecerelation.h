@@ -25,6 +25,7 @@
 namespace Palapeli
 {
 
+	class Part;
 	class Piece;
 
 	class PieceRelation
@@ -39,6 +40,7 @@ namespace Palapeli
 			bool piecesInRightPosition() const;
 			void combine() const;
 		private:
+			void insert(Part* target, Part* source) const;
 			Piece* m_piece1;
 			Piece* m_piece2;
 	};

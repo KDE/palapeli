@@ -51,17 +51,27 @@ bool Palapeli::PieceRelation::piecesInRightPosition() const
 	return qAbs(positionDifference.x()) <= maxInaccuracy.width() && qAbs(positionDifference.y()) <= maxInaccuracy.height();
 }
 
+
+
 void Palapeli::PieceRelation::combine() const
 {
 	Palapeli::Part* part1 = m_piece1->part();
 	Palapeli::Part* part2 = m_piece2->part();
-	while (part2->pieceCount() > 0)
+	if (part1->pieceCount() > part2->pieceCount())
+		insert(part1, part2);
+	else
+		insert(part2, part1);
+}
+
+void Palapeli::PieceRelation::insert(Palapeli::Part* target, Palapeli::Part* source) const
+{
+	while (source->pieceCount() > 0)
 	{
-		Palapeli::Piece* piece = part2->pieceAt(0);
-		part2->removePiece(piece);
-		part1->addPiece(piece);
+		Palapeli::Piece* piece = source->pieceAt(0);
+		source->removePiece(piece);
+		target->addPiece(piece);
 	}
-	ppMgr()->removePart(part2);
-	part1->update(); //adapt positions of added pieces
-	delete part2;
+	ppMgr()->removePart(source);
+	target->update(); //adapt positions of added pieces
+	delete source;
 }
