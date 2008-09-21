@@ -3,7 +3,7 @@ add_subdirectory(pics)
 
 add_definitions(-DMAKE_LIBPALAPELIPATTERN) #needed to correctly include the headers of libpalapelipattern
 
-set(palapeli_LINK_LIBS ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDEGAMES_LIBRARY})
+set(palapeli_LINK_LIBS ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_THREADWEAVER_LIBRARIES} ${KDEGAMES_LIBRARY})
 if(OPENGL_FOUND)
 	add_definitions(-DPALAPELI_WITH_OPENGL)
 	if(WIN32)
@@ -35,6 +35,9 @@ set(palapeli_SRCS
 	interface/onscreendialog.cpp
 	interface/onscreenwidget.cpp
 	interface/savewidget.cpp
+	library/library.cpp
+	library/librarydelegate.cpp
+	library/puzzleinfo.cpp
 	../storage/gamestorage.cpp
 	../storage/gamestorageattribs.cpp
 	../storage/gamestorageitem.cpp
