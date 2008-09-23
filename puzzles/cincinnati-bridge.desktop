@@ -1,10 +1,20 @@
 [Desktop Entry]
 Name=Roebling Suspension Bridge
+Name[el]=Γέφυρα εξάρτησης Ρέμπλινγκ
 Name[et]=Roeblingi rippsild
+Name[gl]=Ponte colgante de Roebling
+Name[pt]=Ponte Suspensa de Roebling
 Name[sv]=Roebling-hängbron
+Name[uk]=Підвісний міст Реблінґа
+Name[x-test]=xxRoebling Suspension Bridgexx
 Comment=in Cincinnati
+Comment[el]=στο Σινσινάτι
 Comment[et]=Cincinnatis
+Comment[gl]=en Cincinnati
+Comment[pt]=em Cincinnati
 Comment[sv]=I Cincinnati
+Comment[uk]=у Цинциннаті
+Comment[x-test]=xxin Cincinnatixx
 Icon=cincinnati-bridge.jpg
 Type=X-Palapeli-Puzzle
 
