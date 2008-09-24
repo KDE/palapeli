@@ -2,9 +2,17 @@
 Type=Application
 Exec=palapeli -caption "%c"
 Name=Palapeli
+Name[x-test]=xxPalapelixx
 GenericName=Jigsaw puzzle game
+GenericName[el]=Παιχνίδι εικόνων παζλ
 GenericName[et]=Pusle
+GenericName[ga]=Cluiche míreanna mearaí
+GenericName[gl]=Xogo de quebracabezas
+GenericName[km]=ល្បែង​ផ្គុំ​រូប Jigsaw 
+GenericName[pt]=Um jogo de 'puzzle'
 GenericName[sv]=Pusselspel
+GenericName[uk]=Гра з головоломкою-складанкою
+GenericName[x-test]=xxJigsaw puzzle gamexx
 Terminal=false
 Icon=preferences-plugin
 X-KDE-StartupNotify=true
