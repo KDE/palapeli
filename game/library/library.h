@@ -30,18 +30,13 @@ namespace ThreadWeaver
 namespace Palapeli
 {
 
+	class LibraryBase;
 	class PuzzleInfo;
 
 	class Library : public QAbstractListModel
 	{
 		Q_OBJECT
 		public:
-			enum FileType
-			{
-				MainConfigFile,
-				StateConfigFile,
-				ImageFile
-			};
 			enum UserRoles
 			{
 				IdentifierRole = Qt::UserRole + 1,
@@ -51,21 +46,20 @@ namespace Palapeli
 				ImageRole
 			};
 
-			static QString findFile(const QString& identifier, FileType type);
 			static const int IconSize = 64;
 
-			Library();
+			Library(Palapeli::LibraryBase* base);
 			virtual ~Library();
 
 			virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
 			virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
-			QModelIndex puzzleIndex(const QString& identifier) const;
-
-			//QModelIndexList importPuzzles(const KUrl& archive) const;
-			//bool exportPuzzles(const KUrl& archive, const QModelIndexList& puzzleIndices) const;
+			Palapeli::LibraryBase* base() const;
+			Palapeli::PuzzleInfo* infoForPuzzle(const QModelIndex& index) const;
+			Palapeli::PuzzleInfo* infoForPuzzle(const QString& identifier) const;
 		private Q_SLOTS:
 			void loaderFinished(ThreadWeaver::Job* job);
 		private:
+			Palapeli::LibraryBase* m_base;
 			QList<Palapeli::PuzzleInfo*> m_puzzles;
 			ThreadWeaver::Weaver* m_weaver;
 	};

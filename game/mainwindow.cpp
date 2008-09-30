@@ -19,10 +19,8 @@
 
 #include "mainwindow.h"
 #include "mainwindow_p.h"
-#include "interface/exportwidget.h"
-#include "interface/importwidget.h"
-#include "interface/loadwidget.h"
-#include "interface/savewidget.h"
+#include "actions/exportaction.h"
+#include "actions/loadaction.h"
 #include "manager.h"
 #include "minimap.h"
 #include "preview.h"
@@ -38,6 +36,7 @@
 #include <KDE/KStandardGameAction>
 #include <KStatusBar>
 #include <KToggleFullScreenAction>
+#include <KToolBar>
 
 Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
 	: m_parent(parent)
@@ -52,7 +51,6 @@ Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
 	, m_gameplayUi(new Ui::GameplaySettingsWidget)
 	, m_gameplayContainer(new QWidget)
 	, m_puzzleProgress(new Palapeli::TextProgressBar)
-	, m_universalProgress(new Palapeli::TextProgressBar)
 {
 }
 
@@ -73,17 +71,14 @@ Palapeli::MainWindowPrivate::~MainWindowPrivate()
 	delete m_gameplayContainer;
 	//status bar
 	delete m_puzzleProgress;
-	delete m_universalProgress;
 }
 
 void Palapeli::MainWindowPrivate::setupActions()
 {
 	//Game actions
 	KStandardGameAction::gameNew(0, "", m_parent->actionCollection()); //no slot given because m_newDialog is not available yet
-	new Palapeli::LoadWidgetAction(m_parent->actionCollection());
-	new Palapeli::SaveWidgetAction(m_parent->actionCollection());
-	new Palapeli::ImportWidgetAction(m_parent->actionCollection());
-	new Palapeli::ExportWidgetAction(m_parent->actionCollection());
+	new Palapeli::LoadAction(m_parent->actionCollection());
+	new Palapeli::ExportAction(m_parent->actionCollection());
 	KStandardGameAction::quit(m_parent, SLOT(close()), m_parent->actionCollection());
 	//View actions
 	m_parent->actionCollection()->addAction("view_toggle_minimap", m_toggleMinimapAct);
@@ -108,7 +103,7 @@ void Palapeli::MainWindowPrivate::setupDockers()
 	m_dockMinimap->setObjectName("DockMap");
 	m_dockMinimap->setWidget(ppMgr()->minimap());
 	m_dockMinimap->resize(1, 1); //lets the dock widget adapt to the content's minimum size (note that this minimum size will be overwritten by user configuration)
-        m_dockMinimap->setVisible(false); //hidden by default
+	m_dockMinimap->setVisible(false); //hidden by default
 	//preview
 	m_parent->addDockWidget(Qt::LeftDockWidgetArea, m_dockPreview);
 	m_dockPreview->setObjectName("DockPreview");
@@ -122,8 +117,6 @@ void Palapeli::MainWindowPrivate::setupDialogs()
 	//setup "New game" dialog - it is now safe to do that because Manager has loaded its pattern plugins
 	m_newDialog = new Palapeli::NewPuzzleDialog(m_parent);
 	connect(m_parent->actionCollection()->action(KStandardGameAction::name(KStandardGameAction::New)), SIGNAL(triggered()), m_newDialog, SLOT(showDialog()));
-	connect(m_newDialog, SIGNAL(startGame(const KUrl&, int)), ppMgr(), SLOT(createGame(const KUrl&, int)));
-	connect(m_newDialog, SIGNAL(startGame(const QString&)), ppMgr(), SLOT(createGame(const QString&)));
 	//setup Settings UIs
 	m_appearanceUi->setupUi(m_appearanceContainer);
 	m_gameplayUi->setupUi(m_gameplayContainer);
@@ -175,9 +168,6 @@ void Palapeli::MainWindowPrivate::configurationFinished()
 	Settings::self()->writeConfig();
 	//mark settings as saved in the dialog
 	m_settingsDialog->enableButtonApply(false);
-	//report progress
-	m_parent->reportProgress(0, 1, 1, i18n("Settings saved."));
-	m_parent->flushProgress(2);
 }
 
 void Palapeli::MainWindowPrivate::setFullScreen(bool full)
@@ -192,10 +182,11 @@ Palapeli::MainWindow::MainWindow(QWidget* parent)
 {
 	//initialize actions
 	p->setupActions();
+	menuBar()->show();
 	//early GUI settings
 	setAutoSaveSettings();
 	setCentralWidget(ppMgr()->view());
-	//initiailize dockers
+	//initialize dockers
 	p->setupDockers();
 	//late GUI settings
 	setupGUI(QSize(600, 500));
@@ -203,13 +194,9 @@ Palapeli::MainWindow::MainWindow(QWidget* parent)
 	connect(ppMgr(), SIGNAL(gameNameChanged(const QString&)), this, SLOT(gameNameWasChanged(const QString&)));
 	connect(ppMgr(), SIGNAL(interactionModeChanged(bool)), this, SLOT(changeInteractionMode(bool)));
 	//menu bar and status bar
-	menuBar()->show();
-	statusBar()->show();
-	statusBar()->addPermanentWidget(p->m_universalProgress, 1);
+	statusBar()->show(); //TODO: this does not update the "Show status bar" action's check state - is there a more elegant solution?
 	statusBar()->addPermanentWidget(p->m_puzzleProgress, 1);
-	p->m_universalProgress->setText(i18n("Welcome to Palapeli."));
 	p->m_puzzleProgress->setText(i18n("Click \"New\" to start a new puzzle game."));
-	p->m_universalProgress->flush(5);
 	//initialise dialogs after entering the event loop (to speed up startup)
 	QTimer::singleShot(0, p, SLOT(setupDialogs()));
 }
@@ -219,7 +206,7 @@ Palapeli::MainWindow::~MainWindow()
 	delete p;
 }
 
-void Palapeli::MainWindow::reportPuzzleProgress(int pieceCount, int partCount)
+void Palapeli::MainWindow::reportPuzzleProgress(int pieceCount, int partCount, const QString& caption)
 {
 	if (p->m_puzzleProgress->minimum() != 0)
 		p->m_puzzleProgress->setMinimum(0);
@@ -229,7 +216,11 @@ void Palapeli::MainWindow::reportPuzzleProgress(int pieceCount, int partCount)
 	if (p->m_puzzleProgress->value() != value)
 	{
 		p->m_puzzleProgress->setValue(value);
-		if (partCount == 1)
+		if (!caption.isEmpty())
+		{
+			p->m_puzzleProgress->setText(caption);
+		}
+		else if (partCount == 1)
 			p->m_puzzleProgress->setText(i18n("You finished the puzzle."));
 		else
 		{
@@ -241,23 +232,7 @@ void Palapeli::MainWindow::reportPuzzleProgress(int pieceCount, int partCount)
 
 void Palapeli::MainWindow::flushPuzzleProgress()
 {
-	p->m_universalProgress->flush(0);
-}
-
-void Palapeli::MainWindow::reportProgress(int minimum, int value, int maximum, const QString& message)
-{
-	if (p->m_universalProgress->minimum() != minimum)
-		p->m_universalProgress->setMinimum(minimum);
-	if (p->m_universalProgress->maximum() != maximum)
-		p->m_universalProgress->setMaximum(maximum);
-	if (p->m_universalProgress->value() != value)
-		p->m_universalProgress->setValue(value);
-	p->m_universalProgress->setText(message);
-}
-
-void Palapeli::MainWindow::flushProgress(int secondsDelay)
-{
-	p->m_universalProgress->flush(secondsDelay);
+	p->m_puzzleProgress->flush(2);
 }
 
 void Palapeli::MainWindow::gameNameWasChanged(const QString& name)
@@ -272,20 +247,13 @@ void Palapeli::MainWindow::changeInteractionMode(bool allowGameInteraction)
 {
 	actionCollection()->action(KStandardGameAction::name(KStandardGameAction::New))->setEnabled(allowGameInteraction);
 	actionCollection()->action(QLatin1String("palapeli_load"))->setEnabled(allowGameInteraction);
-	actionCollection()->action(QLatin1String("palapeli_save"))->setEnabled(allowGameInteraction);
-	actionCollection()->action(QLatin1String("palapeli_import"))->setEnabled(allowGameInteraction);
 	actionCollection()->action(QLatin1String("palapeli_export"))->setEnabled(allowGameInteraction);
 }
 
 void Palapeli::MainWindow::closeEvent(QCloseEvent* event)
 {
-	if (ppMgr()->ensurePersistence(Palapeli::Manager::ClosingApp))
-	{
-		event->accept();
-		kapp->quit();
-	}
-	else
-		event->ignore();
+	event->accept();
+	kapp->quit();
 }
 
 #include "mainwindow.moc"

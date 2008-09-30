@@ -34,6 +34,7 @@ namespace Palapeli
 			NewPuzzleDialog(QWidget*);
 			~NewPuzzleDialog();
 		Q_SIGNALS:
+			//note to self: these signals are not connected anywhere currently
 			void startGame(const KUrl& imageUrl, int patternIndex);
 			void startGame(const QString& templateName);
 		public Q_SLOTS:

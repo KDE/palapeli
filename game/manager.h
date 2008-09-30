@@ -29,6 +29,7 @@ class KUrl;
 namespace Palapeli
 {
 
+	class Library;
 	class MainWindow;
 	class ManagerPrivate;
 	class Minimap;
@@ -36,6 +37,7 @@ namespace Palapeli
 	class Piece;
 	class PieceRelation;
 	class Preview;
+	struct PuzzleInfo;
 	class SavegameModel;
 	class View;
 
@@ -43,16 +45,9 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			enum PersistenceRequirement
-			{
-				ClosingApp,
-				StartingGame
-			};
-
 			static Manager* self();
 			void init();
 
-			bool ensurePersistence(PersistenceRequirement requirement);
 			void removePart(Part* part);
 			//core objects (i.e. everything which is immediately relevant to gameplay)
 			int partCount() const;
@@ -63,6 +58,7 @@ namespace Palapeli
 			PieceRelation relationAt(int index) const;
 			View* view() const;
 			//other objects (mostly user interface)
+			Library* library() const;
 			Minimap* minimap() const;
 			Preview* preview() const;
 			SavegameModel* savegameModel() const;
@@ -72,11 +68,9 @@ namespace Palapeli
 			void searchConnections();
 			void updateGraphics();
 
-			void createGame(const KUrl& imageUrl, int patternIndex);
-			void createGame(const QString& templateName);
-			void loadGame(const QString& name);
-			bool saveGame(const QString& name);
-			void deleteGame(const QString& name);
+			void loadGame(Palapeli::PuzzleInfo* info);
+			void saveGame(const QString& name) { Q_UNUSED(name) } //deprecated
+			void deleteGame(const QString& name) { Q_UNUSED(name) } //deprecated
 			void savegameWasCreated(const QString& name);
 		protected Q_SLOTS:
 			void estimatePieceCount(int pieceCount);

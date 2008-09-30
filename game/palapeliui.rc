@@ -5,9 +5,7 @@
 		<Menu name="game">
 			<Action name="game_new"/>
 			<Action name="palapeli_load"/>
-			<Action name="palapeli_save"/>
 			<Separator/>
-			<Action name="palapeli_import"/>
 			<Action name="palapeli_export"/>
 			<Separator/>
 			<Action name="game_quit"/>
@@ -27,16 +25,11 @@
 		<text>Main toolbar</text>
 		<Action name="game_new"/>
 		<Action name="palapeli_load"/>
-		<Action name="palapeli_save"/>
 		<Separator/>
-		<Action name="palapeli_import"/>
 		<Action name="palapeli_export"/>
-	</ToolBar>
-	<ToolBar name="viewToolBar">
-		<text>View toolbar</text>
+		<Separator/>
 		<Action name="view_toggle_minimap"/>
 		<Action name="view_toggle_preview"/>
-		<Separator/>
 		<Action name="fullscreen"/>
 	</ToolBar>
 </gui>

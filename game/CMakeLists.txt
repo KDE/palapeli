@@ -26,17 +26,20 @@ set(palapeli_SRCS
 	savegamemodel.cpp
 	textprogressbar.cpp
 	view.cpp
-	interface/autoscalingitem.cpp
-	interface/exportwidget.cpp
-	interface/importwidget.cpp
-	interface/interfacemanager.cpp
-	interface/loadwidget.cpp
-	interface/onscreenanimator.cpp
-	interface/onscreendialog.cpp
-	interface/onscreenwidget.cpp
-	interface/savewidget.cpp
+	actions/exportaction.cpp
+	actions/loadaction.cpp
+#	interface/autoscalingitem.cpp
+#	interface/exportwidget.cpp
+#	interface/importwidget.cpp
+#	interface/interfacemanager.cpp
+#	interface/loadwidget.cpp
+#	interface/onscreenanimator.cpp
+#	interface/onscreendialog.cpp
+#	interface/onscreenwidget.cpp
 	library/library.cpp
+	library/librarybase.cpp
 	library/librarydelegate.cpp
+	library/libraryview.cpp
 	library/puzzleinfo.cpp
 	../storage/gamestorage.cpp
 	../storage/gamestorageattribs.cpp

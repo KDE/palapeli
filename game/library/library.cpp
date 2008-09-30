@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "library.h"
+#include "librarybase.h"
 #include "librarydelegate.h"
 #include "puzzleinfo.h"
 
@@ -24,22 +25,18 @@
 #include <KStandardDirs>
 #include <ThreadWeaver/Weaver>
 
-const QString mainConfigPath("palapeli/puzzlelibrary/%1.desktop");
-const QString stateConfigPath("palapeli/puzzlelibrary/%1.cfg");
-const QString imagePath("palapeli/puzzlelibrary/%1");
-
-Palapeli::Library::Library()
+Palapeli::Library::Library(Palapeli::LibraryBase* base)
 	: QAbstractListModel()
-	, m_weaver(new ThreadWeaver::Weaver)
+	, m_base(base)
+	, m_weaver(new	 ThreadWeaver::Weaver)
 {
-	//find puzzles
-	const QStringList puzzleFiles = KStandardDirs().findAllResources("data", mainConfigPath.arg("*"), KStandardDirs::NoDuplicates);
-	foreach (const QString& mainConfigPath, puzzleFiles)
+	//load info for puzzles
+	const QStringList identifiers = m_base->findEntries();
+	foreach (const QString& identifier, identifiers)
 	{
-		const QString identifier = mainConfigPath.section('/', -1, -1).section('.', 0, 0);
 		Palapeli::PuzzleInfo* info = new Palapeli::PuzzleInfo(identifier);
 		m_puzzles << info;
-		Palapeli::PuzzleInfoLoader* loader = new Palapeli::PuzzleInfoLoader(info);
+		Palapeli::PuzzleInfoLoader* loader = new Palapeli::PuzzleInfoLoader(info, base);
 		m_weaver->enqueue(loader);
 		connect(loader, SIGNAL(done(ThreadWeaver::Job*)), this, SLOT(loaderFinished(ThreadWeaver::Job*)));
 	}
@@ -49,21 +46,6 @@ Palapeli::Library::~Library()
 {
 	m_weaver->finish();
 	delete m_weaver;
-}
-
-/*static*/ QString Palapeli::Library::findFile(const QString& identifier, Palapeli::Library::FileType type)
-{
-	switch (type)
-	{
-		case Palapeli::Library::MainConfigFile:
-			return KStandardDirs::locate("data", mainConfigPath.arg(identifier));
-		case Palapeli::Library::StateConfigFile:
-			return KStandardDirs::locateLocal("data", stateConfigPath.arg(identifier));
-		case Palapeli::Library::ImageFile:
-			return KStandardDirs::locate("data", imagePath.arg(identifier));
-		default: //will never be reached, but g++ does not like it without a default
-			return QString();
-	}
 }
 
 int Palapeli::Library::rowCount(const QModelIndex& parent) const
@@ -115,21 +97,33 @@ QVariant Palapeli::Library::data(const QModelIndex& index, int role) const
 	return returnValue;
 }
 
-QModelIndex Palapeli::Library::puzzleIndex(const QString& identifier) const
+Palapeli::LibraryBase* Palapeli::Library::base() const
+{
+	return m_base;
+}
+
+Palapeli::PuzzleInfo* Palapeli::Library::infoForPuzzle(const QString& identifier) const
 {
 	for (int i = 0; i < m_puzzles.count(); ++i)
 	{
-		Palapeli::PuzzleInfo* pInfo = m_puzzles[i];
-		if (!pInfo->mutex->tryLock()) //PuzzleInfoLoader is running but did not finish yet
-			return QModelIndex();
-		bool rightItem = pInfo->identifier == identifier;
-		pInfo->mutex->unlock();
-		if (rightItem) {
-			pInfo->mutex->unlock();
-			return index(i, 0);
+		m_puzzles[i]->mutex->lock();
+		if (m_puzzles[i]->identifier == identifier)
+		{
+			m_puzzles[i]->mutex->unlock();
+			return m_puzzles[i];
 		}
+		m_puzzles[i]->mutex->unlock();
 	}
-	return QModelIndex();
+	return 0;
+}
+
+Palapeli::PuzzleInfo* Palapeli::Library::infoForPuzzle(const QModelIndex& index) const
+{
+	if (!index.isValid())
+		return 0;
+	if (index.row() >= m_puzzles.count())
+		return 0;
+	return m_puzzles[index.row()];
 }
 
 void Palapeli::Library::loaderFinished(ThreadWeaver::Job* job)

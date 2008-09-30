@@ -66,7 +66,6 @@ namespace Palapeli
 			QWidget* m_gameplayContainer;
 			//status bar
 			Palapeli::TextProgressBar* m_puzzleProgress;
-			Palapeli::TextProgressBar* m_universalProgress;
 	};
 
 }

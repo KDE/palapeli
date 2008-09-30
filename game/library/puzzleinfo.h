@@ -30,12 +30,15 @@ class KDesktopFile;
 namespace Palapeli
 {
 
+	class LibraryBase;
+
 	struct PuzzleInfo
 	{
 		PuzzleInfo(const QString& identifier);
+		PuzzleInfo& operator=(PuzzleInfo& other);
 		~PuzzleInfo();
 
-		QString identifier, name, comment, author;
+		QString identifier, name, comment, author, imageFile;
 		QImage image, thumbnail;
 		int pieceCount;
 
@@ -45,11 +48,12 @@ namespace Palapeli
 	class PuzzleInfoLoader : public ThreadWeaver::Job
 	{
 		public:
-			PuzzleInfoLoader(Palapeli::PuzzleInfo* puzzleInfo);
+			PuzzleInfoLoader(Palapeli::PuzzleInfo* puzzleInfo, Palapeli::LibraryBase* base);
 			Palapeli::PuzzleInfo* puzzleInfo() const;
 		protected:
 			virtual void run();
 		private:
+			Palapeli::LibraryBase* const m_base;
 			Palapeli::PuzzleInfo* const m_puzzleInfo;
 			bool m_puzzleExists;
 	};

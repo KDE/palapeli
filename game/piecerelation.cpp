@@ -57,10 +57,17 @@ void Palapeli::PieceRelation::combine() const
 {
 	Palapeli::Part* part1 = m_piece1->part();
 	Palapeli::Part* part2 = m_piece2->part();
-	if (part1->pieceCount() > part2->pieceCount())
+	if (part1 == part2)
+		return;
+	else if (part1->pieceCount() > part2->pieceCount())
 		insert(part1, part2);
 	else
 		insert(part2, part1);
+}
+
+bool Palapeli::PieceRelation::combined() const
+{
+	return m_piece1->part() == m_piece2->part();
 }
 
 void Palapeli::PieceRelation::insert(Palapeli::Part* target, Palapeli::Part* source) const

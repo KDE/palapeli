@@ -1,5 +1,4 @@
 /***************************************************************************
- *   Copyright (C) 2008 Felix Lemke <lemke.felix@ages-skripte.org>
  *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
@@ -17,35 +16,36 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_PIECERELATION_H
-#define PALAPELI_PIECERELATION_H
+#include "libraryview.h"
+#include "library.h"
+#include "librarydelegate.h"
 
-#include <QPointF>
-
-namespace Palapeli
+Palapeli::LibraryView::LibraryView(Palapeli::Library* library)
+	: m_library(library)
+	, m_delegate(new Palapeli::LibraryDelegate)
 {
-
-	class Part;
-	class Piece;
-
-	class PieceRelation
-	{
-		public:
-			PieceRelation(Piece* piece1, Piece* piece2);
-
-			Piece* piece1() const;
-			Piece* piece2() const;
-			bool operator==(const PieceRelation& relation) const;
-
-			bool piecesInRightPosition() const;
-			void combine() const;
-			bool combined() const;
-		private:
-			void insert(Part* target, Part* source) const;
-			Piece* m_piece1;
-			Piece* m_piece2;
-	};
-
+	setModel(m_library);
+	setItemDelegate(m_delegate);
+	setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
-#endif //PALAPELI_PIECERELATION_H
+Palapeli::LibraryView::~LibraryView()
+{
+	delete m_delegate;
+}
+
+Palapeli::Library* Palapeli::LibraryView::library() const
+{
+	return m_library;
+}
+
+Palapeli::PuzzleInfo* Palapeli::LibraryView::puzzleInfo() const
+{
+	const QModelIndexList indexes = selectionModel()->selectedIndexes();
+	if (indexes.isEmpty())
+		return 0;
+	else
+		return m_library->infoForPuzzle(indexes[0]);
+}
+
+#include "libraryview.moc"

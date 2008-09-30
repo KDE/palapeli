@@ -55,8 +55,8 @@ void Palapeli::LibraryDelegate::paint(QPainter* painter, const QStyleOptionViewI
 	//block 2: draw piece count
 	static const QPixmap pieceCountIcon = KIcon("preferences-plugin").pixmap(Palapeli::Library::IconSize, QIcon::Disabled);
 	const int pieceCount = index.data(Palapeli::Library::PieceCountRole).toInt();
-	const QString pieceCountText = QString::number(pieceCount);
-	if (!pieceCountIcon.isNull() && pieceCount != 0)
+	const QString pieceCountText = (pieceCount == 0) ? QLatin1String(" ? ") : QString::number(pieceCount);
+	if (!pieceCountIcon.isNull())
 	{
 		//find metrics
 		int x = option.rect.right() - (Margin + Palapeli::Library::IconSize);
@@ -132,5 +132,5 @@ QSize Palapeli::LibraryDelegate::sizeHint(const QStyleOptionViewItem& option, co
 	Q_UNUSED(option)
 	Q_UNUSED(index)
 	static const int iconAreaSize = 2 * Margin + Palapeli::Library::IconSize;
-	return QSize(100, iconAreaSize); //height is the important point, width is determined by widget bounds
+	return QSize(5 * iconAreaSize, iconAreaSize); //height is the important point, width is determined by widget bounds
 }

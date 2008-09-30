@@ -18,6 +18,7 @@
 
 #include "puzzleinfo.h"
 #include "library.h"
+#include "librarybase.h"
 
 #include <QMutex>
 #include <KConfig>
@@ -33,6 +34,22 @@ Palapeli::PuzzleInfo::PuzzleInfo(const QString& theIdentifier)
 	//The other data is provided by the PuzzleInfoLoader.
 }
 
+Palapeli::PuzzleInfo& Palapeli::PuzzleInfo::operator=(Palapeli::PuzzleInfo& other)
+{
+	mutex->lock();
+	other.mutex->lock();
+	identifier = other.identifier;
+	name = other.name;
+	comment = other.comment;
+	author = other.author;
+	image = other.image;
+	thumbnail = other.thumbnail;
+	pieceCount = other.pieceCount;
+	other.mutex->unlock();
+	mutex->unlock();
+	return *this;
+}
+
 Palapeli::PuzzleInfo::~PuzzleInfo()
 {
 	delete mutex;
@@ -42,8 +59,9 @@ Palapeli::PuzzleInfo::~PuzzleInfo()
 
 //BEGIN Palapeli::PuzzleInfoLoader
 
-Palapeli::PuzzleInfoLoader::PuzzleInfoLoader(Palapeli::PuzzleInfo* puzzleInfo)
-	: m_puzzleInfo(puzzleInfo)
+Palapeli::PuzzleInfoLoader::PuzzleInfoLoader(Palapeli::PuzzleInfo* puzzleInfo, Palapeli::LibraryBase* base)
+	: m_base(base)
+	, m_puzzleInfo(puzzleInfo)
 {
 }
 
@@ -56,17 +74,17 @@ void Palapeli::PuzzleInfoLoader::run()
 {
 	m_puzzleInfo->mutex->lock();
 	//load configuration
-	KDesktopFile* mainConfig = new KDesktopFile(Palapeli::Library::findFile(m_puzzleInfo->identifier, Palapeli::Library::MainConfigFile));
+	KDesktopFile* mainConfig = new KDesktopFile(m_base->findFile(m_puzzleInfo->identifier, Palapeli::LibraryBase::MainConfigFile));
 	//read basic things from configuration
 	m_puzzleInfo->name = mainConfig->readName();
 	m_puzzleInfo->comment = mainConfig->readComment();
 	m_puzzleInfo->author = mainConfig->desktopGroup().readEntry("X-KDE-PluginInfo-Author", QString());
-	m_puzzleInfo->pieceCount = KConfigGroup(mainConfig, "Palapeli").readEntry("PieceCount", 0);
+	m_puzzleInfo->pieceCount = KConfigGroup(mainConfig, "X-Palapeli").readEntry("PieceCount", 0);
 	//get images from configuration
-	const QString imageName = mainConfig->readIcon().remove('/'); //slashes are removed to avoid directory changing
-	const QString imageFile = Palapeli::Library::findFile(imageName, Palapeli::Library::ImageFile);
+	m_puzzleInfo->imageFile = mainConfig->readIcon().remove('/'); //slashes are removed to avoid directory changing
+	const QString imageFileName = m_base->findFile(m_puzzleInfo->imageFile, Palapeli::LibraryBase::ImageFile);
 	const int thumbnailSize = Palapeli::Library::IconSize;
-	m_puzzleInfo->image.load(imageFile);
+	m_puzzleInfo->image.load(imageFileName);
 	m_puzzleInfo->thumbnail = m_puzzleInfo->image.scaled(thumbnailSize, thumbnailSize, Qt::KeepAspectRatio);
 	//everything loaded - unlock the PuzzleInfo object
 	m_puzzleInfo->mutex->unlock();
