@@ -74,9 +74,7 @@ namespace Palapeli
 
 	namespace Strings
 	{
-		//strings in .desktop and .cfg files
-		const QString GeneralGroupKey("X-Palapeli");
-		const QString PatternKey("Pattern");
+		//strings in .cfg files
 		const QString PatternGroupKey("X-PatternArgs");
 		const QString PiecesGroupKey("X-Pieces");
 		const QString PositionKey("Position-%1");
@@ -129,14 +127,7 @@ bool Palapeli::ManagerPrivate::canLoadGame(Palapeli::PuzzleInfo* info)
 	if (info->identifier == m_puzzleInfo.identifier)
 		return false;
 	//find configuration for this puzzle
-	const QString mainConfigPath = m_library->base()->findFile(info->identifier, Palapeli::LibraryBase::MainConfigFile);
-	KConfig mainConfig(mainConfigPath);
-	//find pattern configuration
-	KConfigGroup generalGroup(&mainConfig, Palapeli::Strings::GeneralGroupKey);
-	const QString patternName = generalGroup.readEntry(Palapeli::Strings::PatternKey, QString());
-	if (patternName.isEmpty())
-		return false;
-	Palapeli::PatternConfiguration* patternConfiguration = Palapeli::PatternTrader::self()->configurationFromName(patternName);
+	Palapeli::PatternConfiguration* patternConfiguration = Palapeli::PatternTrader::self()->configurationFromName(info->patternName);
 	if (patternConfiguration == 0)
 		return false; //no pattern found
 	//everything okay - save values for new game

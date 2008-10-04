@@ -53,10 +53,11 @@ void Palapeli::LibraryDelegate::paint(QPainter* painter, const QStyleOptionViewI
 		painter->restore();
 	}
 	//block 2: draw piece count
-	static const QPixmap pieceCountIcon = KIcon("preferences-plugin").pixmap(Palapeli::Library::IconSize, QIcon::Disabled);
+	const KIcon pieceCountIcon(index.data(Palapeli::Library::PatternIconNameRole).toString());
+	const QPixmap pieceCountPixmap = pieceCountIcon.pixmap(Palapeli::Library::IconSize, QIcon::Disabled);
 	const int pieceCount = index.data(Palapeli::Library::PieceCountRole).toInt();
 	const QString pieceCountText = (pieceCount == 0) ? QLatin1String(" ? ") : QString::number(pieceCount);
-	if (!pieceCountIcon.isNull())
+	if (!pieceCountPixmap.isNull())
 	{
 		//find metrics
 		int x = option.rect.right() - (Margin + Palapeli::Library::IconSize);
@@ -65,7 +66,7 @@ void Palapeli::LibraryDelegate::paint(QPainter* painter, const QStyleOptionViewI
 		//draw icon
 		painter->save();
 		painter->setOpacity(0.5);
-		painter->drawPixmap(QPointF(x, option.rect.y() + Margin), pieceCountIcon);
+		painter->drawPixmap(QPointF(x, option.rect.y() + Margin), pieceCountPixmap);
 		painter->restore();
 		//adjust size of text to make text fit (this code assumes that the text's width is always >= its height, and that the relation between height and width is linear for different font sizes)
 		painter->save();

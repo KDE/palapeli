@@ -19,6 +19,8 @@
 #include "library.h"
 #include "librarybase.h"
 #include "librarydelegate.h"
+#include "../lib/pattern-configuration.h"
+#include "../lib/pattern-trader.h"
 #include "puzzleinfo.h"
 
 #include <QMutex>
@@ -92,6 +94,10 @@ QVariant Palapeli::Library::data(const QModelIndex& index, int role) const
 		case Palapeli::Library::ImageRole:
 			returnValue = pInfo->image;
 			break;
+		case Palapeli::Library::PatternIconNameRole:
+			Palapeli::PatternConfiguration* config = Palapeli::PatternTrader::self()->configurationFromName(pInfo->patternName);
+			if (config)
+				returnValue = config->property("IconName").toString();
 	}
 	pInfo->mutex->unlock();
 	return returnValue;

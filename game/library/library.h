@@ -43,7 +43,8 @@ namespace Palapeli
 				CommentRole,
 				AuthorRole,
 				PieceCountRole,
-				ImageRole
+				ImageRole,
+				PatternIconNameRole
 			};
 
 			static const int IconSize = 64;

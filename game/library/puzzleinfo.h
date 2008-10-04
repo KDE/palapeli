@@ -38,7 +38,7 @@ namespace Palapeli
 		PuzzleInfo& operator=(PuzzleInfo& other);
 		~PuzzleInfo();
 
-		QString identifier, name, comment, author, imageFile;
+		QString identifier, name, comment, author, imageFile, patternName;
 		QImage image, thumbnail;
 		int pieceCount;
 
