@@ -136,16 +136,7 @@ bool Palapeli::ManagerPrivate::canLoadGame(Palapeli::PuzzleInfo* info)
 	const QString patternName = generalGroup.readEntry(Palapeli::Strings::PatternKey, QString());
 	if (patternName.isEmpty())
 		return false;
-	Palapeli::PatternConfiguration* patternConfiguration = 0;
-	for (int i = 0; i < Palapeli::PatternTrader::self()->configurationCount(); ++i)
-	{
-		Palapeli::PatternConfiguration* patternConfig = Palapeli::PatternTrader::self()->configurationAt(i);
-		if (patternConfig->property("PatternName").toString() == patternName)
-		{
-			patternConfiguration = patternConfig; //pattern found
-			break;
-		}
-	}
+	Palapeli::PatternConfiguration* patternConfiguration = Palapeli::PatternTrader::self()->configurationFromName(patternName);
 	if (patternConfiguration == 0)
 		return false; //no pattern found
 	//everything okay - save values for new game

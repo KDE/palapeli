@@ -58,9 +58,17 @@ int Palapeli::PatternTrader::configurationCount() const
 
 Palapeli::PatternConfiguration* Palapeli::PatternTrader::configurationAt(int index) const
 {
-	if (index < 0 || index >= p->m_configs.count())
-		return 0;
-	return p->m_configs[index];
+	return p->m_configs.value(index, 0);
+}
+
+Palapeli::PatternConfiguration* Palapeli::PatternTrader::configurationFromName(const QString& patternName) const
+{
+	foreach (Palapeli::PatternConfiguration* config, p->m_configs)
+	{
+		if (config->property("PatternName").toString() == patternName)
+			return config;
+	}
+	return 0;
 }
 
 void Palapeli::PatternTrader::rescanConfigurations()

@@ -64,9 +64,16 @@ for (int i = 0; i < trader->configurationCount(); ++i)
 			/**
 			 * Returns the index-th Palapeli::PatternConfiguration instance.
 			 * \warning The trader will delete this instance automatically when rebuilding its configuration list or on exit.
-			 * \sa configurationCount()
+			 * \sa configurationCount(), configurationFromName()
 			 */
 			PatternConfiguration* configurationAt(int index) const;
+			/**
+			 * Searches for a Palapeli::PatternConfiguration instance with the given \a patternName.
+			 * \return a pointer to the Palapeli::PatternConfiguration instance, or 0 if no such instance exists
+			 * \warning The trader will delete this instance automatically when rebuilding its configuration list or on exit.
+			 * \sa configurationAt()
+			 */
+			PatternConfiguration* configurationFromName(const QString& patternName) const;
 			/**
 			 * Flushes and rebuilds the list of available Palapeli::PalapeliConfiguration instances.
 			 * \warning This method invalidates Palapeli::PatternConfiguration instances previously fetched from the trader.
