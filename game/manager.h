@@ -38,7 +38,6 @@ namespace Palapeli
 	class PieceRelation;
 	class Preview;
 	struct PuzzleInfo;
-	class SavegameModel;
 	class View;
 
 	class Manager : public QObject
@@ -61,7 +60,6 @@ namespace Palapeli
 			Library* library() const;
 			Minimap* minimap() const;
 			Preview* preview() const;
-			SavegameModel* savegameModel() const;
 			MainWindow* window() const;
 		public Q_SLOTS:
 			void pieceMoveFinished();
@@ -81,8 +79,6 @@ namespace Palapeli
 			void finishGameLoading();
 		Q_SIGNALS:
 			void gameNameChanged(const QString& name);
-			void savegameCreated(const QString& name);
-			void savegameDeleted(const QString& name);
 			void interactionModeChanged(bool gameInteractionAvailable);
 		private:
 			Manager();

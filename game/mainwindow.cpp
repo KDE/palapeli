@@ -44,7 +44,6 @@ Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
 	, m_togglePreviewAct(new KAction(KIcon("games-config-background"), i18n("Show preview"), parent))
 	, m_dockMinimap(new QDockWidget(i18n("Overview"), parent))
 	, m_dockPreview(new QDockWidget(i18n("Image preview"), parent))
-	, m_newDialog(0) //cannot be created until Manager has loaded the pattern plugins
 	, m_settingsDialog(new KPageDialog(parent))
 	, m_appearanceUi(new Ui::AppearanceSettingsWidget)
 	, m_appearanceContainer(new QWidget)
@@ -63,7 +62,6 @@ Palapeli::MainWindowPrivate::~MainWindowPrivate()
 	delete m_dockMinimap;
 	delete m_dockPreview;
 	//dialogs
-	delete m_newDialog;
 	delete m_settingsDialog;
 	delete m_appearanceUi;
 	delete m_appearanceContainer;
@@ -76,7 +74,7 @@ Palapeli::MainWindowPrivate::~MainWindowPrivate()
 void Palapeli::MainWindowPrivate::setupActions()
 {
 	//Game actions
-	KStandardGameAction::gameNew(0, "", m_parent->actionCollection()); //no slot given because m_newDialog is not available yet
+	KStandardGameAction::gameNew(0, "", m_parent->actionCollection())->setEnabled(false); //FIXME: resurrect when "Create" dialog becomes available
 	new Palapeli::LoadAction(m_parent->actionCollection());
 	new Palapeli::ExportAction(m_parent->actionCollection());
 	KStandardGameAction::quit(m_parent, SLOT(close()), m_parent->actionCollection());
@@ -114,9 +112,6 @@ void Palapeli::MainWindowPrivate::setupDockers()
 
 void Palapeli::MainWindowPrivate::setupDialogs()
 {
-	//setup "New game" dialog - it is now safe to do that because Manager has loaded its pattern plugins
-	m_newDialog = new Palapeli::NewPuzzleDialog(m_parent);
-	connect(m_parent->actionCollection()->action(KStandardGameAction::name(KStandardGameAction::New)), SIGNAL(triggered()), m_newDialog, SLOT(showDialog()));
 	//setup Settings UIs
 	m_appearanceUi->setupUi(m_appearanceContainer);
 	m_gameplayUi->setupUi(m_gameplayContainer);

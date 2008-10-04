@@ -58,7 +58,6 @@ namespace Palapeli
 			QDockWidget* m_dockMinimap;
 			QDockWidget* m_dockPreview;
 			//dialogs
-			NewPuzzleDialog* m_newDialog;
 			KPageDialog* m_settingsDialog;
 			Ui::AppearanceSettingsWidget* m_appearanceUi;
 			QWidget* m_appearanceContainer;

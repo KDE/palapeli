@@ -10,7 +10,9 @@ Palapeli mid-term goals
 * a KPart for playing Palapeli games in Konqueror (preferably together with a really good community site for Palapeli puzzles)
 * transform Preview and Minimap to on-screen widgets
 * rotation of pieces (requires redesign of the game engine - Piece/Part/PieceRelation)
+* 3D/shadow effect for pieces
 * GHNS support for diverse resource files and puzzle library entries
+* puzzle area as Plasma containment (requires perhaps to merge big chunks of the application and the libpalapelipattern into a libpalapeli)
 
 Paladesign (depends on whether Paladesign is kept at all)
 * shape browser

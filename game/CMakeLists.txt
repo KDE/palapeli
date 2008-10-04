@@ -17,13 +17,10 @@ set(palapeli_SRCS
 	mainwindow.cpp
 	manager.cpp
 	minimap.cpp
-	newpuzzledialog.cpp
 	part.cpp
 	piece.cpp
 	piecerelation.cpp
 	preview.cpp
-	puzzlelibrary.cpp
-	savegamemodel.cpp
 	textprogressbar.cpp
 	view.cpp
 	actions/exportaction.cpp
