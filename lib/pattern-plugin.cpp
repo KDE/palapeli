@@ -27,8 +27,7 @@ namespace Palapeli
 		public:
 			PatternPluginPrivate(const QVariantList& args);
 
-			QString m_pluginName;
-			QString m_displayName;
+			QString m_pluginName, m_displayName, m_iconName;
 	};
 	
 }
@@ -38,6 +37,7 @@ namespace Palapeli
 Palapeli::PatternPluginPrivate::PatternPluginPrivate(const QVariantList& args)
 	: m_pluginName(args.value(0, QVariant()).toString())
 	, m_displayName(args.value(1, QVariant()).toString())
+	, m_iconName(args.value(2, QVariant()).toString())
 {
 }
 
@@ -64,6 +64,11 @@ QString Palapeli::PatternPlugin::pluginName() const
 QString Palapeli::PatternPlugin::displayName() const
 {
 	return p->m_displayName;
+}
+
+QString Palapeli::PatternPlugin::iconName() const
+{
+	return p->m_iconName;
 }
 
 //END Palapeli::PatternPlugin

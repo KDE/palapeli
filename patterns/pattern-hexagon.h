@@ -50,7 +50,7 @@ namespace Palapeli
 	class HexagonalPatternConfiguration : public PatternConfiguration
 	{
 		public:
-			HexagonalPatternConfiguration(const QString& pluginName, const QString& displayName);
+			HexagonalPatternConfiguration(const QString& pluginName, const QString& displayName, const QString& iconName);
 			virtual ~HexagonalPatternConfiguration();
 			virtual Pattern* createPattern() const;
 	};

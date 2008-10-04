@@ -75,6 +75,7 @@ void Palapeli::PatternTrader::rescanConfigurations()
 		QVariantList args;
 		args << offer->property("X-PluginIdentifier", QVariant::String).toString();
 		args << offer->name();
+		args << offer->icon();
 		Palapeli::PatternPlugin* plugin = offer->createInstance<Palapeli::PatternPlugin>(0, args);
 		if (plugin == 0)
 			continue;

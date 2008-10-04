@@ -36,7 +36,7 @@ namespace Palapeli
 	class PatternConfigurationPrivate
 	{
 		public:
-			PatternConfigurationPrivate(const QString& patternName, const QString& displayName);
+			PatternConfigurationPrivate(const QString& patternName, const QString& displayName, const QString& iconName);
 			~PatternConfigurationPrivate();
 
 			QMap<QByteArray, QVariant> m_configurationValues;
@@ -50,12 +50,14 @@ namespace Palapeli
 
 //BEGIN Palapeli::PatternConfigurationPrivate
 
-Palapeli::PatternConfigurationPrivate::PatternConfigurationPrivate(const QString& patternName, const QString& displayName)
+Palapeli::PatternConfigurationPrivate::PatternConfigurationPrivate(const QString& patternName, const QString& displayName, const QString& iconName)
 {
 	m_configurationValues["PatternName"] = patternName;
 	m_configurationDataTypes["PatternName"] = Palapeli::PatternConfiguration::String;
 	m_configurationValues["DisplayName"] = displayName;
 	m_configurationDataTypes["DisplayName"] = Palapeli::PatternConfiguration::String;
+	m_configurationValues["IconName"] = iconName;
+	m_configurationDataTypes["IconName"] = Palapeli::PatternConfiguration::String;
 }
 
 Palapeli::PatternConfigurationPrivate::~PatternConfigurationPrivate()
@@ -67,8 +69,8 @@ Palapeli::PatternConfigurationPrivate::~PatternConfigurationPrivate()
 
 //BEGIN Palapeli::PatternConfiguration
 
-Palapeli::PatternConfiguration::PatternConfiguration(const QString& patternName, const QString& displayName)
-	: p(new Palapeli::PatternConfigurationPrivate(patternName, displayName))
+Palapeli::PatternConfiguration::PatternConfiguration(const QString& patternName, const QString& displayName, const QString& iconName)
+	: p(new Palapeli::PatternConfigurationPrivate(patternName, displayName, iconName))
 {
 	connect(&p->m_mapper, SIGNAL(mapped(const QByteArray&, const QVariant&)), this, SLOT(setProperty(const QByteArray&, const QVariant&)));
 }

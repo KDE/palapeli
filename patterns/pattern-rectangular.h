@@ -48,7 +48,7 @@ namespace Palapeli
 	class RectangularPatternConfiguration : public PatternConfiguration
 	{
 		public:
-			RectangularPatternConfiguration(const QString& pluginName, const QString& displayName);
+			RectangularPatternConfiguration(const QString& pluginName, const QString& displayName, const QString& iconName);
 			virtual ~RectangularPatternConfiguration();
 			virtual Pattern* createPattern() const;
 	};

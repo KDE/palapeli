@@ -153,8 +153,8 @@ QPoint Palapeli::HexagonalPattern::pieceBasePosition(int x, int y, const QSize& 
 
 //BEGIN Palapeli::HexagonalPatternConfiguration
 
-Palapeli::HexagonalPatternConfiguration::HexagonalPatternConfiguration(const QString& pluginName, const QString& displayName)
-	: Palapeli::PatternConfiguration(pluginName, displayName)
+Palapeli::HexagonalPatternConfiguration::HexagonalPatternConfiguration(const QString& pluginName, const QString& displayName, const QString& iconName)
+	: Palapeli::PatternConfiguration(pluginName, displayName, iconName)
 {
 	//add properties
 	addProperty("xcount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in horizontal direction:"));
@@ -193,7 +193,7 @@ Palapeli::HexagonalPatternPlugin::~HexagonalPatternPlugin()
 QList<Palapeli::PatternConfiguration*> Palapeli::HexagonalPatternPlugin::createInstances() const
 {
 	QList<Palapeli::PatternConfiguration*> list;
-	list << new Palapeli::HexagonalPatternConfiguration(pluginName(), displayName());
+	list << new Palapeli::HexagonalPatternConfiguration(pluginName(), displayName(), iconName());
 	return list;
 }
 

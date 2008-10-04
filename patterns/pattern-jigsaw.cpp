@@ -278,8 +278,8 @@ void Palapeli::JigsawPattern::doSlice(const QImage& image)
 
 //BEGIN Palapeli::JigsawPatternConfiguration
 
-Palapeli::JigsawPatternConfiguration::JigsawPatternConfiguration(const QString& themeName, const QString& pluginName, const QString& displayName)
-	: Palapeli::PatternConfiguration(pluginName, displayName)
+Palapeli::JigsawPatternConfiguration::JigsawPatternConfiguration(const QString& themeName, const QString& pluginName, const QString& displayName, const QString& iconName)
+	: Palapeli::PatternConfiguration(pluginName, displayName, iconName)
 	, m_seed(time(0))
 	, m_themeName(themeName)
 {
@@ -342,7 +342,7 @@ QList<Palapeli::PatternConfiguration*> Palapeli::JigsawPatternPlugin::createInst
 {
 	QList<Palapeli::PatternConfiguration*> list;
 	foreach (const QString& themeName, m_themeNames)
-		list << new Palapeli::JigsawPatternConfiguration(themeName, pluginName().arg(themeName), displayName().arg(themeName));
+		list << new Palapeli::JigsawPatternConfiguration(themeName, pluginName().arg(themeName), displayName().arg(themeName), iconName());
 	return list;
 }
 

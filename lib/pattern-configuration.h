@@ -71,13 +71,13 @@ setProperty("myprop", 3); //set default value
 			};
 			/**
 			 * \brief Constructs a new PatternConfiguration object.
-			 * This constructor creates the two properties \a "PatternName" and \a "DisplayName" which are filled with the given values. You should not modify these properties after this initialisation.
+			 * This constructor creates the three properties \a "PatternName", \a "DisplayName" and \a "IconName" which are filled with the given values. You should not modify these properties after this initialisation.
 			 *
 			 * For the parameters \a patternName and \a displayName, you should modify the plugin name and the display name in Palapeli::PatternPlugin.
 			 *
 			 * In your subclass implementation, this is the recommended point to add properties.
 			 */
-			PatternConfiguration(const QString& patternName, const QString& displayName);
+			PatternConfiguration(const QString& patternName, const QString& displayName, const QString& iconName);
 			/**
 			 * \brief Destructor.
 			 */

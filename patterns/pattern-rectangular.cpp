@@ -75,8 +75,8 @@ void Palapeli::RectangularPattern::doSlice(const QImage& image)
 
 //BEGIN Palapeli::RectangularPatternConfiguration
 
-Palapeli::RectangularPatternConfiguration::RectangularPatternConfiguration(const QString& pluginName, const QString& displayName)
-	: Palapeli::PatternConfiguration(pluginName, displayName)
+Palapeli::RectangularPatternConfiguration::RectangularPatternConfiguration(const QString& pluginName, const QString& displayName, const QString& iconName)
+	: Palapeli::PatternConfiguration(pluginName, displayName, iconName)
 {
 	//add properties
 	addProperty("XCount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in horizontal direction:"));
@@ -115,7 +115,7 @@ Palapeli::RectangularPatternPlugin::~RectangularPatternPlugin()
 QList<Palapeli::PatternConfiguration*> Palapeli::RectangularPatternPlugin::createInstances() const
 {
 	QList<Palapeli::PatternConfiguration*> list;
-	list << new Palapeli::RectangularPatternConfiguration(pluginName(), displayName());
+	list << new Palapeli::RectangularPatternConfiguration(pluginName(), displayName(), iconName());
 	return list;
 }
 

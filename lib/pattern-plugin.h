@@ -81,6 +81,11 @@ K_EXPORT_PLUGIN(MyPatternFactory("mypattern"))
 			 * This method returns the plugin's display name as specified in the plugin's desktop file. This localizable string identifies the plugin in interfaces, and can be used as a basis for the display name needed in the Palapeli::PatternConfiguration constructor.
 			 */
 			QString displayName() const;
+			/**
+			 * \brief The plugin's icon name.
+			 * This method returns the name of the icon recommended to depict this plugin, as specified in the plugin's desktop file.
+			 */
+			QString iconName() const;
 		private:
 			PatternPluginPrivate* const p;
 	};

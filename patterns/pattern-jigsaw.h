@@ -53,7 +53,7 @@ namespace Palapeli
 	class JigsawPatternConfiguration : public PatternConfiguration
 	{
 		public:
-			JigsawPatternConfiguration(const QString& themeName, const QString& pluginName, const QString& displayName);
+			JigsawPatternConfiguration(const QString& themeName, const QString& pluginName, const QString& displayName, const QString& iconName);
 			virtual ~JigsawPatternConfiguration();
 			virtual Pattern* createPattern() const;
 		protected:
