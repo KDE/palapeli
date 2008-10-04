@@ -17,7 +17,7 @@ X-KDE-PluginInfo-Website=http://commons.wikimedia.org/wiki/Image:Citrus_fruits.j
 X-KDE-PluginInfo-License=Public Domain
 
 [X-Palapeli]
-Pattern=rectangular
+Pattern=jigsaw-puzzle
 PieceCount=42
 
 [X-PatternArgs]

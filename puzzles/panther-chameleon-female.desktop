@@ -20,7 +20,7 @@ X-KDE-PluginInfo-Website=http://commons.wikimedia.org/wiki/Image:FurciferPardali
 X-KDE-PluginInfo-License=GNU-FDL
 
 [X-Palapeli]
-Pattern=rectangular
+Pattern=jigsaw-puzzle
 PieceCount=48
 
 [X-PatternArgs]

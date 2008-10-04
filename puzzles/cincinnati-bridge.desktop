@@ -24,7 +24,7 @@ X-KDE-PluginInfo-Website=http://commons.wikimedia.org/wiki/Image:Cincinnati-roeb
 X-KDE-PluginInfo-License=Public Domain
 
 [X-Palapeli]
-Pattern=rectangular
+Pattern=jigsaw-puzzle
 PieceCount=56
 
 [X-PatternArgs]
