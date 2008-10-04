@@ -19,8 +19,6 @@
 #include "puzzlelibrary.h"
 #include "puzzlelibrary_p.h"
 #include "manager.h"
-#include "../storage/gamestorage.h"
-#include "../storage/gamestorageitem.h"
 
 #include <QApplication>
 #include <QPainter>

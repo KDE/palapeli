@@ -69,9 +69,7 @@ namespace Palapeli
 			void updateGraphics();
 
 			void loadGame(Palapeli::PuzzleInfo* info);
-			void saveGame(const QString& name) { Q_UNUSED(name) } //deprecated
 			void deleteGame(const QString& name) { Q_UNUSED(name) } //deprecated
-			void savegameWasCreated(const QString& name);
 		protected Q_SLOTS:
 			void estimatePieceCount(int pieceCount);
 			void addPiece(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition);

@@ -22,9 +22,6 @@
 #include "../lib/pattern-configuration.h"
 #include "../lib/pattern-executor.h"
 #include "../lib/pattern-trader.h"
-#include "../storage/gamestorageattribs.h"
-#include "../storage/gamestorage.h"
-#include "../storage/gamestorageitem.h"
 #include "library/library.h"
 #include "library/librarybase.h"
 #include "library/puzzleinfo.h"
@@ -56,7 +53,7 @@ namespace Palapeli
 		~ManagerPrivate();
 
 		bool canLoadGame(Palapeli::PuzzleInfo* info);
-		bool initGame(); //to be merged with canLoadGame eventually
+		bool initGame(); //TODO: to be merged with canLoadGame eventually
 		void saveGame(); //intended as autosave after every action
 
 		Manager* m_manager;
@@ -77,8 +74,7 @@ namespace Palapeli
 
 	namespace Strings
 	{
-		const QString AutosaveName("__palapeli_autosave_%1");
-		//strings in .psg files
+		//strings in .desktop and .cfg files
 		const QString GeneralGroupKey("X-Palapeli");
 		const QString PatternKey("Pattern");
 		const QString PatternGroupKey("X-PatternArgs");
@@ -101,11 +97,6 @@ Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	, m_view(0)
 	, m_window(0)
 {
-	//cleanup of now unused items (mostly images)
-	Palapeli::GameStorage gs;
-	Palapeli::GameStorageItems items = gs.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageNoDependencyAttribute);
-	foreach (const Palapeli::GameStorageItem& item, items)
-		gs.removeItem(item);
 }
 
 void Palapeli::ManagerPrivate::init()
@@ -226,45 +217,6 @@ void Palapeli::ManagerPrivate::saveGame()
 	for (int i = 0; i < m_relations.count(); ++i)
 		relationsGroup.writeEntry(QString::number(i), m_relations[i].combined());
 }
-
-/*
-bool Palapeli::ManagerPrivate::saveGame(const QString& name)
-{
-	Palapeli::GameStorage gs;
-	//find or create configuration file
-	Palapeli::GameStorageItems configs = gs.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame) << new Palapeli::GameStorageMetaAttribute(name));
-	Palapeli::GameStorageItem configItem;
-	if (configs.count() == 0)
-	{
-		configItem = gs.addItem("psg", Palapeli::GameStorageItem::SavedGame);
-		configItem.setMetaData(name);
-	}
-	else
-		configItem = configs.at(0);
-	m_gameId = configItem.id();
-	//open config file and write general information
-	KConfig config(configItem.filePath());
-	KConfigGroup generalGroup(&config, Palapeli::Strings::GeneralGroupKey);
-	//write game name, pattern name, and configuration
-	generalGroup.writeEntry(Palapeli::Strings::GameNameKey, m_puzzleInfo.identifier);
-	QString patternName = m_patternConfiguration->property("PatternName").toString();
-	generalGroup.writeEntry(Palapeli::Strings::PatternKey, patternName);
-	KConfigGroup patternGroup(&config, Palapeli::Strings::PatternGroupKey);
-	m_patternConfiguration->writeArguments(&patternGroup);
-	//write piece positions
-	KConfigGroup pieceGroup(&config, Palapeli::Strings::PiecesGroupKey);
-	for (int i = 0; i < m_pieces.count(); ++i)
-	{
-		Palapeli::Piece* piece = m_pieces.at(i);
-		pieceGroup.writeEntry(Palapeli::Strings::PositionKey.arg(i), piece->part()->basePosition());
-	}
-	//finalize configuration file
-	config.sync();
-	//create dependency from config to image
-	gs.addDependency(configItem, gs.item(m_imageId));
-	return true;
-}
-*/
 
 //END Palapeli::ManagerPrivate
 
@@ -464,41 +416,6 @@ void Palapeli::Manager::finishGameLoading()
 	p->m_window->reportPuzzleProgress(p->m_pieces.count(), p->m_parts.count());
 	emit interactionModeChanged(true);
 	emit gameNameChanged(p->m_puzzleInfo.name);
-}
-
-/*
-bool Palapeli::Manager::saveGame(const QString& name)
-{
-	if (!p->m_patternConfiguration || p->m_pieces.empty())
-		return false;
-	if (name.startsWith(QLatin1String("__palapeli"), Qt::CaseSensitive))
-	{
-		KMessageBox::error(window(), i18n("Please choose another name. Names starting with \"__palapeli\" are reserved for internal use."));
-		return false;
-	}
-	emit interactionModeChanged(false);
-	p->m_gameName = name;
-	p->saveGame(name);
-	emit gameNameChanged(name);
-	emit savegameCreated(name);
-	emit interactionModeChanged(true);
-	return true;
-}
-
-void Palapeli::Manager::deleteGame(const QString& name)
-{
-	Palapeli::GameStorage gs;
-	Palapeli::GameStorageItems configs = gs.queryItems(Palapeli::GameStorageAttributes() << new Palapeli::GameStorageTypeAttribute(Palapeli::GameStorageItem::SavedGame) << new Palapeli::GameStorageMetaAttribute(name));
-	if (configs.count() == 0)
-		return;
-	gs.removeItem(configs.at(0));
-	emit savegameDeleted(name);
-}
-*/
-
-void Palapeli::Manager::savegameWasCreated(const QString& name)
-{
-	emit savegameCreated(name);
 }
 
 //END Palapeli::Manager

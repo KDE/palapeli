@@ -41,9 +41,9 @@ set(palapeli_SRCS
 	library/librarydelegate.cpp
 	library/libraryview.cpp
 	library/puzzleinfo.cpp
-	../storage/gamestorage.cpp
-	../storage/gamestorageattribs.cpp
-	../storage/gamestorageitem.cpp
+#	../storage/gamestorage.cpp
+#	../storage/gamestorageattribs.cpp
+#	../storage/gamestorageitem.cpp
 )
 kde4_add_ui_files(palapeli_SRCS settings_appearance.ui settings_gameplay.ui)
 kde4_add_kcfg_files(palapeli_SRCS settings.kcfgc)
