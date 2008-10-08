@@ -42,13 +42,12 @@
 #include <KToolBar>
 
 Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
-	//FIXME: This constructor runs for 400 ms (on my machine). Optimize!
 	: m_parent(parent)
 	, m_toggleMinimapAct(new KAction(KIcon("document-preview"), i18n("Show overview"), parent))
 	, m_togglePreviewAct(new KAction(KIcon("games-config-background"), i18n("Show preview"), parent))
 	, m_dockMinimap(new QDockWidget(i18n("Overview"), parent))
 	, m_dockPreview(new QDockWidget(i18n("Image preview"), parent))
-	, m_createDialog(new Palapeli::CreateDialog)
+	, m_createDialog(0)
 	, m_settingsDialog(new KPageDialog(parent))
 	, m_appearanceUi(new Ui::AppearanceSettingsWidget)
 	, m_appearanceContainer(new QWidget)
@@ -89,8 +88,7 @@ void Palapeli::MainWindowPrivate::setupActions()
 {
 	KAction* action;
 	//Game actions
-	KStandardGameAction::gameNew(m_createDialog, SLOT(show()), m_parent->actionCollection());
-	connect(m_welcomeWidget, SIGNAL(createRequest()), m_createDialog, SLOT(show()));
+	KStandardGameAction::gameNew(0, "", m_parent->actionCollection());
 	action = new Palapeli::LoadAction(m_parent->actionCollection());
 	connect(m_welcomeWidget, SIGNAL(libraryRequest()), action, SLOT(trigger()));
 	action = new Palapeli::ResetAction(m_parent->actionCollection());
@@ -134,6 +132,9 @@ void Palapeli::MainWindowPrivate::setupDockers()
 
 void Palapeli::MainWindowPrivate::setupDialogs()
 {
+	m_createDialog = new Palapeli::CreateDialog;
+	connect(m_parent->actionCollection()->action("game_new"), SIGNAL(triggered()), m_createDialog, SLOT(show()));
+	connect(m_welcomeWidget, SIGNAL(createRequest()), m_createDialog, SLOT(show()));
 	//setup Settings UIs
 	m_appearanceUi->setupUi(m_appearanceContainer);
 	m_gameplayUi->setupUi(m_gameplayContainer);
