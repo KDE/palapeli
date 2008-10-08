@@ -32,11 +32,10 @@ namespace Palapeli
 	{
 		public:
 			PatternPrivate();
-			~PatternPrivate();
 
-			PatternExecutor* m_executor;
-
-			int m_pieceCounter;
+			Palapeli::Pattern::Mode m_mode;
+			int m_pieceCount; //saves the estimated total number of pieces
+			int m_pieceCounter; //counter for generated pieces
 			QSize m_imageSize;
 			qreal m_sceneSizeFactor;
 			
@@ -48,15 +47,12 @@ namespace Palapeli
 }
 
 Palapeli::PatternPrivate::PatternPrivate()
-	: m_executor(0)
+	: m_mode(Palapeli::Pattern::CreatePuzzle)
+	, m_pieceCount(-1) //mark as invalid
 	, m_pieceCounter(0)
 	, m_sceneSizeFactor(2.0) //a reasonable default
 	, m_loadSceneBasePositions(false)
 	, m_emittedAllPiecesGeneratedSignal(false)
-{
-}
-
-Palapeli::PatternPrivate::~PatternPrivate()
 {
 }
 
@@ -76,9 +72,24 @@ void Palapeli::Pattern::loadPiecePositions(const QList<QPointF>& points)
 	p->m_loadSceneBasePositions = true;
 }
 
+Palapeli::Pattern::Mode Palapeli::Pattern::mode() const
+{
+	return p->m_mode;
+}
+
+int Palapeli::Pattern::pieceCount() const
+{
+	return p->m_pieceCount;
+}
+
 void Palapeli::Pattern::setSceneSizeFactor(qreal factor)
 {
 	p->m_sceneSizeFactor = factor;
+}
+
+void Palapeli::Pattern::setMode(Palapeli::Pattern::Mode mode)
+{
+	p->m_mode = mode;
 }
 
 void Palapeli::Pattern::slice(const QImage& image)
@@ -104,21 +115,26 @@ QPointF Palapeli::Pattern::generateNextBasePosition(const QRectF& positionInImag
 
 void Palapeli::Pattern::reportPieceCount(int pieceCount)
 {
-	emit estimatePieceCountAvailable(pieceCount);
+	p->m_pieceCount = pieceCount;
+	emit pieceCountAvailable(pieceCount);
 }
 
 void Palapeli::Pattern::addPiece(const QImage& image, const QRectF& positionInImage)
 {
-	emit pieceGenerated(image, positionInImage, generateNextBasePosition(positionInImage));
+	if (mode() == CreatePuzzle)
+		emit pieceGenerated(image, positionInImage, generateNextBasePosition(positionInImage));
 }
 
 void Palapeli::Pattern::addPiece(const QImage& baseImage, const QImage& mask, const QRectF& positionInImage)
 {
-	emit pieceGenerated(baseImage, mask, positionInImage, generateNextBasePosition(positionInImage));
+	if (mode() == CreatePuzzle)
+		emit pieceGenerated(baseImage, mask, positionInImage, generateNextBasePosition(positionInImage));
 }
 
 void Palapeli::Pattern::addRelation(int piece1Id, int piece2Id)
 {
+	if (mode() != CreatePuzzle)
+		return;
 	//at this point, we assume that all pieces have been created
 	if (!p->m_emittedAllPiecesGeneratedSignal)
 	{

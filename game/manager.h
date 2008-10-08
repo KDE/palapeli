@@ -45,7 +45,7 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			static Manager* self();
-			void init();
+			bool init();
 
 			void removePart(Part* part);
 			//core objects (i.e. everything which is immediately relevant to gameplay)
@@ -53,6 +53,7 @@ namespace Palapeli
 			Part* partAt(int index) const;
 			int pieceCount() const;
 			Piece* pieceAt(int index) const;
+			const PuzzleInfo* puzzleInfo() const;
 			int relationCount() const;
 			PieceRelation relationAt(int index) const;
 			View* view() const;
@@ -66,10 +67,10 @@ namespace Palapeli
 			void searchConnections();
 			void updateGraphics();
 
-			void loadGame(Palapeli::PuzzleInfo* info);
+			void loadGame(const Palapeli::PuzzleInfo* info, bool forceReload = false);
 			void deleteGame(const QString& name) { Q_UNUSED(name) } //deprecated
 		protected Q_SLOTS:
-			void estimatePieceCount(int pieceCount);
+			void pieceCount(int pieceCount);
 			void addPiece(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition);
 			void addPiece(const QImage& baseImage, const QImage& mask, const QRectF& positionInImage, const QPointF& sceneBasePosition);
 			void addPiece(Palapeli::Piece* piece, const QPointF& sceneBasePosition);

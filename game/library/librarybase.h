@@ -19,6 +19,7 @@
 #ifndef PALAPELI_LIBRARYBASE_H
 #define PALAPELI_LIBRARYBASE_H
 
+#include <QObject>
 #include <QStringList>
 #include <QUuid>
 class KStandardDirs;
@@ -30,8 +31,9 @@ namespace Palapeli
 
 	class Library;
 
-	class LibraryBase
+	class LibraryBase : public QObject
 	{
+		Q_OBJECT
 		public:
 			enum FileType
 			{
@@ -42,31 +44,44 @@ namespace Palapeli
 			virtual ~LibraryBase() {}
 			virtual QString findFile(const QString& identifier, Palapeli::LibraryBase::FileType type, bool onlyLocal = false) const = 0;
 			virtual QStringList findEntries() const = 0;
+			virtual bool insertEntry(const QString& identifier, Palapeli::Library* sourceLibrary);
+			bool insertEntries(Palapeli::Library* sourceLibrary); //imports everything from the given source
+			virtual bool canRemoveEntry(const QString& identifier, Palapeli::Library* library);
+			virtual bool removeEntry(const QString& identifier, Palapeli::Library* library);
+		Q_SIGNALS:
+			void entryInserted(const QString& identifier);
+			void entryRemoved(const QString& identifier);
 	};
 
 	//This base scans the puzzle library provided with Palapeli.
 	class LibraryStandardBase : public LibraryBase
 	{
 		public:
-			LibraryStandardBase();
+			static LibraryStandardBase* self();
+
 			virtual ~LibraryStandardBase();
 			virtual QString findFile(const QString& identifier, Palapeli::LibraryBase::FileType type, bool onlyLocal = false) const;
 			virtual QStringList findEntries() const;
 		private:
+			LibraryStandardBase();
+			Q_DISABLE_COPY(LibraryStandardBase)
+
 			KStandardDirs* m_dirs;
 	};
 
-	//This base reads a puzzle archive. If the archive is corrupted or does not exist, this base is initialized in an empty state, and can be filled with a puzzle from another library.
+	//This base reads a puzzle archive. If the archive is corrupted or does not exist, this base is initialized in an empty state, and can be filled with a puzzle from another library. An existing puzzle will be overwritten when inserting another puzzle.
 	class LibraryArchiveBase : public LibraryBase
 	{
 		public:
 			LibraryArchiveBase(const KUrl& url);
 			virtual ~LibraryArchiveBase();
+
 			virtual QString findFile(const QString& identifier, Palapeli::LibraryBase::FileType type, bool onlyLocal = false) const;
 			virtual QStringList findEntries() const;
-
-			bool create(Palapeli::Library* sourceLibrary, const QString& identifier);
+			virtual bool insertEntry(const QString& identifier, Palapeli::Library* sourceLibrary);
 		private:
+			Q_DISABLE_COPY(LibraryArchiveBase)
+
 			KUrl m_url;
 			KTempDir* m_cache;
 			QUuid m_identifier;

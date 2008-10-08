@@ -21,15 +21,18 @@
 #define PALAPELI_MAINWINDOW_PRIVATE_H
 
 #include "mainwindow.h"
-
-#include "newpuzzledialog.h"
+#include "actions/createaction.h"
 #include "textprogressbar.h"
 #include "ui_settings_appearance.h"
 #include "ui_settings_gameplay.h"
+#include "welcomewidget.h"
 
 #include <QDockWidget>
+#include <QLabel>
 #include <QProgressBar>
+#include <QStackedWidget>
 #include <KAction>
+#include <KPageDialog>
 
 namespace Palapeli
 {
@@ -58,11 +61,16 @@ namespace Palapeli
 			QDockWidget* m_dockMinimap;
 			QDockWidget* m_dockPreview;
 			//dialogs
+			Palapeli::CreateDialog* m_createDialog;
 			KPageDialog* m_settingsDialog;
 			Ui::AppearanceSettingsWidget* m_appearanceUi;
 			QWidget* m_appearanceContainer;
 			Ui::GameplaySettingsWidget* m_gameplayUi;
 			QWidget* m_gameplayContainer;
+			//central widget
+			QStackedWidget* m_centralWidget;
+			WelcomeWidget* m_welcomeWidget;
+			QLabel* m_loaderWidget;
 			//status bar
 			Palapeli::TextProgressBar* m_puzzleProgress;
 	};

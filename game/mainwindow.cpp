@@ -19,8 +19,11 @@
 
 #include "mainwindow.h"
 #include "mainwindow_p.h"
+#include "actions/deleteaction.h"
 #include "actions/exportaction.h"
+#include "actions/importaction.h"
 #include "actions/loadaction.h"
+#include "actions/resetaction.h"
 #include "manager.h"
 #include "minimap.h"
 #include "preview.h"
@@ -39,18 +42,28 @@
 #include <KToolBar>
 
 Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
+	//FIXME: This constructor runs for 400 ms (on my machine). Optimize!
 	: m_parent(parent)
-	, m_toggleMinimapAct(new KAction(KIcon("document-preview"), i18n("Show minimap"), parent))
+	, m_toggleMinimapAct(new KAction(KIcon("document-preview"), i18n("Show overview"), parent))
 	, m_togglePreviewAct(new KAction(KIcon("games-config-background"), i18n("Show preview"), parent))
 	, m_dockMinimap(new QDockWidget(i18n("Overview"), parent))
 	, m_dockPreview(new QDockWidget(i18n("Image preview"), parent))
+	, m_createDialog(new Palapeli::CreateDialog)
 	, m_settingsDialog(new KPageDialog(parent))
 	, m_appearanceUi(new Ui::AppearanceSettingsWidget)
 	, m_appearanceContainer(new QWidget)
 	, m_gameplayUi(new Ui::GameplaySettingsWidget)
 	, m_gameplayContainer(new QWidget)
+	, m_centralWidget(new QStackedWidget)
+	, m_welcomeWidget(new Palapeli::WelcomeWidget)
+	, m_loaderWidget(new QLabel(i18n("Loading puzzle...")))
 	, m_puzzleProgress(new Palapeli::TextProgressBar)
 {
+	m_loaderWidget->setAlignment(Qt::AlignCenter);
+	m_centralWidget->addWidget(m_welcomeWidget);
+	m_centralWidget->addWidget(m_loaderWidget);
+	m_centralWidget->addWidget(ppMgr()->view());
+	m_centralWidget->setCurrentWidget(m_welcomeWidget);
 }
 
 Palapeli::MainWindowPrivate::~MainWindowPrivate()
@@ -62,6 +75,7 @@ Palapeli::MainWindowPrivate::~MainWindowPrivate()
 	delete m_dockMinimap;
 	delete m_dockPreview;
 	//dialogs
+	delete m_createDialog;
 	delete m_settingsDialog;
 	delete m_appearanceUi;
 	delete m_appearanceContainer;
@@ -73,10 +87,18 @@ Palapeli::MainWindowPrivate::~MainWindowPrivate()
 
 void Palapeli::MainWindowPrivate::setupActions()
 {
+	KAction* action;
 	//Game actions
-	KStandardGameAction::gameNew(0, "", m_parent->actionCollection())->setEnabled(false); //FIXME: resurrect when "Create" dialog becomes available
-	new Palapeli::LoadAction(m_parent->actionCollection());
+	KStandardGameAction::gameNew(m_createDialog, SLOT(show()), m_parent->actionCollection());
+	connect(m_welcomeWidget, SIGNAL(createRequest()), m_createDialog, SLOT(show()));
+	action = new Palapeli::LoadAction(m_parent->actionCollection());
+	connect(m_welcomeWidget, SIGNAL(libraryRequest()), action, SLOT(trigger()));
+	action = new Palapeli::ResetAction(m_parent->actionCollection());
+	connect(ppMgr(), SIGNAL(gameNameChanged(const QString&)), action, SLOT(gameNameWasChanged(const QString&)));
+	action = new Palapeli::ImportAction(m_parent->actionCollection());
+	connect(m_welcomeWidget, SIGNAL(importRequest()), action, SLOT(trigger()));
 	new Palapeli::ExportAction(m_parent->actionCollection());
+	new Palapeli::DeleteAction(m_parent->actionCollection());
 	KStandardGameAction::quit(m_parent, SLOT(close()), m_parent->actionCollection());
 	//View actions
 	m_parent->actionCollection()->addAction("view_toggle_minimap", m_toggleMinimapAct);
@@ -180,7 +202,7 @@ Palapeli::MainWindow::MainWindow(QWidget* parent)
 	menuBar()->show();
 	//early GUI settings
 	setAutoSaveSettings();
-	setCentralWidget(ppMgr()->view());
+	setCentralWidget(p->m_centralWidget);
 	//initialize dockers
 	p->setupDockers();
 	//late GUI settings
@@ -189,9 +211,8 @@ Palapeli::MainWindow::MainWindow(QWidget* parent)
 	connect(ppMgr(), SIGNAL(gameNameChanged(const QString&)), this, SLOT(gameNameWasChanged(const QString&)));
 	connect(ppMgr(), SIGNAL(interactionModeChanged(bool)), this, SLOT(changeInteractionMode(bool)));
 	//menu bar and status bar
-	statusBar()->show(); //TODO: this does not update the "Show status bar" action's check state - is there a more elegant solution?
+	statusBar()->show();
 	statusBar()->addPermanentWidget(p->m_puzzleProgress, 1);
-	p->m_puzzleProgress->setText(i18n("Click \"New\" to start a new puzzle game."));
 	//initialise dialogs after entering the event loop (to speed up startup)
 	QTimer::singleShot(0, p, SLOT(setupDialogs()));
 }
@@ -240,9 +261,8 @@ void Palapeli::MainWindow::gameNameWasChanged(const QString& name)
 
 void Palapeli::MainWindow::changeInteractionMode(bool allowGameInteraction)
 {
-	actionCollection()->action(KStandardGameAction::name(KStandardGameAction::New))->setEnabled(allowGameInteraction);
 	actionCollection()->action(QLatin1String("palapeli_load"))->setEnabled(allowGameInteraction);
-	actionCollection()->action(QLatin1String("palapeli_export"))->setEnabled(allowGameInteraction);
+	p->m_centralWidget->setCurrentWidget(allowGameInteraction ? (QWidget*) ppMgr()->view() : (QWidget*) p->m_loaderWidget);
 }
 
 void Palapeli::MainWindow::closeEvent(QCloseEvent* event)

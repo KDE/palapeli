@@ -1,4 +1,5 @@
 /***************************************************************************
+ *   Copyright (C) 2008 Felix Lemke <lemke.felix@ages-skripte.org>
  *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
@@ -16,44 +17,32 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_LOADACTION_H
-#define PALAPELI_LOADACTION_H
+#ifndef PALAPELI_WELCOMEWIDGET_H
+#define PALAPELI_WELCOMEWIDGET_H
 
-#include <KAction>
-#include <KDialog>
+class QGridLayout;
+#include <QWidget>
+class KPushButton;
 
 namespace Palapeli
 {
 
-	class Library;
-	class LibraryView;
-
-	class LoadDialog : public KDialog
+	class WelcomeWidget : public QWidget
 	{
 		Q_OBJECT
 		public:
-			LoadDialog(Palapeli::Library* mainLibrary);
-			~LoadDialog();
-		public Q_SLOTS:
-			void handleOkButton();
-		protected:
-			virtual void showEvent(QShowEvent* event);
+			WelcomeWidget();
+		Q_SIGNALS:
+			void libraryRequest();
+			void createRequest();
+			void importRequest();
 		private:
-			Palapeli::LibraryView* m_mainLibraryView;
-	};
-
-	class LoadAction : public KAction
-	{
-		Q_OBJECT
-		public:
-			LoadAction(QObject* parent);
-			~LoadAction();
-		public Q_SLOTS:
-			void handleTrigger();
-		private:
-			Palapeli::LoadDialog* m_dialog;
+			QGridLayout* m_mainLayout;
+			KPushButton* m_libraryButton;
+			KPushButton* m_importButton;
+			KPushButton* m_createButton;
 	};
 
 }
 
-#endif // PALAPELI_LOADACTION_H
+#endif // PALAPELI_WELCOMEWIDGET_H

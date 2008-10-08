@@ -16,44 +16,24 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_LOADACTION_H
-#define PALAPELI_LOADACTION_H
+#ifndef PALAPELI_RESETACTION_H
+#define PALAPELI_RESETACTION_H
 
 #include <KAction>
-#include <KDialog>
 
 namespace Palapeli
 {
 
-	class Library;
-	class LibraryView;
-
-	class LoadDialog : public KDialog
+	class ResetAction : public KAction
 	{
 		Q_OBJECT
 		public:
-			LoadDialog(Palapeli::Library* mainLibrary);
-			~LoadDialog();
-		public Q_SLOTS:
-			void handleOkButton();
-		protected:
-			virtual void showEvent(QShowEvent* event);
-		private:
-			Palapeli::LibraryView* m_mainLibraryView;
-	};
-
-	class LoadAction : public KAction
-	{
-		Q_OBJECT
-		public:
-			LoadAction(QObject* parent);
-			~LoadAction();
+			ResetAction(QObject* parent = 0);
 		public Q_SLOTS:
 			void handleTrigger();
-		private:
-			Palapeli::LoadDialog* m_dialog;
+			void gameNameWasChanged(const QString& name);
 	};
 
 }
 
-#endif // PALAPELI_LOADACTION_H
+#endif // PALAPELI_RESETACTION_H

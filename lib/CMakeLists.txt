@@ -1,7 +1,7 @@
 project(libpalapelipattern)
 
 set(palapelipattern_LIB_MAJOR_VERSION "0")
-set(palapelipattern_LIB_MINOR_VERSION "1")
+set(palapelipattern_LIB_MINOR_VERSION "4")
 set(palapelipattern_LIB_PATCH_VERSION "0")
 set(palapelipattern_LIB_VERSION "${palapelipattern_LIB_MAJOR_VERSION}.${palapelipattern_LIB_MINOR_VERSION}.${palapelipattern_LIB_PATCH_VERSION}")
 set(palapelipattern_LIB_SOVERSION "0")
@@ -32,3 +32,4 @@ install(FILES pattern-configuration.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapel
 install(FILES pattern-executor.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME PatternExecutor)
 install(FILES pattern-plugin.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME PatternPlugin)
 install(FILES pattern-trader.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME PatternTrader)
+install(FILES FindPalapeli.cmake DESTINATION ${DATA_INSTALL_DIR}/cmake/modules COMPONENT Devel)

@@ -19,7 +19,7 @@
 
 #include "manager.h"
 
-#include <time.h>
+#include <ctime>
 #include <KAboutData>
 #include <KApplication>
 #include <KCmdLineArgs>
@@ -28,19 +28,27 @@
 #include <KLocale>
 #include <KLocalizedString>
 
+//FIXME: The viewport is not adjusted correctly when a game is loaded for the first time.
+
 int main(int argc, char** argv)
 {
 	qsrand(time(0));
 
-	KAboutData about("palapeli", "palapeli", ki18nc("The application's name", "Palapeli"), "0.2+", ki18n("A jigsaw puzzle game"), KAboutData::License_GPL, ki18n("(c) 2008, the Palapeli team"));
+	KAboutData about("palapeli", "palapeli", ki18nc("The application's name", "Palapeli"), "0.3+", ki18n("A jigsaw puzzle game"), KAboutData::License_GPL, ki18n("(c) 2008, the Palapeli team"));
 	about.addAuthor(ki18n("Felix Lemke"), KLocalizedString(), "lemke.felix@ages-skripte.org");
-	about.addAuthor(ki18n("Stefan Majewsky"), KLocalizedString(), "majewsky@gmx.net");
+	about.addAuthor(ki18n("Stefan Majewsky"), ki18n("Maintainer"), "majewsky@gmx.net");
 	KCmdLineArgs::init(argc, argv, &about);
+
+	KCmdLineOptions options;
+	options.add("i").add("import URL", ki18n("Puzzle archive to import into the library"));
+	options.add("n").add("nogui", ki18n("Do not open main window (to be used with --import)"));
+	options.add("+[URL]", ki18n("Puzzle archive to open and play"));
+	KCmdLineArgs::addCmdLineOptions(options);
 
 	KApplication app;
 	app.setWindowIcon(KIcon("preferences-plugin"));
 	KGlobal::locale()->insertCatalog("libkdegames");
 
-	ppMgr()->init();
-	return app.exec();
+	//The GUI (and therefore the event loop) is only needed when ppMgr()->init() returns true.
+	return ppMgr()->init() ? app.exec() : 0;
 }

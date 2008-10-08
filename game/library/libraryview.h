@@ -26,6 +26,7 @@ namespace Palapeli
 
 	class Library;
 	class LibraryDelegate;
+	class LibraryFilter;
 	class PuzzleInfo;
 
 	class LibraryView : public QListView
@@ -37,9 +38,12 @@ namespace Palapeli
 
 			Palapeli::Library* library() const;
 			Palapeli::PuzzleInfo* puzzleInfo() const;
+
+			void setDeletionFilterEnabled(bool enable);
 		private:
 			Palapeli::Library* m_library;
 			Palapeli::LibraryDelegate* m_delegate;
+			Palapeli::LibraryFilter* m_filter;
 	};
 
 }

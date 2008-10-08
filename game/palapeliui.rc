@@ -5,8 +5,11 @@
 		<Menu name="game">
 			<Action name="game_new"/>
 			<Action name="palapeli_load"/>
+			<Action name="palapeli_reset"/>
 			<Separator/>
+			<Action name="palapeli_import"/>
 			<Action name="palapeli_export"/>
+			<Action name="palapeli_delete"/>
 			<Separator/>
 			<Action name="game_quit"/>
 		</Menu>
@@ -25,12 +28,18 @@
 		<text>Main toolbar</text>
 		<Action name="game_new"/>
 		<Action name="palapeli_load"/>
+			<Action name="palapeli_reset"/>
 		<Separator/>
+		<Action name="palapeli_import"/>
 		<Action name="palapeli_export"/>
-		<Separator/>
+		<Action name="palapeli_delete"/>
+		<Separator/><!-- TODO: split the following actions off into a view toolbar once this KXMLGUI bug is fixed which hides the main toolbar when I do this -->
 		<Action name="view_toggle_minimap"/>
-		<Action name="view_toggle_preview"/>
+		<Action name="view_toggle_preview"/><!-- TODO: add a separator here when splitting this into a separate toolbar -->
 		<Action name="fullscreen"/>
+		<Separator/><!-- TODO: the following action should also go into a separate toolbar when more actions follow -->
+		<Action name="palapeli_action_cleararea"/>
+		<Action name="palapeli_action_arrangepieces"/>
 	</ToolBar>
 </gui>
 

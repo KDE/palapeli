@@ -30,7 +30,7 @@
 Palapeli::LoadDialog::LoadDialog(Palapeli::Library* mainLibrary)
 	: m_mainLibraryView(new Palapeli::LibraryView(mainLibrary))
 {
-	setCaption(i18n("Load a puzzle from the library - Palapeli"));
+	setCaption(i18n("Load a puzzle from the library"));
 	setButtons(KDialog::Ok | KDialog::Cancel);
 	setMainWidget(m_mainLibraryView);
 	resize(600, 400);
@@ -51,18 +51,27 @@ void Palapeli::LoadDialog::handleOkButton()
 	hide();
 }
 
+void Palapeli::LoadDialog::showEvent(QShowEvent* event)
+{
+	Q_UNUSED(event)
+	m_mainLibraryView->setFocus(Qt::OtherFocusReason);
+	QModelIndex standardSelection = m_mainLibraryView->model()->index(0, 0);
+	m_mainLibraryView->selectionModel()->select(standardSelection, QItemSelectionModel::ClearAndSelect);
+	m_mainLibraryView->scrollTo(standardSelection);
+}
+
 //END Palapeli::LoadDialog
 
 //BEGIN Palapeli::LoadAction
 
 Palapeli::LoadAction::LoadAction(QObject* parent)
 	: KAction(KIcon("document-load"), i18n("&Open"), parent)
-	, m_dialog(new Palapeli::LoadDialog(ppMgr()->library()))
+	, m_dialog(0)
 {
 	setObjectName("palapeli_load");
 	setShortcut(KStandardShortcut::shortcut(KStandardShortcut::Open));
 	setToolTip(i18n("Open a puzzle from your library"));
-	connect(this, SIGNAL(triggered()), m_dialog, SLOT(show()));
+	connect(this, SIGNAL(triggered()), this, SLOT(handleTrigger()));
 
 	KActionCollection* collection = qobject_cast<KActionCollection*>(parent);
 	if (collection)
@@ -72,6 +81,13 @@ Palapeli::LoadAction::LoadAction(QObject* parent)
 Palapeli::LoadAction::~LoadAction()
 {
 	delete m_dialog;
+}
+
+void Palapeli::LoadAction::handleTrigger()
+{
+	if (!m_dialog)
+		m_dialog = new Palapeli::LoadDialog(ppMgr()->library());
+	m_dialog->show();
 }
 
 //END Palapeli::LoadAction

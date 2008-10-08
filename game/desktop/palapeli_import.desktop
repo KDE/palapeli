@@ -1,0 +1,11 @@
+[Desktop Entry]
+Actions=PalapeliImport;
+Type=Service
+Icon=
+Name=
+X-KDE-ServiceTypes=KonqPopupMenu/Plugin,application/x-palapeli-puzzle
+
+[Desktop Action PalapeliImport]
+Exec=palapeli --nogui --import %U
+Icon=preferences-plugin
+Name=Import into Palapeli puzzle library

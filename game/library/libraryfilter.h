@@ -16,44 +16,25 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_LOADACTION_H
-#define PALAPELI_LOADACTION_H
+#ifndef PALAPELI_LIBRARYFILTER_H
+#define PALAPELI_LIBRARYFILTER_H
 
-#include <KAction>
-#include <KDialog>
+#include <QSortFilterProxyModel>
 
 namespace Palapeli
 {
 
 	class Library;
-	class LibraryView;
 
-	class LoadDialog : public KDialog
+	class LibraryFilter : public QSortFilterProxyModel
 	{
-		Q_OBJECT
 		public:
-			LoadDialog(Palapeli::Library* mainLibrary);
-			~LoadDialog();
-		public Q_SLOTS:
-			void handleOkButton();
-		protected:
-			virtual void showEvent(QShowEvent* event);
+			LibraryFilter(Palapeli::Library* source);
+			virtual bool filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const;
 		private:
-			Palapeli::LibraryView* m_mainLibraryView;
-	};
-
-	class LoadAction : public KAction
-	{
-		Q_OBJECT
-		public:
-			LoadAction(QObject* parent);
-			~LoadAction();
-		public Q_SLOTS:
-			void handleTrigger();
-		private:
-			Palapeli::LoadDialog* m_dialog;
+			Palapeli::Library* m_source;
 	};
 
 }
 
-#endif // PALAPELI_LOADACTION_H
+#endif // PALAPELI_LIBRARYFILTER_H

@@ -16,34 +16,22 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_NEWPUZZLEDIALOG_H
-#define PALAPELI_NEWPUZZLEDIALOG_H
+#include "libraryfilter.h"
+#include "library.h"
+#include "librarybase.h"
+#include "puzzleinfo.h"
 
-#include <KPageDialog>
-
-namespace Palapeli
+Palapeli::LibraryFilter::LibraryFilter(Palapeli::Library* source)
+	: QSortFilterProxyModel()
+	, m_source(source)
 {
-
-	class NewPuzzleDialogPrivate;
-	class PatternConfiguration;
-
-	class NewPuzzleDialog : public KPageDialog
-	{
-		Q_OBJECT
-		public:
-			NewPuzzleDialog(QWidget*);
-			~NewPuzzleDialog();
-		Q_SIGNALS:
-			//note to self: these signals are not connected anywhere currently
-			void startGame(const KUrl& imageUrl, int patternIndex);
-			void startGame(const QString& templateName);
-		public Q_SLOTS:
-			void showDialog();
-			void okWasClicked();
-		private:
-			NewPuzzleDialogPrivate* const p;
-	};
-
+	setSourceModel(source);
+	setDynamicSortFilter(true);
 }
 
-#endif // PALAPELI_NEWPUZZLEDIALOG_H
+bool Palapeli::LibraryFilter::filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const
+{
+	const QModelIndex index = m_source->index(sourceRow, 0, sourceParent);
+	Palapeli::PuzzleInfo* info = m_source->infoForPuzzle(index);
+	return m_source->base()->canRemoveEntry(info->identifier, m_source);
+}

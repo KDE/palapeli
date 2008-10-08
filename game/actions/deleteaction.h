@@ -16,31 +16,47 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_PUZZLELIBRARY_H
-#define PALAPELI_PUZZLELIBRARY_H
+#ifndef PALAPELI_DELETEACTION_H
+#define PALAPELI_DELETEACTION_H
 
-#include <QListView>
+#include <KAction>
+#include <KDialog>
 
 namespace Palapeli
 {
 
-	class PuzzleLibraryPrivate;
+	class Library;
+	class LibraryView;
 
-	class PuzzleLibrary : public QListView
+	class DeleteDialog : public KDialog
 	{
 		Q_OBJECT
 		public:
-			PuzzleLibrary(QWidget* parent = 0);
-			~PuzzleLibrary();
-
-			QString selectedTemplate() const;
+			DeleteDialog(Palapeli::Library* mainLibrary);
+			~DeleteDialog();
 		public Q_SLOTS:
-			void reload();
-			void resetSelection();
+			void handleOkButton();
+			void checkItemVisibility();
+		Q_SIGNALS:
+			void hintActionState(bool enabled);
+		protected:
+			virtual void showEvent(QShowEvent* event);
 		private:
-			PuzzleLibraryPrivate* const p;
+			Palapeli::LibraryView* m_mainLibraryView;
+	};
+
+	class DeleteAction : public KAction
+	{
+		Q_OBJECT
+		public:
+			DeleteAction(QObject* parent);
+			~DeleteAction();
+		public Q_SLOTS:
+			void createDialog();
+		private:
+			Palapeli::DeleteDialog* m_dialog;
 	};
 
 }
 
-#endif // PALAPELI_PUZZLELIBRARY_H
+#endif // PALAPELI_DELETEACTION_H

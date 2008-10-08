@@ -16,8 +16,8 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_LOADACTION_H
-#define PALAPELI_LOADACTION_H
+#ifndef PALAPELI_IMPORTACTION_H
+#define PALAPELI_IMPORTACTION_H
 
 #include <KAction>
 #include <KDialog>
@@ -26,34 +26,33 @@ namespace Palapeli
 {
 
 	class Library;
+	class LibraryArchiveBase;
 	class LibraryView;
 
-	class LoadDialog : public KDialog
+	class ImportDialog : public KDialog
 	{
 		Q_OBJECT
 		public:
-			LoadDialog(Palapeli::Library* mainLibrary);
-			~LoadDialog();
+			ImportDialog(const KUrl& url);
+			~ImportDialog();
+			bool isArchiveValid() const;
 		public Q_SLOTS:
 			void handleOkButton();
-		protected:
-			virtual void showEvent(QShowEvent* event);
 		private:
-			Palapeli::LibraryView* m_mainLibraryView;
+			LibraryArchiveBase* m_archiveBase;
+			Library* m_archiveLibrary;
+			LibraryView* m_archiveLibraryView;
 	};
 
-	class LoadAction : public KAction
+	class ImportAction : public KAction
 	{
 		Q_OBJECT
 		public:
-			LoadAction(QObject* parent);
-			~LoadAction();
+			ImportAction(QObject* parent);
 		public Q_SLOTS:
 			void handleTrigger();
-		private:
-			Palapeli::LoadDialog* m_dialog;
 	};
 
 }
 
-#endif // PALAPELI_LOADACTION_H
+#endif // PALAPELI_IMPORTACTION_H

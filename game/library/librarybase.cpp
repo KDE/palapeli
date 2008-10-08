@@ -34,13 +34,113 @@
 const QString StandardFolder("palapeli/puzzlelibrary/");
 const QString MainFileName("%1.desktop");
 const QString StateFileName("%1.cfg");
-const QString ImageFileName("%1");
 
 const QString ArchiveConfigFileName("palapeli-archive.cfg");
 const QString ArchiveConfigGroupName("Palapeli Archive");
 const QString ArchiveConfigIdentifierKey("Identifier");
 
+//BEGIN Palapeli::LibraryBase
+
+bool Palapeli::LibraryBase::insertEntry(const QString& identifier, Palapeli::Library* sourceLibrary)
+{
+	//collect information about the puzzle to be inserted
+	const QString mainConfigSourcePath = sourceLibrary->base()->findFile(identifier, Palapeli::LibraryBase::MainConfigFile);
+	Palapeli::PuzzleInfo* info = sourceLibrary->infoForPuzzle(identifier);
+	if (!info)
+		return false;
+	const QString imageSourcePath = sourceLibrary->base()->findFile(info->imageFile, Palapeli::LibraryBase::ImageFile);
+	if (mainConfigSourcePath.isEmpty() || imageSourcePath.isEmpty())
+		return false;
+	QFile mainConfigSource(mainConfigSourcePath);
+	QFile imageSource(imageSourcePath);
+	if (!mainConfigSource.exists() || !imageSource.exists())
+		return false;
+	//insert the new puzzle (note: the image name has to remain the same because it's referenced in the main config file)
+	const QString mainConfigTargetPath = findFile(identifier, Palapeli::LibraryBase::MainConfigFile, true);
+	const QString imageTargetPath = findFile(QFileInfo(imageSourcePath).fileName(), Palapeli::LibraryBase::ImageFile, true);
+	if (!QFileInfo(mainConfigTargetPath).exists() && !mainConfigSource.copy(mainConfigTargetPath))
+		return false;
+	if (!QFileInfo(imageTargetPath).exists() && !imageSource.copy(imageTargetPath))
+		return false;
+	emit entryInserted(identifier);
+	return true;
+}
+
+bool Palapeli::LibraryBase::insertEntries(Palapeli::Library* sourceLibrary)
+{
+	const QStringList entries = sourceLibrary->base()->findEntries();
+	foreach (const QString& identifier, entries)
+	{
+		if (!insertEntry(identifier, sourceLibrary))
+			return false;
+	}
+	return true;
+}
+
+bool Palapeli::LibraryBase::canRemoveEntry(const QString& identifier, Palapeli::Library* library)
+{
+	//security check
+	if (library->base() != this)
+		return false;
+	//check if main config is stored in a read-only place
+	QString path1 = findFile(identifier, Palapeli::LibraryBase::MainConfigFile, false);
+	QString path2 = findFile(identifier, Palapeli::LibraryBase::MainConfigFile, true);
+	if (path1 != path2)
+		return false;
+	//like above for the image
+	Palapeli::PuzzleInfo* info = library->infoForPuzzle(identifier);
+	path1 = findFile(info->imageFile, Palapeli::LibraryBase::ImageFile, false);
+	path2 = findFile(info->imageFile, Palapeli::LibraryBase::ImageFile, true);
+	if (path1 != path2)
+		return false;
+	//no bad indications at this point (at least in this generic implementation)
+	return true;
+}
+
+bool Palapeli::LibraryBase::removeEntry(const QString& identifier, Palapeli::Library* library)
+{
+	//security check
+	if (library->base() != this)
+		return false;
+	//find files
+	const QString mainConfigPath = findFile(identifier, Palapeli::LibraryBase::MainConfigFile, true);
+	Palapeli::PuzzleInfo* info = library->infoForPuzzle(identifier);
+	if (!info)
+		return false;
+	const QString imagePath = findFile(info->imageFile, Palapeli::LibraryBase::ImageFile, true);
+	if (mainConfigPath.isEmpty() || imagePath.isEmpty())
+		return false;
+	QFile mainConfig(mainConfigPath);
+	QFile image(imagePath);
+	//check if image is used by another entry
+	QStringList entries = findEntries();
+	bool deleteImage = true;
+	foreach (const QString& otherIdentifier, entries)
+	{
+		if (otherIdentifier == identifier) //the obvious case of other image == own image
+			continue;
+		Palapeli::PuzzleInfo* otherInfo = library->infoForPuzzle(otherIdentifier);
+		if (otherInfo->imageFile == info->imageFile)
+			deleteImage = false;
+	}
+	//perform deletion
+	if (mainConfig.exists())
+		mainConfig.remove();
+	if (image.exists() && deleteImage)
+		image.remove();
+	emit entryRemoved(identifier);
+	return true;
+}
+
+//END Palapeli::LibraryBase
+
 //BEGIN Palapeli::LibraryStandardBase
+
+Palapeli::LibraryStandardBase* Palapeli::LibraryStandardBase::self()
+{
+	static Palapeli::LibraryStandardBase* theOneAndOnly = new Palapeli::LibraryStandardBase;
+	return theOneAndOnly;
+}
 
 Palapeli::LibraryStandardBase::LibraryStandardBase()
 	: m_dirs(new KStandardDirs)
@@ -67,9 +167,9 @@ QString Palapeli::LibraryStandardBase::findFile(const QString& identifier, Palap
 			break;
 		case Palapeli::LibraryBase::ImageFile:
 			if (onlyLocal)
-				return m_dirs->locateLocal("data", StandardFolder + ImageFileName.arg(identifier));
+				return m_dirs->locateLocal("data", StandardFolder + identifier);
 			else
-				return m_dirs->locate("data", StandardFolder + ImageFileName.arg(identifier));
+				return m_dirs->locate("data", StandardFolder + identifier);
 			break;
 		default: //will never be reached, but g++ does not like it without a default
 			return QString();
@@ -140,31 +240,20 @@ Palapeli::LibraryArchiveBase::~LibraryArchiveBase()
 
 QString Palapeli::LibraryArchiveBase::findFile(const QString& identifier, Palapeli::LibraryBase::FileType type, bool onlyLocal) const
 {
+	Q_UNUSED(onlyLocal)
 	const QString directory = m_cache->name();
-	//for images, the identifier check below has to be overriden because the image's name may be different
-	if (type == Palapeli::LibraryBase::ImageFile)
-	{
-		if (onlyLocal)
-			return QString(); //no local storage available for this type
-		else
-			return directory + ImageFileName.arg(identifier);
-	}
-	//check identifier (has to be the same as the game identifier)
-	const QString identString = m_identifier.toString();
-	if (identifier != identString)
-		return QString();
+	//For images, use the given identifier (the image's name may be different from the puzzle's identifier). For config files, always use the standard identifier.
 	switch (type)
 	{
 		case Palapeli::LibraryBase::MainConfigFile:
-			if (onlyLocal)
-				return QString(); //no local storage available for this type
-			else
-				return directory + MainFileName.arg(identString);
+			return directory + MainFileName.arg(m_identifier.toString());
 			break;
 		case Palapeli::LibraryBase::StateConfigFile:
 			//for state config, use normal config folder instead
-			return KStandardDirs::locateLocal("data", StandardFolder + StateFileName.arg(identifier));
+			return KStandardDirs::locateLocal("data", StandardFolder + StateFileName.arg(m_identifier.toString()));
 			break;
+		case Palapeli::LibraryBase::ImageFile:
+			return directory + identifier;
 		default: //will never be reached, but g++ does not like it without a default
 			return QString();
 	}
@@ -172,76 +261,70 @@ QString Palapeli::LibraryArchiveBase::findFile(const QString& identifier, Palape
 
 QStringList Palapeli::LibraryArchiveBase::findEntries() const
 {
-	return QStringList() << m_identifier.toString();
+	return m_identifier.isNull() ? QStringList() : (QStringList() << m_identifier.toString());
 }
 
-bool Palapeli::LibraryArchiveBase::create(Palapeli::Library* sourceLibrary, const QString& identifier)
+bool Palapeli::LibraryArchiveBase::insertEntry(const QString& identifier, Palapeli::Library* sourceLibrary)
 {
-	//collect information about the puzzle to be inserted
-	const QString mainConfigSourcePath = sourceLibrary->base()->findFile(identifier, Palapeli::LibraryBase::MainConfigFile);
-	Palapeli::PuzzleInfo* info = sourceLibrary->infoForPuzzle(identifier);
-	if (!info)
-		return false;
-	const QString imageSourcePath = sourceLibrary->base()->findFile(info->imageFile, Palapeli::LibraryBase::ImageFile);
-	if (mainConfigSourcePath.isEmpty() || imageSourcePath.isEmpty())
-		return false;
-	QFile mainConfigSource(mainConfigSourcePath);
-	QFile imageSource(imageSourcePath);
-	if (!mainConfigSource.exists() || !imageSource.exists())
-		return false;
-	//flush the contents of this archive before inserting the new puzzle
-	if (m_cache)
+	//save the old archive
+	KTempDir* oldCache = m_cache;
+	const QUuid oldIdentifier(m_identifier);
+	//create a new archive
+	m_cache = new KTempDir;
+	m_identifier = QUuid::createUuid();
+	const QString cachePath = m_cache->name();
+	const QString identString = m_identifier.toString();
+	//try to copy the files
+	if (Palapeli::LibraryBase::insertEntry(identifier, sourceLibrary))
 	{
+		//operation succeeded - discard old cache
+		if (oldCache)
+		{
+			oldCache->unlink();
+			delete oldCache;
+		}
+		if (!oldIdentifier.isNull())
+			emit entryRemoved(oldIdentifier.toString());
+	}
+	else
+	{
+		//operation failed - restore old cache
 		m_cache->unlink();
 		delete m_cache;
+		m_cache = oldCache;
+		m_identifier = oldIdentifier;
+		return false;
 	}
-	m_cache = new KTempDir;
-	const QString cachePath = m_cache->name();
-	//create a new unique identifier for this puzzle
-	m_identifier = QUuid::createUuid();
-	const QString identString = m_identifier.toString();
-	//insert the new puzzle
-	const QString mainConfigTargetPath = cachePath + MainFileName.arg(identString);
-	const QString imageTargetPath = cachePath + QFileInfo(imageSourcePath).fileName(); //the name has to remain the same because it's referenced in the main config file
-	if (!mainConfigSource.copy(mainConfigTargetPath))
-		return false;
-	if (!imageSource.copy(imageTargetPath))
-		return false;
 	//write archive configuration
 	KConfig config(cachePath + ArchiveConfigFileName);
 	KConfigGroup configGroup(&config, ArchiveConfigGroupName);
 	configGroup.writeEntry(ArchiveConfigIdentifierKey, identString);
-	config.sync(); //TODO: does this work correctly?
+	config.sync();
 	//compress archive to temporary file
+	bool success = true;
 	KTemporaryFile tempFile;
 	tempFile.setSuffix(".pala");
 	if (!tempFile.open())
+		success = false;
+	else
 	{
-		tempFile.remove();
-		return false;
+		KTar tar(tempFile.fileName(), "application/x-bzip");
+		if (!tar.open(QIODevice::WriteOnly))
+			success = false;
+		else if (!tar.addLocalDirectory(cachePath, QLatin1String(".")))
+			success = false;
+		else if (!tar.close())
+			success = false;
+		//upload to archive location
+		else if (!KIO::NetAccess::upload(tempFile.fileName(), m_url, 0))
+		{
+			KMessageBox::error(0, KIO::NetAccess::lastErrorString());
+			success = false;
+		}
 	}
-	KTar tar(tempFile.fileName(), "application/x-bzip");
-	if (!tar.open(QIODevice::WriteOnly))
-	{
-		tempFile.remove();
-		return false;
-	}
-	if (!tar.addLocalDirectory(cachePath, QLatin1String(".")))
-	{
-		tempFile.remove();
-		return false;
-	}
-	if (!tar.close())
-	{
-		tempFile.remove();
-		return false;
-	}
-	//upload to archive location
-	if (!KIO::NetAccess::upload(tempFile.fileName(), m_url, 0))
-		KMessageBox::error(0, KIO::NetAccess::lastErrorString());
-	//cleanup
-	tempFile.remove();
-	return true;
+	return success;
 }
 
 //END Palapeli::LibraryArchiveBase
+
+#include "librarybase.moc"

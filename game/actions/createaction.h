@@ -1,5 +1,4 @@
 /***************************************************************************
- *   Copyright (C) 2008 Felix Lemke <lemke.felix@ages-skripte.org>
  *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
@@ -17,29 +16,32 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_SAVEGAMEMODEL_H
-#define PALAPELI_SAVEGAMEMODEL_H
+#ifndef PALAPELI_CREATEACTION_H
+#define PALAPELI_CREATEACTION_H
 
-#include <QStringListModel>
+#include <KAction>
+#include <KDialog>
 
 namespace Palapeli
 {
 
-	class SavegameModel : public QStringListModel
+	class CreateDialogPrivate;
+
+	class CreateDialog : public KDialog
 	{
 		Q_OBJECT
 		public:
-			SavegameModel(const QStringList& list = QStringList());
-
-			virtual Qt::ItemFlags flags(const QModelIndex& index) const;
-			int savegameCount() const;
-
-			static bool lessThan(const QString& s1, const QString& s2); //to be used for sorting in a manner which is compatible to the way it's done by SavegameModel
+			CreateDialog();
+			~CreateDialog();
 		public Q_SLOTS:
-			void savegameCreated(const QString& name);
-			void savegameDeleted(const QString& name);
+			void handleInput();
+			void handleOkButton();
+		private:
+			Palapeli::CreateDialogPrivate* const p;
 	};
-	
+
+	//The KStandardAction::openNew is used instead of a separate CreateAction.
+
 }
 
-#endif // PALAPELI_SAVEGAMEMODEL_H
+#endif // PALAPELI_CREATEACTION_H

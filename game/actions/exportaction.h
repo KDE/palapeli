@@ -36,15 +36,20 @@ namespace Palapeli
 			~ExportDialog();
 		public Q_SLOTS:
 			void handleOkButton();
+		protected:
+			virtual void showEvent(QShowEvent* event);
 		private:
 			Palapeli::LibraryView* m_mainLibraryView;
 	};
 
 	class ExportAction : public KAction
 	{
+		Q_OBJECT
 		public:
 			ExportAction(QObject* parent);
 			~ExportAction();
+		public Q_SLOTS:
+			void handleTrigger();
 		private:
 			Palapeli::ExportDialog* m_dialog;
 	};

@@ -19,10 +19,12 @@
 #include "libraryview.h"
 #include "library.h"
 #include "librarydelegate.h"
+#include "libraryfilter.h"
 
 Palapeli::LibraryView::LibraryView(Palapeli::Library* library)
 	: m_library(library)
 	, m_delegate(new Palapeli::LibraryDelegate)
+	, m_filter(0)
 {
 	setModel(m_library);
 	setItemDelegate(m_delegate);
@@ -32,6 +34,7 @@ Palapeli::LibraryView::LibraryView(Palapeli::Library* library)
 Palapeli::LibraryView::~LibraryView()
 {
 	delete m_delegate;
+	delete m_filter;
 }
 
 Palapeli::Library* Palapeli::LibraryView::library() const
@@ -45,7 +48,25 @@ Palapeli::PuzzleInfo* Palapeli::LibraryView::puzzleInfo() const
 	if (indexes.isEmpty())
 		return 0;
 	else
-		return m_library->infoForPuzzle(indexes[0]);
+	{
+		const QModelIndex index = m_filter ? m_filter->mapToSource(indexes[0]) : indexes[0];
+		return m_library->infoForPuzzle(index);
+	}
+}
+
+void Palapeli::LibraryView::setDeletionFilterEnabled(bool enable)
+{
+	if (enable && !m_filter)
+	{
+		m_filter = new Palapeli::LibraryFilter(m_library);
+		setModel(m_filter);
+	}
+	if (!enable && m_filter)
+	{
+		setModel(m_library);
+		delete m_filter;
+		m_filter = 0;
+	}
 }
 
 #include "libraryview.moc"

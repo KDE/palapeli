@@ -18,6 +18,7 @@
  ***************************************************************************/
 
 #include "manager.h"
+#include "actions/importaction.h"
 #include "../lib/pattern.h"
 #include "../lib/pattern-configuration.h"
 #include "../lib/pattern-executor.h"
@@ -35,6 +36,7 @@
 #include "view.h"
 
 #include <QFile>
+#include <KCmdLineArgs>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KDesktopFile>
@@ -52,7 +54,7 @@ namespace Palapeli
 		void init();
 		~ManagerPrivate();
 
-		bool canLoadGame(Palapeli::PuzzleInfo* info);
+		bool canLoadGame(const Palapeli::PuzzleInfo* info, bool forceReload);
 		bool initGame(); //TODO: to be merged with canLoadGame eventually
 		void saveGame(); //intended as autosave after every action
 
@@ -60,9 +62,10 @@ namespace Palapeli
 		//current game
 		Palapeli::PuzzleInfo m_puzzleInfo;
 		PatternConfiguration* m_patternConfiguration;
-		int m_estimatePieceCount; //used during slice process to show progress - TODO: necessary?
+		int m_pieceCount; //used during slice process to show progress - TODO: necessary?
 		//game and UI objects
 		Library* m_library;
+		Library* m_library2; //used when a URL of a Palapeli Puzzle archive is given
 		Minimap* m_minimap;
 		QList<Part*> m_parts;
 		QList<Piece*> m_pieces;
@@ -75,7 +78,6 @@ namespace Palapeli
 	namespace Strings
 	{
 		//strings in .cfg files
-		const QString PatternGroupKey("X-PatternArgs");
 		const QString PiecesGroupKey("X-Pieces");
 		const QString PositionKey("Position-%1");
 		const QString RelationsGroupKey("X-Relations");
@@ -87,20 +89,23 @@ namespace Palapeli
 
 Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	: m_manager(manager)
-	, m_puzzleInfo(QString())
+	, m_puzzleInfo(QString(), 0)
 	, m_patternConfiguration(0)
-	, m_library(new Palapeli::Library(new Palapeli::LibraryStandardBase))
+	, m_library(0)
+	, m_library2(0)
 	, m_minimap(0)
-	, m_preview(new Palapeli::Preview)
+	, m_preview(0)
 	, m_view(0)
 	, m_window(0)
 {
+	//The GUI initialisation is deferred to a separate init() method because the Manager needs a valid pointer to this ManagerPrivate instance before some of the members of this instance can be initialized.
 }
 
 void Palapeli::ManagerPrivate::init()
 {
-	//The Manager needs a valid pointer to this ManagerPrivate instance before the following objects can be initialized.
+	m_library = new Palapeli::Library(Palapeli::LibraryStandardBase::self());
 	m_minimap = new Palapeli::Minimap;
+	m_preview = new Palapeli::Preview;
 	m_view = new Palapeli::View;
 	m_window = new Palapeli::MainWindow;
 	//main window is deleted by Palapeli::ManagerPrivate::~ManagerPrivate because there are widely-spread references to m_view, and m_view will be deleted by m_window
@@ -109,6 +114,8 @@ void Palapeli::ManagerPrivate::init()
 
 Palapeli::ManagerPrivate::~ManagerPrivate()
 {
+	delete m_library;
+	delete m_library2;
 	delete m_minimap;
 	foreach (Palapeli::Part* part, m_parts)
 		delete part; //the pieces are deleted here
@@ -116,7 +123,7 @@ Palapeli::ManagerPrivate::~ManagerPrivate()
 	delete m_window; //the view is deleted here
 }
 
-bool Palapeli::ManagerPrivate::canLoadGame(Palapeli::PuzzleInfo* info)
+bool Palapeli::ManagerPrivate::canLoadGame(const Palapeli::PuzzleInfo* info, bool forceReload)
 {
 	//check validity of input
 	if (info->image.isNull())
@@ -124,7 +131,7 @@ bool Palapeli::ManagerPrivate::canLoadGame(Palapeli::PuzzleInfo* info)
 	if (info->identifier.isEmpty())
 		return false;
 	//do not load if the selected game is already loaded
-	if (info->identifier == m_puzzleInfo.identifier)
+	if (info->identifier == m_puzzleInfo.identifier && !forceReload)
 		return false;
 	//find configuration for this puzzle
 	Palapeli::PatternConfiguration* patternConfiguration = Palapeli::PatternTrader::self()->configurationFromName(info->patternName);
@@ -139,8 +146,14 @@ bool Palapeli::ManagerPrivate::canLoadGame(Palapeli::PuzzleInfo* info)
 bool Palapeli::ManagerPrivate::initGame()
 {
 	m_window->flushPuzzleProgress();
-	//find state configuration file (returns a valid path to a non-existent file if no state config is available yet)
-	const QString stateConfigPath = m_library->base()->findFile(m_puzzleInfo.identifier, Palapeli::LibraryBase::StateConfigFile);
+	//find configuration files (second one returns a valid path to a non-existent file if no state config is available yet)
+	Palapeli::Library* library = m_puzzleInfo.library;
+	const QString mainConfigPath = library->base()->findFile(m_puzzleInfo.identifier, Palapeli::LibraryBase::MainConfigFile);
+	const QString stateConfigPath = library->base()->findFile(m_puzzleInfo.identifier, Palapeli::LibraryBase::StateConfigFile);
+	//read pattern configuration
+	KConfig mainConfig(mainConfigPath);
+	KConfigGroup palapeliGroup(&mainConfig, "X-Palapeli");
+	m_patternConfiguration->readArguments(&palapeliGroup);
 	//read piece positions
 	QList<QPointF> pieceBasePositions;
 	KConfig stateConfig(stateConfigPath);
@@ -160,11 +173,11 @@ bool Palapeli::ManagerPrivate::initGame()
 	m_preview->setImage(m_puzzleInfo.image);
 	//instantiate a pattern
 	Palapeli::Pattern* pattern = m_patternConfiguration->createPattern();
-	m_estimatePieceCount = 0; //by now, we do not know how much pieces to await
+	m_pieceCount = 0; //by now, we do not know how much pieces to await
 	if (!pieceBasePositions.isEmpty())
 		pattern->loadPiecePositions(pieceBasePositions);
 	pattern->setSceneSizeFactor(Settings::sceneSizeFactor());
-	QObject::connect(pattern, SIGNAL(estimatePieceCountAvailable(int)), m_manager, SLOT(estimatePieceCount(int)));
+	QObject::connect(pattern, SIGNAL(pieceCountAvailable(int)), m_manager, SLOT(pieceCount(int)));
 	QObject::connect(pattern, SIGNAL(pieceGenerated(const QImage&, const QRectF&, const QPointF&)),
 		m_manager, SLOT(addPiece(const QImage&, const QRectF&, const QPointF&)));
 	QObject::connect(pattern, SIGNAL(pieceGenerated(const QImage&, const QImage&, const QRectF&, const QPointF&)),
@@ -178,17 +191,16 @@ bool Palapeli::ManagerPrivate::initGame()
 	patternExec->setImage(m_puzzleInfo.image);
 	QObject::connect(patternExec, SIGNAL(finished()), m_manager, SLOT(finishGameLoading()));
 	patternExec->start();
-	patternExec->wait();
 	return true;
 }
 
 void Palapeli::ManagerPrivate::saveGame()
 {
-	//TODO: should piece positions really be saved - config option?
+	//TODO: should piece positions really be saved - config option?; write only connected relations
 	//TODO: relations are not yet restored because this is only necessary when piece positions are not saved
 	//TODO: optimize by only syncing changes
 	//open state config
-	const QString stateConfigPath = m_library->base()->findFile(m_puzzleInfo.identifier, Palapeli::LibraryBase::StateConfigFile);
+	const QString stateConfigPath = m_puzzleInfo.library->base()->findFile(m_puzzleInfo.identifier, Palapeli::LibraryBase::StateConfigFile);
 	KConfig stateConfig(stateConfigPath);
 	//write piece positions
 	KConfigGroup piecesGroup(&stateConfig, Palapeli::Strings::PiecesGroupKey);
@@ -220,14 +232,47 @@ Palapeli::Manager* Palapeli::Manager::self()
 	return theOneAndOnly;
 }
 
-void Palapeli::Manager::init()
+bool Palapeli::Manager::init()
 {
+	//initialize ManagerPrivate - This cannot be done automatically be done in the constructor: In this case, there would be another call to ppMgr() before theOneAndOnly in Palapeli::Manager::self is fully constructed, i.e. ppMgr() returns an uninitialized int.
 	static bool initialized = false; //make sure this happens only once
 	if (initialized)
-		return;
-	p->init(); //This cannot be done automatically be done in the constructor: In this case, there would be another call to ppMgr() before theOneAndOnly in Palapeli::Manager::self is fully constructed, i.e. ppMgr() returns an uninitialized int.
+		return true;
 	initialized = true;
+	//read arguments
+	KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
+	if (args->isSet("import"))
+	{
+		const QString importUrlString = args->getOption("import");
+		const KUrl importUrl = KCmdLineArgs::makeURL(importUrlString.toUtf8());
+		Palapeli::ImportDialog importDialog(importUrl);
+		if (importDialog.isArchiveValid())
+			importDialog.exec();
+	}
+	if (!args->isSet("gui"))
+		return false; //no need to continue execution
+	//Now, we're sure that we need the complete GUI.
+	p->init();
 	p->m_window->show();
+	//load game if requested
+	if (args->count() != 0)
+	{
+		const KUrl playUrl = args->url(0);
+		Palapeli::LibraryArchiveBase* playBase = new Palapeli::LibraryArchiveBase(playUrl);
+		if (!playBase->findEntries().isEmpty())
+		{
+			p->m_library2 = new Palapeli::Library(playBase);
+			Palapeli::PuzzleInfo* info = p->m_library2->infoForPuzzle(0); //0 = the first puzzle
+			loadGame(info);
+		}
+		else
+		{
+			KMessageBox::error(0, i18n("This puzzle archive is unreadable. It might be corrupted.")); //note: no window is being shown at the moment
+			delete playBase;
+		}
+	}
+	args->clear();
+	return true;
 }
 
 //properties
@@ -250,6 +295,11 @@ int Palapeli::Manager::pieceCount() const
 Palapeli::Piece* Palapeli::Manager::pieceAt(int index) const
 {
 	return p->m_pieces[index];
+}
+
+const Palapeli::PuzzleInfo* Palapeli::Manager::puzzleInfo() const
+{
+	return &p->m_puzzleInfo;
 }
 
 int Palapeli::Manager::relationCount() const
@@ -294,9 +344,9 @@ void Palapeli::Manager::updateGraphics()
 
 //gameplay
 
-void Palapeli::Manager::estimatePieceCount(int pieceCount)
+void Palapeli::Manager::pieceCount(int pieceCount)
 {
-	p->m_estimatePieceCount = qMax(0, pieceCount);
+	p->m_pieceCount = qMax(0, pieceCount);
 }
 
 void Palapeli::Manager::addPiece(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition)
@@ -317,9 +367,9 @@ void Palapeli::Manager::addPiece(Palapeli::Piece* piece, const QPointF& sceneBas
 	p->m_parts << new Palapeli::Part(piece);
 	piece->part()->setBasePosition(sceneBasePosition);
 	//keep application responsive
-	//TODO: Does this have to be so complex? (If not, p->m_estimatePieceCount and the corresponding lib functions could be eliminated.)
+	//TODO: Does this have to be so complex?
 	int realPieceCount = p->m_pieces.count();
-	int updateStep = qMax(p->m_estimatePieceCount / 15, 5);
+	int updateStep = qMax(p->m_pieceCount / 15, 5);
 	if ((realPieceCount + updateStep / 2) % updateStep == 0) //do not redraw every time; this slows down the creation massively
 	{
 		p->m_window->reportPuzzleProgress(0, 0, i18np("1 piece generated", "%1 pieces generated", realPieceCount));
@@ -372,9 +422,9 @@ void Palapeli::Manager::searchConnections()
 
 //game instances
 
-void Palapeli::Manager::loadGame(Palapeli::PuzzleInfo* info)
+void Palapeli::Manager::loadGame(const Palapeli::PuzzleInfo* info, bool forceReload)
 {
-	if (!p->canLoadGame(info))
+	if (!p->canLoadGame(info, forceReload))
 		return;
 	emit interactionModeChanged(false);
 	p->initGame(); //partially asynchronous; slot finishGameLoading() will be called when finished

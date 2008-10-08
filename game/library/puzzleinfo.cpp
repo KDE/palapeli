@@ -27,24 +27,30 @@
 
 //BEGIN Palapeli::PuzzleInfo
 
-Palapeli::PuzzleInfo::PuzzleInfo(const QString& theIdentifier)
+Palapeli::PuzzleInfo::PuzzleInfo(const QString& theIdentifier, Palapeli::Library* theLibrary)
 	: identifier(theIdentifier)
+	, library(theLibrary)
 	, mutex(new QMutex)
 {
 	//The other data is provided by the PuzzleInfoLoader.
 }
 
-Palapeli::PuzzleInfo& Palapeli::PuzzleInfo::operator=(Palapeli::PuzzleInfo& other)
+Palapeli::PuzzleInfo& Palapeli::PuzzleInfo::operator=(const Palapeli::PuzzleInfo& other)
 {
+	if (this == &other)
+		return *this; //the next two lines may cause problems in this case ;-)
 	mutex->lock();
 	other.mutex->lock();
 	identifier = other.identifier;
 	name = other.name;
 	comment = other.comment;
 	author = other.author;
+	imageFile = other.imageFile;
+	patternName = other.patternName;
 	image = other.image;
 	thumbnail = other.thumbnail;
 	pieceCount = other.pieceCount;
+	library = other.library;
 	other.mutex->unlock();
 	mutex->unlock();
 	return *this;
@@ -59,9 +65,8 @@ Palapeli::PuzzleInfo::~PuzzleInfo()
 
 //BEGIN Palapeli::PuzzleInfoLoader
 
-Palapeli::PuzzleInfoLoader::PuzzleInfoLoader(Palapeli::PuzzleInfo* puzzleInfo, Palapeli::LibraryBase* base)
-	: m_base(base)
-	, m_puzzleInfo(puzzleInfo)
+Palapeli::PuzzleInfoLoader::PuzzleInfoLoader(Palapeli::PuzzleInfo* puzzleInfo)
+	: m_puzzleInfo(puzzleInfo)
 {
 }
 
@@ -74,17 +79,17 @@ void Palapeli::PuzzleInfoLoader::run()
 {
 	m_puzzleInfo->mutex->lock();
 	//load configuration
-	KDesktopFile mainConfig(m_base->findFile(m_puzzleInfo->identifier, Palapeli::LibraryBase::MainConfigFile));
+	KDesktopFile mainConfig(m_puzzleInfo->library->base()->findFile(m_puzzleInfo->identifier, Palapeli::LibraryBase::MainConfigFile));
 	KConfigGroup palapeliConfig(&mainConfig, "X-Palapeli");
 	//read basic things from configuration
 	m_puzzleInfo->name = mainConfig.readName();
 	m_puzzleInfo->comment = mainConfig.readComment();
 	m_puzzleInfo->author = mainConfig.desktopGroup().readEntry("X-KDE-PluginInfo-Author", QString());
-	m_puzzleInfo->patternName = palapeliConfig.readEntry("Pattern", QString());
+	m_puzzleInfo->patternName = palapeliConfig.readEntry("PatternName", QString());
 	m_puzzleInfo->pieceCount = palapeliConfig.readEntry("PieceCount", 0);
 	//get images from configuration
 	m_puzzleInfo->imageFile = mainConfig.readIcon().remove('/'); //slashes are removed to avoid directory changing
-	const QString imageFileName = m_base->findFile(m_puzzleInfo->imageFile, Palapeli::LibraryBase::ImageFile);
+	const QString imageFileName = m_puzzleInfo->library->base()->findFile(m_puzzleInfo->imageFile, Palapeli::LibraryBase::ImageFile);
 	const int thumbnailSize = Palapeli::Library::IconSize;
 	m_puzzleInfo->image.load(imageFileName);
 	m_puzzleInfo->thumbnail = m_puzzleInfo->image.scaled(thumbnailSize, thumbnailSize, Qt::KeepAspectRatio);

@@ -86,6 +86,8 @@ void Palapeli::HexagonalPattern::doSlice(const QImage& image)
 		}
 	}
 	reportPieceCount(pieceCount);
+	if (mode() != CreatePuzzle)
+		return;
 	//iterate through possible pieces
 	for (int x = -maxX; x <= maxX; ++x)
 	{
@@ -157,14 +159,14 @@ Palapeli::HexagonalPatternConfiguration::HexagonalPatternConfiguration(const QSt
 	: Palapeli::PatternConfiguration(pluginName, displayName, iconName)
 {
 	//add properties
-	addProperty("xcount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in horizontal direction:"));
+	addProperty("XCount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in horizontal direction:"));
 	addProperty("YCount", Palapeli::PatternConfiguration::Integer, i18n("Piece count in vertical direction:"));
 	//set parameters (minimum and maximum in this case)
 	QVariantList params; params << 3 << 100;
-	addPropertyParameters("xcount", params);
+	addPropertyParameters("XCount", params);
 	addPropertyParameters("YCount", params);
 	//set default values
-	setProperty("xcount", 10);
+	setProperty("XCount", 10);
 	setProperty("YCount", 10);
 }
 

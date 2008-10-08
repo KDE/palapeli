@@ -25,9 +25,7 @@ X-KDE-PluginInfo-Website=http://commons.wikimedia.org/wiki/Image:EPO_2432_wiki.j
 X-KDE-PluginInfo-License=FDL
 
 [X-Palapeli]
-Pattern=jigsaw-puzzle
+PatternName=jigsaw-puzzle
 PieceCount=100
-
-[X-PatternArgs]
 XCount=10
 YCount=10

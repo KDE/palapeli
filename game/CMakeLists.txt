@@ -1,4 +1,5 @@
 project(palapeli)
+add_subdirectory(desktop)
 add_subdirectory(pics)
 
 add_definitions(-DMAKE_LIBPALAPELIPATTERN) #needed to correctly include the headers of libpalapelipattern
@@ -23,24 +24,19 @@ set(palapeli_SRCS
 	preview.cpp
 	textprogressbar.cpp
 	view.cpp
+	welcomewidget.cpp
+	actions/createaction.cpp
+	actions/deleteaction.cpp
 	actions/exportaction.cpp
+	actions/importaction.cpp
 	actions/loadaction.cpp
-#	interface/autoscalingitem.cpp
-#	interface/exportwidget.cpp
-#	interface/importwidget.cpp
-#	interface/interfacemanager.cpp
-#	interface/loadwidget.cpp
-#	interface/onscreenanimator.cpp
-#	interface/onscreendialog.cpp
-#	interface/onscreenwidget.cpp
+	actions/resetaction.cpp
 	library/library.cpp
 	library/librarybase.cpp
 	library/librarydelegate.cpp
+	library/libraryfilter.cpp
 	library/libraryview.cpp
 	library/puzzleinfo.cpp
-#	../storage/gamestorage.cpp
-#	../storage/gamestorageattribs.cpp
-#	../storage/gamestorageitem.cpp
 )
 kde4_add_ui_files(palapeli_SRCS settings_appearance.ui settings_gameplay.ui)
 kde4_add_kcfg_files(palapeli_SRCS settings.kcfgc)

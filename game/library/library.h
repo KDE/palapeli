@@ -56,9 +56,12 @@ namespace Palapeli
 			virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 			Palapeli::LibraryBase* base() const;
 			Palapeli::PuzzleInfo* infoForPuzzle(const QModelIndex& index) const;
+			Palapeli::PuzzleInfo* infoForPuzzle(int index) const;
 			Palapeli::PuzzleInfo* infoForPuzzle(const QString& identifier) const;
 		private Q_SLOTS:
 			void loaderFinished(ThreadWeaver::Job* job);
+			void entryInserted(const QString& identifier);
+			void entryRemoved(const QString& identifier);
 		private:
 			Palapeli::LibraryBase* m_base;
 			QList<Palapeli::PuzzleInfo*> m_puzzles;

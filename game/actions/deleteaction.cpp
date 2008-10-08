@@ -16,38 +16,43 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#include "exportaction.h"
+#include "deleteaction.h"
 #include "../library/library.h"
 #include "../library/librarybase.h"
 #include "../library/libraryview.h"
 #include "../library/puzzleinfo.h"
-#include "../mainwindow.h"
 #include "../manager.h"
+#include "../mainwindow.h"
 
+#include <QTimer>
 #include <KActionCollection>
 #include <KFileDialog>
 #include <KIcon>
 #include <KLocalizedString>
+#include <KMessageBox>
 
-//BEGIN Palapeli::ExportDialog
+//BEGIN Palapeli::DeleteDialog
 
-Palapeli::ExportDialog::ExportDialog(Palapeli::Library* mainLibrary)
+Palapeli::DeleteDialog::DeleteDialog(Palapeli::Library* mainLibrary)
 	: m_mainLibraryView(new Palapeli::LibraryView(mainLibrary))
 {
-	setCaption(i18n("Export a puzzle from your library"));
+	setCaption(i18n("Delete a puzzle from your library"));
 	setButtons(KDialog::Ok | KDialog::Cancel);
 	setMainWidget(m_mainLibraryView);
+	m_mainLibraryView->setDeletionFilterEnabled(true);
 	resize(600, 400);
 	connect(this, SIGNAL(okClicked()), this, SLOT(handleOkButton()));
 	connect(m_mainLibraryView, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(handleOkButton()));
+	connect(mainLibrary, SIGNAL(rowsInserted(const QModelIndex&, int, int)), this, SLOT(checkItemVisibility()));
+	connect(mainLibrary, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), this, SLOT(checkItemVisibility()));
 }
 
-Palapeli::ExportDialog::~ExportDialog()
+Palapeli::DeleteDialog::~DeleteDialog()
 {
 	delete m_mainLibraryView;
 }
 
-void Palapeli::ExportDialog::handleOkButton()
+void Palapeli::DeleteDialog::handleOkButton()
 {
 	hide();
 	//get puzzle identifier
@@ -56,16 +61,19 @@ void Palapeli::ExportDialog::handleOkButton()
 		return;
 	if (info->identifier.isEmpty())
 		return;
-	//get target URL
-	const KUrl target = KFileDialog::getSaveUrl(KUrl("kfiledialog:///palapeli"), "*.pala|" + i18nc("Used as filter description in a file dialog.", "Palapeli Puzzle (*.pala)"), ppMgr()->window(), i18nc("Used as caption for file dialog.", "Choose file to export selected puzzle to - Palapeli"));
-	if (target.isEmpty()) //process aborted by user
-		return;
-	//export to given target
-	Palapeli::LibraryArchiveBase archive(target);
-	archive.insertEntry(info->identifier, m_mainLibraryView->library());
+	//confirm deletion
+	int result = KMessageBox::warningContinueCancel(ppMgr()->window(), i18n("You're about to delete puzzle \"%1\" from your library.", info->name), i18n("Confirm deletion"), KStandardGuiItem::cont(), KStandardGuiItem::cancel(), QLatin1String("confirm-library-deletion"));
+	//perform deletion
+	if (result == KMessageBox::Continue)
+		m_mainLibraryView->library()->base()->removeEntry(info->identifier, m_mainLibraryView->library());
 }
 
-void Palapeli::ExportDialog::showEvent(QShowEvent* event)
+void Palapeli::DeleteDialog::checkItemVisibility()
+{
+	emit hintActionState(m_mainLibraryView->model()->rowCount(QModelIndex()) > 0);
+}
+
+void Palapeli::DeleteDialog::showEvent(QShowEvent* event)
 {
 	Q_UNUSED(event)
 	m_mainLibraryView->setFocus(Qt::OtherFocusReason);
@@ -74,36 +82,38 @@ void Palapeli::ExportDialog::showEvent(QShowEvent* event)
 	m_mainLibraryView->scrollTo(standardSelection);
 }
 
-//END Palapeli::ExportDialog
+//END Palapeli::DeleteDialog
 
-//BEGIN Palapeli::ExportAction
+//BEGIN Palapeli::DeleteAction
 
-Palapeli::ExportAction::ExportAction(QObject* parent)
-	: KAction(KIcon("document-export"), i18n("&Export"), parent)
+Palapeli::DeleteAction::DeleteAction(QObject* parent)
+	: KAction(KIcon("edit-delete-page"), i18n("&Delete"), parent)
 	, m_dialog(0)
 {
-	setObjectName("palapeli_export");
-	setShortcut(KShortcut(Qt::CTRL + Qt::Key_E));
-	setToolTip(i18n("Export a puzzle from your library to an archive file"));
-	connect(this, SIGNAL(triggered()), this, SLOT(handleTrigger()));
+	setObjectName("palapeli_delete");
+	setShortcut(KShortcut(Qt::CTRL + Qt::Key_D));
+	setToolTip(i18n("Delete a puzzle from your library"));
+
+	QTimer::singleShot(0, this, SLOT(createDialog()));
 
 	KActionCollection* collection = qobject_cast<KActionCollection*>(parent);
 	if (collection)
 		collection->addAction(objectName(), this);
 }
 
-Palapeli::ExportAction::~ExportAction()
+Palapeli::DeleteAction::~DeleteAction()
 {
 	delete m_dialog;
 }
 
-void Palapeli::ExportAction::handleTrigger()
+void Palapeli::DeleteAction::createDialog()
 {
-	if (!m_dialog)
-		m_dialog = new Palapeli::ExportDialog(ppMgr()->library());
-	m_dialog->show();
+	m_dialog = new Palapeli::DeleteDialog(ppMgr()->library());
+	connect(this, SIGNAL(triggered()), m_dialog, SLOT(show()));
+	connect(m_dialog, SIGNAL(hintActionState(bool)), this, SLOT(setEnabled(bool)));
+	m_dialog->checkItemVisibility();
 }
 
-//END Palapeli::ExportAction
+//END Palapeli::DeleteAction
 
-#include "exportaction.moc"
+#include "deleteaction.moc"

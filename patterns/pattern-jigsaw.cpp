@@ -74,6 +74,8 @@ Palapeli::JigsawPattern::~JigsawPattern()
 void Palapeli::JigsawPattern::doSlice(const QImage& image)
 {
 	reportPieceCount(m_xCount * m_yCount);
+	if (mode() != CreatePuzzle)
+		return;
 	const int width = image.width(), height = image.height();
 	const int pieceWidth = width / m_xCount, pieceHeight = height / m_yCount;
 	const int plugPaddingX = pieceWidth / 2, plugPaddingY = pieceHeight / 2; //see below

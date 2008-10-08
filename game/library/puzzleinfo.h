@@ -30,30 +30,31 @@ class KDesktopFile;
 namespace Palapeli
 {
 
-	class LibraryBase;
+	class Library;
 
 	struct PuzzleInfo
 	{
-		PuzzleInfo(const QString& identifier);
-		PuzzleInfo& operator=(PuzzleInfo& other);
+		//Note: If you add new values, also add a copy statement in Palapeli::PuzzleInfo::operator=.
+		PuzzleInfo(const QString& identifier, Palapeli::Library* library);
+		PuzzleInfo& operator=(const PuzzleInfo& other);
 		~PuzzleInfo();
 
 		QString identifier, name, comment, author, imageFile, patternName;
 		QImage image, thumbnail;
 		int pieceCount;
 
+		Palapeli::Library* library;
 		QMutex* const mutex;
 	};
 
 	class PuzzleInfoLoader : public ThreadWeaver::Job
 	{
 		public:
-			PuzzleInfoLoader(Palapeli::PuzzleInfo* puzzleInfo, Palapeli::LibraryBase* base);
+			PuzzleInfoLoader(Palapeli::PuzzleInfo* puzzleInfo);
 			Palapeli::PuzzleInfo* puzzleInfo() const;
 		protected:
 			virtual void run();
 		private:
-			Palapeli::LibraryBase* const m_base;
 			Palapeli::PuzzleInfo* const m_puzzleInfo;
 			bool m_puzzleExists;
 	};

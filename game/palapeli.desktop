@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=palapeli -caption "%c"
+Exec=palapeli
 Name=Palapeli
 Name[x-test]=xxPalapelixx
 GenericName=Jigsaw puzzle game
@@ -17,3 +17,4 @@ Terminal=false
 Icon=preferences-plugin
 X-KDE-StartupNotify=true
 Categories=Qt;KDE;Game;LogicGame;
+MimeType=application/x-palapeli-puzzle;

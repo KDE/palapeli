@@ -120,7 +120,7 @@ void Palapeli::PatternConfiguration::readArguments(KConfigGroup* config)
 	while (iterConfigValues.hasNext())
 	{
 		QByteArray key = iterConfigValues.next().key();
-		if (p->m_configurationCaptions.contains(key)) //do not read internal values (patternName and displayName)
+		if (p->m_configurationCaptions.contains(key)) //do not read internal values (PatternName, DisplayName, IconName)
 			iterConfigValues.value() = config->readEntry(key.data(), QString());
 	}
 }
@@ -131,9 +131,11 @@ void Palapeli::PatternConfiguration::writeArguments(KConfigGroup* config) const
 	while (iterConfigValues.hasNext())
 	{
 		QByteArray key = iterConfigValues.next().key();
-		if (p->m_configurationCaptions.contains(key)) //do not write internal values (patternName and displayName)
+		if (p->m_configurationCaptions.contains(key)) //do not write internal values (PatternName, DisplayName, IconName)
 			config->writeEntry(key.data(), property(key));
 	}
+	//exception from above rule: write internal value PatternName
+	config->writeEntry("PatternName", property("PatternName"));
 }
 
 void Palapeli::PatternConfiguration::readCustomArguments(KConfigGroup* config)

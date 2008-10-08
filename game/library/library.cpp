@@ -27,21 +27,25 @@
 #include <KStandardDirs>
 #include <ThreadWeaver/Weaver>
 
+//Design note: The PuzzleInfo's mutex is only used to allow the views for this model to fetch data before the loading is finished. When a PuzzleInfo structure is requested or another operation is invoked, the main thread is halted until the PuzzleInfo structures are loaded.
+
 Palapeli::Library::Library(Palapeli::LibraryBase* base)
 	: QAbstractListModel()
 	, m_base(base)
-	, m_weaver(new	 ThreadWeaver::Weaver)
+	, m_weaver(new ThreadWeaver::Weaver)
 {
 	//load info for puzzles
 	const QStringList identifiers = m_base->findEntries();
 	foreach (const QString& identifier, identifiers)
 	{
-		Palapeli::PuzzleInfo* info = new Palapeli::PuzzleInfo(identifier);
+		Palapeli::PuzzleInfo* info = new Palapeli::PuzzleInfo(identifier, this);
 		m_puzzles << info;
-		Palapeli::PuzzleInfoLoader* loader = new Palapeli::PuzzleInfoLoader(info, base);
+		Palapeli::PuzzleInfoLoader* loader = new Palapeli::PuzzleInfoLoader(info);
 		m_weaver->enqueue(loader);
 		connect(loader, SIGNAL(done(ThreadWeaver::Job*)), this, SLOT(loaderFinished(ThreadWeaver::Job*)));
 	}
+	connect(base, SIGNAL(entryInserted(const QString&)), this, SLOT(entryInserted(const QString&)));
+	connect(base, SIGNAL(entryRemoved(const QString&)), this, SLOT(entryRemoved(const QString&)));
 }
 
 Palapeli::Library::~Library()
@@ -110,15 +114,13 @@ Palapeli::LibraryBase* Palapeli::Library::base() const
 
 Palapeli::PuzzleInfo* Palapeli::Library::infoForPuzzle(const QString& identifier) const
 {
+	//synchronize with ThreadWeaver
+	m_weaver->finish();
+	//find puzzle
 	for (int i = 0; i < m_puzzles.count(); ++i)
 	{
-		m_puzzles[i]->mutex->lock();
 		if (m_puzzles[i]->identifier == identifier)
-		{
-			m_puzzles[i]->mutex->unlock();
 			return m_puzzles[i];
-		}
-		m_puzzles[i]->mutex->unlock();
 	}
 	return 0;
 }
@@ -129,7 +131,15 @@ Palapeli::PuzzleInfo* Palapeli::Library::infoForPuzzle(const QModelIndex& index)
 		return 0;
 	if (index.row() >= m_puzzles.count())
 		return 0;
-	return m_puzzles[index.row()];
+	return infoForPuzzle(index.row());
+}
+
+Palapeli::PuzzleInfo* Palapeli::Library::infoForPuzzle(int index) const
+{
+	//synchronize with ThreadWeaver
+	m_weaver->finish();
+	//find puzzle
+	return m_puzzles[index];
 }
 
 void Palapeli::Library::loaderFinished(ThreadWeaver::Job* job)
@@ -143,6 +153,41 @@ void Palapeli::Library::loaderFinished(ThreadWeaver::Job* job)
 		return;
 	const QModelIndex changedIndex = index(row, 0);
 	emit dataChanged(changedIndex, changedIndex);
+	//TODO: Do I have to delete the loader here?
+}
+
+void Palapeli::Library::entryInserted(const QString& identifier)
+{
+	//check if entry does already exist
+	if (infoForPuzzle(identifier) != 0)
+		return;
+	//insert a new entry
+	beginInsertRows(QModelIndex(), m_puzzles.count(), m_puzzles.count());
+	Palapeli::PuzzleInfo* info = new Palapeli::PuzzleInfo(identifier, this);
+	m_puzzles << info;
+	endInsertRows();
+	//start a new PuzzleInfoLoader job for this entry
+	Palapeli::PuzzleInfoLoader* loader = new Palapeli::PuzzleInfoLoader(info);
+	m_weaver->enqueue(loader);
+	connect(loader, SIGNAL(done(ThreadWeaver::Job*)), this, SLOT(loaderFinished(ThreadWeaver::Job*)));
+}
+
+void Palapeli::Library::entryRemoved(const QString& identifier)
+{
+	//synchronize with ThreadWeaver
+	m_weaver->finish();
+	//find this entry
+	for (int i = 0; i < m_puzzles.count(); ++i)
+	{
+		if (m_puzzles[i]->identifier == identifier)
+		{
+			//found entry - remove it
+			beginRemoveRows(QModelIndex(), i, i);
+			m_puzzles.removeAt(i);
+			endRemoveRows();
+			return;
+		}
+	}
 }
 
 #include "library/library.moc"
