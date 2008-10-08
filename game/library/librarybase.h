@@ -51,6 +51,8 @@ namespace Palapeli
 		Q_SIGNALS:
 			void entryInserted(const QString& identifier);
 			void entryRemoved(const QString& identifier);
+		public Q_SLOTS:
+			void reportNewEntry(const QString& identifier);
 	};
 
 	//This base scans the puzzle library provided with Palapeli.

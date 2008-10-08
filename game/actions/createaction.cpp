@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "createaction.h"
+#include "../library/library.h"
 #include "../library/librarybase.h"
 #include "../library/puzzleinfo.h"
 #include "../../lib/pattern.h"
@@ -189,7 +190,9 @@ void Palapeli::CreateDialog::handleOkButton()
 	palapeliGroup.writeEntry("PieceCount", pattern->pieceCount());
 	//config file done - report to LibraryBase about new item
 	config.sync();
-	//TODO: report new item
+	base->reportNewEntry(identifier);
+	if (base == Palapeli::LibraryStandardBase::self())
+		ppMgr()->loadGame(ppMgr()->library()->infoForPuzzle(identifier));
 }
 
 //END Palapeli::CreateDialog

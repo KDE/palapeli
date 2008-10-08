@@ -132,6 +132,13 @@ bool Palapeli::LibraryBase::removeEntry(const QString& identifier, Palapeli::Lib
 	return true;
 }
 
+void Palapeli::LibraryBase::reportNewEntry(const QString& identifier)
+{
+	//ensure existence of this entry
+	if (!findFile(identifier, Palapeli::LibraryBase::MainConfigFile).isEmpty())
+		emit entryInserted(identifier);
+}
+
 //END Palapeli::LibraryBase
 
 //BEGIN Palapeli::LibraryStandardBase
