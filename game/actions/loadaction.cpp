@@ -24,6 +24,7 @@
 #include <KActionCollection>
 #include <KIcon>
 #include <KLocalizedString>
+#include <KStandardShortcut>
 
 //BEGIN Palapeli::LoadDialog
 
