@@ -19,10 +19,10 @@
 #ifndef PALAPELI_PATTERN_HEXAGON_H
 #define PALAPELI_PATTERN_HEXAGON_H
 
-#if defined(MAKE_LIBPALAPELIPATTERN)
- #include "../lib/pattern.h"
- #include "../lib/pattern-configuration.h"
- #include "../lib/pattern-plugin.h"
+#if defined(MAKE_LIBPALAPELIPART)
+ #include "../lib/patterns/pattern.h"
+ #include "../lib/patterns/pattern-configuration.h"
+ #include "../lib/patterns/pattern-plugin.h"
 #else
  #include <Palapeli/Pattern>
  #include <Palapeli/PatternConfiguration>

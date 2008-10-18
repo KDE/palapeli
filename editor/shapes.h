@@ -19,7 +19,7 @@
 #ifndef PALADESIGN_SHAPES_H
 #define PALADESIGN_SHAPES_H
 
-#include "../storage/gamestorageitem.h"
+#include "storage/gamestorageitem.h"
 
 #include <QObject>
 #include <QRectF>

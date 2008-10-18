@@ -1,4 +1,5 @@
 /***************************************************************************
+ *   Copyright (C) 2008 Felix Lemke <lemke.felix@ages-skripte.org>
  *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
@@ -16,37 +17,39 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_ONSCREENDIALOG_H
-#define PALAPELI_ONSCREENDIALOG_H
+#ifndef PALAPELI_VIEW_H
+#define PALAPELI_VIEW_H
 
-#include "onscreenwidget.h"
-
-class QSignalMapper;
-class KGuiItem;
-class KIcon;
-class KPushButton;
+#include <QGraphicsView>
+#include <QPixmap>
 
 namespace Palapeli
 {
 
-	class OnScreenDialog : public OnScreenWidget
+	class View : public QGraphicsView
 	{
 		Q_OBJECT
 		public:
-			OnScreenDialog(QWidget* widget, QList<KGuiItem> buttons, const QString& title = QString(), Palapeli::AutoscalingItem* parent = 0); //takes ownership of widget
-			~OnScreenDialog();
+			View(QWidget* parent = 0);
+			virtual ~View();
 
-			void setButtonEnabled(int id, bool enabled);
-			void setButtonGuiItem(int id, const KGuiItem& item);
-			void setButtonIcon(int id, const KIcon& icon);
-			void setButtonText(int id, const QString& text);
+			void setAntialiasing(bool antialiasing, bool forceApplication = false);
+			void setHardwareAccelerated(bool useHardware, bool forceApplication = false);
+
+			QGraphicsScene* realScene() const;
+			void useScene(bool useScene);
+			void moveToTop(QGraphicsItem* item) const;
 		Q_SIGNALS:
-			void buttonPressed(int id);
+			void viewportMoved();
+			void viewportScaled();
+		protected:
+			virtual void resizeEvent(QResizeEvent* event);
+			virtual void wheelEvent(QWheelEvent* event);
 		private:
-			QSignalMapper* m_mapper;
-			QList<KPushButton*> m_buttons;
+			QGraphicsScene* m_scene;
+			QPixmap m_backgroundTile;
 	};
 
 }
 
-#endif // PALAPELI_ONSCREENDIALOG_H
+#endif //PALAPELI_VIEW_H

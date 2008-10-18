@@ -20,9 +20,9 @@
 #include "../library/library.h"
 #include "../library/librarybase.h"
 #include "../library/puzzleinfo.h"
-#include "../../lib/pattern.h"
-#include "../../lib/pattern-configuration.h"
-#include "../../lib/pattern-trader.h"
+#include "../../lib/patterns/pattern.h"
+#include "../../lib/patterns/pattern-configuration.h"
+#include "../../lib/patterns/pattern-trader.h"
 #include "../manager.h"
 
 #include <QComboBox>

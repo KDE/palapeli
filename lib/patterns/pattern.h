@@ -19,7 +19,7 @@
 #ifndef PALAPELI_PATTERN_H
 #define PALAPELI_PATTERN_H
 
-#if defined(MAKE_LIBPALAPELIPATTERN)
+#if defined(MAKE_LIBPALAPELIPART)
  #include "macros.h"
 #else
  #include <Palapeli/Macros>

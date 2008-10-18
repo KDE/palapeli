@@ -19,8 +19,8 @@
 #include "library.h"
 #include "librarybase.h"
 #include "librarydelegate.h"
-#include "../lib/pattern-configuration.h"
-#include "../lib/pattern-trader.h"
+#include "../lib/patterns/pattern-configuration.h"
+#include "../lib/patterns/pattern-trader.h"
 #include "puzzleinfo.h"
 
 #include <QMutex>

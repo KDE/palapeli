@@ -17,8 +17,8 @@
  ***************************************************************************/
 
 #include "shapes.h"
-#include "../storage/gamestorage.h"
-#include "../storage/gamestorageitem.h"
+#include "storage/gamestorage.h"
+#include "storage/gamestorageitem.h"
 
 #include <KMessageBox>
 #include <KSvgRenderer>

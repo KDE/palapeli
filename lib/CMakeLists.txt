@@ -1,35 +1,42 @@
-project(libpalapelipattern)
+project(libpalapelipart)
+add_subdirectory(devel)
 
-set(palapelipattern_LIB_MAJOR_VERSION "0")
-set(palapelipattern_LIB_MINOR_VERSION "4")
-set(palapelipattern_LIB_PATCH_VERSION "0")
-set(palapelipattern_LIB_VERSION "${palapelipattern_LIB_MAJOR_VERSION}.${palapelipattern_LIB_MINOR_VERSION}.${palapelipattern_LIB_PATCH_VERSION}")
-set(palapelipattern_LIB_SOVERSION "0")
+set(palapelipart_LIB_MAJOR_VERSION "0")
+set(palapelipart_LIB_MINOR_VERSION "4")
+set(palapelipart_LIB_PATCH_VERSION "0")
+set(palapelipart_LIB_VERSION "${palapelipart_LIB_MAJOR_VERSION}.${palapelipart_LIB_MINOR_VERSION}.${palapelipart_LIB_PATCH_VERSION}")
+set(palapelipart_LIB_SOVERSION "0")
 
-set(palapelipattern_SRCS
-	pattern.cpp
-	pattern-configuration.cpp
-	pattern-executor.cpp
-	pattern-plugin.cpp
-	pattern-trader.cpp
-	variantmapper.cpp
+set(palapelipart_SRCS
+	library/library.cpp
+	library/librarybase.cpp
+	library/librarydelegate.cpp
+	library/libraryfilter.cpp
+	library/libraryview.cpp
+	library/puzzleinfo.cpp
+	patterns/pattern.cpp
+	patterns/pattern-configuration.cpp
+	patterns/pattern-executor.cpp
+	patterns/pattern-plugin.cpp
+	patterns/pattern-trader.cpp
+	patterns/variantmapper.cpp
+)
+set(palapelipart_HEADERS #only the public interface which needs to be installed
+	patterns/macros.h
+	patterns/pattern.h
+	patterns/pattern-configuration.h
+	patterns/pattern-plugin.h
 )
 
-kde4_add_library(palapelipattern SHARED ${palapelipattern_SRCS})
-target_link_libraries(palapelipattern ${KDE4_KDEUI_LIBS})
+kde4_add_library(palapelipart SHARED ${palapelipart_SRCS})
+target_link_libraries(palapelipart ${KDE4_KDEUI_LIBS})
 
-set_target_properties(palapelipattern PROPERTIES
-	VERSION ${palapelipattern_LIB_VERSION}
-	SOVERSION ${palapelipattern_LIB_SOVERSION}
-	DEFINE_SYMBOL MAKE_LIBPALAPELIPATTERN
+set_target_properties(palapelipart PROPERTIES
+	VERSION ${palapelipart_LIB_VERSION}
+	SOVERSION ${palapelipart_LIB_SOVERSION}
+	DEFINE_SYMBOL MAKE_LIBPALAPELIPART
 )
 
-install(TARGETS palapelipattern ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS palapelipart ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapelipatternplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
-install(FILES macros.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME Macros)
-install(FILES pattern.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME Pattern)
-install(FILES pattern-configuration.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME PatternConfiguration)
-install(FILES pattern-executor.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME PatternExecutor)
-install(FILES pattern-plugin.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME PatternPlugin)
-install(FILES pattern-trader.h DESTINATION ${INCLUDE_INSTALL_DIR}/Palapeli COMPONENT Devel RENAME PatternTrader)
-install(FILES FindPalapeli.cmake DESTINATION ${DATA_INSTALL_DIR}/cmake/modules COMPONENT Devel)
+install(FILES ${palapelipart_HEADERS} DESTINATION ${INCLUDE_INSTALL_DIR}/palapelipart COMPONENT Devel)

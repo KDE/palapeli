@@ -24,9 +24,9 @@
 #include "shapes.h"
 #include "relation.h"
 #include "view.h"
-#include "../storage/gamestorage.h"
-#include "../storage/gamestorageattribs.h"
-#include "../storage/gamestorageitem.h"
+#include "storage/gamestorage.h"
+#include "storage/gamestorageattribs.h"
+#include "storage/gamestorageitem.h"
 
 #include <QTabWidget>
 #include <KConfig>

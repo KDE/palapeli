@@ -61,6 +61,11 @@ Palapeli::View::View(QWidget* parent)
 	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportMoved()));
 }
 
+Palapeli::View::~View()
+{
+	setHardwareAccelerated(false); //prevent a crash that occurs if a QGLWidget viewport is active while deleting the View
+}
+
 void Palapeli::View::resizeEvent(QResizeEvent* event)
 {
 	Q_UNUSED(event)

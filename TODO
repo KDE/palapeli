@@ -1,5 +1,8 @@
 TODO list:
 
+Urgent Palapeli issues (depending on the library restructuring)
+* export and document only the necessary interface classes
+
 Palapeli short-term goals
 * resurrect the puzzle creation and import dialogs
 * welcome screen and loading progress screen which replace the puzzle table (the second mainly to reduce the flicker)
