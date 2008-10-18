@@ -107,8 +107,8 @@ Palapeli::Manager::~Manager()
 
 Palapeli::Manager* Palapeli::Manager::self()
 {
-	static Palapeli::Manager* theOneAndOnly = new Palapeli::Manager;
-	return theOneAndOnly;
+	static Palapeli::Manager theOneAndOnly;
+	return &theOneAndOnly;
 }
 
 bool Palapeli::Manager::init()
