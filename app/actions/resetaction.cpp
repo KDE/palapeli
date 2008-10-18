@@ -17,9 +17,9 @@
  ***************************************************************************/
 
 #include "resetaction.h"
-#include "../library/library.h"
-#include "../library/librarybase.h"
-#include "../library/puzzleinfo.h"
+#include "../../lib/library/library.h"
+#include "../../lib/library/librarybase.h"
+#include "../../lib/library/puzzleinfo.h"
 #include "../mainwindow.h"
 #include "../manager.h"
 

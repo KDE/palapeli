@@ -19,6 +19,7 @@
 #ifndef PALAPELI_LIBRARYVIEW_H
 #define PALAPELI_LIBRARYVIEW_H
 
+#include "../macros.h"
 #include <QListView>
 
 namespace Palapeli
@@ -29,7 +30,7 @@ namespace Palapeli
 	class LibraryFilter;
 	class PuzzleInfo;
 
-	class LibraryView : public QListView
+	class PALAPELIBASE_EXPORT LibraryView : public QListView
 	{
 		Q_OBJECT
 		public:

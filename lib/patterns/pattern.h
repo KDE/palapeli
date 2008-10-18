@@ -19,7 +19,7 @@
 #ifndef PALAPELI_PATTERN_H
 #define PALAPELI_PATTERN_H
 
-#if defined(MAKE_LIBPALAPELIPART)
+#if defined(MAKE_LIBPALAPELIBASE)
  #include "../macros.h"
 #else
  #include <Palapeli/Macros>
@@ -71,7 +71,7 @@ protected:
 	 *
 	 * \author Stefan Majewsky <majewsky@gmx.net>
 	 */
-	class PALAPELI_EXPORT Pattern : public QObject
+	class PALAPELIBASE_EXPORT Pattern : public QObject
 	{
 		Q_OBJECT
 		public:

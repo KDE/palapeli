@@ -33,12 +33,8 @@ namespace Palapeli
 	class MainWindow;
 	class ManagerPrivate;
 	class Minimap;
-	class Part;
-	class Piece;
-	class PieceRelation;
 	class Preview;
 	struct PuzzleInfo;
-	class View;
 
 	class Manager : public QObject
 	{
@@ -47,16 +43,7 @@ namespace Palapeli
 			static Manager* self();
 			bool init();
 
-			void removePart(Part* part);
-			//core objects (i.e. everything which is immediately relevant to gameplay)
-			int partCount() const;
-			Part* partAt(int index) const;
-			int pieceCount() const;
-			Piece* pieceAt(int index) const;
 			const PuzzleInfo* puzzleInfo() const;
-			int relationCount() const;
-			PieceRelation relationAt(int index) const;
-			View* view() const;
 			//other objects (mostly user interface)
 			Library* library() const;
 			Minimap* minimap() const;
@@ -65,17 +52,8 @@ namespace Palapeli
 		public Q_SLOTS:
 			void pieceMoveFinished();
 			void searchConnections();
-			void updateGraphics();
 
-			void loadGame(const Palapeli::PuzzleInfo* info, bool forceReload = false);
-			void deleteGame(const QString& name) { Q_UNUSED(name) } //deprecated
-		protected Q_SLOTS:
-			void pieceCount(int pieceCount);
-			void addPiece(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition);
-			void addPiece(const QImage& baseImage, const QImage& mask, const QRectF& positionInImage, const QPointF& sceneBasePosition);
-			void addPiece(Palapeli::Piece* piece, const QPointF& sceneBasePosition);
-			void endAddPiece();
-			void addRelation(int piece1Id, int piece2Id);
+			void loadGame(const Palapeli::PuzzleInfo* info, bool forceReload = false, bool takeLibraryOwnership = false);
 		private Q_SLOTS:
 			void finishGameLoading();
 		Q_SIGNALS:

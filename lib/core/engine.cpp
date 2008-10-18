@@ -23,6 +23,9 @@
 #include "piecerelation.h"
 #include "view.h"
 
+#include <QList>
+#include <QPointer>
+
 namespace Palapeli
 {
 
@@ -34,7 +37,7 @@ namespace Palapeli
 			QList<Part*> m_parts;
 			QList<Piece*> m_pieces;
 			QList<PieceRelation> m_relations;
-			View* m_view;
+			QPointer<View> m_view; //this object might get deleted by a KXmlGuiWindow using it
 	};
 
 }
@@ -59,10 +62,11 @@ Palapeli::Engine::Engine()
 
 Palapeli::Engine::~Engine()
 {
-	//I see no benefit in declaring a separate destructor for Palapeli::EnginePrivate
+	//I see no benefit in declaring a separate destructor for Palapeli::EnginePrivate.
 	foreach (Palapeli::Part* part, p->m_parts)
 		delete part; //this does also delete the pieces
-	delete p->m_view;
+	if (!p->m_view.isNull())
+		delete p->m_view;
 	delete p;
 }
 
@@ -91,9 +95,9 @@ int Palapeli::Engine::relationCount() const
 	return p->m_relations.count();
 }
 
-Palapeli::PieceRelation Palapeli::Engine::relationAt(int index) const
+const Palapeli::PieceRelation& Palapeli::Engine::relationAt(int index) const
 {
-	return p->m_relations.value(index, 0);
+	return p->m_relations.at(index);
 }
 
 Palapeli::View* Palapeli::Engine::view() const
@@ -106,10 +110,10 @@ void Palapeli::Engine::addPiece(Palapeli::Piece* piece, const QPointF& sceneBase
 	p->m_pieces << piece;
 	p->m_parts << new Palapeli::Part(piece);
 	piece->part()->setBasePosition(sceneBasePosition);
-	m_view->realScene()->addItem(piece);
+	p->m_view->realScene()->addItem(piece);
 }
 
-void Palapeli::Engine::addRelation(int piece1Id, piece2Id)
+void Palapeli::Engine::addRelation(int piece1Id, int piece2Id)
 {
 	Palapeli::PieceRelation relation(p->m_pieces[piece1Id], p->m_pieces[piece2Id]);
 	if (!p->m_relations.contains(relation))

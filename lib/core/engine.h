@@ -19,17 +19,21 @@
 #ifndef PALAPELI_ENGINE_H
 #define PALAPELI_ENGINE_H
 
+#include "../macros.h"
+#include "part.h"
+#include "piece.h"
+
 #include <QObject>
+#include <QPointF>
 
 namespace Palapeli
 {
 
 	class EnginePrivate;
-	class Part;
-	class Piece;
 	class PieceRelation;
+	class View;
 
-	class Engine : public QObject
+	class PALAPELIBASE_EXPORT Engine : public QObject
 	{
 		Q_OBJECT
 		public:
@@ -40,17 +44,20 @@ namespace Palapeli
 			int pieceCount() const;
 			Piece* pieceAt(int index) const;
 			int relationCount() const;
-			PieceRelation relationAt(int index) const;
+			const PieceRelation& relationAt(int index) const;
 			View* view() const;
 		public Q_SLOTS:
 			void addPiece(Palapeli::Piece* piece, const QPointF& sceneBasePosition);
-			void addRelation(int piece1Id, piece2Id);
+			void addRelation(int piece1Id, int piece2Id);
 			void removePart(Palapeli::Part* part);
 			void clear();
 		Q_SIGNALS:
 			void viewportMoved();
 			void piecePositionChanged();
 			void pieceMoved();
+		protected:
+			friend class Part;
+			friend class Piece;
 		private:
 			Engine();
 			~Engine();

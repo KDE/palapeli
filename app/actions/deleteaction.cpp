@@ -17,10 +17,10 @@
  ***************************************************************************/
 
 #include "deleteaction.h"
-#include "../library/library.h"
-#include "../library/librarybase.h"
-#include "../library/libraryview.h"
-#include "../library/puzzleinfo.h"
+#include "../../lib/library/library.h"
+#include "../../lib/library/librarybase.h"
+#include "../../lib/library/libraryview.h"
+#include "../../lib/library/puzzleinfo.h"
 #include "../manager.h"
 #include "../mainwindow.h"
 

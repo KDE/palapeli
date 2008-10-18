@@ -19,6 +19,8 @@
 #ifndef PALAPELI_LIBRARY_H
 #define PALAPELI_LIBRARY_H
 
+#include "../macros.h"
+
 #include <QAbstractListModel>
 
 namespace ThreadWeaver
@@ -33,7 +35,7 @@ namespace Palapeli
 	class LibraryBase;
 	class PuzzleInfo;
 
-	class Library : public QAbstractListModel
+	class PALAPELIBASE_EXPORT Library : public QAbstractListModel
 	{
 		Q_OBJECT
 		public:

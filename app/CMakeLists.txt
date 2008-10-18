@@ -1,29 +1,15 @@
 project(palapeli)
-add_subdirectory(desktop)
 add_subdirectory(pics)
 
-add_definitions(-DMAKE_LIBPALAPELIPART) #needed to correctly include the headers of libpalapelipart when they are not yet installed
-
-set(palapeli_LINK_LIBS ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_THREADWEAVER_LIBRARIES} ${KDEGAMES_LIBRARY})
-if(OPENGL_FOUND)
-	add_definitions(-DPALAPELI_WITH_OPENGL)
-	if(WIN32)
-		set(opengl_libs opengl32.lib glu32.lib)
-	endif(WIN32)
-	set(palapeli_LINK_LIBS ${palapeli_LINK_LIBS} ${QT_QTOPENGL_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY})
-endif(OPENGL_FOUND)
+add_definitions(-DMAKE_LIBPALAPELIBASE) #needed to correctly include the headers of libpalapelibase when they are not yet installed
 
 set(palapeli_SRCS
 	main.cpp
 	mainwindow.cpp
 	manager.cpp
 	minimap.cpp
-	part.cpp
-	piece.cpp
-	piecerelation.cpp
 	preview.cpp
 	textprogressbar.cpp
-	view.cpp
 	welcomewidget.cpp
 	actions/createaction.cpp
 	actions/deleteaction.cpp
@@ -32,11 +18,11 @@ set(palapeli_SRCS
 	actions/loadaction.cpp
 	actions/resetaction.cpp
 )
+kde4_add_kcfg_files(palapeli_SRCS ../lib/settings.kcfgc)
 kde4_add_ui_files(palapeli_SRCS settings_appearance.ui settings_gameplay.ui)
-kde4_add_kcfg_files(palapeli_SRCS settings.kcfgc)
 
 kde4_add_executable(palapeli ${palapeli_SRCS})
-target_link_libraries(palapeli palapelipart ${palapeli_LINK_LIBS})
+target_link_libraries(palapeli palapelibase ${KDE4_KDEUI_LIBS})
 
 install(TARGETS palapeli ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeliui.rc DESTINATION ${DATA_INSTALL_DIR}/palapeli)

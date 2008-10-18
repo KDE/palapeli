@@ -19,7 +19,7 @@
 #ifndef PALAPELI_PATTERN_HEXAGON_H
 #define PALAPELI_PATTERN_HEXAGON_H
 
-#if defined(MAKE_LIBPALAPELIPART)
+#if defined(MAKE_LIBPALAPELIBASE)
  #include "../lib/patterns/pattern.h"
  #include "../lib/patterns/pattern-configuration.h"
  #include "../lib/patterns/pattern-plugin.h"

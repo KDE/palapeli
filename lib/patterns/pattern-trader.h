@@ -45,7 +45,7 @@ for (int i = 0; i < trader->configurationCount(); ++i)
 	 *
 	 * \author Stefan Majewsky <majewsky@gmx.net>
 	 */
-	class PatternTrader
+	class PALAPELIBASE_EXPORT PatternTrader
 	{
 		public:
 			/**

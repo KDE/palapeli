@@ -20,6 +20,8 @@
 #ifndef PALAPELI_PIECERELATION_H
 #define PALAPELI_PIECERELATION_H
 
+#include "../macros.h"
+
 #include <QPointF>
 
 namespace Palapeli
@@ -28,7 +30,7 @@ namespace Palapeli
 	class Part;
 	class Piece;
 
-	class PieceRelation
+	class PALAPELIBASE_EXPORT PieceRelation
 	{
 		public:
 			PieceRelation(Piece* piece1, Piece* piece2);

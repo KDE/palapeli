@@ -20,8 +20,9 @@
 #ifndef PALAPELI_PART_H
 #define PALAPELI_PART_H
 
-#include "manager.h"
+#include "../macros.h"
 
+#include <QList>
 #include <QPointF>
 
 namespace Palapeli
@@ -29,7 +30,7 @@ namespace Palapeli
 
 	class Piece;
 
-	class Part
+	class PALAPELIBASE_EXPORT Part
 	{
 		public:
 			Part(Piece* piece);

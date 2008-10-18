@@ -21,11 +21,11 @@
 
 #include <kdemacros.h>
 
-#ifndef PALAPELI_EXPORT
+#ifndef PALAPELIBASE_EXPORT
 # if defined(MAKE_LIBPALAPELI)
-#  define PALAPELI_EXPORT KDE_EXPORT
+#  define PALAPELIBASE_EXPORT KDE_EXPORT
 # else
-#  define PALAPELI_EXPORT KDE_IMPORT
+#  define PALAPELIBASE_EXPORT KDE_IMPORT
 # endif
 #endif
 

@@ -18,6 +18,7 @@
  ***************************************************************************/
 
 #include "piecerelation.h"
+#include "engine.h"
 #include "part.h"
 #include "piece.h"
 #include "settings.h"
@@ -78,7 +79,7 @@ void Palapeli::PieceRelation::insert(Palapeli::Part* target, Palapeli::Part* sou
 		source->removePiece(piece);
 		target->addPiece(piece);
 	}
-	ppMgr()->removePart(source);
+	ppEngine()->removePart(source);
 	target->update(); //adapt positions of added pieces
 	delete source;
 }

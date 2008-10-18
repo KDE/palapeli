@@ -19,6 +19,8 @@
 #ifndef PALAPELI_PUZZLEINFO_H
 #define PALAPELI_PUZZLEINFO_H
 
+#include "../macros.h"
+
 #include <QImage>
 class QMutex;
 #include <QString>
@@ -32,7 +34,7 @@ namespace Palapeli
 
 	class Library;
 
-	struct PuzzleInfo
+	struct PALAPELIBASE_EXPORT PuzzleInfo
 	{
 		//Note: If you add new values, also add a copy statement in Palapeli::PuzzleInfo::operator=.
 		PuzzleInfo(const QString& identifier, Palapeli::Library* library);

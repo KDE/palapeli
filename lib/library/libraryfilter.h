@@ -19,6 +19,7 @@
 #ifndef PALAPELI_LIBRARYFILTER_H
 #define PALAPELI_LIBRARYFILTER_H
 
+#include "../macros.h"
 #include <QSortFilterProxyModel>
 
 namespace Palapeli
@@ -26,7 +27,7 @@ namespace Palapeli
 
 	class Library;
 
-	class LibraryFilter : public QSortFilterProxyModel
+	class PALAPELIBASE_EXPORT LibraryFilter : public QSortFilterProxyModel
 	{
 		public:
 			LibraryFilter(Palapeli::Library* source);

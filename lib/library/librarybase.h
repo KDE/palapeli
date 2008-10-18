@@ -19,6 +19,8 @@
 #ifndef PALAPELI_LIBRARYBASE_H
 #define PALAPELI_LIBRARYBASE_H
 
+#include "../macros.h"
+
 #include <QObject>
 #include <QStringList>
 #include <QUuid>
@@ -31,7 +33,7 @@ namespace Palapeli
 
 	class Library;
 
-	class LibraryBase : public QObject
+	class PALAPELIBASE_EXPORT LibraryBase : public QObject
 	{
 		Q_OBJECT
 		public:
@@ -56,7 +58,7 @@ namespace Palapeli
 	};
 
 	//This base scans the puzzle library provided with Palapeli.
-	class LibraryStandardBase : public LibraryBase
+	class PALAPELIBASE_EXPORT LibraryStandardBase : public LibraryBase
 	{
 		public:
 			static LibraryStandardBase* self();
@@ -72,7 +74,7 @@ namespace Palapeli
 	};
 
 	//This base reads a puzzle archive. If the archive is corrupted or does not exist, this base is initialized in an empty state, and can be filled with a puzzle from another library. An existing puzzle will be overwritten when inserting another puzzle.
-	class LibraryArchiveBase : public LibraryBase
+	class PALAPELIBASE_EXPORT LibraryArchiveBase : public LibraryBase
 	{
 		public:
 			LibraryArchiveBase(const KUrl& url);

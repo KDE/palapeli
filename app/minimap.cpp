@@ -18,11 +18,12 @@
  ***************************************************************************/
 
 #include "minimap.h"
+#include "../lib/core/engine.h"
+#include "../lib/core/piece.h"
+#include "../lib/core/piecerelation.h"
+#include "../lib/core/view.h"
 #include "manager.h"
-#include "piece.h"
-#include "piecerelation.h"
 #include "settings.h"
-#include "view.h"
 
 #include <QMouseEvent>
 #include <QPainter>
@@ -49,20 +50,20 @@ void Palapeli::Minimap::setQualityLevel(int level)
 
 QRectF Palapeli::Minimap::viewport() const
 {
-	const QRect viewRect(QPoint(0, 0), ppMgr()->view()->viewport()->size());
-	return ppMgr()->view()->mapToScene(viewRect).boundingRect();
+	const QRect viewRect(QPoint(0, 0), ppEngine()->view()->viewport()->size());
+	return ppEngine()->view()->mapToScene(viewRect).boundingRect();
 }
 
 QPointF Palapeli::Minimap::widgetToScene(const QPointF& point) const
 {
-	const QSizeF sceneSize = ppMgr()->view()->realScene()->sceneRect().size();
+	const QSizeF sceneSize = ppEngine()->view()->realScene()->sceneRect().size();
 	const qreal sceneScalingFactor = qMin(width() / sceneSize.width(), height() / sceneSize.height());
 	return QPointF(point.x() / sceneScalingFactor, point.y() / sceneScalingFactor);
 }
 
 void Palapeli::Minimap::moveViewport(const QPointF& widgetTo, const QPointF& widgetFrom)
 {
-	Palapeli::View* view = ppMgr()->view();
+	Palapeli::View* view = ppEngine()->view();
 	//translate range of sliders in their coordinates and scene coordinates
 	const qreal sliderMinimumX = view->horizontalScrollBar()->minimum();
 	const qreal sliderMaximumX = view->horizontalScrollBar()->maximum();
@@ -97,7 +98,7 @@ void Palapeli::Minimap::moveViewport(const QPointF& widgetTo, const QPointF& wid
 
 void Palapeli::Minimap::mousePressEvent(QMouseEvent* event)
 {
-	if (ppMgr()->pieceCount() == 0) //no game running
+	if (ppEngine()->pieceCount() == 0) //no game running
 		return;
 	if (event->button() & Qt::LeftButton)
 	{
@@ -114,7 +115,7 @@ void Palapeli::Minimap::mousePressEvent(QMouseEvent* event)
 
 void Palapeli::Minimap::mouseMoveEvent(QMouseEvent* event)
 {
-	if (ppMgr()->pieceCount() == 0) //no game running
+	if (ppEngine()->pieceCount() == 0) //no game running
 		return;
 	if (m_draggingViewport)
 	{
@@ -127,7 +128,7 @@ void Palapeli::Minimap::mouseMoveEvent(QMouseEvent* event)
 
 void Palapeli::Minimap::mouseReleaseEvent(QMouseEvent* event)
 {
-	if (ppMgr()->pieceCount() == 0) //no game running
+	if (ppEngine()->pieceCount() == 0) //no game running
 		return;
 	if (m_draggingViewport && !m_viewportWasDragged)
 		//viewport was not dragged after mousePressEvent -> mouse did not move -> move viewport to this position
@@ -137,13 +138,13 @@ void Palapeli::Minimap::mouseReleaseEvent(QMouseEvent* event)
 
 void Palapeli::Minimap::paintEvent(QPaintEvent*)
 {
-	if (ppMgr()->pieceCount() == 0) //no game running
+	if (ppEngine()->pieceCount() == 0) //no game running
 		return;
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
 
 	//set painting metrics
-	const QRectF sceneRect = ppMgr()->view()->realScene()->sceneRect();
+	const QRectF sceneRect = ppEngine()->view()->realScene()->sceneRect();
 	const QSizeF sceneSize = sceneRect.size();
 	const qreal sceneWidth = sceneSize.width(), sceneHeight = sceneSize.height();
 	const qreal scalingFactor = qMin(width() / sceneWidth, height() / sceneHeight);
@@ -158,6 +159,6 @@ void Palapeli::Minimap::paintEvent(QPaintEvent*)
 	QColor pieceColor = palette().highlight().color();
 	pieceColor.setAlpha(m_qualityLevel == 1 ? 192 : 255);
 	painter.setBrush(pieceColor);
-	for (int i = 0; i < ppMgr()->pieceCount(); ++i)
-		painter.drawRect(ppMgr()->pieceAt(i)->sceneBoundingRect());
+	for (int i = 0; i < ppEngine()->pieceCount(); ++i)
+		painter.drawRect(ppEngine()->pieceAt(i)->sceneBoundingRect());
 }

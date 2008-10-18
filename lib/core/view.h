@@ -20,13 +20,15 @@
 #ifndef PALAPELI_VIEW_H
 #define PALAPELI_VIEW_H
 
+#include "../macros.h"
+
 #include <QGraphicsView>
 #include <QPixmap>
 
 namespace Palapeli
 {
 
-	class View : public QGraphicsView
+	class PALAPELIBASE_EXPORT View : public QGraphicsView
 	{
 		Q_OBJECT
 		public:

@@ -17,9 +17,9 @@
  ***************************************************************************/
 
 #include "createaction.h"
-#include "../library/library.h"
-#include "../library/librarybase.h"
-#include "../library/puzzleinfo.h"
+#include "../../lib/library/library.h"
+#include "../../lib/library/librarybase.h"
+#include "../../lib/library/puzzleinfo.h"
 #include "../../lib/patterns/pattern.h"
 #include "../../lib/patterns/pattern-configuration.h"
 #include "../../lib/patterns/pattern-trader.h"

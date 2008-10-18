@@ -19,7 +19,7 @@
 #ifndef PALAPELI_PATTERN_PLUGIN_H
 #define PALAPELI_PATTERN_PLUGIN_H
 
-#if defined(MAKE_LIBPALAPELIPART)
+#if defined(MAKE_LIBPALAPELIBASE)
  #include "../macros.h"
 #else
  #include <Palapeli/Macros>
@@ -50,7 +50,7 @@ K_EXPORT_PLUGIN(MyPatternFactory("mypattern"))
 	 *
 	 * \author Stefan Majewsky <majewsky@gmx.net>
 	 */
-	class PALAPELI_EXPORT PatternPlugin : public QObject
+	class PALAPELIBASE_EXPORT PatternPlugin : public QObject
 	{
 		Q_OBJECT
 		public:

@@ -17,8 +17,8 @@
  ***************************************************************************/
 
 #include "loadaction.h"
-#include "../library/library.h"
-#include "../library/libraryview.h"
+#include "../../lib/library/library.h"
+#include "../../lib/library/libraryview.h"
 #include "../manager.h"
 
 #include <KActionCollection>

@@ -19,12 +19,14 @@
 #ifndef PALAPELI_LIBRARYDELEGATE_H
 #define PALAPELI_LIBRARYDELEGATE_H
 
+#include "../macros.h"
+
 #include <QAbstractItemDelegate>
 
 namespace Palapeli
 {
 
-	class LibraryDelegate : public QAbstractItemDelegate
+	class PALAPELIBASE_EXPORT LibraryDelegate : public QAbstractItemDelegate
 	{
 		public:
 			LibraryDelegate(QObject* parent = 0);

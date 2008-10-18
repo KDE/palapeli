@@ -19,6 +19,8 @@
 
 #include "mainwindow.h"
 #include "mainwindow_p.h"
+#include "../lib/core/engine.h"
+#include "../lib/core/view.h"
 #include "actions/deleteaction.h"
 #include "actions/exportaction.h"
 #include "actions/importaction.h"
@@ -28,7 +30,6 @@
 #include "minimap.h"
 #include "preview.h"
 #include "settings.h"
-#include "view.h"
 
 #include <QCloseEvent>
 #include <QTimer>
@@ -61,7 +62,7 @@ Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
 	m_loaderWidget->setAlignment(Qt::AlignCenter);
 	m_centralWidget->addWidget(m_welcomeWidget);
 	m_centralWidget->addWidget(m_loaderWidget);
-	m_centralWidget->addWidget(ppMgr()->view());
+	m_centralWidget->addWidget(ppEngine()->view());
 	m_centralWidget->setCurrentWidget(m_welcomeWidget);
 }
 
@@ -178,8 +179,8 @@ void Palapeli::MainWindowPrivate::configurationChanged() //because of user-invok
 void Palapeli::MainWindowPrivate::configurationFinished()
 {
 	//apply settings
-	ppMgr()->view()->setAntialiasing(m_appearanceUi->checkAntialiasing->isChecked());
-	ppMgr()->view()->setHardwareAccelerated(m_appearanceUi->checkHardwareAccel->isChecked());
+	ppEngine()->view()->setAntialiasing(m_appearanceUi->checkAntialiasing->isChecked());
+	ppEngine()->view()->setHardwareAccelerated(m_appearanceUi->checkHardwareAccel->isChecked());
 	ppMgr()->minimap()->setQualityLevel(m_appearanceUi->checkMinimapQuality->isChecked() ? 1 : 0);
 	Settings::setSceneSizeFactor(qreal(m_appearanceUi->sceneSizeSlider->value()) / 100.0);
 	Settings::setSnappingPrecision(m_gameplayUi->precisionSlider->value());
@@ -263,7 +264,7 @@ void Palapeli::MainWindow::gameNameWasChanged(const QString& name)
 void Palapeli::MainWindow::changeInteractionMode(bool allowGameInteraction)
 {
 	actionCollection()->action(QLatin1String("palapeli_load"))->setEnabled(allowGameInteraction);
-	p->m_centralWidget->setCurrentWidget(allowGameInteraction ? (QWidget*) ppMgr()->view() : (QWidget*) p->m_loaderWidget);
+	p->m_centralWidget->setCurrentWidget(allowGameInteraction ? (QWidget*) ppEngine()->view() : (QWidget*) p->m_loaderWidget);
 }
 
 void Palapeli::MainWindow::closeEvent(QCloseEvent* event)

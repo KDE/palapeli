@@ -45,7 +45,7 @@ executor.start();
 	 *
 	 * \author Stefan Majewsky <majewsky@gmx.net>
 	 */
-	class PatternExecutor : public QThread
+	class PALAPELIBASE_EXPORT PatternExecutor : public QThread
 	{
 		Q_OBJECT
 		public:

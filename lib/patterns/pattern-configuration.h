@@ -19,7 +19,7 @@
 #ifndef PALAPELI_PATTERN_CONFIGURATION_H
 #define PALAPELI_PATTERN_CONFIGURATION_H
 
-#if defined(MAKE_LIBPALAPELIPART)
+#if defined(MAKE_LIBPALAPELIBASE)
  #include "../macros.h"
 #else
  #include <Palapeli/Macros>
@@ -53,7 +53,7 @@ setProperty("myprop", 3); //set default value
 	 *
 	 * \author Stefan Majewsky <majewsky@gmx.net>
 	 */
-	class PALAPELI_EXPORT PatternConfiguration : public QObject
+	class PALAPELIBASE_EXPORT PatternConfiguration : public QObject
 	{
 		Q_OBJECT
 		public:

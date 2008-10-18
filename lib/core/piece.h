@@ -20,6 +20,8 @@
 #ifndef PALAPELI_PIECE_H
 #define PALAPELI_PIECE_H
 
+#include "../macros.h"
+
 #include <QGraphicsPixmapItem>
 
 namespace Palapeli
@@ -27,7 +29,7 @@ namespace Palapeli
 
 	class Part;
 
-	class Piece : public QGraphicsPixmapItem
+	class PALAPELIBASE_EXPORT Piece : public QGraphicsPixmapItem
 	{
 		public:
 			Piece(const QPixmap& pixmap, const QRectF& positionInImage);
