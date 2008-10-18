@@ -30,6 +30,7 @@ namespace Palapeli
 		);
 		about.addAuthor(ki18n("Stefan Majewsky"), ki18n("Maintainer"), "majewsky@gmx.net");
 		about.addAuthor(ki18n("Felix Lemke"), KLocalizedString(), "lemke.felix@ages-skripte.org");
+		return about;
 	}
 
 }
