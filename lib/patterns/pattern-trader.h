@@ -19,11 +19,7 @@
 #ifndef PALAPELI_PATTERN_TRADER_H
 #define PALAPELI_PATTERN_TRADER_H
 
-#if defined(MAKE_LIBPALAPELIPART)
- #include "macros.h"
-#else
- #include <Palapeli/Macros>
-#endif
+#include "../macros.h"
 
 #include <QtCore/QtGlobal>
 
@@ -49,7 +45,7 @@ for (int i = 0; i < trader->configurationCount(); ++i)
 	 *
 	 * \author Stefan Majewsky <majewsky@gmx.net>
 	 */
-	class PALAPELIPATTERN_EXPORT PatternTrader
+	class PatternTrader
 	{
 		public:
 			/**

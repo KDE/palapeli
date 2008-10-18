@@ -18,7 +18,6 @@
  ***************************************************************************/
 
 #include "view.h"
-#include "manager.h"
 #include "settings.h"
 
 #include <QBrush>
@@ -33,7 +32,7 @@
 #include <QWheelEvent>
 #include <KStandardDirs>
 
-const QString BackgroundTileLocation("background.svg");
+const QString BackgroundTileLocation("palapeli/background.svg");
 
 Palapeli::View::View(QWidget* parent)
 	: QGraphicsView(parent)
@@ -41,14 +40,12 @@ Palapeli::View::View(QWidget* parent)
 	, m_backgroundTile(64, 64)
 {
 	//background pixmap
-	QSvgRenderer backgroundRenderer(KStandardDirs::locate("appdata", BackgroundTileLocation));
+	QSvgRenderer backgroundRenderer(KStandardDirs::locate("data", BackgroundTileLocation));
 	m_backgroundTile.fill(Qt::transparent);
 	QPainter backgroundPainter(&m_backgroundTile);
 	backgroundRenderer.render(&backgroundPainter);
 	backgroundPainter.end();
 	//initialize view and scene
-	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateGraphics()));
-	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), ppMgr(), SLOT(updateGraphics()));
 	setScene(m_scene);
 	m_scene->setBackgroundBrush(QBrush(m_backgroundTile));
 	m_scene->setSceneRect(QRectF(-1, -1, 2, 2)); //the exact values are not important as long as there is some specific scene rect
@@ -87,7 +84,6 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 				scalingFactor = 0.01;
 		}
 		scale(scalingFactor, scalingFactor);
-		ppMgr()->updateGraphics();
 		emit viewportScaled();
 	}
 	else if ((event->modifiers() & Qt::ShiftModifier) || event->orientation() == Qt::Horizontal)

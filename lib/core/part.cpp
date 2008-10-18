@@ -18,7 +18,7 @@
  ***************************************************************************/
 
 #include "part.h"
-#include "manager.h"
+#include "engine.h"
 #include "piece.h"
 #include "view.h"
 
@@ -50,7 +50,6 @@ void Palapeli::Part::setBasePosition(const QPointF& basePosition)
 		return;
 	m_basePosition = basePosition;
 	update();
-	ppMgr()->updateGraphics();
 }
 
 Palapeli::Piece* Palapeli::Part::pieceAt(int index) const
@@ -83,7 +82,6 @@ void Palapeli::Part::move(const QPointF& newBasePosition)
 	//do move
 	m_basePosition = mutableNewBasePosition;
 	update();
-	ppMgr()->updateGraphics();
 }
 
 void Palapeli::Part::update()
@@ -92,6 +90,7 @@ void Palapeli::Part::update()
 	foreach (Palapeli::Piece* piece, m_pieces)
 	{
 		piece->setPos(m_basePosition + piece->positionInImage());
-		ppMgr()->view()->moveToTop(piece);
+		ppEngine()->view()->moveToTop(piece);
+		emit ppEngine()->piecePositionChanged();
 	}
 }

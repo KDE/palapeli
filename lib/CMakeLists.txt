@@ -8,6 +8,11 @@ set(palapelipart_LIB_VERSION "${palapelipart_LIB_MAJOR_VERSION}.${palapelipart_L
 set(palapelipart_LIB_SOVERSION "0")
 
 set(palapelipart_SRCS
+	core/engine.cpp
+	core/part.cpp
+	core/piece.cpp
+	core/piecerelation.cpp
+	core/view.cpp
 	library/library.cpp
 	library/librarybase.cpp
 	library/librarydelegate.cpp

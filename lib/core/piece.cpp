@@ -18,7 +18,7 @@
  ***************************************************************************/
 
 #include "piece.h"
-#include "manager.h"
+#include "engine.h"
 #include "part.h"
 #include "view.h"
 
@@ -33,8 +33,6 @@ Palapeli::Piece::Piece(const QPixmap& pixmap, const QRectF& positionInImage)
 {
 	setAcceptedMouseButtons(Qt::LeftButton);
 	setOffset(0.0, 0.0);
-
-	ppMgr()->view()->realScene()->addItem(this);
 }
 
 Palapeli::Piece* Palapeli::Piece::fromPixmapPair(const QPixmap& pixmap, const QPixmap& mask, const QRectF& positionInImage)
@@ -71,7 +69,7 @@ void Palapeli::Piece::setPart(Palapeli::Part* part)
 void Palapeli::Piece::makePositionValid(QPointF& basePosition) const
 {
 	//add constraints to the given base position to make this piece be placed in the scene boundaries
-	const QRectF sceneRect = ppMgr()->view()->realScene()->sceneRect();
+	const QRectF sceneRect = scene()->sceneRect();
 	basePosition.rx() = qBound(sceneRect.left() - m_positionInImage.left(), basePosition.x(), sceneRect.right() - m_positionInImage.right());
 	basePosition.ry() = qBound(sceneRect.top() - m_positionInImage.top(), basePosition.y(), sceneRect.bottom() - m_positionInImage.bottom());
 }
@@ -97,7 +95,7 @@ void Palapeli::Piece::mouseReleaseEvent(QGraphicsSceneMouseEvent*)
 {
 	if (m_part && m_moving)
 	{
-		ppMgr()->pieceMoveFinished();
+		emit ppEngine()->pieceMoved();
 		m_moving = false;
 	}
 }

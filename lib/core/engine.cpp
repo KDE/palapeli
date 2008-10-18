@@ -1,0 +1,133 @@
+/***************************************************************************
+ *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
+ *
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU General Public
+ *   License as published by the Free Software Foundation; either
+ *   version 2 of the License, or (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, write to the Free Software
+ *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ ***************************************************************************/
+
+#include "engine.h"
+
+#include "part.h"
+#include "piece.h"
+#include "piecerelation.h"
+#include "view.h"
+
+namespace Palapeli
+{
+
+	class EnginePrivate
+	{
+		public:
+			EnginePrivate();
+
+			QList<Part*> m_parts;
+			QList<Piece*> m_pieces;
+			QList<PieceRelation> m_relations;
+			View* m_view;
+	};
+
+}
+
+Palapeli::EnginePrivate::EnginePrivate()
+	: m_view(new Palapeli::View)
+{
+}
+
+Palapeli::Engine* Palapeli::Engine::self()
+{
+	static Palapeli::Engine theOneAndOnly;
+	return &theOneAndOnly;
+}
+
+Palapeli::Engine::Engine()
+	: p(new Palapeli::EnginePrivate)
+{
+	connect(p->m_view, SIGNAL(viewportMoved()), this, SIGNAL(viewportMoved()));
+	connect(p->m_view, SIGNAL(viewportScaled()), this, SIGNAL(viewportMoved()));
+}
+
+Palapeli::Engine::~Engine()
+{
+	//I see no benefit in declaring a separate destructor for Palapeli::EnginePrivate
+	foreach (Palapeli::Part* part, p->m_parts)
+		delete part; //this does also delete the pieces
+	delete p->m_view;
+	delete p;
+}
+
+int Palapeli::Engine::partCount() const
+{
+	return p->m_parts.count();
+}
+
+Palapeli::Part* Palapeli::Engine::partAt(int index) const
+{
+	return p->m_parts.value(index, 0);
+}
+
+int Palapeli::Engine::pieceCount() const
+{
+	return p->m_pieces.count();
+}
+
+Palapeli::Piece* Palapeli::Engine::pieceAt(int index) const
+{
+	return p->m_pieces.value(index, 0);
+}
+
+int Palapeli::Engine::relationCount() const
+{
+	return p->m_relations.count();
+}
+
+Palapeli::PieceRelation Palapeli::Engine::relationAt(int index) const
+{
+	return p->m_relations.value(index, 0);
+}
+
+Palapeli::View* Palapeli::Engine::view() const
+{
+	return p->m_view;
+}
+
+void Palapeli::Engine::addPiece(Palapeli::Piece* piece, const QPointF& sceneBasePosition)
+{
+	p->m_pieces << piece;
+	p->m_parts << new Palapeli::Part(piece);
+	piece->part()->setBasePosition(sceneBasePosition);
+	m_view->realScene()->addItem(piece);
+}
+
+void Palapeli::Engine::addRelation(int piece1Id, piece2Id)
+{
+	Palapeli::PieceRelation relation(p->m_pieces[piece1Id], p->m_pieces[piece2Id]);
+	if (!p->m_relations.contains(relation))
+		p->m_relations << relation;
+}
+
+void Palapeli::Engine::removePart(Palapeli::Part* part)
+{
+	p->m_parts.removeAll(part);
+}
+
+void Palapeli::Engine::clear()
+{
+	foreach (Palapeli::Part* part, p->m_parts)
+		delete part; //this does also delete the pieces
+	p->m_parts.clear();
+	p->m_pieces.clear();
+	p->m_relations.clear();
+}
+
+#include "engine.moc"

@@ -19,11 +19,7 @@
 #ifndef PALAPELI_PATTERN_EXECUTOR_H
 #define PALAPELI_PATTERN_EXECUTOR_H
 
-#if defined(MAKE_LIBPALAPELIPART)
- #include "macros.h"
-#else
- #include <Palapeli/Macros>
-#endif
+#include "../macros.h"
 
 class QImage;
 #include <QtCore/QThread>
@@ -49,7 +45,7 @@ executor.start();
 	 *
 	 * \author Stefan Majewsky <majewsky@gmx.net>
 	 */
-	class PALAPELIPATTERN_EXPORT PatternExecutor : public QThread
+	class PatternExecutor : public QThread
 	{
 		Q_OBJECT
 		public:
