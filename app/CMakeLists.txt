@@ -11,13 +11,6 @@ set(palapeli_SRCS
 	preview.cpp
 	textprogressbar.cpp
 	welcomewidget.cpp
-	actions/commonaction.cpp
-	actions/createaction.cpp
-	actions/deleteaction.cpp
-	actions/exportaction.cpp
-	actions/importaction.cpp
-	actions/loadaction.cpp
-	actions/resetaction.cpp
 )
 kde4_add_kcfg_files(palapeli_SRCS ../lib/settings.kcfgc)
 kde4_add_ui_files(palapeli_SRCS settings_appearance.ui settings_gameplay.ui)

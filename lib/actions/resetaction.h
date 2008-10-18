@@ -16,44 +16,30 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_EXPORTACTION_H
-#define PALAPELI_EXPORTACTION_H
+#ifndef PALAPELI_RESETACTION_H
+#define PALAPELI_RESETACTION_H
+
+#include "../macros.h"
 
 #include <KAction>
-#include <KDialog>
 
 namespace Palapeli
 {
 
-	class Library;
-	class LibraryView;
+	class PuzzleInfo;
 
-	class ExportDialog : public KDialog
+	class PALAPELIBASE_EXPORT ResetAction : public KAction
 	{
 		Q_OBJECT
 		public:
-			ExportDialog(Palapeli::Library* mainLibrary);
-			~ExportDialog();
-		public Q_SLOTS:
-			void handleOkButton();
-		protected:
-			virtual void showEvent(QShowEvent* event);
-		private:
-			Palapeli::LibraryView* m_mainLibraryView;
-	};
-
-	class ExportAction : public KAction
-	{
-		Q_OBJECT
-		public:
-			ExportAction(QObject* parent);
-			~ExportAction();
+			ResetAction(QObject* parent = 0);
 		public Q_SLOTS:
 			void handleTrigger();
-		private:
-			Palapeli::ExportDialog* m_dialog;
+			void gameNameWasChanged(const QString& name);
+		Q_SIGNALS:
+			void reloadGameRequest(const Palapeli::PuzzleInfo* info);
 	};
 
 }
 
-#endif // PALAPELI_EXPORTACTION_H
+#endif // PALAPELI_RESETACTION_H

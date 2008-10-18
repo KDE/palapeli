@@ -18,9 +18,9 @@
 
 #include "importaction.h"
 #include "commonaction.h"
-#include "../../lib/library/library.h"
-#include "../../lib/library/librarybase.h"
-#include "../../lib/library/libraryview.h"
+#include "../library/library.h"
+#include "../library/librarybase.h"
+#include "../library/libraryview.h"
 
 #include <KActionCollection>
 #include <KFileDialog>

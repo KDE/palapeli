@@ -18,9 +18,9 @@
 
 #include "resetaction.h"
 #include "commonaction.h"
-#include "../../lib/library/library.h"
-#include "../../lib/library/librarybase.h"
-#include "../../lib/library/puzzleinfo.h"
+#include "../library/library.h"
+#include "../library/librarybase.h"
+#include "../library/puzzleinfo.h"
 
 #include <QFile>
 #include <KActionCollection>

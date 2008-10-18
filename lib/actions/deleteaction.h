@@ -16,25 +16,49 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_COMMONACTION_H
-#define PALAPELI_COMMONACTION_H
+#ifndef PALAPELI_DELETEACTION_H
+#define PALAPELI_DELETEACTION_H
 
-class QWidget;
-#include "../../lib/library/puzzleinfo.h"
+#include "../macros.h"
+
+#include <KAction>
+#include <KDialog>
 
 namespace Palapeli
 {
 
-	typedef const Palapeli::PuzzleInfo*(*InfoGetter)();
+	class Library;
+	class LibraryView;
 
-	namespace Actions
+	class PALAPELIBASE_EXPORT DeleteDialog : public KDialog
 	{
-		QWidget* dialogParent();
-		void setDialogParent(QWidget* dialogParent);
-		const Palapeli::PuzzleInfo* puzzleInfo();
-		void setInfoGetter(InfoGetter infoGetter);
-	}
+		Q_OBJECT
+		public:
+			DeleteDialog(Palapeli::Library* mainLibrary);
+			~DeleteDialog();
+		public Q_SLOTS:
+			void handleOkButton();
+			void checkItemVisibility();
+		Q_SIGNALS:
+			void hintActionState(bool enabled);
+		protected:
+			virtual void showEvent(QShowEvent* event);
+		private:
+			Palapeli::LibraryView* m_mainLibraryView;
+	};
+
+	class PALAPELIBASE_EXPORT DeleteAction : public KAction
+	{
+		Q_OBJECT
+		public:
+			DeleteAction(QObject* parent);
+			~DeleteAction();
+		public Q_SLOTS:
+			void createDialog();
+		private:
+			Palapeli::DeleteDialog* m_dialog;
+	};
 
 }
 
-#endif // PALAPELI_COMMONACTION_H
+#endif // PALAPELI_DELETEACTION_H

@@ -16,8 +16,10 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_IMPORTACTION_H
-#define PALAPELI_IMPORTACTION_H
+#ifndef PALAPELI_LOADACTION_H
+#define PALAPELI_LOADACTION_H
+
+#include "../macros.h"
 
 #include <KAction>
 #include <KDialog>
@@ -26,33 +28,39 @@ namespace Palapeli
 {
 
 	class Library;
-	class LibraryArchiveBase;
 	class LibraryView;
+	class PuzzleInfo;
 
-	class ImportDialog : public KDialog
+	class PALAPELIBASE_EXPORT LoadDialog : public KDialog
 	{
 		Q_OBJECT
 		public:
-			ImportDialog(const KUrl& url);
-			~ImportDialog();
-			bool isArchiveValid() const;
+			LoadDialog(Palapeli::Library* mainLibrary);
+			~LoadDialog();
 		public Q_SLOTS:
 			void handleOkButton();
+		Q_SIGNALS:
+			void gameLoadRequest(const Palapeli::PuzzleInfo* info);
+		protected:
+			virtual void showEvent(QShowEvent* event);
 		private:
-			LibraryArchiveBase* m_archiveBase;
-			Library* m_archiveLibrary;
-			LibraryView* m_archiveLibraryView;
+			Palapeli::LibraryView* m_mainLibraryView;
 	};
 
-	class ImportAction : public KAction
+	class PALAPELIBASE_EXPORT LoadAction : public KAction
 	{
 		Q_OBJECT
 		public:
-			ImportAction(QObject* parent);
+			LoadAction(QObject* parent);
+			~LoadAction();
 		public Q_SLOTS:
 			void handleTrigger();
+		Q_SIGNALS:
+			void gameLoadRequest(const Palapeli::PuzzleInfo* info);
+		private:
+			Palapeli::LoadDialog* m_dialog;
 	};
 
 }
 
-#endif // PALAPELI_IMPORTACTION_H
+#endif // PALAPELI_LOADACTION_H

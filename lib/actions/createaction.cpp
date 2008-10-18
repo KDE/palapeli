@@ -18,12 +18,12 @@
 
 #include "createaction.h"
 #include "commonaction.h"
-#include "../../lib/library/library.h"
-#include "../../lib/library/librarybase.h"
-#include "../../lib/library/puzzleinfo.h"
-#include "../../lib/patterns/pattern.h"
-#include "../../lib/patterns/pattern-configuration.h"
-#include "../../lib/patterns/pattern-trader.h"
+#include "../library/library.h"
+#include "../library/librarybase.h"
+#include "../library/puzzleinfo.h"
+#include "../patterns/pattern.h"
+#include "../patterns/pattern-configuration.h"
+#include "../patterns/pattern-trader.h"
 
 #include <QComboBox>
 #include <QFormLayout>

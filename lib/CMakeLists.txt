@@ -17,6 +17,13 @@ if(OPENGL_FOUND)
 endif(OPENGL_FOUND)
 
 set(palapelibase_SRCS
+	actions/commonaction.cpp
+	actions/createaction.cpp
+	actions/deleteaction.cpp
+	actions/exportaction.cpp
+	actions/importaction.cpp
+	actions/loadaction.cpp
+	actions/resetaction.cpp
 	core/engine.cpp
 	core/part.cpp
 	core/piece.cpp

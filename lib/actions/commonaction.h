@@ -16,35 +16,27 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_CREATEACTION_H
-#define PALAPELI_CREATEACTION_H
+#ifndef PALAPELI_COMMONACTION_H
+#define PALAPELI_COMMONACTION_H
 
-#include <KAction>
-#include <KDialog>
+#include "../macros.h"
+
+class QWidget;
+#include "../../lib/library/puzzleinfo.h"
 
 namespace Palapeli
 {
 
-	class CreateDialogPrivate;
-	class PuzzleInfo;
+	typedef const Palapeli::PuzzleInfo*(*InfoGetter)();
 
-	class CreateDialog : public KDialog
+	namespace Actions
 	{
-		Q_OBJECT
-		public:
-			CreateDialog();
-			~CreateDialog();
-		public Q_SLOTS:
-			void handleInput();
-			void handleOkButton();
-		Q_SIGNALS:
-			void gameCreated(const Palapeli::PuzzleInfo* info);
-		private:
-			Palapeli::CreateDialogPrivate* const p;
-	};
-
-	//The KStandardAction::openNew is used instead of a separate CreateAction.
+		PALAPELIBASE_EXPORT QWidget* dialogParent();
+		PALAPELIBASE_EXPORT void setDialogParent(QWidget* dialogParent);
+		PALAPELIBASE_EXPORT const Palapeli::PuzzleInfo* puzzleInfo();
+		PALAPELIBASE_EXPORT void setInfoGetter(InfoGetter infoGetter);
+	}
 
 }
 
-#endif // PALAPELI_CREATEACTION_H
+#endif // PALAPELI_COMMONACTION_H

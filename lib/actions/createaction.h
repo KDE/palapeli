@@ -16,8 +16,10 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_DELETEACTION_H
-#define PALAPELI_DELETEACTION_H
+#ifndef PALAPELI_CREATEACTION_H
+#define PALAPELI_CREATEACTION_H
+
+#include "../macros.h"
 
 #include <KAction>
 #include <KDialog>
@@ -25,38 +27,26 @@
 namespace Palapeli
 {
 
-	class Library;
-	class LibraryView;
+	class CreateDialogPrivate;
+	class PuzzleInfo;
 
-	class DeleteDialog : public KDialog
+	class PALAPELIBASE_EXPORT CreateDialog : public KDialog
 	{
 		Q_OBJECT
 		public:
-			DeleteDialog(Palapeli::Library* mainLibrary);
-			~DeleteDialog();
+			CreateDialog();
+			~CreateDialog();
 		public Q_SLOTS:
+			void handleInput();
 			void handleOkButton();
-			void checkItemVisibility();
 		Q_SIGNALS:
-			void hintActionState(bool enabled);
-		protected:
-			virtual void showEvent(QShowEvent* event);
+			void gameCreated(const Palapeli::PuzzleInfo* info);
 		private:
-			Palapeli::LibraryView* m_mainLibraryView;
+			Palapeli::CreateDialogPrivate* const p;
 	};
 
-	class DeleteAction : public KAction
-	{
-		Q_OBJECT
-		public:
-			DeleteAction(QObject* parent);
-			~DeleteAction();
-		public Q_SLOTS:
-			void createDialog();
-		private:
-			Palapeli::DeleteDialog* m_dialog;
-	};
+	//The KStandardAction::openNew is used instead of a separate CreateAction.
 
 }
 
-#endif // PALAPELI_DELETEACTION_H
+#endif // PALAPELI_CREATEACTION_H
