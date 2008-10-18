@@ -51,10 +51,12 @@ namespace Palapeli
 			void addRelation(int piece1Id, int piece2Id);
 			void removePart(Palapeli::Part* part);
 			void clear();
+			void searchConnections();
 		Q_SIGNALS:
-			void viewportMoved();
 			void piecePositionChanged();
 			void pieceMoved();
+			void relationsCombined();
+			void viewportMoved();
 		protected:
 			friend class Part;
 			friend class Piece;

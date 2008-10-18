@@ -79,8 +79,8 @@ void Palapeli::ManagerPrivate::init()
 	//main window is deleted by Palapeli::ManagerPrivate::~ManagerPrivate because there are widely-spread references to the view, and the view will be deleted by m_window
 	m_window->setAttribute(Qt::WA_DeleteOnClose, false);
 	//make some connections
-	QObject::connect(ppEngine(), SIGNAL(pieceMoved()), m_manager, SLOT(searchConnections()));
 	QObject::connect(ppEngine(), SIGNAL(piecePositionChanged()), m_minimap, SLOT(update()));
+	QObject::connect(ppEngine(), SIGNAL(relationsCombined()), m_manager, SLOT(updateProgress()));
 	QObject::connect(ppEngine(), SIGNAL(viewportMoved()), m_minimap, SLOT(update()));
 }
 
@@ -158,10 +158,7 @@ bool Palapeli::Manager::init()
 
 const Palapeli::PuzzleInfo* Palapeli::Manager::puzzleInfo() const
 {
-	if (p->m_loader)
-		return p->m_loader->info();
-	else
-		return 0;
+	return p->m_loader ? p->m_loader->info() : 0;
 }
 
 Palapeli::Library* Palapeli::Manager::library() const
@@ -182,37 +179,6 @@ Palapeli::Preview* Palapeli::Manager::preview() const
 Palapeli::MainWindow* Palapeli::Manager::window() const
 {
 	return p->m_window;
-}
-
-//gameplay
-
-void Palapeli::Manager::pieceMoveFinished()
-{
-	searchConnections();
-	if (p->m_loader)
-		p->m_loader->save();
-}
-
-void Palapeli::Manager::searchConnections()
-{
-	bool combinedSomething = false;
-	for (int i = 0; i < ppEngine()->relationCount(); ++i)
-	{
-		const Palapeli::PieceRelation& rel = ppEngine()->relationAt(i);
-		if (rel.piece1()->part() == rel.piece2()->part()) //already combined
-			continue;
-		if (rel.piecesInRightPosition())
-		{
-			rel.combine();
-			combinedSomething = true;
-		}
-	}
-	if (combinedSomething)
-	{
-		p->m_window->reportPuzzleProgress(ppEngine()->pieceCount(), ppEngine()->partCount());
-		p->m_minimap->update();
-	}
-	p->m_loader->save();
 }
 
 //game instances
@@ -239,8 +205,6 @@ void Palapeli::Manager::loadGame(const Palapeli::PuzzleInfo* info, bool forceRel
 
 void Palapeli::Manager::finishGameLoading()
 {
-	//restore relations
-	searchConnections();
 	//ensure that all pieces are inside the sceneRect (useful if user has changed the scene size after saving this game)
 	const QRectF sceneRect = ppEngine()->view()->realScene()->sceneRect();
 	for (int i = 0; i < ppEngine()->pieceCount(); ++i)
@@ -255,6 +219,11 @@ void Palapeli::Manager::finishGameLoading()
 	p->m_window->reportPuzzleProgress(ppEngine()->pieceCount(), ppEngine()->partCount());
 	emit interactionModeChanged(true);
 	emit gameNameChanged(p->m_loader->info()->name);
+}
+
+void Palapeli::Manager::updateProgress()
+{
+	p->m_window->reportPuzzleProgress(ppEngine()->pieceCount(), ppEngine()->partCount());
 }
 
 //END Palapeli::Manager

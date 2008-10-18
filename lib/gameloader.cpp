@@ -134,6 +134,7 @@ void Palapeli::GameLoaderPrivate::addRelation(int piece1Id, int piece2Id)
 Palapeli::GameLoader::GameLoader(const Palapeli::PuzzleInfo* info, bool takeLibraryOwnership)
 	: p(new Palapeli::GameLoaderPrivate(info, takeLibraryOwnership, this))
 {
+	QObject::connect(ppEngine(), SIGNAL(pieceMoved()), this, SLOT(save()));
 }
 
 Palapeli::GameLoader::~GameLoader()
@@ -156,6 +157,7 @@ bool Palapeli::GameLoader::isValid() const
 
 void Palapeli::GameLoader::finishLoading()
 {
+	ppEngine()->searchConnections();
 	emit finished();
 	ppEngine()->view()->useScene(true);
 }

@@ -58,6 +58,7 @@ Palapeli::Engine::Engine()
 {
 	connect(p->m_view, SIGNAL(viewportMoved()), this, SIGNAL(viewportMoved()));
 	connect(p->m_view, SIGNAL(viewportScaled()), this, SIGNAL(viewportMoved()));
+	connect(this, SIGNAL(pieceMoved()), this, SLOT(searchConnections()));
 }
 
 Palapeli::Engine::~Engine()
@@ -132,6 +133,23 @@ void Palapeli::Engine::clear()
 	p->m_parts.clear();
 	p->m_pieces.clear();
 	p->m_relations.clear();
+}
+
+void Palapeli::Engine::searchConnections()
+{
+	bool combinedSomething = false;
+	foreach (const Palapeli::PieceRelation& rel, p->m_relations)
+	{
+		if (rel.piece1()->part() == rel.piece2()->part()) //already combined
+			continue;
+		if (rel.piecesInRightPosition())
+		{
+			rel.combine();
+			combinedSomething = true;
+		}
+	}
+	if (combinedSomething)
+		emit relationsCombined();
 }
 
 #include "engine.moc"

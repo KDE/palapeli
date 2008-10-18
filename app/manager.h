@@ -50,10 +50,8 @@ namespace Palapeli
 			Preview* preview() const;
 			MainWindow* window() const;
 		public Q_SLOTS:
-			void pieceMoveFinished();
-			void searchConnections();
-
 			void loadGame(const Palapeli::PuzzleInfo* info, bool forceReload = false, bool takeLibraryOwnership = false);
+			void updateProgress();
 		private Q_SLOTS:
 			void finishGameLoading();
 		Q_SIGNALS:
