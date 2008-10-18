@@ -17,11 +17,10 @@
  ***************************************************************************/
 
 #include "resetaction.h"
+#include "commonaction.h"
 #include "../../lib/library/library.h"
 #include "../../lib/library/librarybase.h"
 #include "../../lib/library/puzzleinfo.h"
-#include "../mainwindow.h"
-#include "../manager.h"
 
 #include <QFile>
 #include <KActionCollection>
@@ -46,23 +45,25 @@ Palapeli::ResetAction::ResetAction(QObject* parent)
 void Palapeli::ResetAction::handleTrigger()
 {
 	//get puzzle info
-	const Palapeli::PuzzleInfo* info = ppMgr()->puzzleInfo();
+	const Palapeli::PuzzleInfo* info = Palapeli::Actions::puzzleInfo();
 	if (!info)
 		return;
 	//confirm deletion of state config
-	int result = KMessageBox::warningContinueCancel(ppMgr()->window(), i18n("You're about to delete your saved progress for the puzzle \"%1\".", info->name), i18n("Confirm progress deletion"), KStandardGuiItem::cont(), KStandardGuiItem::cancel(), QLatin1String("confirm-state-reset"));
+	int result = KMessageBox::warningContinueCancel(Palapeli::Actions::dialogParent(), i18n("You're about to delete your saved progress for the puzzle \"%1\".", info->name), i18n("Confirm progress deletion"), KStandardGuiItem::cont(), KStandardGuiItem::cancel(), QLatin1String("confirm-state-reset"));
 	//perform deletion of state config
 	if (result == KMessageBox::Continue)
 	{
-		const QString stateConfig = ppMgr()->library()->base()->findFile(info->identifier, Palapeli::LibraryBase::StateConfigFile);
+		const QString stateConfig = Palapeli::standardLibrary()->base()->findFile(info->identifier, Palapeli::LibraryBase::StateConfigFile);
 		QFile(stateConfig).remove();
-		ppMgr()->loadGame(info, true); //reload to lose the progress completely
+		emit reloadGameRequest(info); //reload to lose the progress completely
 	}
 }
 
+#include <KDebug>
+
 void Palapeli::ResetAction::gameNameWasChanged(const QString& name)
 {
-	setEnabled(!name.isEmpty() && ppMgr()->puzzleInfo() != 0);
+	setEnabled(!name.isEmpty() && Palapeli::Actions::puzzleInfo() != 0);
 }
 
 #include "resetaction.moc"

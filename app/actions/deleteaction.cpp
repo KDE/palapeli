@@ -17,12 +17,11 @@
  ***************************************************************************/
 
 #include "deleteaction.h"
+#include "commonaction.h"
 #include "../../lib/library/library.h"
 #include "../../lib/library/librarybase.h"
 #include "../../lib/library/libraryview.h"
 #include "../../lib/library/puzzleinfo.h"
-#include "../manager.h"
-#include "../mainwindow.h"
 
 #include <QTimer>
 #include <KActionCollection>
@@ -34,7 +33,8 @@
 //BEGIN Palapeli::DeleteDialog
 
 Palapeli::DeleteDialog::DeleteDialog(Palapeli::Library* mainLibrary)
-	: m_mainLibraryView(new Palapeli::LibraryView(mainLibrary))
+	: KDialog(Palapeli::Actions::dialogParent())
+	, m_mainLibraryView(new Palapeli::LibraryView(mainLibrary))
 {
 	setCaption(i18n("Delete a puzzle from your library"));
 	setButtons(KDialog::Ok | KDialog::Cancel);
@@ -62,7 +62,7 @@ void Palapeli::DeleteDialog::handleOkButton()
 	if (info->identifier.isEmpty())
 		return;
 	//confirm deletion
-	int result = KMessageBox::warningContinueCancel(ppMgr()->window(), i18n("You're about to delete puzzle \"%1\" from your library.", info->name), i18n("Confirm deletion"), KStandardGuiItem::cont(), KStandardGuiItem::cancel(), QLatin1String("confirm-library-deletion"));
+	int result = KMessageBox::warningContinueCancel(Palapeli::Actions::dialogParent(), i18n("You're about to delete puzzle \"%1\" from your library.", info->name), i18n("Confirm deletion"), KStandardGuiItem::cont(), KStandardGuiItem::cancel(), QLatin1String("confirm-library-deletion"));
 	//perform deletion
 	if (result == KMessageBox::Continue)
 		m_mainLibraryView->library()->base()->removeEntry(info->identifier, m_mainLibraryView->library());
@@ -108,7 +108,7 @@ Palapeli::DeleteAction::~DeleteAction()
 
 void Palapeli::DeleteAction::createDialog()
 {
-	m_dialog = new Palapeli::DeleteDialog(ppMgr()->library());
+	m_dialog = new Palapeli::DeleteDialog(Palapeli::standardLibrary());
 	connect(this, SIGNAL(triggered()), m_dialog, SLOT(show()));
 	connect(m_dialog, SIGNAL(hintActionState(bool)), this, SLOT(setEnabled(bool)));
 	m_dialog->checkItemVisibility();

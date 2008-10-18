@@ -192,6 +192,12 @@ QStringList Palapeli::LibraryStandardBase::findEntries() const
 	return identifiers;
 }
 
+Palapeli::Library* Palapeli::standardLibrary()
+{
+	static Palapeli::Library theOneAndOnly(Palapeli::LibraryStandardBase::self());
+	return &theOneAndOnly;
+}
+
 //END Palapeli::LibraryStandardBase
 
 //BEGIN Palapeli::LibraryArchiveBase

@@ -92,8 +92,10 @@ void Palapeli::MainWindowPrivate::setupActions()
 	KStandardGameAction::gameNew(0, "", m_parent->actionCollection());
 	action = new Palapeli::LoadAction(m_parent->actionCollection());
 	connect(m_welcomeWidget, SIGNAL(libraryRequest()), action, SLOT(trigger()));
+	connect(action, SIGNAL(gameLoadRequest(const Palapeli::PuzzleInfo*)), this, SLOT(loadGame(const Palapeli::PuzzleInfo*)));
 	action = new Palapeli::ResetAction(m_parent->actionCollection());
 	connect(ppMgr(), SIGNAL(gameNameChanged(const QString&)), action, SLOT(gameNameWasChanged(const QString&)));
+	connect(action, SIGNAL(reloadGameRequest(const Palapeli::PuzzleInfo*)), this, SLOT(reloadGame(const Palapeli::PuzzleInfo*)));
 	action = new Palapeli::ImportAction(m_parent->actionCollection());
 	connect(m_welcomeWidget, SIGNAL(importRequest()), action, SLOT(trigger()));
 	new Palapeli::ExportAction(m_parent->actionCollection());
@@ -136,6 +138,7 @@ void Palapeli::MainWindowPrivate::setupDialogs()
 	m_createDialog = new Palapeli::CreateDialog;
 	connect(m_parent->actionCollection()->action("game_new"), SIGNAL(triggered()), m_createDialog, SLOT(show()));
 	connect(m_welcomeWidget, SIGNAL(createRequest()), m_createDialog, SLOT(show()));
+	connect(m_createDialog, SIGNAL(gameCreated(const Palapeli::PuzzleInfo*)), this, SLOT(loadGame(const Palapeli::PuzzleInfo*)));
 	//setup Settings UIs
 	m_appearanceUi->setupUi(m_appearanceContainer);
 	m_gameplayUi->setupUi(m_gameplayContainer);
@@ -193,6 +196,16 @@ void Palapeli::MainWindowPrivate::setFullScreen(bool full)
 {
 	m_parent->menuBar()->setVisible(!full);
 	KToggleFullScreenAction::setFullScreen(m_parent, full);
+}
+
+void Palapeli::MainWindowPrivate::loadGame(const Palapeli::PuzzleInfo* info)
+{
+	ppMgr()->loadGame(info); //force reload
+}
+
+void Palapeli::MainWindowPrivate::reloadGame(const Palapeli::PuzzleInfo* info)
+{
+	ppMgr()->loadGame(info, true); //force reload
 }
 
 Palapeli::MainWindow::MainWindow(QWidget* parent)

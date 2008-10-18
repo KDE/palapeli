@@ -37,6 +37,8 @@
 namespace Palapeli
 {
 
+	class PuzzleInfo;
+
 	class MainWindowPrivate : public QObject
 	{
 		Q_OBJECT
@@ -53,6 +55,8 @@ namespace Palapeli
 			void configurationChanged();
 			void configurationFinished();
 			void setFullScreen(bool full);
+			void loadGame(const Palapeli::PuzzleInfo* info);
+			void reloadGame(const Palapeli::PuzzleInfo* info);
 		public:
 			//actions
 			KAction* m_toggleMinimapAct;

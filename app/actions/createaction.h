@@ -26,6 +26,7 @@ namespace Palapeli
 {
 
 	class CreateDialogPrivate;
+	class PuzzleInfo;
 
 	class CreateDialog : public KDialog
 	{
@@ -36,6 +37,8 @@ namespace Palapeli
 		public Q_SLOTS:
 			void handleInput();
 			void handleOkButton();
+		Q_SIGNALS:
+			void gameCreated(const Palapeli::PuzzleInfo* info);
 		private:
 			Palapeli::CreateDialogPrivate* const p;
 	};

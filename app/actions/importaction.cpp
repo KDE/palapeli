@@ -17,11 +17,10 @@
  ***************************************************************************/
 
 #include "importaction.h"
+#include "commonaction.h"
 #include "../../lib/library/library.h"
 #include "../../lib/library/librarybase.h"
 #include "../../lib/library/libraryview.h"
-#include "../mainwindow.h"
-#include "../manager.h"
 
 #include <KActionCollection>
 #include <KFileDialog>
@@ -31,14 +30,14 @@
 //BEGIN Palapeli::ImportDialog
 
 Palapeli::ImportDialog::ImportDialog(const KUrl& url)
-	: m_archiveBase(new Palapeli::LibraryArchiveBase(url))
+	: KDialog(Palapeli::Actions::dialogParent())
+	, m_archiveBase(new Palapeli::LibraryArchiveBase(url))
 	, m_archiveLibrary(0) //will be initialized later
 	, m_archiveLibraryView(0)
 {
 	if (!isArchiveValid())
 	{
-		//Note: ppMgr()->window() is 0 when this ImportDialog is invoked through the CLI option "--import" - This is not a problem for KMessageBox::error, though. But you should be sure to remember this case when expanding this code.
-		KMessageBox::error(ppMgr()->window(), i18n("This puzzle archive is unreadable. It might be corrupted."));
+		KMessageBox::error(Palapeli::Actions::dialogParent(), i18n("This puzzle archive is unreadable. It might be corrupted."));
 		return;
 	}
 	m_archiveLibrary = new Palapeli::Library(m_archiveBase);
@@ -89,7 +88,7 @@ Palapeli::ImportAction::ImportAction(QObject* parent)
 void Palapeli::ImportAction::handleTrigger()
 {
 	//get source URL
-	const KUrl source = KFileDialog::getOpenUrl(KUrl("kfiledialog:///palapeli"), "*.pala|" + i18nc("Used as filter description in a file dialog.", "Palapeli Puzzle (*.pala)"), ppMgr()->window(), i18nc("Used as caption for file dialog.", "Select puzzle archive - Palapeli"));
+	const KUrl source = KFileDialog::getOpenUrl(KUrl("kfiledialog:///palapeli"), "*.pala|" + i18nc("Used as filter description in a file dialog.", "Palapeli Puzzle (*.pala)"), Palapeli::Actions::dialogParent(), i18nc("Used as caption for file dialog.", "Select puzzle archive - Palapeli"));
 	if (source.isEmpty()) //process aborted by user
 		return;
 	//create a dialog which confirms the action

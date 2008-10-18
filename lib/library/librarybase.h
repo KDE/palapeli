@@ -73,6 +73,8 @@ namespace Palapeli
 			KStandardDirs* m_dirs;
 	};
 
+	PALAPELIBASE_EXPORT Palapeli::Library* standardLibrary();
+
 	//This base reads a puzzle archive. If the archive is corrupted or does not exist, this base is initialized in an empty state, and can be filled with a puzzle from another library. An existing puzzle will be overwritten when inserting another puzzle.
 	class PALAPELIBASE_EXPORT LibraryArchiveBase : public LibraryBase
 	{

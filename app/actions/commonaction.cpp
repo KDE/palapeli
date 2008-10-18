@@ -16,28 +16,27 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_RESETACTION_H
-#define PALAPELI_RESETACTION_H
+#include "commonaction.h"
 
-#include <KAction>
+QWidget* theDialogParent = 0;
+Palapeli::InfoGetter theInfoGetter = 0;
 
-namespace Palapeli
+QWidget* Palapeli::Actions::dialogParent()
 {
-
-	class PuzzleInfo;
-
-	class ResetAction : public KAction
-	{
-		Q_OBJECT
-		public:
-			ResetAction(QObject* parent = 0);
-		public Q_SLOTS:
-			void handleTrigger();
-			void gameNameWasChanged(const QString& name);
-		Q_SIGNALS:
-			void reloadGameRequest(const Palapeli::PuzzleInfo* info);
-	};
-
+	return theDialogParent;
 }
 
-#endif // PALAPELI_RESETACTION_H
+void Palapeli::Actions::setDialogParent(QWidget* dialogParent)
+{
+	theDialogParent = dialogParent;
+}
+
+const Palapeli::PuzzleInfo* Palapeli::Actions::puzzleInfo()
+{
+	return theInfoGetter ? theInfoGetter() : 0;
+}
+
+void Palapeli::Actions::setInfoGetter(Palapeli::InfoGetter infoGetter)
+{
+	theInfoGetter = infoGetter;
+}

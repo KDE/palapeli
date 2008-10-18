@@ -11,6 +11,7 @@ set(palapeli_SRCS
 	preview.cpp
 	textprogressbar.cpp
 	welcomewidget.cpp
+	actions/commonaction.cpp
 	actions/createaction.cpp
 	actions/deleteaction.cpp
 	actions/exportaction.cpp

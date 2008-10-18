@@ -17,9 +17,10 @@
  ***************************************************************************/
 
 #include "loadaction.h"
+#include "commonaction.h"
 #include "../../lib/library/library.h"
+#include "../../lib/library/librarybase.h"
 #include "../../lib/library/libraryview.h"
-#include "../manager.h"
 
 #include <KActionCollection>
 #include <KIcon>
@@ -29,7 +30,8 @@
 //BEGIN Palapeli::LoadDialog
 
 Palapeli::LoadDialog::LoadDialog(Palapeli::Library* mainLibrary)
-	: m_mainLibraryView(new Palapeli::LibraryView(mainLibrary))
+	: KDialog(Palapeli::Actions::dialogParent())
+	, m_mainLibraryView(new Palapeli::LibraryView(mainLibrary))
 {
 	setCaption(i18n("Load a puzzle from the library"));
 	setButtons(KDialog::Ok | KDialog::Cancel);
@@ -48,7 +50,7 @@ void Palapeli::LoadDialog::handleOkButton()
 {
 	Palapeli::PuzzleInfo* info = m_mainLibraryView->puzzleInfo();
 	if (info)
-		ppMgr()->loadGame(info);
+		emit gameLoadRequest(info);
 	hide();
 }
 
@@ -87,7 +89,10 @@ Palapeli::LoadAction::~LoadAction()
 void Palapeli::LoadAction::handleTrigger()
 {
 	if (!m_dialog)
-		m_dialog = new Palapeli::LoadDialog(ppMgr()->library());
+	{
+		m_dialog = new Palapeli::LoadDialog(Palapeli::standardLibrary());
+		connect(m_dialog, SIGNAL(gameLoadRequest(const Palapeli::PuzzleInfo*)), this, SIGNAL(gameLoadRequest(const Palapeli::PuzzleInfo*)));
+	}
 	m_dialog->show();
 }
 

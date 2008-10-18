@@ -44,8 +44,8 @@ namespace Palapeli
 			bool init();
 
 			const PuzzleInfo* puzzleInfo() const;
+			static const PuzzleInfo* staticPuzzleInfo();
 			//other objects (mostly user interface)
-			Library* library() const;
 			Minimap* minimap() const;
 			Preview* preview() const;
 			MainWindow* window() const;

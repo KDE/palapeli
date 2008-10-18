@@ -27,6 +27,7 @@
 #include "../lib/library/librarybase.h"
 #include "../lib/library/puzzleinfo.h"
 #include "../lib/gameloader.h"
+#include "actions/commonaction.h"
 #include "actions/importaction.h"
 #include "mainwindow.h"
 #include "minimap.h"
@@ -47,7 +48,6 @@ namespace Palapeli
 		~ManagerPrivate();
 
 		Manager* m_manager;
-		Library* m_library;
 		GameLoader* m_loader;
 		//game and UI objects
 		Minimap* m_minimap;
@@ -61,7 +61,6 @@ namespace Palapeli
 
 Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	: m_manager(manager)
-	, m_library(0)
 	, m_loader(0)
 	, m_minimap(0)
 	, m_preview(0)
@@ -72,7 +71,6 @@ Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 
 void Palapeli::ManagerPrivate::init()
 {
-	m_library = new Palapeli::Library(Palapeli::LibraryStandardBase::self());
 	m_minimap = new Palapeli::Minimap;
 	m_preview = new Palapeli::Preview;
 	m_window = new Palapeli::MainWindow;
@@ -86,7 +84,6 @@ void Palapeli::ManagerPrivate::init()
 
 Palapeli::ManagerPrivate::~ManagerPrivate()
 {
-	delete m_library;
 	delete m_minimap;
 	delete m_preview;
 	delete m_window; //attention: ppEngine()->view() might be deleted here
@@ -133,6 +130,8 @@ bool Palapeli::Manager::init()
 	//Now, we're sure that we need the complete GUI.
 	p->init();
 	p->m_window->show();
+	Palapeli::Actions::setDialogParent(p->m_window);
+	Palapeli::Actions::setInfoGetter(&Palapeli::Manager::staticPuzzleInfo);
 	//load game if requested
 	if (args->count() != 0)
 	{
@@ -161,9 +160,9 @@ const Palapeli::PuzzleInfo* Palapeli::Manager::puzzleInfo() const
 	return p->m_loader ? p->m_loader->info() : 0;
 }
 
-Palapeli::Library* Palapeli::Manager::library() const
+const Palapeli::PuzzleInfo* Palapeli::Manager::staticPuzzleInfo()
 {
-	return p->m_library;
+	return ppMgr()->puzzleInfo();
 }
 
 Palapeli::Minimap* Palapeli::Manager::minimap() const
@@ -191,15 +190,16 @@ void Palapeli::Manager::loadGame(const Palapeli::PuzzleInfo* info, bool forceRel
 		if (p->m_loader->info()->identifier == info->identifier)
 			return;
 	}
-	//create loader
-	delete p->m_loader;
-	p->m_loader = new Palapeli::GameLoader(info, takeLibraryOwnership);
-	if (!p->m_loader->isValid())
+	//create loader - note that the old loader cannot be safely deleted before the new one has been created because the new one could (for forceReload == true) use the same PuzzleInfo object; the new loader has to be fully constructed to be sure that it has created its own puzzle info copy
+	Palapeli::GameLoader* loader = new Palapeli::GameLoader(info, takeLibraryOwnership);
+	if (!loader->isValid())
 		return;
+	delete p->m_loader; //note also that for the above reason you may not use info anymore; use loader->info() instead
+	p->m_loader = loader;
 	connect(p->m_loader, SIGNAL(finished()), this, SLOT(finishGameLoading()));
 	//update GUI
 	p->m_window->reportPuzzleProgress(0, 0, i18n("Loading puzzle..."));
-	p->m_preview->setImage(info->image);
+	p->m_preview->setImage(loader->info()->image);
 	emit interactionModeChanged(false);
 }
 

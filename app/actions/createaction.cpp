@@ -17,13 +17,13 @@
  ***************************************************************************/
 
 #include "createaction.h"
+#include "commonaction.h"
 #include "../../lib/library/library.h"
 #include "../../lib/library/librarybase.h"
 #include "../../lib/library/puzzleinfo.h"
 #include "../../lib/patterns/pattern.h"
 #include "../../lib/patterns/pattern-configuration.h"
 #include "../../lib/patterns/pattern-trader.h"
-#include "../manager.h"
 
 #include <QComboBox>
 #include <QFormLayout>
@@ -118,7 +118,8 @@ Palapeli::CreateDialogPrivate::CreateDialogPrivate()
 //BEGIN Palapeli::CreateDialog
 
 Palapeli::CreateDialog::CreateDialog()
-	: p(new Palapeli::CreateDialogPrivate)
+	: KDialog(Palapeli::Actions::dialogParent())
+	, p(new Palapeli::CreateDialogPrivate)
 {
 	setCaption(i18n("Create a puzzle"));
 	setButtons(KDialog::Ok | KDialog::Cancel);
@@ -158,7 +159,7 @@ void Palapeli::CreateDialog::handleOkButton()
 		QFile imageFile(imageUrl.path());
 		if (!imageFile.copy(imagePath))
 		{
-			KMessageBox::error(0, i18n("Image could not be copied to the puzzle library."));
+			KMessageBox::error(Palapeli::Actions::dialogParent(), i18n("Image could not be copied to the puzzle library."));
 			return;
 		}
 	}
@@ -166,7 +167,7 @@ void Palapeli::CreateDialog::handleOkButton()
 	{
 		if (!KIO::NetAccess::download(imageUrl, imagePath, 0))
 		{
-			KMessageBox::error(0, KIO::NetAccess::lastErrorString());
+			KMessageBox::error(Palapeli::Actions::dialogParent(), KIO::NetAccess::lastErrorString());
 			return;
 		}
 	}
@@ -191,8 +192,7 @@ void Palapeli::CreateDialog::handleOkButton()
 	//config file done - report to LibraryBase about new item
 	config.sync();
 	base->reportNewEntry(identifier);
-	if (base == Palapeli::LibraryStandardBase::self())
-		ppMgr()->loadGame(ppMgr()->library()->infoForPuzzle(identifier));
+	emit gameCreated(Palapeli::standardLibrary()->infoForPuzzle(identifier));
 }
 
 //END Palapeli::CreateDialog

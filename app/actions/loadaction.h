@@ -27,6 +27,7 @@ namespace Palapeli
 
 	class Library;
 	class LibraryView;
+	class PuzzleInfo;
 
 	class LoadDialog : public KDialog
 	{
@@ -36,6 +37,8 @@ namespace Palapeli
 			~LoadDialog();
 		public Q_SLOTS:
 			void handleOkButton();
+		Q_SIGNALS:
+			void gameLoadRequest(const Palapeli::PuzzleInfo* info);
 		protected:
 			virtual void showEvent(QShowEvent* event);
 		private:
@@ -50,6 +53,8 @@ namespace Palapeli
 			~LoadAction();
 		public Q_SLOTS:
 			void handleTrigger();
+		Q_SIGNALS:
+			void gameLoadRequest(const Palapeli::PuzzleInfo* info);
 		private:
 			Palapeli::LoadDialog* m_dialog;
 	};

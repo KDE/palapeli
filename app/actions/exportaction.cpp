@@ -17,12 +17,11 @@
  ***************************************************************************/
 
 #include "exportaction.h"
+#include "commonaction.h"
 #include "../../lib/library/library.h"
 #include "../../lib/library/librarybase.h"
 #include "../../lib/library/libraryview.h"
 #include "../../lib/library/puzzleinfo.h"
-#include "../mainwindow.h"
-#include "../manager.h"
 
 #include <KActionCollection>
 #include <KFileDialog>
@@ -32,7 +31,8 @@
 //BEGIN Palapeli::ExportDialog
 
 Palapeli::ExportDialog::ExportDialog(Palapeli::Library* mainLibrary)
-	: m_mainLibraryView(new Palapeli::LibraryView(mainLibrary))
+	: KDialog(Palapeli::Actions::dialogParent())
+	, m_mainLibraryView(new Palapeli::LibraryView(mainLibrary))
 {
 	setCaption(i18n("Export a puzzle from your library"));
 	setButtons(KDialog::Ok | KDialog::Cancel);
@@ -57,7 +57,7 @@ void Palapeli::ExportDialog::handleOkButton()
 	if (info->identifier.isEmpty())
 		return;
 	//get target URL
-	const KUrl target = KFileDialog::getSaveUrl(KUrl("kfiledialog:///palapeli"), "*.pala|" + i18nc("Used as filter description in a file dialog.", "Palapeli Puzzle (*.pala)"), ppMgr()->window(), i18nc("Used as caption for file dialog.", "Choose file to export selected puzzle to - Palapeli"));
+	const KUrl target = KFileDialog::getSaveUrl(KUrl("kfiledialog:///palapeli"), "*.pala|" + i18nc("Used as filter description in a file dialog.", "Palapeli Puzzle (*.pala)"), Palapeli::Actions::dialogParent(), i18nc("Used as caption for file dialog.", "Choose file to export selected puzzle to - Palapeli"));
 	if (target.isEmpty()) //process aborted by user
 		return;
 	//export to given target
@@ -100,7 +100,7 @@ Palapeli::ExportAction::~ExportAction()
 void Palapeli::ExportAction::handleTrigger()
 {
 	if (!m_dialog)
-		m_dialog = new Palapeli::ExportDialog(ppMgr()->library());
+		m_dialog = new Palapeli::ExportDialog(Palapeli::standardLibrary());
 	m_dialog->show();
 }
 
