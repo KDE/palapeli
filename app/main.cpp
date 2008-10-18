@@ -15,28 +15,22 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program; if not, write to the Free Software
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- ***************************************************************************/
+***************************************************************************/
 
+#include "main.h"
 #include "manager.h"
 
 #include <ctime>
-#include <KAboutData>
 #include <KApplication>
 #include <KCmdLineArgs>
 #include <KGlobal>
 #include <KIcon>
 #include <KLocale>
-#include <KLocalizedString>
-
-//FIXME: The viewport is not adjusted correctly when a game is loaded for the first time.
 
 int main(int argc, char** argv)
 {
 	qsrand(time(0));
-
-	KAboutData about("palapeli", "palapeli", ki18nc("The application's name", "Palapeli"), "0.3+", ki18n("A jigsaw puzzle game"), KAboutData::License_GPL, ki18n("(c) 2008, the Palapeli team"));
-	about.addAuthor(ki18n("Felix Lemke"), KLocalizedString(), "lemke.felix@ages-skripte.org");
-	about.addAuthor(ki18n("Stefan Majewsky"), ki18n("Maintainer"), "majewsky@gmx.net");
+	KAboutData about = Palapeli::aboutData();
 	KCmdLineArgs::init(argc, argv, &about);
 
 	KCmdLineOptions options;
