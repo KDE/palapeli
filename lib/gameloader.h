@@ -26,6 +26,7 @@
 namespace Palapeli
 {
 
+	class Engine;
 	class GameLoaderPrivate;
 	class Library;
 	class PuzzleInfo;
@@ -34,7 +35,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			GameLoader(const Palapeli::PuzzleInfo* info, bool takeLibraryOwnership = false); //true means: library will be destroyed in destructor (used with libraries on LibraryArchiveBases)
+			GameLoader(Palapeli::Engine* engine, const Palapeli::PuzzleInfo* info, bool takeLibraryOwnership = false); //true means: library will be destroyed in destructor (used with libraries on LibraryArchiveBases)
 			~GameLoader();
 
 			const Palapeli::PuzzleInfo* info() const;

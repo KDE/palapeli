@@ -18,7 +18,6 @@
 
 #include "gameloader.h"
 #include "gameloader_p.h"
-#include "core/engine.h"
 #include "core/piece.h"
 #include "core/piecerelation.h"
 #include "core/view.h"
@@ -49,10 +48,11 @@ namespace Palapeli
 
 //BEGIN Palapeli::GameLoaderPrivate
 
-Palapeli::GameLoaderPrivate::GameLoaderPrivate(const Palapeli::PuzzleInfo* info, bool takeLibraryOwnership, Palapeli::GameLoader* parent)
+Palapeli::GameLoaderPrivate::GameLoaderPrivate(Palapeli::Engine* engine, const Palapeli::PuzzleInfo* info, bool takeLibraryOwnership, Palapeli::GameLoader* parent)
 	: m_isValid(true) //contains the "return value" of this constructor which can later be read through Palapeli::GameLoader::isValid
 	, m_libraryOwnership(takeLibraryOwnership)
 	, m_info(*info)
+	, m_engine(engine)
 {
 	//check validity of input
 	if (info->image.isNull())
@@ -88,10 +88,10 @@ Palapeli::GameLoaderPrivate::GameLoaderPrivate(const Palapeli::PuzzleInfo* info,
 	for (int i = 0; piecesGroup.hasKey(Palapeli::Strings::PositionKey.arg(i)); ++i)
 		pieceBasePositions << piecesGroup.readEntry(Palapeli::Strings::PositionKey.arg(i), QPointF());
 	//configure engine
-	ppEngine()->clear();
-	ppEngine()->view()->useScene(false); //disable the scene until the pieces have been built
+	m_engine->clear();
+	m_engine->view()->useScene(false); //disable the scene until the pieces have been built
 	QRectF sceneRect(QPointF(0.0, 0.0), Settings::sceneSizeFactor() * info->image.size());
-	ppEngine()->view()->realScene()->setSceneRect(sceneRect);
+	m_engine->view()->realScene()->setSceneRect(sceneRect);
 	//instantiate a pattern
 	Palapeli::Pattern* pattern = patternConfiguration->createPattern();
 	if (!pieceBasePositions.isEmpty())
@@ -112,29 +112,29 @@ Palapeli::GameLoaderPrivate::GameLoaderPrivate(const Palapeli::PuzzleInfo* info,
 
 void Palapeli::GameLoaderPrivate::addPiece(const QImage& baseImage, const QImage& mask, const QRectF& positionInImage, const QPointF& sceneBasePosition)
 {
-	Palapeli::Piece* piece = Palapeli::Piece::fromPixmapPair(QPixmap::fromImage(baseImage), QPixmap::fromImage(mask), positionInImage);
-	ppEngine()->addPiece(piece, sceneBasePosition);
+	Palapeli::Piece* piece = Palapeli::Piece::fromPixmapPair(QPixmap::fromImage(baseImage), QPixmap::fromImage(mask), positionInImage, m_engine);
+	m_engine->addPiece(piece, sceneBasePosition);
 }
 
 void Palapeli::GameLoaderPrivate::addPiece(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition)
 {
-	Palapeli::Piece* piece = new Palapeli::Piece(QPixmap::fromImage(image), positionInImage);
-	ppEngine()->addPiece(piece, sceneBasePosition);
+	Palapeli::Piece* piece = new Palapeli::Piece(QPixmap::fromImage(image), positionInImage, m_engine);
+	m_engine->addPiece(piece, sceneBasePosition);
 }
 
 void Palapeli::GameLoaderPrivate::addRelation(int piece1Id, int piece2Id)
 {
-	ppEngine()->addRelation(piece1Id, piece2Id);
+	m_engine->addRelation(piece1Id, piece2Id);
 }
 
 //END Palapeli::GameLoaderPrivate
 
 //BEGIN Palapeli::GameLoader
 
-Palapeli::GameLoader::GameLoader(const Palapeli::PuzzleInfo* info, bool takeLibraryOwnership)
-	: p(new Palapeli::GameLoaderPrivate(info, takeLibraryOwnership, this))
+Palapeli::GameLoader::GameLoader(Palapeli::Engine* engine, const Palapeli::PuzzleInfo* info, bool takeLibraryOwnership)
+	: p(new Palapeli::GameLoaderPrivate(engine, info, takeLibraryOwnership, this))
 {
-	QObject::connect(ppEngine(), SIGNAL(pieceMoved()), this, SLOT(save()));
+	QObject::connect(engine, SIGNAL(pieceMoved()), this, SLOT(save()));
 }
 
 Palapeli::GameLoader::~GameLoader()
@@ -157,9 +157,9 @@ bool Palapeli::GameLoader::isValid() const
 
 void Palapeli::GameLoader::finishLoading()
 {
-	ppEngine()->searchConnections();
+	p->m_engine->searchConnections();
 	emit finished();
-	ppEngine()->view()->useScene(true);
+	p->m_engine->view()->useScene(true);
 }
 
 void Palapeli::GameLoader::save()
@@ -172,13 +172,12 @@ void Palapeli::GameLoader::save()
 	KConfig stateConfig(stateConfigPath);
 	//write piece positions
 	KConfigGroup piecesGroup(&stateConfig, Palapeli::Strings::PiecesGroupKey);
-	Palapeli::Engine* engine = ppEngine();
-	for (int i = 0; i < engine->pieceCount(); ++i)
-		piecesGroup.writeEntry(Palapeli::Strings::PositionKey.arg(i), engine->pieceAt(i)->part()->basePosition());
+	for (int i = 0; i < p->m_engine->pieceCount(); ++i)
+		piecesGroup.writeEntry(Palapeli::Strings::PositionKey.arg(i), p->m_engine->pieceAt(i)->part()->basePosition());
 	//write relation states
 	KConfigGroup relationsGroup(&stateConfig, Palapeli::Strings::RelationsGroupKey);
-	for (int i = 0; i < engine->relationCount(); ++i)
-		relationsGroup.writeEntry(QString::number(i), engine->relationAt(i).combined());
+	for (int i = 0; i < p->m_engine->relationCount(); ++i)
+		relationsGroup.writeEntry(QString::number(i), p->m_engine->relationAt(i).combined());
 }
 
 //END Palapeli::GameLoader

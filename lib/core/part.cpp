@@ -22,8 +22,9 @@
 #include "piece.h"
 #include "view.h"
 
-Palapeli::Part::Part(Palapeli::Piece* piece)
+Palapeli::Part::Part(Palapeli::Piece* piece, Palapeli::Engine* engine)
 	: m_basePosition(piece->pos() - piece->positionInImage())
+	, m_engine(engine)
 {
 	addPiece(piece);
 }
@@ -55,6 +56,11 @@ void Palapeli::Part::setBasePosition(const QPointF& basePosition)
 Palapeli::Piece* Palapeli::Part::pieceAt(int index) const
 {
 	return m_pieces[index];
+}
+
+Palapeli::Engine* Palapeli::Part::engine() const
+{
+	return m_engine;
 }
 
 void Palapeli::Part::addPiece(Palapeli::Piece* piece)
@@ -90,7 +96,7 @@ void Palapeli::Part::update()
 	foreach (Palapeli::Piece* piece, m_pieces)
 	{
 		piece->setPos(m_basePosition + piece->positionInImage());
-		ppEngine()->view()->moveToTop(piece);
-		emit ppEngine()->piecePositionChanged();
+		m_engine->view()->moveToTop(piece);
+		emit m_engine->piecePositionChanged();
 	}
 }

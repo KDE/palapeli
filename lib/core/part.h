@@ -28,18 +28,20 @@
 namespace Palapeli
 {
 
+	class Engine;
 	class Piece;
 
 	class PALAPELIBASE_EXPORT Part
 	{
 		public:
-			Part(Piece* piece);
+			Part(Piece* piece, Engine* engine);
 			~Part();
 
 			QPointF basePosition() const;
 			void setBasePosition(const QPointF& basePosition);
 			int pieceCount() const;
 			Piece* pieceAt(int index) const;
+			Engine* engine() const;
 
 			void addPiece(Piece* piece);
 			void removePiece(Piece* piece);
@@ -49,6 +51,7 @@ namespace Palapeli
 		private:
 			QList<Piece*> m_pieces;
 			QPointF m_basePosition; //the point which resembles to (0,0) in image coordinates
+			Engine* m_engine;
 	};
 
 }

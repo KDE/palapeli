@@ -21,7 +21,7 @@
 #define PALAPELI_MAINWINDOW_PRIVATE_H
 
 #include "mainwindow.h"
-#include "actions/createaction.h"
+#include "../lib/actions/createaction.h"
 #include "textprogressbar.h"
 #include "ui_settings_appearance.h"
 #include "ui_settings_gameplay.h"

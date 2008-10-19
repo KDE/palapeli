@@ -29,6 +29,7 @@ class KUrl;
 namespace Palapeli
 {
 
+	class Engine;
 	class Library;
 	class MainWindow;
 	class ManagerPrivate;
@@ -43,6 +44,7 @@ namespace Palapeli
 			static Manager* self();
 			bool init();
 
+			Engine* engine() const;
 			const PuzzleInfo* puzzleInfo() const;
 			static const PuzzleInfo* staticPuzzleInfo();
 			//other objects (mostly user interface)

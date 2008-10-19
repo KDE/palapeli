@@ -27,13 +27,14 @@
 namespace Palapeli
 {
 
+	class Engine;
 	class Part;
 
 	class PALAPELIBASE_EXPORT Piece : public QGraphicsPixmapItem
 	{
 		public:
-			Piece(const QPixmap& pixmap, const QRectF& positionInImage);
-			static Piece* fromPixmapPair(const QPixmap& pixmap, const QPixmap& mask, const QRectF& positionInImage);
+			Piece(const QPixmap& pixmap, const QRectF& positionInImage, Engine* engine);
+			static Piece* fromPixmapPair(const QPixmap& pixmap, const QPixmap& mask, const QRectF& positionInImage, Engine* engine);
 
 			QPointF positionInImage() const;
 			QSizeF size() const;
@@ -47,6 +48,7 @@ namespace Palapeli
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 		private:
+			Engine* m_engine;
 			Part* m_part;
 			QRectF m_positionInImage;
 

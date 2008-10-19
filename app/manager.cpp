@@ -27,8 +27,8 @@
 #include "../lib/library/librarybase.h"
 #include "../lib/library/puzzleinfo.h"
 #include "../lib/gameloader.h"
-#include "actions/commonaction.h"
-#include "actions/importaction.h"
+#include "../lib/actions/commonaction.h"
+#include "../lib/actions/importaction.h"
 #include "mainwindow.h"
 #include "minimap.h"
 #include "preview.h"
@@ -48,6 +48,7 @@ namespace Palapeli
 		~ManagerPrivate();
 
 		Manager* m_manager;
+		Engine* m_engine;
 		GameLoader* m_loader;
 		//game and UI objects
 		Minimap* m_minimap;
@@ -61,6 +62,7 @@ namespace Palapeli
 
 Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	: m_manager(manager)
+	, m_engine(new Palapeli::Engine)
 	, m_loader(0)
 	, m_minimap(0)
 	, m_preview(0)
@@ -77,16 +79,17 @@ void Palapeli::ManagerPrivate::init()
 	//main window is deleted by Palapeli::ManagerPrivate::~ManagerPrivate because there are widely-spread references to the view, and the view will be deleted by m_window
 	m_window->setAttribute(Qt::WA_DeleteOnClose, false);
 	//make some connections
-	QObject::connect(ppEngine(), SIGNAL(piecePositionChanged()), m_minimap, SLOT(update()));
-	QObject::connect(ppEngine(), SIGNAL(relationsCombined()), m_manager, SLOT(updateProgress()));
-	QObject::connect(ppEngine(), SIGNAL(viewportMoved()), m_minimap, SLOT(update()));
+	QObject::connect(m_engine, SIGNAL(piecePositionChanged()), m_minimap, SLOT(update()));
+	QObject::connect(m_engine, SIGNAL(relationsCombined()), m_manager, SLOT(updateProgress()));
+	QObject::connect(m_engine, SIGNAL(viewportMoved()), m_minimap, SLOT(update()));
 }
 
 Palapeli::ManagerPrivate::~ManagerPrivate()
 {
+	delete m_engine;
 	delete m_minimap;
 	delete m_preview;
-	delete m_window; //attention: ppEngine()->view() might be deleted here
+	delete m_window; //attention: m_engine->view() might be deleted here
 }
 
 //END Palapeli::ManagerPrivate
@@ -165,6 +168,11 @@ const Palapeli::PuzzleInfo* Palapeli::Manager::staticPuzzleInfo()
 	return ppMgr()->puzzleInfo();
 }
 
+Palapeli::Engine* Palapeli::Manager::engine() const
+{
+	return p->m_engine;
+}
+
 Palapeli::Minimap* Palapeli::Manager::minimap() const
 {
 	return p->m_minimap;
@@ -191,7 +199,7 @@ void Palapeli::Manager::loadGame(const Palapeli::PuzzleInfo* info, bool forceRel
 			return;
 	}
 	//create loader - note that the old loader cannot be safely deleted before the new one has been created because the new one could (for forceReload == true) use the same PuzzleInfo object; the new loader has to be fully constructed to be sure that it has created its own puzzle info copy
-	Palapeli::GameLoader* loader = new Palapeli::GameLoader(info, takeLibraryOwnership);
+	Palapeli::GameLoader* loader = new Palapeli::GameLoader(p->m_engine, info, takeLibraryOwnership);
 	if (!loader->isValid())
 		return;
 	delete p->m_loader; //note also that for the above reason you may not use info anymore; use loader->info() instead
@@ -206,24 +214,24 @@ void Palapeli::Manager::loadGame(const Palapeli::PuzzleInfo* info, bool forceRel
 void Palapeli::Manager::finishGameLoading()
 {
 	//ensure that all pieces are inside the sceneRect (useful if user has changed the scene size after saving this game)
-	const QRectF sceneRect = ppEngine()->view()->realScene()->sceneRect();
-	for (int i = 0; i < ppEngine()->pieceCount(); ++i)
+	const QRectF sceneRect = p->m_engine->view()->realScene()->sceneRect();
+	for (int i = 0; i < p->m_engine->pieceCount(); ++i)
 	{
-		Palapeli::Piece* piece = ppEngine()->pieceAt(i);
+		Palapeli::Piece* piece = p->m_engine->pieceAt(i);
 		const QRectF boundingRect = piece->sceneBoundingRect();
 		if (!boundingRect.contains(sceneRect))
 			piece->part()->move(piece->part()->basePosition()); //let's the part re-apply all movement constraints
 	}
 	//propagate changes
 	p->m_minimap->update();
-	p->m_window->reportPuzzleProgress(ppEngine()->pieceCount(), ppEngine()->partCount());
+	p->m_window->reportPuzzleProgress(p->m_engine->pieceCount(), p->m_engine->partCount());
 	emit interactionModeChanged(true);
 	emit gameNameChanged(p->m_loader->info()->name);
 }
 
 void Palapeli::Manager::updateProgress()
 {
-	p->m_window->reportPuzzleProgress(ppEngine()->pieceCount(), ppEngine()->partCount());
+	p->m_window->reportPuzzleProgress(p->m_engine->pieceCount(), p->m_engine->partCount());
 }
 
 //END Palapeli::Manager

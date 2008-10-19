@@ -47,12 +47,6 @@ Palapeli::EnginePrivate::EnginePrivate()
 {
 }
 
-Palapeli::Engine* Palapeli::Engine::self()
-{
-	static Palapeli::Engine theOneAndOnly;
-	return &theOneAndOnly;
-}
-
 Palapeli::Engine::Engine()
 	: p(new Palapeli::EnginePrivate)
 {
@@ -109,7 +103,7 @@ Palapeli::View* Palapeli::Engine::view() const
 void Palapeli::Engine::addPiece(Palapeli::Piece* piece, const QPointF& sceneBasePosition)
 {
 	p->m_pieces << piece;
-	p->m_parts << new Palapeli::Part(piece);
+	p->m_parts << new Palapeli::Part(piece, this);
 	piece->part()->setBasePosition(sceneBasePosition);
 	p->m_view->realScene()->addItem(piece);
 }

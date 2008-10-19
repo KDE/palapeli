@@ -37,7 +37,8 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			static Engine* self();
+			Engine();
+			~Engine();
 
 			int partCount() const;
 			Part* partAt(int index) const;
@@ -61,16 +62,11 @@ namespace Palapeli
 			friend class Part;
 			friend class Piece;
 		private:
-			Engine();
-			~Engine();
 			Q_DISABLE_COPY(Engine)
 
 			EnginePrivate* const p;
 	};
 
 }
-
-//abbreviation for Palapeli::Engine::self()
-inline Palapeli::Engine* ppEngine() { return Palapeli::Engine::self(); }
 
 #endif // PALAPELI_ENGINE_H

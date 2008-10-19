@@ -20,6 +20,7 @@
 #define PALAPELI_GAMELOADER_PH
 
 #include "gameloader.h"
+#include "core/engine.h"
 #include "library/puzzleinfo.h"
 
 #include <QImage>
@@ -34,7 +35,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			GameLoaderPrivate(const Palapeli::PuzzleInfo* info, bool takeLibraryOwnership, Palapeli::GameLoader* parent);
+			GameLoaderPrivate(Palapeli::Engine* engine, const Palapeli::PuzzleInfo* info, bool takeLibraryOwnership, Palapeli::GameLoader* parent);
 		public Q_SLOTS:
 			void addPiece(const QImage& baseImage, const QImage& mask, const QRectF& positionInImage, const QPointF& sceneBasePosition);
 			void addPiece(const QImage& image, const QRectF& positionInImage, const QPointF& sceneBasePosition);
@@ -42,6 +43,7 @@ namespace Palapeli
 		public:
 			bool m_isValid, m_libraryOwnership;
 			Palapeli::PuzzleInfo m_info;
+			Palapeli::Engine* m_engine;
 	};
 
 }

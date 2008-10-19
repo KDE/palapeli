@@ -79,7 +79,7 @@ void Palapeli::PieceRelation::insert(Palapeli::Part* target, Palapeli::Part* sou
 		source->removePiece(piece);
 		target->addPiece(piece);
 	}
-	ppEngine()->removePart(source);
+	source->engine()->removePart(source);
 	target->update(); //adapt positions of added pieces
 	delete source;
 }

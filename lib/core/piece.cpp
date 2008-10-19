@@ -25,8 +25,9 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 
-Palapeli::Piece::Piece(const QPixmap& pixmap, const QRectF& positionInImage)
+Palapeli::Piece::Piece(const QPixmap& pixmap, const QRectF& positionInImage, Palapeli::Engine* engine)
 	: QGraphicsPixmapItem(pixmap)
+	, m_engine(engine)
 	, m_part(0)
 	, m_positionInImage(positionInImage)
 	, m_moving(false)
@@ -35,7 +36,7 @@ Palapeli::Piece::Piece(const QPixmap& pixmap, const QRectF& positionInImage)
 	setOffset(0.0, 0.0);
 }
 
-Palapeli::Piece* Palapeli::Piece::fromPixmapPair(const QPixmap& pixmap, const QPixmap& mask, const QRectF& positionInImage)
+Palapeli::Piece* Palapeli::Piece::fromPixmapPair(const QPixmap& pixmap, const QPixmap& mask, const QRectF& positionInImage, Palapeli::Engine* engine)
 {
 	//return new Palapeli::Piece(pixmap, positionInImage);
 	QPixmap compositePixmap(mask); //need a non-const QPixmap
@@ -43,7 +44,7 @@ Palapeli::Piece* Palapeli::Piece::fromPixmapPair(const QPixmap& pixmap, const QP
 	painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
 	painter.drawPixmap(QPoint(0, 0), pixmap);
 	painter.end();
-	return new Palapeli::Piece(compositePixmap, positionInImage);
+	return new Palapeli::Piece(compositePixmap, positionInImage, engine);
 }
 
 QPointF Palapeli::Piece::positionInImage() const
@@ -95,7 +96,7 @@ void Palapeli::Piece::mouseReleaseEvent(QGraphicsSceneMouseEvent*)
 {
 	if (m_part && m_moving)
 	{
-		emit ppEngine()->pieceMoved();
+		emit m_engine->pieceMoved();
 		m_moving = false;
 	}
 }
