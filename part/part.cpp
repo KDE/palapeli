@@ -30,12 +30,6 @@
 #include <KLocalizedString>
 #include <KPluginFactory>
 
-#include <KDebug>
-
-//TODO: reset action
-//TODO: slot which emits setWindowCaption(const QString&) and is triggered by completed()
-//FIXME: test whether the singleton Palapeli::Engine is a problem for multiple KParts
-
 K_PLUGIN_FACTORY(PalapeliPartFactory, registerPlugin<Palapeli::KPart>();)
 K_EXPORT_PLUGIN(PalapeliPartFactory(Palapeli::aboutData()))
 
@@ -78,7 +72,7 @@ bool Palapeli::KPart::load(const Palapeli::PuzzleInfo* info)
 	m_loader = new Palapeli::GameLoader(m_engine, info, true);
 	if (m_loader->isValid())
 	{
-		emit setWindowCaption(newInfo.identifier);
+		emit setWindowCaption(newInfo.name); //FIXME: Why am I not shown?
 		return true;
 	}
 	else
