@@ -1,0 +1,13 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="okular_part" version="26">
+	<MenuBar>
+		<Menu name="file">
+			<text>&amp;File</text>
+			<Action name="palapeli_reset" group="file_open"/>
+		</Menu>
+	</MenuBar>
+	<ToolBar name="mainToolBar">
+		<text>Main Toolbar</text>
+		<Action name="palapeli_reset"/>
+	</ToolBar>
+</kpartgui>

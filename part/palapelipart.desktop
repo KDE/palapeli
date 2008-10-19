@@ -1,0 +1,7 @@
+[Desktop Entry]
+Icon=palapeli
+Name=Palapeli
+X-KDE-ServiceTypes=KParts/ReadOnlyPart
+X-KDE-Library=palapelipart
+Type=Service
+MimeType=application/x-palapeli-puzzle;

@@ -1,6 +1,7 @@
 project(palapeli)
 add_subdirectory(lib) # needs to be compiled before anything else
 add_subdirectory(app)
+add_subdirectory(part)
 #add_subdirectory(editor) # deactivated until the patterns created in this editor are actually implemented
 add_subdirectory(puzzles)
 add_subdirectory(patterns)

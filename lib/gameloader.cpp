@@ -51,9 +51,10 @@ namespace Palapeli
 Palapeli::GameLoaderPrivate::GameLoaderPrivate(Palapeli::Engine* engine, const Palapeli::PuzzleInfo* info, bool takeLibraryOwnership, Palapeli::GameLoader* parent)
 	: m_isValid(true) //contains the "return value" of this constructor which can later be read through Palapeli::GameLoader::isValid
 	, m_libraryOwnership(takeLibraryOwnership)
-	, m_info(*info)
+	, m_info(QString(), 0)
 	, m_engine(engine)
 {
+	m_info = *info;
 	//check validity of input
 	if (info->image.isNull())
 	{
@@ -158,6 +159,15 @@ bool Palapeli::GameLoader::isValid() const
 void Palapeli::GameLoader::finishLoading()
 {
 	p->m_engine->searchConnections();
+	//ensure that all pieces are inside the sceneRect (useful if user has changed the scene size after saving this game)
+	const QRectF sceneRect = p->m_engine->view()->realScene()->sceneRect();
+	for (int i = 0; i < p->m_engine->pieceCount(); ++i)
+	{
+		Palapeli::Piece* piece = p->m_engine->pieceAt(i);
+		const QRectF boundingRect = piece->sceneBoundingRect();
+		if (!boundingRect.contains(sceneRect))
+			piece->part()->move(piece->part()->basePosition()); //let's the part re-apply all movement constraints
+	}
 	emit finished();
 	p->m_engine->view()->useScene(true);
 }

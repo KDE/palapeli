@@ -213,15 +213,6 @@ void Palapeli::Manager::loadGame(const Palapeli::PuzzleInfo* info, bool forceRel
 
 void Palapeli::Manager::finishGameLoading()
 {
-	//ensure that all pieces are inside the sceneRect (useful if user has changed the scene size after saving this game)
-	const QRectF sceneRect = p->m_engine->view()->realScene()->sceneRect();
-	for (int i = 0; i < p->m_engine->pieceCount(); ++i)
-	{
-		Palapeli::Piece* piece = p->m_engine->pieceAt(i);
-		const QRectF boundingRect = piece->sceneBoundingRect();
-		if (!boundingRect.contains(sceneRect))
-			piece->part()->move(piece->part()->basePosition()); //let's the part re-apply all movement constraints
-	}
 	//propagate changes
 	p->m_minimap->update();
 	p->m_window->reportPuzzleProgress(p->m_engine->pieceCount(), p->m_engine->partCount());
