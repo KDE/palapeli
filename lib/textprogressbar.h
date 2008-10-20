@@ -22,10 +22,12 @@
 #include <QProgressBar>
 #include <QTimer>
 
+#include "macros.h"
+
 namespace Palapeli
 {
 
-	class TextProgressBar : public QProgressBar
+	class PALAPELIBASE_EXPORT TextProgressBar : public QProgressBar
 	{
 		Q_OBJECT
 		public:

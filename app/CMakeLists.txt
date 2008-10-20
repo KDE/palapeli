@@ -9,7 +9,6 @@ set(palapeli_SRCS
 	manager.cpp
 	minimap.cpp
 	preview.cpp
-	textprogressbar.cpp
 	welcomewidget.cpp
 )
 kde4_add_kcfg_files(palapeli_SRCS ../lib/settings.kcfgc)

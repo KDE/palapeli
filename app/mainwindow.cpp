@@ -57,7 +57,6 @@ Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
 	, m_centralWidget(new QStackedWidget)
 	, m_welcomeWidget(new Palapeli::WelcomeWidget)
 	, m_loaderWidget(new QLabel(i18n("Loading puzzle...")))
-	, m_puzzleProgress(new Palapeli::TextProgressBar)
 {
 	m_loaderWidget->setAlignment(Qt::AlignCenter);
 	m_centralWidget->addWidget(m_welcomeWidget);
@@ -81,8 +80,6 @@ Palapeli::MainWindowPrivate::~MainWindowPrivate()
 	delete m_appearanceContainer;
 	delete m_gameplayUi;
 	delete m_gameplayContainer;
-	//status bar
-	delete m_puzzleProgress;
 }
 
 void Palapeli::MainWindowPrivate::setupActions()
@@ -228,7 +225,7 @@ Palapeli::MainWindow::MainWindow(QWidget* parent)
 	connect(ppMgr(), SIGNAL(interactionModeChanged(bool)), this, SLOT(changeInteractionMode(bool)));
 	//menu bar and status bar
 	statusBar()->show();
-	statusBar()->addPermanentWidget(p->m_puzzleProgress, 1);
+	statusBar()->addPermanentWidget(ppMgr()->engine()->progressBar(), 1);
 	//initialise dialogs after entering the event loop (to speed up startup)
 	QTimer::singleShot(0, p, SLOT(setupDialogs()));
 }
@@ -236,35 +233,6 @@ Palapeli::MainWindow::MainWindow(QWidget* parent)
 Palapeli::MainWindow::~MainWindow()
 {
 	delete p;
-}
-
-void Palapeli::MainWindow::reportPuzzleProgress(int pieceCount, int partCount, const QString& caption)
-{
-	if (p->m_puzzleProgress->minimum() != 0)
-		p->m_puzzleProgress->setMinimum(0);
-	if (p->m_puzzleProgress->maximum() != pieceCount - 1)
-		p->m_puzzleProgress->setMaximum(pieceCount - 1);
-	const int value = pieceCount - partCount;
-	if (p->m_puzzleProgress->value() != value)
-	{
-		p->m_puzzleProgress->setValue(value);
-		if (!caption.isEmpty())
-		{
-			p->m_puzzleProgress->setText(caption);
-		}
-		else if (partCount == 1)
-			p->m_puzzleProgress->setText(i18n("You finished the puzzle."));
-		else
-		{
-			int percentFinished = qreal(value) / qreal(pieceCount - 1) * 100;
-			p->m_puzzleProgress->setText(i18n("%1% finished", percentFinished));
-		}
-	}
-}
-
-void Palapeli::MainWindow::flushPuzzleProgress()
-{
-	p->m_puzzleProgress->flush(2);
 }
 
 void Palapeli::MainWindow::gameNameWasChanged(const QString& name)

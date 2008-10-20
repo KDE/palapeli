@@ -159,6 +159,7 @@ bool Palapeli::GameLoader::isValid() const
 void Palapeli::GameLoader::finishLoading()
 {
 	p->m_engine->searchConnections();
+	p->m_engine->updateProgress();
 	//ensure that all pieces are inside the sceneRect (useful if user has changed the scene size after saving this game)
 	const QRectF sceneRect = p->m_engine->view()->realScene()->sceneRect();
 	for (int i = 0; i < p->m_engine->pieceCount(); ++i)

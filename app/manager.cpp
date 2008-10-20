@@ -80,7 +80,6 @@ void Palapeli::ManagerPrivate::init()
 	m_window->setAttribute(Qt::WA_DeleteOnClose, false);
 	//make some connections
 	QObject::connect(m_engine, SIGNAL(piecePositionChanged()), m_minimap, SLOT(update()));
-	QObject::connect(m_engine, SIGNAL(relationsCombined()), m_manager, SLOT(updateProgress()));
 	QObject::connect(m_engine, SIGNAL(viewportMoved()), m_minimap, SLOT(update()));
 }
 
@@ -206,7 +205,6 @@ void Palapeli::Manager::loadGame(const Palapeli::PuzzleInfo* info, bool forceRel
 	p->m_loader = loader;
 	connect(p->m_loader, SIGNAL(finished()), this, SLOT(finishGameLoading()));
 	//update GUI
-	p->m_window->reportPuzzleProgress(0, 0, i18n("Loading puzzle..."));
 	p->m_preview->setImage(loader->info()->image);
 	emit interactionModeChanged(false);
 }
@@ -215,14 +213,8 @@ void Palapeli::Manager::finishGameLoading()
 {
 	//propagate changes
 	p->m_minimap->update();
-	p->m_window->reportPuzzleProgress(p->m_engine->pieceCount(), p->m_engine->partCount());
 	emit interactionModeChanged(true);
 	emit gameNameChanged(p->m_loader->info()->name);
-}
-
-void Palapeli::Manager::updateProgress()
-{
-	p->m_window->reportPuzzleProgress(p->m_engine->pieceCount(), p->m_engine->partCount());
 }
 
 //END Palapeli::Manager

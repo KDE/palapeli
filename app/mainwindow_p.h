@@ -22,7 +22,7 @@
 
 #include "mainwindow.h"
 #include "../lib/actions/createaction.h"
-#include "textprogressbar.h"
+#include "../lib/textprogressbar.h"
 #include "ui_settings_appearance.h"
 #include "ui_settings_gameplay.h"
 #include "welcomewidget.h"

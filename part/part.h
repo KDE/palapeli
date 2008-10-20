@@ -20,6 +20,10 @@
 #define PALAPELI_PART_H
 
 #include <kparts/part.h>
+namespace KParts
+{
+	class StatusBarExtension;
+}
 
 namespace Palapeli
 {
@@ -41,8 +45,10 @@ namespace Palapeli
 		protected:
 			virtual bool openFile();
 		private:
-			Palapeli::Engine* m_engine;
-			Palapeli::GameLoader* m_loader;
+			QPointer<KParts::StatusBarExtension> m_statusBar;
+			bool m_statusBarInitialized;
+			QPointer<Palapeli::Engine> m_engine;
+			QPointer<Palapeli::GameLoader> m_loader;
 	};
 
 }

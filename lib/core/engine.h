@@ -31,6 +31,7 @@ namespace Palapeli
 
 	class EnginePrivate;
 	class PieceRelation;
+	class TextProgressBar;
 	class View;
 
 	class PALAPELIBASE_EXPORT Engine : public QObject
@@ -46,13 +47,17 @@ namespace Palapeli
 			Piece* pieceAt(int index) const;
 			int relationCount() const;
 			const PieceRelation& relationAt(int index) const;
+			TextProgressBar* progressBar() const;
 			View* view() const;
 		public Q_SLOTS:
 			void addPiece(Palapeli::Piece* piece, const QPointF& sceneBasePosition);
 			void addRelation(int piece1Id, int piece2Id);
 			void removePart(Palapeli::Part* part);
 			void clear();
+
 			void searchConnections();
+			void updateProgress();
+			void flushProgress();
 		Q_SIGNALS:
 			void piecePositionChanged();
 			void pieceMoved();

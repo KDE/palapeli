@@ -34,9 +34,6 @@ namespace Palapeli
 			MainWindow(QWidget* parent = 0);
 			~MainWindow();
 		public Q_SLOTS:
-			void reportPuzzleProgress(int pieceCount, int partCount, const QString& caption = QString());
-			void flushPuzzleProgress();
-
 			void gameNameWasChanged(const QString& name);
 			void changeInteractionMode(bool allowGameInteraction);
 		protected:

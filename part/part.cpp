@@ -25,17 +25,21 @@
 #include "../lib/library/library.h"
 #include "../lib/library/librarybase.h"
 #include "../lib/library/puzzleinfo.h"
+#include "../lib/textprogressbar.h"
 
 #include <KActionCollection>
 #include <KLocalizedString>
 #include <KPluginFactory>
+#include <KStatusBar>
+#include <kparts/statusbarextension.h>
 
 K_PLUGIN_FACTORY(PalapeliPartFactory, registerPlugin<Palapeli::KPart>();)
 K_EXPORT_PLUGIN(PalapeliPartFactory(Palapeli::aboutData()))
 
-//hierin zu tun: setComponentData, setWidget, setXmlFile
 Palapeli::KPart::KPart(QWidget* parentWidget, QObject* parent, const QVariantList& args)
 	: KParts::ReadOnlyPart(parent)
+	, m_statusBar(new KParts::StatusBarExtension(this))
+	, m_statusBarInitialized(false)
 	, m_engine(new Palapeli::Engine)
 	, m_loader(0)
 {
@@ -44,8 +48,8 @@ Palapeli::KPart::KPart(QWidget* parentWidget, QObject* parent, const QVariantLis
 	//create component and load engine
 	setComponentData(PalapeliPartFactory::componentData());
 	setWidget(m_engine->view());
-	//add actions
-	KAction* action = new Palapeli::ResetAction(actionCollection());
+	//add actions and statusbar widgets
+	/*KAction* action =*/ new Palapeli::ResetAction(actionCollection());
 	//TODO: connect action and adjust behavior
 	//load XMLGUI resource file
 	setXMLFile("palapelipart.rc");
@@ -53,8 +57,11 @@ Palapeli::KPart::KPart(QWidget* parentWidget, QObject* parent, const QVariantLis
 
 Palapeli::KPart::~KPart()
 {
+	//FIXME: Why am I called twice?
+	delete m_engine->view();
 	closeUrl();
-	delete m_loader;
+	delete m_engine;
+	delete m_statusBar;
 }
 
 bool Palapeli::KPart::closeUrl()
@@ -81,6 +88,12 @@ bool Palapeli::KPart::load(const Palapeli::PuzzleInfo* info)
 
 bool Palapeli::KPart::openFile()
 {
+	if (!m_statusBarInitialized)
+	{
+		//this cannot be done in the constructor because the status bar needs to be shown first
+		m_statusBar->addStatusBarItem(m_engine->progressBar(), 1, true);
+		m_statusBarInitialized = true;
+	}
 	Palapeli::LibraryBase* base = new Palapeli::LibraryArchiveBase(localFilePath());
 	if (base->findEntries().isEmpty())
 	{

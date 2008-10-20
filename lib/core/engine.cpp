@@ -21,10 +21,12 @@
 #include "part.h"
 #include "piece.h"
 #include "piecerelation.h"
+#include "../textprogressbar.h"
 #include "view.h"
 
 #include <QList>
 #include <QPointer>
+#include <KLocalizedString>
 
 namespace Palapeli
 {
@@ -37,6 +39,7 @@ namespace Palapeli
 			QList<Part*> m_parts;
 			QList<Piece*> m_pieces;
 			QList<PieceRelation> m_relations;
+			TextProgressBar m_progress;
 			QPointer<View> m_view; //this object might get deleted by a KXmlGuiWindow using it
 	};
 
@@ -95,6 +98,11 @@ const Palapeli::PieceRelation& Palapeli::Engine::relationAt(int index) const
 	return p->m_relations.at(index);
 }
 
+Palapeli::TextProgressBar* Palapeli::Engine::progressBar() const
+{
+	return &p->m_progress;
+}
+
 Palapeli::View* Palapeli::Engine::view() const
 {
 	return p->m_view;
@@ -122,6 +130,7 @@ void Palapeli::Engine::removePart(Palapeli::Part* part)
 
 void Palapeli::Engine::clear()
 {
+	flushProgress();
 	foreach (Palapeli::Part* part, p->m_parts)
 		delete part; //this does also delete the pieces
 	p->m_parts.clear();
@@ -143,7 +152,37 @@ void Palapeli::Engine::searchConnections()
 		}
 	}
 	if (combinedSomething)
+	{
+		updateProgress();
 		emit relationsCombined();
+	}
+}
+
+void Palapeli::Engine::updateProgress()
+{
+	const int partCount = p->m_parts.count(), pieceCount = p->m_pieces.count();
+	if (p->m_progress.minimum() != 0)
+		p->m_progress.setMinimum(0);
+	if (p->m_progress.maximum() != pieceCount - 1)
+		p->m_progress.setMaximum(pieceCount - 1);
+	const int value = pieceCount - partCount;
+	if (p->m_progress.value() != value)
+	{
+		p->m_progress.setValue(value);
+		if (partCount == 1)
+			p->m_progress.setText(i18n("You finished the puzzle."));
+		else
+		{
+			int percentFinished = qreal(value) / qreal(pieceCount - 1) * 100;
+			p->m_progress.setText(i18n("%1% finished", percentFinished));
+		}
+	}
+}
+
+void Palapeli::Engine::flushProgress()
+{
+	p->m_progress.setValue(p->m_progress.minimum());
+	p->m_progress.setText(QString());
 }
 
 #include "engine.moc"

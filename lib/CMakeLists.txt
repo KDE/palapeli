@@ -42,6 +42,7 @@ set(palapelibase_SRCS
 	patterns/pattern-trader.cpp
 	patterns/variantmapper.cpp
 	gameloader.cpp
+	textprogressbar.cpp
 )
 kde4_add_kcfg_files(palapelibase_SRCS settings.kcfgc)
 
