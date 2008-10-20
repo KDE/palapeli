@@ -1,6 +1,7 @@
 [Desktop Entry]
 Icon=palapeli
 Name=Palapeli
+Name[x-test]=xxPalapelixx
 X-KDE-ServiceTypes=KParts/ReadOnlyPart
 X-KDE-Library=palapelipart
 Type=Service
