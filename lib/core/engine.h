@@ -40,6 +40,7 @@ namespace Palapeli
 		public:
 			Engine();
 			~Engine();
+			void setDeleteViewInDestructor(bool deleteViewInDestructor); //default is false
 
 			int partCount() const;
 			Part* partAt(int index) const;

@@ -40,13 +40,16 @@ namespace Palapeli
 			QList<Piece*> m_pieces;
 			QList<PieceRelation> m_relations;
 			TextProgressBar m_progress;
-			QPointer<View> m_view; //this object might get deleted by a KXmlGuiWindow using it
+			QPointer<View> m_view;
+			//in some cases, it is not safe to delete the view because of automatic deletion by the widget parent
+			bool m_deleteViewInDestructor;
 	};
 
 }
 
 Palapeli::EnginePrivate::EnginePrivate()
 	: m_view(new Palapeli::View)
+	, m_deleteViewInDestructor(true)
 {
 }
 
@@ -58,12 +61,17 @@ Palapeli::Engine::Engine()
 	connect(this, SIGNAL(pieceMoved()), this, SLOT(searchConnections()));
 }
 
+void Palapeli::Engine::setDeleteViewInDestructor(bool deleteViewInDestructor)
+{
+	p->m_deleteViewInDestructor = deleteViewInDestructor;
+}
+
 Palapeli::Engine::~Engine()
 {
 	//I see no benefit in declaring a separate destructor for Palapeli::EnginePrivate.
 	foreach (Palapeli::Part* part, p->m_parts)
 		delete part; //this does also delete the pieces
-	if (!p->m_view.isNull())
+	if (!p->m_view.isNull() && p->m_deleteViewInDestructor)
 		delete p->m_view;
 	delete p;
 }

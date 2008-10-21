@@ -47,7 +47,8 @@ Palapeli::KPart::KPart(QWidget* parentWidget, QObject* parent, const QVariantLis
 	Q_UNUSED(args)
 	//create component and load engine
 	setComponentData(PalapeliPartFactory::componentData());
-	setWidget(m_engine->view());
+	m_engine->setDeleteViewInDestructor(false);
+	setWidget(m_engine->view()); //FIXME: flicker appears if the view is shown before the loading starts
 	//add actions and statusbar widgets
 	/*KAction* action =*/ new Palapeli::ResetAction(actionCollection());
 	//TODO: connect action and adjust behavior
@@ -57,8 +58,6 @@ Palapeli::KPart::KPart(QWidget* parentWidget, QObject* parent, const QVariantLis
 
 Palapeli::KPart::~KPart()
 {
-	//FIXME: Why am I called twice?
-	delete m_engine->view();
 	closeUrl();
 	delete m_engine;
 	delete m_statusBar;
