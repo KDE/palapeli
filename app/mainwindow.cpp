@@ -26,6 +26,8 @@
 #include "../lib/actions/importaction.h"
 #include "../lib/actions/loadaction.h"
 #include "../lib/actions/resetaction.h"
+#include "../lib/library/librarybase.h"
+#include "../lib/library/library.h"
 #include "manager.h"
 #include "minimap.h"
 #include "preview.h"
@@ -37,10 +39,15 @@
 #include <KApplication>
 #include <KLocalizedString>
 #include <KMenuBar>
+#include <knewstuff2/ui/knewstuffaction.h>
+#include <knewstuff2/engine.h>
 #include <KDE/KStandardGameAction>
+#include <KStandardDirs>
 #include <KStatusBar>
 #include <KToggleFullScreenAction>
 #include <KToolBar>
+
+#include <KDebug>
 
 Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
 	: m_parent(parent)
@@ -98,6 +105,8 @@ void Palapeli::MainWindowPrivate::setupActions()
 	new Palapeli::ExportAction(m_parent->actionCollection());
 	new Palapeli::DeleteAction(m_parent->actionCollection());
 	KStandardGameAction::quit(m_parent, SLOT(close()), m_parent->actionCollection());
+	//KNS actions
+	KNS::standardAction(i18n("Download new puzzles"), this, SLOT(downloadPuzzles()), m_parent->actionCollection(), "kns_download");
 	//View actions
 	m_parent->actionCollection()->addAction("view_toggle_minimap", m_toggleMinimapAct);
 	m_toggleMinimapAct->setCheckable(true);
@@ -204,6 +213,34 @@ void Palapeli::MainWindowPrivate::loadGame(const Palapeli::PuzzleInfo* info)
 void Palapeli::MainWindowPrivate::reloadGame(const Palapeli::PuzzleInfo* info)
 {
 	ppMgr()->loadGame(info, true); //force reload
+}
+
+void Palapeli::MainWindowPrivate::downloadPuzzles()
+{
+	KNS::Entry::List entries = KNS::Engine::download();
+	//apply new entry status
+	Palapeli::LibraryArchiveBase* archive; Palapeli::Library* library;
+	foreach (KNS::Entry* entry, entries)
+	{
+		switch (entry->status())
+		{
+			case KNS::Entry::Installed:
+				if (entry->installedFiles().isEmpty())
+					break;
+				kDebug() << "Attempting to import downloaded archive from" << entry->installedFiles()[0];
+				archive = new Palapeli::LibraryArchiveBase(KUrl(entry->installedFiles()[0]));
+				library = new Palapeli::Library(archive);
+				Palapeli::LibraryStandardBase::self()->insertEntries(library);
+				delete library;
+				delete archive;
+				break;
+			case KNS::Entry::Deleted:
+				break;
+			default: //other statuses are irrelevant for us
+				break;
+		}
+	}
+	//TODO: use the returned entry list to update the main puzzle library
 }
 
 Palapeli::MainWindow::MainWindow(QWidget* parent)

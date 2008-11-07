@@ -57,6 +57,7 @@ namespace Palapeli
 			void setFullScreen(bool full);
 			void loadGame(const Palapeli::PuzzleInfo* info);
 			void reloadGame(const Palapeli::PuzzleInfo* info);
+			void downloadPuzzles();
 		public:
 			//actions
 			KAction* m_toggleMinimapAct;

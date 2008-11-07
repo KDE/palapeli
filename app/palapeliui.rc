@@ -11,6 +11,8 @@
 			<Action name="palapeli_export"/>
 			<Action name="palapeli_delete"/>
 			<Separator/>
+			<Action name="kns_download"/>
+			<Separator/>
 			<Action name="game_quit"/>
 		</Menu>
 		<Menu name="views">
