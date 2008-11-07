@@ -35,9 +35,12 @@
 #include "settings.h"
 
 #include <QCloseEvent>
+#include <QFile>
 #include <QTimer>
 #include <KActionCollection>
 #include <KApplication>
+#include <KConfig>
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMenuBar>
 #include <knewstuff2/ui/knewstuffaction.h>
@@ -217,30 +220,55 @@ void Palapeli::MainWindowPrivate::reloadGame(const Palapeli::PuzzleInfo* info)
 void Palapeli::MainWindowPrivate::downloadPuzzles()
 {
 	KNS::Entry::List entries = KNS::Engine::download();
+	if (entries.isEmpty())
+		return;
 	//apply new entry status
 	Palapeli::LibraryArchiveBase* archive; Palapeli::Library* library;
+	KConfig config(KStandardDirs::locateLocal("config", "palapeli-ghnsrc"));
+	KConfigGroup configGroup(&config, "GHNS Registry");
+	QString identifier;
 	foreach (KNS::Entry* entry, entries)
 	{
+		const QString payload = entry->payload().representation();
 		switch (entry->status())
 		{
 			case KNS::Entry::Installed:
 				if (entry->installedFiles().isEmpty())
 					break;
+				//merge downloaded .pala archive into standard library
 				archive = new Palapeli::LibraryArchiveBase(KUrl(entry->installedFiles()[0]));
 				library = new Palapeli::Library(archive);
 				Palapeli::LibraryStandardBase::self()->insertEntries(library);
 				for (int i = 0; i < library->rowCount(); ++i)
+				{
+					//report new entry to standard library
 					Palapeli::LibraryStandardBase::self()->reportNewEntry(library->infoForPuzzle(i)->identifier);
+					//save association payload<->puzzle identifier (needed later on)
+					configGroup.writeEntry(library->infoForPuzzle(i)->identifier, payload);
+				}
 				delete library;
 				delete archive;
+				//the downloaded archive is not needed anymore
+				QFile(entry->installedFiles()[0]).remove();
 				break;
 			case KNS::Entry::Deleted:
+				//find associated puzzle identifiers
+				for (int i = 0; i < Palapeli::standardLibrary()->rowCount(); ++i)
+				{
+					identifier = Palapeli::standardLibrary()->infoForPuzzle(i)->identifier;
+					if (configGroup.readEntry(identifier, QString()) == payload)
+					{
+						//remove selected puzzle because it is associated with this GHNS entry
+						Palapeli::LibraryStandardBase::self()->removeEntry(identifier, Palapeli::standardLibrary());
+						//remove entry from GHNS registry
+						configGroup.deleteEntry(identifier);
+					}
+				}
 				break;
 			default: //other statuses are irrelevant for us
 				break;
 		}
 	}
-	//TODO: use the returned entry list to update the main puzzle library
 }
 
 Palapeli::MainWindow::MainWindow(QWidget* parent)
