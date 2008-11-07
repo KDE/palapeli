@@ -28,6 +28,7 @@
 #include "../lib/actions/resetaction.h"
 #include "../lib/library/librarybase.h"
 #include "../lib/library/library.h"
+#include "../lib/library/puzzleinfo.h"
 #include "manager.h"
 #include "minimap.h"
 #include "preview.h"
@@ -46,8 +47,6 @@
 #include <KStatusBar>
 #include <KToggleFullScreenAction>
 #include <KToolBar>
-
-#include <KDebug>
 
 Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
 	: m_parent(parent)
@@ -227,10 +226,11 @@ void Palapeli::MainWindowPrivate::downloadPuzzles()
 			case KNS::Entry::Installed:
 				if (entry->installedFiles().isEmpty())
 					break;
-				kDebug() << "Attempting to import downloaded archive from" << entry->installedFiles()[0];
 				archive = new Palapeli::LibraryArchiveBase(KUrl(entry->installedFiles()[0]));
 				library = new Palapeli::Library(archive);
 				Palapeli::LibraryStandardBase::self()->insertEntries(library);
+				for (int i = 0; i < library->rowCount(); ++i)
+					Palapeli::LibraryStandardBase::self()->reportNewEntry(library->infoForPuzzle(i)->identifier);
 				delete library;
 				delete archive;
 				break;
