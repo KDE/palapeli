@@ -24,6 +24,7 @@
 #include "../lib/actions/deleteaction.h"
 #include "../lib/actions/exportaction.h"
 #include "../lib/actions/importaction.h"
+#include "../lib/actions/kns-downloadaction.h"
 #include "../lib/actions/loadaction.h"
 #include "../lib/actions/resetaction.h"
 #include "../lib/library/librarybase.h"
@@ -35,18 +36,12 @@
 #include "settings.h"
 
 #include <QCloseEvent>
-#include <QFile>
 #include <QTimer>
 #include <KActionCollection>
 #include <KApplication>
-#include <KConfig>
-#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMenuBar>
-#include <knewstuff2/ui/knewstuffaction.h>
-#include <knewstuff2/engine.h>
 #include <KDE/KStandardGameAction>
-#include <KStandardDirs>
 #include <KStatusBar>
 #include <KToggleFullScreenAction>
 #include <KToolBar>
@@ -106,9 +101,8 @@ void Palapeli::MainWindowPrivate::setupActions()
 	connect(m_welcomeWidget, SIGNAL(importRequest()), action, SLOT(trigger()));
 	new Palapeli::ExportAction(m_parent->actionCollection());
 	new Palapeli::DeleteAction(m_parent->actionCollection());
+	new Palapeli::KnsDownloadAction(m_parent->actionCollection());
 	KStandardGameAction::quit(m_parent, SLOT(close()), m_parent->actionCollection());
-	//KNS actions
-	KNS::standardAction(i18n("Download new puzzles"), this, SLOT(downloadPuzzles()), m_parent->actionCollection(), "kns_download");
 	//View actions
 	m_parent->actionCollection()->addAction("view_toggle_minimap", m_toggleMinimapAct);
 	m_toggleMinimapAct->setCheckable(true);
@@ -229,60 +223,6 @@ void Palapeli::MainWindowPrivate::zoomOut()
 {
 	static const qreal scalingFactor = 1.0 / 1.2;
 	ppMgr()->engine()->view()->scale(scalingFactor);
-}
-
-void Palapeli::MainWindowPrivate::downloadPuzzles()
-{
-	KNS::Entry::List entries = KNS::Engine::download();
-	if (entries.isEmpty())
-		return;
-	//apply new entry status
-	Palapeli::LibraryArchiveBase* archive; Palapeli::Library* library;
-	KConfig config(KStandardDirs::locateLocal("config", "palapeli-ghnsrc"));
-	KConfigGroup configGroup(&config, "GHNS Registry");
-	QString identifier;
-	foreach (KNS::Entry* entry, entries)
-	{
-		const QString payload = entry->payload().representation();
-		switch (entry->status())
-		{
-			case KNS::Entry::Installed:
-				if (entry->installedFiles().isEmpty())
-					break;
-				//merge downloaded .pala archive into standard library
-				archive = new Palapeli::LibraryArchiveBase(KUrl(entry->installedFiles()[0]));
-				library = new Palapeli::Library(archive);
-				Palapeli::LibraryStandardBase::self()->insertEntries(library);
-				for (int i = 0; i < library->rowCount(); ++i)
-				{
-					//report new entry to standard library
-					Palapeli::LibraryStandardBase::self()->reportNewEntry(library->infoForPuzzle(i)->identifier);
-					//save association payload<->puzzle identifier (needed later on)
-					configGroup.writeEntry(library->infoForPuzzle(i)->identifier, payload);
-				}
-				delete library;
-				delete archive;
-				//the downloaded archive is not needed anymore
-				QFile(entry->installedFiles()[0]).remove();
-				break;
-			case KNS::Entry::Deleted:
-				//find associated puzzle identifiers
-				for (int i = 0; i < Palapeli::standardLibrary()->rowCount(); ++i)
-				{
-					identifier = Palapeli::standardLibrary()->infoForPuzzle(i)->identifier;
-					if (configGroup.readEntry(identifier, QString()) == payload)
-					{
-						//remove selected puzzle because it is associated with this GHNS entry
-						Palapeli::LibraryStandardBase::self()->removeEntry(identifier, Palapeli::standardLibrary());
-						//remove entry from GHNS registry
-						configGroup.deleteEntry(identifier);
-					}
-				}
-				break;
-			default: //other statuses are irrelevant for us
-				break;
-		}
-	}
 }
 
 Palapeli::MainWindow::MainWindow(QWidget* parent)

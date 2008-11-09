@@ -59,7 +59,6 @@ namespace Palapeli
 			void reloadGame(const Palapeli::PuzzleInfo* info);
 			void zoomIn();
 			void zoomOut();
-			void downloadPuzzles();
 		public:
 			//actions
 			KAction* m_toggleMinimapAct;

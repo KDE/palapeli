@@ -7,7 +7,7 @@ set(palapelibase_LIB_PATCH_VERSION "0")
 set(palapelibase_LIB_VERSION "${palapelibase_LIB_MAJOR_VERSION}.${palapelibase_LIB_MINOR_VERSION}.${palapelibase_LIB_PATCH_VERSION}")
 set(palapelibase_LIB_SOVERSION "0")
 
-set(palapelibase_LINK_LIBS ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_THREADWEAVER_LIBRARIES} ${KDEGAMES_LIBRARY})
+set(palapelibase_LINK_LIBS ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_THREADWEAVER_LIBRARIES} ${KDE4_KNEWSTUFF2_LIBS} ${KDEGAMES_LIBRARY})
 if(OPENGL_FOUND)
 	add_definitions(-DPALAPELI_WITH_OPENGL)
 	if(WIN32)
@@ -22,6 +22,7 @@ set(palapelibase_SRCS
 	actions/deleteaction.cpp
 	actions/exportaction.cpp
 	actions/importaction.cpp
+	actions/kns-downloadaction.cpp
 	actions/loadaction.cpp
 	actions/resetaction.cpp
 	core/engine.cpp
