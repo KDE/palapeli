@@ -83,8 +83,7 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 			if (scalingFactor <= 0.01)
 				scalingFactor = 0.01;
 		}
-		scale(scalingFactor, scalingFactor);
-		emit viewportScaled();
+		scale(scalingFactor);
 	}
 	else if ((event->modifiers() & Qt::ShiftModifier) || event->orientation() == Qt::Horizontal)
 		//shift + mouse wheel - move the viewport left/right by adjusting the slider
@@ -92,6 +91,15 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 	else
 		//just the mouse wheel - move the viewport up/down by adjusting the slider
 		verticalScrollBar()->triggerAction(delta < 0 ? QAbstractSlider::SliderSingleStepAdd : QAbstractSlider::SliderSingleStepSub);
+}
+
+void Palapeli::View::scale(qreal scalingFactor)
+{
+	if (scalingFactor == 0)
+		fitInView(m_scene->sceneRect(), Qt::KeepAspectRatio);
+	else
+		QGraphicsView::scale(scalingFactor, scalingFactor);
+	emit viewportScaled();
 }
 
 void Palapeli::View::setAntialiasing(bool useAntialiasing, bool forceApplication)
@@ -126,7 +134,7 @@ void Palapeli::View::useScene(bool useScene)
 	setScene(useScene ? m_scene : 0);
 	if (useScene)
 	{
-		fitInView(m_scene->sceneRect(), Qt::KeepAspectRatio);
+		scale(0);
 		emit viewportMoved();
 	}
 }

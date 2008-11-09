@@ -17,6 +17,9 @@
 		</Menu>
 		<Menu name="views">
 			<Text>View</Text>
+			<Action name="view_zoom_in"/>
+			<Action name="view_zoom_out"/>
+			<Separator/>
 			<Action name="fullscreen"/>
 			<Separator/>
 			<Action name="view_toggle_minimap"/>
@@ -36,9 +39,8 @@
 		<Action name="palapeli_export"/>
 		<Action name="palapeli_delete"/>
 		<Separator/><!-- TODO: split the following actions off into a view toolbar once this KXMLGUI bug is fixed which hides the main toolbar when I do this -->
-		<Action name="view_toggle_minimap"/>
-		<Action name="view_toggle_preview"/><!-- TODO: add a separator here when splitting this into a separate toolbar -->
-		<Action name="fullscreen"/>
+		<Action name="view_zoom_in"/>
+		<Action name="view_zoom_out"/>
 		<Separator/><!-- TODO: the following action should also go into a separate toolbar when more actions follow -->
 		<Action name="palapeli_action_cleararea"/>
 		<Action name="palapeli_action_arrangepieces"/>

@@ -1,21 +1,17 @@
 TODO list:
 
-Urgent Palapeli issues (depending on the library restructuring)
-* export and document only the necessary interface classes
+Palapeli bugs
+* It seems like images are not cleared from the puzzle library when they're not used anymore.
 
 Palapeli short-term goals
-* resurrect the puzzle creation and import dialogs
-* welcome screen and loading progress screen which replace the puzzle table (the second mainly to reduce the flicker)
-* MIME integration
 * a toolbar with tools like "Clear this area"
+* export and document only the necessary interface classes
 
 Palapeli mid-term goals
-* a KPart for playing Palapeli games in Konqueror (preferably together with a really good community site for Palapeli puzzles)
 * transform Preview and Minimap to on-screen widgets
 * rotation of pieces (requires redesign of the game engine - Piece/Part/PieceRelation)
 * 3D/shadow effect for pieces
-* GHNS support for diverse resource files and puzzle library entries
-* puzzle area as Plasma containment (requires perhaps to merge big chunks of the application and the libpalapelipattern into a libpalapeli)
+* puzzle area as Plasma containment
 
 Paladesign (depends on whether Paladesign is kept at all)
 * shape browser

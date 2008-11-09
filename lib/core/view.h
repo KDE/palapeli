@@ -41,6 +41,7 @@ namespace Palapeli
 			QGraphicsScene* realScene() const;
 			void useScene(bool useScene);
 			void moveToTop(QGraphicsItem* item) const;
+			void scale(qreal scalingFactor);
 		Q_SIGNALS:
 			void viewportMoved();
 			void viewportScaled();

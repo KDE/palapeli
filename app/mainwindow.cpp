@@ -120,6 +120,8 @@ void Palapeli::MainWindowPrivate::setupActions()
 	m_togglePreviewAct->setChecked(false);
 	connect(m_dockPreview, SIGNAL(visibilityChanged(bool)), m_togglePreviewAct, SLOT(setChecked(bool)));
 	connect(m_togglePreviewAct, SIGNAL(triggered(bool)), m_dockPreview, SLOT(setVisible(bool)));
+	KStandardAction::zoomIn(this, SLOT(zoomIn()), m_parent->actionCollection());
+	KStandardAction::zoomOut(this, SLOT(zoomOut()), m_parent->actionCollection());
 	KStandardAction::fullScreen(this, SLOT(setFullScreen(bool)), m_parent, m_parent->actionCollection());
 	//Settings actions
 	KStandardAction::preferences(m_settingsDialog, SLOT(show()), m_parent->actionCollection());
@@ -215,6 +217,18 @@ void Palapeli::MainWindowPrivate::loadGame(const Palapeli::PuzzleInfo* info)
 void Palapeli::MainWindowPrivate::reloadGame(const Palapeli::PuzzleInfo* info)
 {
 	ppMgr()->loadGame(info, true); //force reload
+}
+
+void Palapeli::MainWindowPrivate::zoomIn()
+{
+	static const qreal scalingFactor = 1.2;
+	ppMgr()->engine()->view()->scale(scalingFactor);
+}
+
+void Palapeli::MainWindowPrivate::zoomOut()
+{
+	static const qreal scalingFactor = 1.0 / 1.2;
+	ppMgr()->engine()->view()->scale(scalingFactor);
 }
 
 void Palapeli::MainWindowPrivate::downloadPuzzles()
