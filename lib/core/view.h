@@ -24,6 +24,8 @@
 
 #include <QGraphicsView>
 #include <QPixmap>
+class QSignalMapper;
+class KMenu;
 
 namespace Palapeli
 {
@@ -46,9 +48,14 @@ namespace Palapeli
 			void viewportMoved();
 			void viewportScaled();
 		protected:
+			virtual void contextMenuEvent(QContextMenuEvent* event);
 			virtual void resizeEvent(QResizeEvent* event);
 			virtual void wheelEvent(QWheelEvent* event);
+		private Q_SLOTS:
+			void updateBackground(const QString& file);
 		private:
+			KMenu* m_menu;
+			QSignalMapper* m_mapper;
 			QGraphicsScene* m_scene;
 			QPixmap m_backgroundTile;
 	};

@@ -21,6 +21,10 @@
       <label>Quality of the minimap rendering (values: 0 = no translucent blocks, 1 = translucent blocks.)</label>
       <default>0</default>
     </entry>
+	<entry name="ViewBackground" type="String">
+	  <label>The background image to use for the View.</label>
+	  <default>background.svg</default>
+	</entry>
   </group>
   <group name="Gameplay">
     <entry name="SnappingPrecision" type="Int">
