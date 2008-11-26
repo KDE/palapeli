@@ -2,6 +2,7 @@
 Name=Furcifer pardalis
 Name[es]=Camaleón pantera
 Name[pt]=Pardal
+Name[pt_BR]=Pardal
 Name[uk]=Самка барса
 Name[x-test]=xxFurcifer pardalisxx
 Comment=Female panther chameleon
@@ -10,6 +11,7 @@ Comment[es]=Hembra del camaleón pantera
 Comment[et]=Emane panterkameeleon
 Comment[gl]=Camaleon panteira fema
 Comment[pt]=Camaleão-pantera fêmea
+Comment[pt_BR]=Camaleão-pantera fêmea
 Comment[sv]=Panterkameleonthona
 Comment[uk]=Самка п’ятнистого хамелеона
 Comment[x-test]=xxFemale panther chameleonxx
