@@ -1,1 +1,1 @@
-install(FILES background.svg DESTINATION ${DATA_INSTALL_DIR}/palapeli)
+install(FILES background.svg DESTINATION ${DATA_INSTALL_DIR}/palapeli/backgrounds)
