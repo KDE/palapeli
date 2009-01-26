@@ -23,6 +23,7 @@
 #include <QMutex>
 #include <KConfig>
 #include <KConfigGroup>
+#include <KDebug>
 #include <KDesktopFile>
 
 //BEGIN Palapeli::PuzzleInfo
@@ -92,7 +93,8 @@ void Palapeli::PuzzleInfoLoader::run()
 	const QString imageFileName = m_puzzleInfo->library->base()->findFile(m_puzzleInfo->imageFile, Palapeli::LibraryBase::ImageFile);
 	const int thumbnailSize = Palapeli::Library::IconSize;
 	m_puzzleInfo->image.load(imageFileName);
-	m_puzzleInfo->thumbnail = m_puzzleInfo->image.scaled(thumbnailSize, thumbnailSize, Qt::KeepAspectRatio);
+	m_puzzleInfo->thumbnail = m_puzzleInfo->image.scaled(2 * thumbnailSize, 2 * thumbnailSize, Qt::KeepAspectRatio);
+	m_puzzleInfo->thumbnail = m_puzzleInfo->thumbnail.scaled(thumbnailSize, thumbnailSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	//everything loaded - unlock the PuzzleInfo object
 	m_puzzleInfo->mutex->unlock();
 	setFinished(true);
