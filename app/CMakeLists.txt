@@ -2,6 +2,9 @@ project(palapeli)
 add_subdirectory(pics)
 
 add_definitions(-DMAKE_LIBPALAPELIBASE) #needed to correctly include the headers of libpalapelibase when they are not yet installed
+if(OPENGL_FOUND)
+	add_definitions(-DPALAPELI_WITH_OPENGL)
+endif(OPENGL_FOUND)
 
 set(palapeli_SRCS
 	main.cpp
