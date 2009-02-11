@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2008 Felix Lemke <lemke.felix@ages-skripte.org>
- *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright (C) 2008-2009 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -18,6 +18,7 @@
  ***************************************************************************/
 
 #include "view.h"
+#include "viewmenu.h"
 #include "settings.h"
 
 #include <QBrush>
@@ -38,19 +39,15 @@
 #include <KMenu>
 #include <KStandardDirs>
 
-const QString BackgroundFolder("palapeli/backgrounds/");
-
-#include <KDebug>
 Palapeli::View::View(QWidget* parent)
 	: QGraphicsView(parent)
-	, m_menu(new KMenu)
-	, m_mapper(new QSignalMapper)
+	, m_menu(new Palapeli::ViewMenu(this))
 	, m_scene(new QGraphicsScene)
 {
 	//initialize view and scene
 	setScene(m_scene);
 	m_scene->setSceneRect(QRectF(-1, -1, 2, 2)); //the exact values are not important as long as there is some specific scene rect
-	updateBackground(Settings::viewBackground());
+	updateBackground(m_menu->currentBackground());
 	//load settings
 	Settings::self()->readConfig();
 	setAntialiasing(Settings::antialiasing(), true);
@@ -58,54 +55,24 @@ Palapeli::View::View(QWidget* parent)
 	//report viewport moves
 	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportMoved()));
 	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportMoved()));
-	//construct background selector menu
-	QStringList backgroundFiles = KStandardDirs().findAllResources("data", BackgroundFolder + "*", KStandardDirs::NoDuplicates);
-	if (!backgroundFiles.isEmpty())
-	{
-		m_menu->addTitle(i18n("Background image"));
-		foreach (const QString& backgroundFile, backgroundFiles)
-		{
-			const QString backgroundFileName = QFileInfo(backgroundFile).fileName();
-			KAction* act = new KAction(backgroundFileName, m_menu);
-			connect(act, SIGNAL(triggered()), m_mapper, SLOT(map()));
-			m_mapper->setMapping(act, backgroundFileName);
-			m_menu->addAction(act);
-		}
-		connect(m_mapper, SIGNAL(mapped(const QString&)), this, SLOT(updateBackground(const QString&)));
-	}
+	//react on background changes
+	connect(m_menu, SIGNAL(backgroundSelected(const QBrush&)), this, SLOT(updateBackground(const QBrush&)));
 }
 
 Palapeli::View::~View()
 {
 	setHardwareAccelerated(false); //prevent a crash that occurs if a QGLWidget viewport is active while deleting the View
-	delete m_menu;
-	delete m_mapper;
 }
 
-void Palapeli::View::updateBackground(const QString& file)
+void Palapeli::View::updateBackground(const QBrush& brush)
 {
-	Settings::setViewBackground(file);
-	Settings::self()->writeConfig();
-	const QString path = KStandardDirs::locate("data", BackgroundFolder + file);
-	//update background
-	if (file.contains(".svg"))
-	{
-		QSvgRenderer backgroundRenderer(path);
-		m_backgroundTile = QPixmap(backgroundRenderer.defaultSize());
-		m_backgroundTile.fill(Qt::transparent);
-		QPainter backgroundPainter(&m_backgroundTile);
-		backgroundRenderer.render(&backgroundPainter);
-		backgroundPainter.end();
-	}
-	else
-		m_backgroundTile.load(path);
-	m_scene->setBackgroundBrush(QBrush(m_backgroundTile));
+	m_scene->setBackgroundBrush(brush);
 }
 
 void Palapeli::View::contextMenuEvent(QContextMenuEvent* event)
 {
-	if (!m_menu->isEmpty())
-		m_menu->popup(event->globalPos());
+	Q_UNUSED(event)
+	m_menu->showAtCursorPosition();
 }
 
 void Palapeli::View::resizeEvent(QResizeEvent* event)
@@ -167,6 +134,11 @@ void Palapeli::View::setHardwareAccelerated(bool useHardware, bool forceApplicat
 	viewport()->deleteLater();
 	setViewport(useHardware ? new QGLWidget : new QWidget);
 #endif
+}
+
+Palapeli::ViewMenu* Palapeli::View::menu() const
+{
+	return m_menu;
 }
 
 QGraphicsScene* Palapeli::View::realScene() const

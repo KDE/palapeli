@@ -1,6 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008 Felix Lemke <lemke.felix@ages-skripte.org>
- *   Copyright (C) 2008-2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright (C) 2009 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -17,48 +16,38 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_VIEW_H
-#define PALAPELI_VIEW_H
+#ifndef PALAPELI_VIEWMENU_H
+#define PALAPELI_VIEWMENU_H
 
 #include "../macros.h"
 
 class QBrush;
-#include <QGraphicsView>
+#include <KMenu>
 
 namespace Palapeli
 {
 
-	class ViewMenu;
+	class View;
+	class ViewMenuPrivate;
 
-	class PALAPELIBASE_EXPORT View : public QGraphicsView
+	class PALAPELIBASE_EXPORT ViewMenu : public KMenu
 	{
 		Q_OBJECT
 		public:
-			View(QWidget* parent = 0);
-			virtual ~View();
+			ViewMenu(Palapeli::View* view);
+			virtual ~ViewMenu();
 
-			void setAntialiasing(bool antialiasing, bool forceApplication = false);
-			void setHardwareAccelerated(bool useHardware, bool forceApplication = false);
-
-			Palapeli::ViewMenu* menu() const;
-			QGraphicsScene* realScene() const;
-			void useScene(bool useScene);
-			void moveToTop(QGraphicsItem* item) const;
-			void scale(qreal scalingFactor);
+			QBrush currentBackground();
+		public Q_SLOTS:
+			void showAtCursorPosition();
 		Q_SIGNALS:
-			void viewportMoved();
-			void viewportScaled();
-		protected:
-			virtual void contextMenuEvent(QContextMenuEvent* event);
-			virtual void resizeEvent(QResizeEvent* event);
-			virtual void wheelEvent(QWheelEvent* event);
+			void backgroundSelected(const QBrush& brush);
 		private Q_SLOTS:
-			void updateBackground(const QBrush& brush);
+			void backgroundSelected();
 		private:
-			Palapeli::ViewMenu* m_menu;
-			QGraphicsScene* m_scene;
+			Palapeli::ViewMenuPrivate* const p;
 	};
 
 }
 
-#endif //PALAPELI_VIEW_H
+#endif // PALAPELI_VIEWMENU_H

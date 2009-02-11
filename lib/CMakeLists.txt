@@ -30,6 +30,7 @@ set(palapelibase_SRCS
 	core/piece.cpp
 	core/piecerelation.cpp
 	core/view.cpp
+	core/viewmenu.cpp
 	library/library.cpp
 	library/librarybase.cpp
 	library/librarydelegate.cpp
