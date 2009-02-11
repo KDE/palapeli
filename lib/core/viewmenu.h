@@ -28,6 +28,7 @@ namespace Palapeli
 {
 
 	class View;
+	class ViewMenuItem;
 	class ViewMenuPrivate;
 
 	class PALAPELIBASE_EXPORT ViewMenu : public KMenu
@@ -42,8 +43,11 @@ namespace Palapeli
 			void showAtCursorPosition();
 		Q_SIGNALS:
 			void backgroundSelected(const QBrush& brush);
+			void backgroundPreviewRequested(const QBrush& brush);
+			void backgroundPreviewFinished();
 		private Q_SLOTS:
-			void backgroundSelected();
+			void selectBackground(Palapeli::ViewMenuItem* item);
+			void requestBackgroundPreview(Palapeli::ViewMenuItem* item);
 		private:
 			Palapeli::ViewMenuPrivate* const p;
 	};

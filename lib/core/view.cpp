@@ -57,6 +57,8 @@ Palapeli::View::View(QWidget* parent)
 	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportMoved()));
 	//react on background changes
 	connect(m_menu, SIGNAL(backgroundSelected(const QBrush&)), this, SLOT(updateBackground(const QBrush&)));
+	connect(m_menu, SIGNAL(backgroundPreviewRequested(const QBrush&)), this, SLOT(startBackgroundPreview(const QBrush&)));
+	connect(m_menu, SIGNAL(backgroundPreviewFinished()), this, SLOT(endBackgroundPreview()));
 }
 
 Palapeli::View::~View()
@@ -66,7 +68,19 @@ Palapeli::View::~View()
 
 void Palapeli::View::updateBackground(const QBrush& brush)
 {
+	m_backgroundBrush = brush;
+	m_scene->setBackgroundBrush(m_backgroundBrush);
+}
+
+void Palapeli::View::startBackgroundPreview(const QBrush& brush)
+{
 	m_scene->setBackgroundBrush(brush);
+	//The normal background brush is saved in m_backgroundBrush.
+}
+
+void Palapeli::View::endBackgroundPreview()
+{
+	m_scene->setBackgroundBrush(m_backgroundBrush);
 }
 
 void Palapeli::View::contextMenuEvent(QContextMenuEvent* event)

@@ -17,51 +17,19 @@
  ***************************************************************************/
 
 #include "viewmenu.h"
+#include "viewmenu_p.h"
 #include "view.h"
 #include "settings.h"
 
-#include <QBrush>
 #include <QFileInfo>
-#include <QGridLayout>
-#include <QPushButton>
-#include <QPixmap>
 #include <QSvgRenderer>
-#include <QWidget>
 #include <QWidgetAction>
 #include <KLocalizedString>
 #include <KStandardDirs>
 
-namespace Palapeli
-{
-
-	class ViewMenuItem : public QPushButton
-	{
-		private:
-			QString m_fileName;
-			QBrush m_pixmapBrush;
-		public:
-			ViewMenuItem(const QString& fileName, const QPixmap& pixmap);
-
-			QString fileName() const { return m_fileName; }
-			QBrush pixmapBrush() const { return m_pixmapBrush; }
-	};
-
-	class ViewMenuPrivate
-	{
-		public:
-			ViewMenuPrivate(Palapeli::ViewMenu* parent);
-
-			QWidget* m_container;
-			QGridLayout* m_layout;
-			QList<Palapeli::ViewMenuItem*> m_items;
-			Palapeli::ViewMenuItem* m_currentItem;
-	};
-
-}
-
 //BEGIN Palapeli::ViewMenuItem
 
-static const int ViewMenuItemImageSize = 128;
+static const int ViewMenuItemImageSize = 64;
 
 Palapeli::ViewMenuItem::ViewMenuItem(const QString& fileName, const QPixmap& pixmap)
 	: QPushButton(QIcon(pixmap.scaled(ViewMenuItemImageSize, ViewMenuItemImageSize, Qt::KeepAspectRatio)), QString())
@@ -69,15 +37,51 @@ Palapeli::ViewMenuItem::ViewMenuItem(const QString& fileName, const QPixmap& pix
 	, m_pixmapBrush(pixmap)
 {
 	setIconSize(QSize(ViewMenuItemImageSize, ViewMenuItemImageSize));
+	connect(this, SIGNAL(clicked()), this, SLOT(handleClicked()));
+}
+
+void Palapeli::ViewMenuItem::enterEvent(QEvent* event)
+{
+	Q_UNUSED(event)
+	emit hoverEntered(this);
+}
+
+void Palapeli::ViewMenuItem::handleClicked()
+{
+	emit clicked(this);
 }
 
 //END Palapeli::ViewMenuItem
 
+//BEGIN Palapeli::ViewMenuWidget
+
+Palapeli::ViewMenuWidget::ViewMenuWidget(const QList<Palapeli::ViewMenuItem*>& items)
+	: QWidget()
+{
+	//build grid layout for menu items
+	int x = -1, y = 0;
+	const int columnCount = 4; //TODO: scale this factor with screen resolution
+	foreach (Palapeli::ViewMenuItem* item, items)
+	{
+		x = (x + 1) % columnCount;
+		if (x == 0)
+			++y;
+		m_layout.addWidget(item, y, x);
+	}
+	setLayout(&m_layout);
+}
+
+void Palapeli::ViewMenuWidget::leaveEvent(QEvent* event)
+{
+	Q_UNUSED(event)
+	emit hoverLeft();
+}
+
+//END Palapeli::ViewMenuWidget
+
 //BEGIN Palapeli::ViewMenuPrivate
 
 Palapeli::ViewMenuPrivate::ViewMenuPrivate(Palapeli::ViewMenu* parent)
-	: m_container(new QWidget)
-	, m_layout(new QGridLayout)
 {
 	static const QString backgroundFolder("palapeli/backgrounds/");
 	const QString selectedFileName = Settings::viewBackground();
@@ -111,24 +115,17 @@ Palapeli::ViewMenuPrivate::ViewMenuPrivate(Palapeli::ViewMenu* parent)
 		//create menu item for this brush
 		Palapeli::ViewMenuItem* item = new Palapeli::ViewMenuItem(fileName, pixmap);
 		m_items << item;
-		QObject::connect(item, SIGNAL(clicked()), parent, SLOT(backgroundSelected()));
+		QObject::connect(item, SIGNAL(clicked(Palapeli::ViewMenuItem*)), parent, SLOT(selectBackground(Palapeli::ViewMenuItem*)));
+		QObject::connect(item, SIGNAL(hoverEntered(Palapeli::ViewMenuItem*)), parent, SLOT(requestBackgroundPreview(Palapeli::ViewMenuItem*)));
 	}
 	//select initial brush
 	if (selectedIndex >= 0)
 		m_currentItem = m_items[selectedIndex];
 	else
 		m_currentItem = m_items[qMax(defaultIndex, 0)]; //the qMax chooses the index 0 if defaultIndex == -1
-	//build grid layout for menu items
-	int x = -1, y = 0;
-	const int columnCount = 4;
-	foreach (Palapeli::ViewMenuItem* item, m_items)
-	{
-		x = (x + 1) % columnCount;
-		if (x == 0)
-			++y;
-		m_layout->addWidget(item, x, y);
-	}
-	m_container->setLayout(m_layout);
+	//build container widget
+	m_container = new Palapeli::ViewMenuWidget(m_items);
+	QObject::connect(m_container, SIGNAL(hoverLeft()), parent, SIGNAL(backgroundPreviewFinished()));
 }
 
 //END Palapeli::ViewMenuPrivate
@@ -141,6 +138,7 @@ Palapeli::ViewMenu::ViewMenu(Palapeli::View* view)
 	QWidgetAction* act = new QWidgetAction(this);
 	act->setDefaultWidget(p->m_container);
 	addAction(act);
+	addTitle(i18n("Hover to preview texture and click to select it."));
 }
 
 Palapeli::ViewMenu::~ViewMenu()
@@ -159,11 +157,8 @@ void Palapeli::ViewMenu::showAtCursorPosition()
 	popup(QCursor::pos());
 }
 
-void Palapeli::ViewMenu::backgroundSelected()
+void Palapeli::ViewMenu::selectBackground(Palapeli::ViewMenuItem* item)
 {
-	Palapeli::ViewMenuItem* item = dynamic_cast<Palapeli::ViewMenuItem*>(sender());
-	if (!item)
-		return;
 	hide();
 	//change default background
 	p->m_currentItem = item;
@@ -173,4 +168,10 @@ void Palapeli::ViewMenu::backgroundSelected()
 	Settings::self()->writeConfig();
 }
 
+void Palapeli::ViewMenu::requestBackgroundPreview(Palapeli::ViewMenuItem* item)
+{
+	emit backgroundPreviewRequested(item->pixmapBrush());
+}
+
 #include "viewmenu.moc"
+#include "viewmenu_p.moc"

@@ -54,9 +54,12 @@ namespace Palapeli
 			virtual void wheelEvent(QWheelEvent* event);
 		private Q_SLOTS:
 			void updateBackground(const QBrush& brush);
+			void startBackgroundPreview(const QBrush& brush);
+			void endBackgroundPreview();
 		private:
 			Palapeli::ViewMenu* m_menu;
 			QGraphicsScene* m_scene;
+			QBrush m_backgroundBrush; //saves the current brush while previewing another one
 	};
 
 }
