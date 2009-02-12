@@ -25,6 +25,7 @@ set(palapelibase_SRCS
 	actions/kns-downloadaction.cpp
 	actions/loadaction.cpp
 	actions/resetaction.cpp
+	actions/textureaction.cpp
 	core/engine.cpp
 	core/part.cpp
 	core/piece.cpp

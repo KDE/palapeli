@@ -21,12 +21,14 @@
 #include "mainwindow_p.h"
 #include "../lib/core/engine.h"
 #include "../lib/core/view.h"
+#include "../lib/core/viewmenu.h"
 #include "../lib/actions/deleteaction.h"
 #include "../lib/actions/exportaction.h"
 #include "../lib/actions/importaction.h"
 #include "../lib/actions/kns-downloadaction.h"
 #include "../lib/actions/loadaction.h"
 #include "../lib/actions/resetaction.h"
+#include "../lib/actions/textureaction.h"
 #include "../lib/library/librarybase.h"
 #include "../lib/library/library.h"
 #include "../lib/library/puzzleinfo.h"
@@ -119,6 +121,7 @@ void Palapeli::MainWindowPrivate::setupActions()
 	KStandardAction::fullScreen(this, SLOT(setFullScreen(bool)), m_parent, m_parent->actionCollection());
 	//Settings actions
 	KStandardAction::preferences(m_settingsDialog, SLOT(show()), m_parent->actionCollection());
+	new Palapeli::TextureAction(ppMgr()->engine()->view()->menu(), m_parent->actionCollection());
 }
 
 void Palapeli::MainWindowPrivate::setupDockers()

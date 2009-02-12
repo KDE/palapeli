@@ -16,45 +16,31 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELI_VIEWMENU_H
-#define PALAPELI_VIEWMENU_H
+#ifndef PALAPELI_TEXTUREACTION_H
+#define PALAPELI_TEXTUREACTION_H
 
 #include "../macros.h"
 
-class QBrush;
-#include <KMenu>
+#include <KAction>
 
 namespace Palapeli
 {
 
-	class View;
-	class ViewMenuItem;
-	class ViewMenuPrivate;
+	class ViewMenu;
 
-	class PALAPELIBASE_EXPORT ViewMenu : public KMenu
+	class PALAPELIBASE_EXPORT TextureAction : public KAction
 	{
 		Q_OBJECT
 		public:
-			ViewMenu(Palapeli::View* view);
-			virtual ~ViewMenu();
-
-			QBrush currentBackground();
+			TextureAction(Palapeli::ViewMenu* menu, QObject* parent = 0);
 		public Q_SLOTS:
-			void showAtCursorPosition();
-		Q_SIGNALS:
-			void backgroundSelected(const QBrush& brush);
-			void backgroundPreviewRequested(const QBrush& brush);
-			void backgroundPreviewFinished();
-			void hidden();
-		protected:
-			virtual void hideEvent(QHideEvent* event);
-		private Q_SLOTS:
-			void selectBackground(Palapeli::ViewMenuItem* item);
-			void requestBackgroundPreview(Palapeli::ViewMenuItem* item);
+			void handleTrigger();
+			void handleHidden();
 		private:
-			Palapeli::ViewMenuPrivate* const p;
-	};
+			Palapeli::ViewMenu* m_menu;
+			bool m_showingMenu;
+ 	};
 
 }
 
-#endif // PALAPELI_VIEWMENU_H
+#endif // PALAPELI_TEXTUREACTION_H

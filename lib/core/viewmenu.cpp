@@ -173,5 +173,10 @@ void Palapeli::ViewMenu::requestBackgroundPreview(Palapeli::ViewMenuItem* item)
 	emit backgroundPreviewRequested(item->pixmapBrush());
 }
 
+void Palapeli::ViewMenu::hideEvent(QHideEvent* event)
+{
+	emit hidden();
+}
+
 #include "viewmenu.moc"
 #include "viewmenu_p.moc"

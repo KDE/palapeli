@@ -16,7 +16,7 @@
 			<Separator/>
 			<Action name="game_quit"/>
 		</Menu>
-		<Menu name="views">
+		<Menu name="view">
 			<Text>View</Text>
 			<Action name="view_zoom_in"/>
 			<Action name="view_zoom_out"/>
@@ -28,6 +28,7 @@
 		</Menu>
 		<Menu name="settings">
 			<Action name="settings_configure"/>
+			<Action name="palapeli_texture"/>
 		</Menu>
 	</MenuBar>
 	<ToolBar name="mainToolBar">
