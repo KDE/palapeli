@@ -101,6 +101,8 @@ void Palapeli::JigsawPattern::doSlice(const QImage& image)
 			verticalPlugDirections[x][y] = qrand() % 2;
 		}
 	}
+	//randomize again to avoid that the pieces are always placed at the same position
+	qsrand(time(0));
 	//make pieces
 	for (int x = 0; x < m_xCount; ++x)
 	{
@@ -272,8 +274,6 @@ void Palapeli::JigsawPattern::doSlice(const QImage& image)
 	delete[] verticalPlugShapeTypes;
 	delete[] horizontalPlugDirections;
 	delete[] verticalPlugDirections;
-	//randomize to avoid any abstruse side effects
-	qsrand(time(0));
 }
 
 //END Palapeli::JigsawPattern
@@ -319,8 +319,6 @@ void Palapeli::JigsawPatternConfiguration::writeCustomArguments(KConfigGroup* co
 //END Palapeli::JigsawPatternConfiguration
 
 //BEGIN Palapeli::JigsawPatternPlugin
-
-#include <KDebug>
 
 Palapeli::JigsawPatternPlugin::JigsawPatternPlugin(QObject* parent, const QVariantList& args)
 	: Palapeli::PatternPlugin(parent, args)
