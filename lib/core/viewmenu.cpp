@@ -153,8 +153,10 @@ QBrush Palapeli::ViewMenu::currentBackground()
 
 void Palapeli::ViewMenu::showAtCursorPosition()
 {
-	//TODO: menu item of current brush should be under the mouse
-	popup(QCursor::pos());
+	//ensure that menu item of current brush is under the mouse at the beginning
+	const QPoint cursorTarget = p->m_currentItem->mapTo(this, p->m_currentItem->rect().center());
+	popup(QCursor::pos() - cursorTarget);
+	//Note that popup() ensures that the menu is completely visible on screen.
 }
 
 void Palapeli::ViewMenu::selectBackground(Palapeli::ViewMenuItem* item)
@@ -175,6 +177,7 @@ void Palapeli::ViewMenu::requestBackgroundPreview(Palapeli::ViewMenuItem* item)
 
 void Palapeli::ViewMenu::hideEvent(QHideEvent* event)
 {
+	Q_UNUSED(event)
 	emit hidden();
 }
 
