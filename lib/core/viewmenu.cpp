@@ -30,6 +30,7 @@
 //BEGIN Palapeli::ViewMenuItem
 
 static const int ViewMenuItemImageSize = 64;
+static const int DefaultPatternImageSize = 128;
 
 Palapeli::ViewMenuItem::ViewMenuItem(const QString& fileName, const QPixmap& pixmap)
 	: QPushButton(QIcon(pixmap.scaled(ViewMenuItemImageSize, ViewMenuItemImageSize, Qt::KeepAspectRatio)), QString())
@@ -98,7 +99,7 @@ Palapeli::ViewMenuPrivate::ViewMenuPrivate(Palapeli::ViewMenu* parent)
 		if (path.contains(".svg"))
 		{
 			QSvgRenderer renderer(path);
-			pixmap = QPixmap(renderer.defaultSize());
+			pixmap = QPixmap(QSize(DefaultPatternImageSize, DefaultPatternImageSize));
 			pixmap.fill(Qt::transparent);
 			QPainter painter(&pixmap);
 			renderer.render(&painter);
