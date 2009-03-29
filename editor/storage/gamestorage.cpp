@@ -101,7 +101,7 @@ Palapeli::GameStoragePrivate::GameStoragePrivate(const QString& baseDirectory)
 	if (!isDir && exists)
 	{
 		kError() << "Could not create game storage at: " << baseDirectory;
-		KMessageBox::error(0, i18n("Game storage could not be created. Changes won't be saved."));
+		KMessageBox::error(0, i18n("Game storage could not be created. Changes will not be saved."));
 		m_accessible = false;
 		return;
 	}
@@ -110,7 +110,7 @@ Palapeli::GameStoragePrivate::GameStoragePrivate(const QString& baseDirectory)
 		if (!QDir().mkdir(baseDirectory))
 		{
 			kError() << "Could not create game storage at: " << baseDirectory;
-			KMessageBox::error(0, i18n("Game storage could not be created. Changes won't be saved."));
+			KMessageBox::error(0, i18n("Game storage could not be created. Changes will not be saved."));
 			m_accessible = false;
 			return;
 		}
