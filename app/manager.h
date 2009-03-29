@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2008 Felix Lemke <lemke.felix@ages-skripte.org>
- *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2008 Felix Lemke <lemke.felix@ages-skripte.org>
+ *   Copyright 2008 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public

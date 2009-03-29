@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2008 Felix Lemke <lemke.felix@ages-skripte.org>
- *   Copyright (C) 2008 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2008 Felix Lemke <lemke.felix@ages-skripte.org>
+ *   Copyright 2008-2009 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -241,7 +241,7 @@ Palapeli::MainWindow::MainWindow(QWidget* parent)
 	//initialize dockers
 	p->setupDockers();
 	//late GUI settings
-	setupGUI(QSize(600, 500));
+	setupGUI(QSize(500, 400));
 	gameNameWasChanged(QString());
 	connect(ppMgr(), SIGNAL(gameNameChanged(const QString&)), this, SLOT(gameNameWasChanged(const QString&)));
 	connect(ppMgr(), SIGNAL(interactionModeChanged(bool)), this, SLOT(changeInteractionMode(bool)));
