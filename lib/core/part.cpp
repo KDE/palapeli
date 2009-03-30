@@ -23,16 +23,15 @@
 #include "view.h"
 
 Palapeli::Part::Part(Palapeli::Piece* piece, Palapeli::Engine* engine)
-	: m_basePosition(piece->pos() - piece->positionInImage())
-	, m_engine(engine)
+	: m_engine(engine)
 {
+	setPos(piece->pos() - piece->positionInImage());
 	addPiece(piece);
 }
 
 Palapeli::Part::~Part()
 {
-	foreach (Palapeli::Piece* piece, m_pieces)
-		delete piece;
+	qDeleteAll(m_pieces); //TODO: necessary?
 }
 
 int Palapeli::Part::pieceCount() const
@@ -42,7 +41,7 @@ int Palapeli::Part::pieceCount() const
 
 QPointF Palapeli::Part::basePosition() const
 {
-	return m_basePosition;
+	return pos();
 }
 
 void Palapeli::Part::setBasePosition(const QPointF& basePosition)
@@ -55,7 +54,7 @@ void Palapeli::Part::setBasePosition(const QPointF& basePosition)
 
 Palapeli::Piece* Palapeli::Part::pieceAt(int index) const
 {
-	return m_pieces[index];
+	return m_pieces.value(index);
 }
 
 Palapeli::Engine* Palapeli::Part::engine() const
@@ -67,6 +66,7 @@ void Palapeli::Part::addPiece(Palapeli::Piece* piece)
 {
 	if (!m_pieces.contains(piece))
 		m_pieces << piece;
+	piece->setParentItem(this);
 	piece->setPart(this);
 }
 
@@ -76,6 +76,7 @@ void Palapeli::Part::removePiece(Palapeli::Piece* piece)
 	{
 		m_pieces.removeAll(piece);
 		piece->setPart(0);
+		piece->setParentItem(0);
 	}
 }
 

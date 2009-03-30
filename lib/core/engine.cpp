@@ -120,8 +120,8 @@ void Palapeli::Engine::addPiece(Palapeli::Piece* piece, const QPointF& sceneBase
 {
 	p->m_pieces << piece;
 	p->m_parts << new Palapeli::Part(piece, this);
+	p->m_view->realScene()->addItem(piece->part());
 	piece->part()->setBasePosition(sceneBasePosition);
-	p->m_view->realScene()->addItem(piece);
 }
 
 void Palapeli::Engine::addRelation(int piece1Id, int piece2Id)

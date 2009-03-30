@@ -22,8 +22,8 @@
 
 #include "../macros.h"
 
+#include <QGraphicsItem>
 #include <QList>
-#include <QPointF>
 
 namespace Palapeli
 {
@@ -31,16 +31,18 @@ namespace Palapeli
 	class Engine;
 	class Piece;
 
-	class PALAPELIBASE_EXPORT Part
+	class PALAPELIBASE_EXPORT Part : public QGraphicsItem
 	{
 		public:
 			Part(Piece* piece, Engine* engine);
-			~Part();
+			~Part(); //TODO: delete
 
 			QPointF basePosition() const;
 			void setBasePosition(const QPointF& basePosition);
+			//TODO: refactor out by porting piecerelation.cpp to QGraphicsItem builtins
 			int pieceCount() const;
 			Piece* pieceAt(int index) const;
+			//TODO: refactor out by making this a QObject and connecting Engine to deleted slot?
 			Engine* engine() const;
 
 			void addPiece(Piece* piece);
@@ -48,10 +50,17 @@ namespace Palapeli
 
 			void move(const QPointF& newBasePosition);
 			void update();
+
+			//empty QGraphicsItem implementation
+			virtual QRectF boundingRect() const { return QRectF(); }
+			virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget* = 0) {}
+		protected:
+// 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
+// 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 		private:
-			QList<Piece*> m_pieces;
-			QPointF m_basePosition; //the point which resembles to (0,0) in image coordinates
-			Engine* m_engine;
+			QList<Palapeli::Piece*> m_pieces;
+			QPointF m_basePosition;
+			Palapeli::Engine* m_engine;
 	};
 
 }
