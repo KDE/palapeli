@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright 2008 Felix Lemke <lemke.felix@ages-skripte.org>
- *   Copyright 2008 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2008-2009 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -48,11 +48,9 @@ bool Palapeli::PieceRelation::piecesInRightPosition() const
 {
 	const qreal maxInaccuracyFactor = qreal(Settings::snappingPrecision()) / 100.0;
 	const QSizeF maxInaccuracy = maxInaccuracyFactor * m_piece1->size();
-	const QPointF positionDifference = m_piece2->part()->basePosition() - m_piece1->part()->basePosition();
+	const QPointF positionDifference = m_piece2->part()->pos() - m_piece1->part()->pos();
 	return qAbs(positionDifference.x()) <= maxInaccuracy.width() && qAbs(positionDifference.y()) <= maxInaccuracy.height();
 }
-
-
 
 void Palapeli::PieceRelation::combine() const
 {
@@ -60,7 +58,7 @@ void Palapeli::PieceRelation::combine() const
 	Palapeli::Part* part2 = m_piece2->part();
 	if (part1 == part2)
 		return;
-	else if (part1->pieceCount() > part2->pieceCount())
+	else if (part1->pieces().count() > part2->pieces().count())
 		insert(part1, part2);
 	else
 		insert(part2, part1);
@@ -73,13 +71,12 @@ bool Palapeli::PieceRelation::combined() const
 
 void Palapeli::PieceRelation::insert(Palapeli::Part* target, Palapeli::Part* source) const
 {
-	while (source->pieceCount() > 0)
+	const QList<Palapeli::Piece*> pieces = source->pieces();
+	foreach (Palapeli::Piece* piece, pieces)
 	{
-		Palapeli::Piece* piece = source->pieceAt(0);
 		source->removePiece(piece);
 		target->addPiece(piece);
 	}
 	source->engine()->removePart(source);
-	target->update(); //adapt positions of added pieces
 	delete source;
 }

@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright 2008 Felix Lemke <lemke.felix@ages-skripte.org>
- *   Copyright 2008 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2008-2009 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -22,11 +22,14 @@
 #include "piece.h"
 #include "view.h"
 
+#include <QGraphicsSceneMouseEvent>
+
 Palapeli::Part::Part(Palapeli::Piece* piece, Palapeli::Engine* engine)
 	: m_engine(engine)
 {
-	setPos(piece->pos() - piece->positionInImage());
 	addPiece(piece);
+	setAcceptedMouseButtons(Qt::LeftButton);
+// 	setHandlesChildEvents(true);
 }
 
 Palapeli::Part::~Part()
@@ -34,27 +37,9 @@ Palapeli::Part::~Part()
 	qDeleteAll(m_pieces); //TODO: necessary?
 }
 
-int Palapeli::Part::pieceCount() const
+QList<Palapeli::Piece*> Palapeli::Part::pieces() const
 {
-	return m_pieces.count();
-}
-
-QPointF Palapeli::Part::basePosition() const
-{
-	return pos();
-}
-
-void Palapeli::Part::setBasePosition(const QPointF& basePosition)
-{
-	if (m_basePosition == basePosition)
-		return;
-	m_basePosition = basePosition;
-	update();
-}
-
-Palapeli::Piece* Palapeli::Part::pieceAt(int index) const
-{
-	return m_pieces.value(index);
+	return m_pieces;
 }
 
 Palapeli::Engine* Palapeli::Part::engine() const
@@ -66,8 +51,9 @@ void Palapeli::Part::addPiece(Palapeli::Piece* piece)
 {
 	if (!m_pieces.contains(piece))
 		m_pieces << piece;
-	piece->setParentItem(this);
 	piece->setPart(this);
+	piece->setParentItem(this);
+	piece->setPos(piece->positionInImage());
 }
 
 void Palapeli::Part::removePiece(Palapeli::Piece* piece)
@@ -80,24 +66,21 @@ void Palapeli::Part::removePiece(Palapeli::Piece* piece)
 	}
 }
 
-void Palapeli::Part::move(const QPointF& newBasePosition)
+void Palapeli::Part::setPosition(const QPointF& position)
 {
 	//check if pieces would go out of the scene because of this move
-	QPointF mutableNewBasePosition(newBasePosition);
+	QPointF newPos(position);
 	foreach (Palapeli::Piece* piece, m_pieces)
-		piece->makePositionValid(mutableNewBasePosition);
-	//do move
-	m_basePosition = mutableNewBasePosition;
-	update();
+		piece->makePositionValid(newPos);
+	//move
+	setPos(newPos);
 }
 
-void Palapeli::Part::update()
+#include <KDebug>
+
+void Palapeli::Part::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
-	//move every piece to the right position
-	foreach (Palapeli::Piece* piece, m_pieces)
-	{
-		piece->setPos(m_basePosition + piece->positionInImage());
-		m_engine->view()->moveToTop(piece);
-		emit m_engine->piecePositionChanged();
-	}
+	kDebug() << "works";
+	const QPointF difference = event->scenePos() - event->lastScenePos();
+	setPosition(pos() + difference);
 }

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2008 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2008-2009 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -121,7 +121,7 @@ void Palapeli::Engine::addPiece(Palapeli::Piece* piece, const QPointF& sceneBase
 	p->m_pieces << piece;
 	p->m_parts << new Palapeli::Part(piece, this);
 	p->m_view->realScene()->addItem(piece->part());
-	piece->part()->setBasePosition(sceneBasePosition);
+	piece->part()->setPos(sceneBasePosition);
 }
 
 void Palapeli::Engine::addRelation(int piece1Id, int piece2Id)

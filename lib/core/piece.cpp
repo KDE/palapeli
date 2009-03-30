@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright 2008 Felix Lemke <lemke.felix@ages-skripte.org>
- *   Copyright 2008 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2008-2009 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -75,25 +75,30 @@ void Palapeli::Piece::makePositionValid(QPointF& basePosition) const
 	basePosition.ry() = qBound(sceneRect.top() - m_positionInImage.top(), basePosition.y(), sceneRect.bottom() - m_positionInImage.bottom());
 }
 
+#include <KDebug>
+
 void Palapeli::Piece::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
+	kDebug() << "hallo";
 	if (m_part)
 	{
 		m_moving = event->button() & Qt::LeftButton;
-		m_grabPosition = event->scenePos() - m_part->basePosition();
+		m_grabPosition = event->scenePos() - m_part->pos();
 	}
 }
 
 void Palapeli::Piece::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
+	kDebug() << "hallo";
 	if (m_part && m_moving)
 	{
-		m_part->move(event->scenePos() - m_grabPosition);
+		m_part->setPosition(event->scenePos() - m_grabPosition);
 	}
 }
 
 void Palapeli::Piece::mouseReleaseEvent(QGraphicsSceneMouseEvent*)
 {
+	kDebug() << "hallo";
 	if (m_part && m_moving)
 	{
 		emit m_engine->pieceMoved();

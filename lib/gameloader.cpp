@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2008 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2008-2009 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -166,8 +166,8 @@ void Palapeli::GameLoader::finishLoading()
 	{
 		Palapeli::Piece* piece = p->m_engine->pieceAt(i);
 		const QRectF boundingRect = piece->sceneBoundingRect();
-		if (!boundingRect.contains(sceneRect))
-			piece->part()->move(piece->part()->basePosition()); //let's the part re-apply all movement constraints
+		if (!sceneRect.contains(boundingRect))
+			piece->part()->setPosition(piece->part()->pos()); //lets the part re-apply all movement constraints
 	}
 	emit finished();
 	p->m_engine->view()->useScene(true);
@@ -184,7 +184,7 @@ void Palapeli::GameLoader::save()
 	//write piece positions
 	KConfigGroup piecesGroup(&stateConfig, Palapeli::Strings::PiecesGroupKey);
 	for (int i = 0; i < p->m_engine->pieceCount(); ++i)
-		piecesGroup.writeEntry(Palapeli::Strings::PositionKey.arg(i), p->m_engine->pieceAt(i)->part()->basePosition());
+		piecesGroup.writeEntry(Palapeli::Strings::PositionKey.arg(i), p->m_engine->pieceAt(i)->part()->pos());
 	//write relation states
 	KConfigGroup relationsGroup(&stateConfig, Palapeli::Strings::RelationsGroupKey);
 	for (int i = 0; i < p->m_engine->relationCount(); ++i)

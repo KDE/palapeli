@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright 2008 Felix Lemke <lemke.felix@ages-skripte.org>
- *   Copyright 2008 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2008-2009 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -37,26 +37,18 @@ namespace Palapeli
 			Part(Piece* piece, Engine* engine);
 			~Part(); //TODO: delete
 
-			QPointF basePosition() const;
-			void setBasePosition(const QPointF& basePosition);
-			//TODO: refactor out by porting piecerelation.cpp to QGraphicsItem builtins
-			int pieceCount() const;
-			Piece* pieceAt(int index) const;
-			//TODO: refactor out by making this a QObject and connecting Engine to deleted slot?
-			Engine* engine() const;
+			QList<Piece*> pieces() const;
+			Engine* engine() const; //TODO: necessary?
 
 			void addPiece(Piece* piece);
-			void removePiece(Piece* piece);
-
-			void move(const QPointF& newBasePosition);
-			void update();
+			void removePiece(Piece* piece); //TODO: refactor out by making this a QObject and connecting Engine to deleted slot?
+			void setPosition(const QPointF& position);
 
 			//empty QGraphicsItem implementation
 			virtual QRectF boundingRect() const { return QRectF(); }
 			virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget* = 0) {}
 		protected:
-// 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
-// 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
+			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 		private:
 			QList<Palapeli::Piece*> m_pieces;
 			QPointF m_basePosition;
