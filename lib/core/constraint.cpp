@@ -18,6 +18,12 @@
 
 #include "constraint.h"
 
+Palapeli::Constraint::Constraint()
+	: m_type(RestrictToInside)
+	, m_rect(-100000.0, -100000.0, 200000.0, 200000.0)
+{
+}
+
 Palapeli::Constraint::Constraint(Palapeli::Constraint::Type type, const QRectF& rect)
 	: m_type(type)
 	, m_rect(rect.normalized())
@@ -32,6 +38,11 @@ Palapeli::Constraint::Type Palapeli::Constraint::type() const
 QRectF Palapeli::Constraint::rect() const
 {
 	return m_rect;
+}
+
+void Palapeli::Constraint::setRect(const QRectF& rect)
+{
+	m_rect = rect;
 }
 
 bool Palapeli::Constraint::operator==(const Palapeli::Constraint& other) const
@@ -92,4 +103,25 @@ QRectF Palapeli::Constraint::apply(const QRectF& rect) const
 			break;
 	}
 	return newRect;
+}
+
+bool Palapeli::Constraint::obsoletes(const Palapeli::Constraint& constraint) const
+{
+	if (m_type == constraint.m_type)
+	{
+		switch (m_type)
+		{
+			case RestrictToInside:
+				return m_rect.contains(constraint.m_rect);
+			case RestrictToOutside:
+				return constraint.m_rect.contains(m_rect);
+		}
+	}
+	return false;
+}
+
+bool Palapeli::Constraint::conflictsWith(const Palapeli::Constraint& constraint) const
+{
+	//Note that RestrictToOutside constraints may conflict with RestrictToInside constraints, but not the other way around. This priorization ensures that only one of two constraints is killed by Palapeli::Constraints::preparePreCache() in a conflict case.
+	return m_type == RestrictToOutside && constraint.m_type == RestrictToInside && m_rect.contains(constraint.m_rect);
 }

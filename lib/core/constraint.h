@@ -32,15 +32,19 @@ namespace Palapeli
 				RestrictToOutside
 			};
 
+			Constraint(); // Creates a constraint that does not constrain anything (i.e., restricts to a practically infinite area).
 			Constraint(Type type, const QRectF& rect);
 
 			Type type() const;
 			QRectF rect() const;
+			void setRect(const QRectF& rect);
 			bool operator==(const Palapeli::Constraint& other) const;
 			bool operator!=(const Palapeli::Constraint& other) const;
 
 			bool allows(const QRectF& rect) const;
 			QRectF apply(const QRectF& rect) const;
+			bool conflictsWith(const Palapeli::Constraint& constraint) const;
+			bool obsoletes(const Palapeli::Constraint& constraint) const;
 		private:
 			Type m_type;
 			QRectF m_rect;

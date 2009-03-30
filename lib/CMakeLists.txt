@@ -27,6 +27,7 @@ set(palapelibase_SRCS
 	actions/resetaction.cpp
 	actions/textureaction.cpp
 	core/constraint.cpp
+	core/constraints.cpp
 	core/engine.cpp
 	core/part.cpp
 	core/piece.cpp
