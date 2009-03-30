@@ -71,8 +71,11 @@ void Palapeli::Part::setPosition(const QPointF& position)
 	//check if pieces would go out of the scene because of this move
 	QPointF newPos(position);
 	foreach (Palapeli::Piece* piece, m_pieces)
+	{
 		piece->makePositionValid(newPos);
+	}
 	//move
+	m_engine->view()->moveToTop(this);
 	setPos(newPos);
 }
 
