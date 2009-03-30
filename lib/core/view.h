@@ -46,8 +46,7 @@ namespace Palapeli
 			void moveToTop(QGraphicsItem* item) const;
 			void scale(qreal scalingFactor);
 		Q_SIGNALS:
-			void viewportMoved();
-			void viewportScaled();
+			void viewportChanged();
 		protected:
 			virtual void contextMenuEvent(QContextMenuEvent* event);
 			virtual void resizeEvent(QResizeEvent* event);

@@ -60,11 +60,8 @@ namespace Palapeli
 			void zoomIn();
 			void zoomOut();
 		public:
-			//actions
-			KAction* m_toggleMinimapAct;
+			//image preview
 			KAction* m_togglePreviewAct;
-			//dockers
-			QDockWidget* m_dockMinimap;
 			QDockWidget* m_dockPreview;
 			//dialogs
 			Palapeli::CreateDialog* m_createDialog;

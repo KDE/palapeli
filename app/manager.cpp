@@ -30,7 +30,6 @@
 #include "../lib/actions/commonaction.h"
 #include "../lib/actions/importaction.h"
 #include "mainwindow.h"
-#include "minimap.h"
 #include "preview.h"
 
 #include <KCmdLineArgs>
@@ -51,7 +50,6 @@ namespace Palapeli
 		Engine* m_engine;
 		GameLoader* m_loader;
 		//game and UI objects
-		Minimap* m_minimap;
 		Preview* m_preview;
 		MainWindow* m_window;
 	};
@@ -64,7 +62,6 @@ Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 	: m_manager(manager)
 	, m_engine(new Palapeli::Engine)
 	, m_loader(0)
-	, m_minimap(0)
 	, m_preview(0)
 	, m_window(0)
 {
@@ -73,20 +70,15 @@ Palapeli::ManagerPrivate::ManagerPrivate(Palapeli::Manager* manager)
 
 void Palapeli::ManagerPrivate::init()
 {
-	m_minimap = new Palapeli::Minimap;
 	m_preview = new Palapeli::Preview;
 	m_window = new Palapeli::MainWindow;
 	//main window is deleted by Palapeli::ManagerPrivate::~ManagerPrivate because there are widely-spread references to the view, and the view will be deleted by m_window
 	m_window->setAttribute(Qt::WA_DeleteOnClose, false);
-	//make some connections
-	QObject::connect(m_engine, SIGNAL(piecePositionChanged()), m_minimap, SLOT(update()));
-	QObject::connect(m_engine, SIGNAL(viewportMoved()), m_minimap, SLOT(update()));
 }
 
 Palapeli::ManagerPrivate::~ManagerPrivate()
 {
 	delete m_engine;
-	delete m_minimap;
 	delete m_preview;
 	delete m_window; //attention: m_engine->view() might be deleted here
 }
@@ -172,11 +164,6 @@ Palapeli::Engine* Palapeli::Manager::engine() const
 	return p->m_engine;
 }
 
-Palapeli::Minimap* Palapeli::Manager::minimap() const
-{
-	return p->m_minimap;
-}
-
 Palapeli::Preview* Palapeli::Manager::preview() const
 {
 	return p->m_preview;
@@ -212,7 +199,6 @@ void Palapeli::Manager::loadGame(const Palapeli::PuzzleInfo* info, bool forceRel
 void Palapeli::Manager::finishGameLoading()
 {
 	//propagate changes
-	p->m_minimap->update();
 	emit interactionModeChanged(true);
 	emit gameNameChanged(p->m_loader->info()->name);
 }

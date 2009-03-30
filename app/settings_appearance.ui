@@ -35,68 +35,52 @@
    </item>
    <item>
     <widget class="QGroupBox" name="sceneSizeBox" >
-	 <property name="title" >
-	  <string>Scene size</string>
-	 </property>
-		   <layout class="QGridLayout" name="sceneSizeLayout" >
-        <item row="0" column="0" colspan="2" >
-         <widget class="QSlider" name="sceneSizeSlider" >
-          <property name="minimum" >
-           <number>100</number>
-          </property>
-          <property name="maximum" >
-           <number>500</number>
-          </property>
-          <property name="singleStep" >
-           <number>25</number>
-          </property>
-          <property name="pageStep" >
-           <number>100</number>
-          </property>
-          <property name="value" >
-           <number>200</number>
-          </property>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="tickPosition" >
-           <enum>QSlider::TicksBelow</enum>
-          </property>
-          <property name="tickInterval" >
-           <number>100</number>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="labelSmallScene" >
-          <property name="text" >
-           <string>Same as image size</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1" >
-         <widget class="QLabel" name="labelBigScene" >
-          <property name="text" >
-           <string>Five times the image size</string>
-          </property>
-          <property name="alignment" >
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="minimapBox" >
      <property name="title" >
-      <string>Minimap</string>
+      <string>Scene size</string>
      </property>
-     <layout class="QVBoxLayout" name="graphicsLayout" >
-      <item>
-       <widget class="QCheckBox" name="checkMinimapQuality" >
+     <layout class="QGridLayout" name="sceneSizeLayout" >
+      <item row="0" column="0" colspan="2" >
+       <widget class="QSlider" name="sceneSizeSlider" >
+        <property name="minimum" >
+         <number>100</number>
+        </property>
+        <property name="maximum" >
+         <number>500</number>
+        </property>
+        <property name="singleStep" >
+         <number>25</number>
+        </property>
+        <property name="pageStep" >
+         <number>100</number>
+        </property>
+        <property name="value" >
+         <number>200</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickPosition" >
+         <enum>QSlider::TicksBelow</enum>
+        </property>
+        <property name="tickInterval" >
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="labelSmallScene" >
         <property name="text" >
-         <string>Enable transparency effects</string>
+         <string>Same as image size</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QLabel" name="labelBigScene" >
+        <property name="text" >
+         <string>Five times the image size</string>
+        </property>
+        <property name="alignment" >
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
@@ -118,4 +102,6 @@
    </item>
   </layout>
  </widget>
+ <resources/>
+ <connections/>
 </ui>

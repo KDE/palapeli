@@ -56,8 +56,6 @@ Palapeli::EnginePrivate::EnginePrivate()
 Palapeli::Engine::Engine()
 	: p(new Palapeli::EnginePrivate)
 {
-	connect(p->m_view, SIGNAL(viewportMoved()), this, SIGNAL(viewportMoved()));
-	connect(p->m_view, SIGNAL(viewportScaled()), this, SIGNAL(viewportMoved()));
 	connect(this, SIGNAL(pieceMoved()), this, SLOT(searchConnections()));
 }
 

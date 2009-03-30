@@ -53,8 +53,8 @@ Palapeli::View::View(QWidget* parent)
 	setAntialiasing(Settings::antialiasing(), true);
 	setHardwareAccelerated(Settings::hardwareAccel(), true);
 	//report viewport moves
-	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportMoved()));
-	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportMoved()));
+	connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportChanged()));
+	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SIGNAL(viewportChanged()));
 	//react on background changes
 	connect(m_menu, SIGNAL(backgroundSelected(const QBrush&)), this, SLOT(updateBackground(const QBrush&)));
 	connect(m_menu, SIGNAL(backgroundPreviewRequested(const QBrush&)), this, SLOT(startBackgroundPreview(const QBrush&)));
@@ -92,7 +92,7 @@ void Palapeli::View::contextMenuEvent(QContextMenuEvent* event)
 void Palapeli::View::resizeEvent(QResizeEvent* event)
 {
 	Q_UNUSED(event)
-	emit viewportMoved();
+	emit viewportChanged();
 }
 
 void Palapeli::View::wheelEvent(QWheelEvent* event)
@@ -125,7 +125,7 @@ void Palapeli::View::scale(qreal scalingFactor)
 		fitInView(m_scene->sceneRect(), Qt::KeepAspectRatio);
 	else
 		QGraphicsView::scale(scalingFactor, scalingFactor);
-	emit viewportScaled();
+	emit viewportChanged();
 }
 
 void Palapeli::View::setAntialiasing(bool useAntialiasing, bool forceApplication)
@@ -166,7 +166,7 @@ void Palapeli::View::useScene(bool useScene)
 	if (useScene)
 	{
 		scale(0);
-		emit viewportMoved();
+		emit viewportChanged();
 	}
 }
 

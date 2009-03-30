@@ -33,7 +33,6 @@
 #include "../lib/library/library.h"
 #include "../lib/library/puzzleinfo.h"
 #include "manager.h"
-#include "minimap.h"
 #include "preview.h"
 #include "settings.h"
 
@@ -50,9 +49,7 @@
 
 Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
 	: m_parent(parent)
-	, m_toggleMinimapAct(new KAction(KIcon("document-preview"), i18n("Show overview"), parent))
 	, m_togglePreviewAct(new KAction(KIcon("games-config-background"), i18n("Show preview"), parent))
-	, m_dockMinimap(new QDockWidget(i18n("Overview"), parent))
 	, m_dockPreview(new QDockWidget(i18n("Image preview"), parent))
 	, m_createDialog(0)
 	, m_settingsDialog(new KPageDialog(parent))
@@ -73,11 +70,8 @@ Palapeli::MainWindowPrivate::MainWindowPrivate(Palapeli::MainWindow* parent)
 
 Palapeli::MainWindowPrivate::~MainWindowPrivate()
 {
-	//actions
-	delete m_toggleMinimapAct;
+	//image preview
 	delete m_togglePreviewAct;
-	//docker widgets
-	delete m_dockMinimap;
 	delete m_dockPreview;
 	//dialogs
 	delete m_createDialog;
@@ -106,11 +100,6 @@ void Palapeli::MainWindowPrivate::setupActions()
 	new Palapeli::KnsDownloadAction(m_parent->actionCollection());
 	KStandardGameAction::quit(m_parent, SLOT(close()), m_parent->actionCollection());
 	//View actions
-	m_parent->actionCollection()->addAction("view_toggle_minimap", m_toggleMinimapAct);
-	m_toggleMinimapAct->setCheckable(true);
-	m_toggleMinimapAct->setChecked(false);
-	connect(m_dockMinimap, SIGNAL(visibilityChanged(bool)), m_toggleMinimapAct, SLOT(setChecked(bool)));
-	connect(m_toggleMinimapAct, SIGNAL(triggered(bool)), m_dockMinimap, SLOT(setVisible(bool)));
 	m_parent->actionCollection()->addAction("view_toggle_preview", m_togglePreviewAct);
 	m_togglePreviewAct->setCheckable(true);
 	m_togglePreviewAct->setChecked(false);
@@ -126,12 +115,6 @@ void Palapeli::MainWindowPrivate::setupActions()
 
 void Palapeli::MainWindowPrivate::setupDockers()
 {
-	//minimap
-	m_parent->addDockWidget(Qt::LeftDockWidgetArea, m_dockMinimap);
-	m_dockMinimap->setObjectName("DockMap");
-	m_dockMinimap->setWidget(ppMgr()->minimap());
-	m_dockMinimap->resize(1, 1); //lets the dock widget adapt to the content's minimum size (note that this minimum size will be overwritten by user configuration)
-	m_dockMinimap->setVisible(false); //hidden by default
 	//preview
 	m_parent->addDockWidget(Qt::LeftDockWidgetArea, m_dockPreview);
 	m_dockPreview->setObjectName("DockPreview");
@@ -155,8 +138,6 @@ void Palapeli::MainWindowPrivate::setupDialogs()
 	connect(m_appearanceUi->checkHardwareAccel, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
 	m_appearanceUi->sceneSizeSlider->setValue(100.0 * Settings::sceneSizeFactor());
 	connect(m_appearanceUi->sceneSizeSlider, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
-	m_appearanceUi->checkMinimapQuality->setChecked(Settings::minimapQuality());
-	connect(m_appearanceUi->checkMinimapQuality, SIGNAL(stateChanged(int)), this, SLOT(configurationChanged()));
 	m_gameplayUi->precisionSlider->setValue(Settings::snappingPrecision());
 	connect(m_gameplayUi->precisionSlider, SIGNAL(valueChanged(int)), this, SLOT(configurationChanged()));
 #ifndef PALAPELI_WITH_OPENGL
@@ -192,7 +173,6 @@ void Palapeli::MainWindowPrivate::configurationFinished()
 	Palapeli::View* view = ppMgr()->engine()->view();
 	view->setAntialiasing(m_appearanceUi->checkAntialiasing->isChecked());
 	view->setHardwareAccelerated(m_appearanceUi->checkHardwareAccel->isChecked());
-	ppMgr()->minimap()->setQualityLevel(m_appearanceUi->checkMinimapQuality->isChecked() ? 1 : 0);
 	Settings::setSceneSizeFactor(qreal(m_appearanceUi->sceneSizeSlider->value()) / 100.0);
 	Settings::setSnappingPrecision(m_gameplayUi->precisionSlider->value());
 	Settings::self()->writeConfig();

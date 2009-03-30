@@ -33,7 +33,6 @@ namespace Palapeli
 	class Library;
 	class MainWindow;
 	class ManagerPrivate;
-	class Minimap;
 	class Preview;
 	struct PuzzleInfo;
 
@@ -48,7 +47,6 @@ namespace Palapeli
 			const PuzzleInfo* puzzleInfo() const;
 			static const PuzzleInfo* staticPuzzleInfo();
 			//other objects (mostly user interface)
-			Minimap* minimap() const;
 			Preview* preview() const;
 			MainWindow* window() const;
 		public Q_SLOTS:

@@ -63,7 +63,6 @@ namespace Palapeli
 			void piecePositionChanged();
 			void pieceMoved();
 			void relationsCombined();
-			void viewportMoved();
 		protected:
 			friend class Part;
 			friend class Piece;

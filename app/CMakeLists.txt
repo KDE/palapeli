@@ -10,7 +10,6 @@ set(palapeli_SRCS
 	main.cpp
 	mainwindow.cpp
 	manager.cpp
-	minimap.cpp
 	preview.cpp
 	welcomewidget.cpp
 )

@@ -22,8 +22,6 @@
 			<Action name="view_zoom_out"/>
 			<Separator/>
 			<Action name="fullscreen"/>
-			<Separator/>
-			<Action name="view_toggle_minimap"/>
 			<Action name="view_toggle_preview"/>
 		</Menu>
 		<Menu name="settings">
