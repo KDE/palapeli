@@ -2,6 +2,7 @@
 Type=Application
 Exec=palapeli
 Name=Palapeli
+Name[hne]=पालापेली
 Name[x-test]=xxPalapelixx
 GenericName=Jigsaw puzzle game
 GenericName[el]=Παιχνίδι εικόνων παζλ
@@ -10,6 +11,7 @@ GenericName[et]=Pusle
 GenericName[fr]=Puzzle
 GenericName[ga]=Cluiche míreanna mearaí
 GenericName[gl]=Xogo de quebracabezas
+GenericName[hne]=जिगसा पहेली खेल
 GenericName[ja]=ジグソーパズル
 GenericName[km]=ល្បែង​ផ្គុំ​រូប Jigsaw 
 GenericName[nds]=Pusselspeel
