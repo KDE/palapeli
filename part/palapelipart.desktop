@@ -1,9 +1,0 @@
-[Desktop Entry]
-Icon=palapeli
-Name=Palapeli
-Name[hne]=पालापेली
-Name[x-test]=xxPalapelixx
-X-KDE-ServiceTypes=KParts/ReadOnlyPart
-X-KDE-Library=palapelipart
-Type=Service
-MimeType=application/x-palapeli-puzzle;
