@@ -1,4 +1,6 @@
 project(palapeli)
+add_subdirectory(libpala)
+add_subdirectory(slicers)
 add_subdirectory(lib) # needs to be compiled before anything else
 add_subdirectory(app)
 #add_subdirectory(editor) # deactivated until the patterns created in this editor are actually implemented

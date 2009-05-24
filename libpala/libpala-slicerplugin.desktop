@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=ServiceType
+X-KDE-ServiceType=Libpala/SlicerPlugin
+X-KDE-Derived=
+Comment=Slicer plugin for libpala, the base library of Palapeli

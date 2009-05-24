@@ -1,17 +1,13 @@
-TODO list:
-
-Palapeli bugs
+Bugs
 * It seems like images are not cleared from the puzzle library when they're not used anymore.
 
-Palapeli short-term goals
-* a toolbar with tools like "Clear this area"
-* export and document only the necessary interface classes
+Short-term goals
+* remove libpalapelibase in favor of libpala (merge most of libpalapelibase back into Palapeli)
+* refactor everything
 
-Palapeli mid-term goals
-* transform Preview and Minimap to on-screen widgets
-* rotation of pieces (requires redesign of the game engine - Piece/Part/PieceRelation)
+Mid-term goals
+* make Preview look cooler (perhaps an on-screen overlay)
 * 3D/shadow effect for pieces
-* puzzle area as Plasma containment
 
 Paladesign (depends on whether Paladesign is kept at all)
 * shape browser

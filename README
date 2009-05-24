@@ -1,0 +1,24 @@
+This file gives an overview of the code structure of Palapeli.
+
+/lib
+	This directory contains libpalapelibase. When Palapeli used to be a stand-alone application as well as a KPart, this library held the common parts of both implementations, and provided the link interface for pattern plugins. The KPart has been removed, so it's quite superfluous to keep most of Palapeli's components in this library.
+/patterns
+	Here are the pattern plugins, which link against libpalapelibase.
+/libpala
+	libpala is the successor of libpalapelibase. Its only job is to provide a slick link interface for slicer plugins (the successors of pattern plugins).
+/slicers
+	Slicer plugins are the successors of pattern plugins, and link to libpala.
+/editor (excluded from CMakeLists currently)
+	This directory contains some rather old code for a pattern editor called Paladesign, which should make it possible to build regular periodic patterns just from masks. The editor is far from finished, and it is lacking a suitable slicer plugin.
+/app
+	Here is the code for the main application.
+/puzzles
+	This folder contains a collection of default puzzles.
+
+As you see, the codebase is quite a mess currently. This mess will be cleaned up over the next months:
+* in libpalapelibase, use libpala for slicing instead of the own pattern plugins
+* rewrite the remaining pattern plugins as libpala slicer plugins
+* merge libpalapelibase back into Palapeli
+* refactor most classes, most prominently the puzzling engine in lib/core
+* add missing features
+* release (current target: KDE 4.5)
