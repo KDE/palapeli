@@ -41,6 +41,7 @@ RectSlicer::RectSlicer(QObject* parent, const QVariantList& args)
 
 void RectSlicer::run(Palapeli::SlicerJob* job)
 {
+	//TODO: Does not check input values. Perhaps introduce a check in the Slicer base class?
 	//read job
 	const int xCount = job->argument("XCount").toInt();
 	const int yCount = job->argument("YCount").toInt();

@@ -2,7 +2,7 @@
 Type=Service
 Icon=palapeli-rectslicer
 X-KDE-Library=palapeli_rectslicer
-X-KDE-ServiceType=Libpala/SlicerPlugin
+X-KDE-ServiceTypes=Libpala/SlicerPlugin
 X-KDE-PluginInfo-Author=Stefan Majewsky
 X-KDE-PluginInfo-Email=majewsky@gmx.net
 X-KDE-PluginInfo-Name=palapeli_rectslicer
