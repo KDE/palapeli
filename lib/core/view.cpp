@@ -48,6 +48,7 @@ Palapeli::View::View(QWidget* parent)
 	setScene(m_scene);
 	m_scene->setSceneRect(QRectF(-1, -1, 2, 2)); //the exact values are not important as long as there is some specific scene rect
 	updateBackground(m_menu->currentBackground());
+	setDragMode(QGraphicsView::ScrollHandDrag);
 	//load settings
 	Settings::self()->readConfig();
 	setAntialiasing(Settings::antialiasing(), true);
@@ -97,26 +98,17 @@ void Palapeli::View::resizeEvent(QResizeEvent* event)
 
 void Palapeli::View::wheelEvent(QWheelEvent* event)
 {
-	qreal delta = event->delta();
-	if (event->modifiers() & Qt::ControlModifier)
+	//zoom viewport in/out
+	const qreal delta = event->delta();
+	static const qreal deltaAdaptationFactor = 600.0;
+	qreal scalingFactor = 1.0 + qAbs(delta) / deltaAdaptationFactor;
+	if (delta < 0) //zoom out
 	{
-		//control + mouse wheel - zoom viewport in/out
-		static const qreal deltaAdaptationFactor = 600.0;
-		qreal scalingFactor = 1.0 + qAbs(delta) / deltaAdaptationFactor;
-		if (delta < 0) //zoom out
-		{
-			scalingFactor = 1.0 / scalingFactor;
-			if (scalingFactor <= 0.01)
-				scalingFactor = 0.01;
-		}
-		scale(scalingFactor);
+		scalingFactor = 1.0 / scalingFactor;
+		if (scalingFactor <= 0.01)
+			scalingFactor = 0.01;
 	}
-	else if ((event->modifiers() & Qt::ShiftModifier) || event->orientation() == Qt::Horizontal)
-		//shift + mouse wheel - move the viewport left/right by adjusting the slider
-		horizontalScrollBar()->triggerAction(delta < 0 ? QAbstractSlider::SliderSingleStepAdd : QAbstractSlider::SliderSingleStepSub);
-	else
-		//just the mouse wheel - move the viewport up/down by adjusting the slider
-		verticalScrollBar()->triggerAction(delta < 0 ? QAbstractSlider::SliderSingleStepAdd : QAbstractSlider::SliderSingleStepSub);
+	scale(scalingFactor);
 }
 
 void Palapeli::View::scale(qreal scalingFactor)

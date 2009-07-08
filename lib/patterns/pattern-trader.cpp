@@ -20,6 +20,7 @@
 #include "pattern-configuration.h"
 #include "pattern-plugin.h"
 
+#include <KDebug>
 #include <kdemacros.h>
 #include <KServiceTypeTrader>
 
@@ -90,4 +91,6 @@ void Palapeli::PatternTrader::rescanConfigurations()
 		p->m_configs << plugin->createInstances();
 		delete plugin;
 	}
+	//debug
+	kDebug() << "Loaded" << p->m_configs.count() << "pattern plugins";
 }
