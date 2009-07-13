@@ -17,7 +17,7 @@ kde4_add_kcfg_files(palapeli_SRCS ../lib/settings.kcfgc)
 kde4_add_ui_files(palapeli_SRCS settings_appearance.ui settings_gameplay.ui)
 
 kde4_add_executable(palapeli ${palapeli_SRCS})
-target_link_libraries(palapeli palapelibase ${KDE4_KDEUI_LIBS})
+target_link_libraries(palapeli palapelibase ${KDE4_KDEUI_LIBS} ${KDEGAMES_LIBRARY})
 
 install(TARGETS palapeli ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeliui.rc DESTINATION ${DATA_INSTALL_DIR}/palapeli)
