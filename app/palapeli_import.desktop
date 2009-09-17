@@ -10,6 +10,7 @@ Exec=palapeli --nogui --import %U
 Icon=preferences-plugin
 Name=Import into Palapeli puzzle library
 Name[el]=Εισαγωγή στη βιβλιοθήκη παζλ Palapeli
+Name[en_GB]=Import into Palapeli puzzle library
 Name[es]=Importar en la biblioteca de rompecabezas de Palapeli
 Name[et]=Impordi Palapeli pusle teeki
 Name[fr]=Importer dans la bibliothèque de puzzles de Palapeli
