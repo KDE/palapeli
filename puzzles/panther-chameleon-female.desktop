@@ -1,0 +1,43 @@
+[Desktop Entry]
+Name=Furcifer pardalis
+Name[el]=Furcifer pardalis
+Name[en_GB]=Furcifer pardalis
+Name[es]=Camaleón pantera
+Name[et]=Furcifer pardalis
+Name[fr]=Furcifer pardalis
+Name[gl]=Furcifer pardalis
+Name[it]=Furcifer pardalis
+Name[km]=Furcifer pardalis
+Name[nds]=Furcifer pardalis
+Name[pt]=Pardal
+Name[sv]=Furcifer pardalis
+Name[tr]=Furcifer pardalis
+Name[uk]=Самка барса
+Name[x-test]=xxFurcifer pardalisxx
+Comment=Female panther chameleon
+Comment[el]=Θηλυκός χαμαιλέων πάνθηρας
+Comment[en_GB]=Female panther chameleon
+Comment[es]=Hembra del camaleón pantera
+Comment[et]=Emane panterkameeleon
+Comment[fr]=Femelle panthère caméléon
+Comment[gl]=Camaleón pantera femia
+Comment[it]=Camaleonte pantera femmina
+Comment[km]=Female panther chameleon
+Comment[nds]=En Se vun't Pantherchamäleon
+Comment[pt]=Camaleão-pantera fêmea
+Comment[sv]=Panterkameleonthona
+Comment[tr]=Pembe panter kamelon
+Comment[uk]=Самка п’ятнистого хамелеона
+Comment[x-test]=xxFemale panther chameleonxx
+Type=X-Palapeli-Puzzle
+
+X-KDE-PluginInfo-Author=B. Navez and others
+X-KDE-PluginInfo-Email=
+X-KDE-PluginInfo-Website=http://commons.wikimedia.org/wiki/Image:FurciferPardalisFemale.JPG
+X-KDE-PluginInfo-License=GNU-FDL
+
+[Job]
+Image=panther-chameleon-female.jpg
+Slicer=palapeli_rectslicer
+XCount=6
+YCount=8
