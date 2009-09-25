@@ -1,0 +1,7 @@
+/**
+ * @mainpage API for libpala
+ * libpala is the base library for the jigsaw puzzle game Palapeli. It provides an interface for slicer plugins.
+ * Slicer objects represent slicing algorithms, which cut some source image into pieces.
+ *
+ * @author Stefan Majewsky <majewsky@gmx.net>
+ */
