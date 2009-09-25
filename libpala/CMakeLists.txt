@@ -14,6 +14,11 @@ set(libpala_HDRS
 	slicerjob.h
 	slicerproperty.h
 )
+set(libpala_FANCY_HDRS
+	Pala/Slicer
+	Pala/SlicerJob
+	Pala/SlicerProperty
+)
 #TODO: create fancy headers
 
 kde4_add_library(pala SHARED ${libpala_SRCS})
@@ -26,4 +31,5 @@ set_target_properties(pala PROPERTIES
 
 install(TARGETS pala ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES ${libpala_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/libpala)
+install(FILES ${libpala_FANCY_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/Pala)
 install(FILES libpala-slicerplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})

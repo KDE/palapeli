@@ -1,0 +1,1 @@
+This directory contains the fancy headers for libpala. For example, you can include <Pala/Slicer> instead of <libpala/slicer.h>.
