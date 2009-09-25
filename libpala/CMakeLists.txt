@@ -1,9 +1,6 @@
 project(libpala)
 
-set(libpala_MAJOR_VERSION "0")
-set(libpala_MINOR_VERSION "1")
-set(libpala_PATCH_VERSION "0")
-set(libpala_VERSION "${libpala_MAJOR_VERSION}.${libpala_MINOR_VERSION}.${libpala_PATCH_VERSION}")
+set(libpala_VERSION "0.1.0")
 set(libpala_SOVERSION "0")
 
 set(libpala_SRCS
