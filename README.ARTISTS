@@ -1,0 +1,6 @@
+Whenever you add or modify puzzles, do the following on the console before you commit:
+
+$ cd $WHATEVER/palapeli/puzzles/
+$ bash make-puzzles.sh
+
+This will create the puzzle files for Palapeli (file extension ".pala"). If you have added new puzzles, do not forget to add these puzzle files to your commit.
