@@ -29,8 +29,8 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <KServiceTypeTrader>
-
-#include <KDebug>
+#include <KTar>
+#include <KTempDir>
 
 int main(int argc, char** argv)
 {
@@ -45,10 +45,15 @@ int main(int argc, char** argv)
 	KApplication app;
 	KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 
+	if (args->count() < 2)
+	{
+		std::cerr << "Error: Too few arguments." << std::endl;
+		return 1;
+	}
+
 	//get command line options, and check if all required options have been given
-	QString manifestPath;
-	if (args->count() > 0)
-		manifestPath = args->url(0).path();
+	const QString manifestPath = args->url(0).path();
+	const QString outputPath = args->url(1).path();
 	if (!QFileInfo(manifestPath).isFile())
 	{
 		std::cerr << "Error: Path to manifest invalid, or manifest file not found." << std::endl;
@@ -75,7 +80,6 @@ int main(int argc, char** argv)
 		else
 			slicerArgs[jobDataIterator.key().toLatin1()] = QVariant::fromValue(jobDataIterator.value());
 	}
-	kDebug() << imagePath << slicerName << slicerArgs;
 
 	//load image
 	QImage image(imagePath);
@@ -107,17 +111,51 @@ int main(int argc, char** argv)
 	}
 
 	//create slicer job
-	kDebug() << "Args" << slicerArgs;
 	Palapeli::SlicerJob job(image, slicerArgs);
 	slicer->run(&job);
 
-	//DEBUG: write out images and offsets to test the slicing
-	QMap<int, QImage> pieces = job.pieces();
-	QMap<int, QPoint> pieceOffsets = job.pieceOffsets();
-	foreach (int index, pieces.keys())
+	//assemble everything into a KTempDir
+	KTempDir cache;
+	const QString cachePath = cache.name();
+	//copy manifest to tempdir
+	const QString targetManifestPath = cachePath + "pala.desktop";
+	if (!QFile(manifestPath).copy(targetManifestPath))
 	{
-		pieces[index].save(QString("%1.png").arg(index));
-		kDebug() << QString("Piece %1:").arg(index) << "Size" << pieces[index].size() << "Offset" << pieceOffsets[index];
+		std::cerr << "Manifest could not be copied into archive." << std::endl;
+		return 1;
+	}
+	//copy pieces to tempdir
+	QMap<int, QImage> pieces = job.pieces();
+	QList<int> pieceIndices = pieces.keys();
+	foreach (int index, pieceIndices)
+	{
+		if (!pieces[index].save(cachePath + QString("%1.png").arg(index)))
+		{
+			std::cerr << "Could not save piece image no. " << index << std::endl;
+			return 1;
+		}
+	}
+	//write piece offsets into target manifest
+	QMap<int, QPoint> pieceOffsets = job.pieceOffsets();
+	KConfig targetManifest(targetManifestPath, KConfig::SimpleConfig);
+	KConfigGroup offsetGroup(&targetManifest, "PieceOffsets");
+	foreach (int index, pieceIndices)
+		offsetGroup.writeEntry(QString::number(index), pieceOffsets[index]);
+	targetManifest.sync();
+
+	//compress archive to temporary file
+	KTar tar(outputPath, "application/x-bzip");
+	bool success = true;
+	if (!tar.open(QIODevice::WriteOnly))
+		success = false;
+	else if (!tar.addLocalDirectory(cachePath, QLatin1String(".")))
+		success = false;
+	else if (!tar.close())
+		success = false;
+	if (!success)
+	{
+		std::cerr << "Error: Could not write output file." << std::endl;
+		return 1;
 	}
 
 	return 0;
