@@ -20,9 +20,9 @@
 
 #include <QtGui/QPainter>
 
-//BEGIN Palapeli::SlicerJob::Private
+//BEGIN Pala::SlicerJob::Private
 
-class Palapeli::SlicerJob::Private
+class Pala::SlicerJob::Private
 {
 	public:
 		QMap<QByteArray, QVariant> m_args;
@@ -33,52 +33,52 @@ class Palapeli::SlicerJob::Private
 		QList<QPair<int, int> > m_relations;
 };
 
-//END Palapeli::SlicerJob::Private
+//END Pala::SlicerJob::Private
 
-Palapeli::SlicerJob::SlicerJob(const QImage& image, const QMap<QByteArray, QVariant>& args)
+Pala::SlicerJob::SlicerJob(const QImage& image, const QMap<QByteArray, QVariant>& args)
 	: p(new Private)
 {
 	p->m_args = args;
 	p->m_image = image;
 }
 
-Palapeli::SlicerJob::~SlicerJob()
+Pala::SlicerJob::~SlicerJob()
 {
 	delete p;
 }
 
-QVariant Palapeli::SlicerJob::argument(const QByteArray& key) const
+QVariant Pala::SlicerJob::argument(const QByteArray& key) const
 {
 	return p->m_args.value(key, QVariant());
 }
 
-QImage Palapeli::SlicerJob::image() const
+QImage Pala::SlicerJob::image() const
 {
 	return p->m_image;
 }
 
-QMap<int, QImage> Palapeli::SlicerJob::pieces() const
+QMap<int, QImage> Pala::SlicerJob::pieces() const
 {
 	return p->m_pieces;
 }
 
-QMap<int, QPoint> Palapeli::SlicerJob::pieceOffsets() const
+QMap<int, QPoint> Pala::SlicerJob::pieceOffsets() const
 {
 	return p->m_pieceOffsets;
 }
 
-QList<QPair<int, int> > Palapeli::SlicerJob::relations() const
+QList<QPair<int, int> > Pala::SlicerJob::relations() const
 {
 	return p->m_relations;
 }
 
-void Palapeli::SlicerJob::addPiece(int pieceID, const QImage& image, const QPoint& offset)
+void Pala::SlicerJob::addPiece(int pieceID, const QImage& image, const QPoint& offset)
 {
 	p->m_pieces.insert(pieceID, image);
 	p->m_pieceOffsets.insert(pieceID, offset);
 }
 
-void Palapeli::SlicerJob::addPieceFromMask(int pieceID, const QImage& mask, const QPoint& offset)
+void Pala::SlicerJob::addPieceFromMask(int pieceID, const QImage& mask, const QPoint& offset)
 {
 	QImage pieceImage(mask);
 	QPainter painter(&pieceImage);
@@ -88,7 +88,7 @@ void Palapeli::SlicerJob::addPieceFromMask(int pieceID, const QImage& mask, cons
 	addPiece(pieceID, pieceImage, offset);
 }
 
-void Palapeli::SlicerJob::addRelation(int pieceID1, int pieceID2)
+void Pala::SlicerJob::addRelation(int pieceID1, int pieceID2)
 {
 	p->m_relations << QPair<int, int>(pieceID1, pieceID2);
 }

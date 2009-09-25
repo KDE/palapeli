@@ -19,33 +19,33 @@
 #include "slicer.h"
 #include "slicerproperty.h"
 
-//BEGIN Palapeli::Slicer::Private
+//BEGIN Pala::Slicer::Private
 
-class Palapeli::Slicer::Private
+class Pala::Slicer::Private
 {
 	public:
-		QMap<QByteArray, const Palapeli::SlicerProperty*> m_properties;
+		QMap<QByteArray, const Pala::SlicerProperty*> m_properties;
 };
 
-//END Palapeli::Slicer::Private
+//END Pala::Slicer::Private
 
-Palapeli::Slicer::Slicer(QObject* parent, const QVariantList& /*args*/)
+Pala::Slicer::Slicer(QObject* parent, const QVariantList& /*args*/)
 	: QObject(parent)
 	, p(new Private)
 {
 }
 
-Palapeli::Slicer::~Slicer()
+Pala::Slicer::~Slicer()
 {
 	delete p;
 }
 
-QMap<QByteArray, const Palapeli::SlicerProperty*> Palapeli::Slicer::properties() const
+QMap<QByteArray, const Pala::SlicerProperty*> Pala::Slicer::properties() const
 {
 	return p->m_properties;
 }
 
-void Palapeli::Slicer::addProperty(const QByteArray& key, Palapeli::SlicerProperty* property)
+void Pala::Slicer::addProperty(const QByteArray& key, Pala::SlicerProperty* property)
 {
 	delete p->m_properties[key]; //this is safe because m_properties[key] == 0 if key has not been used yet
 	p->m_properties[key] = property;

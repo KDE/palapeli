@@ -26,20 +26,20 @@ K_PLUGIN_FACTORY(RectSlicerFactory, registerPlugin<RectSlicer>();)
 K_EXPORT_PLUGIN(RectSlicerFactory("palapeli_rectslicer"))
 
 RectSlicer::RectSlicer(QObject* parent, const QVariantList& args)
-	: Palapeli::Slicer(parent, args)
+	: Pala::Slicer(parent, args)
 {
-	Palapeli::SlicerProperty* prop;
-	prop = new Palapeli::SlicerProperty(Palapeli::SlicerProperty::Integer, i18n("Piece count in horizontal direction"));
+	Pala::SlicerProperty* prop;
+	prop = new Pala::SlicerProperty(Pala::SlicerProperty::Integer, i18n("Piece count in horizontal direction"));
 	prop->setRange(3, 100);
 	prop->setDefaultValue(10);
 	addProperty("XCount", prop);
-	prop = new Palapeli::SlicerProperty(Palapeli::SlicerProperty::Integer, i18n("Piece count in vertical direction"));
+	prop = new Pala::SlicerProperty(Pala::SlicerProperty::Integer, i18n("Piece count in vertical direction"));
 	prop->setRange(3, 100);
 	prop->setDefaultValue(10);
 	addProperty("YCount", prop);
 }
 
-void RectSlicer::run(Palapeli::SlicerJob* job)
+void RectSlicer::run(Pala::SlicerJob* job)
 {
 	//TODO: Does not check input values. Perhaps introduce a check in the Slicer base class?
 	//read job

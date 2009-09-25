@@ -30,15 +30,15 @@
 #include <QtCore/QVariant>
 #include <QtGui/QImage>
 
-namespace Palapeli
+namespace Pala
 {
 	/**
 	 * \class SlicerJob slicerjob.h libpala/slicerjob.h
 	 * \since libpala 1.0 / Palapeli 1.0
 	 *
-	 * This class holds everything that concerns a single slicing job: It starts out with the image and the arguments (i.e., the values that the user has chosen for the properties defined by the slicing algorithm). The Palapeli::Slicer::run method should then use these informations to slice the image into pieces and define neighborship relations between them.
+	 * This class holds everything that concerns a single slicing job: It starts out with the image and the arguments (i.e., the values that the user has chosen for the properties defined by the slicing algorithm). The Pala::Slicer::run method should then use these informations to slice the image into pieces and define neighborship relations between them.
 	 *
-	 * \sa Palapeli::Slicer::run
+	 * \sa Pala::Slicer::run
 	 */
 	class LIBPALA_EXPORT SlicerJob
 	{

@@ -27,16 +27,16 @@
 
 #include <QtCore/QVariant>
 
-namespace Palapeli
+namespace Pala
 {
 	/**
 	 * \class SlicerProperty slicerproperty.h libpala/slicerproperty.h
 	 * \since libpala 1.0 / Palapeli 1.0
 	 * \brief Representation of a slicing algorithm's configurable parameters.
 	 *
-	 * Slicer properties describe configurable parameters of slicing algorithms (i.e. Palapeli::Slicer instances) in a presentation-agnostic way. Note that it does not store any user-generated values, it just describes the possible input forms.
+	 * Slicer properties describe configurable parameters of slicing algorithms (i.e. Pala::Slicer instances) in a presentation-agnostic way. Note that it does not store any user-generated values, it just describes the possible input forms.
 	 *
-	 * \sa Palapeli::Slicer::addProperty
+	 * \sa Pala::Slicer::addProperty
 	 *
 	 * \warning Some setter functions are only logical for certain property types. If such a function is called on a property with a "wrong" type, the method will not only fail, but terminate the whole application, to let you discover such errors in the early run.
 	 */

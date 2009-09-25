@@ -16,8 +16,8 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#include <Pala/Slicer>
-#include <Pala/SlicerJob>
+#include "../libpala/slicer.h"
+#include "../libpala/slicerjob.h"
 
 #include <iostream>
 #include <QFileInfo>
@@ -103,7 +103,7 @@ int main(int argc, char** argv)
 
 	//initialize requested slicer plugin
 	QString errorMessage;
-	Palapeli::Slicer* slicer = slicerOffer->createInstance<Palapeli::Slicer>(0, QVariantList(), &errorMessage);
+	Pala::Slicer* slicer = slicerOffer->createInstance<Pala::Slicer>(0, QVariantList(), &errorMessage);
 	if (!errorMessage.isEmpty())
 	{
 		std::cerr << qPrintable(errorMessage) << std::endl;
@@ -111,7 +111,7 @@ int main(int argc, char** argv)
 	}
 
 	//create slicer job
-	Palapeli::SlicerJob job(image, slicerArgs);
+	Pala::SlicerJob job(image, slicerArgs);
 	slicer->run(&job);
 
 	//assemble everything into a KTempDir

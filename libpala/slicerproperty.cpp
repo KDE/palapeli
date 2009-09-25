@@ -20,12 +20,12 @@
 
 #include <QStringList>
 
-//BEGIN Palapeli::SlicerProperty::Private
+//BEGIN Pala::SlicerProperty::Private
 
-class Palapeli::SlicerProperty::Private
+class Pala::SlicerProperty::Private
 {
 	public:
-		Palapeli::SlicerProperty::Type m_type;
+		Pala::SlicerProperty::Type m_type;
 		QString m_caption;
 
 		QStringList m_choices;
@@ -33,72 +33,72 @@ class Palapeli::SlicerProperty::Private
 		QVariant m_defaultValue;
 };
 
-//END Palapeli::SlicerProperty::Private
+//END Pala::SlicerProperty::Private
 
-Palapeli::SlicerProperty::SlicerProperty(Palapeli::SlicerProperty::Type type, const QString& caption)
+Pala::SlicerProperty::SlicerProperty(Pala::SlicerProperty::Type type, const QString& caption)
 	: p(new Private)
 {
 	p->m_type = type;
 	p->m_caption = caption;
 }
 
-Palapeli::SlicerProperty::~SlicerProperty()
+Pala::SlicerProperty::~SlicerProperty()
 {
 	delete p;
 }
 
-QString Palapeli::SlicerProperty::caption() const
+QString Pala::SlicerProperty::caption() const
 {
 	return p->m_caption;
 }
 
-QStringList Palapeli::SlicerProperty::choices() const
+QStringList Pala::SlicerProperty::choices() const
 {
 	return p->m_choices;
 }
 
-QVariant Palapeli::SlicerProperty::defaultValue() const
+QVariant Pala::SlicerProperty::defaultValue() const
 {
 	return p->m_defaultValue;
 }
 
-int Palapeli::SlicerProperty::rangeMinimum() const
+int Pala::SlicerProperty::rangeMinimum() const
 {
 	return p->m_range.first;
 }
 
-int Palapeli::SlicerProperty::rangeMaximum() const
+int Pala::SlicerProperty::rangeMaximum() const
 {
 	return p->m_range.second;
 }
 
-Palapeli::SlicerProperty::Type Palapeli::SlicerProperty::type() const
+Pala::SlicerProperty::Type Pala::SlicerProperty::type() const
 {
 	return p->m_type;
 }
 
-void Palapeli::SlicerProperty::setChoices(const QStringList& strings)
+void Pala::SlicerProperty::setChoices(const QStringList& strings)
 {
-	Q_ASSERT_X(p->m_type == String, "Palapeli::SlicerProperty::setChoices", "wrong property type");
+	Q_ASSERT_X(p->m_type == String, "Pala::SlicerProperty::setChoices", "wrong property type");
 	p->m_choices = strings;
 }
 
-void Palapeli::SlicerProperty::setChoices(const QList<int>& numbers)
+void Pala::SlicerProperty::setChoices(const QList<int>& numbers)
 {
-	Q_ASSERT_X(p->m_type == Integer, "Palapeli::SlicerProperty::setChoices", "wrong property type");
+	Q_ASSERT_X(p->m_type == Integer, "Pala::SlicerProperty::setChoices", "wrong property type");
 	p->m_choices.clear();
 	foreach (int number, numbers)
 		p->m_choices << QString::number(number);
 }
 
-void Palapeli::SlicerProperty::setDefaultValue(const QVariant& value)
+void Pala::SlicerProperty::setDefaultValue(const QVariant& value)
 {
 	p->m_defaultValue = value;
 }
 
-void Palapeli::SlicerProperty::setRange(int min, int max)
+void Pala::SlicerProperty::setRange(int min, int max)
 {
-	Q_ASSERT_X(p->m_type == Integer, "Palapeli::SlicerProperty::setRange", "wrong property type");
+	Q_ASSERT_X(p->m_type == Integer, "Pala::SlicerProperty::setRange", "wrong property type");
 	p->m_range.first = min;
 	p->m_range.first = max;
 }

@@ -19,16 +19,16 @@
 #ifndef PALAPELISLICERS_RECTSLICER_H
 #define PALAPELISLICERS_RECTSLICER_H
 
-#include <Pala/Slicer>
-#include <Pala/SlicerJob>
-#include <Pala/SlicerProperty>
+#include "../libpala/slicer.h"
+#include "../libpala/slicerjob.h"
+#include "../libpala/slicerproperty.h"
 
-class RectSlicer : public Palapeli::Slicer
+class RectSlicer : public Pala::Slicer
 {
 	Q_OBJECT
 	public:
 		RectSlicer(QObject* parent = 0, const QVariantList& args = QVariantList());
-		virtual void run(Palapeli::SlicerJob* job);
+		virtual void run(Pala::SlicerJob* job);
 };
 
 #endif // PALAPELISLICERS_RECTSLICER_H

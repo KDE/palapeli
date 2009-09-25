@@ -28,7 +28,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QVariant>
 
-namespace Palapeli
+namespace Pala
 {
 	class SlicerJob;
 	class SlicerProperty;
@@ -42,7 +42,7 @@ namespace Palapeli
 	 *
 	 * Additionally, the class must be flagged as entry point into the plugin, with the following code:
 \code
-class MySlicer : public Palapeli::Slicer { ... };
+class MySlicer : public Pala::Slicer { ... };
 
 #include <KPluginFactory>
 #include <KPluginLoader>
@@ -66,17 +66,17 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 
 			//The following function belongs to the interface to the Palapeli application. It is not documented because the documentation is targeted at slicer developers.
 			///\internal
-			QMap<QByteArray, const Palapeli::SlicerProperty*> properties() const;
+			QMap<QByteArray, const Pala::SlicerProperty*> properties() const;
 
 			/**
 			 * \brief The slicing algorithm.
 			 * Implement the slicing algorithm in this method. The slicing algorithm should always respect the current values of the slicer's properties, as defined through the addProperty() method.
-			 * \see Palapeli::SlicerJob
+			 * \see Pala::SlicerJob
 			 */
-			virtual void run(Palapeli::SlicerJob* job) = 0;
+			virtual void run(Pala::SlicerJob* job) = 0;
 		protected:
 			///Add the given property to the property list of this slicer. Use this method in the subclass constructors to fill the slicer with properties. Properties let the user control how the slicing is done.
-			void addProperty(const QByteArray& key, Palapeli::SlicerProperty* property);
+			void addProperty(const QByteArray& key, Pala::SlicerProperty* property);
 		private:
 			class Private;
 			Private* const p;
