@@ -19,7 +19,6 @@ set(libpala_FANCY_HDRS
 	Pala/SlicerJob
 	Pala/SlicerProperty
 )
-#TODO: create fancy headers
 
 kde4_add_library(pala SHARED ${libpala_SRCS})
 target_link_libraries(pala ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
