@@ -24,6 +24,7 @@
 Palapeli::View::View()
 	: m_scene(new Palapeli::Scene(this))
 {
+	setDragMode(QGraphicsView::ScrollHandDrag);
 	setScene(m_scene);
 	connect(m_scene, SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(sceneRectChanged(const QRectF&)));
 }

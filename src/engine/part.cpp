@@ -19,6 +19,7 @@
 #include "part.h"
 #include "piece.h"
 
+#include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QSet>
 
@@ -45,6 +46,30 @@ void Palapeli::Part::mousePressEvent(QGraphicsSceneMouseEvent* event)
 		static int zValue = 1;
 		setZValue(zValue);
 		++zValue;
+	}
+}
+
+void Palapeli::Part::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+{
+	QGraphicsItem::mouseMoveEvent(event); //handle dragging
+	if (event->buttons() & Qt::LeftButton)
+	{
+		//ensure that part stays inside scene rect
+		const QRectF sr = scene()->sceneRect();
+		const QRectF br = sceneTransform().mapRect(childrenBoundingRect()); //br = bounding rect
+		if (!sr.contains(br))
+		{
+			QPointF pos = this->pos();
+			if (br.left() < sr.left())
+				pos.rx() += sr.left() - br.left();
+			if (br.right() > sr.right())
+				pos.rx() += sr.right() - br.right();
+			if (br.top() < sr.top())
+				pos.ry() += sr.top() - br.top();
+			if (br.bottom() > sr.bottom())
+				pos.ry() += sr.bottom() - br.bottom();
+			setPos(pos);
+		}
 	}
 }
 

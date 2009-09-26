@@ -21,6 +21,8 @@
 
 #include <QGraphicsScene>
 
+//TODO: resurrect the TextProgressBar (see PalapeliOld::Engine::updateProgress)
+
 namespace Palapeli
 {
 	class Part;
