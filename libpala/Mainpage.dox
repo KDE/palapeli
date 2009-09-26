@@ -3,5 +3,7 @@
  * libpala is the base library for the jigsaw puzzle game Palapeli. It provides an interface for slicer plugins.
  * Slicer objects represent slicing algorithms, which cut some source image into pieces.
  *
+ * Please note that this API documentation is made for plugin writers. Because of its nature as an interface between slicer plugins and the Palapeli application, libpala classes contain some methods that are to be used only by Palapeli. These methods are marked as internal, or not visible at all (depending on how Doxygen was configured when this documentation was built). Do not ever use these methods in slicing plugins. Even if they work out in some situations, these methods may change their behavior in future versions without further notice.
+ *
  * @author Stefan Majewsky <majewsky@gmx.net>
  */
