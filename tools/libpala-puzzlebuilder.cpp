@@ -141,6 +141,11 @@ int main(int argc, char** argv)
 	KConfigGroup offsetGroup(&targetManifest, "PieceOffsets");
 	foreach (int index, pieceIndices)
 		offsetGroup.writeEntry(QString::number(index), pieceOffsets[index]);
+	//write piece relations into target manifest
+	QList<QPair<int, int> > relations = job.relations();
+	KConfigGroup relationsGroup(&targetManifest, "Relations");
+	for (int index = 0; index < relations.count(); ++index)
+		relationsGroup.writeEntry(QString::number(index), QList<int>() << relations[index].first << relations[index].second);
 	targetManifest.sync();
 
 	//compress archive to temporary file
