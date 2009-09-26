@@ -16,31 +16,45 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_VIEW_H
-#define PALAPELI_VIEW_H
+#ifndef PALAPELI_VIEWMENU_COMPONENTS_H
+#define PALAPELI_VIEWMENU_COMPONENTS_H
 
-#include <QGraphicsView>
+#include <QPushButton>
 
 namespace Palapeli
 {
-	class Scene;
-	class ViewMenu;
-
-	class View : public QGraphicsView
+	class ViewMenuItem : public QPushButton
 	{
 		Q_OBJECT
 		public:
-			View();
+			ViewMenuItem(const QString& fileName);
 
-			Palapeli::Scene* scene() const;
+			QBrush brush() const;
+		Q_SIGNALS:
+			void startPreview(const QBrush& brush);
+			void selected(const QString& fileName, const QBrush& brush);
 		protected:
-			virtual void wheelEvent(QWheelEvent* event);
+			virtual void enterEvent(QEvent* event);
 		private Q_SLOTS:
-			void sceneRectChanged(const QRectF& sceneRect);
+			void handleClicked();
 		private:
-			Palapeli::Scene* m_scene;
-			Palapeli::ViewMenu* m_menu;
+			QBrush m_brush;
+			QString m_fileName;
+
+			static const int DefaultButtonSize;
+			static const int DefaultPixmapSize;
+	};
+
+	class ViewMenuWidget : public QWidget
+	{
+		Q_OBJECT
+		public:
+			ViewMenuWidget(const QList<Palapeli::ViewMenuItem*>& items);
+		Q_SIGNALS:
+			void stopPreview();
+		protected:
+			virtual void leaveEvent(QEvent* event);
 	};
 }
 
-#endif // PALAPELI_VIEW_H
+#endif // PALAPELI_VIEWMENU_COMPONENTS_H

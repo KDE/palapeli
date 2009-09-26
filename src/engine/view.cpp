@@ -18,15 +18,21 @@
 
 #include "view.h"
 #include "scene.h"
+#include "viewmenu.h"
 
 #include <QWheelEvent>
 
 Palapeli::View::View()
 	: m_scene(new Palapeli::Scene(this))
+	, m_menu(new Palapeli::ViewMenu(m_scene))
 {
+	//initialize viewport and scene
 	setDragMode(QGraphicsView::ScrollHandDrag);
 	setScene(m_scene);
 	connect(m_scene, SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(sceneRectChanged(const QRectF&)));
+	//initialize menu
+	setContextMenuPolicy(Qt::CustomContextMenu);
+	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), m_menu, SLOT(showAtCursorPosition()));
 }
 
 Palapeli::Scene* Palapeli::View::scene() const

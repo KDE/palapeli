@@ -16,31 +16,30 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_VIEW_H
-#define PALAPELI_VIEW_H
+#ifndef PALAPELI_VIEWMENU_H
+#define PALAPELI_VIEWMENU_H
 
-#include <QGraphicsView>
+class QGraphicsScene;
+#include <KMenu>
 
 namespace Palapeli
 {
-	class Scene;
-	class ViewMenu;
+	class ViewMenuItem;
 
-	class View : public QGraphicsView
+	class ViewMenu : public KMenu
 	{
 		Q_OBJECT
 		public:
-			View();
-
-			Palapeli::Scene* scene() const;
-		protected:
-			virtual void wheelEvent(QWheelEvent* event);
+			ViewMenu(QGraphicsScene* scene);
 		private Q_SLOTS:
-			void sceneRectChanged(const QRectF& sceneRect);
+			void showAtCursorPosition();
+			void startPreview(const QBrush& brush);
+			void stopPreview();
+			void selected(const QString& fileName, const QBrush& brush);
 		private:
-			Palapeli::Scene* m_scene;
-			Palapeli::ViewMenu* m_menu;
+			QGraphicsScene* m_scene;
+			Palapeli::ViewMenuItem* m_currentItem;
 	};
 }
 
-#endif // PALAPELI_VIEW_H
+#endif // PALAPELI_VIEWMENU_H

@@ -6,6 +6,8 @@ set(palapeli_SRCS
 	engine/piece.cpp
 	engine/scene.cpp
 	engine/view.cpp
+	engine/viewmenu.cpp
+	engine/viewmenu-components.cpp
 	file-io/puzzle.cpp
 	main.cpp
 )
@@ -15,3 +17,4 @@ target_link_libraries(palapeli pala ${KDE4_KDEUI_LIBS} ${KDEGAMES_LIBRARY})
 
 install(TARGETS palapeli ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeli.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+add_subdirectory(pics)
