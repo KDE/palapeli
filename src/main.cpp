@@ -16,9 +16,10 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#include "engine/part.h"
-#include "engine/piece.h"
+#include "engine/scene.h"
+#include "file-io/puzzle.h"
 #include <QGraphicsView>
+#include <KStandardDirs>
 
 #include <ctime>
 #include <KAboutData>
@@ -37,28 +38,11 @@ int main(int argc, char** argv)
 	KApplication app;
 	KGlobal::locale()->insertCatalog("libkdegames");
 
-	QGraphicsScene scene;
-	QPixmap pixmap1(100, 100);
-	pixmap1.fill(Qt::red);
-	Palapeli::Piece* piece1 = new Palapeli::Piece(pixmap1, QPoint(0, 0));
-	QPixmap pixmap2(200, 100);
-	pixmap2.fill(Qt::yellow);
-	Palapeli::Piece* piece2 = new Palapeli::Piece(pixmap2, QPoint(100, 0));
-	QPixmap pixmap3(100, 200);
-	pixmap3.fill(Qt::green);
-	Palapeli::Piece* piece3 = new Palapeli::Piece(pixmap3, QPoint(0, 100));
-	QPixmap pixmap4(200, 200);
-	pixmap4.fill(Qt::blue);
-	Palapeli::Piece* piece4 = new Palapeli::Piece(pixmap4, QPoint(100, 100));
-	piece1->addNeighbor(piece2);
-	piece1->addNeighbor(piece3);
-	piece2->addNeighbor(piece1);
-	piece2->addNeighbor(piece4);
-	piece3->addNeighbor(piece1);
-	piece3->addNeighbor(piece4);
-	piece4->addNeighbor(piece2);
-	piece4->addNeighbor(piece3);
+	Palapeli::Puzzle puzzle(KStandardDirs::locate("appdata", "puzzlelibrary/citrus-fruits.pala"));
+	Palapeli::Scene scene;
+	scene.loadPuzzle(&puzzle);
 
+#if 0
 	QList<Palapeli::Piece*> pieces; pieces << piece1 << piece2 << piece3 << piece4;
 	foreach (Palapeli::Piece* piece, pieces)
 	{
@@ -66,6 +50,7 @@ int main(int argc, char** argv)
 		scene.addItem(part);
 		part->setPos(qrand() % 300, qrand() % 300);
 	}
+#endif
 
 	QGraphicsView view;
 	view.setScene(&scene);

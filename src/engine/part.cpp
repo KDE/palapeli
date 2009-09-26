@@ -31,6 +31,11 @@ Palapeli::Part::Part(Palapeli::Piece* piece)
 	piece->setFlag(QGraphicsItem::ItemStacksBehindParent); //DEBUG
 }
 
+Palapeli::Part::~Part()
+{
+	qDeleteAll(m_pieces);
+}
+
 void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
 	QGraphicsItem::mouseReleaseEvent(event); //handle dragging
@@ -52,11 +57,13 @@ void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 				piece->setParentItem(this);
 				m_pieces << piece;
 			}
+			part->m_pieces.clear(); //avoid that the pieces are deleted in ~Part
 			delete part;
 		}
 		//update internal neighbor lists in the pieces
 		foreach (Palapeli::Piece* piece, m_pieces)
 			piece->updateNeighborsList();
+		emit partMoved();
 	}
 }
 

@@ -31,6 +31,7 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			Part(Palapeli::Piece* piece);
+			virtual ~Part();
 
 			//empty QGraphicsItem reimplementation
 			virtual QRectF boundingRect() const { return QRectF(); }
@@ -39,6 +40,8 @@ namespace Palapeli
 			//enable qgraphicsitem_cast
 			enum { Type = QGraphicsItem::UserType + 2 }; //UserType + 1 == Palapeli::Piece
 			virtual int type() const { return Type; }
+		Q_SIGNALS:
+			void partMoved();
 		protected:
 			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 		private:

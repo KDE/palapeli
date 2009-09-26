@@ -51,6 +51,16 @@ const KDesktopFile* Palapeli::Puzzle::manifest()
 	return m_manifest;
 }
 
+QSize Palapeli::Puzzle::imageSize()
+{
+	if (!m_manifest)
+		loadPuzzleContents();
+	if (!m_manifest) //failed to load puzzle
+		return QSize();
+	KConfigGroup jobGroup(m_manifest, "Job");
+	return jobGroup.readEntry("ImageSize", QSize());
+}
+
 QMap<int, QPixmap> Palapeli::Puzzle::pieces()
 {
 	if (m_pieces.isEmpty())

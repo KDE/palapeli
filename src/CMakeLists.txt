@@ -7,6 +7,7 @@ endif(OPENGL_FOUND)
 set(palapeli_SRCS
 	engine/part.cpp
 	engine/piece.cpp
+	engine/scene.cpp
 	file-io/puzzle.cpp
 	main.cpp
 )
