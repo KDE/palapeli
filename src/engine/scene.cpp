@@ -23,6 +23,11 @@
 
 typedef QPair<int, int> DoubleIntPair; //comma in type is not possible in foreach macro
 
+Palapeli::Scene::Scene(QObject* parent)
+	: QGraphicsScene(parent)
+{
+}
+
 void Palapeli::Scene::loadPuzzle(Palapeli::Puzzle* puzzle)
 {
 	//clear scene

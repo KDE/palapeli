@@ -17,8 +17,8 @@
 ***************************************************************************/
 
 #include "engine/scene.h"
+#include "engine/view.h"
 #include "file-io/puzzle.h"
-#include <QGraphicsView>
 #include <KStandardDirs>
 
 #include <ctime>
@@ -35,27 +35,18 @@ int main(int argc, char** argv)
 	about.addAuthor(ki18n("Stefan Majewsky"), KLocalizedString(), "majewsky@gmx.net", "http://majewsky.wordpress.com");
 	KCmdLineArgs::init(argc, argv, &about);
 
+#ifdef Q_WS_X11
+	QApplication::setGraphicsSystem("raster");
+#endif
 	KApplication app;
 	KGlobal::locale()->insertCatalog("libkdegames");
 
-	Palapeli::Puzzle puzzle(KStandardDirs::locate("appdata", "puzzlelibrary/citrus-fruits.pala"));
-	Palapeli::Scene scene;
-	scene.loadPuzzle(&puzzle);
-
-#if 0
-	QList<Palapeli::Piece*> pieces; pieces << piece1 << piece2 << piece3 << piece4;
-	foreach (Palapeli::Piece* piece, pieces)
-	{
-		Palapeli::Part* part = new Palapeli::Part(piece);
-		scene.addItem(part);
-		part->setPos(qrand() % 300, qrand() % 300);
-	}
-#endif
-
-	QGraphicsView view;
-	view.setScene(&scene);
+	Palapeli::View view;
 	view.resize(800, 600);
 	view.show();
+
+	Palapeli::Puzzle puzzle(KStandardDirs::locate("appdata", "puzzlelibrary/citrus-fruits.pala"));
+	view.scene()->loadPuzzle(&puzzle);
 
 	return app.exec();
 }

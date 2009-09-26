@@ -1,13 +1,11 @@
 #correctly include the headers of libpala when they are not yet installed
 set_directory_properties(PROPERTIES COMPILE_DEFINITIONS USE_LOCAL_LIBPALA)
-if(OPENGL_FOUND)
-	add_definitions(-DPALAPELI_WITH_OPENGL)
-endif(OPENGL_FOUND)
 
 set(palapeli_SRCS
 	engine/part.cpp
 	engine/piece.cpp
 	engine/scene.cpp
+	engine/view.cpp
 	file-io/puzzle.cpp
 	main.cpp
 )

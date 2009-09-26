@@ -16,29 +16,41 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_SCENE_H
-#define PALAPELI_SCENE_H
+#include "view.h"
+#include "scene.h"
 
-#include <QGraphicsScene>
+#include <QWheelEvent>
 
-namespace Palapeli
+Palapeli::View::View()
+	: m_scene(new Palapeli::Scene(this))
 {
-	class Part;
-	class Puzzle;
-
-	class Scene : public QGraphicsScene
-	{
-		Q_OBJECT
-		public:
-			Scene(QObject* parent = 0);
-
-			void loadPuzzle(Palapeli::Puzzle* puzzle);
-		private Q_SLOTS:
-			void partDestroyed(QObject* object);
-			void partMoved();
-		private:
-			QList<Palapeli::Part*> m_parts;
-	};
+	setScene(m_scene);
+	connect(m_scene, SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(sceneRectChanged(const QRectF&)));
 }
 
-#endif // PALAPELI_SCENE_H
+Palapeli::Scene* Palapeli::View::scene() const
+{
+	return m_scene;
+}
+
+void Palapeli::View::wheelEvent(QWheelEvent* event)
+{
+	//zoom viewport in/out
+	const qreal delta = event->delta();
+	static const qreal deltaAdaptationFactor = 600.0;
+	qreal scalingFactor = 1.0 + qAbs(delta) / deltaAdaptationFactor;
+	if (delta < 0) //zoom out
+	{
+		scalingFactor = 1.0 / scalingFactor;
+		if (scalingFactor <= 0.01)
+			scalingFactor = 0.01;
+	}
+	scale(scalingFactor, scalingFactor);
+}
+
+void Palapeli::View::sceneRectChanged(const QRectF& sceneRect)
+{
+	fitInView(sceneRect);
+}
+
+#include "view.moc"
