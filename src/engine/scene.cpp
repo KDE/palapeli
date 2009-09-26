@@ -83,3 +83,5 @@ void Palapeli::Scene::partMoved()
 {
 	//TODO: Implement saving (and also loading) of piece positions.
 }
+
+#include "scene.moc"
