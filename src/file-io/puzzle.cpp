@@ -134,7 +134,7 @@ void Palapeli::Puzzle::loadPuzzleContents()
 	//load pieces
 	QList<int> pieceIDs = m_pieceOffsets.keys();
 	foreach (int pieceID, pieceIDs)
-		m_pieces[pieceID].load(m_cache->name() + QString("%1.png").arg(pieceID));
+		m_pieces[pieceID].load(m_cache->name() + QString("%1.jpg").arg(pieceID));
 	//load relations
 	KConfigGroup relationsGroup(m_manifest, "Relations");
 	for (int index = 0;; ++index)
