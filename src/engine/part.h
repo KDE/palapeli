@@ -43,6 +43,7 @@ namespace Palapeli
 		Q_SIGNALS:
 			void partMoved();
 		protected:
+			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 		private:
 			QList<Palapeli::Piece*> m_pieces;

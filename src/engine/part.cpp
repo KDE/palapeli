@@ -36,6 +36,18 @@ Palapeli::Part::~Part()
 	qDeleteAll(m_pieces);
 }
 
+void Palapeli::Part::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+	QGraphicsItem::mouseReleaseEvent(event); //handle dragging
+	if (event->button() == Qt::LeftButton)
+	{
+		//move item to top
+		static int zValue = 1;
+		setZValue(zValue);
+		++zValue;
+	}
+}
+
 void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
 	QGraphicsItem::mouseReleaseEvent(event); //handle dragging
