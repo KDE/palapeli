@@ -21,7 +21,7 @@
 
 //TODO: write images
 
-#include <QImage>
+#include <QPixmap>
 #include <KUrl>
 class KDesktopFile;
 class KTempDir;
@@ -35,8 +35,10 @@ namespace Palapeli
 			Puzzle(const KUrl& locationUrl);
 			~Puzzle();
 
+			QString identifier() const;
+
 			const KDesktopFile* manifest();
-			QMap<int, QImage> pieces();
+			QMap<int, QPixmap> pieces();
 			QMap<int, QPoint> pieceOffsets();
 			QList<QPair<int, int> > relations();
 		protected:
@@ -48,7 +50,7 @@ namespace Palapeli
 			KTempDir* m_cache;
 			KDesktopFile* m_manifest;
 			///These members are used as cache for the puzzle contents.
-			QMap<int, QImage> m_pieces;
+			QMap<int, QPixmap> m_pieces;
 			QMap<int, QPoint> m_pieceOffsets;
 			QList<QPair<int, int> > m_relations;
 	};

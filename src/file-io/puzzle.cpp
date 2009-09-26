@@ -38,6 +38,12 @@ Palapeli::Puzzle::~Puzzle()
 	delete m_manifest;
 }
 
+QString Palapeli::Puzzle::identifier() const
+{
+	QString fileName = m_locationUrl.fileName(KUrl::IgnoreTrailingSlash);
+	return fileName.section('.', 0, 0);
+}
+
 const KDesktopFile* Palapeli::Puzzle::manifest()
 {
 	if (!m_manifest)
@@ -45,7 +51,7 @@ const KDesktopFile* Palapeli::Puzzle::manifest()
 	return m_manifest;
 }
 
-QMap<int, QImage> Palapeli::Puzzle::pieces()
+QMap<int, QPixmap> Palapeli::Puzzle::pieces()
 {
 	if (m_pieces.isEmpty())
 		loadPuzzleContents();
