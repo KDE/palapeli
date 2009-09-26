@@ -16,12 +16,11 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#include "file-io/puzzle.h"
-#include <KDebug>
-#include <KStandardDirs>
+#include "engine/part.h"
+#include "engine/piece.h"
+#include <QGraphicsView>
 
 #include <ctime>
-#include <QLabel>
 #include <KAboutData>
 #include <KApplication>
 #include <KCmdLineArgs>
@@ -38,9 +37,40 @@ int main(int argc, char** argv)
 	KApplication app;
 	KGlobal::locale()->insertCatalog("libkdegames");
 
-	Palapeli::Puzzle puzzle(KStandardDirs::locate("data", "palapeli/puzzlelibrary/castle-maintenon.pala"));
-	kDebug() << puzzle.relations();
+	QGraphicsScene scene;
+	QPixmap pixmap1(100, 100);
+	pixmap1.fill(Qt::red);
+	Palapeli::Piece* piece1 = new Palapeli::Piece(pixmap1, QPoint(0, 0));
+	QPixmap pixmap2(200, 100);
+	pixmap2.fill(Qt::yellow);
+	Palapeli::Piece* piece2 = new Palapeli::Piece(pixmap2, QPoint(100, 0));
+	QPixmap pixmap3(100, 200);
+	pixmap3.fill(Qt::green);
+	Palapeli::Piece* piece3 = new Palapeli::Piece(pixmap3, QPoint(0, 100));
+	QPixmap pixmap4(200, 200);
+	pixmap4.fill(Qt::blue);
+	Palapeli::Piece* piece4 = new Palapeli::Piece(pixmap4, QPoint(100, 100));
+	piece1->addNeighbor(piece2);
+	piece1->addNeighbor(piece3);
+	piece2->addNeighbor(piece1);
+	piece2->addNeighbor(piece4);
+	piece3->addNeighbor(piece1);
+	piece3->addNeighbor(piece4);
+	piece4->addNeighbor(piece2);
+	piece4->addNeighbor(piece3);
 
-	QLabel label("Temporary placeholder widget"); label.show();
+	QList<Palapeli::Piece*> pieces; pieces << piece1 << piece2 << piece3 << piece4;
+	foreach (Palapeli::Piece* piece, pieces)
+	{
+		Palapeli::Part* part = new Palapeli::Part(piece);
+		scene.addItem(part);
+		part->setPos(qrand() % 300, qrand() % 300);
+	}
+
+	QGraphicsView view;
+	view.setScene(&scene);
+	view.resize(800, 600);
+	view.show();
+
 	return app.exec();
 }

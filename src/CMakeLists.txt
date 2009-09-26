@@ -5,6 +5,8 @@ if(OPENGL_FOUND)
 endif(OPENGL_FOUND)
 
 set(palapeli_SRCS
+	engine/part.cpp
+	engine/piece.cpp
 	file-io/puzzle.cpp
 	main.cpp
 )
