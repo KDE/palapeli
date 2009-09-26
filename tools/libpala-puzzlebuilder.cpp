@@ -146,6 +146,9 @@ int main(int argc, char** argv)
 	KConfigGroup relationsGroup(&targetManifest, "Relations");
 	for (int index = 0; index < relations.count(); ++index)
 		relationsGroup.writeEntry(QString::number(index), QList<int>() << relations[index].first << relations[index].second);
+	//write image size into target manifest (used to determine the size of the puzzle table)
+	KConfigGroup jobGroup(&targetManifest, "Job");
+	jobGroup.writeEntry("ImageSize", image.size());
 	targetManifest.sync();
 
 	//compress archive to temporary file
