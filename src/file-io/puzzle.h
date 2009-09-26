@@ -16,31 +16,42 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#include "file-io/puzzle.h"
-#include <KDebug>
-#include <KStandardDirs>
+#ifndef PALAPELI_PUZZLE_H
+#define PALAPELI_PUZZLE_H
 
-#include <ctime>
-#include <QLabel>
-#include <KAboutData>
-#include <KApplication>
-#include <KCmdLineArgs>
-#include <KGlobal>
-#include <KLocale>
+//TODO: write images
 
-int main(int argc, char** argv)
+#include <QImage>
+#include <KUrl>
+class KDesktopFile;
+class KTempDir;
+
+namespace Palapeli
 {
-	qsrand(time(0));
-	KAboutData about("palapeli", 0, ki18nc("The application's name", "Palapeli"), "1.0", ki18n("KDE Jigsaw Puzzle Game"), KAboutData::License_GPL, ki18n("Copyright 2009, Stefan Majewsky"));
-	about.addAuthor(ki18n("Stefan Majewsky"), KLocalizedString(), "majewsky@gmx.net", "http://majewsky.wordpress.com");
-	KCmdLineArgs::init(argc, argv, &about);
+	class Puzzle
+	{
+		Q_DISABLE_COPY(Puzzle)
+		public:
+			Puzzle(const KUrl& locationUrl);
+			~Puzzle();
 
-	KApplication app;
-	KGlobal::locale()->insertCatalog("libkdegames");
-
-	Palapeli::Puzzle puzzle(KStandardDirs::locate("data", "palapeli/puzzlelibrary/castle-maintenon.pala"));
-	kDebug() << puzzle.relations();
-
-	QLabel label("Temporary placeholder widget"); label.show();
-	return app.exec();
+			const KDesktopFile* manifest();
+			QMap<int, QImage> pieces();
+			QMap<int, QPoint> pieceOffsets();
+			QList<QPair<int, int> > relations();
+		protected:
+			void loadArchive();
+			void loadPuzzleContents();
+		private:
+			KUrl m_locationUrl;
+			///When the puzzle is loaded, this directory contains the contents of the puzzle archive.
+			KTempDir* m_cache;
+			KDesktopFile* m_manifest;
+			///These members are used as cache for the puzzle contents.
+			QMap<int, QImage> m_pieces;
+			QMap<int, QPoint> m_pieceOffsets;
+			QList<QPair<int, int> > m_relations;
+	};
 }
+
+#endif // PALAPELI_PUZZLE_H
