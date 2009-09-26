@@ -34,8 +34,7 @@ namespace Pala
 	class SlicerProperty;
 
 	/**
-	 * \class Slicer slicer.h libpala/slicer.h
-	 * \since libpala 1.0 / Palapeli 1.0
+	 * \class Slicer slicer.h <Pala/Slicer>
 	 * \brief Representation of a slicing algorithm.
 	 *
 	 * This class represents a slicing algorithm. It has to be subclassed by slicing plugin developers. Subclasses need to implement the constructor (where the slicer's property list has to be created) and the run() method (where the actual slicing is performed).

@@ -30,8 +30,7 @@
 namespace Pala
 {
 	/**
-	 * \class SlicerProperty slicerproperty.h libpala/slicerproperty.h
-	 * \since libpala 1.0 / Palapeli 1.0
+	 * \class SlicerProperty slicerproperty.h <Pala/SlicerProperty>
 	 * \brief Representation of a slicing algorithm's configurable parameters.
 	 *
 	 * Slicer properties describe configurable parameters of slicing algorithms (i.e. Pala::Slicer instances) in a presentation-agnostic way. Note that it does not store any user-generated values, it just describes the possible input forms.
