@@ -64,7 +64,7 @@ void RectSlicer::run(Pala::SlicerJob* job)
 			//copy image part to piece
 			const QRect pieceBounds(offset, pieceSize);
 			const QImage pieceImage = image.copy(pieceBounds);
-			job->addPiece(x * yCount + y, pieceImage, offset);
+			job->addPiece(x + y * xCount, pieceImage, offset);
 		}
 	}
 	//create relations
@@ -74,10 +74,10 @@ void RectSlicer::run(Pala::SlicerJob* job)
 		{
 			//along X axis (pointing left)
 			if (x != 0)
-				job->addRelation(x * yCount + y, (x - 1) * yCount + y);
+				job->addRelation(x + y * xCount, (x - 1) + y * xCount);
 			//along Y axis (pointing up)
 			if (y != 0)
-				job->addRelation(x * yCount + y, x * yCount + (y - 1));
+				job->addRelation(x + y * xCount, x + (y - 1) * xCount);
 		}
 	}
 }

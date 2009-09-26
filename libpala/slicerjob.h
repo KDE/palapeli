@@ -66,6 +66,7 @@ namespace Pala
 			 * The \a pieceID can later be used to refer to this piece in the addRelation() method. The given \a offset describes the position of the top-left edge of the given piece \a image in the complete image.
 			 *
 			 * \note It is good practice to make the piece image as small as possible, and use the offset to move it to the right position in the image's coordinates. Big images might result in bad performance, even if most of the images is fully transparent.
+			 * \warning You should not use negative piece IDs. These might be used internally.
 			 */
 			void addPiece(int pieceID, const QImage& image, const QPoint& offset = QPoint());
 			/**
@@ -73,6 +74,7 @@ namespace Pala
 			 * The \a pieceID can later be used to refer to this piece in the addRelation() method. The given \a offset describes the position of the top-left edge of the given mask in the complete image.
 			 *
 			 * \note It is good practice to make the mask as small as possible, and use the offset to move it to the right position in the image's coordinates. Big masks result in big piece images, which might in turn result in bad performance, even if most of the images is fully transparent.
+			 * \warning You should not use negative piece IDs. These might be used internally.
 			 */
 			void addPieceFromMask(int pieceID, const QImage& mask, const QPoint& offset = QPoint());
 			/**
