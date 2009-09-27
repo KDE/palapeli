@@ -16,48 +16,23 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_PUZZLE_H
-#define PALAPELI_PUZZLE_H
+#ifndef PALAPELI_LIBRARYDELEGATE_H
+#define PALAPELI_LIBRARYDELEGATE_H
 
-//TODO: write images
-
-#include <QPixmap>
-#include <KUrl>
-class KDesktopFile;
-class KTempDir;
+#include <KWidgetItemDelegate>
 
 namespace Palapeli
 {
-	class Puzzle
+	class LibraryDelegate : public KWidgetItemDelegate
 	{
-		Q_DISABLE_COPY(Puzzle)
 		public:
-			Puzzle(const KUrl& locationUrl);
-			~Puzzle();
+			LibraryDelegate(QAbstractItemView* view);
 
-			QString identifier() const;
-			static const QSize ThumbnailBaseSize;
-
-			const KDesktopFile* manifest();
-			QPixmap thumbnail();
-			QSize imageSize();
-			QMap<int, QPixmap> pieces();
-			QMap<int, QPoint> pieceOffsets();
-			QList<QPair<int, int> > relations();
-		protected:
-			void loadArchive();
-			void loadPuzzleContents();
-		private:
-			KUrl m_locationUrl;
-			///When the puzzle is loaded, this directory contains the contents of the puzzle archive.
-			KTempDir* m_cache;
-			KDesktopFile* m_manifest;
-			QPixmap m_thumbnail;
-			///These members are used as cache for the puzzle contents.
-			QMap<int, QPixmap> m_pieces;
-			QMap<int, QPoint> m_pieceOffsets;
-			QList<QPair<int, int> > m_relations;
+			virtual QList<QWidget*> createItemWidgets() const;
+			virtual void updateItemWidgets(const QList<QWidget*> widgets, const QStyleOptionViewItem& option, const QPersistentModelIndex& index) const;
+			virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+			virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
 	};
 }
 
-#endif // PALAPELI_PUZZLE_H
+#endif // PALAPELI_LIBRARYDELEGATE_H

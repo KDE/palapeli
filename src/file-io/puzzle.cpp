@@ -25,6 +25,8 @@
 #include <KTempDir>
 #include <KTemporaryFile>
 
+const QSize Palapeli::Puzzle::ThumbnailBaseSize(64, 64);
+
 Palapeli::Puzzle::Puzzle(const KUrl& locationUrl)
 	: m_locationUrl(locationUrl)
 	, m_cache(0)
@@ -51,7 +53,7 @@ const KDesktopFile* Palapeli::Puzzle::manifest()
 	return m_manifest;
 }
 
-QImage Palapeli::Puzzle::thumbnail()
+QPixmap Palapeli::Puzzle::thumbnail()
 {
 	if (!m_manifest)
 		loadArchive();
@@ -96,7 +98,7 @@ void Palapeli::Puzzle::loadArchive()
 	m_cache = 0;
 	delete m_manifest;
 	m_manifest = 0;
-	m_thumbnail = QImage();
+	m_thumbnail = QPixmap();
 	m_pieces.clear();
 	m_pieceOffsets.clear();
 	m_relations.clear();
@@ -123,7 +125,7 @@ void Palapeli::Puzzle::loadArchive()
 	tar.close();
 	//load manifest and thumbnail
 	m_manifest = new KDesktopFile(m_cache->name() + "pala.desktop");
-	m_thumbnail.load(m_cache->name() + "thumbnail.jpg");
+	m_thumbnail = QPixmap(m_cache->name() + "thumbnail.jpg").scaled(ThumbnailBaseSize, Qt::KeepAspectRatio);
 	//cleanup
 	KIO::NetAccess::removeTempFile(archiveFile);
 }

@@ -18,6 +18,7 @@
 
 #include "engine/scene.h"
 #include "engine/view.h"
+#include "file-io/librarydelegate.h"
 #include "file-io/librarymodel.h"
 #include "file-io/puzzle.h"
 #include <QListView>
@@ -52,6 +53,7 @@ int main(int argc, char** argv)
 
 	QListView libraryView;
 	Palapeli::LibraryModel libraryModel;
+	new Palapeli::LibraryDelegate(&libraryView);
 	libraryView.setModel(&libraryModel);
 	libraryView.show();
 
