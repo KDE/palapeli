@@ -47,14 +47,14 @@ QString Palapeli::Puzzle::identifier() const
 const KDesktopFile* Palapeli::Puzzle::manifest()
 {
 	if (!m_manifest)
-		loadPuzzleContents();
+		loadArchive();
 	return m_manifest;
 }
 
 QSize Palapeli::Puzzle::imageSize()
 {
 	if (!m_manifest)
-		loadPuzzleContents();
+		loadArchive();
 	if (!m_manifest) //failed to load puzzle
 		return QSize();
 	KConfigGroup jobGroup(m_manifest, "Job");
@@ -113,6 +113,8 @@ void Palapeli::Puzzle::loadArchive()
 	const QString cachePath = m_cache->name(); //note: includes trailing slash
 	archiveDir->copyTo(cachePath);
 	tar.close();
+	//load manifest
+	m_manifest = new KDesktopFile(m_cache->name() + "pala.desktop");
 	//cleanup
 	KIO::NetAccess::removeTempFile(archiveFile);
 }
@@ -121,16 +123,12 @@ void Palapeli::Puzzle::loadPuzzleContents()
 {
 	if (!m_cache)
 		loadArchive();
-	if (!m_cache) //could not load archive
+	if (!m_cache || !m_manifest) //could not load archive
 		return;
 	//clear caches
-	delete m_manifest;
-	m_manifest = 0;
 	m_pieces.clear();
 	m_pieceOffsets.clear();
 	m_relations.clear();
-	//load manifest
-	m_manifest = new KDesktopFile(m_cache->name() + "pala.desktop");
 	//load piece offsets
 	KConfigGroup offsetGroup(m_manifest, "PieceOffsets");
 	QList<QString> offsetGroupKeys = offsetGroup.entryMap().keys();
