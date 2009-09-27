@@ -18,11 +18,7 @@
 
 #include "engine/scene.h"
 #include "engine/view.h"
-#include "file-io/librarydelegate.h"
-#include "file-io/librarymodel.h"
-#include "file-io/puzzlereader.h"
-#include <QListView>
-#include <KStandardDirs>
+#include "file-io/libraryview.h"
 
 #include <ctime>
 #include <KAboutData>
@@ -48,15 +44,11 @@ int main(int argc, char** argv)
 	view.resize(800, 600);
 	view.show();
 
-	Palapeli::PuzzleReader puzzle(QLatin1String("citrus-fruits"));
-	view.scene()->loadPuzzle(&puzzle);
-
-	QListView libraryView;
-	Palapeli::LibraryModel libraryModel;
-	new Palapeli::LibraryDelegate(&libraryView);
-	libraryView.setModel(&libraryModel);
+	Palapeli::LibraryView libraryView;
 	libraryView.resize(500, 600);
 	libraryView.show();
+
+	QObject::connect(&libraryView, SIGNAL(selected(Palapeli::PuzzleReader*)), view.scene(), SLOT(loadPuzzle(Palapeli::PuzzleReader*)));
 
 	return app.exec();
 }

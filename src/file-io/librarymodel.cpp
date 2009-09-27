@@ -23,7 +23,8 @@
 #include <KDesktopFile>
 #include <KStandardDirs>
 
-Palapeli::LibraryModel::LibraryModel()
+Palapeli::LibraryModel::LibraryModel(QObject* parent)
+	: QAbstractListModel(parent)
 {
 	QStringList puzzleFiles = KStandardDirs().findAllResources("data", "palapeli/puzzlelibrary/*.pala", KStandardDirs::NoDuplicates);
 	foreach (const QString& puzzleFile, puzzleFiles)

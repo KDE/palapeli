@@ -16,37 +16,21 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_LIBRARYMODEL_H
-#define PALAPELI_LIBRARYMODEL_H
+#include "libraryview.h"
+#include "librarydelegate.h"
+#include "librarymodel.h"
 
-#include <QAbstractListModel>
-
-namespace Palapeli
+Palapeli::LibraryView::LibraryView(QWidget* parent)
+	: m_model(new Palapeli::LibraryModel(this))
 {
-	class PuzzleReader;
-
-	class LibraryModel : public QAbstractListModel
-	{
-		Q_OBJECT
-		public:
-			enum Roles {
-				IdentifierRole = Qt::UserRole + 1,
-				NameRole,
-				CommentRole,
-				AuthorRole,
-				ThumbnailRole
-			};
-
-			LibraryModel(QObject* parent = 0);
-			virtual ~LibraryModel();
-
-			virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
-			virtual QVariant data(const QModelIndex& index, int role) const;
-			virtual Qt::ItemFlags flags(const QModelIndex& index) const;
-			Palapeli::PuzzleReader* puzzle(const QModelIndex& index) const;
-		private:
-			QList<Palapeli::PuzzleReader*> m_puzzles;
-	};
+	setModel(m_model);
+	new Palapeli::LibraryDelegate(this);
+	connect(this, SIGNAL(activated(const QModelIndex&)), this, SLOT(handleActivated(const QModelIndex&)));
 }
 
-#endif // PALAPELI_LIBRARYMODEL_H
+void Palapeli::LibraryView::handleActivated(const QModelIndex& index)
+{
+	emit selected(m_model->puzzle(index));
+}
+
+#include "libraryview.moc"

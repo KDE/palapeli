@@ -34,7 +34,7 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			Scene(QObject* parent = 0);
-
+		public Q_SLOTS:
 			void loadPuzzle(Palapeli::PuzzleReader* puzzle);
 		private Q_SLOTS:
 			void partDestroyed(QObject* object);

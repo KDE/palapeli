@@ -10,6 +10,7 @@ set(palapeli_SRCS
 	engine/viewmenu-components.cpp
 	file-io/librarydelegate.cpp
 	file-io/librarymodel.cpp
+	file-io/libraryview.cpp
 	file-io/puzzlereader.cpp
 	main.cpp
 )
