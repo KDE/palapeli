@@ -18,6 +18,7 @@
 
 #include "puzzlereader.h"
 
+#include <QFileInfo>
 #include <KConfigGroup>
 #include <KDesktopFile>
 #include <KIO/NetAccess>
@@ -33,21 +34,51 @@ KUrl urlForLibPuzzle(const QString& identifier)
 	return KStandardDirs::locate("data", pathTemplate.arg(identifier));
 }
 
+#include <KDebug>
+
 Palapeli::PuzzleReader::PuzzleReader(const QString& identifier)
 	: m_locationUrl(urlForLibPuzzle(identifier))
 	, m_metadataLoaded(false)
 	, m_puzzleLoaded(false)
-	, m_fromLibrary(true)
 	, m_cache(0)
 	, m_manifest(0)
 {
+	KConfig cache(KStandardDirs::locateLocal("data", "palapeli/puzzlelibrary/cache.conf"));
+	KConfigGroup cacheGroup(&cache, identifier);
+	const QDateTime fileModifyDate = QFileInfo(m_locationUrl.path()).lastModified();
+	//determine if cache can be used
+	bool loadMetadataFromArchive = true;
+	if (cache.hasGroup(identifier))
+		loadMetadataFromArchive = fileModifyDate > cacheGroup.readEntry("ModifyDateTime", QDateTime());
+	static const QString thumbnailPathTemplate = QString::fromLatin1("palapeli/puzzlelibrary/%1.png");
+	if (loadMetadataFromArchive)
+	{
+		//load metadata from archive
+		loadMetadata();
+		//write metadata into cache
+		cacheGroup.writeEntry("ModifyDateTime", fileModifyDate);
+		cacheGroup.writeEntry("Name", m_name);
+		cacheGroup.writeEntry("Author", m_author);
+		cacheGroup.writeEntry("Comment", m_comment);
+		m_thumbnail.save(KStandardDirs::locateLocal("data", thumbnailPathTemplate.arg(identifier)));
+		cache.sync();
+	}
+	else
+	{
+		//load metadata from cache
+		KConfigGroup cacheGroup(&cache, identifier);
+		m_name = cacheGroup.readEntry("Name", QString());
+		m_author = cacheGroup.readEntry("Author", QString());
+		m_comment = cacheGroup.readEntry("Comment", QString());
+		m_thumbnail.load(KStandardDirs::locate("data", thumbnailPathTemplate.arg(identifier)));
+		m_metadataLoaded = true;
+	}
 }
 
 Palapeli::PuzzleReader::PuzzleReader(const KUrl& locationUrl)
 	: m_locationUrl(locationUrl)
 	, m_metadataLoaded(false)
 	, m_puzzleLoaded(false)
-	, m_fromLibrary(false)
 	, m_cache(0)
 	, m_manifest(0)
 {
@@ -59,11 +90,10 @@ Palapeli::PuzzleReader::~PuzzleReader()
 	delete m_manifest;
 }
 
-void Palapeli::PuzzleReader::loadMetadata()
+void Palapeli::PuzzleReader::loadArchive()
 {
-	if (m_metadataLoaded)
+	if (m_cache)
 		return;
-	m_metadataLoaded = true;
 	//make archive available locally
 	QString archiveFile;
 	if (!m_locationUrl.isLocalFile())
@@ -87,6 +117,18 @@ void Palapeli::PuzzleReader::loadMetadata()
 	tar.close();
 	//cleanup
 	KIO::NetAccess::removeTempFile(archiveFile);
+}
+
+void Palapeli::PuzzleReader::loadMetadata()
+{
+	if (m_metadataLoaded)
+		return;
+	m_metadataLoaded = true;
+	//load archive if necessary
+	if (!m_cache)
+		loadArchive();
+	if (!m_cache)
+		return;
 	//load manifest and thumbnail
 	m_manifest = new KDesktopFile(m_cache->name() + "pala.desktop");
 	m_name = m_manifest->readName();
@@ -99,9 +141,12 @@ void Palapeli::PuzzleReader::loadPuzzle()
 {
 	if (m_puzzleLoaded)
 		return;
-	if (!m_metadataLoaded)
-		loadMetadata();
 	m_puzzleLoaded = true;
+	//load archive and manifest if necessary
+	if (!m_cache)
+		loadArchive();
+	if (!m_manifest)
+		m_manifest = new KDesktopFile(m_cache->name() + "pala.desktop");
 	//load more metadata
 	m_imageSize = KConfigGroup(m_manifest, "Job").readEntry("ImageSize", QSize());
 	//load piece offsets
@@ -127,16 +172,6 @@ void Palapeli::PuzzleReader::loadPuzzle()
 			break;
 		m_relations << QPair<int, int>(value[0], value[1]);
 	}
-}
-
-bool Palapeli::PuzzleReader::metadataLoaded() const
-{
-	return m_metadataLoaded;
-}
-
-bool Palapeli::PuzzleReader::puzzleLoaded() const
-{
-	return m_puzzleLoaded;
 }
 
 QString Palapeli::PuzzleReader::identifier() const

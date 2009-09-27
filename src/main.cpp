@@ -48,13 +48,14 @@ int main(int argc, char** argv)
 	view.resize(800, 600);
 	view.show();
 
-	Palapeli::PuzzleReader puzzle(KUrl(KStandardDirs::locate("data", "palapeli/puzzlelibrary/citrus-fruits.pala")));
+	Palapeli::PuzzleReader puzzle(QLatin1String("citrus-fruits"));
 	view.scene()->loadPuzzle(&puzzle);
 
 	QListView libraryView;
 	Palapeli::LibraryModel libraryModel;
 	new Palapeli::LibraryDelegate(&libraryView);
 	libraryView.setModel(&libraryModel);
+	libraryView.resize(500, 600);
 	libraryView.show();
 
 	return app.exec();

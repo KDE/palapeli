@@ -34,10 +34,9 @@ namespace Palapeli
 			explicit PuzzleReader(const KUrl& locationUrl);
 			~PuzzleReader();
 
+			void loadArchive();
 			void loadMetadata();
 			void loadPuzzle();
-			bool metadataLoaded() const;
-			bool puzzleLoaded() const;
 
 			static const QSize ThumbnailBaseSize;
 			//stuff that is available when the metadata has been loaded (maybe from the cache)
@@ -53,7 +52,7 @@ namespace Palapeli
 			QList<QPair<int, int> > relations() const;
 		private:
 			KUrl m_locationUrl;
-			bool m_metadataLoaded, m_puzzleLoaded, m_fromLibrary;
+			bool m_metadataLoaded, m_puzzleLoaded;
 			//caches for archive loading
 			KTempDir* m_cache;
 			KDesktopFile* m_manifest;
