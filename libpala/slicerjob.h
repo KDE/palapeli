@@ -30,6 +30,8 @@
 #include <QtCore/QVariant>
 #include <QtGui/QImage>
 
+//TODO: Add support for hidden debug output.
+
 namespace Pala
 {
 	/**
