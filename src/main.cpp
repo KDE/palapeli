@@ -18,7 +18,9 @@
 
 #include "engine/scene.h"
 #include "engine/view.h"
+#include "file-io/library.h"
 #include "file-io/puzzle.h"
+#include <QListView>
 #include <KStandardDirs>
 
 #include <ctime>
@@ -47,6 +49,11 @@ int main(int argc, char** argv)
 
 	Palapeli::Puzzle puzzle(KStandardDirs::locate("appdata", "puzzlelibrary/citrus-fruits.pala"));
 	view.scene()->loadPuzzle(&puzzle);
+
+	QListView libraryView;
+	Palapeli::LibraryModel libraryModel;
+	libraryView.setModel(&libraryModel);
+	libraryView.show();
 
 	return app.exec();
 }

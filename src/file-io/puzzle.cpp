@@ -51,6 +51,13 @@ const KDesktopFile* Palapeli::Puzzle::manifest()
 	return m_manifest;
 }
 
+QImage Palapeli::Puzzle::thumbnail()
+{
+	if (!m_manifest)
+		loadArchive();
+	return m_thumbnail;
+}
+
 QSize Palapeli::Puzzle::imageSize()
 {
 	if (!m_manifest)
@@ -89,6 +96,7 @@ void Palapeli::Puzzle::loadArchive()
 	m_cache = 0;
 	delete m_manifest;
 	m_manifest = 0;
+	m_thumbnail = QImage();
 	m_pieces.clear();
 	m_pieceOffsets.clear();
 	m_relations.clear();
@@ -113,8 +121,9 @@ void Palapeli::Puzzle::loadArchive()
 	const QString cachePath = m_cache->name(); //note: includes trailing slash
 	archiveDir->copyTo(cachePath);
 	tar.close();
-	//load manifest
+	//load manifest and thumbnail
 	m_manifest = new KDesktopFile(m_cache->name() + "pala.desktop");
+	m_thumbnail.load(m_cache->name() + "thumbnail.jpg");
 	//cleanup
 	KIO::NetAccess::removeTempFile(archiveFile);
 }

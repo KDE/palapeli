@@ -16,47 +16,37 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_PUZZLE_H
-#define PALAPELI_PUZZLE_H
+#ifndef PALAPELI_LIBRARY_H
+#define PALAPELI_LIBRARY_H
 
-//TODO: write images
-
-#include <QPixmap>
-#include <KUrl>
-class KDesktopFile;
-class KTempDir;
+#include <QAbstractListModel>
 
 namespace Palapeli
 {
-	class Puzzle
+	class Puzzle;
+
+	class LibraryModel : public QAbstractListModel
 	{
-		Q_DISABLE_COPY(Puzzle)
+		Q_OBJECT
 		public:
-			Puzzle(const KUrl& locationUrl);
-			~Puzzle();
+			enum Roles {
+				IdentifierRole = Qt::UserRole + 1,
+				NameRole,
+				CommentRole,
+				AuthorRole,
+				ThumbnailRole
+			};
 
-			QString identifier() const;
+			LibraryModel();
+			virtual ~LibraryModel();
 
-			const KDesktopFile* manifest();
-			QImage thumbnail();
-			QSize imageSize();
-			QMap<int, QPixmap> pieces();
-			QMap<int, QPoint> pieceOffsets();
-			QList<QPair<int, int> > relations();
-		protected:
-			void loadArchive();
-			void loadPuzzleContents();
+			virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
+			virtual QVariant data(const QModelIndex& index, int role) const;
+			virtual Qt::ItemFlags flags(const QModelIndex& index) const;
+			Palapeli::Puzzle* puzzle(const QModelIndex& index) const;
 		private:
-			KUrl m_locationUrl;
-			///When the puzzle is loaded, this directory contains the contents of the puzzle archive.
-			KTempDir* m_cache;
-			KDesktopFile* m_manifest;
-			QImage m_thumbnail;
-			///These members are used as cache for the puzzle contents.
-			QMap<int, QPixmap> m_pieces;
-			QMap<int, QPoint> m_pieceOffsets;
-			QList<QPair<int, int> > m_relations;
+			QList<Palapeli::Puzzle*> m_puzzles;
 	};
 }
 
-#endif // PALAPELI_PUZZLE_H
+#endif // PALAPELI_LIBRARY_H
