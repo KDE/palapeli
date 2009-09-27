@@ -72,7 +72,7 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 			 * Implement the slicing algorithm in this method. The slicing algorithm should always respect the current values of the slicer's properties, as defined through the addProperty() method.
 			 * \see Pala::SlicerJob
 			 */
-			virtual void run(Pala::SlicerJob* job) = 0;
+			virtual bool run(Pala::SlicerJob* job) = 0;
 		protected:
 			///Add the given property to the property list of this slicer. Use this method in the subclass constructors to fill the slicer with properties. Properties let the user control how the slicing is done.
 			void addProperty(const QByteArray& key, Pala::SlicerProperty* property);

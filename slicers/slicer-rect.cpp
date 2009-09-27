@@ -39,7 +39,7 @@ RectSlicer::RectSlicer(QObject* parent, const QVariantList& args)
 	addProperty("YCount", prop);
 }
 
-void RectSlicer::run(Pala::SlicerJob* job)
+bool RectSlicer::run(Pala::SlicerJob* job)
 {
 	//TODO: Does not check input values. Perhaps introduce a check in the Slicer base class?
 	//read job
@@ -80,6 +80,7 @@ void RectSlicer::run(Pala::SlicerJob* job)
 				job->addRelation(x + y * xCount, x + (y - 1) * xCount);
 		}
 	}
+	return true;
 }
 
 #include "slicer-rect.moc"

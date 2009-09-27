@@ -26,6 +26,6 @@ X-KDE-PluginInfo-License=Public Domain
 
 [Job]
 Image=citrus-fruits.jpg
-Slicer=palapeli_rectslicer
+Slicer=palapeli_svgslicer_jigsaw
 XCount=7
 YCount=6

@@ -39,6 +39,6 @@ X-KDE-PluginInfo-License=FDL
 
 [Job]
 Image=castle-maintenon.jpg
-Slicer=palapeli_rectslicer
+Slicer=palapeli_svgslicer_jigsaw
 XCount=10
 YCount=10

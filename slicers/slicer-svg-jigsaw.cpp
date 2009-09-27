@@ -16,19 +16,11 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELISLICERS_RECTSLICER_H
-#define PALAPELISLICERS_RECTSLICER_H
+#include "slicer-svg-jigsaw.h"
 
-#include "../libpala/slicer.h"
-#include "../libpala/slicerjob.h"
-#include "../libpala/slicerproperty.h"
+#define CLASSNAME JigsawSvgSlicer
+const char* PLUGINNAME = "palapeli_svgslicer_jigsaw";
+const QString SHAPENAME = QLatin1String("puzzle");
 
-class RectSlicer : public Pala::Slicer
-{
-	Q_OBJECT
-	public:
-		RectSlicer(QObject* parent = 0, const QVariantList& args = QVariantList());
-		virtual bool run(Pala::SlicerJob* job);
-};
-
-#endif // PALAPELISLICERS_RECTSLICER_H
+#include "slicer-svg-generic.cpp"
+#include "slicer-svg-jigsaw.moc"

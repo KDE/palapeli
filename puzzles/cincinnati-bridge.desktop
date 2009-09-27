@@ -40,6 +40,6 @@ X-KDE-PluginInfo-License=Public Domain
 
 [Job]
 Image=cincinnati-bridge.jpg
-Slicer=palapeli_rectslicer
+Slicer=palapeli_svgslicer_jigsaw
 XCount=8
 YCount=7

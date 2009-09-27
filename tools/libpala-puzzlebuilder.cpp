@@ -112,7 +112,11 @@ int main(int argc, char** argv)
 
 	//create slicer job
 	Pala::SlicerJob job(image, slicerArgs);
-	slicer->run(&job);
+	if (!slicer->run(&job))
+	{
+		std::cerr << "Error: Slicing failed." << std::endl;
+		return 1;
+	}
 
 	//assemble everything into a KTempDir
 	KTempDir cache;
