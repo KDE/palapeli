@@ -1,0 +1,18 @@
+[Desktop Entry]
+Name=My very first slicer
+Name[de]=Mein erstes Schnittmuster
+Comment=It's quite simple, actually.
+Comment[de]=Eigentlich ist das ganz einfach.
+Type=Service
+Icon=myslicer
+X-KDE-Library=myslicer
+X-KDE-ServiceTypes=Libpala/SlicerPlugin
+X-KDE-PluginInfo-Author=Kandalf
+X-KDE-PluginInfo-Email=kandalf@kde-hackers.example.org
+X-KDE-PluginInfo-Name=myslicer
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Website=http://kde-hackers.example.org/myslicer
+X-KDE-PluginInfo-Category=
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
