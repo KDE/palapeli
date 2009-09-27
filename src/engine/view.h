@@ -34,7 +34,9 @@ namespace Palapeli
 
 			Palapeli::Scene* scene() const;
 		protected:
+			virtual void resizeEvent(QResizeEvent* event);
 			virtual void wheelEvent(QWheelEvent* event);
+			void restrictViewportToSceneRect();
 		private Q_SLOTS:
 			void sceneRectChanged(const QRectF& sceneRect);
 		private:

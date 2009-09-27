@@ -40,6 +40,13 @@ Palapeli::Scene* Palapeli::View::scene() const
 	return m_scene;
 }
 
+void Palapeli::View::resizeEvent(QResizeEvent* event)
+{
+	QGraphicsView::resizeEvent(event);
+	//do not always react on resize events with viewport matrix changes, but make the scene appear bigger if the viewport grows much to big
+	restrictViewportToSceneRect();
+}
+
 void Palapeli::View::wheelEvent(QWheelEvent* event)
 {
 	//zoom viewport in/out
@@ -53,11 +60,26 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 			scalingFactor = 0.01;
 	}
 	scale(scalingFactor, scalingFactor);
+	//and also...
+	restrictViewportToSceneRect();
 }
 
 void Palapeli::View::sceneRectChanged(const QRectF& sceneRect)
 {
-	fitInView(sceneRect);
+	fitInView(sceneRect, Qt::KeepAspectRatio);
+	setSceneRect(sceneRect);
+}
+
+void Palapeli::View::restrictViewportToSceneRect()
+{
+	//Rationale of this method: Adjust the viewport matrix in such a way that the scene rect is never displayed smaller than it would be after a call to fitInView(sceneRect, Qt::KeepAspectRatio).
+	//do not allow viewport to grow bigger than the scene rect
+	const QRectF sr = m_scene->sceneRect();
+	const QRectF vr = mapToScene(contentsRect()).boundingRect();
+	if (sr.isEmpty() && vr.isEmpty())
+		return;
+	else if (vr.width() > sr.width() && vr.height() > sr.height())
+		fitInView(sr, Qt::KeepAspectRatio);
 }
 
 #include "view.moc"

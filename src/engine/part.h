@@ -46,6 +46,7 @@ namespace Palapeli
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+			void validatePosition();
 		private:
 			QList<Palapeli::Piece*> m_pieces;
 	};

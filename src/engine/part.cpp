@@ -53,24 +53,7 @@ void Palapeli::Part::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
 	QGraphicsItem::mouseMoveEvent(event); //handle dragging
 	if (event->buttons() & Qt::LeftButton)
-	{
-		//ensure that part stays inside scene rect
-		const QRectF sr = scene()->sceneRect();
-		const QRectF br = sceneTransform().mapRect(childrenBoundingRect()); //br = bounding rect
-		if (!sr.contains(br))
-		{
-			QPointF pos = this->pos();
-			if (br.left() < sr.left())
-				pos.rx() += sr.left() - br.left();
-			if (br.right() > sr.right())
-				pos.rx() += sr.right() - br.right();
-			if (br.top() < sr.top())
-				pos.ry() += sr.top() - br.top();
-			if (br.bottom() > sr.bottom())
-				pos.ry() += sr.bottom() - br.bottom();
-			setPos(pos);
-		}
-	}
+		validatePosition();
 }
 
 void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
@@ -82,25 +65,52 @@ void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 		QSet<Palapeli::Part*> mergeParts;
 		foreach (Palapeli::Piece* piece, m_pieces)
 		{
-			const QList<Palapeli::Piece*> mergeNeighbors = piece->connectableNeighbors(0.1);
+			const QList<Palapeli::Piece*> mergeNeighbors = piece->connectableNeighbors(0.2);
 			foreach (Palapeli::Piece* mergeNeighbor, mergeNeighbors)
 				mergeParts << qgraphicsitem_cast<Palapeli::Part*>(mergeNeighbor->parentItem());
 		}
 		//merge any parts that are near this part
 		foreach (Palapeli::Part* part, mergeParts)
 		{
+			//set position in such a way that the majority of the pieces do not move
+			if (part->m_pieces.count() > m_pieces.count())
+				setPos(part->pos());
+			//insert all pieces of the other part into this part
 			foreach (Palapeli::Piece* piece, part->m_pieces)
 			{
 				piece->setParentItem(this);
 				m_pieces << piece;
 			}
-			part->m_pieces.clear(); //avoid that the pieces are deleted in ~Part
+			//delete other part, but avoid that the pieces are deleted
+			part->m_pieces.clear();
 			delete part;
 		}
 		//update internal neighbor lists in the pieces
 		foreach (Palapeli::Piece* piece, m_pieces)
 			piece->updateNeighborsList();
+		//make position valid again
+		validatePosition();
 		emit partMoved();
+	}
+}
+
+void Palapeli::Part::validatePosition()
+{
+	//ensure that part stays inside scene rect
+	const QRectF sr = scene()->sceneRect();
+	const QRectF br = sceneTransform().mapRect(childrenBoundingRect()); //br = bounding rect
+	if (!sr.contains(br))
+	{
+		QPointF pos = this->pos();
+		if (br.left() < sr.left())
+			pos.rx() += sr.left() - br.left();
+		if (br.right() > sr.right())
+			pos.rx() += sr.right() - br.right();
+		if (br.top() < sr.top())
+			pos.ry() += sr.top() - br.top();
+		if (br.bottom() > sr.bottom())
+			pos.ry() += sr.bottom() - br.bottom();
+		setPos(pos);
 	}
 }
 
