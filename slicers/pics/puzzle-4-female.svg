@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="200"
+   height="200"
+   id="svg2">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       id="perspective2453"
+       inkscape:persp3d-origin="75 : 50 : 1"
+       inkscape:vp_z="150 : 75 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 75 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <path
+     d="M 50.000109,50 C 49.114588,59.787931 48.642946,69.142261 50.000109,76.687501 C 51.506622,84.019121 55.786245,87.023591 60.125108,85.843751 C 64.930228,84.537131 71.110018,66.547201 70.375108,101.875 C 70.592088,103.914 68.949208,124.84133 62.250108,112.96875 C 58.121082,105.65102 52.538434,116.12833 51.406359,131.59375 L 50.000109,150 L 55.187609,150 L 105.18761,100 L 55.187609,50 L 50.000109,50 z "
+     style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
+     id="path2476" />
+</svg>

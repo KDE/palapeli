@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="200"
+   height="200"
+   id="svg2">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       id="perspective2453"
+       inkscape:persp3d-origin="75 : 50 : 1"
+       inkscape:vp_z="150 : 75 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 75 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <path
+     d="M 95,100 L 145,50 L 150,50 C 147.95139,59.582735 150.50333,114.00536 170.93344,104.85196 C 181.34475,92.280965 184.28595,141.38429 167.21082,118.91054 C 147.53866,133.62846 154.51385,140.01907 150,150 L 145,150 L 95,100 z "
+     style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
+     id="path2492" />
+</svg>
