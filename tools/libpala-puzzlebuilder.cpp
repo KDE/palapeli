@@ -133,7 +133,7 @@ int main(int argc, char** argv)
 	QList<int> pieceIndices = pieces.keys();
 	foreach (int index, pieceIndices)
 	{
-		if (!pieces[index].save(cachePath + QString("%1.jpg").arg(index)))
+		if (!pieces[index].save(cachePath + QString("%1.png").arg(index)))
 		{
 			std::cerr << "Could not save piece image no. " << index << std::endl;
 			return 1;
