@@ -26,7 +26,7 @@ namespace Palapeli
 	class LibraryDelegate : public KWidgetItemDelegate
 	{
 		public:
-			LibraryDelegate(QAbstractItemView* view);
+			explicit LibraryDelegate(QAbstractItemView* view);
 
 			virtual QList<QWidget*> createItemWidgets() const;
 			virtual void updateItemWidgets(const QList<QWidget*> widgets, const QStyleOptionViewItem& option, const QPersistentModelIndex& index) const;

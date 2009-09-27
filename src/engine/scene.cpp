@@ -19,7 +19,7 @@
 #include "scene.h"
 #include "part.h"
 #include "piece.h"
-#include "../file-io/puzzle.h"
+#include "../file-io/puzzlereader.h"
 
 typedef QPair<int, int> DoubleIntPair; //comma in type is not possible in foreach macro
 
@@ -28,8 +28,9 @@ Palapeli::Scene::Scene(QObject* parent)
 {
 }
 
-void Palapeli::Scene::loadPuzzle(Palapeli::Puzzle* puzzle)
+void Palapeli::Scene::loadPuzzle(Palapeli::PuzzleReader* puzzle)
 {
+	puzzle->loadPuzzle();
 	//clear scene
 	qDeleteAll(m_parts);
 	m_parts.clear();

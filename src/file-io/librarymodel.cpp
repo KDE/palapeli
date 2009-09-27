@@ -17,7 +17,7 @@
 ***************************************************************************/
 
 #include "librarymodel.h"
-#include "puzzle.h"
+#include "puzzlereader.h"
 
 #include <KConfigGroup>
 #include <KDesktopFile>
@@ -27,7 +27,10 @@ Palapeli::LibraryModel::LibraryModel()
 {
 	QStringList puzzleFiles = KStandardDirs().findAllResources("data", "palapeli/puzzlelibrary/*.pala", KStandardDirs::NoDuplicates);
 	foreach (const QString& puzzleFile, puzzleFiles)
-		m_puzzles << new Palapeli::Puzzle(puzzleFile);
+	{
+		const QString identifier = puzzleFile.section('/', -1, -1).section('.', 0, 0);
+		m_puzzles << new Palapeli::PuzzleReader(identifier);
+	}
 }
 
 Palapeli::LibraryModel::~LibraryModel()
@@ -44,22 +47,22 @@ QVariant Palapeli::LibraryModel::data(const QModelIndex& index, int role) const
 {
 	if (index.parent().isValid())
 		return QVariant();
-	Palapeli::Puzzle* puzzle = m_puzzles.value(index.row());
-	if (!puzzle)
+	Palapeli::PuzzleReader* puzzleReader = m_puzzles.value(index.row());
+	if (!puzzleReader)
 		return QVariant();
-	const KDesktopFile* puzzleManifest = puzzle->manifest();
+	puzzleReader->loadMetadata(); //if necessary
 	switch (role)
 	{
 		case IdentifierRole:
-			return puzzle->identifier();
+			return puzzleReader->identifier();
 		case NameRole: case Qt::DisplayRole:
-			return puzzleManifest->readName();
+			return puzzleReader->name();
 		case CommentRole:
-			return puzzleManifest->readComment();
+			return puzzleReader->comment();
 		case AuthorRole:
-			return puzzleManifest->desktopGroup().readEntry("X-KDE-PluginInfo-Author", QString());
+			return puzzleReader->author();
 		case ThumbnailRole: case Qt::DecorationRole:
-			return puzzle->thumbnail();
+			return puzzleReader->thumbnail();
 		default:
 			return QVariant();
 	}
@@ -71,7 +74,7 @@ Qt::ItemFlags Palapeli::LibraryModel::flags(const QModelIndex& index) const
 	return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
-Palapeli::Puzzle* Palapeli::LibraryModel::puzzle(const QModelIndex& index) const
+Palapeli::PuzzleReader* Palapeli::LibraryModel::puzzle(const QModelIndex& index) const
 {
 	if (index.parent().isValid())
 		return 0;

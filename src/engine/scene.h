@@ -26,7 +26,7 @@
 namespace Palapeli
 {
 	class Part;
-	class Puzzle;
+	class PuzzleReader;
 
 	class Scene : public QGraphicsScene
 	{
@@ -34,7 +34,7 @@ namespace Palapeli
 		public:
 			Scene(QObject* parent = 0);
 
-			void loadPuzzle(Palapeli::Puzzle* puzzle);
+			void loadPuzzle(Palapeli::PuzzleReader* puzzle);
 		private Q_SLOTS:
 			void partDestroyed(QObject* object);
 			void partMoved();

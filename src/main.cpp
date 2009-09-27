@@ -20,7 +20,7 @@
 #include "engine/view.h"
 #include "file-io/librarydelegate.h"
 #include "file-io/librarymodel.h"
-#include "file-io/puzzle.h"
+#include "file-io/puzzlereader.h"
 #include <QListView>
 #include <KStandardDirs>
 
@@ -48,7 +48,7 @@ int main(int argc, char** argv)
 	view.resize(800, 600);
 	view.show();
 
-	Palapeli::Puzzle puzzle(KStandardDirs::locate("appdata", "puzzlelibrary/citrus-fruits.pala"));
+	Palapeli::PuzzleReader puzzle(KUrl(KStandardDirs::locate("data", "palapeli/puzzlelibrary/citrus-fruits.pala")));
 	view.scene()->loadPuzzle(&puzzle);
 
 	QListView libraryView;

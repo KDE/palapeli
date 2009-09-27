@@ -16,92 +16,54 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#include "puzzle.h"
+#include "puzzlereader.h"
 
 #include <KConfigGroup>
 #include <KDesktopFile>
 #include <KIO/NetAccess>
+#include <KStandardDirs>
 #include <KTar>
 #include <KTempDir>
-#include <KTemporaryFile>
 
-const QSize Palapeli::Puzzle::ThumbnailBaseSize(64, 64);
+const QSize Palapeli::PuzzleReader::ThumbnailBaseSize(64, 64);
 
-Palapeli::Puzzle::Puzzle(const KUrl& locationUrl)
-	: m_locationUrl(locationUrl)
+KUrl urlForLibPuzzle(const QString& identifier)
+{
+	static const QString pathTemplate = QString::fromLatin1("palapeli/puzzlelibrary/%1.pala");
+	return KStandardDirs::locate("data", pathTemplate.arg(identifier));
+}
+
+Palapeli::PuzzleReader::PuzzleReader(const QString& identifier)
+	: m_locationUrl(urlForLibPuzzle(identifier))
+	, m_metadataLoaded(false)
+	, m_puzzleLoaded(false)
+	, m_fromLibrary(true)
 	, m_cache(0)
 	, m_manifest(0)
 {
 }
 
-Palapeli::Puzzle::~Puzzle()
+Palapeli::PuzzleReader::PuzzleReader(const KUrl& locationUrl)
+	: m_locationUrl(locationUrl)
+	, m_metadataLoaded(false)
+	, m_puzzleLoaded(false)
+	, m_fromLibrary(false)
+	, m_cache(0)
+	, m_manifest(0)
+{
+}
+
+Palapeli::PuzzleReader::~PuzzleReader()
 {
 	delete m_cache;
 	delete m_manifest;
 }
 
-QString Palapeli::Puzzle::identifier() const
+void Palapeli::PuzzleReader::loadMetadata()
 {
-	QString fileName = m_locationUrl.fileName(KUrl::IgnoreTrailingSlash);
-	return fileName.section('.', 0, 0);
-}
-
-const KDesktopFile* Palapeli::Puzzle::manifest()
-{
-	if (!m_manifest)
-		loadArchive();
-	return m_manifest;
-}
-
-QPixmap Palapeli::Puzzle::thumbnail()
-{
-	if (!m_manifest)
-		loadArchive();
-	return m_thumbnail;
-}
-
-QSize Palapeli::Puzzle::imageSize()
-{
-	if (!m_manifest)
-		loadArchive();
-	if (!m_manifest) //failed to load puzzle
-		return QSize();
-	KConfigGroup jobGroup(m_manifest, "Job");
-	return jobGroup.readEntry("ImageSize", QSize());
-}
-
-QMap<int, QPixmap> Palapeli::Puzzle::pieces()
-{
-	if (m_pieces.isEmpty())
-		loadPuzzleContents();
-	return m_pieces;
-}
-
-QMap<int, QPoint> Palapeli::Puzzle::pieceOffsets()
-{
-	if (m_pieceOffsets.isEmpty())
-		loadPuzzleContents();
-	return m_pieceOffsets;
-}
-
-QList<QPair<int, int> > Palapeli::Puzzle::relations()
-{
-	if (m_relations.isEmpty())
-		loadPuzzleContents();
-	return m_relations;
-}
-
-void Palapeli::Puzzle::loadArchive()
-{
-	//clear caches
-	delete m_cache;
-	m_cache = 0;
-	delete m_manifest;
-	m_manifest = 0;
-	m_thumbnail = QPixmap();
-	m_pieces.clear();
-	m_pieceOffsets.clear();
-	m_relations.clear();
+	if (m_metadataLoaded)
+		return;
+	m_metadataLoaded = true;
 	//make archive available locally
 	QString archiveFile;
 	if (!m_locationUrl.isLocalFile())
@@ -123,23 +85,25 @@ void Palapeli::Puzzle::loadArchive()
 	const QString cachePath = m_cache->name(); //note: includes trailing slash
 	archiveDir->copyTo(cachePath);
 	tar.close();
-	//load manifest and thumbnail
-	m_manifest = new KDesktopFile(m_cache->name() + "pala.desktop");
-	m_thumbnail = QPixmap(m_cache->name() + "thumbnail.jpg").scaled(ThumbnailBaseSize, Qt::KeepAspectRatio);
 	//cleanup
 	KIO::NetAccess::removeTempFile(archiveFile);
+	//load manifest and thumbnail
+	m_manifest = new KDesktopFile(m_cache->name() + "pala.desktop");
+	m_name = m_manifest->readName();
+	m_author = m_manifest->desktopGroup().readEntry("X-KDE-PluginInfo-Author", QString());
+	m_comment = m_manifest->readComment();
+	m_thumbnail = QPixmap(m_cache->name() + "thumbnail.jpg").scaled(ThumbnailBaseSize, Qt::KeepAspectRatio);
 }
 
-void Palapeli::Puzzle::loadPuzzleContents()
+void Palapeli::PuzzleReader::loadPuzzle()
 {
-	if (!m_cache)
-		loadArchive();
-	if (!m_cache || !m_manifest) //could not load archive
+	if (m_puzzleLoaded)
 		return;
-	//clear caches
-	m_pieces.clear();
-	m_pieceOffsets.clear();
-	m_relations.clear();
+	if (!m_metadataLoaded)
+		loadMetadata();
+	m_puzzleLoaded = true;
+	//load more metadata
+	m_imageSize = KConfigGroup(m_manifest, "Job").readEntry("ImageSize", QSize());
 	//load piece offsets
 	KConfigGroup offsetGroup(m_manifest, "PieceOffsets");
 	QList<QString> offsetGroupKeys = offsetGroup.entryMap().keys();
@@ -163,4 +127,60 @@ void Palapeli::Puzzle::loadPuzzleContents()
 			break;
 		m_relations << QPair<int, int>(value[0], value[1]);
 	}
+}
+
+bool Palapeli::PuzzleReader::metadataLoaded() const
+{
+	return m_metadataLoaded;
+}
+
+bool Palapeli::PuzzleReader::puzzleLoaded() const
+{
+	return m_puzzleLoaded;
+}
+
+QString Palapeli::PuzzleReader::identifier() const
+{
+	QString fileName = m_locationUrl.fileName(KUrl::IgnoreTrailingSlash);
+	return fileName.section('.', 0, 0);
+}
+
+QString Palapeli::PuzzleReader::name() const
+{
+	return m_name;
+}
+
+QString Palapeli::PuzzleReader::author() const
+{
+	return m_author;
+}
+
+QString Palapeli::PuzzleReader::comment() const
+{
+	return m_comment;
+}
+
+QPixmap Palapeli::PuzzleReader::thumbnail() const
+{
+	return m_thumbnail;
+}
+
+QSize Palapeli::PuzzleReader::imageSize() const
+{
+	return m_imageSize;
+}
+
+QMap<int, QPixmap> Palapeli::PuzzleReader::pieces() const
+{
+	return m_pieces;
+}
+
+QMap<int, QPoint> Palapeli::PuzzleReader::pieceOffsets() const
+{
+	return m_pieceOffsets;
+}
+
+QList<QPair<int, int> > Palapeli::PuzzleReader::relations() const
+{
+	return m_relations;
 }

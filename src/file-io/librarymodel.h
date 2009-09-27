@@ -23,7 +23,7 @@
 
 namespace Palapeli
 {
-	class Puzzle;
+	class PuzzleReader;
 
 	class LibraryModel : public QAbstractListModel
 	{
@@ -43,9 +43,9 @@ namespace Palapeli
 			virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
 			virtual QVariant data(const QModelIndex& index, int role) const;
 			virtual Qt::ItemFlags flags(const QModelIndex& index) const;
-			Palapeli::Puzzle* puzzle(const QModelIndex& index) const;
+			Palapeli::PuzzleReader* puzzle(const QModelIndex& index) const;
 		private:
-			QList<Palapeli::Puzzle*> m_puzzles;
+			QList<Palapeli::PuzzleReader*> m_puzzles;
 	};
 }
 

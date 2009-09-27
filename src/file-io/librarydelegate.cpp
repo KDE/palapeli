@@ -18,7 +18,7 @@
 
 #include "librarydelegate.h"
 #include "librarymodel.h"
-#include "puzzle.h"
+#include "puzzlereader.h"
 
 #include <QAbstractItemView>
 #include <QGridLayout>
@@ -43,8 +43,8 @@ QList<QWidget*> Palapeli::LibraryDelegate::createItemWidgets() const
 	static const QSize smallIconSize(32, 32);
 	QLabel* thumbnailWidget = new QLabel;
 	thumbnailWidget->setAlignment(Qt::AlignCenter);
-	thumbnailWidget->setMaximumSize(Palapeli::Puzzle::ThumbnailBaseSize);
-	thumbnailWidget->setMinimumSize(Palapeli::Puzzle::ThumbnailBaseSize);
+	thumbnailWidget->setMaximumSize(Palapeli::PuzzleReader::ThumbnailBaseSize);
+	thumbnailWidget->setMinimumSize(Palapeli::PuzzleReader::ThumbnailBaseSize);
 	QLabel* headlineWidget = new QLabel;
 	QLabel* sublineWidget1 = new QLabel;
 	QLabel* sublineWidget2 = new QLabel;
@@ -112,6 +112,6 @@ QSize Palapeli::LibraryDelegate::sizeHint(const QStyleOptionViewItem& option, co
     //only the height of the size hint is interesting
     static const int topMargin = itemView()->style()->pixelMetric(QStyle::PM_LayoutTopMargin);
     static const int bottomMargin = itemView()->style()->pixelMetric(QStyle::PM_LayoutBottomMargin);
-    static const int verticalSizeHint = Palapeli::Puzzle::ThumbnailBaseSize.height() + topMargin + bottomMargin;
+    static const int verticalSizeHint = Palapeli::PuzzleReader::ThumbnailBaseSize.height() + topMargin + bottomMargin;
     return QSize(itemView()->viewport()->width(), verticalSizeHint);
 }
