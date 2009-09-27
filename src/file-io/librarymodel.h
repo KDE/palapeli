@@ -16,8 +16,8 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_LIBRARY_H
-#define PALAPELI_LIBRARY_H
+#ifndef PALAPELI_LIBRARYMODEL_H
+#define PALAPELI_LIBRARYMODEL_H
 
 #include <QAbstractListModel>
 
@@ -49,4 +49,4 @@ namespace Palapeli
 	};
 }
 
-#endif // PALAPELI_LIBRARY_H
+#endif // PALAPELI_LIBRARYMODEL_H

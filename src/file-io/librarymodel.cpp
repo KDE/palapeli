@@ -16,7 +16,7 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#include "library.h"
+#include "librarymodel.h"
 #include "puzzle.h"
 
 #include <KConfigGroup>
@@ -78,4 +78,4 @@ Palapeli::Puzzle* Palapeli::LibraryModel::puzzle(const QModelIndex& index) const
 	return m_puzzles.value(index.row());
 }
 
-#include "library.moc"
+#include "librarymodel.moc"

@@ -18,7 +18,7 @@
 
 #include "engine/scene.h"
 #include "engine/view.h"
-#include "file-io/library.h"
+#include "file-io/librarymodel.h"
 #include "file-io/puzzle.h"
 #include <QListView>
 #include <KStandardDirs>
