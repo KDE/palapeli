@@ -29,6 +29,6 @@ set_target_properties(pala PROPERTIES
 )
 
 install(TARGETS pala ${INSTALL_TARGETS_DEFAULT_ARGS})
-install(FILES ${libpala_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/libpala)
-install(FILES ${libpala_FANCY_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/Pala)
+install(FILES ${libpala_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/libpala COMPONENT Devel)
+install(FILES ${libpala_FANCY_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/Pala COMPONENT Devel)
 install(FILES libpala-slicerplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})

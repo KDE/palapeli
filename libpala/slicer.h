@@ -70,6 +70,7 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 			/**
 			 * \brief The slicing algorithm.
 			 * Implement the slicing algorithm in this method. The slicing algorithm should always respect the current values of the slicer's properties, as defined through the addProperty() method.
+			 * \returns whether the operation has been completed successfully
 			 * \see Pala::SlicerJob
 			 */
 			virtual bool run(Pala::SlicerJob* job) = 0;
