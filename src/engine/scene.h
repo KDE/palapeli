@@ -26,6 +26,7 @@
 namespace Palapeli
 {
 	class Part;
+	class Piece;
 	class PuzzleReader;
 
 	class Scene : public QGraphicsScene
@@ -39,6 +40,8 @@ namespace Palapeli
 			void partDestroyed(QObject* object);
 			void partMoved();
 		private:
+			QString m_identifier;
+			QList<Palapeli::Piece*> m_pieces;
 			QList<Palapeli::Part*> m_parts;
 	};
 }

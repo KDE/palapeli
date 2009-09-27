@@ -34,7 +34,6 @@ Palapeli::Part::Part(Palapeli::Piece* piece)
 
 Palapeli::Part::~Part()
 {
-	qDeleteAll(m_pieces);
 }
 
 void Palapeli::Part::mousePressEvent(QGraphicsSceneMouseEvent* event)
@@ -61,37 +60,41 @@ void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 	QGraphicsItem::mouseReleaseEvent(event); //handle dragging
 	if (event->button() == Qt::LeftButton)
 	{
-		//check for parts that can be merged with this part
-		QSet<Palapeli::Part*> mergeParts;
-		foreach (Palapeli::Piece* piece, m_pieces)
-		{
-			const QList<Palapeli::Piece*> mergeNeighbors = piece->connectableNeighbors(0.2);
-			foreach (Palapeli::Piece* mergeNeighbor, mergeNeighbors)
-				mergeParts << qgraphicsitem_cast<Palapeli::Part*>(mergeNeighbor->parentItem());
-		}
-		//merge any parts that are near this part
-		foreach (Palapeli::Part* part, mergeParts)
-		{
-			//set position in such a way that the majority of the pieces do not move
-			if (part->m_pieces.count() > m_pieces.count())
-				setPos(part->pos());
-			//insert all pieces of the other part into this part
-			foreach (Palapeli::Piece* piece, part->m_pieces)
-			{
-				piece->setParentItem(this);
-				m_pieces << piece;
-			}
-			//delete other part, but avoid that the pieces are deleted
-			part->m_pieces.clear();
-			delete part;
-		}
-		//update internal neighbor lists in the pieces
-		foreach (Palapeli::Piece* piece, m_pieces)
-			piece->updateNeighborsList();
-		//make position valid again
-		validatePosition();
+		searchConnections();
 		emit partMoved();
 	}
+}
+
+bool Palapeli::Part::searchConnections()
+{
+	//check for parts that can be merged with this part
+	QSet<Palapeli::Part*> mergeParts;
+	foreach (Palapeli::Piece* piece, m_pieces)
+	{
+		const QList<Palapeli::Piece*> mergeNeighbors = piece->connectableNeighbors(0.2);
+		foreach (Palapeli::Piece* mergeNeighbor, mergeNeighbors)
+			mergeParts << mergeNeighbor->part();
+	}
+	//merge any parts that are near this part
+	foreach (Palapeli::Part* part, mergeParts)
+	{
+		//set position in such a way that the majority of the pieces do not move
+		if (part->m_pieces.count() > m_pieces.count())
+			setPos(part->pos());
+		//insert all pieces of the other part into this part
+		foreach (Palapeli::Piece* piece, part->m_pieces)
+		{
+			piece->setParentItem(this);
+			m_pieces << piece;
+		}
+		delete part;
+	}
+	//update internal neighbor lists in the pieces
+	foreach (Palapeli::Piece* piece, m_pieces)
+		piece->updateNeighborsList();
+	//make position valid again
+	validatePosition();
+	return !mergeParts.isEmpty();
 }
 
 void Palapeli::Part::validatePosition()

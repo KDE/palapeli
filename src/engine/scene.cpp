@@ -21,6 +21,10 @@
 #include "piece.h"
 #include "../file-io/puzzlereader.h"
 
+#include <KConfig>
+#include <KConfigGroup>
+#include <KStandardDirs>
+
 typedef QPair<int, int> DoubleIntPair; //comma in type is not possible in foreach macro
 
 Palapeli::Scene::Scene(QObject* parent)
@@ -31,8 +35,11 @@ Palapeli::Scene::Scene(QObject* parent)
 void Palapeli::Scene::loadPuzzle(Palapeli::PuzzleReader* puzzle)
 {
 	puzzle->loadPuzzle();
+	m_identifier = puzzle->identifier();
 	//clear scene
+	qDeleteAll(m_pieces);
 	qDeleteAll(m_parts);
+	m_pieces.clear();
 	m_parts.clear();
 	//initialize scene
 	const int sceneSizeFactor = 2;
@@ -46,6 +53,7 @@ void Palapeli::Scene::loadPuzzle(Palapeli::PuzzleReader* puzzle)
 	{
 		Palapeli::Piece* piece = new Palapeli::Piece(pieceImages[pieceID], pieceOffsets[pieceID]);
 		pieces[pieceID] = piece;
+		m_pieces << piece;
 		Palapeli::Part* part = new Palapeli::Part(piece);
 		addItem(part);
 		connect(part, SIGNAL(destroyed(QObject*)), this, SLOT(partDestroyed(QObject*)));
@@ -61,17 +69,35 @@ void Palapeli::Scene::loadPuzzle(Palapeli::PuzzleReader* puzzle)
 		firstPiece->addNeighbor(secondPiece);
 		secondPiece->addNeighbor(firstPiece);
 	}
-	//place parts at random positions (inside the scene rect)
-	const QRectF sr = sceneRect();
-	foreach (Palapeli::Part* part, m_parts)
+	//Is "savegame" available?
+	static const QString pathTemplate = QString::fromLatin1("palapeli/puzzlelibrary/%1.save");
+	KConfig saveConfig(KStandardDirs::locateLocal("data", pathTemplate.arg(m_identifier)));
+	if (saveConfig.hasGroup("SaveGame"))
 	{
-		QRectF br = part->sceneTransform().mapRect(part->childrenBoundingRect());
-		//NOTE: br = bounding rect (of part), sr = scene rect
-		const int minXPos = sr.left(), maxXPos = sr.right() - br.width();
-		const int minYPos = sr.top(), maxYPos = sr.bottom() - br.height();
-		const int xPos = qrand() % (maxXPos - minXPos) + minXPos;
-		const int yPos = qrand() % (maxYPos - minYPos) + minYPos;
-		part->setPos(xPos - br.left(), yPos - br.top());
+		//read piece positions from savegame
+		KConfigGroup saveGroup(&saveConfig, "SaveGame");
+		for (int i = 0; i < m_pieces.count(); ++i)
+		{
+			Palapeli::Part* part = m_pieces[i]->part();
+			//TODO: respect sceneRect (may change when sceneSizeFactor becomes configurable)
+			part->setPos(saveGroup.readEntry(QString::number(i), QPointF()));
+			part->searchConnections();
+		}
+	}
+	else
+	{
+		//place parts at random positions (inside the scene rect)
+		const QRectF sr = sceneRect();
+		foreach (Palapeli::Part* part, m_parts)
+		{
+			QRectF br = part->sceneTransform().mapRect(part->childrenBoundingRect());
+			//NOTE: br = bounding rect (of part), sr = scene rect
+			const int minXPos = sr.left(), maxXPos = sr.right() - br.width();
+			const int minYPos = sr.top(), maxYPos = sr.bottom() - br.height();
+			const int xPos = qrand() % (maxXPos - minXPos) + minXPos;
+			const int yPos = qrand() % (maxYPos - minYPos) + minYPos;
+			part->setPos(xPos - br.left(), yPos - br.top());
+		}
 	}
 }
 
@@ -82,7 +108,12 @@ void Palapeli::Scene::partDestroyed(QObject* object)
 
 void Palapeli::Scene::partMoved()
 {
-	//TODO: Implement saving (and also loading) of piece positions.
+	//save piece positions
+	static const QString pathTemplate = QString::fromLatin1("palapeli/puzzlelibrary/%1.save");
+	KConfig saveConfig(KStandardDirs::locateLocal("data", pathTemplate.arg(m_identifier)));
+	KConfigGroup saveGroup(&saveConfig, "SaveGame");
+	for (int i = 0; i < m_pieces.count(); ++i)
+		saveGroup.writeEntry(QString::number(i), m_pieces[i]->part()->pos());
 }
 
 #include "scene.moc"

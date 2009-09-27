@@ -33,6 +33,8 @@ namespace Palapeli
 			Part(Palapeli::Piece* piece);
 			virtual ~Part();
 
+			bool searchConnections();
+
 			//empty QGraphicsItem reimplementation
 			virtual QRectF boundingRect() const { return QRectF(); }
 			virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget* = 0) {}

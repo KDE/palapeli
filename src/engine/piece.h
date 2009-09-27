@@ -23,12 +23,15 @@
 
 namespace Palapeli
 {
+	class Part;
+
 	class Piece : public QGraphicsPixmapItem
 	{
 		public:
 			Piece(const QPixmap& pixmap, const QPointF& offset);
 
 			void addNeighbor(Palapeli::Piece* piece);
+			Palapeli::Part* part() const;
 
 			//enable qgraphicsitem_cast
 			enum { Type = QGraphicsItem::UserType + 1 }; //UserType + 2 == Palapeli::Part

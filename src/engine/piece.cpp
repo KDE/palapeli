@@ -17,6 +17,7 @@
 ***************************************************************************/
 
 #include "piece.h"
+#include "part.h"
 
 Palapeli::Piece::Piece(const QPixmap& pixmap, const QPointF& offset)
 	: QGraphicsPixmapItem(pixmap)
@@ -30,6 +31,11 @@ void Palapeli::Piece::addNeighbor(Palapeli::Piece* piece)
 		m_missingNeighbors << piece;
 }
 
+Palapeli::Part* Palapeli::Piece::part() const
+{
+	return qgraphicsitem_cast<Palapeli::Part*>(parentItem());
+}
+
 QList<Palapeli::Piece*> Palapeli::Piece::connectableNeighbors(qreal snappingPrecision) const
 {
 	QList<Palapeli::Piece*> result;
@@ -37,7 +43,7 @@ QList<Palapeli::Piece*> Palapeli::Piece::connectableNeighbors(qreal snappingPrec
 	{
 		const qreal referenceDistanceX = snappingPrecision * qMax(pixmap().width(), neighbor->pixmap().width());
 		const qreal referenceDistanceY = snappingPrecision * qMax(pixmap().height(), neighbor->pixmap().height());
-		const QPointF posDifference = parentItem()->pos() - neighbor->parentItem()->pos(); //parentItem() is a Part
+		const QPointF posDifference = part()->pos() - neighbor->part()->pos(); //parentItem() is a Part
 		if (qAbs(posDifference.x()) <= referenceDistanceX && qAbs(posDifference.y()) <= referenceDistanceY)
 			result << neighbor;
 	}
@@ -48,6 +54,6 @@ void Palapeli::Piece::updateNeighborsList()
 {
 	QMutableListIterator<Palapeli::Piece*> iter(m_missingNeighbors);
 	while (iter.hasNext())
-		if (iter.next()->parentItem() == parentItem())
+		if (iter.next()->part() == part())
 			iter.remove();
 }
