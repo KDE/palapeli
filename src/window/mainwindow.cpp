@@ -26,6 +26,7 @@
 #include "tabwindow.h"
 #include "ui_settings.h"
 
+#include <QTabBar>
 #include <KActionCollection>
 #include <KConfigDialog>
 #include <KLocalizedString>
@@ -34,8 +35,17 @@
 #include <KShortcutsDialog>
 #include <KStandardAction>
 
+namespace Palapeli
+{
+	class KTabWidget : public ::KTabWidget
+	{
+		public:
+			QTabBar* tabBar() const { return ::KTabWidget::tabBar(); }
+	};
+}
+
 Palapeli::MainWindow::MainWindow()
-	: m_centralWidget(new KTabWidget)
+	: m_centralWidget(new Palapeli::KTabWidget)
 	, m_library(new Palapeli::LibraryWidget)
 	, m_puzzleTable(new Palapeli::PuzzleTableWidget)
 {
@@ -54,8 +64,31 @@ Palapeli::MainWindow::MainWindow()
 	guiOptions &= ~KXmlGuiWindow::Keys;      //Palapeli has our own shortcuts dialog
 	guiOptions &= ~KXmlGuiWindow::ToolBar;   //I haven't yet found a way for KEditToolBar dialogs to work
 	setupGUI(QSize(600, 400), guiOptions);
-	//move the menubar inside the tabbar (to make the tabs feel like menus)
-	m_centralWidget->setCornerWidget(menuBar(), Qt::TopRightCorner);
+	//move the menubar inside the tabbar (to make the tabs feel like menus) - Unfortunately, we can't use QTabWidget::setCornerWidget because this would move the menubar to the right end of the window, while I want the menubar right next to the tabs. We therefore have to do our own layouting (and remove the menubar from the window's layout with reparenting)
+	m_menuBar = menuBar();
+	m_menuBar->QWidget::setParent(0);
+	m_menuBar->QWidget::setParent(this);
+	m_menuBar->raise();
+	setMinimumWidth(m_menuBar->sizeHint().width() + m_centralWidget->tabBar()->sizeHint().width());
+}
+
+void Palapeli::MainWindow::resizeEvent(QResizeEvent* event)
+{
+	KXmlGuiWindow::resizeEvent(event);
+	//determine geometry of menubar...
+	QRect rect = this->rect();
+	const QSize tabBarSize = m_centralWidget->tabBar()->sizeHint();
+	const QSize menuBarSize = m_menuBar->sizeHint();
+	//...in X direction
+	rect.moveLeft(tabBarSize.width());
+	//...in Y direction
+	const int height = menuBarSize.height();
+	const int maxHeight = tabBarSize.height() - style()->pixelMetric(QStyle::PM_TabBarBaseHeight, 0, this);
+	const int yPos = (maxHeight - height) / 2; //vertical alignment on tab bar
+	rect.setHeight(height);
+	rect.moveTop(qMax(yPos, 0)); //do not allow yPos < 0!
+	//done
+	m_menuBar->setGeometry(rect);
 }
 
 void Palapeli::MainWindow::configureShortcuts()
