@@ -17,8 +17,8 @@
 ***************************************************************************/
 
 #include "puzzletablewidget.h"
-#include "../engine/view.h"
 #include "../engine/scene.h"
+#include "../engine/view.h"
 
 #include <QProgressBar>
 #include <QVBoxLayout>
@@ -66,6 +66,11 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	setCentralWidget(container);
 }
 
+Palapeli::View* Palapeli::PuzzleTableWidget::view() const
+{
+	return m_view;
+}
+
 void Palapeli::PuzzleTableWidget::reportProgress(int pieceCount, int partCount)
 {
 	if (m_progressBar->minimum() != 0)
@@ -84,11 +89,6 @@ void Palapeli::PuzzleTableWidget::reportProgress(int pieceCount, int partCount)
 			m_progressBar->setText(i18nc("Progress display", "%1% finished", percentFinished));
 		}
 	}
-}
-
-void Palapeli::PuzzleTableWidget::loadPuzzle(Palapeli::PuzzleReader* puzzle)
-{
-	m_view->scene()->loadPuzzle(puzzle);
 }
 
 #include "puzzletablewidget.moc"

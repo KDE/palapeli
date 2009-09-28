@@ -16,30 +16,24 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_MAINWINDOW_H
-#define PALAPELI_MAINWINDOW_H
+#ifndef PALAPELI_LIBRARYWIDGET_H
+#define PALAPELI_LIBRARYWIDGET_H
 
-class KTabWidget;
-#include <KXmlGuiWindow>
+#include "tabwindow.h"
 
 namespace Palapeli
 {
-	class LibraryWidget;
-	class PuzzleReader;
-	class PuzzleTableWidget;
+	class LibraryView;
 
-	class MainWindow : public KXmlGuiWindow
+	class LibraryWidget : public Palapeli::TabWindow
 	{
-		Q_OBJECT
 		public:
-			MainWindow();
-		public Q_SLOTS:
-			void loadPuzzle(Palapeli::PuzzleReader* puzzle);
+			LibraryWidget();
+
+			Palapeli::LibraryView* view() const;
 		private:
-			KTabWidget* m_centralWidget;
-			Palapeli::LibraryWidget* m_library;
-			Palapeli::PuzzleTableWidget* m_puzzleTable;
+			Palapeli::LibraryView* m_view;
 	};
 }
 
-#endif // PALAPELI_MAINWINDOW_H
+#endif // PALAPELI_LIBRARYWIDGET_H

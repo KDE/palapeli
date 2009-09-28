@@ -32,9 +32,10 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			PuzzleTableWidget();
+
+			Palapeli::View* view() const;
 		public Q_SLOTS:
 			void reportProgress(int pieceCount, int partCount);
-			void loadPuzzle(Palapeli::PuzzleReader* puzzle);
 		private:
 			Palapeli::View* m_view;
 			Palapeli::TextProgressBar* m_progressBar;

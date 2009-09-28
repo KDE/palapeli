@@ -17,7 +17,10 @@
 ***************************************************************************/
 
 #include "mainwindow.h"
+#include "../engine/scene.h"
+#include "../engine/view.h"
 #include "../file-io/libraryview.h"
+#include "librarywidget.h"
 #include "puzzletablewidget.h"
 #include "tabwindow.h"
 
@@ -27,25 +30,26 @@
 
 Palapeli::MainWindow::MainWindow()
 	: m_centralWidget(new KTabWidget)
+	, m_library(new Palapeli::LibraryWidget)
 	, m_puzzleTable(new Palapeli::PuzzleTableWidget)
-	, m_library(new Palapeli::LibraryView)
 {
 	//NOTE: create MainWindow-wide actions here
 	//setup widgets
 	m_centralWidget->addTab(m_library, i18n("My library"));
 	m_centralWidget->addTab(m_puzzleTable, i18n("Puzzle table"));
 	m_centralWidget->setCurrentWidget(m_library);
-	connect(m_library, SIGNAL(selected(Palapeli::PuzzleReader*)), this, SLOT(loadPuzzle(Palapeli::PuzzleReader*)));
+	connect(m_library->view(), SIGNAL(selected(Palapeli::PuzzleReader*)), this, SLOT(loadPuzzle(Palapeli::PuzzleReader*)));
 	//setup main window
 	setCentralWidget(m_centralWidget);
 	KXmlGuiWindow::StandardWindowOptions guiOptions = KXmlGuiWindow::Default;
 	guiOptions &= ~KXmlGuiWindow::StatusBar; //do not create statusbar
 	setupGUI(QSize(600, 400), guiOptions);
-// 	statusBar()->hide(); //statusbar is not used in Palapeli
 }
 
 void Palapeli::MainWindow::loadPuzzle(Palapeli::PuzzleReader* puzzle)
 {
-	m_puzzleTable->loadPuzzle(puzzle);
+	m_puzzleTable->view()->scene()->loadPuzzle(puzzle);
 	m_centralWidget->setCurrentWidget(m_puzzleTable);
 }
+
+#include "mainwindow.moc"
