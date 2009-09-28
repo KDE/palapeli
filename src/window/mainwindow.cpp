@@ -24,16 +24,20 @@
 #include "puzzletablewidget.h"
 #include "tabwindow.h"
 
+#include <KActionCollection>
 #include <KLocalizedString>
 #include <KMenuBar>
 #include <KTabWidget>
+#include <KShortcutsDialog>
+#include <KStandardAction>
 
 Palapeli::MainWindow::MainWindow()
 	: m_centralWidget(new KTabWidget)
 	, m_library(new Palapeli::LibraryWidget)
 	, m_puzzleTable(new Palapeli::PuzzleTableWidget)
 {
-	//NOTE: create MainWindow-wide actions here
+	//create MainWindow-wide actions
+	KStandardAction::keyBindings(this, SLOT(configureShortcuts()), actionCollection());
 	//setup widgets
 	m_centralWidget->addTab(m_library, i18n("My library"));
 	m_centralWidget->addTab(m_puzzleTable, i18n("Puzzle table"));
@@ -43,9 +47,19 @@ Palapeli::MainWindow::MainWindow()
 	setCentralWidget(m_centralWidget);
 	KXmlGuiWindow::StandardWindowOptions guiOptions = KXmlGuiWindow::Default;
 	guiOptions &= ~KXmlGuiWindow::StatusBar; //do not create statusbar
+	guiOptions &= ~KXmlGuiWindow::Keys;      //Palapeli has our own shortcuts dialog
+	guiOptions &= ~KXmlGuiWindow::ToolBar;   //I haven't yet found a way for KEditToolBar dialogs to work
 	setupGUI(QSize(600, 400), guiOptions);
 	//move the menubar inside the tabbar (to make the tabs feel like menus)
 	m_centralWidget->setCornerWidget(menuBar(), Qt::TopRightCorner);
+}
+
+void Palapeli::MainWindow::configureShortcuts()
+{
+	KShortcutsDialog dlg(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, this);
+	dlg.addCollection(m_library->actionCollection());
+	dlg.addCollection(m_puzzleTable->actionCollection());
+	dlg.configure(true);
 }
 
 void Palapeli::MainWindow::loadPuzzle(Palapeli::PuzzleReader* puzzle)
