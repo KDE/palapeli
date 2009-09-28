@@ -16,33 +16,29 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_SCENE_H
-#define PALAPELI_SCENE_H
+#ifndef PALAPELI_PUZZLETABLEWIDGET_H
+#define PALAPELI_PUZZLETABLEWIDGET_H
 
-#include <QGraphicsScene>
+#include <QWidget>
 
 namespace Palapeli
 {
-	class Part;
-	class Piece;
 	class PuzzleReader;
+	class TextProgressBar;
+	class View;
 
-	class Scene : public QGraphicsScene
+	class PuzzleTableWidget : public QWidget
 	{
 		Q_OBJECT
 		public:
-			Scene(QObject* parent = 0);
-			void loadPuzzle(Palapeli::PuzzleReader* puzzle);
-		Q_SIGNALS:
+			PuzzleTableWidget(QWidget* parent = 0);
+		public Q_SLOTS:
 			void reportProgress(int pieceCount, int partCount);
-		private Q_SLOTS:
-			void partDestroyed(QObject* object);
-			void partMoved();
+			void loadPuzzle(Palapeli::PuzzleReader* puzzle);
 		private:
-			QString m_identifier;
-			QList<Palapeli::Piece*> m_pieces;
-			QList<Palapeli::Part*> m_parts;
+			Palapeli::View* m_view;
+			Palapeli::TextProgressBar* m_progressBar;
 	};
 }
 
-#endif // PALAPELI_SCENE_H
+#endif // PALAPELI_PUZZLETABLE_H

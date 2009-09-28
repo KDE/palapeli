@@ -79,7 +79,7 @@ void Palapeli::Scene::loadPuzzle(Palapeli::PuzzleReader* puzzle)
 		for (int i = 0; i < m_pieces.count(); ++i)
 		{
 			Palapeli::Part* part = m_pieces[i]->part();
-			//TODO: respect sceneRect (may change when sceneSizeFactor becomes configurable)
+			//TODO: respect sceneRect
 			part->setPos(saveGroup.readEntry(QString::number(i), QPointF()));
 			part->searchConnections();
 		}
@@ -99,6 +99,8 @@ void Palapeli::Scene::loadPuzzle(Palapeli::PuzzleReader* puzzle)
 			part->setPos(xPos - br.left(), yPos - br.top());
 		}
 	}
+	//initialize external progress display
+	emit reportProgress(m_pieces.count(), m_parts.count());
 }
 
 void Palapeli::Scene::partDestroyed(QObject* object)
@@ -108,6 +110,7 @@ void Palapeli::Scene::partDestroyed(QObject* object)
 
 void Palapeli::Scene::partMoved()
 {
+	emit reportProgress(m_pieces.count(), m_parts.count());
 	//save piece positions
 	static const QString pathTemplate = QString::fromLatin1("palapeli/puzzlelibrary/%1.save");
 	KConfig saveConfig(KStandardDirs::locateLocal("data", pathTemplate.arg(m_identifier)));

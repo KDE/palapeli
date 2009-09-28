@@ -13,6 +13,7 @@ set(palapeli_SRCS
 	file-io/libraryview.cpp
 	file-io/puzzlereader.cpp
 	main.cpp
+	window/puzzletablewidget.cpp
 )
 kde4_add_kcfg_files(palapeli_SRCS settings.kcfgc)
 

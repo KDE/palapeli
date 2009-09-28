@@ -16,9 +16,8 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#include "engine/scene.h"
-#include "engine/view.h"
 #include "file-io/libraryview.h"
+#include "window/puzzletablewidget.h"
 
 #include <ctime>
 #include <KAboutData>
@@ -40,15 +39,15 @@ int main(int argc, char** argv)
 	KApplication app;
 	KGlobal::locale()->insertCatalog("libkdegames");
 
-	Palapeli::View view;
-	view.resize(800, 600);
-	view.show();
+	Palapeli::PuzzleTableWidget puzzleTable;
+	puzzleTable.resize(800, 600);
+	puzzleTable.show();
 
 	Palapeli::LibraryView libraryView;
 	libraryView.resize(500, 600);
 	libraryView.show();
 
-	QObject::connect(&libraryView, SIGNAL(selected(Palapeli::PuzzleReader*)), view.scene(), SLOT(loadPuzzle(Palapeli::PuzzleReader*)));
+	QObject::connect(&libraryView, SIGNAL(selected(Palapeli::PuzzleReader*)), &puzzleTable, SLOT(loadPuzzle(Palapeli::PuzzleReader*)));
 
 	return app.exec();
 }
