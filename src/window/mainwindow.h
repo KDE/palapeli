@@ -34,8 +34,9 @@ namespace Palapeli
 		public:
 			MainWindow();
 		public Q_SLOTS:
-			void configureShortcuts();
 			void loadPuzzle(Palapeli::PuzzleReader* puzzle);
+			void configureShortcuts();
+			void configurePalapeli();
 		private:
 			KTabWidget* m_centralWidget;
 			Palapeli::LibraryWidget* m_library;

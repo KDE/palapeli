@@ -22,9 +22,12 @@
 #include "../file-io/libraryview.h"
 #include "librarywidget.h"
 #include "puzzletablewidget.h"
+#include "settings.h"
 #include "tabwindow.h"
+#include "ui_settings.h"
 
 #include <KActionCollection>
+#include <KConfigDialog>
 #include <KLocalizedString>
 #include <KMenuBar>
 #include <KTabWidget>
@@ -38,6 +41,7 @@ Palapeli::MainWindow::MainWindow()
 {
 	//create MainWindow-wide actions
 	KStandardAction::keyBindings(this, SLOT(configureShortcuts()), actionCollection());
+	KStandardAction::preferences(this, SLOT(configurePalapeli()), actionCollection());
 	//setup widgets
 	m_centralWidget->addTab(m_library, i18n("My library"));
 	m_centralWidget->addTab(m_puzzleTable, i18n("Puzzle table"));
@@ -66,6 +70,17 @@ void Palapeli::MainWindow::loadPuzzle(Palapeli::PuzzleReader* puzzle)
 {
 	m_puzzleTable->view()->scene()->loadPuzzle(puzzle);
 	m_centralWidget->setCurrentWidget(m_puzzleTable);
+}
+
+void Palapeli::MainWindow::configurePalapeli()
+{
+	KConfigDialog settingsDialog(this, QString(), Settings::self());
+	QWidget* settingsWidget = new QWidget;
+	Ui::Settings settingsUi; settingsUi.setupUi(settingsWidget);
+	settingsDialog.addPage(settingsWidget, i18n("General settings"))->setIcon(KIcon("configure"));
+	//NOTE: no need to connect KConfigDialog::settingsChanged(const QString&) because settings are read on demand
+	settingsDialog.setFaceType(KPageDialog::Plain);
+	settingsDialog.exec();
 }
 
 #include "mainwindow.moc"
