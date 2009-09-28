@@ -16,37 +16,31 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_VIEW_H
-#define PALAPELI_VIEW_H
+#include "tabwindow.h"
 
-#include <QGraphicsView>
+#include <KXMLGUIBuilder>
+#include <KXMLGUIFactory>
 
-namespace Palapeli
+Palapeli::TabWindow::TabWindow(const QString& identifier)
+	: m_identifier(identifier)
+	, m_builder(0)
+	, m_factory(0)
 {
-	class Scene;
-	class ViewMenu;
-
-	class View : public QGraphicsView
-	{
-		Q_OBJECT
-		public:
-			View();
-
-			Palapeli::Scene* scene() const;
-		public Q_SLOTS:
-			void zoomIn();
-			void zoomOut();
-			void zoomBy(int delta); //delta = 0 -> no change, delta < 0 -> zoom out, delta > 0 -> zoom in
-		protected:
-			virtual void resizeEvent(QResizeEvent* event);
-			virtual void wheelEvent(QWheelEvent* event);
-			void restrictViewportToSceneRect();
-		private Q_SLOTS:
-			void sceneRectChanged(const QRectF& sceneRect);
-		private:
-			Palapeli::Scene* m_scene;
-			Palapeli::ViewMenu* m_menu;
-	};
+	setXMLFile(identifier + "ui.rc");
 }
 
-#endif // PALAPELI_VIEW_H
+Palapeli::TabWindow::~TabWindow()
+{
+	m_factory->removeClient(this);
+	delete m_factory;
+	delete m_builder;
+}
+
+void Palapeli::TabWindow::setupGUI()
+{
+	m_builder = new KXMLGUIBuilder(this);
+	setClientBuilder(m_builder);
+	m_factory = new KXMLGUIFactory(m_builder);
+	m_factory->addClient(this);
+	setAutoSaveSettings("TabWindow " + m_identifier, false); //false = don't save window size (pointless for subwidgets)
+}

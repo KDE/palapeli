@@ -49,8 +49,11 @@ void Palapeli::View::resizeEvent(QResizeEvent* event)
 
 void Palapeli::View::wheelEvent(QWheelEvent* event)
 {
-	//zoom viewport in/out
-	const qreal delta = event->delta();
+	zoomBy(event->delta());
+}
+
+void Palapeli::View::zoomBy(int delta)
+{
 	static const qreal deltaAdaptationFactor = 600.0;
 	qreal scalingFactor = 1.0 + qAbs(delta) / deltaAdaptationFactor;
 	if (delta < 0) //zoom out
@@ -62,6 +65,16 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 	scale(scalingFactor, scalingFactor);
 	//and also...
 	restrictViewportToSceneRect();
+}
+
+void Palapeli::View::zoomIn()
+{
+	zoomBy(120);
+}
+
+void Palapeli::View::zoomOut()
+{
+	zoomBy(-120);
 }
 
 void Palapeli::View::sceneRectChanged(const QRectF& sceneRect)

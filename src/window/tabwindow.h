@@ -16,37 +16,26 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_VIEW_H
-#define PALAPELI_VIEW_H
+#ifndef PALAPELI_TABWINDOW_H
+#define PALAPELI_TABWINDOW_H
 
-#include <QGraphicsView>
+#include <KMainWindow>
+#include <KXMLGUIClient>
 
 namespace Palapeli
 {
-	class Scene;
-	class ViewMenu;
-
-	class View : public QGraphicsView
+	class TabWindow : public KMainWindow, public KXMLGUIClient
 	{
-		Q_OBJECT
 		public:
-			View();
+			TabWindow(const QString& identifier);
+			virtual ~TabWindow();
 
-			Palapeli::Scene* scene() const;
-		public Q_SLOTS:
-			void zoomIn();
-			void zoomOut();
-			void zoomBy(int delta); //delta = 0 -> no change, delta < 0 -> zoom out, delta > 0 -> zoom in
-		protected:
-			virtual void resizeEvent(QResizeEvent* event);
-			virtual void wheelEvent(QWheelEvent* event);
-			void restrictViewportToSceneRect();
-		private Q_SLOTS:
-			void sceneRectChanged(const QRectF& sceneRect);
+			void setupGUI(); ///Call this after having filled the KActionCollection of this TabWindow.
 		private:
-			Palapeli::Scene* m_scene;
-			Palapeli::ViewMenu* m_menu;
+			QString m_identifier;
+			KXMLGUIBuilder* m_builder;
+			KXMLGUIFactory* m_factory;
 	};
 }
 
-#endif // PALAPELI_VIEW_H
+#endif // PALAPELI_TABWINDOW_H

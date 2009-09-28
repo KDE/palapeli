@@ -19,6 +19,7 @@
 #include "mainwindow.h"
 #include "../file-io/libraryview.h"
 #include "puzzletablewidget.h"
+#include "tabwindow.h"
 
 #include <KLocalizedString>
 #include <KStatusBar>
@@ -29,17 +30,18 @@ Palapeli::MainWindow::MainWindow()
 	, m_puzzleTable(new Palapeli::PuzzleTableWidget)
 	, m_library(new Palapeli::LibraryView)
 {
-	//NOTE: create actions here
+	//NOTE: create MainWindow-wide actions here
 	//setup widgets
 	m_centralWidget->addTab(m_library, i18n("My library"));
 	m_centralWidget->addTab(m_puzzleTable, i18n("Puzzle table"));
 	m_centralWidget->setCurrentWidget(m_library);
 	connect(m_library, SIGNAL(selected(Palapeli::PuzzleReader*)), this, SLOT(loadPuzzle(Palapeli::PuzzleReader*)));
 	//setup main window
-	setAutoSaveSettings();
 	setCentralWidget(m_centralWidget);
-	setupGUI(QSize(600, 400));
-	statusBar()->hide(); //statusbar is not used in Palapeli
+	KXmlGuiWindow::StandardWindowOptions guiOptions = KXmlGuiWindow::Default;
+	guiOptions &= ~KXmlGuiWindow::StatusBar; //do not create statusbar
+	setupGUI(QSize(600, 400), guiOptions);
+// 	statusBar()->hide(); //statusbar is not used in Palapeli
 }
 
 void Palapeli::MainWindow::loadPuzzle(Palapeli::PuzzleReader* puzzle)

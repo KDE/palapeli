@@ -22,7 +22,9 @@
 
 #include <QProgressBar>
 #include <QVBoxLayout>
+#include <KActionCollection>
 #include <KLocalizedString>
+#include <KStandardAction>
 
 //BEGIN Palapeli::TextProgressBar
 
@@ -42,18 +44,26 @@ namespace Palapeli
 
 //END Palapeli::TextProgressBar
 
-Palapeli::PuzzleTableWidget::PuzzleTableWidget(QWidget* parent)
-	: QWidget(parent)
+Palapeli::PuzzleTableWidget::PuzzleTableWidget()
+	: Palapeli::TabWindow(QLatin1String("palapeli-puzzletable"))
 	, m_view(new Palapeli::View)
 	, m_progressBar(new Palapeli::TextProgressBar(this))
 {
+	//setup actions
+	KStandardAction::zoomIn(m_view, SLOT(zoomIn()), actionCollection());
+	KStandardAction::zoomOut(m_view, SLOT(zoomOut()), actionCollection());
+	setupGUI();
+	//setup widgets
 	m_progressBar->setText(i18n("No puzzle loaded"));
+	connect(m_view->scene(), SIGNAL(reportProgress(int, int)), this, SLOT(reportProgress(int, int)));
+	//setup layout
+	QWidget* container = new QWidget;
 	QVBoxLayout* layout = new QVBoxLayout;
 	layout->addWidget(m_view);
 	layout->addWidget(m_progressBar);
 	layout->setMargin(0);
-	setLayout(layout);
-	connect(m_view->scene(), SIGNAL(reportProgress(int, int)), this, SLOT(reportProgress(int, int)));
+	container->setLayout(layout);
+	setCentralWidget(container);
 }
 
 void Palapeli::PuzzleTableWidget::reportProgress(int pieceCount, int partCount)

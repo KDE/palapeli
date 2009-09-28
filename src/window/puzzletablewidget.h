@@ -19,7 +19,7 @@
 #ifndef PALAPELI_PUZZLETABLEWIDGET_H
 #define PALAPELI_PUZZLETABLEWIDGET_H
 
-#include <QWidget>
+#include "tabwindow.h"
 
 namespace Palapeli
 {
@@ -27,11 +27,11 @@ namespace Palapeli
 	class TextProgressBar;
 	class View;
 
-	class PuzzleTableWidget : public QWidget
+	class PuzzleTableWidget : public Palapeli::TabWindow
 	{
 		Q_OBJECT
 		public:
-			PuzzleTableWidget(QWidget* parent = 0);
+			PuzzleTableWidget();
 		public Q_SLOTS:
 			void reportProgress(int pieceCount, int partCount);
 			void loadPuzzle(Palapeli::PuzzleReader* puzzle);
