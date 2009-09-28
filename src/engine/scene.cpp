@@ -20,6 +20,7 @@
 #include "part.h"
 #include "piece.h"
 #include "../file-io/puzzlereader.h"
+#include "settings.h"
 
 #include <KConfig>
 #include <KConfigGroup>
@@ -42,8 +43,7 @@ void Palapeli::Scene::loadPuzzle(Palapeli::PuzzleReader* puzzle)
 	m_pieces.clear();
 	m_parts.clear();
 	//initialize scene
-	const int sceneSizeFactor = 2;
-	setSceneRect(QRectF(QPointF(), sceneSizeFactor * puzzle->imageSize()));
+	setSceneRect(QRectF(QPointF(), Settings::sceneSizeFactor() * QSizeF(puzzle->imageSize())));
 	//add pieces and parts
 	QMap<int, Palapeli::Piece*> pieces;
 	const QMap<int, QPixmap> pieceImages = puzzle->pieces();

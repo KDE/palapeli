@@ -18,6 +18,7 @@
 
 #include "part.h"
 #include "piece.h"
+#include "settings.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
@@ -69,9 +70,10 @@ bool Palapeli::Part::searchConnections()
 {
 	//check for parts that can be merged with this part
 	QSet<Palapeli::Part*> mergeParts;
+	qreal snappingPrecision = qreal(Settings::snappingPrecision()) / 100.0;
 	foreach (Palapeli::Piece* piece, m_pieces)
 	{
-		const QList<Palapeli::Piece*> mergeNeighbors = piece->connectableNeighbors(0.2);
+		const QList<Palapeli::Piece*> mergeNeighbors = piece->connectableNeighbors(snappingPrecision);
 		foreach (Palapeli::Piece* mergeNeighbor, mergeNeighbors)
 			mergeParts << mergeNeighbor->part();
 	}

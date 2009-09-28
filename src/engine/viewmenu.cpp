@@ -18,6 +18,7 @@
 
 #include "viewmenu.h"
 #include "viewmenu-components.h"
+#include "settings.h"
 
 #include <QFileInfo>
 #include <QGraphicsScene>
@@ -28,9 +29,8 @@
 Palapeli::ViewMenu::ViewMenu(QGraphicsScene* scene)
 	: m_scene(scene)
 {
-	const QString selectedFileName = QString(); //TODO: read this from settings when kcfg stuff has been set up
-	static const QString defaultFileName("background.svg");
-	int selectedIndex = -1, defaultIndex = -1, currentIndex = -1;
+	const QString selectedFileName = Settings::viewBackground();
+	int selectedIndex = -1, currentIndex = -1;
 	//fetch backgrounds, and create menu items
 	QStringList backgroundFiles = KStandardDirs().findAllResources("data", "palapeli/backgrounds/*");
 	QList<Palapeli::ViewMenuItem*> menuItems;
@@ -41,8 +41,6 @@ Palapeli::ViewMenu::ViewMenu(QGraphicsScene* scene)
 		const QString fileName = QFileInfo(path).fileName();
 		if (fileName == selectedFileName)
 			selectedIndex = currentIndex;
-		if (fileName == defaultFileName)
-			defaultIndex = currentIndex;
 		//create menu item for this brush
 		Palapeli::ViewMenuItem* item = new Palapeli::ViewMenuItem(fileName);
 		menuItems << item;
@@ -50,11 +48,8 @@ Palapeli::ViewMenu::ViewMenu(QGraphicsScene* scene)
 		connect(item, SIGNAL(selected(const QString&, const QBrush&)), this, SLOT(selected(const QString&, const QBrush&)));
 	}
 	//select initial brush
-	if (selectedIndex >= 0)
-		m_currentItem = menuItems[selectedIndex];
-	else
-		m_currentItem = menuItems[qMax(defaultIndex, 0)]; //the qMax chooses the index 0 if defaultIndex == -1
-	stopPreview(); //this method call actually loads the default brush into the scene
+	m_currentItem = menuItems[qMax(selectedIndex, 0)]; //the qMax chooses the index 0 if selectedIndex == -1
+	stopPreview(); //this method call loads the default brush into the scene
 	//build container widget
 	Palapeli::ViewMenuWidget* container = new Palapeli::ViewMenuWidget(menuItems);
 	connect(container, SIGNAL(stopPreview()), this, SLOT(stopPreview()));
@@ -90,7 +85,8 @@ void Palapeli::ViewMenu::selected(const QString& fileName, const QBrush& brush)
 	//change default background
 	m_currentItem = qobject_cast<Palapeli::ViewMenuItem*>(sender());
 	m_scene->setBackgroundBrush(brush);
-	//TODO: save brush in config (cannot be implemented currently because kcfg stuff has not yet been set up)
+	Settings::setViewBackground(fileName);
+	Settings::self()->writeConfig();
 }
 
 #include "viewmenu.moc"
