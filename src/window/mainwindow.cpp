@@ -25,7 +25,7 @@
 #include "tabwindow.h"
 
 #include <KLocalizedString>
-#include <KStatusBar>
+#include <KMenuBar>
 #include <KTabWidget>
 
 Palapeli::MainWindow::MainWindow()
@@ -44,6 +44,8 @@ Palapeli::MainWindow::MainWindow()
 	KXmlGuiWindow::StandardWindowOptions guiOptions = KXmlGuiWindow::Default;
 	guiOptions &= ~KXmlGuiWindow::StatusBar; //do not create statusbar
 	setupGUI(QSize(600, 400), guiOptions);
+	//move the menubar inside the tabbar (to make the tabs feel like menus)
+	m_centralWidget->setCornerWidget(menuBar(), Qt::TopRightCorner);
 }
 
 void Palapeli::MainWindow::loadPuzzle(Palapeli::PuzzleReader* puzzle)
