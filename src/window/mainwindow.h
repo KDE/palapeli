@@ -16,28 +16,30 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#include "window/mainwindow.h"
+#ifndef PALAPELI_MAINWINDOW_H
+#define PALAPELI_MAINWINDOW_H
 
-#include <ctime>
-#include <KAboutData>
-#include <KApplication>
-#include <KCmdLineArgs>
-#include <KGlobal>
-#include <KLocale>
+class KTabWidget;
+#include <KXmlGuiWindow>
 
-int main(int argc, char** argv)
+namespace Palapeli
 {
-	qsrand(time(0));
-	KAboutData about("palapeli", 0, ki18nc("The application's name", "Palapeli"), "1.0", ki18n("KDE Jigsaw Puzzle Game"), KAboutData::License_GPL, ki18n("Copyright 2009, Stefan Majewsky"));
-	about.addAuthor(ki18n("Stefan Majewsky"), KLocalizedString(), "majewsky@gmx.net", "http://majewsky.wordpress.com");
-	KCmdLineArgs::init(argc, argv, &about);
+	class LibraryView;
+	class PuzzleReader;
+	class PuzzleTableWidget;
 
-#ifdef Q_WS_X11
-	QApplication::setGraphicsSystem("raster");
-#endif
-	KApplication app;
-	KGlobal::locale()->insertCatalog("libkdegames");
-
-	(new Palapeli::MainWindow)->show();
-	return app.exec();
+	class MainWindow : public KXmlGuiWindow
+	{
+		Q_OBJECT
+		public:
+			MainWindow();
+		public Q_SLOTS:
+			void loadPuzzle(Palapeli::PuzzleReader* puzzle);
+		private:
+			KTabWidget* m_centralWidget;
+			Palapeli::PuzzleTableWidget* m_puzzleTable;
+			Palapeli::LibraryView* m_library;
+	};
 }
+
+#endif // PALAPELI_MAINWINDOW_H
