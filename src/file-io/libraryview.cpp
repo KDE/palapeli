@@ -21,7 +21,8 @@
 #include "librarymodel.h"
 
 Palapeli::LibraryView::LibraryView(QWidget* parent)
-	: m_model(new Palapeli::LibraryModel(this))
+	: QListView(parent)
+	, m_model(new Palapeli::LibraryModel(this))
 {
 	setModel(m_model);
 	new Palapeli::LibraryDelegate(this);

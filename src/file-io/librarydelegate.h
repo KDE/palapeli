@@ -21,6 +21,8 @@
 
 #include <KWidgetItemDelegate>
 
+//TODO: add a button to delete that puzzle from the library (if possible)
+
 namespace Palapeli
 {
 	class LibraryDelegate : public KWidgetItemDelegate

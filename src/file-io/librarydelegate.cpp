@@ -147,6 +147,7 @@ void Palapeli::LibraryDelegate::updateItemWidgets(const QList<QWidget*> widgets,
 
 void Palapeli::LibraryDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
+	Q_UNUSED(index)
 	//paint background for selected or hovered item
 	QStyleOptionViewItemV4 opt = option;
 	itemView()->style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, 0);

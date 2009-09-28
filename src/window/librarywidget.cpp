@@ -19,11 +19,20 @@
 #include "librarywidget.h"
 #include "../file-io/libraryview.h"
 
+#include <KAction>
+#include <KActionCollection>
+#include <KLocalizedString>
+
 Palapeli::LibraryWidget::LibraryWidget()
 	: Palapeli::TabWindow(QLatin1String("palapeli-library"))
 	, m_view(new Palapeli::LibraryView)
 {
-	//NOTE: setup actions here
+	//setup actions
+	KAction* importAct = new KAction(KIcon("document-import"), i18n("&Import..."), 0);
+	importAct->setEnabled(false); //not implemented yet
+	importAct->setToolTip(i18n("Import a new puzzle from a file"));
+	actionCollection()->addAction("file_import", importAct);
+	//setup GUI
 	setupGUI();
 	setCentralWidget(m_view);
 }
