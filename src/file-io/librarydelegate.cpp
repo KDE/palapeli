@@ -28,43 +28,8 @@
 #include <KGlobal>
 #include <KIcon>
 #include <KLocalizedString>
-
-//BEGIN PieceCountPixmapCache
-
-class PieceCountPixmapCache
-{
-	public:
-		QPixmap servePixmap(int pieceCount);
-	private:
-		QMap<int, QPixmap> m_pixmaps;
-};
-
-K_GLOBAL_STATIC(PieceCountPixmapCache, pixmapCache)
-
-QPixmap PieceCountPixmapCache::servePixmap(int pieceCount)
-{
-	if (m_pixmaps.contains(pieceCount))
-		return m_pixmaps.value(pieceCount);
-	//create pixmap
-	static const QPixmap basePixmap = KIcon("preferences-plugin").pixmap(Palapeli::PuzzleReader::ThumbnailBaseSize, QIcon::Disabled);
-	QPixmap pixmap = basePixmap;
-	//draw piece count text on pixmap - adjust size of text to make text fit (this code assumes that the text's width is always >= its height, and that the relation between height and width is linear for different font sizes)
-	const QString pieceCountText = (pieceCount == 0) ? QLatin1String(" ? ") : QString::number(pieceCount);
-	QPainter painter(&pixmap);
-	QFont font = painter.font();
-	const QFontMetrics fm(font);
-	const QRect textRect = fm.boundingRect(pieceCountText);
-	static const int desiredTextWidth = pixmap.width() / 2;
-	font.setPointSizeF(font.pointSizeF() * desiredTextWidth / textRect.width());
-	painter.setFont(font);
-	painter.drawText(QRect(QPoint(), pixmap.size()), Qt::AlignCenter, pieceCountText);
-	//done painting
-	painter.end();
-	m_pixmaps[pieceCount] = pixmap;
-	return pixmap;
-}
-
-//END PieceCountPixmapCache
+#include <KPushButton>
+#include <KStandardGuiItem>
 
 Palapeli::LibraryDelegate::LibraryDelegate(QAbstractItemView* view)
 	: KWidgetItemDelegate(view, view)
@@ -85,21 +50,25 @@ QList<QWidget*> Palapeli::LibraryDelegate::createItemWidgets() const
 	thumbnailWidget->setAlignment(Qt::AlignCenter);
 	thumbnailWidget->setMaximumSize(Palapeli::PuzzleReader::ThumbnailBaseSize);
 	thumbnailWidget->setMinimumSize(Palapeli::PuzzleReader::ThumbnailBaseSize);
-	QLabel* pieceCountWidget = new QLabel;
-	pieceCountWidget->setMaximumSize(Palapeli::PuzzleReader::ThumbnailBaseSize);
-	pieceCountWidget->setMinimumSize(Palapeli::PuzzleReader::ThumbnailBaseSize);
 	QLabel* headlineWidget = new QLabel;
 	QLabel* sublineWidget1 = new QLabel;
 	QLabel* sublineWidget2 = new QLabel;
 	QFont headlineFont = headlineWidget->font();
 	headlineFont.setBold(true);
 	headlineWidget->setFont(headlineFont);
+	QLabel* pieceCountWidget = new QLabel;
+	pieceCountWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	KPushButton* deleteButton = new KPushButton(KStandardGuiItem::del());
+	deleteButton->setEnabled(false);
+	deleteButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	//build layout
-	layout->addWidget(thumbnailWidget, 0, 0, 3, 1);
+	layout->addWidget(thumbnailWidget, 0, 0, 3, 1, Qt::AlignCenter);
 	layout->addWidget(headlineWidget, 0, 1, Qt::AlignLeft | Qt::AlignBottom);
 	layout->addWidget(sublineWidget1, 1, 1, Qt::AlignLeft | Qt::AlignTop);
 	layout->addWidget(sublineWidget2, 2, 1, Qt::AlignLeft | Qt::AlignTop);
-	layout->addWidget(pieceCountWidget, 0, 2, 3, 1);
+	layout->addWidget(pieceCountWidget, 0, 2, Qt::AlignCenter);
+	layout->addWidget(deleteButton, 1, 2, 2, 1, Qt::AlignHCenter | Qt::AlignTop);
+	layout->setColumnStretch(1, 10);
 	return QList<QWidget *>() << container;
 }
 
@@ -113,19 +82,23 @@ void Palapeli::LibraryDelegate::updateItemWidgets(const QList<QWidget*> widgets,
 	QLabel* sublineWidget1 = qobject_cast<QLabel*>(layout->itemAtPosition(1, 1)->widget());
 	QLabel* sublineWidget2 = qobject_cast<QLabel*>(layout->itemAtPosition(2, 1)->widget());
 	QLabel* pieceCountWidget = qobject_cast<QLabel*>(layout->itemAtPosition(0, 2)->widget());
+	QPushButton* deleteButton = qobject_cast<QPushButton*>(layout->itemAtPosition(1, 2)->widget());
 	//retrieve data
 	const QString name = index.data(Palapeli::LibraryModel::NameRole).toString();
 	const QString comment = index.data(Palapeli::LibraryModel::CommentRole).toString();
 	const QString author = index.data(Palapeli::LibraryModel::AuthorRole).toString();
 	const QPixmap thumbnail = index.data(Palapeli::LibraryModel::ThumbnailRole).value<QPixmap>();
 	int pieceCount = index.data(Palapeli::LibraryModel::PieceCountRole).toInt();
+	const QString pieceCountText = i18n("%1 pieces", pieceCount);
+	const QString identifier = index.data(Palapeli::LibraryModel::IdentifierRole).toString();
 	//update widgets
 	const QString authorString = author.isEmpty() ? QString() : i18nc("Author attribution, e.g. \"By Jack\"", "By %1").arg(author);
 	headlineWidget->setText(name.isEmpty() ? i18n("[No name]") : name);
 	sublineWidget1->setText(comment.isEmpty() ? authorString : comment);
 	sublineWidget2->setText(comment.isEmpty() ? QString() : authorString);
 	thumbnailWidget->setPixmap(thumbnail);
-	pieceCountWidget->setPixmap(pixmapCache->servePixmap(pieceCount));
+	pieceCountWidget->setText(pieceCountText);
+	deleteButton->setProperty("PuzzleIdentifier", identifier);
 	//update size of layout and text color
 	container->setGeometry(QRect(QPoint(0, 0), option.rect.size()));
 	//update font of author line
