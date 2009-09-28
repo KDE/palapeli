@@ -1,8 +1,6 @@
 [Desktop Entry]
 Name=My very first slicer
-Name[de]=Mein erstes Schnittmuster
 Comment=It's quite simple, actually.
-Comment[de]=Eigentlich ist das ganz einfach.
 Type=Service
 Icon=myslicer
 X-KDE-Library=myslicer
