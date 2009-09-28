@@ -62,6 +62,8 @@ QVariant Palapeli::LibraryModel::data(const QModelIndex& index, int role) const
 			return puzzleReader->comment();
 		case AuthorRole:
 			return puzzleReader->author();
+		case PieceCountRole:
+			return puzzleReader->pieceCount();
 		case ThumbnailRole: case Qt::DecorationRole:
 			return puzzleReader->thumbnail();
 		default:

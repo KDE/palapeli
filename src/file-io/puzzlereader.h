@@ -44,6 +44,7 @@ namespace Palapeli
 			QString name() const;
 			QString author() const;
 			QString comment() const;
+			int pieceCount() const;
 			QPixmap thumbnail() const;
 			//stuff that is only available after having loaded the puzzle
 			QSize imageSize() const;
@@ -61,6 +62,7 @@ namespace Palapeli
 			QString m_author;
 			QString m_comment;
 			QPixmap m_thumbnail;
+			int m_pieceCount;
 			//stuff that is only available after having loaded the puzzle
 			QSize m_imageSize;
 			QMap<int, QPixmap> m_pieces;

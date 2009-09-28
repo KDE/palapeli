@@ -34,6 +34,7 @@ namespace Palapeli
 				NameRole,
 				CommentRole,
 				AuthorRole,
+				PieceCountRole,
 				ThumbnailRole
 			};
 

@@ -34,8 +34,6 @@ KUrl urlForLibPuzzle(const QString& identifier)
 	return KStandardDirs::locate("data", pathTemplate.arg(identifier));
 }
 
-#include <KDebug>
-
 Palapeli::PuzzleReader::PuzzleReader(const QString& identifier)
 	: m_locationUrl(urlForLibPuzzle(identifier))
 	, m_metadataLoaded(false)
@@ -60,6 +58,7 @@ Palapeli::PuzzleReader::PuzzleReader(const QString& identifier)
 		cacheGroup.writeEntry("Name", m_name);
 		cacheGroup.writeEntry("Author", m_author);
 		cacheGroup.writeEntry("Comment", m_comment);
+		cacheGroup.writeEntry("PieceCount", m_pieceCount);
 		m_thumbnail.save(KStandardDirs::locateLocal("data", thumbnailPathTemplate.arg(identifier)));
 		cache.sync();
 	}
@@ -70,6 +69,7 @@ Palapeli::PuzzleReader::PuzzleReader(const QString& identifier)
 		m_name = cacheGroup.readEntry("Name", QString());
 		m_author = cacheGroup.readEntry("Author", QString());
 		m_comment = cacheGroup.readEntry("Comment", QString());
+		m_pieceCount = cacheGroup.readEntry("PieceCount", 0);
 		m_thumbnail.load(KStandardDirs::locate("data", thumbnailPathTemplate.arg(identifier)));
 		m_metadataLoaded = true;
 	}
@@ -135,6 +135,12 @@ void Palapeli::PuzzleReader::loadMetadata()
 	m_author = m_manifest->desktopGroup().readEntry("X-KDE-PluginInfo-Author", QString());
 	m_comment = m_manifest->readComment();
 	m_thumbnail = QPixmap(m_cache->name() + "thumbnail.jpg").scaled(ThumbnailBaseSize, Qt::KeepAspectRatio);
+	//find piece count
+	KConfigGroup offsetGroup(m_manifest, "PieceOffsets");
+	QList<QString> offsetGroupKeys = offsetGroup.entryMap().keys();
+	m_pieceCount = 0;
+	while (offsetGroupKeys.contains(QString::number(m_pieceCount)))
+		++m_pieceCount;
 }
 
 void Palapeli::PuzzleReader::loadPuzzle()
@@ -193,6 +199,11 @@ QString Palapeli::PuzzleReader::author() const
 QString Palapeli::PuzzleReader::comment() const
 {
 	return m_comment;
+}
+
+int Palapeli::PuzzleReader::pieceCount() const
+{
+	return m_pieceCount;
 }
 
 QPixmap Palapeli::PuzzleReader::thumbnail() const
