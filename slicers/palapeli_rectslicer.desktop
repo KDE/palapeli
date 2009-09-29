@@ -13,6 +13,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 Name=Rectangular pieces
+Name[de]=Rechteckige Stücke
 Name[el]=Ορθογώνια κομμάτια
 Name[en_GB]=Rectangular pieces
 Name[es]=Piezas rectangulares

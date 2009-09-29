@@ -1,6 +1,10 @@
 [Desktop Entry]
 Name=My very first slicer
+Name[uk]=Мій найперший інструмент розрізання
+Name[x-test]=xxMy very first slicerxx
 Comment=It's quite simple, actually.
+Comment[uk]=Насправді, дуже простий.
+Comment[x-test]=xxIt's quite simple, actually.xx
 Type=Service
 Icon=myslicer
 X-KDE-Library=myslicer
