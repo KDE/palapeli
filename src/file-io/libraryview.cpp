@@ -26,12 +26,20 @@ Palapeli::LibraryView::LibraryView(QWidget* parent)
 {
 	setModel(m_model);
 	new Palapeli::LibraryDelegate(this);
-	connect(this, SIGNAL(activated(const QModelIndex&)), this, SLOT(handleActivated(const QModelIndex&)));
 }
 
-void Palapeli::LibraryView::handleActivated(const QModelIndex& index)
+Palapeli::LibraryModel* Palapeli::LibraryView::model() const
 {
-	emit selected(m_model->puzzle(index));
+	return m_model;
+}
+
+void Palapeli::LibraryView::handlePlayButton()
+{
+	//The identifier of the according puzzle is saved in a dynamic property of the button.
+	const QString puzzleIdentifier = sender()->property("PuzzleIdentifier").toString();
+	Palapeli::PuzzleReader* puzzle = m_model->puzzle(puzzleIdentifier);
+	if (puzzle)
+		emit selected(puzzle);
 }
 
 #include "libraryview.moc"

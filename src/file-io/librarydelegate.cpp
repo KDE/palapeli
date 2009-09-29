@@ -18,6 +18,7 @@
 
 #include "librarydelegate.h"
 #include "librarymodel.h"
+#include "libraryview.h"
 #include "puzzlereader.h"
 
 #include <QAbstractItemView>
@@ -29,10 +30,10 @@
 #include <KIcon>
 #include <KLocalizedString>
 #include <KPushButton>
-#include <KStandardGuiItem>
 
-Palapeli::LibraryDelegate::LibraryDelegate(QAbstractItemView* view)
+Palapeli::LibraryDelegate::LibraryDelegate(Palapeli::LibraryView* view)
 	: KWidgetItemDelegate(view, view)
+	, m_view(view)
 {
 	view->setItemDelegate(this);
 }
@@ -58,16 +59,16 @@ QList<QWidget*> Palapeli::LibraryDelegate::createItemWidgets() const
 	headlineWidget->setFont(headlineFont);
 	QLabel* pieceCountWidget = new QLabel;
 	pieceCountWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	KPushButton* deleteButton = new KPushButton(KStandardGuiItem::del());
-	deleteButton->setEnabled(false);
-	deleteButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	KPushButton* playButton = new KPushButton(KIcon("media-playback-start"), i18n("Play"));
+	playButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	connect(playButton, SIGNAL(clicked()), m_view, SLOT(handlePlayButton()));
 	//build layout
 	layout->addWidget(thumbnailWidget, 0, 0, 3, 1, Qt::AlignCenter);
 	layout->addWidget(headlineWidget, 0, 1, Qt::AlignLeft | Qt::AlignBottom);
 	layout->addWidget(sublineWidget1, 1, 1, Qt::AlignLeft | Qt::AlignTop);
 	layout->addWidget(sublineWidget2, 2, 1, Qt::AlignLeft | Qt::AlignTop);
 	layout->addWidget(pieceCountWidget, 0, 2, Qt::AlignCenter);
-	layout->addWidget(deleteButton, 1, 2, 2, 1, Qt::AlignHCenter | Qt::AlignTop);
+	layout->addWidget(playButton, 1, 2, 2, 1, Qt::AlignHCenter | Qt::AlignTop);
 	layout->setColumnStretch(1, 10);
 	return QList<QWidget *>() << container;
 }
@@ -82,7 +83,7 @@ void Palapeli::LibraryDelegate::updateItemWidgets(const QList<QWidget*> widgets,
 	QLabel* sublineWidget1 = qobject_cast<QLabel*>(layout->itemAtPosition(1, 1)->widget());
 	QLabel* sublineWidget2 = qobject_cast<QLabel*>(layout->itemAtPosition(2, 1)->widget());
 	QLabel* pieceCountWidget = qobject_cast<QLabel*>(layout->itemAtPosition(0, 2)->widget());
-	QPushButton* deleteButton = qobject_cast<QPushButton*>(layout->itemAtPosition(1, 2)->widget());
+	QPushButton* playButton = qobject_cast<QPushButton*>(layout->itemAtPosition(1, 2)->widget());
 	//retrieve data
 	const QString name = index.data(Palapeli::LibraryModel::NameRole).toString();
 	const QString comment = index.data(Palapeli::LibraryModel::CommentRole).toString();
@@ -98,7 +99,7 @@ void Palapeli::LibraryDelegate::updateItemWidgets(const QList<QWidget*> widgets,
 	sublineWidget2->setText(comment.isEmpty() ? QString() : authorString);
 	thumbnailWidget->setPixmap(thumbnail);
 	pieceCountWidget->setText(pieceCountText);
-	deleteButton->setProperty("PuzzleIdentifier", identifier);
+	playButton->setProperty("PuzzleIdentifier", identifier); //see Palapeli::LibraryView::handlePlayButton for details
 	//update size of layout and text color
 	container->setGeometry(QRect(QPoint(0, 0), option.rect.size()));
 	//update font of author line

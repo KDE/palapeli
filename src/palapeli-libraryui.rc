@@ -6,5 +6,8 @@
 	<ToolBar name="libraryToolbar">
 		<text>Library toolbar</text>
 		<Action name="file_import"/>
+		<Action name="file_export"/>
+		<Separator/>
+		<Action name="file_delete"/>
 	</ToolBar>
 </gui>

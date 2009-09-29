@@ -21,19 +21,21 @@
 
 #include <KWidgetItemDelegate>
 
-//TODO: add a button to delete that puzzle from the library (if possible)
-
 namespace Palapeli
 {
+	class LibraryView;
+
 	class LibraryDelegate : public KWidgetItemDelegate
 	{
 		public:
-			explicit LibraryDelegate(QAbstractItemView* view);
+			explicit LibraryDelegate(Palapeli::LibraryView* view);
 
 			virtual QList<QWidget*> createItemWidgets() const;
 			virtual void updateItemWidgets(const QList<QWidget*> widgets, const QStyleOptionViewItem& option, const QPersistentModelIndex& index) const;
 			virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 			virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
+		private:
+			Palapeli::LibraryView* m_view;
 	};
 }
 

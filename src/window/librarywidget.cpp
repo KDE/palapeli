@@ -32,6 +32,14 @@ Palapeli::LibraryWidget::LibraryWidget()
 	importAct->setEnabled(false); //not implemented yet
 	importAct->setToolTip(i18n("Import a new puzzle from a file"));
 	actionCollection()->addAction("file_import", importAct);
+	KAction* exportAct = new KAction(KIcon("document-export"), i18n("&Export..."), 0);
+	exportAct->setEnabled(false); //not implemented yet
+	exportAct->setToolTip(i18n("Export the selected puzzle from the library into a file"));
+	actionCollection()->addAction("file_export", exportAct);
+	KAction* deleteAct = new KAction(KIcon("archive-remove"), i18n("&Delete"), 0);
+	deleteAct->setEnabled(false); //not implemented yet
+	deleteAct->setToolTip(i18n("Delete the selected puzzle from the library"));
+	actionCollection()->addAction("file_delete", deleteAct);
 	//setup GUI
 	setupGUI();
 	setCentralWidget(m_view);

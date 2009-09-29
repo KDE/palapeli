@@ -84,4 +84,12 @@ Palapeli::PuzzleReader* Palapeli::LibraryModel::puzzle(const QModelIndex& index)
 	return m_puzzles.value(index.row());
 }
 
+Palapeli::PuzzleReader* Palapeli::LibraryModel::puzzle(const QString& identifier) const
+{
+	foreach (Palapeli::PuzzleReader* puzzle, m_puzzles)
+		if (puzzle->identifier() == identifier)
+			return puzzle;
+	return 0; //puzzle not found
+}
+
 #include "librarymodel.moc"

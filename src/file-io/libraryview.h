@@ -31,10 +31,12 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			LibraryView(QWidget* parent = 0);
+
+			Palapeli::LibraryModel* model() const;
 		Q_SIGNALS:
 			void selected(Palapeli::PuzzleReader* puzzle);
 		private Q_SLOTS:
-			void handleActivated(const QModelIndex& index);
+			void handlePlayButton();
 		private:
 			Palapeli::LibraryModel* m_model;
 	};
