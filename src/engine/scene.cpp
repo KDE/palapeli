@@ -36,7 +36,9 @@ Palapeli::Scene::Scene(QObject* parent)
 void Palapeli::Scene::loadPuzzle(Palapeli::PuzzleReader* puzzle)
 {
 	puzzle->loadPuzzle();
-	m_identifier = puzzle->identifier();
+	m_identifier = puzzle->identifier(); //NOTE: m_identifier is only used for finding the savegame file
+	if (!puzzle->isFromLibrary())
+		m_identifier.prepend(QLatin1String("external-")); //avoid that external puzzles mess up the library savegames
 	//clear scene
 	qDeleteAll(m_pieces);
 	qDeleteAll(m_parts);

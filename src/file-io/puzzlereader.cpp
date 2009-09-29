@@ -21,6 +21,7 @@
 #include <QFileInfo>
 #include <KConfigGroup>
 #include <KDesktopFile>
+#include <KIcon>
 #include <KIO/NetAccess>
 #include <KStandardDirs>
 #include <KTar>
@@ -36,6 +37,7 @@ KUrl urlForLibPuzzle(const QString& identifier)
 
 Palapeli::PuzzleReader::PuzzleReader(const QString& identifier)
 	: m_locationUrl(urlForLibPuzzle(identifier))
+	, m_fromLibrary(true)
 	, m_metadataLoaded(false)
 	, m_puzzleLoaded(false)
 	, m_cache(0)
@@ -77,6 +79,7 @@ Palapeli::PuzzleReader::PuzzleReader(const QString& identifier)
 
 Palapeli::PuzzleReader::PuzzleReader(const KUrl& locationUrl)
 	: m_locationUrl(locationUrl)
+	, m_fromLibrary(false)
 	, m_metadataLoaded(false)
 	, m_puzzleLoaded(false)
 	, m_cache(0)
@@ -88,6 +91,11 @@ Palapeli::PuzzleReader::~PuzzleReader()
 {
 	delete m_cache;
 	delete m_manifest;
+}
+
+bool Palapeli::PuzzleReader::isFromLibrary() const
+{
+	return m_fromLibrary;
 }
 
 void Palapeli::PuzzleReader::loadArchive()
@@ -208,7 +216,10 @@ int Palapeli::PuzzleReader::pieceCount() const
 
 QPixmap Palapeli::PuzzleReader::thumbnail() const
 {
-	return m_thumbnail;
+	if (m_fromLibrary)
+		return m_thumbnail;
+	else
+		return KIcon("preferences-plugin").pixmap(ThumbnailBaseSize);
 }
 
 QSize Palapeli::PuzzleReader::imageSize() const

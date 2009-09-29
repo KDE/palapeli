@@ -35,7 +35,8 @@ namespace Palapeli
 				CommentRole,
 				AuthorRole,
 				PieceCountRole,
-				ThumbnailRole
+				ThumbnailRole,
+				IsFromLibraryRole
 			};
 
 			LibraryModel(QObject* parent = 0);

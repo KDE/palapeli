@@ -32,6 +32,11 @@ int main(int argc, char** argv)
 	about.addAuthor(ki18n("Stefan Majewsky"), KLocalizedString(), "majewsky@gmx.net", "http://majewsky.wordpress.com");
 	KCmdLineArgs::init(argc, argv, &about);
 
+	KCmdLineOptions options;
+	options.add("+puzzlefile", ki18n("URL of puzzle file"));
+	options.add("", ki18n("If a puzzle file is given, it will be opened, and also appear in the library view in that Palapeli instance."));
+	KCmdLineArgs::addCmdLineOptions(options);
+
 #ifdef Q_WS_X11
 	QApplication::setGraphicsSystem("raster");
 #endif

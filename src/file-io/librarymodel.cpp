@@ -19,6 +19,7 @@
 #include "librarymodel.h"
 #include "puzzlereader.h"
 
+#include <KCmdLineArgs>
 #include <KConfigGroup>
 #include <KDesktopFile>
 #include <KStandardDirs>
@@ -26,12 +27,18 @@
 Palapeli::LibraryModel::LibraryModel(QObject* parent)
 	: QAbstractListModel(parent)
 {
+	//add all puzzles from the library
 	QStringList puzzleFiles = KStandardDirs().findAllResources("data", "palapeli/puzzlelibrary/*.pala", KStandardDirs::NoDuplicates);
 	foreach (const QString& puzzleFile, puzzleFiles)
 	{
 		const QString identifier = puzzleFile.section('/', -1, -1).section('.', 0, 0);
 		m_puzzles << new Palapeli::PuzzleReader(identifier);
 	}
+	//if a puzzle file has been given on the command line, load that puzzle
+	KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
+	if (args->count() > 0)
+		m_puzzles.prepend(new Palapeli::PuzzleReader(args->url(0)));
+	//NOTE: the MainWindow relies on this puzzle being located at row 0
 }
 
 Palapeli::LibraryModel::~LibraryModel()
@@ -66,6 +73,8 @@ QVariant Palapeli::LibraryModel::data(const QModelIndex& index, int role) const
 			return puzzleReader->pieceCount();
 		case ThumbnailRole: case Qt::DecorationRole:
 			return puzzleReader->thumbnail();
+		case IsFromLibraryRole:
+			return puzzleReader->isFromLibrary();
 		default:
 			return QVariant();
 	}

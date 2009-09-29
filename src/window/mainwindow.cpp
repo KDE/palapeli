@@ -19,6 +19,7 @@
 #include "mainwindow.h"
 #include "../engine/scene.h"
 #include "../engine/view.h"
+#include "../file-io/librarymodel.h"
 #include "../file-io/libraryview.h"
 #include "librarywidget.h"
 #include "puzzletablewidget.h"
@@ -89,6 +90,14 @@ void Palapeli::MainWindow::resizeEvent(QResizeEvent* event)
 	rect.moveTop(qMax(yPos, 0)); //do not allow yPos < 0!
 	//done
 	m_menuBar->setGeometry(rect);
+}
+
+void Palapeli::MainWindow::showEvent(QShowEvent* event)
+{
+	//if a puzzle file has been given via the CLI, load that puzzle (see LibraryModel constructor for details)
+	QModelIndex index = m_library->view()->model()->index(0);
+	if (index.data(Palapeli::LibraryModel::IsFromLibraryRole) == QVariant(false))
+		loadPuzzle(m_library->view()->model()->puzzle(index));
 }
 
 void Palapeli::MainWindow::configureShortcuts()
