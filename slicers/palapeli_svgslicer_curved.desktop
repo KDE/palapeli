@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=Service
+Icon=palapeli-svgslicer-curved
+X-KDE-Library=palapeli_svgslicer_curved
+X-KDE-ServiceTypes=Libpala/SlicerPlugin
+X-KDE-PluginInfo-Author=Stefan Majewsky
+X-KDE-PluginInfo-Email=majewsky@gmx.net
+X-KDE-PluginInfo-Name=palapeli_svgslicer_curved
+X-KDE-PluginInfo-Version=0.3
+X-KDE-PluginInfo-Website=http://games.kde.org/palapeli
+X-KDE-PluginInfo-Category=
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+Name=Rectangular pieces with curved edges
+Comment=
