@@ -21,6 +21,7 @@
 #include "piece.h"
 #include "../file-io/puzzle.h"
 #include "settings.h"
+#include "shadowitem.h"
 
 #include <QFile>
 #include <KConfig>
@@ -61,6 +62,8 @@ void Palapeli::Scene::loadPuzzle(Palapeli::Puzzle* puzzle)
 		connect(part, SIGNAL(destroyed(QObject*)), this, SLOT(partDestroyed(QObject*)));
 		connect(part, SIGNAL(partMoved()), this, SLOT(partMoved()));
 		m_parts << part;
+		if (pieceID == 0)
+			addItem(new Palapeli::ShadowItem(contents->pieces[0], contents->pieces[0].width() / 10));
 	}
 	//add piece relations
 	foreach (DoubleIntPair relation, contents->relations)

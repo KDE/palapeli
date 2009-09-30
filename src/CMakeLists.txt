@@ -5,6 +5,8 @@ set(palapeli_SRCS
 	engine/part.cpp
 	engine/piece.cpp
 	engine/scene.cpp
+	engine/shadowitem.cpp
+	engine/shadowhelper.cpp
 	engine/view.cpp
 	engine/viewmenu.cpp
 	engine/viewmenu-components.cpp
