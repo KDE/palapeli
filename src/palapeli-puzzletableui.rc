@@ -5,6 +5,8 @@
 	xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0 http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd">
 	<ToolBar name="puzzleTableToolbar">
 		<text>Puzzle table toolbar</text>
+		<Action name="game_restart"/>
+		<Separator/>
 		<Action name="view_zoom_in"/>
 		<Action name="view_zoom_out"/>
 	</ToolBar>

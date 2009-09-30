@@ -22,6 +22,7 @@
 
 #include <QProgressBar>
 #include <QVBoxLayout>
+#include <KAction>
 #include <KActionCollection>
 #include <KLocalizedString>
 #include <KStandardAction>
@@ -50,6 +51,10 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	, m_progressBar(new Palapeli::TextProgressBar(this))
 {
 	//setup actions
+	KAction* restartPuzzleAct = new KAction(KIcon("document-reload"), i18n("&Restart puzzle..."), 0);
+	restartPuzzleAct->setToolTip(i18n("Delete the saved progress"));
+	actionCollection()->addAction("game_restart", restartPuzzleAct);
+	connect(restartPuzzleAct, SIGNAL(triggered()), m_view->scene(), SLOT(restartPuzzle()));
 	KStandardAction::zoomIn(m_view, SLOT(zoomIn()), actionCollection());
 	KStandardAction::zoomOut(m_view, SLOT(zoomOut()), actionCollection());
 	setupGUI();

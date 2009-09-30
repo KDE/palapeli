@@ -22,6 +22,7 @@
 #include "../file-io/puzzle.h"
 #include "settings.h"
 
+#include <QFile>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KStandardDirs>
@@ -37,6 +38,7 @@ void Palapeli::Scene::loadPuzzle(Palapeli::Puzzle* puzzle)
 {
 	if (!puzzle->readContents()) //TODO: show error message if failed
 		return;
+	m_puzzle = puzzle;
 	m_identifier = puzzle->location().identifier(); //NOTE: m_identifier is only used for finding the savegame file
 	if (!puzzle->location().isFromLibrary())
 		m_identifier.prepend(QLatin1String("external-")); //avoid that external puzzles mess up the library savegames
@@ -111,11 +113,19 @@ void Palapeli::Scene::partMoved()
 {
 	emit reportProgress(m_pieces.count(), m_parts.count());
 	//save piece positions
-	static const QString pathTemplate = QString::fromLatin1("palapeli/puzzlelibrary/%1.save");
-	KConfig saveConfig(KStandardDirs::locateLocal("data", pathTemplate.arg(m_identifier)));
+	static const QString pathTemplate = QString::fromLatin1("puzzlelibrary/%1.save");
+	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier)));
 	KConfigGroup saveGroup(&saveConfig, "SaveGame");
 	for (int i = 0; i < m_pieces.count(); ++i)
 		saveGroup.writeEntry(QString::number(i), m_pieces[i]->part()->pos());
+}
+
+void Palapeli::Scene::restartPuzzle()
+{
+	static const QString pathTemplate = QString::fromLatin1("puzzlelibrary/%1.save");
+	QFile(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier))).remove();
+	//reload puzzle
+	loadPuzzle(m_puzzle);
 }
 
 #include "scene.moc"

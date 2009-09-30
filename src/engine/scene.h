@@ -33,6 +33,8 @@ namespace Palapeli
 		public:
 			Scene(QObject* parent = 0);
 			void loadPuzzle(Palapeli::Puzzle* puzzle);
+		public Q_SLOTS:
+			void restartPuzzle();
 		Q_SIGNALS:
 			void reportProgress(int pieceCount, int partCount);
 		private Q_SLOTS:
@@ -40,6 +42,7 @@ namespace Palapeli
 			void partMoved();
 		private:
 			QString m_identifier;
+			Palapeli::Puzzle* m_puzzle;
 			QList<Palapeli::Piece*> m_pieces;
 			QList<Palapeli::Part*> m_parts;
 	};
