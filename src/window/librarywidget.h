@@ -21,18 +21,27 @@
 
 #include "tabwindow.h"
 
+class QListView;
+
 namespace Palapeli
 {
-	class LibraryView;
+	class LibraryModel;
+	class Puzzle;
 
 	class LibraryWidget : public Palapeli::TabWindow
 	{
+		Q_OBJECT
 		public:
 			LibraryWidget();
 
-			Palapeli::LibraryView* view() const;
+			Palapeli::LibraryModel* model() const;
+		Q_SIGNALS:
+			void playRequest(Palapeli::Puzzle* puzzle);
+		private Q_SLOTS:
+			void handlePlayRequest(const QString& puzzleIdentifier);
 		private:
-			Palapeli::LibraryView* m_view;
+			QListView* m_view;
+			Palapeli::LibraryModel* m_model;
 	};
 }
 

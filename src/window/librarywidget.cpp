@@ -17,16 +17,23 @@
 ***************************************************************************/
 
 #include "librarywidget.h"
-#include "../file-io/libraryview.h"
+#include "../file-io/librarydelegate.h"
+#include "../file-io/librarymodel.h"
 
+#include <QListView>
 #include <KAction>
 #include <KActionCollection>
 #include <KLocalizedString>
 
 Palapeli::LibraryWidget::LibraryWidget()
 	: Palapeli::TabWindow(QLatin1String("palapeli-library"))
-	, m_view(new Palapeli::LibraryView)
+	, m_view(new QListView)
+	, m_model(new Palapeli::LibraryModel)
 {
+	//setup view
+	m_view->setModel(m_model);
+	Palapeli::LibraryDelegate* delegate = new Palapeli::LibraryDelegate(m_view);
+	connect(delegate, SIGNAL(playRequest(const QString&)), this, SLOT(handlePlayRequest(const QString&)));
 	//setup actions
 	KAction* importAct = new KAction(KIcon("document-import"), i18n("&Import..."), 0);
 	importAct->setEnabled(false); //not implemented yet
@@ -45,7 +52,16 @@ Palapeli::LibraryWidget::LibraryWidget()
 	setCentralWidget(m_view);
 }
 
-Palapeli::LibraryView* Palapeli::LibraryWidget::view() const
+Palapeli::LibraryModel* Palapeli::LibraryWidget::model() const
 {
-	return m_view;
+	return m_model;
 }
+
+void Palapeli::LibraryWidget::handlePlayRequest(const QString& puzzleIdentifier)
+{
+	Palapeli::Puzzle* puzzle = m_model->puzzle(puzzleIdentifier);
+	if (puzzle)
+		emit playRequest(puzzle);
+}
+
+#include "librarywidget.moc"

@@ -23,19 +23,20 @@
 
 namespace Palapeli
 {
-	class LibraryView;
-
 	class LibraryDelegate : public KWidgetItemDelegate
 	{
+		Q_OBJECT
 		public:
-			explicit LibraryDelegate(Palapeli::LibraryView* view);
+			explicit LibraryDelegate(QAbstractItemView* view);
 
 			virtual QList<QWidget*> createItemWidgets() const;
 			virtual void updateItemWidgets(const QList<QWidget*> widgets, const QStyleOptionViewItem& option, const QPersistentModelIndex& index) const;
 			virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 			virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
-		private:
-			Palapeli::LibraryView* m_view;
+		Q_SIGNALS:
+			void playRequest(const QString& puzzleIdentifier);
+		private Q_SLOTS:
+			void handlePlayButton();
 	};
 }
 

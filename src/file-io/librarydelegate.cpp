@@ -18,7 +18,6 @@
 
 #include "librarydelegate.h"
 #include "librarymodel.h"
-#include "libraryview.h"
 #include "puzzle.h"
 
 #include <QAbstractItemView>
@@ -31,9 +30,8 @@
 #include <KLocalizedString>
 #include <KPushButton>
 
-Palapeli::LibraryDelegate::LibraryDelegate(Palapeli::LibraryView* view)
+Palapeli::LibraryDelegate::LibraryDelegate(QAbstractItemView* view)
 	: KWidgetItemDelegate(view, view)
-	, m_view(view)
 {
 	view->setItemDelegate(this);
 }
@@ -64,7 +62,7 @@ QList<QWidget*> Palapeli::LibraryDelegate::createItemWidgets() const
 	addToLibraryButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	KPushButton* playButton = new KPushButton(KIcon("media-playback-start"), i18n("Play"));
 	playButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	connect(playButton, SIGNAL(clicked()), m_view, SLOT(handlePlayButton()));
+	connect(playButton, SIGNAL(clicked()), this, SLOT(handlePlayButton()));
 	//build layout
 	layout->addWidget(thumbnailWidget, 0, 0, 3, 1, Qt::AlignCenter);
 	layout->addWidget(headlineWidget, 0, 1, 1, 2, Qt::AlignLeft | Qt::AlignBottom);
@@ -107,7 +105,7 @@ void Palapeli::LibraryDelegate::updateItemWidgets(const QList<QWidget*> widgets,
 	thumbnailWidget->setPixmap(fromLibrary ? thumbnail : genericThumbnail);
 	pieceCountWidget->setText(pieceCountText);
 	addToLibraryButton->setVisible(!fromLibrary);
-	playButton->setProperty("PuzzleIdentifier", identifier); //see Palapeli::LibraryView::handlePlayButton for details
+	playButton->setProperty("PuzzleIdentifier", identifier); //see handlePlayButton for details
 	//update size of layout and text color
 	container->setGeometry(QRect(QPoint(0, 0), option.rect.size()));
 	//update font of author line
@@ -145,3 +143,12 @@ QSize Palapeli::LibraryDelegate::sizeHint(const QStyleOptionViewItem& option, co
     static const int verticalSizeHint = Palapeli::Puzzle::ThumbnailBaseSize.height() + topMargin + bottomMargin;
     return QSize(itemView()->viewport()->width(), verticalSizeHint);
 }
+
+void Palapeli::LibraryDelegate::handlePlayButton()
+{
+	//The identifier of the according puzzle is saved in a dynamic property of the button.
+	const QString puzzleIdentifier = sender()->property("PuzzleIdentifier").toString();
+	emit playRequest(puzzleIdentifier);
+}
+
+#include "librarydelegate.moc"
