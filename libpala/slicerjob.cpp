@@ -78,12 +78,25 @@ void Pala::SlicerJob::addPiece(int pieceID, const QImage& image, const QPoint& o
 	p->m_pieceOffsets.insert(pieceID, offset);
 }
 
+//A modified version of QImage::copy, which avoids rendering errors even if rect is outside the bounds of the source image.
+QImage safeQImageCopy(const QImage& source, const QRect& rect)
+{
+	QRect targetRect(QPoint(), rect.size());
+	//copy image
+	QImage target(rect.size(), source.format());
+	QPainter p(&target);
+	p.drawImage(targetRect, source, rect);
+	p.end();
+	return target;
+	//Strangely, source.copy(rect) does not work. It produces black borders.
+}
+
 void Pala::SlicerJob::addPieceFromMask(int pieceID, const QImage& mask, const QPoint& offset)
 {
 	QImage pieceImage(mask);
 	QPainter painter(&pieceImage);
 	painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
-	painter.drawImage(-offset, p->m_image);
+	painter.drawImage(QPoint(), safeQImageCopy(p->m_image, QRect(offset, mask.size())));
 	painter.end();
 	addPiece(pieceID, pieceImage, offset);
 }
