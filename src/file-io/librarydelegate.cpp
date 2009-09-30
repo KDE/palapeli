@@ -98,12 +98,13 @@ void Palapeli::LibraryDelegate::updateItemWidgets(const QList<QWidget*> widgets,
 	const QString pieceCountText = i18n("%1 pieces", pieceCount);
 	const QString identifier = index.data(Palapeli::LibraryModel::IdentifierRole).toString();
 	const bool fromLibrary = index.data(Palapeli::LibraryModel::IsFromLibraryRole).toBool();
+	static const QPixmap genericThumbnail = KIcon("preferences-plugin").pixmap(Palapeli::Puzzle::ThumbnailBaseSize);
 	//update widgets
 	const QString authorString = author.isEmpty() ? QString() : i18nc("Author attribution, e.g. \"By Jack\"", "By %1").arg(author);
 	headlineWidget->setText(name.isEmpty() ? i18n("[No name]") : name);
 	sublineWidget1->setText(comment.isEmpty() ? authorString : comment);
 	sublineWidget2->setText(comment.isEmpty() ? QString() : authorString);
-	thumbnailWidget->setPixmap(thumbnail);
+	thumbnailWidget->setPixmap(fromLibrary ? thumbnail : genericThumbnail);
 	pieceCountWidget->setText(pieceCountText);
 	addToLibraryButton->setVisible(!fromLibrary);
 	playButton->setProperty("PuzzleIdentifier", identifier); //see Palapeli::LibraryView::handlePlayButton for details
