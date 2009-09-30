@@ -25,7 +25,7 @@ namespace Palapeli
 {
 	class KTabWidget; //needs to be subclasses for public access to QTabBar
 	class LibraryWidget;
-	class PuzzleReader;
+	class Puzzle;
 	class PuzzleTableWidget;
 
 	class MainWindow : public KXmlGuiWindow
@@ -34,7 +34,7 @@ namespace Palapeli
 		public:
 			MainWindow();
 		public Q_SLOTS:
-			void loadPuzzle(Palapeli::PuzzleReader* puzzle);
+			void loadPuzzle(Palapeli::Puzzle* puzzle);
 			void configureShortcuts();
 			void configurePalapeli();
 		protected:

@@ -16,41 +16,31 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_LIBRARYMODEL_H
-#define PALAPELI_LIBRARYMODEL_H
+#ifndef PALAPELI_PUZZLELOCATION_H
+#define PALAPELI_PUZZLELOCATION_H
 
-#include <QAbstractListModel>
+#include <KUrl>
 
 namespace Palapeli
 {
-	class Puzzle;
-
-	class LibraryModel : public QAbstractListModel
+	class PuzzleLocation
 	{
-		Q_OBJECT
 		public:
-			enum Roles {
-				IdentifierRole = Qt::UserRole + 1,
-				NameRole,
-				CommentRole,
-				AuthorRole,
-				PieceCountRole,
-				ThumbnailRole,
-				IsFromLibraryRole
-			};
+			static Palapeli::PuzzleLocation fromLibrary(const QString& identifier);
+			static Palapeli::PuzzleLocation fromUrl(const KUrl& url);
+			static QList<Palapeli::PuzzleLocation> listLibrary();
 
-			LibraryModel(QObject* parent = 0);
-			virtual ~LibraryModel();
+			bool isFromLibrary() const;
 
-			virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
-			virtual QVariant data(const QModelIndex& index, int role) const;
-			virtual Qt::ItemFlags flags(const QModelIndex& index) const;
-
-			Palapeli::Puzzle* puzzle(const QModelIndex& index) const;
-			Palapeli::Puzzle* puzzle(const QString& identifier) const;
+			KUrl url() const; ///Returns the URL of the puzzle file (determined via KStandardDirs for library puzzles).
+			QString identifier() const; ///Returns the identifier of the puzzle file (read from the filename if a URL is given).
 		private:
-			QList<Palapeli::Puzzle*> m_puzzles;
+			PuzzleLocation() {} ///Force other classes to use the "from..." constructor methods.
+
+			KUrl m_url;
+			QString m_identifier;
+			bool m_fromLibrary;
 	};
 }
 
-#endif // PALAPELI_LIBRARYMODEL_H
+#endif // PALAPELI_PUZZLELOCATION_H

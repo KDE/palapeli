@@ -19,7 +19,7 @@
 #include "scene.h"
 #include "part.h"
 #include "piece.h"
-#include "../file-io/puzzlereader.h"
+#include "../file-io/puzzle.h"
 #include "settings.h"
 
 #include <KConfig>
@@ -33,27 +33,25 @@ Palapeli::Scene::Scene(QObject* parent)
 {
 }
 
-void Palapeli::Scene::loadPuzzle(Palapeli::PuzzleReader* puzzle)
+void Palapeli::Scene::loadPuzzle(Palapeli::Puzzle* puzzle)
 {
-	puzzle->loadPuzzle();
-	m_identifier = puzzle->identifier(); //NOTE: m_identifier is only used for finding the savegame file
-	if (!puzzle->isFromLibrary())
+	if (!puzzle->readContents()) //TODO: show error message if failed
+		return;
+	m_identifier = puzzle->location().identifier(); //NOTE: m_identifier is only used for finding the savegame file
+	if (!puzzle->location().isFromLibrary())
 		m_identifier.prepend(QLatin1String("external-")); //avoid that external puzzles mess up the library savegames
+	const Palapeli::PuzzleContents* contents = puzzle->contents();
 	//clear scene
-	qDeleteAll(m_pieces);
-	qDeleteAll(m_parts);
-	m_pieces.clear();
-	m_parts.clear();
+	qDeleteAll(m_pieces); m_pieces.clear();
+	qDeleteAll(m_parts); m_parts.clear();
 	//initialize scene
-	setSceneRect(QRectF(QPointF(), Settings::sceneSizeFactor() * QSizeF(puzzle->imageSize())));
+	setSceneRect(QRectF(QPointF(), Settings::sceneSizeFactor() * QSizeF(contents->imageSize)));
 	//add pieces and parts
 	QMap<int, Palapeli::Piece*> pieces;
-	const QMap<int, QPixmap> pieceImages = puzzle->pieces();
-	const QMap<int, QPoint> pieceOffsets = puzzle->pieceOffsets();
-	const QList<int> pieceIDs = pieceImages.keys();
+	const QList<int> pieceIDs = contents->pieces.keys();
 	foreach (int pieceID, pieceIDs)
 	{
-		Palapeli::Piece* piece = new Palapeli::Piece(pieceImages[pieceID], pieceOffsets[pieceID]);
+		Palapeli::Piece* piece = new Palapeli::Piece(contents->pieces[pieceID], contents->pieceOffsets[pieceID]);
 		pieces[pieceID] = piece;
 		m_pieces << piece;
 		Palapeli::Part* part = new Palapeli::Part(piece);
@@ -63,8 +61,7 @@ void Palapeli::Scene::loadPuzzle(Palapeli::PuzzleReader* puzzle)
 		m_parts << part;
 	}
 	//add piece relations
-	const QList<DoubleIntPair> relations = puzzle->relations();
-	foreach (DoubleIntPair relation, relations)
+	foreach (DoubleIntPair relation, contents->relations)
 	{
 		Palapeli::Piece* firstPiece = pieces[relation.first];
 		Palapeli::Piece* secondPiece = pieces[relation.second];

@@ -57,7 +57,7 @@ Palapeli::MainWindow::MainWindow()
 	m_centralWidget->addTab(m_library, i18n("My library"));
 	m_centralWidget->addTab(m_puzzleTable, i18n("Puzzle table"));
 	m_centralWidget->setCurrentWidget(m_library);
-	connect(m_library->view(), SIGNAL(selected(Palapeli::PuzzleReader*)), this, SLOT(loadPuzzle(Palapeli::PuzzleReader*)));
+	connect(m_library->view(), SIGNAL(selected(Palapeli::Puzzle*)), this, SLOT(loadPuzzle(Palapeli::Puzzle*)));
 	//setup main window
 	setCentralWidget(m_centralWidget);
 	KXmlGuiWindow::StandardWindowOptions guiOptions = KXmlGuiWindow::Default;
@@ -94,6 +94,7 @@ void Palapeli::MainWindow::resizeEvent(QResizeEvent* event)
 
 void Palapeli::MainWindow::showEvent(QShowEvent* event)
 {
+	Q_UNUSED(event)
 	//if a puzzle file has been given via the CLI, load that puzzle (see LibraryModel constructor for details)
 	QModelIndex index = m_library->view()->model()->index(0);
 	if (index.data(Palapeli::LibraryModel::IsFromLibraryRole) == QVariant(false))
@@ -108,7 +109,7 @@ void Palapeli::MainWindow::configureShortcuts()
 	dlg.configure(true);
 }
 
-void Palapeli::MainWindow::loadPuzzle(Palapeli::PuzzleReader* puzzle)
+void Palapeli::MainWindow::loadPuzzle(Palapeli::Puzzle* puzzle)
 {
 	m_puzzleTable->view()->scene()->loadPuzzle(puzzle);
 	m_centralWidget->setCurrentWidget(m_puzzleTable);

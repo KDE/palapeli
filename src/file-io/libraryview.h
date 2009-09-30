@@ -24,7 +24,7 @@
 namespace Palapeli
 {
 	class LibraryModel;
-	class PuzzleReader;
+	class Puzzle;
 
 	class LibraryView : public QListView
 	{
@@ -34,7 +34,7 @@ namespace Palapeli
 
 			Palapeli::LibraryModel* model() const;
 		Q_SIGNALS:
-			void selected(Palapeli::PuzzleReader* puzzle);
+			void selected(Palapeli::Puzzle* puzzle);
 		private Q_SLOTS:
 			void handlePlayButton();
 		private:

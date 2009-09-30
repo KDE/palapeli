@@ -25,14 +25,14 @@ namespace Palapeli
 {
 	class Part;
 	class Piece;
-	class PuzzleReader;
+	class Puzzle;
 
 	class Scene : public QGraphicsScene
 	{
 		Q_OBJECT
 		public:
 			Scene(QObject* parent = 0);
-			void loadPuzzle(Palapeli::PuzzleReader* puzzle);
+			void loadPuzzle(Palapeli::Puzzle* puzzle);
 		Q_SIGNALS:
 			void reportProgress(int pieceCount, int partCount);
 		private Q_SLOTS:

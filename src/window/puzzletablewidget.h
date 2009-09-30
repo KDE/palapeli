@@ -23,7 +23,6 @@
 
 namespace Palapeli
 {
-	class PuzzleReader;
 	class TextProgressBar;
 	class View;
 

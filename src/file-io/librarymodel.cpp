@@ -17,27 +17,21 @@
 ***************************************************************************/
 
 #include "librarymodel.h"
-#include "puzzlereader.h"
+#include "puzzle.h"
 
 #include <KCmdLineArgs>
-#include <KConfigGroup>
-#include <KDesktopFile>
-#include <KStandardDirs>
 
 Palapeli::LibraryModel::LibraryModel(QObject* parent)
 	: QAbstractListModel(parent)
 {
 	//add all puzzles from the library
-	QStringList puzzleFiles = KStandardDirs().findAllResources("data", "palapeli/puzzlelibrary/*.pala", KStandardDirs::NoDuplicates);
-	foreach (const QString& puzzleFile, puzzleFiles)
-	{
-		const QString identifier = puzzleFile.section('/', -1, -1).section('.', 0, 0);
-		m_puzzles << new Palapeli::PuzzleReader(identifier);
-	}
+	QList<Palapeli::PuzzleLocation> libraryLocations = Palapeli::PuzzleLocation::listLibrary();
+	foreach (const Palapeli::PuzzleLocation& libraryLocation, libraryLocations)
+		m_puzzles << new Palapeli::Puzzle(libraryLocation);
 	//if a puzzle file has been given on the command line, load that puzzle
 	KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 	if (args->count() > 0)
-		m_puzzles.prepend(new Palapeli::PuzzleReader(args->url(0)));
+		m_puzzles.prepend(new Palapeli::Puzzle(Palapeli::PuzzleLocation::fromUrl(args->url(0))));
 	//NOTE: the MainWindow relies on this puzzle being located at row 0
 }
 
@@ -55,26 +49,27 @@ QVariant Palapeli::LibraryModel::data(const QModelIndex& index, int role) const
 {
 	if (index.parent().isValid())
 		return QVariant();
-	Palapeli::PuzzleReader* puzzleReader = m_puzzles.value(index.row());
-	if (!puzzleReader)
+	Palapeli::Puzzle* puzzle = m_puzzles.value(index.row());
+	if (!puzzle)
 		return QVariant();
-	puzzleReader->loadMetadata(); //if necessary
+	if (!puzzle->readMetadata())
+		return QVariant();
 	switch (role)
 	{
 		case IdentifierRole:
-			return puzzleReader->identifier();
+			return puzzle->location().identifier();
 		case NameRole: case Qt::DisplayRole:
-			return puzzleReader->name();
+			return puzzle->metadata()->name;
 		case CommentRole:
-			return puzzleReader->comment();
+			return puzzle->metadata()->comment;
 		case AuthorRole:
-			return puzzleReader->author();
+			return puzzle->metadata()->author;
 		case PieceCountRole:
-			return puzzleReader->pieceCount();
+			return puzzle->metadata()->pieceCount;
 		case ThumbnailRole: case Qt::DecorationRole:
-			return puzzleReader->thumbnail();
+			return puzzle->metadata()->thumbnail;
 		case IsFromLibraryRole:
-			return puzzleReader->isFromLibrary();
+			return puzzle->location().isFromLibrary();
 		default:
 			return QVariant();
 	}
@@ -86,17 +81,17 @@ Qt::ItemFlags Palapeli::LibraryModel::flags(const QModelIndex& index) const
 	return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
-Palapeli::PuzzleReader* Palapeli::LibraryModel::puzzle(const QModelIndex& index) const
+Palapeli::Puzzle* Palapeli::LibraryModel::puzzle(const QModelIndex& index) const
 {
 	if (index.parent().isValid())
 		return 0;
 	return m_puzzles.value(index.row());
 }
 
-Palapeli::PuzzleReader* Palapeli::LibraryModel::puzzle(const QString& identifier) const
+Palapeli::Puzzle* Palapeli::LibraryModel::puzzle(const QString& identifier) const
 {
-	foreach (Palapeli::PuzzleReader* puzzle, m_puzzles)
-		if (puzzle->identifier() == identifier)
+	foreach (Palapeli::Puzzle* puzzle, m_puzzles)
+		if (puzzle->location().identifier() == identifier)
 			return puzzle;
 	return 0; //puzzle not found
 }

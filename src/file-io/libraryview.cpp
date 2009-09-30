@@ -37,7 +37,7 @@ void Palapeli::LibraryView::handlePlayButton()
 {
 	//The identifier of the according puzzle is saved in a dynamic property of the button.
 	const QString puzzleIdentifier = sender()->property("PuzzleIdentifier").toString();
-	Palapeli::PuzzleReader* puzzle = m_model->puzzle(puzzleIdentifier);
+	Palapeli::Puzzle* puzzle = m_model->puzzle(puzzleIdentifier);
 	if (puzzle)
 		emit selected(puzzle);
 }

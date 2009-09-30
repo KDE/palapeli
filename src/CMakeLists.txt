@@ -11,7 +11,8 @@ set(palapeli_SRCS
 	file-io/librarydelegate.cpp
 	file-io/librarymodel.cpp
 	file-io/libraryview.cpp
-	file-io/puzzlereader.cpp
+	file-io/puzzle.cpp
+	file-io/puzzlelocation.cpp
 	main.cpp
 	window/librarywidget.cpp
 	window/mainwindow.cpp
