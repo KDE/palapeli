@@ -19,6 +19,7 @@
 #include "part.h"
 #include "piece.h"
 #include "settings.h"
+#include "shadowitem.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
@@ -30,7 +31,16 @@ Palapeli::Part::Part(Palapeli::Piece* piece)
 	piece->setParentItem(this);
 	setFlag(QGraphicsItem::ItemIsMovable);
 	setHandlesChildEvents(true);
-	piece->setFlag(QGraphicsItem::ItemStacksBehindParent); //DEBUG
+	//add shadow to piece
+	if (Settings::pieceShadows())
+	{
+		const QSize pixmapSize = piece->pixmap().size();
+		const int radius = 0.05 * (pixmapSize.width() + pixmapSize.height());
+		Palapeli::ShadowItem* shadowItem = new Palapeli::ShadowItem(piece->pixmap(), radius, piece->offset());
+		m_shadows << shadowItem;
+		shadowItem->setParentItem(this);
+		shadowItem->setZValue(-10);
+	}
 }
 
 Palapeli::Part::~Part()
@@ -88,6 +98,11 @@ bool Palapeli::Part::searchConnections()
 		{
 			piece->setParentItem(this);
 			m_pieces << piece;
+		}
+		foreach (Palapeli::ShadowItem* shadowItem, part->m_shadows)
+		{
+			shadowItem->setParentItem(this);
+			m_shadows << shadowItem;
 		}
 		delete part;
 	}

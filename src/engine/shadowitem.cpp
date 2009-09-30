@@ -19,8 +19,8 @@
 #include "shadowitem.h"
 #include "shadowhelper.h"
 
-Palapeli::ShadowItem::ShadowItem(const QPixmap& pixmap, int radius)
+Palapeli::ShadowItem::ShadowItem(const QPixmap& pixmap, int radius, const QPointF& offset)
 	: QGraphicsPixmapItem(Palapeli::createShadow(pixmap, radius))
 {
-	setOffset(-radius, -radius);
+	setOffset(offset + QPointF(-radius, -radius));
 }

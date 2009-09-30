@@ -6,13 +6,19 @@
 			<label>Scene size (in multiples of the image size).</label>
 			<default>2.0</default>
 		</entry>
+		<entry name="SnappingPrecision" type="Int">
+			<label>Precision of snapping (in percent of piece size).</label>
+			<default>20</default>
+		</entry>
+	</group>
+	<group name="Appearance">
 		<entry name="ViewBackground" type="String">
 			<label>The background image to use for the View.</label>
 			<default>background.svg</default>
 		</entry>
-		<entry name="SnappingPrecision" type="Int">
-			<label>Precision of snapping (in percent of piece size).</label>
-			<default>20</default>
+		<entry name="PieceShadows" type="Bool">
+			<label></label>
+			<default>false</default>
 		</entry>
 	</group>
 </kcfg>

@@ -25,6 +25,7 @@
 namespace Palapeli
 {
 	class Piece;
+	class ShadowItem;
 
 	class Part : public QObject, public QGraphicsItem
 	{
@@ -51,6 +52,7 @@ namespace Palapeli
 			void validatePosition();
 		private:
 			QList<Palapeli::Piece*> m_pieces;
+			QList<Palapeli::ShadowItem*> m_shadows;
 	};
 }
 
