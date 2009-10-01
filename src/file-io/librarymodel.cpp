@@ -20,12 +20,15 @@
 #include "puzzle.h"
 
 #include <KCmdLineArgs>
+#include <KMessageBox>
 
 Palapeli::LibraryModel::LibraryModel(QObject* parent)
 	: QAbstractListModel(parent)
 {
 	//add all puzzles from the library
 	QList<Palapeli::PuzzleLocation> libraryLocations = Palapeli::PuzzleLocation::listLibrary();
+	if (libraryLocations.isEmpty())
+		KMessageBox::information(0, QLatin1String("No puzzles found in the library. If you have not done this yet, open a terminal in the \"puzzles\" subdirectory of the Palapeli source tree, and execute the \"make-puzzles.sh\" script."));
 	foreach (const Palapeli::PuzzleLocation& libraryLocation, libraryLocations)
 		m_puzzles << new Palapeli::Puzzle(libraryLocation);
 	//if a puzzle file has been given on the command line, load that puzzle
