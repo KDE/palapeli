@@ -22,5 +22,6 @@
 Palapeli::ShadowItem::ShadowItem(const QPixmap& pixmap, int radius, const QPointF& offset)
 	: QGraphicsPixmapItem(Palapeli::createShadow(pixmap, radius))
 {
+	setAcceptedMouseButtons(0);
 	setOffset(offset + QPointF(-radius, -radius));
 }

@@ -26,6 +26,6 @@ X-KDE-PluginInfo-License=Public Domain
 
 [Job]
 Image=european-honey-bee.jpg
-Slicer=palapeli_svgslicer_jigsaw
+Slicer=palapeli_jigsawslicer
 XCount=6
 YCount=8

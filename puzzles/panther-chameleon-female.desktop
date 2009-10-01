@@ -40,6 +40,6 @@ X-KDE-PluginInfo-License=GNU-FDL
 
 [Job]
 Image=panther-chameleon-female.jpg
-Slicer=palapeli_svgslicer_jigsaw
+Slicer=palapeli_jigsawslicer
 XCount=6
 YCount=8

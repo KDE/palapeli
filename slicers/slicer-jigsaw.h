@@ -16,11 +16,31 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#include "slicer-svg-jigsaw.h"
+#ifndef PALAPELISLICERS_JIGSAW_SLICER_H
+#define PALAPELISLICERS_JIGSAW_SLICER_H
 
-#define CLASSNAME JigsawSvgSlicer
-const char* PLUGINNAME = "palapeli_svgslicer_jigsaw";
-const QString SHAPENAME = QLatin1String("puzzle");
+#include "../libpala/slicer.h"
+#include "../libpala/slicerjob.h"
+#include "../libpala/slicerproperty.h"
 
-#include "slicer-svg-generic.cpp"
-#include "slicer-svg-jigsaw.moc"
+struct JigsawPlugParams
+{
+	qreal plugPosition, plugLength, plugWidth;
+	qreal distortion1, distortion2;
+	qreal baseHeight, baseDistortion;
+
+	static JigsawPlugParams createRandomParams();
+	JigsawPlugParams mirrored();
+};
+
+class JigsawSlicer : public Pala::Slicer
+{
+	Q_OBJECT
+	public:
+		JigsawSlicer(QObject* parent = 0, const QVariantList& args = QVariantList());
+		virtual bool run(Pala::SlicerJob* job);
+	protected:
+		void addPlugToPath(QPainterPath& path, const QLineF& line, const QPointF& plugDirection, const JigsawPlugParams& parameters);
+};
+
+#endif // PALAPELISLICERS_JIGSAW_SLICER_H
