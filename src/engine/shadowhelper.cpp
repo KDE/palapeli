@@ -43,7 +43,7 @@ inline void blurcol( QImage & im, int col, int alpha);
 *  Blurs with two sided exponential impulse
 *  response.
 *
-*  aprec = precision of alpha parameter 
+*  aprec = precision of alpha parameter
 *  in fixed-point format 0.aprec
 *
 *  zprec = precision of state parameters
@@ -55,9 +55,9 @@ void expblur( QImage &img, int radius )
   if(radius<1)
     return;
 
-  /* Calculate the alpha such that 90% of 
+  /* Calculate the alpha such that 90% of
      the kernel is within the radius.
-     (Kernel extends to infinity) 
+     (Kernel extends to infinity)
   */
   int alpha = (int)((1<<aprec)*(1.0f-std::exp(-2.3f/(radius+1.f))));
 
@@ -144,15 +144,6 @@ inline void blurcol( QImage & im, int col, int alpha)
 
 QPixmap Palapeli::createShadow(const QPixmap& source, int radius)
 {
-#if 0
-	QImage shadowImage(QSize(source.width() + 2 * radius, source.height() + 2 * radius), QImage::Format_ARGB32_Premultiplied);
-	QPainter p(&shadowImage);
-	p.fillRect(QRect(QPoint(radius, radius), source.size()), Qt::black);
-	p.setCompositionMode(QPainter::CompositionMode_SourceIn);
-	p.drawPixmap(QPoint(radius, radius), source);
-	p.end();
-#endif
-
 	QPixmap pix(source.size());
 	pix.fill(Qt::black);
 
@@ -163,6 +154,7 @@ QPixmap Palapeli::createShadow(const QPixmap& source, int radius)
 	px.end();
 
 	QImage shadowImage(QSize(source.width() + 2 * radius, source.height() + 2 * radius), QImage::Format_ARGB32_Premultiplied);
+	shadowImage.fill(0x00000000); //transparent
 	px.begin(&shadowImage);
 	px.drawPixmap(QPoint(radius, radius), shadowPixmap);
 	px.end();
