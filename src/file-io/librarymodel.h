@@ -20,6 +20,8 @@
 #define PALAPELI_LIBRARYMODEL_H
 
 #include <QAbstractListModel>
+class KJob;
+class KUrl;
 
 namespace Palapeli
 {
@@ -48,6 +50,17 @@ namespace Palapeli
 
 			Palapeli::Puzzle* puzzle(const QModelIndex& index) const;
 			Palapeli::Puzzle* puzzle(const QString& identifier) const;
+
+			void importPuzzle(const KUrl& url);
+#if 0
+			void exportPuzzle(const QModelIndex& index, const KUrl& url);
+			void deletePuzzle(const QModelIndex& index);
+#endif
+		private Q_SLOTS:
+			void importFinished(KJob* job);
+#if 0
+			void exportFinished(KJob* job);
+#endif
 		private:
 			QList<Palapeli::Puzzle*> m_puzzles;
 	};

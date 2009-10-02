@@ -38,6 +38,7 @@ namespace Palapeli
 		Q_SIGNALS:
 			void playRequest(Palapeli::Puzzle* puzzle);
 		private Q_SLOTS:
+			void handleImportRequest();
 			void handlePlayRequest(const QString& puzzleIdentifier);
 		private:
 			QListView* m_view;

@@ -23,6 +23,7 @@
 #include <QListView>
 #include <KAction>
 #include <KActionCollection>
+#include <KFileDialog>
 #include <KLocalizedString>
 
 Palapeli::LibraryWidget::LibraryWidget()
@@ -36,9 +37,9 @@ Palapeli::LibraryWidget::LibraryWidget()
 	connect(delegate, SIGNAL(playRequest(const QString&)), this, SLOT(handlePlayRequest(const QString&)));
 	//setup actions
 	KAction* importAct = new KAction(KIcon("document-import"), i18n("&Import..."), 0);
-	importAct->setEnabled(false); //not implemented yet
 	importAct->setToolTip(i18n("Import a new puzzle from a file"));
 	actionCollection()->addAction("file_import", importAct);
+	connect(importAct, SIGNAL(triggered()), this, SLOT(handleImportRequest()));
 	KAction* exportAct = new KAction(KIcon("document-export"), i18n("&Export..."), 0);
 	exportAct->setEnabled(false); //not implemented yet
 	exportAct->setToolTip(i18n("Export the selected puzzle from the library into a file"));
@@ -55,6 +56,13 @@ Palapeli::LibraryWidget::LibraryWidget()
 Palapeli::LibraryModel* Palapeli::LibraryWidget::model() const
 {
 	return m_model;
+}
+
+void Palapeli::LibraryWidget::handleImportRequest()
+{
+	const QString filter = QLatin1String("*.pala|Palapeli puzzles (*.pala)");
+	KUrl url = KFileDialog::getOpenUrl(KUrl("kfiledialog:///palapeli-import"), filter);
+	m_model->importPuzzle(url);
 }
 
 void Palapeli::LibraryWidget::handlePlayRequest(const QString& puzzleIdentifier)

@@ -20,7 +20,9 @@
 #include "puzzle.h"
 
 #include <KCmdLineArgs>
+#include <KIO/CopyJob>
 #include <KMessageBox>
+#include <KUrl>
 
 Palapeli::LibraryModel::LibraryModel(QObject* parent)
 	: QAbstractListModel(parent)
@@ -28,7 +30,7 @@ Palapeli::LibraryModel::LibraryModel(QObject* parent)
 	//add all puzzles from the library
 	QList<Palapeli::PuzzleLocation> libraryLocations = Palapeli::PuzzleLocation::listLibrary();
 	if (libraryLocations.isEmpty())
-		KMessageBox::information(0, QLatin1String("No puzzles found in the library. If you have not done this yet, open a terminal in the \"puzzles\" subdirectory of the Palapeli source tree, and execute the \"make-puzzles.sh\" script."));
+		KMessageBox::information(0, QLatin1String("No puzzles found in the library. If you have not done this yet, open a terminal in the \"puzzles\" subdirectory of the Palapeli source tree, and execute the \"make-puzzles.sh\" script.")); //TODO: remove before release
 	foreach (const Palapeli::PuzzleLocation& libraryLocation, libraryLocations)
 		m_puzzles << new Palapeli::Puzzle(libraryLocation);
 	//if a puzzle file has been given on the command line, load that puzzle
@@ -98,5 +100,62 @@ Palapeli::Puzzle* Palapeli::LibraryModel::puzzle(const QString& identifier) cons
 			return puzzle;
 	return 0; //puzzle not found
 }
+
+#include <KDebug>
+
+void Palapeli::LibraryModel::importPuzzle(const KUrl& url)
+{
+	Palapeli::PuzzleLocation location = Palapeli::PuzzleLocation::fromUrl(url);
+	if (location.isFromLibrary())
+	{
+		KMessageBox::sorry(0, i18n("This puzzle is already in your library."));
+		return;
+	}
+	//check if a puzzle from the library would be overwritten
+	foreach (Palapeli::Puzzle* puzzle, m_puzzles)
+	{
+		Palapeli::PuzzleLocation otherLoc = puzzle->location();
+		if (otherLoc.isFromLibrary() && otherLoc.identifier() == location.identifier())
+		{
+			KMessageBox::sorry(0, i18n("A puzzle with the same name is already in your library. Delete that puzzle before importing the new puzzle."));
+			return;
+		}
+	}
+	//start to copy puzzle
+	Palapeli::PuzzleLocation targetLoc = Palapeli::PuzzleLocation::fromLibrary(location.identifier());
+	kDebug() << "Ident:" << location.identifier();
+	kDebug() << "From:" << location.url();
+	kDebug() << "  To:" << targetLoc.url();
+	KIO::CopyJob* job = KIO::copy(location.url(), targetLoc.url());
+	connect(job, SIGNAL(result(KJob*)), this, SLOT(importFinished(KJob*)));
+}
+
+void Palapeli::LibraryModel::importFinished(KJob* job)
+{
+	KIO::CopyJob* copyJob = static_cast<KIO::CopyJob*>(job);
+	if (copyJob->error())
+		copyJob->showErrorDialog();
+	else
+	{
+		Palapeli::PuzzleLocation targetLoc = Palapeli::PuzzleLocation::fromUrl(copyJob->destUrl());
+		beginInsertRows(QModelIndex(), m_puzzles.count(), m_puzzles.count());
+		m_puzzles << new Palapeli::Puzzle(targetLoc);
+		endInsertRows();
+	}
+}
+
+#if 0
+void Palapeli::LibraryModel::exportPuzzle(const QModelIndex& index, const KUrl& url)
+{
+}
+
+void Palapeli::LibraryModel::exportFinished(KJob* job)
+{
+}
+
+void Palapeli::LibraryModel::deletePuzzle(const QModelIndex& index)
+{
+}
+#endif
 
 #include "librarymodel.moc"
