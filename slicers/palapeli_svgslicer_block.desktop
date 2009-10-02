@@ -13,4 +13,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 Name=Jigsaw pieces with simple plug shapes
+Name[pt]=Peças de puzzle com formas de fichas simples
+Name[uk]=Шматочки складанки простої форми
+Name[x-test]=xxJigsaw pieces with simple plug shapesxx
 Comment=
