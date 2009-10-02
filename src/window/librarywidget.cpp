@@ -22,6 +22,7 @@
 #include "../file-io/puzzle.h"
 
 #include <QListView>
+#include <QStandardItemModel>
 #include <KAction>
 #include <KActionCollection>
 #include <KFileDialog>
@@ -61,6 +62,14 @@ Palapeli::LibraryWidget::LibraryWidget()
 Palapeli::LibraryModel* Palapeli::LibraryWidget::model() const
 {
 	return m_model;
+}
+
+void Palapeli::LibraryWidget::resizeEvent(QResizeEvent* event)
+{
+	//HACK: The KWidgetItemDelegate does not update its size hints after the view has resized.
+	QStandardItemModel emptyDummyModel;
+	m_view->setModel(&emptyDummyModel); //Using 0 here gives useless warnings.
+	m_view->setModel(m_model);
 }
 
 void Palapeli::LibraryWidget::handleDeleteRequest()

@@ -39,6 +39,8 @@ namespace Palapeli
 			Palapeli::LibraryModel* model() const;
 		Q_SIGNALS:
 			void playRequest(Palapeli::Puzzle* puzzle);
+		protected:
+			virtual void resizeEvent(QResizeEvent* event);
 		private Q_SLOTS:
 			void handleDeleteRequest();
 			void handleExportRequest();
