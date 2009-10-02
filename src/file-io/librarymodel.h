@@ -56,7 +56,7 @@ namespace Palapeli
 #if 0
 			void exportPuzzle(const QModelIndex& index, const KUrl& url);
 #endif
-			void deletePuzzle(const QModelIndex& index);
+			void deletePuzzle(const QModelIndexList& indexes);
 		private Q_SLOTS:
 			void importFinished(KJob* job);
 #if 0

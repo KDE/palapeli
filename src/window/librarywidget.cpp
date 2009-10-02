@@ -33,6 +33,7 @@ Palapeli::LibraryWidget::LibraryWidget()
 {
 	//setup view
 	m_view->setModel(m_model);
+	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	Palapeli::LibraryDelegate* delegate = new Palapeli::LibraryDelegate(m_view);
 	connect(delegate, SIGNAL(playRequest(const QString&)), this, SLOT(handlePlayRequest(const QString&)));
 	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(handleSelectionChanged()));
@@ -62,9 +63,7 @@ Palapeli::LibraryModel* Palapeli::LibraryWidget::model() const
 
 void Palapeli::LibraryWidget::handleDeleteRequest()
 {
-	const QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
-	foreach (const QModelIndex& index, indexes)
-		m_model->deletePuzzle(index);
+	m_model->deletePuzzle(m_view->selectionModel()->selectedIndexes());
 }
 
 void Palapeli::LibraryWidget::handleImportRequest()

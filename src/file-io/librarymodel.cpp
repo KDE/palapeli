@@ -153,16 +153,35 @@ void Palapeli::LibraryModel::exportFinished(KJob* job)
 }
 #endif
 
-void Palapeli::LibraryModel::deletePuzzle(const QModelIndex& index)
+void Palapeli::LibraryModel::deletePuzzle(const QModelIndexList& indexes)
 {
-	Palapeli::Puzzle* puzzle = this->puzzle(index);
-	if (!puzzle)
-		return; //The LibraryWidget already checks whether the puzzle can be deleted.
-	beginRemoveRows(QModelIndex(), index.row(), index.row());
-	QFile(puzzle->location().url().path()).remove();
-	m_puzzles.removeAll(puzzle);
-	delete puzzle;
-	endRemoveRows();
+	QList<Palapeli::Puzzle*> puzzles;
+	foreach (const QModelIndex& index, indexes)
+	{
+		Palapeli::Puzzle* puzzle = this->puzzle(index);
+		if (puzzle)
+			puzzles << puzzle;
+	}
+	if (puzzles.isEmpty())
+		return;
+	//confirm removal
+	QStringList names;
+	foreach (Palapeli::Puzzle* puzzle, puzzles)
+		names << puzzle->metadata()->name;
+	int result = KMessageBox::questionYesNoList(0, i18n("Do you really want to remove the following puzzles?"), names);
+	if (result != KMessageBox::Yes)
+		return;
+	//remove puzzles (by finding the index of puzzle)
+	foreach (Palapeli::Puzzle* puzzle, puzzles)
+		for (int row = 0; row < rowCount(); ++row)
+			if (this->puzzle(this->index(row)) == puzzle)
+			{
+				beginRemoveRows(QModelIndex(), row, row);
+				QFile(puzzle->location().url().path()).remove();
+				m_puzzles.removeAll(puzzle);
+				delete puzzle;
+				endRemoveRows();
+			}
 }
 
 #include "librarymodel.moc"
