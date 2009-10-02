@@ -92,6 +92,6 @@ QPixmap Palapeli::createShadow(const QPixmap& source, int radius)
 	px.drawPixmap(QPoint(radius, radius), shadowPixmap);
 	px.end();
 
-	blur(shadowImage, QRect(QPoint(), shadowImage.size()), radius);
+	blur(shadowImage, QRect(QPoint(), shadowImage.size()), radius / 3);
 	return QPixmap::fromImage(shadowImage);
 }

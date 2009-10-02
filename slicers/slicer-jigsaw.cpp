@@ -66,8 +66,8 @@ QLineF leftSide(const QRect& rect)
 {
 	JigsawPlugParams result;
 	result.plugPosition = myrand(0.35, 0.65);
-	const qreal maxPlugLength = 0.39 - 1.17 * qAbs(0.5 - result.plugPosition);
-	result.plugLength = myrand(maxPlugLength / 2, maxPlugLength);
+	const qreal maxPlugLength = 0.29 - 0.88 * qAbs(0.5 - result.plugPosition);
+	result.plugLength = myrand(maxPlugLength * 2 / 3, maxPlugLength);
 	result.plugWidth = myrand(0.13, 0.33);
 	const qreal minDistortion1 = 0.75 * (0.7 + result.plugWidth);
 	result.distortion1 = myrand(minDistortion1, minDistortion1 * 1.1);
@@ -145,7 +145,7 @@ bool JigsawSlicer::run(Pala::SlicerJob* job)
 				pieceWidth,
 				pieceHeight
 			);
-			const QRect pieceRect( //piece with padding space for plugs (will overlap with neighbor piece rects)
+			QRect pieceRect( //piece with padding space for plugs (will overlap with neighbor piece rects)
 				x * pieceWidth - plugPaddingX,
 				y * pieceHeight - plugPaddingY,
 				pieceWidth + 2 * plugPaddingX,
@@ -186,11 +186,20 @@ bool JigsawSlicer::run(Pala::SlicerJob* job)
 				path.lineTo(maskBaseRect.topLeft());
 			else
 				addPlugToPath(path, leftSide(maskBaseRect), QPointF(horizontalPlugDirections[x - 1][y], 0), horizontalPlugParams[x - 1][y]);
-			//create the mask
+			//determine the required size of the mask
 			path.closeSubpath();
-			QImage mask(maskRect.size(), QImage::Format_ARGB32_Premultiplied);
+			const QRect newMaskRect = path.boundingRect().toAlignedRect();
+			pieceRect.adjust(
+				newMaskRect.left() - maskRect.left(),
+				newMaskRect.top() - maskRect.top(),
+				newMaskRect.right() - maskRect.right(),
+				newMaskRect.bottom() - maskRect.bottom()
+			);
+			//create the mask
+			QImage mask(newMaskRect.size(), QImage::Format_ARGB32_Premultiplied);
 			mask.fill(0x00000000); //fully transparent color
 			QPainter painter(&mask);
+			painter.translate(maskRect.topLeft() - newMaskRect.topLeft());
 			painter.setPen(Qt::black); //we explicitly use a pen stroke in order to let the pieces overlap a bit (which reduces rendering glitches at the edges where puzzle pieces touch)
 			painter.setBrush(Qt::black);
 			painter.setRenderHint(QPainter::Antialiasing);
