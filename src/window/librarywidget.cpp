@@ -19,6 +19,7 @@
 #include "librarywidget.h"
 #include "../file-io/librarydelegate.h"
 #include "../file-io/librarymodel.h"
+#include "../file-io/puzzle.h"
 
 #include <QListView>
 #include <KAction>
@@ -46,6 +47,7 @@ Palapeli::LibraryWidget::LibraryWidget()
 	m_exportAct->setEnabled(false); //not implemented yet
 	m_exportAct->setToolTip(i18n("Export the selected puzzle from the library into a file"));
 	actionCollection()->addAction("file_export", m_exportAct);
+	connect(m_exportAct, SIGNAL(triggered()), this, SLOT(handleExportRequest()));
 	m_deleteAct = new KAction(KIcon("archive-remove"), i18n("&Delete"), 0);
 	m_deleteAct->setEnabled(false); //will be enabled when something is selected
 	m_deleteAct->setToolTip(i18n("Delete the selected puzzle from the library"));
@@ -66,12 +68,29 @@ void Palapeli::LibraryWidget::handleDeleteRequest()
 	m_model->deletePuzzle(m_view->selectionModel()->selectedIndexes());
 }
 
+void Palapeli::LibraryWidget::handleExportRequest()
+{
+	QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
+	foreach (const QModelIndex& index, indexes)
+	{
+		Palapeli::Puzzle* puzzle = m_model->puzzle(index);
+		if (!puzzle)
+			continue;
+		const KUrl startLoc = QString::fromLatin1("kfiledialog:///palapeli-export/%1.pala").arg(puzzle->location().identifier());
+		const QString filter = QLatin1String("*.pala|Palapeli puzzles (*.pala)");
+		KUrl url = KFileDialog::getSaveUrl(startLoc, filter);
+		if (!url.isEmpty())
+			m_model->exportPuzzle(index, url);
+	}
+}
+
 void Palapeli::LibraryWidget::handleImportRequest()
 {
 	const QString filter = QLatin1String("*.pala|Palapeli puzzles (*.pala)");
 	KUrl::List urls = KFileDialog::getOpenUrls(KUrl("kfiledialog:///palapeli-import"), filter);
 	foreach (const KUrl& url, urls)
-		m_model->importPuzzle(url);
+		if (!url.isEmpty())
+			m_model->importPuzzle(url);
 }
 
 void Palapeli::LibraryWidget::handlePlayRequest(const QString& puzzleIdentifier)
@@ -84,16 +103,11 @@ void Palapeli::LibraryWidget::handlePlayRequest(const QString& puzzleIdentifier)
 void Palapeli::LibraryWidget::handleSelectionChanged()
 {
 	const QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
-	if (indexes.isEmpty())
-	{
-		m_deleteAct->setEnabled(false);
-		m_exportAct->setEnabled(false);
-	}
-	else
-	{
-		m_deleteAct->setEnabled(indexes[0].data(Palapeli::LibraryModel::IsDeleteableRole) == QVariant(true));
-		m_exportAct->setEnabled(true);
-	}
+	bool enableActions = false;
+	if (!indexes.isEmpty())
+		enableActions = indexes[0].data(Palapeli::LibraryModel::IsDeleteableRole) == QVariant(true);
+	m_deleteAct->setEnabled(enableActions);
+	m_exportAct->setEnabled(enableActions);
 }
 
 #include "librarywidget.moc"

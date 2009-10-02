@@ -41,6 +41,7 @@ namespace Palapeli
 			void playRequest(Palapeli::Puzzle* puzzle);
 		private Q_SLOTS:
 			void handleDeleteRequest();
+			void handleExportRequest();
 			void handleImportRequest();
 			void handlePlayRequest(const QString& puzzleIdentifier);
 			void handleSelectionChanged();

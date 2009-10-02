@@ -53,15 +53,11 @@ namespace Palapeli
 			Palapeli::Puzzle* puzzle(const QString& identifier) const;
 
 			void importPuzzle(const KUrl& url);
-#if 0
 			void exportPuzzle(const QModelIndex& index, const KUrl& url);
-#endif
 			void deletePuzzle(const QModelIndexList& indexes);
 		private Q_SLOTS:
 			void importFinished(KJob* job);
-#if 0
 			void exportFinished(KJob* job);
-#endif
 		private:
 			QList<Palapeli::Puzzle*> m_puzzles;
 	};

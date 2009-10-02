@@ -143,15 +143,22 @@ void Palapeli::LibraryModel::importFinished(KJob* job)
 	}
 }
 
-#if 0
 void Palapeli::LibraryModel::exportPuzzle(const QModelIndex& index, const KUrl& url)
 {
+	Palapeli::Puzzle* puzzle = this->puzzle(index);
+	if (!puzzle)
+		return;
+	//start to copy puzzle
+	KIO::CopyJob* job = KIO::copy(puzzle->location().url(), url);
+	connect(job, SIGNAL(result(KJob*)), this, SLOT(exportFinished(KJob*)));
 }
 
 void Palapeli::LibraryModel::exportFinished(KJob* job)
 {
+	KIO::CopyJob* copyJob = static_cast<KIO::CopyJob*>(job);
+	if (copyJob->error())
+		copyJob->showErrorDialog();
 }
-#endif
 
 void Palapeli::LibraryModel::deletePuzzle(const QModelIndexList& indexes)
 {
