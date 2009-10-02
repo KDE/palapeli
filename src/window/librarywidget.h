@@ -22,6 +22,8 @@
 #include "tabwindow.h"
 
 class QListView;
+class QModelIndex;
+class KAction;
 
 namespace Palapeli
 {
@@ -38,11 +40,15 @@ namespace Palapeli
 		Q_SIGNALS:
 			void playRequest(Palapeli::Puzzle* puzzle);
 		private Q_SLOTS:
+			void handleDeleteRequest();
 			void handleImportRequest();
 			void handlePlayRequest(const QString& puzzleIdentifier);
+			void handleSelectionChanged();
 		private:
 			QListView* m_view;
 			Palapeli::LibraryModel* m_model;
+			KAction* m_exportAct;
+			KAction* m_deleteAct;
 	};
 }
 

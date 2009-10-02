@@ -19,6 +19,8 @@
 #include "librarymodel.h"
 #include "puzzle.h"
 
+#include <QFile>
+#include <QFileInfo>
 #include <KCmdLineArgs>
 #include <KIO/CopyJob>
 #include <KMessageBox>
@@ -30,7 +32,7 @@ Palapeli::LibraryModel::LibraryModel(QObject* parent)
 	//add all puzzles from the library
 	QList<Palapeli::PuzzleLocation> libraryLocations = Palapeli::PuzzleLocation::listLibrary();
 	if (libraryLocations.isEmpty())
-		KMessageBox::information(0, QLatin1String("No puzzles found in the library. If you have not done this yet, open a terminal in the \"puzzles\" subdirectory of the Palapeli source tree, and execute the \"make-puzzles.sh\" script.")); //TODO: remove before release
+		KMessageBox::information(0, QLatin1String("No puzzles found in the library. If you have not done this yet, open a terminal in the \"puzzles\" subdirectory of the Palapeli source tree, and execute the \"make-puzzles.sh\" script, then \"make install\" again.")); //TODO: remove before release
 	foreach (const Palapeli::PuzzleLocation& libraryLocation, libraryLocations)
 		m_puzzles << new Palapeli::Puzzle(libraryLocation);
 	//if a puzzle file has been given on the command line, load that puzzle
@@ -75,6 +77,8 @@ QVariant Palapeli::LibraryModel::data(const QModelIndex& index, int role) const
 			return puzzle->metadata()->thumbnail;
 		case IsFromLibraryRole:
 			return puzzle->location().isFromLibrary();
+		case IsDeleteableRole:
+			return QFileInfo(puzzle->location().url().path()).isWritable();
 		default:
 			return QVariant();
 	}
@@ -101,8 +105,6 @@ Palapeli::Puzzle* Palapeli::LibraryModel::puzzle(const QString& identifier) cons
 	return 0; //puzzle not found
 }
 
-#include <KDebug>
-
 void Palapeli::LibraryModel::importPuzzle(const KUrl& url)
 {
 	Palapeli::PuzzleLocation location = Palapeli::PuzzleLocation::fromUrl(url);
@@ -123,9 +125,6 @@ void Palapeli::LibraryModel::importPuzzle(const KUrl& url)
 	}
 	//start to copy puzzle
 	Palapeli::PuzzleLocation targetLoc = Palapeli::PuzzleLocation::fromLibrary(location.identifier());
-	kDebug() << "Ident:" << location.identifier();
-	kDebug() << "From:" << location.url();
-	kDebug() << "  To:" << targetLoc.url();
 	KIO::CopyJob* job = KIO::copy(location.url(), targetLoc.url());
 	connect(job, SIGNAL(result(KJob*)), this, SLOT(importFinished(KJob*)));
 }
@@ -152,10 +151,18 @@ void Palapeli::LibraryModel::exportPuzzle(const QModelIndex& index, const KUrl& 
 void Palapeli::LibraryModel::exportFinished(KJob* job)
 {
 }
+#endif
 
 void Palapeli::LibraryModel::deletePuzzle(const QModelIndex& index)
 {
+	Palapeli::Puzzle* puzzle = this->puzzle(index);
+	if (!puzzle)
+		return; //The LibraryWidget already checks whether the puzzle can be deleted.
+	beginRemoveRows(QModelIndex(), index.row(), index.row());
+	QFile(puzzle->location().url().path()).remove();
+	m_puzzles.removeAll(puzzle);
+	delete puzzle;
+	endRemoveRows();
 }
-#endif
 
 #include "librarymodel.moc"

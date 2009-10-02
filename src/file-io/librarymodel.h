@@ -38,7 +38,8 @@ namespace Palapeli
 				AuthorRole,
 				PieceCountRole,
 				ThumbnailRole,
-				IsFromLibraryRole
+				IsFromLibraryRole,
+				IsDeleteableRole
 			};
 
 			LibraryModel(QObject* parent = 0);
@@ -54,8 +55,8 @@ namespace Palapeli
 			void importPuzzle(const KUrl& url);
 #if 0
 			void exportPuzzle(const QModelIndex& index, const KUrl& url);
-			void deletePuzzle(const QModelIndex& index);
 #endif
+			void deletePuzzle(const QModelIndex& index);
 		private Q_SLOTS:
 			void importFinished(KJob* job);
 #if 0
