@@ -1,5 +1,6 @@
 /***************************************************************************
  *   Copyright 2007 Jani Huhtanen <jani.huhtanen@tut.fi>
+ *   Copyright 2009 Nokia Corporation and/or its subsidiary(-ies).
  *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -23,123 +24,55 @@
 #include <QImage>
 #include <QPainter>
 
-// Exponential blur, Jani Huhtanen, 2006
-//
-template<int aprec, int zprec>
-inline void blurinner(unsigned char *bptr, int &zR, int &zG, int &zB, int &zA, int alpha);
-
-template<int aprec,int zprec>
-inline void blurrow( QImage & im, int line, int alpha);
-
-template<int aprec, int zprec>
-inline void blurcol( QImage & im, int col, int alpha);
-
-/*
-*  expblur(QImage &img, int radius)
-*
-*  In-place blur of image 'img' with kernel
-*  of approximate radius 'radius'.
-*
-*  Blurs with two sided exponential impulse
-*  response.
-*
-*  aprec = precision of alpha parameter
-*  in fixed-point format 0.aprec
-*
-*  zprec = precision of state parameters
-*  zR,zG,zB and zA in fp format 8.zprec
-*/
-template<int aprec,int zprec>
-void expblur( QImage &img, int radius )
+void blur(QImage& image, const QRect& rect, int radius)
 {
-  if(radius<1)
-    return;
+	int tab[] = { 14, 10, 8, 6, 5, 5, 4, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2 };
+	int alpha = (radius < 1)  ? 16 : (radius > 17) ? 1 : tab[radius - 1];
 
-  /* Calculate the alpha such that 90% of
-     the kernel is within the radius.
-     (Kernel extends to infinity)
-  */
-  int alpha = (int)((1<<aprec)*(1.0f-std::exp(-2.3f/(radius+1.f))));
+	int r1 = rect.top();
+	int r2 = rect.bottom();
+	int c1 = rect.left();
+	int c2 = rect.right();
 
-  for(int row=0;row<img.height();row++)
-  {
-    blurrow<aprec,zprec>(img,row,alpha);
-  }
+	int bpl = image.bytesPerLine();
+	int alphaChannel;
+	unsigned char* p;
 
-  for(int col=0;col<img.width();col++)
-  {
-    blurcol<aprec,zprec>(img,col,alpha);
-  }
-  return;
-}
+	for (int col = c1; col <= c2; col++) {
+		p = image.scanLine(r1) + col * 4 + 3; //+3 to access alpha channel
+		alphaChannel = *p << 4;
 
-template<int aprec, int zprec>
-inline void blurinner(unsigned char *bptr, int &zR, int &zG, int &zB, int &zA, int alpha)
-{
-  int R,G,B,A;
-  R = *bptr;
-  G = *(bptr+1);
-  B = *(bptr+2);
-  A = *(bptr+3);
+		p += bpl;
+		for (int j = r1; j < r2; j++, p += bpl)
+			*p = (alphaChannel += ((*p << 4) - alphaChannel) * alpha / 16) >> 4;
+	}
 
-  zR += (alpha * ((R<<zprec)-zR))>>aprec;
-  zG += (alpha * ((G<<zprec)-zG))>>aprec;
-  zB += (alpha * ((B<<zprec)-zB))>>aprec;
-  zA += (alpha * ((A<<zprec)-zA))>>aprec;
+	for (int row = r1; row <= r2; row++) {
+		p = image.scanLine(row) + c1 * 4 + 3;
+		alphaChannel = *p << 4;
 
-  *bptr =     zR>>zprec;
-  *(bptr+1) = zG>>zprec;
-  *(bptr+2) = zB>>zprec;
-  *(bptr+3) = zA>>zprec;
-}
+		p += 4;
+		for (int j = c1; j < c2; j++, p += 4)
+			*p = (alphaChannel += ((*p << 4) - alphaChannel) * alpha / 16) >> 4;
+	}
 
-template<int aprec,int zprec>
-inline void blurrow( QImage & im, int line, int alpha)
-{
-  int zR,zG,zB,zA;
+	for (int col = c1; col <= c2; col++) {
+		p = image.scanLine(r2) + col * 4 + 3;
+		alphaChannel = *p << 4;
 
-  QRgb *ptr = (QRgb *)im.scanLine(line);
+		p -= bpl;
+		for (int j = r1; j < r2; j++, p -= bpl)
+				*p = (alphaChannel += ((*p << 4) - alphaChannel) * alpha / 16) >> 4;
+	}
 
-  zR = *((unsigned char *)ptr    )<<zprec;
-  zG = *((unsigned char *)ptr + 1)<<zprec;
-  zB = *((unsigned char *)ptr + 2)<<zprec;
-  zA = *((unsigned char *)ptr + 3)<<zprec;
+	for (int row = r1; row <= r2; row++) {
+		p = image.scanLine(row) + c2 * 4 + 3;
+			alphaChannel = *p << 4;
 
-  for(int index=1; index<im.width(); index++)
-  {
-    blurinner<aprec,zprec>((unsigned char *)&ptr[index],zR,zG,zB,zA,alpha);
-  }
-  for(int index=im.width()-2; index>=0; index--)
-  {
-    blurinner<aprec,zprec>((unsigned char *)&ptr[index],zR,zG,zB,zA,alpha);
-  }
- 
-
-}
-
-template<int aprec, int zprec>
-inline void blurcol( QImage & im, int col, int alpha)
-{
-  int zR,zG,zB,zA;
-
-  QRgb *ptr = (QRgb *)im.bits();
-  ptr+=col;
-
-  zR = *((unsigned char *)ptr    )<<zprec;
-  zG = *((unsigned char *)ptr + 1)<<zprec;
-  zB = *((unsigned char *)ptr + 2)<<zprec;
-  zA = *((unsigned char *)ptr + 3)<<zprec;
-
-  for(int index=im.width(); index<(im.height()-1)*im.width(); index+=im.width())
-  {
-    blurinner<aprec,zprec>((unsigned char *)&ptr[index],zR,zG,zB,zA,alpha);
-  }
-
-  for(int index=(im.height()-2)*im.width(); index>=0; index-=im.width())
-  {
-    blurinner<aprec,zprec>((unsigned char *)&ptr[index],zR,zG,zB,zA,alpha);
-  }
-
+		p -= 4;
+		for (int j = c1; j < c2; j++, p -= 4)
+				*p = (alphaChannel += ((*p << 4) - alphaChannel) * alpha / 16) >> 4;
+	}
 }
 
 QPixmap Palapeli::createShadow(const QPixmap& source, int radius)
@@ -159,6 +92,6 @@ QPixmap Palapeli::createShadow(const QPixmap& source, int radius)
 	px.drawPixmap(QPoint(radius, radius), shadowPixmap);
 	px.end();
 
-	expblur<16,7>(shadowImage, radius);
+	blur(shadowImage, QRect(QPoint(), shadowImage.size()), radius);
 	return QPixmap::fromImage(shadowImage);
 }

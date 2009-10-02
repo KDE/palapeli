@@ -32,15 +32,12 @@ Palapeli::Part::Part(Palapeli::Piece* piece)
 	setFlag(QGraphicsItem::ItemIsMovable);
 	setHandlesChildEvents(true);
 	//add shadow to piece
-	if (Settings::pieceShadows())
-	{
-		const QSize pixmapSize = piece->pixmap().size();
-		const int radius = 0.05 * (pixmapSize.width() + pixmapSize.height());
-		Palapeli::ShadowItem* shadowItem = new Palapeli::ShadowItem(piece->pixmap(), radius, piece->offset());
-		m_shadows << shadowItem;
-		shadowItem->setParentItem(this);
-		shadowItem->setZValue(-10);
-	}
+	const QSize pixmapSize = piece->pixmap().size();
+	const int radius = 0.05 * (pixmapSize.width() + pixmapSize.height());
+	Palapeli::ShadowItem* shadowItem = new Palapeli::ShadowItem(piece->pixmap(), radius, piece->offset());
+	m_shadows << shadowItem;
+	shadowItem->setParentItem(this);
+	shadowItem->setZValue(-10);
 }
 
 Palapeli::Part::~Part()
