@@ -66,10 +66,12 @@ Palapeli::LibraryModel* Palapeli::LibraryWidget::model() const
 
 void Palapeli::LibraryWidget::resizeEvent(QResizeEvent* event)
 {
+	Q_UNUSED(event)
 	//HACK: The KWidgetItemDelegate does not update its size hints after the view has resized.
 	QStandardItemModel emptyDummyModel;
 	m_view->setModel(&emptyDummyModel); //Using 0 here gives useless warnings.
 	m_view->setModel(m_model);
+	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(handleSelectionChanged()));
 }
 
 void Palapeli::LibraryWidget::handleDeleteRequest()
@@ -114,7 +116,9 @@ void Palapeli::LibraryWidget::handleSelectionChanged()
 	const QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
 	bool enableActions = false;
 	if (!indexes.isEmpty())
-		enableActions = indexes[0].data(Palapeli::LibraryModel::IsDeleteableRole) == QVariant(true);
+		foreach (const QModelIndex& index, indexes)
+			if (index.data(Palapeli::LibraryModel::IsDeleteableRole) == QVariant(true))
+				enableActions = true;
 	m_deleteAct->setEnabled(enableActions);
 	m_exportAct->setEnabled(enableActions);
 }
