@@ -16,42 +16,35 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_PUZZLE_H
-#define PALAPELI_PUZZLE_H
+#ifndef PALAPELI_PUZZLESTREAM_H
+#define PALAPELI_PUZZLESTREAM_H
 
 #include "puzzlelocation.h"
 #include "puzzlestructs.h"
 
-class KTempDir;
-
 namespace Palapeli
 {
+	class PuzzleStreamJob;
 
-	class Puzzle
+	class PuzzleStream : public QObject
 	{
+		Q_OBJECT
 		public:
-			Puzzle(const Palapeli::PuzzleLocation& location);
-			Puzzle(const Palapeli::Puzzle& other);
-			~Puzzle();
+			PuzzleStream(const KUrl& url);
 
 			Palapeli::PuzzleLocation location() const;
-			void setLocation(const Palapeli::PuzzleLocation& location);
-
-			static const QSize ThumbnailBaseSize;
-			const Palapeli::PuzzleMetadata* metadata() const;
-			const Palapeli::PuzzleContents* contents() const;
-
-			///If metadata has already being read, this function will do nothing unless \a force is true.
-			bool readMetadata(bool force = false);
-			///If metadata has already being read, this function will do nothing unless \a force is true.
-			bool readContents(bool force = false);
-			bool write();
+			Palapeli::PuzzleStreamMetadata* metadata() const;
+		public Q_SLOTS:
+			void refresh();
+		Q_SIGNALS:
+			void refreshed();
+		private Q_SLOTS:
+			void handleRefreshFinished();
 		private:
-			Palapeli::PuzzleLocation m_location;
-			Palapeli::PuzzleMetadata* m_metadata;
-			Palapeli::PuzzleContents* m_contents;
-			KTempDir* m_cache;
+			KUrl m_url;
+			Palapeli::PuzzleStreamMetadata* m_metadata;
+			Palapeli::PuzzleStreamJob* m_job;
 	};
 }
 
-#endif // PALAPELI_PUZZLE_H
+#endif // PALAPELI_PUZZLESTREAM_H
