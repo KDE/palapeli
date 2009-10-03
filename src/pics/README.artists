@@ -1,3 +1,3 @@
-Notice: The default background is currently hardcoded in palapeli/lib/core/viewmenu.cpp, where you will find a line that reads as follows:
-	static const QString defaultBackgroundFile("background.svg"); //see palapeli/app/pics/README.artists
-Change the file name in quotation marks to alter the default background.
+Notice: The default background is hardcoded in palapeli/src/palapeli.kcfg, where you will find a line that reads like this:
+	<default>background.svg</default>
+Change the file name to alter the default background.
