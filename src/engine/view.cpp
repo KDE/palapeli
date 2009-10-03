@@ -25,6 +25,7 @@
 Palapeli::View::View()
 	: m_scene(new Palapeli::Scene(this))
 	, m_menu(new Palapeli::ViewMenu(m_scene))
+	, m_zoomLevel(0) //set to invalid level while scene has not specified its rect
 {
 	//initialize viewport and scene
 	setDragMode(QGraphicsView::ScrollHandDrag);
@@ -62,9 +63,29 @@ void Palapeli::View::zoomBy(int delta)
 		if (scalingFactor <= 0.01)
 			scalingFactor = 0.01;
 	}
+	zoomTo(m_zoomLevel * scalingFactor);
+}
+
+void Palapeli::View::zoomTo(qreal level)
+{
+	//validate/normalize input
+	if (level <= 0)
+		return;
+	if (level >= 10)
+		level = 10;
+	if (level < 1)
+		level = 1;
+	//skip unimportant requests
+	if (qFuzzyCompare(level, m_zoomLevel))
+		return;
+	//scale to this level
+	qreal scalingFactor = level / m_zoomLevel;
 	scale(scalingFactor, scalingFactor);
-	//and also...
+	m_zoomLevel = level;
+	//extra sanity check
 	restrictViewportToSceneRect();
+	//report changes
+	emit zoomLevelChanged(m_zoomLevel);
 }
 
 void Palapeli::View::zoomIn()
@@ -79,8 +100,11 @@ void Palapeli::View::zoomOut()
 
 void Palapeli::View::sceneRectChanged(const QRectF& sceneRect)
 {
+	m_zoomLevel = 1.0;
 	fitInView(sceneRect, Qt::KeepAspectRatio);
 	setSceneRect(sceneRect);
+	//report changes
+	emit zoomLevelChanged(m_zoomLevel);
 }
 
 void Palapeli::View::restrictViewportToSceneRect()
@@ -92,7 +116,12 @@ void Palapeli::View::restrictViewportToSceneRect()
 	if (sr.isEmpty() && vr.isEmpty())
 		return;
 	else if (vr.width() > sr.width() && vr.height() > sr.height())
+	{
+		m_zoomLevel = 1.0;
 		fitInView(sr, Qt::KeepAspectRatio);
+		//report changes
+		emit zoomLevelChanged(m_zoomLevel);
+	}
 }
 
 #include "view.moc"

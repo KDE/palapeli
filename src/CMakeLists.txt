@@ -10,6 +10,7 @@ set(palapeli_SRCS
 	engine/view.cpp
 	engine/viewmenu.cpp
 	engine/viewmenu-components.cpp
+	engine/zoomwidget.cpp
 	file-io/librarydelegate.cpp
 	file-io/librarymodel.cpp
 	file-io/puzzle.cpp

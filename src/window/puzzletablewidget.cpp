@@ -19,13 +19,13 @@
 #include "puzzletablewidget.h"
 #include "../engine/scene.h"
 #include "../engine/view.h"
+#include "../engine/zoomwidget.h"
 
+#include <QGridLayout>
 #include <QProgressBar>
-#include <QVBoxLayout>
 #include <KAction>
 #include <KActionCollection>
 #include <KLocalizedString>
-#include <KStandardAction>
 
 //BEGIN Palapeli::TextProgressBar
 
@@ -55,17 +55,23 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	restartPuzzleAct->setToolTip(i18n("Delete the saved progress"));
 	actionCollection()->addAction("game_restart", restartPuzzleAct);
 	connect(restartPuzzleAct, SIGNAL(triggered()), m_view->scene(), SLOT(restartPuzzle()));
-	KStandardAction::zoomIn(m_view, SLOT(zoomIn()), actionCollection());
-	KStandardAction::zoomOut(m_view, SLOT(zoomOut()), actionCollection());
 	setupGUI();
-	//setup widgets
+	//setup progress bar
 	m_progressBar->setText(i18n("No puzzle loaded"));
 	connect(m_view->scene(), SIGNAL(reportProgress(int, int)), this, SLOT(reportProgress(int, int)));
+	//setup zoom widget
+	Palapeli::ZoomWidget* zoomWidget = new Palapeli::ZoomWidget(this);
+	connect(zoomWidget, SIGNAL(levelChanged(qreal)), m_view, SLOT(zoomTo(qreal)));
+	connect(zoomWidget, SIGNAL(zoomInRequest()), m_view, SLOT(zoomIn()));
+	connect(zoomWidget, SIGNAL(zoomOutRequest()), m_view, SLOT(zoomOut()));
+	connect(m_view, SIGNAL(zoomLevelChanged(qreal)), zoomWidget, SLOT(setLevel(qreal)));
 	//setup layout
 	QWidget* container = new QWidget;
-	QVBoxLayout* layout = new QVBoxLayout;
-	layout->addWidget(m_view);
-	layout->addWidget(m_progressBar);
+	QGridLayout* layout = new QGridLayout;
+	layout->addWidget(m_view, 0, 0, 1, 2);
+	layout->addWidget(m_progressBar, 1, 0);
+	layout->addWidget(zoomWidget, 1, 1);
+	layout->setColumnStretch(0, 10);
 	layout->setMargin(0);
 	container->setLayout(layout);
 	setCentralWidget(container);

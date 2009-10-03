@@ -16,43 +16,33 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_VIEW_H
-#define PALAPELI_VIEW_H
+#ifndef PALAPELI_ZOOMWIDGET_H
+#define PALAPELI_ZOOMWIDGET_H
 
-#include <QGraphicsView>
-
-//TODO: Show a prominent notice "Use the library to load a puzzle" when no puzzle has been loaded.
+class QSlider;
+class QToolButton;
+#include <QWidget>
 
 namespace Palapeli
 {
-	class Scene;
-	class ViewMenu;
-
-	class View : public QGraphicsView
+	class ZoomWidget : public QWidget
 	{
 		Q_OBJECT
 		public:
-			View();
-
-			Palapeli::Scene* scene() const;
+			ZoomWidget(QWidget* parent = 0);
 		public Q_SLOTS:
-			void zoomIn();
-			void zoomOut();
-			void zoomBy(int delta); //delta = 0 -> no change, delta < 0 -> zoom out, delta > 0 -> zoom in
-			void zoomTo(qreal level); //level = 1 -> show complete scene rect, allowed values: 1 <= level <= 10
-		protected:
-			virtual void resizeEvent(QResizeEvent* event);
-			virtual void wheelEvent(QWheelEvent* event);
-			void restrictViewportToSceneRect();
+			void setLevel(qreal level);
 		Q_SIGNALS:
-			void zoomLevelChanged(qreal level);
+			void levelChanged(qreal level);
+			void zoomInRequest();
+			void zoomOutRequest();
 		private Q_SLOTS:
-			void sceneRectChanged(const QRectF& sceneRect);
+			void handleValueChanged(int value);
 		private:
-			Palapeli::Scene* m_scene;
-			Palapeli::ViewMenu* m_menu;
-			qreal m_zoomLevel;
+			QToolButton* m_zoomOutButton;
+			QToolButton* m_zoomInButton;
+			QSlider* m_slider;
 	};
 }
 
-#endif // PALAPELI_VIEW_H
+#endif // PALAPELI_ZOOMWIDGET_H
