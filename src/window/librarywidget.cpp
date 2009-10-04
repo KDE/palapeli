@@ -87,8 +87,8 @@ void Palapeli::LibraryWidget::handleExportRequest()
 		Palapeli::Puzzle* puzzle = m_model->puzzle(index);
 		if (!puzzle)
 			continue;
-		const KUrl startLoc = QString::fromLatin1("kfiledialog:///palapeli-export/%1.pala").arg(puzzle->location().identifier());
-		const QString filter = QLatin1String("*.pala|Palapeli puzzles (*.pala)");
+		const KUrl startLoc = QString::fromLatin1("kfiledialog:///palapeli-export/%1.puzzle").arg(puzzle->location().identifier());
+		const QString filter = QLatin1String("*.puzzle|Palapeli puzzles (*.puzzle)");
 		KUrl url = KFileDialog::getSaveUrl(startLoc, filter);
 		if (!url.isEmpty())
 			m_model->exportPuzzle(index, url);
@@ -97,7 +97,7 @@ void Palapeli::LibraryWidget::handleExportRequest()
 
 void Palapeli::LibraryWidget::handleImportRequest()
 {
-	const QString filter = QLatin1String("*.pala|Palapeli puzzles (*.pala)");
+	const QString filter = QLatin1String("*.puzzle|Palapeli puzzles (*.puzzle)");
 	KUrl::List urls = KFileDialog::getOpenUrls(KUrl("kfiledialog:///palapeli-import"), filter);
 	foreach (const KUrl& url, urls)
 		if (!url.isEmpty())

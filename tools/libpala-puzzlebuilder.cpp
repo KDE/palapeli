@@ -38,7 +38,8 @@ int main(int argc, char** argv)
 	about.addAuthor(ki18n("Stefan Majewsky"), KLocalizedString(), "majewsky@gmx.net", "http://majewsky.wordpress.com");
 
 	KCmdLineOptions options;
-	options.add("+file", ki18nc("description for a command line switch", "Configuration file"));
+	options.add("+config", ki18nc("description for a command line switch", "Configuration file"));
+	options.add("+output", ki18nc("description for a command line switch", "Output file"));
 	KCmdLineArgs::addCmdLineOptions(options);
 	
 	KCmdLineArgs::init(argc, argv, &about);

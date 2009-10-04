@@ -25,7 +25,7 @@ Palapeli::PuzzleLocation Palapeli::PuzzleLocation::fromLibrary(const QString& id
 {
 	Palapeli::PuzzleLocation loc;
 	loc.m_identifier = identifier;
-	static const QString pathTemplate = QString::fromLatin1("palapeli/puzzlelibrary/%1.pala");
+	static const QString pathTemplate = QString::fromLatin1("palapeli/puzzlelibrary/%1.puzzle");
 	//locate the file (or use the URL to where puzzle files can be imported)
 	loc.m_url = KStandardDirs::locate("data", pathTemplate.arg(identifier));
 	if (loc.m_url.isEmpty())
@@ -47,7 +47,7 @@ Palapeli::PuzzleLocation Palapeli::PuzzleLocation::fromUrl(const KUrl& url)
 QList<Palapeli::PuzzleLocation> Palapeli::PuzzleLocation::listLibrary()
 {
 	QList<Palapeli::PuzzleLocation> result;
-	QStringList puzzleUrls = KGlobal::dirs()->findAllResources("data", "palapeli/puzzlelibrary/*.pala", KStandardDirs::NoDuplicates);
+	QStringList puzzleUrls = KGlobal::dirs()->findAllResources("data", "palapeli/puzzlelibrary/*.puzzle", KStandardDirs::NoDuplicates);
 	foreach (const QString& puzzleUrl, puzzleUrls)
 	{
 		//essentially the same as Palapeli::PuzzleLocation::fromUrl, but we can save some cleverness ;-)
