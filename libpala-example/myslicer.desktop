@@ -2,11 +2,13 @@
 Name=My very first slicer
 Name[de]=Mein erstes Schneidewerkzeug.
 Name[pt]=O meu primeiro divisor
+Name[sv]=Min allra första skivningsmaskin
 Name[uk]=Мій найперший інструмент розрізання
 Name[x-test]=xxMy very first slicerxx
 Comment=It's quite simple, actually.
 Comment[de]=Es ist wirklich sehr einfach.
 Comment[pt]=É muito simples, de facto.
+Comment[sv]=Den är faktiskt ganska enkel
 Comment[tr]=Çok basit, gerçekten.
 Comment[uk]=Насправді, дуже простий.
 Comment[x-test]=xxIt's quite simple, actually.xx
