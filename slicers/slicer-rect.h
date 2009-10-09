@@ -27,7 +27,7 @@ class RectSlicer : public Pala::Slicer
 {
 	Q_OBJECT
 	public:
-		RectSlicer(QObject* parent = 0, const QVariantList& args = QVariantList());
+		explicit RectSlicer(QObject* parent = 0, const QVariantList& args = QVariantList());
 		virtual bool run(Pala::SlicerJob* job);
 };
 

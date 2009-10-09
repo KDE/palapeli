@@ -37,7 +37,7 @@ class JigsawSlicer : public Pala::Slicer
 {
 	Q_OBJECT
 	public:
-		JigsawSlicer(QObject* parent = 0, const QVariantList& args = QVariantList());
+		explicit JigsawSlicer(QObject* parent = 0, const QVariantList& args = QVariantList());
 		virtual bool run(Pala::SlicerJob* job);
 	protected:
 		void addPlugToPath(QPainterPath& path, const QLineF& line, const QPointF& plugDirection, const JigsawPlugParams& parameters);

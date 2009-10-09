@@ -63,7 +63,7 @@ void Palapeli::Scene::loadPuzzle(Palapeli::Puzzle* puzzle)
 		m_parts << part;
 	}
 	//add piece relations
-	foreach (DoubleIntPair relation, contents->relations)
+	foreach (const DoubleIntPair& relation, contents->relations)
 	{
 		Palapeli::Piece* firstPiece = pieces[relation.first];
 		Palapeli::Piece* secondPiece = pieces[relation.second];

@@ -31,7 +31,7 @@ class MySlicer : public Pala::Slicer
 {
     Q_OBJECT
     public:
-        MySlicer(QObject* parent = 0, const QVariantList& args = QVariantList());
+        explicit MySlicer(QObject* parent = 0, const QVariantList& args = QVariantList());
         virtual bool run(Pala::SlicerJob* job);
 };
 

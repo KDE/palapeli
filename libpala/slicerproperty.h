@@ -71,9 +71,9 @@ namespace Pala
 			void setChoices(const QStringList& strings);
 			///Only for integer properties: Limits the user input to the selection of one of the given numbers. (The first number in the given list will be the default.) This will override setRange() in any case.
 			void setChoices(const QList<int>& numbers);
-			///Sets the default value of this property. This is overriden by setChoices(), because the first one of the choices given to that function will become the default in any case.
+			///Sets the default value of this property. This is overridden by setChoices(), because the first one of the choices given to that function will become the default in any case.
 			void setDefaultValue(const QVariant& value);
-			///Only for integer properties: Limits the user input to the selection of a number inside the given range (including the bounds). This will be overriden by setChoices() in any case.
+			///Only for integer properties: Limits the user input to the selection of a number inside the given range (including the bounds). This will be overridden by setChoices() in any case.
 			void setRange(int min, int max);
 		private:
 			class Private;

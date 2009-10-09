@@ -98,7 +98,7 @@ void Palapeli::LibraryDelegate::updateItemWidgets(const QList<QWidget*> widgets,
 	const bool fromLibrary = index.data(Palapeli::LibraryModel::IsFromLibraryRole).toBool();
 	static const QPixmap genericThumbnail = KIcon("preferences-plugin").pixmap(Palapeli::Puzzle::ThumbnailBaseSize);
 	//update widgets
-	const QString authorString = author.isEmpty() ? QString() : i18nc("Author attribution, e.g. \"By Jack\"", "By %1").arg(author);
+	const QString authorString = author.isEmpty() ? QString() : ki18nc("Author attribution, e.g. \"By Jack\"", "By %1").subs(author).toString();
 	headlineWidget->setText(name.isEmpty() ? i18n("[No name]") : name);
 	sublineWidget1->setText(comment.isEmpty() ? authorString : comment);
 	sublineWidget2->setText(comment.isEmpty() ? QString() : authorString);

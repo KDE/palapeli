@@ -26,7 +26,7 @@
 #include "tabwindow.h"
 #include "ui_settings.h"
 
-#include <QTabBar>
+#include <QTabBar> //krazy:exclude=qclasses
 #include <KActionCollection>
 #include <KConfigDialog>
 #include <KLocalizedString>
@@ -40,7 +40,7 @@ namespace Palapeli
 	class KTabWidget : public ::KTabWidget
 	{
 		public:
-			QTabBar* tabBar() const { return ::KTabWidget::tabBar(); }
+			QTabBar* tabBar() const { return ::KTabWidget::tabBar(); } //krazy:exclude=qclasses
 	};
 }
 
