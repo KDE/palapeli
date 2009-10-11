@@ -16,8 +16,8 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_LISTCOLLECTION_H
-#define PALAPELI_LISTCOLLECTION_H
+#ifndef PALAPELI_COLLECTION_LIST_H
+#define PALAPELI_COLLECTION_LIST_H
 
 #include "collection.h"
 
@@ -36,7 +36,7 @@ namespace Palapeli
 			virtual ~ListCollection();
 
 			virtual bool canImportPuzzles() const;
-			virtual bool importPuzzle(Palapeli::Puzzle* puzzle);
+			virtual bool importPuzzle(const Palapeli::Puzzle* const puzzle);
 			virtual bool canDeletePuzzle(const QModelIndex& index) const;
 			virtual bool deletePuzzle(const QModelIndex& index);
 		protected:
@@ -58,4 +58,4 @@ namespace Palapeli
 	};
 }
 
-#endif // PALAPELI_LISTCOLLECTION_H
+#endif // PALAPELI_COLLECTION_LIST_H

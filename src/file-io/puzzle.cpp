@@ -20,7 +20,8 @@
 
 #include <KConfigGroup>
 #include <KDesktopFile>
-#include <KIO/CopyJob>
+#include <KIO/FileCopyJob>
+#include <KIO/Job>
 #include <KIO/NetAccess>
 #include <KTar>
 #include <KTempDir>
@@ -167,9 +168,9 @@ bool Palapeli::Puzzle::readContents(bool force)
 bool Palapeli::Puzzle::write()
 {
 	//optimisation: if nothing has changed since the puzzle has been loaded, just copy the original puzzle file to the new location
-	if (m_loadLocation == m_location)
+	if (!m_loadLocation.isEmpty())
 	{
-		KIO::CopyJob* job = KIO::copy(m_loadLocation, m_location);
+		KIO::FileCopyJob* job = KIO::file_copy(m_loadLocation, m_location);
 		connect(job, SIGNAL(result(KJob*)), this, SLOT(writeFinished(KJob*)));
 		return true;
 	}

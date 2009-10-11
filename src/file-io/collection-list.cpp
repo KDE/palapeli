@@ -132,7 +132,7 @@ bool Palapeli::ListCollection::canImportPuzzles() const
 	return m_features.contains("importpuzzle");
 }
 
-bool Palapeli::ListCollection::importPuzzle(Palapeli::Puzzle* puzzle)
+bool Palapeli::ListCollection::importPuzzle(const Palapeli::Puzzle* const puzzle)
 {
 	return false; //TODO: Palapeli::ListCollection::importPuzzle
 }

@@ -17,6 +17,7 @@
 ***************************************************************************/
 
 #include "librarywidget.h"
+#include "../file-io/collection-filesystem.h"
 #include "../file-io/collection-list.h"
 #include "../file-io/librarydelegate.h"
 #include "../file-io/puzzle.h"
@@ -33,6 +34,7 @@ Palapeli::LibraryWidget::LibraryWidget()
 	: Palapeli::TabWindow(QLatin1String("palapeli-library"))
 	, m_view(new QListView)
 	, m_model(new Palapeli::LibraryCollection)
+	, m_fsCollection(new Palapeli::FileSystemCollection)
 {
 	//setup view
 	m_view->setModel(m_model);
@@ -46,7 +48,6 @@ Palapeli::LibraryWidget::LibraryWidget()
 	actionCollection()->addAction("file_import", importAct);
 	connect(importAct, SIGNAL(triggered()), this, SLOT(handleImportRequest()));
 	m_exportAct = new KAction(KIcon("document-export"), i18n("&Export..."), 0);
-	m_exportAct->setEnabled(false); //not implemented yet
 	m_exportAct->setToolTip(i18n("Export the selected puzzle from the library into a file"));
 	actionCollection()->addAction("file_export", m_exportAct);
 	connect(m_exportAct, SIGNAL(triggered()), this, SLOT(handleExportRequest()));
@@ -79,20 +80,15 @@ void Palapeli::LibraryWidget::handleDeleteRequest()
 
 void Palapeli::LibraryWidget::handleExportRequest()
 {
-#if 0
 	QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
 	foreach (const QModelIndex& index, indexes)
 	{
-		Palapeli::Puzzle* puzzle = m_model->puzzle(index);
+		QObject* puzzlePayload = index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
+		Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
 		if (!puzzle)
 			continue;
-		const KUrl startLoc = QString::fromLatin1("kfiledialog:///palapeli-export/%1.puzzle").arg(puzzle->location().identifier());
-		const QString filter = QLatin1String("*.puzzle|Palapeli puzzles (*.puzzle)");
-		KUrl url = KFileDialog::getSaveUrl(startLoc, filter);
-		if (!url.isEmpty())
-			m_model->exportPuzzle(index, url);
+		m_fsCollection->importPuzzle(puzzle);
 	}
-#endif
 }
 
 void Palapeli::LibraryWidget::handleImportRequest()
@@ -118,7 +114,6 @@ void Palapeli::LibraryWidget::handleSelectionChanged()
 				break;
 			}
 	m_deleteAct->setEnabled(enableActions);
-	m_exportAct->setEnabled(enableActions);
 }
 
 #include "librarywidget.moc"

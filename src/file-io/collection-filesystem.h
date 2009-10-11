@@ -16,41 +16,34 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_LIBRARYWIDGET_H
-#define PALAPELI_LIBRARYWIDGET_H
+#ifndef PALAPELI_COLLECTION_FILESYSTEM_H
+#define PALAPELI_COLLECTION_FILESYSTEM_H
 
-#include "tabwindow.h"
+#include "collection.h"
 
-class QListView;
-class QModelIndex;
-class KAction;
+#include <QStringList>
+class KUrl;
 
 namespace Palapeli
 {
-	class Collection;
-	class FileSystemCollection;
-
-	class LibraryWidget : public Palapeli::TabWindow
+	//This "meta collection" maintains temporary links to puzzle files that are not part of any collection. (This is necessary because all puzzle transactions operate on QModelIndexes.)
+	class FileSystemCollection : public Palapeli::Collection
 	{
-		Q_OBJECT
+		//TODO: add ability to "import" puzzles
 		public:
-			LibraryWidget();
-		Q_SIGNALS:
-			void playRequest(const QModelIndex& index);
-		protected:
-			virtual void resizeEvent(QResizeEvent* event);
-		private Q_SLOTS:
-			void handleDeleteRequest();
-			void handleExportRequest();
-			void handleImportRequest();
-			void handleSelectionChanged();
+			FileSystemCollection();
+
+			QModelIndex providePuzzle(const KUrl& location);
+
+			//"Import" means: Export a puzzle from another collection to an arbitrary file
+			virtual bool canImportPuzzles() const;
+			virtual bool importPuzzle(const Palapeli::Puzzle* const puzzle);
 		private:
-			QListView* m_view;
-			Palapeli::Collection* m_model;
-			Palapeli::FileSystemCollection* m_fsCollection;
-			KAction* m_exportAct;
-			KAction* m_deleteAct;
+			int indexOfPuzzle(const KUrl& location) const;
+			void addPuzzleInternal(const KUrl& location, Palapeli::Puzzle* puzzle);
+
+			QStringList m_usedIdentifiers;
 	};
 }
 
-#endif // PALAPELI_LIBRARYWIDGET_H
+#endif // PALAPELI_COLLECTION_FILESYSTEM_H

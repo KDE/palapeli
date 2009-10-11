@@ -13,6 +13,7 @@ set(palapeli_SRCS
 	engine/viewmenu-components.cpp
 	engine/zoomwidget.cpp
 	file-io/collection.cpp
+	file-io/collection-filesystem.cpp
 	file-io/collection-list.cpp
 	file-io/librarydelegate.cpp
 	file-io/puzzle.cpp

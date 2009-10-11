@@ -79,7 +79,7 @@ bool Palapeli::Collection::canImportPuzzles() const
 	return false;
 }
 
-bool Palapeli::Collection::importPuzzle(Palapeli::Puzzle* puzzle)
+bool Palapeli::Collection::importPuzzle(const Palapeli::Puzzle* const puzzle)
 {
 	Q_UNUSED(puzzle)
 	return false;
@@ -119,8 +119,6 @@ QVariant Palapeli::Collection::data(const QModelIndex& index, int role) const
 		//object references
 		case PuzzleObjectRole:
 			return qVariantFromValue((QObject*) puzzle);
-		case CollectionObjectRole:
-			return qVariantFromValue((QObject*) this);
 		//visible metadata
 		case NameRole: case Qt::DisplayRole:
 			return puzzle->metadata()->name;

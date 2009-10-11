@@ -35,7 +35,6 @@ namespace Palapeli
 				IsDeleteableRole,
 				//object references
 				PuzzleObjectRole = Qt::UserRole + 11, //contains a QObject* which can be casted to Palapeli::Puzzle*
-				CollectionObjectRole, //contains a QObject* which can be casted to Palapeli::Collection* (== this model)
 				//visible metadata
 				NameRole = Qt::UserRole + 21,
 				CommentRole,
@@ -48,7 +47,7 @@ namespace Palapeli
 
 			QString name() const;
 			virtual bool canImportPuzzles() const;
-			virtual bool importPuzzle(Palapeli::Puzzle* puzzle);
+			virtual bool importPuzzle(const Palapeli::Puzzle* const puzzle);
 			virtual bool canDeletePuzzle(const QModelIndex& index) const;
 			virtual bool deletePuzzle(const QModelIndex& index);
 

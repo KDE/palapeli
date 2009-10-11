@@ -54,7 +54,7 @@ namespace Palapeli
 			void writeFinished(KJob* job);
 		private:
 			KUrl m_location;
-			KUrl m_loadLocation; //This is an optimization flag: If nothing has been changed after the puzzle has been loaded, then the write() method will only copy the original puzzle file from this location to the current location.
+			KUrl m_loadLocation; //This is an optimization flag: If nothing has been changed after the puzzle has been loaded, then the write() method will only copy the original puzzle file from this location to the current location. When something is changed, m_loadLocation will be cleared.
 			Palapeli::PuzzleMetadata* m_metadata;
 			Palapeli::PuzzleContents* m_contents;
 			KTempDir* m_cache;
