@@ -26,17 +26,19 @@ namespace Palapeli
 	class PuzzleLocation
 	{
 		public:
+			PuzzleLocation();
 			static Palapeli::PuzzleLocation fromLibrary(const QString& identifier);
 			static Palapeli::PuzzleLocation fromUrl(const KUrl& url);
 			static QList<Palapeli::PuzzleLocation> listLibrary();
 
+			bool isEmpty() const;
 			bool isFromLibrary() const;
 
 			KUrl url() const; ///Returns the URL of the puzzle file (determined via KStandardDirs for library puzzles).
 			QString identifier() const; ///Returns the identifier of the puzzle file (read from the filename if a URL is given).
-		private:
-			PuzzleLocation() {} ///Force other classes to use the "from..." constructor methods.
 
+			bool operator==(const Palapeli::PuzzleLocation& other) const;
+		private:
 			KUrl m_url;
 			QString m_identifier;
 			bool m_fromLibrary;

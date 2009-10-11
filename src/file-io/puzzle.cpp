@@ -21,6 +21,7 @@
 #include <QFileInfo>
 #include <KConfigGroup>
 #include <KDesktopFile>
+#include <KIO/CopyJob>
 #include <KIO/NetAccess>
 #include <KStandardDirs>
 #include <KTar>
@@ -30,6 +31,7 @@ const QSize Palapeli::Puzzle::ThumbnailBaseSize(64, 64);
 
 Palapeli::Puzzle::Puzzle(const Palapeli::PuzzleLocation& location)
 	: m_location(location)
+	, m_loadLocation(location)
 	, m_metadata(0)
 	, m_contents(0)
 	, m_cache(0)
@@ -72,7 +74,9 @@ Palapeli::Puzzle::Puzzle(const Palapeli::PuzzleLocation& location)
 }
 
 Palapeli::Puzzle::Puzzle(const Palapeli::Puzzle& other)
-	: m_location(other.m_location)
+	: QObject()
+	, m_location(other.m_location)
+	, m_loadLocation(other.m_loadLocation)
 	, m_metadata(new Palapeli::PuzzleMetadata(*other.m_metadata))
 	, m_contents(new Palapeli::PuzzleContents(*other.m_contents))
 	, m_cache(0)
@@ -113,13 +117,13 @@ bool Palapeli::Puzzle::readMetadata(bool force)
 	delete m_cache; m_cache = 0;
 	//make archive available locally
 	QString archiveFile;
-	if (!m_location.url().isLocalFile())
+	if (!m_loadLocation.url().isLocalFile())
 	{
-		if (!KIO::NetAccess::download(m_location.url(), archiveFile, 0))
+		if (!KIO::NetAccess::download(m_loadLocation.url(), archiveFile, 0))
 			return false;
 	}
 	else
-		archiveFile = m_location.url().path();
+		archiveFile = m_loadLocation.url().path();
 	//open archive and extract into temporary directory
 	KTar tar(archiveFile, "application/x-bzip");
 	if (!tar.open(QIODevice::ReadOnly))
@@ -189,5 +193,21 @@ bool Palapeli::Puzzle::readContents(bool force)
 
 bool Palapeli::Puzzle::write()
 {
-	return false; //TODO: Palapeli::Puzzle::write NOT IMPLEMENTED YET
+	//optimisation: if nothing has changed since the puzzle has been loaded, just copy the original puzzle file to the new location
+	if (m_loadLocation == m_location)
+	{
+		KIO::CopyJob* job = KIO::copy(m_loadLocation.url(), m_location.url());
+		connect(job, SIGNAL(result(KJob*)), this, SLOT(writeFinished(KJob*)));
+		return true;
+	}
+	//TODO: Palapeli::Puzzle::write NOT IMPLEMENTED YET for new puzzles
+	return false;
 }
+
+void Palapeli::Puzzle::writeFinished(KJob* job)
+{
+	if (job->error())
+		static_cast<KIO::Job*>(job)->showErrorDialog();
+}
+
+#include "puzzle.moc"

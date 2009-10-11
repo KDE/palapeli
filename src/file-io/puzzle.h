@@ -22,13 +22,15 @@
 #include "puzzlelocation.h"
 #include "puzzlestructs.h"
 
+class KJob;
 class KTempDir;
 
 namespace Palapeli
 {
 
-	class Puzzle
+	class Puzzle : public QObject
 	{
+		Q_OBJECT
 		public:
 			Puzzle(const Palapeli::PuzzleLocation& location);
 			Puzzle(const Palapeli::Puzzle& other);
@@ -46,8 +48,11 @@ namespace Palapeli
 			///If metadata has already being read, this function will do nothing unless \a force is true.
 			bool readContents(bool force = false);
 			bool write();
+		private Q_SLOTS:
+			void writeFinished(KJob* job);
 		private:
 			Palapeli::PuzzleLocation m_location;
+			Palapeli::PuzzleLocation m_loadLocation; //This is an optimization flag: If nothing has been changed after the puzzle has been loaded, then the write() method will only copy the original puzzle file from this location to the current location.
 			Palapeli::PuzzleMetadata* m_metadata;
 			Palapeli::PuzzleContents* m_contents;
 			KTempDir* m_cache;

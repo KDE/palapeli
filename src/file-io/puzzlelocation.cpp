@@ -21,6 +21,10 @@
 #include <KGlobal>
 #include <KStandardDirs>
 
+Palapeli::PuzzleLocation::PuzzleLocation()
+{
+}
+
 Palapeli::PuzzleLocation Palapeli::PuzzleLocation::fromLibrary(const QString& identifier)
 {
 	Palapeli::PuzzleLocation loc;
@@ -60,6 +64,11 @@ QList<Palapeli::PuzzleLocation> Palapeli::PuzzleLocation::listLibrary()
 	return result;
 }
 
+bool Palapeli::PuzzleLocation::isEmpty() const
+{
+	return m_identifier.isEmpty() || m_url.isEmpty();
+}
+
 bool Palapeli::PuzzleLocation::isFromLibrary() const
 {
 	return m_fromLibrary;
@@ -73,4 +82,9 @@ KUrl Palapeli::PuzzleLocation::url() const
 QString Palapeli::PuzzleLocation::identifier() const
 {
 	return m_identifier;
+}
+
+bool Palapeli::PuzzleLocation::operator==(const Palapeli::PuzzleLocation& other) const
+{
+	return m_url == other.m_url;
 }
