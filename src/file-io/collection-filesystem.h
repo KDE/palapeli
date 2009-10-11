@@ -34,6 +34,8 @@ namespace Palapeli
 			FileSystemCollection();
 
 			QModelIndex providePuzzle(const KUrl& location);
+			///Allow the user to select some puzzles from an arbitrary position.
+			QModelIndexList selectPuzzles();
 
 			//"Import" means: Export a puzzle from another collection to an arbitrary file
 			virtual bool canImportPuzzles() const;

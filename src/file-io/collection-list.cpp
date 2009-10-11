@@ -20,6 +20,7 @@
 #include "puzzle.h"
 
 #include <QBuffer>
+#include <QUuid>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KIO/FileCopyJob>
@@ -45,6 +46,11 @@ Palapeli::ListCollection::ListCollection(const KUrl& url)
 		KIO::FileCopyJob* job = KIO::file_copy(url, KUrl(tempFile->fileName()));
 		connect(job, SIGNAL(result(KJob*)), this, SLOT(collectionDataCopyFinished(KJob*)));
 	}
+}
+
+Palapeli::ListCollection::~ListCollection()
+{
+	delete m_config;
 }
 
 void Palapeli::ListCollection::collectionDataCopyFinished(KJob* job)
@@ -87,44 +93,46 @@ void Palapeli::ListCollection::setConfig(KConfig* config)
 		//construct puzzle
 		KUrl url = readUrl(puzzleGroup.readEntry("Location", KUrl()));
 		Palapeli::Puzzle* puzzle = new Palapeli::Puzzle(url);
-		//read metadata (we use the "Name" key to test whether metadata is available)
-		//TODO: respect the ModifyDateTime key in the puzzleGroup in this step
-		const QString name = puzzleGroup.readEntry("Name", QString());
-		if (name.isEmpty())
-		{
-			//fill cache
-			if (puzzle->readMetadata() && m_features.contains("writecache"))
-			{
-				puzzleGroup.writeEntry("Name", puzzle->metadata()->name);
-				puzzleGroup.writeEntry("Comment", puzzle->metadata()->comment);
-				puzzleGroup.writeEntry("Author", puzzle->metadata()->author);
-				puzzleGroup.writeEntry("PieceCount", puzzle->metadata()->pieceCount);
-				//NOTE: Writing the thumbnail is a bit harder, because KConfig does not support images directly.
-				QBuffer buffer;
-				puzzle->metadata()->thumbnail.toImage().save(&buffer, "PNG");
-				puzzleGroup.writeEntry("Thumbnail", buffer.data());
-				m_config->sync();
-			}
-		}
-		else if (m_features.contains("readcache"))
-		{
-			Palapeli::PuzzleMetadata* metadata = new Palapeli::PuzzleMetadata;
-			metadata->name = puzzleGroup.readEntry("Name", QString());
-			metadata->comment = puzzleGroup.readEntry("Comment", QString());
-			metadata->author = puzzleGroup.readEntry("Author", QString());
-			metadata->pieceCount = puzzleGroup.readEntry("PieceCount", 0);
-			//NOTE: Reading the thumbnail is a bit harder, because KConfig does not support images directly.
-			QImage image; image.loadFromData(puzzleGroup.readEntry("Thumbnail", QByteArray()));
-			metadata->thumbnail = QPixmap::fromImage(image);
-			puzzle->injectMetadata(metadata);
-		}
-		addPuzzle(puzzle, puzzleId);
+		addPuzzleInternal(puzzle, puzzleId);
 	}
 }
 
-Palapeli::ListCollection::~ListCollection()
+void Palapeli::ListCollection::addPuzzleInternal(Palapeli::Puzzle* puzzle, const QString& identifier)
 {
-	delete m_config;
+	KConfigGroup mainGroup(m_config, "Palapeli Collection");
+	KConfigGroup puzzleGroup(&mainGroup, identifier);
+	//read metadata (we use the "Name" key to test whether metadata is available)
+	//TODO: respect the ModifyDateTime key in the puzzleGroup in this step
+	const QString name = puzzleGroup.readEntry("Name", QString());
+	if (name.isEmpty())
+	{
+		//fill cache
+		if (puzzle->readMetadata() && m_features.contains("writecache"))
+		{
+			puzzleGroup.writeEntry("Name", puzzle->metadata()->name);
+			puzzleGroup.writeEntry("Comment", puzzle->metadata()->comment);
+			puzzleGroup.writeEntry("Author", puzzle->metadata()->author);
+			puzzleGroup.writeEntry("PieceCount", puzzle->metadata()->pieceCount);
+			//NOTE: Writing the thumbnail is a bit harder, because KConfig does not support images directly.
+			QBuffer buffer;
+			puzzle->metadata()->thumbnail.toImage().save(&buffer, "PNG");
+			puzzleGroup.writeEntry("Thumbnail", buffer.data());
+			m_config->sync();
+		}
+	}
+	else if (m_features.contains("readcache"))
+	{
+		Palapeli::PuzzleMetadata* metadata = new Palapeli::PuzzleMetadata;
+		metadata->name = puzzleGroup.readEntry("Name", QString());
+		metadata->comment = puzzleGroup.readEntry("Comment", QString());
+		metadata->author = puzzleGroup.readEntry("Author", QString());
+		metadata->pieceCount = puzzleGroup.readEntry("PieceCount", 0);
+		//NOTE: Reading the thumbnail is a bit harder, because KConfig does not support images directly.
+		QImage image; image.loadFromData(puzzleGroup.readEntry("Thumbnail", QByteArray()));
+		metadata->thumbnail = QPixmap::fromImage(image);
+		puzzle->injectMetadata(metadata);
+	}
+	addPuzzle(puzzle, identifier);
 }
 
 bool Palapeli::ListCollection::canImportPuzzles() const
@@ -134,7 +142,24 @@ bool Palapeli::ListCollection::canImportPuzzles() const
 
 bool Palapeli::ListCollection::importPuzzle(const Palapeli::Puzzle* const puzzle)
 {
-	return false; //TODO: Palapeli::ListCollection::importPuzzle
+	if (!puzzle->metadata())
+		return false;
+	//determine location of new puzzle
+	const QString identifier = QUuid::createUuid().toString();
+	const QString fileName = QString("puzzlelibrary/%1.puzzle").arg(identifier);
+	const KUrl location(KStandardDirs::locateLocal("appdata", fileName));
+	//create a copy of the given puzzle, and relocate it to the new location
+	Palapeli::Puzzle* newPuzzle = new Palapeli::Puzzle(*puzzle);
+	newPuzzle->setLocation(location);
+	newPuzzle->write();
+	//create the config group for this puzzle
+	KConfigGroup mainGroup(m_config, "Palapeli Collection");
+	KConfigGroup puzzleGroup(&mainGroup, identifier);
+	puzzleGroup.writeEntry("Location", QString("palapeli:///%1").arg(fileName)); //we use a pseudo-URL here, to avoid problems when the configuration directory is relocated
+	m_config->sync();
+	//add to the internal storage
+	addPuzzleInternal(newPuzzle, identifier);
+	return true;
 }
 
 bool Palapeli::ListCollection::canDeletePuzzle(const QModelIndex& index) const

@@ -26,7 +26,6 @@
 #include <QStandardItemModel>
 #include <KAction>
 #include <KActionCollection>
-#include <KFileDialog>
 #include <KLocalizedString>
 #include <KStandardDirs>
 
@@ -93,13 +92,15 @@ void Palapeli::LibraryWidget::handleExportRequest()
 
 void Palapeli::LibraryWidget::handleImportRequest()
 {
-#if 0
-	const QString filter = QLatin1String("*.puzzle|Palapeli puzzles (*.puzzle)");
-	KUrl::List urls = KFileDialog::getOpenUrls(KUrl("kfiledialog:///palapeli-import"), filter);
-	foreach (const KUrl& url, urls)
-		if (!url.isEmpty())
-			m_model->importPuzzle(url);
-#endif
+	QModelIndexList selectedPuzzles = m_fsCollection->selectPuzzles();
+	foreach (const QModelIndex& index, selectedPuzzles)
+	{
+		QObject* puzzlePayload = index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
+		Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
+		if (!puzzle)
+			continue;
+		m_model->importPuzzle(puzzle);
+	}
 }
 
 void Palapeli::LibraryWidget::handleSelectionChanged()

@@ -20,6 +20,7 @@
 #include "puzzle.h"
 
 #include <KFileDialog>
+#include <KLocalizedString>
 
 Palapeli::FileSystemCollection::FileSystemCollection()
 {
@@ -82,14 +83,30 @@ bool Palapeli::FileSystemCollection::importPuzzle(const Palapeli::Puzzle* const 
 		return false;
 	//ask for a target file name
 	const KUrl startLoc = QString::fromLatin1("kfiledialog:///palapeli-export/%1.puzzle").arg(puzzle->metadata()->name);
-	const QString filter = QLatin1String("*.puzzle|Palapeli puzzles (*.puzzle)");
+	const QString filter = i18nc("Filter for a file dialog", "*.puzzle|Palapeli puzzles (*.puzzle)");
 	const KUrl location = KFileDialog::getSaveUrl(startLoc, filter);
 	if (location.isEmpty())
 		return false; //process aborted by user
 	//create a copy of the given puzzle, and relocate it to the new location
 	Palapeli::Puzzle* newPuzzle = new Palapeli::Puzzle(*puzzle);
 	newPuzzle->setLocation(location);
+	newPuzzle->write();
 	//add to the internal storage for future use
 	addPuzzleInternal(location, newPuzzle);
 	return true;
+}
+
+QModelIndexList Palapeli::FileSystemCollection::selectPuzzles()
+{
+	const QString filter = i18nc("Filter for a file dialog", "*.puzzle|Palapeli puzzles (*.puzzle)");
+	KUrl::List urls = KFileDialog::getOpenUrls(KUrl("kfiledialog:///palapeli-import"), filter);
+	QModelIndexList result;
+	foreach (const KUrl& url, urls)
+		if (!url.isEmpty())
+		{
+			QModelIndex index = providePuzzle(url);
+			if (index.isValid())
+				result << index;
+		}
+	return result;
 }
