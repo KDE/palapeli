@@ -33,7 +33,7 @@ int main(int argc, char** argv)
 	KCmdLineArgs::init(argc, argv, &about);
 
 	KCmdLineOptions options;
-	options.add("+puzzlefile", ki18n("URL of puzzle file"));
+	options.add("+puzzlefile", ki18n("URL of puzzle file")); //FIXME: This CLI input is ignored currently.
 	options.add("", ki18n("If a puzzle file is given, it will be opened, and also appear in the library view in that Palapeli instance."));
 	KCmdLineArgs::addCmdLineOptions(options);
 

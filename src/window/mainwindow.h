@@ -19,13 +19,13 @@
 #ifndef PALAPELI_MAINWINDOW_H
 #define PALAPELI_MAINWINDOW_H
 
+class QModelIndex;
 #include <KXmlGuiWindow>
 
 namespace Palapeli
 {
 	class KTabWidget; //needs to be subclasses for public access to QTabBar
 	class LibraryWidget;
-	class Puzzle;
 	class PuzzleTableWidget;
 
 	class MainWindow : public KXmlGuiWindow
@@ -34,12 +34,11 @@ namespace Palapeli
 		public:
 			MainWindow();
 		public Q_SLOTS:
-			void loadPuzzle(Palapeli::Puzzle* puzzle);
+			void loadPuzzle(const QModelIndex& index);
 			void configureShortcuts();
 			void configurePalapeli();
 		protected:
 			virtual void resizeEvent(QResizeEvent* event);
-			virtual void showEvent(QShowEvent* event);
 		private:
 			KMenuBar* m_menuBar;
 			Palapeli::KTabWidget* m_centralWidget;

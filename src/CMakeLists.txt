@@ -12,11 +12,10 @@ set(palapeli_SRCS
 	engine/viewmenu.cpp
 	engine/viewmenu-components.cpp
 	engine/zoomwidget.cpp
+	file-io/collection.cpp
+	file-io/collection-list.cpp
 	file-io/librarydelegate.cpp
-	file-io/librarymodel.cpp
 	file-io/puzzle.cpp
-	file-io/puzzlelocation.cpp
-	file-io/puzzlestream.cpp
 	main.cpp
 	window/librarywidget.cpp
 	window/mainwindow.cpp

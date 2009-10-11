@@ -17,8 +17,8 @@
 ***************************************************************************/
 
 #include "librarywidget.h"
+#include "../file-io/collection-list.h"
 #include "../file-io/librarydelegate.h"
-#include "../file-io/librarymodel.h"
 #include "../file-io/puzzle.h"
 
 #include <QListView>
@@ -27,17 +27,18 @@
 #include <KActionCollection>
 #include <KFileDialog>
 #include <KLocalizedString>
+#include <KStandardDirs>
 
 Palapeli::LibraryWidget::LibraryWidget()
 	: Palapeli::TabWindow(QLatin1String("palapeli-library"))
 	, m_view(new QListView)
-	, m_model(new Palapeli::LibraryModel)
+	, m_model(new Palapeli::LibraryCollection)
 {
 	//setup view
 	m_view->setModel(m_model);
 	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	Palapeli::LibraryDelegate* delegate = new Palapeli::LibraryDelegate(m_view);
-	connect(delegate, SIGNAL(playRequest(const QString&)), this, SLOT(handlePlayRequest(const QString&)));
+	connect(delegate, SIGNAL(playRequest(const QModelIndex&)), this, SIGNAL(playRequest(const QModelIndex&)));
 	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(handleSelectionChanged()));
 	//setup actions
 	KAction* importAct = new KAction(KIcon("document-import"), i18n("&Import..."), 0);
@@ -59,11 +60,6 @@ Palapeli::LibraryWidget::LibraryWidget()
 	setCentralWidget(m_view);
 }
 
-Palapeli::LibraryModel* Palapeli::LibraryWidget::model() const
-{
-	return m_model;
-}
-
 void Palapeli::LibraryWidget::resizeEvent(QResizeEvent* event)
 {
 	Q_UNUSED(event)
@@ -76,11 +72,14 @@ void Palapeli::LibraryWidget::resizeEvent(QResizeEvent* event)
 
 void Palapeli::LibraryWidget::handleDeleteRequest()
 {
+#if 0
 	m_model->deletePuzzle(m_view->selectionModel()->selectedIndexes());
+#endif
 }
 
 void Palapeli::LibraryWidget::handleExportRequest()
 {
+#if 0
 	QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
 	foreach (const QModelIndex& index, indexes)
 	{
@@ -93,32 +92,31 @@ void Palapeli::LibraryWidget::handleExportRequest()
 		if (!url.isEmpty())
 			m_model->exportPuzzle(index, url);
 	}
+#endif
 }
 
 void Palapeli::LibraryWidget::handleImportRequest()
 {
+#if 0
 	const QString filter = QLatin1String("*.puzzle|Palapeli puzzles (*.puzzle)");
 	KUrl::List urls = KFileDialog::getOpenUrls(KUrl("kfiledialog:///palapeli-import"), filter);
 	foreach (const KUrl& url, urls)
 		if (!url.isEmpty())
 			m_model->importPuzzle(url);
-}
-
-void Palapeli::LibraryWidget::handlePlayRequest(const QString& puzzleIdentifier)
-{
-	Palapeli::Puzzle* puzzle = m_model->puzzle(puzzleIdentifier);
-	if (puzzle)
-		emit playRequest(puzzle);
+#endif
 }
 
 void Palapeli::LibraryWidget::handleSelectionChanged()
 {
 	const QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
-	bool enableActions = false;
+	bool enableActions = true;
 	if (!indexes.isEmpty())
 		foreach (const QModelIndex& index, indexes)
-			if (index.data(Palapeli::LibraryModel::IsDeleteableRole) == QVariant(true))
-				enableActions = true;
+			if (index.data(Palapeli::Collection::IsDeleteableRole) == QVariant(true))
+			{
+				enableActions = false;
+				break;
+			}
 	m_deleteAct->setEnabled(enableActions);
 	m_exportAct->setEnabled(enableActions);
 }

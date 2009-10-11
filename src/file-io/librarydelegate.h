@@ -34,9 +34,11 @@ namespace Palapeli
 			virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 			virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
 		Q_SIGNALS:
-			void playRequest(const QString& puzzleIdentifier);
+			void playRequest(const QModelIndex& index);
 		private Q_SLOTS:
 			void handlePlayButton();
+		private:
+			QAbstractItemView* m_view;
 	};
 }
 

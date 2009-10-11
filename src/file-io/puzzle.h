@@ -19,11 +19,11 @@
 #ifndef PALAPELI_PUZZLE_H
 #define PALAPELI_PUZZLE_H
 
-#include "puzzlelocation.h"
 #include "puzzlestructs.h"
 
 class KJob;
 class KTempDir;
+#include <KUrl>
 
 namespace Palapeli
 {
@@ -32,17 +32,19 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			Puzzle(const Palapeli::PuzzleLocation& location);
+			Puzzle(const KUrl& location);
 			Puzzle(const Palapeli::Puzzle& other);
 			~Puzzle();
 
-			Palapeli::PuzzleLocation location() const;
-			void setLocation(const Palapeli::PuzzleLocation& location);
+			KUrl location() const;
+			void setLocation(const KUrl& location);
 
 			static const QSize ThumbnailBaseSize;
 			const Palapeli::PuzzleMetadata* metadata() const;
 			const Palapeli::PuzzleContents* contents() const;
 
+			///This can be used by a collection that provides metadata caching. Use only if you know what you're doing!
+			void injectMetadata(Palapeli::PuzzleMetadata* metadata);
 			///If metadata has already being read, this function will do nothing unless \a force is true.
 			bool readMetadata(bool force = false);
 			///If metadata has already being read, this function will do nothing unless \a force is true.
@@ -51,8 +53,8 @@ namespace Palapeli
 		private Q_SLOTS:
 			void writeFinished(KJob* job);
 		private:
-			Palapeli::PuzzleLocation m_location;
-			Palapeli::PuzzleLocation m_loadLocation; //This is an optimization flag: If nothing has been changed after the puzzle has been loaded, then the write() method will only copy the original puzzle file from this location to the current location.
+			KUrl m_location;
+			KUrl m_loadLocation; //This is an optimization flag: If nothing has been changed after the puzzle has been loaded, then the write() method will only copy the original puzzle file from this location to the current location.
 			Palapeli::PuzzleMetadata* m_metadata;
 			Palapeli::PuzzleContents* m_contents;
 			KTempDir* m_cache;

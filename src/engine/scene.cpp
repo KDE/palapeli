@@ -19,6 +19,7 @@
 #include "scene.h"
 #include "part.h"
 #include "piece.h"
+#include "../file-io/collection.h"
 #include "../file-io/puzzle.h"
 #include "settings.h"
 
@@ -34,15 +35,23 @@ Palapeli::Scene::Scene(QObject* parent)
 {
 }
 
-void Palapeli::Scene::loadPuzzle(Palapeli::Puzzle* puzzle)
+void Palapeli::Scene::loadPuzzle(const QModelIndex& index)
 {
+	//load puzzle
+	QObject* puzzlePayload = index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
+	Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
+	if (puzzle)
+		loadPuzzleInternal(puzzle, index.data(Palapeli::Collection::IdentifierRole).toString());
+}
+
+void Palapeli::Scene::loadPuzzleInternal(Palapeli::Puzzle* puzzle, const QString& identifier)
+{
+	//read puzzle
 	if (!puzzle->readContents()) //TODO: show error message if failed
 		return;
-	m_puzzle = puzzle;
-	m_identifier = puzzle->location().identifier(); //NOTE: m_identifier is only used for finding the savegame file
-	if (!puzzle->location().isFromLibrary())
-		m_identifier.prepend(QLatin1String("external-")); //avoid that external puzzles mess up the library savegames
 	const Palapeli::PuzzleContents* contents = puzzle->contents();
+	m_puzzle = puzzle;
+	m_identifier = identifier;
 	//clear scene
 	qDeleteAll(m_pieces); m_pieces.clear();
 	qDeleteAll(m_parts); m_parts.clear();
@@ -125,7 +134,7 @@ void Palapeli::Scene::restartPuzzle()
 	static const QString pathTemplate = QString::fromLatin1("puzzlelibrary/%1.save");
 	QFile(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier))).remove();
 	//reload puzzle
-	loadPuzzle(m_puzzle);
+	loadPuzzleInternal(m_puzzle, m_identifier);
 }
 
 #include "scene.moc"

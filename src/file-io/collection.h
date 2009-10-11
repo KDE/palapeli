@@ -16,51 +16,55 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_LIBRARYMODEL_H
-#define PALAPELI_LIBRARYMODEL_H
+#ifndef PALAPELI_COLLECTION_H
+#define PALAPELI_COLLECTION_H
 
 #include <QAbstractListModel>
-class KJob;
-class KUrl;
 
 namespace Palapeli
 {
 	class Puzzle;
 
-	class LibraryModel : public QAbstractListModel
+	class Collection : public QAbstractListModel
 	{
-		Q_OBJECT
+		Q_OBJECT //allow qobject_casts
 		public:
 			enum Roles {
+				//invisible metadata
 				IdentifierRole = Qt::UserRole + 1,
-				NameRole,
+				IsDeleteableRole,
+				//object references
+				PuzzleObjectRole = Qt::UserRole + 11, //contains a QObject* which can be casted to Palapeli::Puzzle*
+				CollectionObjectRole, //contains a QObject* which can be casted to Palapeli::Collection* (== this model)
+				//visible metadata
+				NameRole = Qt::UserRole + 21,
 				CommentRole,
 				AuthorRole,
 				PieceCountRole,
-				ThumbnailRole,
-				IsFromLibraryRole,
-				IsDeleteableRole
+				ThumbnailRole
 			};
 
-			LibraryModel(QObject* parent = 0);
-			virtual ~LibraryModel();
+			virtual ~Collection();
+
+			QString name() const;
+			virtual bool canImportPuzzles() const;
+			virtual bool importPuzzle(Palapeli::Puzzle* puzzle);
+			virtual bool canDeletePuzzle(const QModelIndex& index) const;
+			virtual bool deletePuzzle(const QModelIndex& index);
 
 			virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
 			virtual QVariant data(const QModelIndex& index, int role) const;
-			virtual Qt::ItemFlags flags(const QModelIndex& index) const;
+		protected:
+			Collection(); //"abstract base class"
 
-			Palapeli::Puzzle* puzzle(const QModelIndex& index) const;
-			Palapeli::Puzzle* puzzle(const QString& identifier) const;
-
-			void importPuzzle(const KUrl& url);
-			void exportPuzzle(const QModelIndex& index, const KUrl& url);
-			void deletePuzzle(const QModelIndexList& indexes);
-		private Q_SLOTS:
-			void importFinished(KJob* job);
-			void exportFinished(KJob* job);
+			QString addPuzzle(Palapeli::Puzzle* puzzle, const QString& identifier = QString()); ///< If no identifier is given, one will be generated. Returns the identifier of the new puzzle.
+			void removePuzzle(const QModelIndex& index);
+			void setName(const QString& name);
 		private:
+			QString m_name;
+			QList<QString> m_identifiers;
 			QList<Palapeli::Puzzle*> m_puzzles;
 	};
 }
 
-#endif // PALAPELI_LIBRARYMODEL_H
+#endif // PALAPELI_COLLECTION_H

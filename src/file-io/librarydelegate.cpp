@@ -17,7 +17,7 @@
 ***************************************************************************/
 
 #include "librarydelegate.h"
-#include "librarymodel.h"
+#include "collection.h"
 #include "puzzle.h"
 
 #include <QAbstractItemView>
@@ -32,6 +32,7 @@
 
 Palapeli::LibraryDelegate::LibraryDelegate(QAbstractItemView* view)
 	: KWidgetItemDelegate(view, view)
+	, m_view(view)
 {
 	view->setItemDelegate(this);
 }
@@ -88,14 +89,14 @@ void Palapeli::LibraryDelegate::updateItemWidgets(const QList<QWidget*> widgets,
 	QPushButton* addToLibraryButton = qobject_cast<QPushButton*>(layout->itemAtPosition(1, 2)->widget());
 	QPushButton* playButton = qobject_cast<QPushButton*>(layout->itemAtPosition(1, 3)->widget());
 	//retrieve data
-	const QString name = index.data(Palapeli::LibraryModel::NameRole).toString();
-	const QString comment = index.data(Palapeli::LibraryModel::CommentRole).toString();
-	const QString author = index.data(Palapeli::LibraryModel::AuthorRole).toString();
-	const QPixmap thumbnail = index.data(Palapeli::LibraryModel::ThumbnailRole).value<QPixmap>();
-	int pieceCount = index.data(Palapeli::LibraryModel::PieceCountRole).toInt();
+	const QString name = index.data(Palapeli::Collection::NameRole).toString();
+	const QString comment = index.data(Palapeli::Collection::CommentRole).toString();
+	const QString author = index.data(Palapeli::Collection::AuthorRole).toString();
+	const QPixmap thumbnail = index.data(Palapeli::Collection::ThumbnailRole).value<QPixmap>();
+	int pieceCount = index.data(Palapeli::Collection::PieceCountRole).toInt();
 	const QString pieceCountText = i18n("%1 pieces", pieceCount);
-	const QString identifier = index.data(Palapeli::LibraryModel::IdentifierRole).toString();
-	const bool fromLibrary = index.data(Palapeli::LibraryModel::IsFromLibraryRole).toBool();
+	const QString identifier = index.data(Palapeli::Collection::IdentifierRole).toString();
+	const bool fromLibrary = true; //TODO: index.data(Palapeli::Collection::IsFromLibraryRole).toBool() does not work anymore
 	static const QPixmap genericThumbnail = KIcon("preferences-plugin").pixmap(Palapeli::Puzzle::ThumbnailBaseSize);
 	//update widgets
 	const QString authorString = author.isEmpty() ? QString() : ki18nc("Author attribution, e.g. \"By Jack\"", "By %1").subs(author).toString();
@@ -135,20 +136,29 @@ void Palapeli::LibraryDelegate::paint(QPainter* painter, const QStyleOptionViewI
 
 QSize Palapeli::LibraryDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-    Q_UNUSED(option)
-    Q_UNUSED(index)
-    //only the height of the size hint is interesting
-    static const int topMargin = itemView()->style()->pixelMetric(QStyle::PM_LayoutTopMargin);
-    static const int bottomMargin = itemView()->style()->pixelMetric(QStyle::PM_LayoutBottomMargin);
-    static const int verticalSizeHint = Palapeli::Puzzle::ThumbnailBaseSize.height() + topMargin + bottomMargin;
-    return QSize(itemView()->viewport()->width(), verticalSizeHint);
+	Q_UNUSED(option)
+	Q_UNUSED(index)
+	//only the height of the size hint is interesting
+	static const int topMargin = itemView()->style()->pixelMetric(QStyle::PM_LayoutTopMargin);
+	static const int bottomMargin = itemView()->style()->pixelMetric(QStyle::PM_LayoutBottomMargin);
+	static const int verticalSizeHint = Palapeli::Puzzle::ThumbnailBaseSize.height() + topMargin + bottomMargin;
+	return QSize(itemView()->viewport()->width(), verticalSizeHint);
 }
 
 void Palapeli::LibraryDelegate::handlePlayButton()
 {
-	//The identifier of the according puzzle is saved in a dynamic property of the button.
-	const QString puzzleIdentifier = sender()->property("PuzzleIdentifier").toString();
-	emit playRequest(puzzleIdentifier);
+	//The identifier of the respective puzzle is saved in a dynamic property of the button.
+	const QString identifier = sender()->property("PuzzleIdentifier").value<QString>();
+	//get the index for this puzzle
+	const QModelIndexList indexes = m_view->model()->match(
+		m_view->model()->index(0, 0),         //search below this index
+		Palapeli::Collection::IdentifierRole, //search for identifiers...
+		identifier,                           //...matching this one
+		1,                                    //stop when the first one has been found
+		Qt::MatchRecursive                    //descend to child items
+	);
+	if (!indexes.isEmpty())
+		emit playRequest(indexes[0]);
 }
 
 #include "librarydelegate.moc"

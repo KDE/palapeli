@@ -19,6 +19,8 @@
 #ifndef PALAPELI_PUZZLESTRUCTS_H
 #define PALAPELI_PUZZLESTRUCTS_H
 
+#include <QMap>
+#include <QPair>
 #include <QPixmap>
 
 namespace Palapeli
@@ -28,11 +30,6 @@ namespace Palapeli
 		QString name, author, comment;
 		int pieceCount;
 		QPixmap thumbnail;
-	};
-
-	struct PuzzleStreamMetadata : public Palapeli::PuzzleMetadata
-	{
-		QString streamIdentifier, streamName;
 	};
 
 	struct PuzzleContents

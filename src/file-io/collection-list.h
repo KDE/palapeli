@@ -16,33 +16,46 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_PUZZLELOCATION_H
-#define PALAPELI_PUZZLELOCATION_H
+#ifndef PALAPELI_LISTCOLLECTION_H
+#define PALAPELI_LISTCOLLECTION_H
 
+#include "collection.h"
+
+#include <QStringList>
+class KConfig;
+class KJob;
 #include <KUrl>
 
 namespace Palapeli
 {
-	class PuzzleLocation
+	class ListCollection : public Palapeli::Collection
+	{
+		Q_OBJECT
+		public:
+			ListCollection(const KUrl& url);
+			virtual ~ListCollection();
+
+			virtual bool canImportPuzzles() const;
+			virtual bool importPuzzle(Palapeli::Puzzle* puzzle);
+			virtual bool canDeletePuzzle(const QModelIndex& index) const;
+			virtual bool deletePuzzle(const QModelIndex& index);
+		protected:
+			ListCollection(); //interface to subclasses
+			void setConfig(KConfig* config);
+		private Q_SLOTS:
+			void collectionDataCopyFinished(KJob* job);
+		private:
+			KUrl readUrl(const KUrl& url) const;
+
+			QStringList m_features;
+			KConfig* m_config;
+	};
+
+	class LibraryCollection : public Palapeli::ListCollection
 	{
 		public:
-			PuzzleLocation();
-			static Palapeli::PuzzleLocation fromLibrary(const QString& identifier);
-			static Palapeli::PuzzleLocation fromUrl(const KUrl& url);
-			static QList<Palapeli::PuzzleLocation> listLibrary();
-
-			bool isEmpty() const;
-			bool isFromLibrary() const;
-
-			KUrl url() const; ///Returns the URL of the puzzle file (determined via KStandardDirs for library puzzles).
-			QString identifier() const; ///Returns the identifier of the puzzle file (read from the filename if a URL is given).
-
-			bool operator==(const Palapeli::PuzzleLocation& other) const;
-		private:
-			KUrl m_url;
-			QString m_identifier;
-			bool m_fromLibrary;
+			LibraryCollection();
 	};
 }
 
-#endif // PALAPELI_PUZZLELOCATION_H
+#endif // PALAPELI_LISTCOLLECTION_H

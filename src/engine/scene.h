@@ -20,6 +20,7 @@
 #define PALAPELI_SCENE_H
 
 #include <QGraphicsScene>
+class QModelIndex;
 
 namespace Palapeli
 {
@@ -32,7 +33,7 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			Scene(QObject* parent = 0);
-			void loadPuzzle(Palapeli::Puzzle* puzzle);
+			void loadPuzzle(const QModelIndex& index);
 		public Q_SLOTS:
 			void restartPuzzle();
 		Q_SIGNALS:
@@ -41,6 +42,8 @@ namespace Palapeli
 			void partDestroyed(QObject* object);
 			void partMoved();
 		private:
+			void loadPuzzleInternal(Palapeli::Puzzle* puzzle, const QString& identifier);
+
 			QString m_identifier;
 			Palapeli::Puzzle* m_puzzle;
 			QList<Palapeli::Piece*> m_pieces;

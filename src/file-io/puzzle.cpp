@@ -18,69 +18,36 @@
 
 #include "puzzle.h"
 
-#include <QFileInfo>
 #include <KConfigGroup>
 #include <KDesktopFile>
 #include <KIO/CopyJob>
 #include <KIO/NetAccess>
-#include <KStandardDirs>
 #include <KTar>
 #include <KTempDir>
 
 const QSize Palapeli::Puzzle::ThumbnailBaseSize(64, 64);
 
-Palapeli::Puzzle::Puzzle(const Palapeli::PuzzleLocation& location)
+Palapeli::Puzzle::Puzzle(const KUrl& location)
 	: m_location(location)
 	, m_loadLocation(location)
 	, m_metadata(0)
 	, m_contents(0)
 	, m_cache(0)
 {
-	if (location.isFromLibrary())
-	{
-		KConfig cache(KStandardDirs::locateLocal("appdata", "puzzlelibrary/cache.conf"));
-		KConfigGroup cacheGroup(&cache, location.identifier());
-		const QDateTime fileModifyDate = QFileInfo(location.url().path()).lastModified();
-		//determine if cache can be used
-		bool useCache = false;
-		if (cache.hasGroup(location.identifier()))
-			useCache = fileModifyDate <= cacheGroup.readEntry("ModifyDateTime", QDateTime());
-		static const QString thumbnailPathTemplate = QString::fromLatin1("puzzlelibrary/%1.png");
-		const QString thumbnailPath = thumbnailPathTemplate.arg(location.identifier());
-		if (useCache)
-		{
-			//load metadata from cache
-			m_metadata = new Palapeli::PuzzleMetadata;
-			m_metadata->name = cacheGroup.readEntry("Name", QString());
-			m_metadata->author = cacheGroup.readEntry("Author", QString());
-			m_metadata->comment = cacheGroup.readEntry("Comment", QString());
-			m_metadata->pieceCount = cacheGroup.readEntry("PieceCount", 0);
-			m_metadata->thumbnail.load(KStandardDirs::locate("appdata", thumbnailPath));
-		}
-		else
-		{
-			//load metadata from archive
-			readMetadata();
-			//write metadata into cache
-			cacheGroup.writeEntry("ModifyDateTime", fileModifyDate);
-			cacheGroup.writeEntry("Name", m_metadata->name);
-			cacheGroup.writeEntry("Author", m_metadata->author);
-			cacheGroup.writeEntry("Comment", m_metadata->comment);
-			cacheGroup.writeEntry("PieceCount", m_metadata->pieceCount);
-			m_metadata->thumbnail.save(KStandardDirs::locateLocal("appdata", thumbnailPath));
-			cache.sync();
-		}
-	}
 }
 
 Palapeli::Puzzle::Puzzle(const Palapeli::Puzzle& other)
 	: QObject()
 	, m_location(other.m_location)
 	, m_loadLocation(other.m_loadLocation)
-	, m_metadata(new Palapeli::PuzzleMetadata(*other.m_metadata))
-	, m_contents(new Palapeli::PuzzleContents(*other.m_contents))
+	, m_metadata(0)
+	, m_contents(0)
 	, m_cache(0)
 {
+	if (other.m_metadata)
+		m_metadata = new Palapeli::PuzzleMetadata(*other.m_metadata);
+	if (other.m_contents)
+		m_contents = new Palapeli::PuzzleContents(*other.m_contents);
 }
 
 Palapeli::Puzzle::~Puzzle()
@@ -89,12 +56,12 @@ Palapeli::Puzzle::~Puzzle()
 	delete m_contents;
 }
 
-Palapeli::PuzzleLocation Palapeli::Puzzle::location() const
+KUrl Palapeli::Puzzle::location() const
 {
 	return m_location;
 }
 
-void Palapeli::Puzzle::setLocation(const Palapeli::PuzzleLocation& location)
+void Palapeli::Puzzle::setLocation(const KUrl& location)
 {
 	m_location = location;
 }
@@ -109,6 +76,12 @@ const Palapeli::PuzzleContents* Palapeli::Puzzle::contents() const
 	return m_contents;
 }
 
+void Palapeli::Puzzle::injectMetadata(Palapeli::PuzzleMetadata* metadata)
+{
+	delete m_metadata;
+	m_metadata = metadata;
+}
+
 bool Palapeli::Puzzle::readMetadata(bool force)
 {
 	if (m_metadata && !force)
@@ -117,13 +90,13 @@ bool Palapeli::Puzzle::readMetadata(bool force)
 	delete m_cache; m_cache = 0;
 	//make archive available locally
 	QString archiveFile;
-	if (!m_loadLocation.url().isLocalFile())
+	if (!m_loadLocation.isLocalFile())
 	{
-		if (!KIO::NetAccess::download(m_loadLocation.url(), archiveFile, 0))
+		if (!KIO::NetAccess::download(m_loadLocation, archiveFile, 0))
 			return false;
 	}
 	else
-		archiveFile = m_loadLocation.url().path();
+		archiveFile = m_loadLocation.path();
 	//open archive and extract into temporary directory
 	KTar tar(archiveFile, "application/x-bzip");
 	if (!tar.open(QIODevice::ReadOnly))
@@ -196,7 +169,7 @@ bool Palapeli::Puzzle::write()
 	//optimisation: if nothing has changed since the puzzle has been loaded, just copy the original puzzle file to the new location
 	if (m_loadLocation == m_location)
 	{
-		KIO::CopyJob* job = KIO::copy(m_loadLocation.url(), m_location.url());
+		KIO::CopyJob* job = KIO::copy(m_loadLocation, m_location);
 		connect(job, SIGNAL(result(KJob*)), this, SLOT(writeFinished(KJob*)));
 		return true;
 	}
