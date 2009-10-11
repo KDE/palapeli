@@ -47,6 +47,7 @@ Palapeli::LibraryWidget::LibraryWidget()
 	actionCollection()->addAction("file_import", importAct);
 	connect(importAct, SIGNAL(triggered()), this, SLOT(handleImportRequest()));
 	m_exportAct = new KAction(KIcon("document-export"), i18n("&Export..."), 0);
+	m_exportAct->setEnabled(false); //will be enabled when something is selected
 	m_exportAct->setToolTip(i18n("Export the selected puzzle from the library into a file"));
 	actionCollection()->addAction("file_export", m_exportAct);
 	connect(m_exportAct, SIGNAL(triggered()), this, SLOT(handleExportRequest()));
@@ -72,9 +73,9 @@ void Palapeli::LibraryWidget::resizeEvent(QResizeEvent* event)
 
 void Palapeli::LibraryWidget::handleDeleteRequest()
 {
-#if 0
-	m_model->deletePuzzle(m_view->selectionModel()->selectedIndexes());
-#endif
+	QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
+	foreach (const QModelIndex& index, indexes)
+		m_model->deletePuzzle(index);
 }
 
 void Palapeli::LibraryWidget::handleExportRequest()
@@ -106,15 +107,15 @@ void Palapeli::LibraryWidget::handleImportRequest()
 void Palapeli::LibraryWidget::handleSelectionChanged()
 {
 	const QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
-	bool enableActions = true;
-	if (!indexes.isEmpty())
-		foreach (const QModelIndex& index, indexes)
-			if (index.data(Palapeli::Collection::IsDeleteableRole) == QVariant(true))
-			{
-				enableActions = false;
-				break;
-			}
-	m_deleteAct->setEnabled(enableActions);
+	bool enableDeleteAct = !indexes.isEmpty();
+	foreach (const QModelIndex& index, indexes)
+		if (index.data(Palapeli::Collection::IsDeleteableRole) == QVariant(false))
+		{
+			enableDeleteAct = false;
+			break;
+		}
+	m_exportAct->setEnabled(!indexes.isEmpty());
+	m_deleteAct->setEnabled(enableDeleteAct);
 }
 
 #include "librarywidget.moc"

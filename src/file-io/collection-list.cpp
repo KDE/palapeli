@@ -20,6 +20,7 @@
 #include "puzzle.h"
 
 #include <QBuffer>
+#include <QFileInfo>
 #include <QUuid>
 #include <KConfig>
 #include <KConfigGroup>
@@ -164,15 +165,40 @@ bool Palapeli::ListCollection::importPuzzle(const Palapeli::Puzzle* const puzzle
 
 bool Palapeli::ListCollection::canDeletePuzzle(const QModelIndex& index) const
 {
-	if (m_features.contains("removepuzzle"))
-		return false; //TODO: Palapeli::ListCollection::canDeletePuzzle
-	else
+	if (!m_features.contains("removepuzzle"))
 		return false;
+	//get puzzle object
+	QObject* puzzlePayload = index.data(PuzzleObjectRole).value<QObject*>();
+	Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
+	if (!puzzle)
+		return false;
+	//check whether that particular file can be removed
+	QString file = puzzle->location().path();
+	return QFileInfo(file).isWritable();
+	//NOTE: This is a protection for the default puzzles, which are installed with read-only permissions.
 }
 
 bool Palapeli::ListCollection::deletePuzzle(const QModelIndex& index)
 {
-	return false; //TODO: Palapeli::ListCollection::deletePuzzle
+	if (!m_features.contains("removepuzzle"))
+		return false;
+	//get puzzle object
+	QObject* puzzlePayload = index.data(PuzzleObjectRole).value<QObject*>();
+	Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
+	if (!puzzle)
+		return false;
+	//check whether that particular file can be removed
+	QString file = puzzle->location().path();
+	if (!QFile(file).remove())
+		return false;
+	//remove file from config
+	KConfigGroup mainGroup(m_config, "Palapeli Collection");
+	const QString identifier = index.data(IdentifierRole).toString();
+	KConfigGroup(&mainGroup, identifier).deleteGroup();
+	m_config->sync();
+	//update internal storage
+	removePuzzle(index);
+	return true;
 }
 
 Palapeli::LibraryCollection::LibraryCollection()
