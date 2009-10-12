@@ -29,6 +29,7 @@ namespace Palapeli
 			CollectionDelegate(QObject* parent = 0);
 			virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 			virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
+			QRect thumbnailRect(const QRect& baseRect) const;
 		private:
 			void paintItem(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 			void paintHeader(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;

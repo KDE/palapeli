@@ -40,12 +40,19 @@ Palapeli::CollectionDelegate::CollectionDelegate(QObject* parent)
 		view->setItemDelegate(this);
 }
 
+QRect Palapeli::CollectionDelegate::thumbnailRect(const QRect& baseRect) const
+{
+	QRect thumbnailBaseRect(QPoint(Metrics::Padding + baseRect.left(), 0), Palapeli::Puzzle::ThumbnailBaseSize);
+	thumbnailBaseRect.moveCenter(QPoint(thumbnailBaseRect.center().x(), baseRect.center().y()));
+	if (QApplication::isRightToLeft())
+		thumbnailBaseRect.moveRight(baseRect.right() - Metrics::Padding);
+	return thumbnailBaseRect;
+}
+
 void Palapeli::CollectionDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
 	paintItem(painter, option, index);
 }
-
-#include <KDebug>
 
 void Palapeli::CollectionDelegate::paintItem(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
@@ -53,12 +60,8 @@ void Palapeli::CollectionDelegate::paintItem(QPainter* painter, const QStyleOpti
 	QRect baseRect = option.rect;
 	//draw background
 	QApplication::style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &option, painter, 0);
-	//find metrics: thumbnail
-	QRect thumbnailBaseRect(QPoint(Metrics::Padding + baseRect.left(), 0), Palapeli::Puzzle::ThumbnailBaseSize);
-	thumbnailBaseRect.moveCenter(QPoint(thumbnailBaseRect.center().x(), baseRect.center().y()));
-	if (rtl)
-		thumbnailBaseRect.moveRight(baseRect.right() - Metrics::Padding);
 	//draw thumbnail
+	QRect thumbnailBaseRect = this->thumbnailRect(baseRect);
 	if (!(option.state & QStyle::State_MouseOver))
 	{
 		QPixmap thumbnail = index.data(Palapeli::Collection::ThumbnailRole).value<QPixmap>();
@@ -117,7 +120,6 @@ void Palapeli::CollectionDelegate::paintItem(QPainter* painter, const QStyleOpti
 	textBaseRect.setHeight(totalTextHeight);
 	textBaseRect.moveTop(baseRect.top() + (baseRect.height() - textBaseRect.height()) / 2);
 	//draw texts
-	const int textFlags = (rtl ? Qt::AlignRight : Qt::AlignLeft) | Qt::AlignVCenter;
 	QRect currentTextRect(textBaseRect);
 	painter->save();
 	for (int i = 0; i < texts.count(); ++i)
@@ -125,7 +127,7 @@ void Palapeli::CollectionDelegate::paintItem(QPainter* painter, const QStyleOpti
 		painter->setFont(fonts[i]);
 		const QRect& textRect = textRects[i];
 		currentTextRect.setHeight(textRect.height());
-		painter->drawText(currentTextRect, textFlags, texts[i]);
+		painter->drawText(currentTextRect, Qt::AlignLeft | Qt::AlignVCenter, texts[i]);
 		currentTextRect.moveTop(currentTextRect.bottom());
 	}
 	painter->restore();
