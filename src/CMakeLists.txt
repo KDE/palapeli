@@ -16,6 +16,7 @@ set(palapeli_SRCS
 	file-io/collection-delegate.cpp
 	file-io/collection-filesystem.cpp
 	file-io/collection-list.cpp
+	file-io/collection-view.cpp
 	file-io/puzzle.cpp
 	main.cpp
 	window/librarywidget.cpp

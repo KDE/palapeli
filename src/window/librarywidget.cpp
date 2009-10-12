@@ -20,10 +20,9 @@
 #include "../file-io/collection-delegate.h"
 #include "../file-io/collection-filesystem.h"
 #include "../file-io/collection-list.h"
+#include "../file-io/collection-view.h"
 #include "../file-io/puzzle.h"
 
-#include <QListView>
-#include <QStandardItemModel>
 #include <KAction>
 #include <KActionCollection>
 #include <KLocalizedString>
@@ -31,15 +30,14 @@
 
 Palapeli::LibraryWidget::LibraryWidget()
 	: Palapeli::TabWindow(QLatin1String("palapeli-library"))
-	, m_view(new QListView)
+	, m_view(new Palapeli::CollectionView)
 	, m_model(new Palapeli::LibraryCollection)
 	, m_fsCollection(new Palapeli::FileSystemCollection)
 {
 	//setup view
 	m_view->setModel(m_model);
 	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
-	Palapeli::CollectionDelegate* delegate = new Palapeli::CollectionDelegate(m_view);
-	connect(delegate, SIGNAL(playRequest(const QModelIndex&)), this, SIGNAL(playRequest(const QModelIndex&)));
+	connect(m_view, SIGNAL(playRequest(const QModelIndex&)), this, SIGNAL(playRequest(const QModelIndex&)));
 	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(handleSelectionChanged()));
 	//setup actions
 	KAction* importAct = new KAction(KIcon("document-import"), i18n("&Import..."), 0);
@@ -59,16 +57,6 @@ Palapeli::LibraryWidget::LibraryWidget()
 	//setup GUI
 	setupGUI();
 	setCentralWidget(m_view);
-}
-
-void Palapeli::LibraryWidget::resizeEvent(QResizeEvent* event)
-{
-	Q_UNUSED(event)
-	//HACK: The KWidgetItemDelegate does not update its size hints after the view has resized.
-	QStandardItemModel emptyDummyModel;
-	m_view->setModel(&emptyDummyModel); //Using 0 here gives useless warnings.
-	m_view->setModel(m_model);
-	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(handleSelectionChanged()));
 }
 
 void Palapeli::LibraryWidget::handleDeleteRequest()

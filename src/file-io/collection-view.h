@@ -16,39 +16,34 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_LIBRARYWIDGET_H
-#define PALAPELI_LIBRARYWIDGET_H
+#ifndef PALAPELI_COLLECTIONVIEW_H
+#define PALAPELI_COLLECTIONVIEW_H
 
-#include "tabwindow.h"
-
-class QModelIndex;
-class KAction;
+#include <QListView>
+class QPushButton;
 
 namespace Palapeli
 {
-	class Collection;
-	class CollectionView;
-	class FileSystemCollection;
+	class CollectionDelegate;
 
-	class LibraryWidget : public Palapeli::TabWindow
+	class CollectionView : public QListView
 	{
 		Q_OBJECT
 		public:
-			LibraryWidget();
+			CollectionView();
 		Q_SIGNALS:
-			void playRequest(const QModelIndex& index);
+			void playRequest(const QModelIndex&);
+		protected:
+			virtual void mouseMoveEvent(QMouseEvent* event);
+			virtual void leaveEvent(QEvent* event);
+			void setHoveredIndex(const QModelIndex& index);
 		private Q_SLOTS:
-			void handleDeleteRequest();
-			void handleExportRequest();
-			void handleImportRequest();
-			void handleSelectionChanged();
+			void playButtonClicked();
 		private:
-			Palapeli::CollectionView* m_view;
-			Palapeli::Collection* m_model;
-			Palapeli::FileSystemCollection* m_fsCollection;
-			KAction* m_exportAct;
-			KAction* m_deleteAct;
+			Palapeli::CollectionDelegate* m_delegate;
+			QString m_hoveredPuzzleIdentifier;
+			QPushButton* m_playButton;
 	};
 }
 
-#endif // PALAPELI_LIBRARYWIDGET_H
+#endif // PALAPELI_COLLECTIONVIEW_H
