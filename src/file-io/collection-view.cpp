@@ -32,22 +32,27 @@ Palapeli::CollectionView::CollectionView()
 	m_playButton->setIconSize(QSize(32, 32));
 	connect(m_playButton, SIGNAL(clicked()), this, SLOT(playButtonClicked()));
 	setMouseTracking(true);
+	viewport()->installEventFilter(this);
 }
 
-//TODO: Mouse position recognition is a bit buggy. Perhaps install an event filter on the viewport instead?
-
-void Palapeli::CollectionView::mouseMoveEvent(QMouseEvent* event)
+bool Palapeli::CollectionView::eventFilter(QObject* object, QEvent* event)
 {
-	QListView::mouseMoveEvent(event);
-	const QPoint viewMousePos = event->pos();
-	const QPoint viewportMousePos = viewport()->mapFrom(this, viewMousePos);
-	setHoveredIndex(indexAt(viewportMousePos));
-}
-
-void Palapeli::CollectionView::leaveEvent(QEvent* event)
-{
-	QListView::leaveEvent(event);
-	setHoveredIndex(QModelIndex());
+	//own event processing
+	if (object == viewport())
+	{
+		if (event->type() == QEvent::MouseMove)
+		{
+			QPoint mousePos = static_cast<QMouseEvent*>(event)->pos();
+			setHoveredIndex(indexAt(mousePos));
+		}
+		else if (event->type() == QEvent::Leave)
+		{
+			QListView::leaveEvent(event);
+			setHoveredIndex(QModelIndex());
+		}
+	}
+	//pass to base class (we do not filter any events, we just react on them)
+	return QListView::eventFilter(object, event);
 }
 
 void Palapeli::CollectionView::setHoveredIndex(const QModelIndex& index)

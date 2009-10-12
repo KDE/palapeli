@@ -34,8 +34,7 @@ namespace Palapeli
 		Q_SIGNALS:
 			void playRequest(const QModelIndex&);
 		protected:
-			virtual void mouseMoveEvent(QMouseEvent* event);
-			virtual void leaveEvent(QEvent* event);
+			virtual bool eventFilter(QObject* object, QEvent* event);
 			void setHoveredIndex(const QModelIndex& index);
 		private Q_SLOTS:
 			void playButtonClicked();
