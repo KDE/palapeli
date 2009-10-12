@@ -16,30 +16,23 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_LIBRARYDELEGATE_H
-#define PALAPELI_LIBRARYDELEGATE_H
+#ifndef PALAPELI_COLLECTIONDELEGATE_H
+#define PALAPELI_COLLECTIONDELEGATE_H
 
-#include <KWidgetItemDelegate>
+#include <QStyledItemDelegate>
 
 namespace Palapeli
 {
-	class LibraryDelegate : public KWidgetItemDelegate
+	class CollectionDelegate : public QStyledItemDelegate
 	{
-		Q_OBJECT
 		public:
-			explicit LibraryDelegate(QAbstractItemView* view);
-
-			virtual QList<QWidget*> createItemWidgets() const;
-			virtual void updateItemWidgets(const QList<QWidget*> widgets, const QStyleOptionViewItem& option, const QPersistentModelIndex& index) const;
+			CollectionDelegate(QObject* parent = 0);
 			virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 			virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
-		Q_SIGNALS:
-			void playRequest(const QModelIndex& index);
-		private Q_SLOTS:
-			void handlePlayButton();
 		private:
-			QAbstractItemView* m_view;
+			void paintItem(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+			void paintHeader(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 	};
 }
 
-#endif // PALAPELI_LIBRARYDELEGATE_H
+#endif // PALAPELI_COLLECTIONDELEGATE_H

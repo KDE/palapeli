@@ -17,9 +17,9 @@
 ***************************************************************************/
 
 #include "librarywidget.h"
+#include "../file-io/collection-delegate.h"
 #include "../file-io/collection-filesystem.h"
 #include "../file-io/collection-list.h"
-#include "../file-io/librarydelegate.h"
 #include "../file-io/puzzle.h"
 
 #include <QListView>
@@ -38,7 +38,7 @@ Palapeli::LibraryWidget::LibraryWidget()
 	//setup view
 	m_view->setModel(m_model);
 	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
-	Palapeli::LibraryDelegate* delegate = new Palapeli::LibraryDelegate(m_view);
+	Palapeli::CollectionDelegate* delegate = new Palapeli::CollectionDelegate(m_view);
 	connect(delegate, SIGNAL(playRequest(const QModelIndex&)), this, SIGNAL(playRequest(const QModelIndex&)));
 	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(handleSelectionChanged()));
 	//setup actions
