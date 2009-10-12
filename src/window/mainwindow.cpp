@@ -79,7 +79,10 @@ void Palapeli::MainWindow::resizeEvent(QResizeEvent* event)
 	const QSize tabBarSize = m_centralWidget->tabBar()->sizeHint();
 	const QSize menuBarSize = m_menuBar->sizeHint();
 	//...in X direction
-	rect.moveLeft(tabBarSize.width());
+	if (QApplication::isLeftToRight())
+		rect.setLeft(tabBarSize.width());
+	else
+		rect.setRight(rect.width() - tabBarSize.width());
 	//...in Y direction
 	const int height = menuBarSize.height();
 	const int maxHeight = tabBarSize.height() - style()->pixelMetric(QStyle::PM_TabBarBaseHeight, 0, this);
