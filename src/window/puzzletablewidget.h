@@ -25,6 +25,7 @@ namespace Palapeli
 {
 	class TextProgressBar;
 	class View;
+	class ZoomWidget;
 
 	class PuzzleTableWidget : public Palapeli::TabWindow
 	{
@@ -38,6 +39,7 @@ namespace Palapeli
 		private:
 			Palapeli::View* m_view;
 			Palapeli::TextProgressBar* m_progressBar;
+			Palapeli::ZoomWidget* m_zoomWidget;
 	};
 }
 

@@ -49,6 +49,7 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	: Palapeli::TabWindow(QLatin1String("palapeli-puzzletable"))
 	, m_view(new Palapeli::View)
 	, m_progressBar(new Palapeli::TextProgressBar(this))
+	, m_zoomWidget(new Palapeli::ZoomWidget(this))
 {
 	//setup actions
 	KAction* restartPuzzleAct = new KAction(KIcon("document-reload"), i18n("&Restart puzzle..."), 0);
@@ -60,17 +61,17 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	m_progressBar->setText(i18n("No puzzle loaded"));
 	connect(m_view->scene(), SIGNAL(reportProgress(int, int)), this, SLOT(reportProgress(int, int)));
 	//setup zoom widget
-	Palapeli::ZoomWidget* zoomWidget = new Palapeli::ZoomWidget(this);
-	connect(zoomWidget, SIGNAL(levelChanged(qreal)), m_view, SLOT(zoomTo(qreal)));
-	connect(zoomWidget, SIGNAL(zoomInRequest()), m_view, SLOT(zoomIn()));
-	connect(zoomWidget, SIGNAL(zoomOutRequest()), m_view, SLOT(zoomOut()));
-	connect(m_view, SIGNAL(zoomLevelChanged(qreal)), zoomWidget, SLOT(setLevel(qreal)));
+	m_zoomWidget->setEnabled(false); //will be enabled when a puzzle is loaded
+	connect(m_zoomWidget, SIGNAL(levelChanged(qreal)), m_view, SLOT(zoomTo(qreal)));
+	connect(m_zoomWidget, SIGNAL(zoomInRequest()), m_view, SLOT(zoomIn()));
+	connect(m_zoomWidget, SIGNAL(zoomOutRequest()), m_view, SLOT(zoomOut()));
+	connect(m_view, SIGNAL(zoomLevelChanged(qreal)), m_zoomWidget, SLOT(setLevel(qreal)));
 	//setup layout
 	QWidget* container = new QWidget;
 	QGridLayout* layout = new QGridLayout;
 	layout->addWidget(m_view, 0, 0, 1, 2);
 	layout->addWidget(m_progressBar, 1, 0);
-	layout->addWidget(zoomWidget, 1, 1);
+	layout->addWidget(m_zoomWidget, 1, 1);
 	layout->setColumnStretch(0, 10);
 	layout->setMargin(0);
 	container->setLayout(layout);
@@ -84,6 +85,7 @@ Palapeli::View* Palapeli::PuzzleTableWidget::view() const
 
 void Palapeli::PuzzleTableWidget::reportProgress(int pieceCount, int partCount)
 {
+	m_zoomWidget->setEnabled(pieceCount > 0); //zoom does not work reliably when no puzzle is loaded
 	if (m_progressBar->minimum() != 0)
 		m_progressBar->setMinimum(0);
 	if (m_progressBar->maximum() != pieceCount - 1)
