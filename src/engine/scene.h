@@ -19,7 +19,9 @@
 #ifndef PALAPELI_SCENE_H
 #define PALAPELI_SCENE_H
 
+#include <QFutureWatcher>
 #include <QGraphicsScene>
+#include <QMap>
 class QModelIndex;
 
 namespace Palapeli
@@ -41,13 +43,21 @@ namespace Palapeli
 		private Q_SLOTS:
 			void partDestroyed(QObject* object);
 			void partMoved();
+			//loading steps
+			void startLoading();
+			void continueLoading();
+			void loadNextPart();
+			void finishLoading();
 		private:
-			void loadPuzzleInternal(Palapeli::Puzzle* puzzle, const QString& identifier);
+			void loadPuzzleInternal();
 
 			QString m_identifier;
 			Palapeli::Puzzle* m_puzzle;
-			QList<Palapeli::Piece*> m_pieces;
+			QMap<int, Palapeli::Piece*> m_pieces;
 			QList<Palapeli::Part*> m_parts;
+			//some stuff needed for loading puzzles
+			bool m_loadingPuzzle;
+			QFutureWatcher<bool> m_metadataLoader;
 	};
 }
 

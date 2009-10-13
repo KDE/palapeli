@@ -20,6 +20,7 @@ set(palapeli_SRCS
 	file-io/puzzle.cpp
 	main.cpp
 	window/librarywidget.cpp
+	window/loadingwidget.cpp
 	window/mainwindow.cpp
 	window/puzzletablewidget.cpp
 	window/tabwindow.cpp

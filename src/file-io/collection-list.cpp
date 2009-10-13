@@ -108,7 +108,10 @@ void Palapeli::ListCollection::addPuzzleInternal(Palapeli::Puzzle* puzzle, const
 	if (name.isEmpty())
 	{
 		//fill cache
-		if (puzzle->readMetadata() && m_features.contains("writecache"))
+		bool hasMetadata = (bool) puzzle->metadata();
+		if (!hasMetadata)
+			hasMetadata = puzzle->readMetadata();
+		if (hasMetadata && m_features.contains("writecache"))
 		{
 			puzzleGroup.writeEntry("Name", puzzle->metadata()->name);
 			puzzleGroup.writeEntry("Comment", puzzle->metadata()->comment);
@@ -116,7 +119,7 @@ void Palapeli::ListCollection::addPuzzleInternal(Palapeli::Puzzle* puzzle, const
 			puzzleGroup.writeEntry("PieceCount", puzzle->metadata()->pieceCount);
 			//NOTE: Writing the thumbnail is a bit harder, because KConfig does not support images directly.
 			QBuffer buffer;
-			puzzle->metadata()->thumbnail.toImage().save(&buffer, "PNG");
+			puzzle->metadata()->thumbnail.save(&buffer, "PNG");
 			puzzleGroup.writeEntry("Thumbnail", buffer.data());
 			m_config->sync();
 		}
@@ -130,7 +133,7 @@ void Palapeli::ListCollection::addPuzzleInternal(Palapeli::Puzzle* puzzle, const
 		metadata->pieceCount = puzzleGroup.readEntry("PieceCount", 0);
 		//NOTE: Reading the thumbnail is a bit harder, because KConfig does not support images directly.
 		QImage image; image.loadFromData(puzzleGroup.readEntry("Thumbnail", QByteArray()));
-		metadata->thumbnail = QPixmap::fromImage(image);
+		metadata->thumbnail = image;
 		puzzle->injectMetadata(metadata);
 	}
 	addPuzzle(puzzle, identifier);

@@ -85,7 +85,7 @@ void Palapeli::Puzzle::injectMetadata(Palapeli::PuzzleMetadata* metadata)
 
 bool Palapeli::Puzzle::readMetadata(bool force)
 {
-	if (m_metadata && !force)
+	if (m_metadata && m_cache && !force)
 		return true; //nothing to do
 	delete m_metadata; m_metadata = 0;
 	delete m_cache; m_cache = 0;
@@ -118,7 +118,7 @@ bool Palapeli::Puzzle::readMetadata(bool force)
 	m_metadata->name = manifest.readName();
 	m_metadata->author = manifest.desktopGroup().readEntry("X-KDE-PluginInfo-Author", QString());
 	m_metadata->comment = manifest.readComment();
-	m_metadata->thumbnail = QPixmap(m_cache->name() + "thumbnail.jpg").scaled(ThumbnailBaseSize, Qt::KeepAspectRatio);
+	m_metadata->thumbnail = QImage(m_cache->name() + "thumbnail.jpg").scaled(ThumbnailBaseSize, Qt::KeepAspectRatio);
 	//find piece count
 	KConfigGroup offsetGroup(&manifest, "PieceOffsets");
 	QList<QString> offsetGroupKeys = offsetGroup.entryMap().keys();
@@ -132,9 +132,8 @@ bool Palapeli::Puzzle::readContents(bool force)
 {
 	if (m_contents && !force)
 		return true; //nothing to do
-	if (!m_cache)
-		if (!readMetadata(true)) //try to load puzzle file
-			return false;
+	if (!readMetadata(true)) //try to load puzzle file
+		return false;
 	delete m_contents; m_contents = new Palapeli::PuzzleContents;
 	//load more metadata
 	KDesktopFile manifest(m_cache->name() + "pala.desktop");

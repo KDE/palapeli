@@ -21,8 +21,11 @@
 
 #include "tabwindow.h"
 
+class QStackedWidget;
+
 namespace Palapeli
 {
+	class LoadingWidget;
 	class TextProgressBar;
 	class View;
 	class ZoomWidget;
@@ -37,6 +40,8 @@ namespace Palapeli
 		public Q_SLOTS:
 			void reportProgress(int pieceCount, int partCount);
 		private:
+			QStackedWidget* m_stack;
+			Palapeli::LoadingWidget* m_loadingWidget;
 			Palapeli::View* m_view;
 			Palapeli::TextProgressBar* m_progressBar;
 			Palapeli::ZoomWidget* m_zoomWidget;

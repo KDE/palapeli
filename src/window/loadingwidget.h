@@ -16,29 +16,26 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_PUZZLESTRUCTS_H
-#define PALAPELI_PUZZLESTRUCTS_H
+#ifndef PALAPELI_LOADINGWIDGET_H
+#define PALAPELI_LOADINGWIDGET_H
 
-#include <QMap>
-#include <QPair>
-#include <QPixmap>
+class QTimer;
+#include <QWidget>
 
 namespace Palapeli
 {
-	struct PuzzleMetadata
+	class LoadingWidget : public QWidget
 	{
-		QString name, author, comment;
-		int pieceCount;
-		QImage thumbnail;
-	};
-
-	struct PuzzleContents
-	{
-		QSize imageSize;
-		QMap<int, QPixmap> pieces;
-		QMap<int, QPoint> pieceOffsets;
-		QList<QPair<int, int> > relations;
+		public:
+			LoadingWidget(QWidget* parent = 0);
+		protected:
+			virtual void showEvent(QShowEvent* event);
+			virtual void hideEvent(QHideEvent* event);
+			virtual void paintEvent(QPaintEvent* event);
+		private:
+			int m_progress;
+			QTimer* m_updateTimer;
 	};
 }
 
-#endif // PALAPELI_PUZZLESTRUCTS_H
+#endif // PALAPELI_LOADINGWIDGET_H

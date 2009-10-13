@@ -21,15 +21,16 @@
 #include "collection-delegate.h"
 
 #include <QMouseEvent>
-#include <QPushButton>
+#include <QToolButton>
 #include <KIcon>
 
 Palapeli::CollectionView::CollectionView()
 	: m_delegate(new Palapeli::CollectionDelegate(this))
-	, m_playButton(new QPushButton(KIcon("media-playback-start"), QString(), viewport()))
+	, m_playButton(new QToolButton(viewport()))
 {
 	m_playButton->setVisible(false);
-	m_playButton->setIconSize(QSize(32, 32));
+	m_playButton->setIconSize(QSize(48, 48));
+	m_playButton->setIcon(KIcon("media-playback-start"));
 	connect(m_playButton, SIGNAL(clicked()), this, SLOT(playButtonClicked()));
 	setMouseTracking(true);
 	viewport()->installEventFilter(this);

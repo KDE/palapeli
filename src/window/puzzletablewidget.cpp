@@ -17,12 +17,14 @@
 ***************************************************************************/
 
 #include "puzzletablewidget.h"
+#include "loadingwidget.h"
 #include "../engine/scene.h"
 #include "../engine/view.h"
 #include "../engine/zoomwidget.h"
 
 #include <QGridLayout>
 #include <QProgressBar>
+#include <QStackedWidget>
 #include <KAction>
 #include <KActionCollection>
 #include <KLocalizedString>
@@ -47,6 +49,8 @@ namespace Palapeli
 
 Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	: Palapeli::TabWindow(QLatin1String("palapeli-puzzletable"))
+	, m_stack(new QStackedWidget)
+	, m_loadingWidget(new Palapeli::LoadingWidget)
 	, m_view(new Palapeli::View)
 	, m_progressBar(new Palapeli::TextProgressBar(this))
 	, m_zoomWidget(new Palapeli::ZoomWidget(this))
@@ -66,10 +70,14 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	connect(m_zoomWidget, SIGNAL(zoomInRequest()), m_view, SLOT(zoomIn()));
 	connect(m_zoomWidget, SIGNAL(zoomOutRequest()), m_view, SLOT(zoomOut()));
 	connect(m_view, SIGNAL(zoomLevelChanged(qreal)), m_zoomWidget, SLOT(setLevel(qreal)));
+	//setup widget stack
+	m_stack->addWidget(m_loadingWidget);
+	m_stack->addWidget(m_view);
+	m_stack->setCurrentWidget(m_loadingWidget);
 	//setup layout
 	QWidget* container = new QWidget;
 	QGridLayout* layout = new QGridLayout;
-	layout->addWidget(m_view, 0, 0, 1, 2);
+	layout->addWidget(m_stack, 0, 0, 1, 2);
 	layout->addWidget(m_progressBar, 1, 0);
 	layout->addWidget(m_zoomWidget, 1, 1);
 	layout->setColumnStretch(0, 10);
@@ -90,18 +98,27 @@ void Palapeli::PuzzleTableWidget::reportProgress(int pieceCount, int partCount)
 		m_progressBar->setMinimum(0);
 	if (m_progressBar->maximum() != pieceCount - 1)
 		m_progressBar->setMaximum(pieceCount - 1);
-	const int value = pieceCount - partCount;
-	if (m_progressBar->value() != value)
+	if (m_progressBar->minimum() == m_progressBar->maximum())
+		m_progressBar->setMaximum(m_progressBar->minimum());
+	else
 	{
-		m_progressBar->setValue(value);
-		if (partCount == 1)
-			m_progressBar->setText(i18n("You finished the puzzle."));
-		else
+		const int value = pieceCount - partCount;
+		if (m_progressBar->value() != value)
 		{
-			int percentFinished = qreal(value) / qreal(pieceCount - 1) * 100;
-			m_progressBar->setText(i18nc("Progress display", "%1% finished", percentFinished));
+			m_progressBar->setValue(value);
+			if (partCount == 1)
+				m_progressBar->setText(i18n("You finished the puzzle."));
+			else
+			{
+				int percentFinished = qreal(value) / qreal(pieceCount - 1) * 100;
+				m_progressBar->setText(i18nc("Progress display", "%1% finished", percentFinished));
+			}
 		}
 	}
+	if (pieceCount > 0)
+		m_stack->setCurrentWidget(m_view);
+	else
+		m_stack->setCurrentWidget(m_loadingWidget);
 }
 
 #include "puzzletablewidget.moc"

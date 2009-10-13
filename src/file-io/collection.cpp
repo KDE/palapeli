@@ -32,8 +32,7 @@ Palapeli::Collection::~Collection()
 
 QString Palapeli::Collection::addPuzzle(Palapeli::Puzzle* puzzle, const QString& identifier)
 {
-	//ensure that the puzzle's metadata is available
-	puzzle->readMetadata();
+	//NOTE: the subclass implementation has to make sure that the puzzle's metadata is available
 	//generate an identifier if necessary
 	QString theIdentifier = identifier.isEmpty() ? QUuid::createUuid().toString() : identifier;
 	//add puzzle to list

@@ -20,7 +20,7 @@
 #define PALAPELI_COLLECTIONVIEW_H
 
 #include <QListView>
-class QPushButton;
+class QToolButton;
 
 namespace Palapeli
 {
@@ -41,7 +41,7 @@ namespace Palapeli
 		private:
 			Palapeli::CollectionDelegate* m_delegate;
 			QString m_hoveredPuzzleIdentifier;
-			QPushButton* m_playButton;
+			QToolButton* m_playButton;
 	};
 }
 
