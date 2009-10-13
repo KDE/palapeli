@@ -54,6 +54,7 @@ Palapeli::MainWindow::MainWindow()
 	//setup widgets
 	m_centralWidget->addTab(m_library, i18n("My library"));
 	m_centralWidget->addTab(m_puzzleTable, i18n("Puzzle table"));
+	m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_puzzleTable), false); //... until a puzzle has been loaded
 	m_centralWidget->setCurrentWidget(m_library);
 	connect(m_library, SIGNAL(playRequest(const QModelIndex&)), this, SLOT(loadPuzzle(const QModelIndex&)));
 	//setup main window
@@ -104,6 +105,7 @@ void Palapeli::MainWindow::configureShortcuts()
 void Palapeli::MainWindow::loadPuzzle(const QModelIndex& index)
 {
 	m_puzzleTable->view()->scene()->loadPuzzle(index);
+	m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_puzzleTable), true);
 	m_centralWidget->setCurrentWidget(m_puzzleTable);
 }
 

@@ -25,9 +25,10 @@
 Palapeli::LoadingWidget::LoadingWidget(QWidget* parent)
 	: QWidget(parent)
 	, m_updateTimer(new QTimer)
+	, m_angleDegrees(0)
 {
 	setMinimumSize(QSize(64, 64));
-	m_updateTimer->setInterval(50);
+	m_updateTimer->setInterval(30);
 	connect(m_updateTimer, SIGNAL(timeout()), this, SLOT(update()));
 }
 
@@ -46,7 +47,9 @@ void Palapeli::LoadingWidget::hideEvent(QHideEvent* event)
 void Palapeli::LoadingWidget::paintEvent(QPaintEvent* event)
 {
 	Q_UNUSED(event)
-	++m_progress;
+	m_angleDegrees = (m_angleDegrees + 14) % 360;
+	const qreal pointerAngle = 2 * M_PI * m_angleDegrees / 360.0;
+	const QPointF pointerDirection(cos(pointerAngle), sin(pointerAngle));
 
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
@@ -56,18 +59,18 @@ void Palapeli::LoadingWidget::paintEvent(QPaintEvent* event)
 	//metrics
 	const QPoint center = rect().center();
 	const qreal distance = 32;
-	int circleSizes[] = {16, 12, 6, 5, 5, 6, 12, 16};
 	for (int i = 0; i < 8; ++i)
 	{
 		//determine position of circle
 		const qreal angle = 0.25 * M_PI * i;
-		const QPoint thisOffset(distance * cos(angle), distance * sin(angle));
-		const QPoint thisCenter = center + thisOffset;
+		const QPointF thisDirection(cos(angle), sin(angle));
+		const QPoint thisCenter = center + (distance * thisDirection).toPoint();
 		//determine size of circle
-		int thisCircleSize = circleSizes[qAbs(i - m_progress) % 8];
-		QSize thisSize(thisCircleSize, thisCircleSize);
+		const qreal scalarProd = thisDirection.x() * pointerDirection.x() + thisDirection.y() * pointerDirection.y();
+		const qreal thisCircleSize = 10 + 5 * scalarProd;
+		QSizeF thisSize(thisCircleSize, thisCircleSize);
 		//draw circle
-		QRect thisRect(QPoint(), thisSize);
+		QRectF thisRect(QPointF(), thisSize);
 		thisRect.moveCenter(thisCenter);
 		painter.drawEllipse(thisRect);
 	}

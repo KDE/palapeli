@@ -33,8 +33,8 @@ namespace Palapeli
 			virtual void hideEvent(QHideEvent* event);
 			virtual void paintEvent(QPaintEvent* event);
 		private:
-			int m_progress;
 			QTimer* m_updateTimer;
+			int m_angleDegrees;
 	};
 }
 
