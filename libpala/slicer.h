@@ -74,6 +74,9 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 			 * \see Pala::SlicerJob
 			 */
 			virtual bool run(Pala::SlicerJob* job) = 0;
+
+			//This class is the only interface that slicers can use to communicate with Palapeli, and it is only instantiated very few times (one instance per slicer plugin), so it should be reasonable to reserve some space in the virtual table for future additions.
+			RESERVE_VIRTUAL_5
 		protected:
 			///Add the given property to the property list of this slicer. Use this method in the subclass constructors to fill the slicer with properties. Properties let the user control how the slicing is done.
 			void addProperty(const QByteArray& key, Pala::SlicerProperty* property);
