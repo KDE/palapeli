@@ -34,6 +34,7 @@ namespace Palapeli
 		public:
 			Puzzle(const KUrl& location);
 			Puzzle(const Palapeli::Puzzle& other);
+			Puzzle(Palapeli::PuzzleMetadata* metadata, Palapeli::PuzzleContents* contents, Palapeli::PuzzleCreationContext* creationContext = 0);
 			~Puzzle();
 
 			KUrl location() const;
@@ -53,10 +54,13 @@ namespace Palapeli
 		private Q_SLOTS:
 			void writeFinished(KJob* job);
 		private:
+			void createNewArchiveFile();
+
 			KUrl m_location;
 			KUrl m_loadLocation; //This is an optimization flag: If nothing has been changed after the puzzle has been loaded, then the write() method will only copy the original puzzle file from this location to the current location. When something is changed, m_loadLocation will be cleared.
 			Palapeli::PuzzleMetadata* m_metadata;
 			Palapeli::PuzzleContents* m_contents;
+			Palapeli::PuzzleCreationContext* m_creationContext; //NOTE: This is NOT copied in copy-constructors.
 			KTempDir* m_cache;
 	};
 }

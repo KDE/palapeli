@@ -27,6 +27,7 @@
 #include <KActionCollection>
 #include <KLocalizedString>
 #include <KStandardDirs>
+#include <KStandardShortcut>
 
 Palapeli::LibraryWidget::LibraryWidget()
 	: Palapeli::TabWindow(QLatin1String("palapeli-library"))
@@ -41,6 +42,7 @@ Palapeli::LibraryWidget::LibraryWidget()
 	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(handleSelectionChanged()));
 	//setup actions
 	KAction* createAct = new KAction(KIcon("tools-wizard"), i18n("Create &new puzzle..."), 0); //FIXME: This should be a custom "actions/puzzle-new" icon.
+	createAct->setShortcut(KStandardShortcut::openNew());
 	createAct->setToolTip(i18n("Create a new puzzle using an image file from your disk"));
 	actionCollection()->addAction("file_new", createAct);
 	connect(createAct, SIGNAL(triggered()), this, SIGNAL(createRequest()));

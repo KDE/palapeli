@@ -20,6 +20,7 @@
 #define PALAPELI_PUZZLECREATOR_H
 
 #include <QMap>
+class QStackedLayout;
 class KComboBox;
 #include <KDialog>
 class KLineEdit;
@@ -37,10 +38,15 @@ namespace Palapeli
 
 	class PuzzleCreatorDialog : public KDialog
 	{
+		Q_OBJECT
 		public:
 			PuzzleCreatorDialog();
 
 			Palapeli::Puzzle* result() const;
+		private Q_SLOTS:
+			void checkData();
+			void selectSlicerConfigWidget(int index);
+			void createPuzzle();
 		private:
 			Palapeli::Puzzle* m_result;
 			//general information
@@ -53,6 +59,7 @@ namespace Palapeli
 			//NOTE: The keys are retrieved from KService::library(), and should only be used internally.
 			QMap<QString, Pala::Slicer*> m_slicers;
 			QMap<QString, Palapeli::SlicerConfigWidget*> m_slicerConfigWidgets;
+			QStackedLayout* m_slicerConfigLayout;
 	};
 }
 

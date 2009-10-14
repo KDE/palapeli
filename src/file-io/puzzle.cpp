@@ -18,6 +18,7 @@
 
 #include "puzzle.h"
 
+#include <QtConcurrentRun>
 #include <KConfigGroup>
 #include <KDesktopFile>
 #include <KIO/FileCopyJob>
@@ -33,6 +34,7 @@ Palapeli::Puzzle::Puzzle(const KUrl& location)
 	, m_loadLocation(location)
 	, m_metadata(0)
 	, m_contents(0)
+	, m_creationContext(0)
 	, m_cache(0)
 {
 }
@@ -43,12 +45,21 @@ Palapeli::Puzzle::Puzzle(const Palapeli::Puzzle& other)
 	, m_loadLocation(other.m_loadLocation)
 	, m_metadata(0)
 	, m_contents(0)
+	, m_creationContext(0)
 	, m_cache(0)
 {
 	if (other.m_metadata)
 		m_metadata = new Palapeli::PuzzleMetadata(*other.m_metadata);
 	if (other.m_contents)
 		m_contents = new Palapeli::PuzzleContents(*other.m_contents);
+}
+
+Palapeli::Puzzle::Puzzle(Palapeli::PuzzleMetadata* metadata, Palapeli::PuzzleContents* contents, Palapeli::PuzzleCreationContext* creationContext)
+	: m_metadata(metadata)
+	, m_contents(contents)
+	, m_creationContext(creationContext)
+	, m_cache(0)
+{
 }
 
 Palapeli::Puzzle::~Puzzle()
@@ -86,7 +97,9 @@ void Palapeli::Puzzle::injectMetadata(Palapeli::PuzzleMetadata* metadata)
 bool Palapeli::Puzzle::readMetadata(bool force)
 {
 	if (m_metadata && m_cache && !force)
-		return true; //nothing to do
+		return true; //nothing to do (puzzle has been loaded from URL, and cache is already filled)
+	if (m_metadata && m_contents && m_loadLocation.isEmpty())
+		return true; //nothing to do (puzzle has just been created, and filling the cache could be harmful)
 	delete m_metadata; m_metadata = 0;
 	delete m_cache; m_cache = 0;
 	//make archive available locally
@@ -173,14 +186,22 @@ bool Palapeli::Puzzle::write()
 		connect(job, SIGNAL(result(KJob*)), this, SLOT(writeFinished(KJob*)));
 		return true;
 	}
-	//TODO: Palapeli::Puzzle::write NOT IMPLEMENTED YET for new puzzles
-	return false;
+	//the complex write operation (the one that creates and fills a new cache, and writes a new manifest) is being run in a separate thread
+	if (!m_metadata || !m_contents)
+		return false; //not enough data available for this operation
+	QtConcurrent::run(this, &Palapeli::Puzzle::createNewArchiveFile);
+	return true; //we don't know better and have to assume that Palapeli::Puzzle::createNewArchiveFile does not fail
 }
 
 void Palapeli::Puzzle::writeFinished(KJob* job)
 {
 	if (job->error())
 		static_cast<KIO::Job*>(job)->showErrorDialog();
+}
+
+void Palapeli::Puzzle::createNewArchiveFile()
+{
+	//TODO URGENT Palapeli::Puzzle::createNewArchiveFile()
 }
 
 #include "puzzle.moc"
