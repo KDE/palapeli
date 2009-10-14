@@ -32,13 +32,17 @@ namespace Pala
 
 namespace Palapeli
 {
+	class Puzzle;
 	class SlicerConfigWidget;
 
 	class PuzzleCreatorDialog : public KDialog
 	{
 		public:
 			PuzzleCreatorDialog();
+
+			Palapeli::Puzzle* result() const;
 		private:
+			Palapeli::Puzzle* m_result;
 			//general information
 			KUrlRequester* m_imageSelector;
 			KComboBox* m_slicerSelector;

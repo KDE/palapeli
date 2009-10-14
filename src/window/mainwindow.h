@@ -34,6 +34,7 @@ namespace Palapeli
 		public:
 			MainWindow();
 		public Q_SLOTS:
+			void createPuzzle();
 			void loadPuzzle(const QModelIndex& index);
 			void configureShortcuts();
 			void configurePalapeli();

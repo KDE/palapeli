@@ -26,16 +26,20 @@ class KAction;
 
 namespace Palapeli
 {
-	class Collection;
+	class ListCollection;
 	class CollectionView;
 	class FileSystemCollection;
+	class Puzzle;
 
 	class LibraryWidget : public Palapeli::TabWindow
 	{
 		Q_OBJECT
 		public:
 			LibraryWidget();
+
+			QModelIndex storeGeneratedPuzzle(Palapeli::Puzzle* puzzle);
 		Q_SIGNALS:
+			void createRequest();
 			void playRequest(const QModelIndex& index);
 		private Q_SLOTS:
 			void handleDeleteRequest();
@@ -44,7 +48,7 @@ namespace Palapeli
 			void handleSelectionChanged();
 		private:
 			Palapeli::CollectionView* m_view;
-			Palapeli::Collection* m_model;
+			Palapeli::ListCollection* m_libraryCollection;
 			Palapeli::FileSystemCollection* m_fsCollection;
 			KAction* m_exportAct;
 			KAction* m_deleteAct;

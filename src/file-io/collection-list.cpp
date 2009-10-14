@@ -139,6 +139,25 @@ void Palapeli::ListCollection::addPuzzleInternal(Palapeli::Puzzle* puzzle, const
 	addPuzzle(puzzle, identifier);
 }
 
+QModelIndex Palapeli::ListCollection::storeGeneratedPuzzle(Palapeli::Puzzle* puzzle)
+{
+	if (!puzzle)
+		return QModelIndex();
+	if (!puzzle->location().isEmpty())
+		return QModelIndex();
+	if (!importPuzzleInternal(puzzle))
+		return QModelIndex();
+	//find model index for this puzzle
+	for (int i = 0; i < rowCount(); ++i)
+	{
+		QModelIndex index = this->index(i);
+		if (index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>() == puzzle)
+			return index;
+	}
+	//if we did not find a QModelIndex, something strange is going on (because importPuzzleInternal reported success, but failed)
+	return QModelIndex();
+}
+
 bool Palapeli::ListCollection::canImportPuzzles() const
 {
 	return m_features.contains("importpuzzle");
@@ -148,21 +167,27 @@ bool Palapeli::ListCollection::importPuzzle(const Palapeli::Puzzle* const puzzle
 {
 	if (!puzzle->metadata())
 		return false;
+	//create a writable copy of the given puzzle, and import this into the library
+	Palapeli::Puzzle* newPuzzle = new Palapeli::Puzzle(*puzzle);
+	return importPuzzleInternal(newPuzzle);
+}
+
+bool Palapeli::ListCollection::importPuzzleInternal(Palapeli::Puzzle* puzzle)
+{
 	//determine location of new puzzle
 	const QString identifier = QUuid::createUuid().toString();
 	const QString fileName = QString("puzzlelibrary/%1.puzzle").arg(identifier);
 	const KUrl location(KStandardDirs::locateLocal("appdata", fileName));
 	//create a copy of the given puzzle, and relocate it to the new location
-	Palapeli::Puzzle* newPuzzle = new Palapeli::Puzzle(*puzzle);
-	newPuzzle->setLocation(location);
-	newPuzzle->write();
+	puzzle->setLocation(location);
+	puzzle->write();
 	//create the config group for this puzzle
 	KConfigGroup mainGroup(m_config, "Palapeli Collection");
 	KConfigGroup puzzleGroup(&mainGroup, identifier);
 	puzzleGroup.writeEntry("Location", QString("palapeli:///%1").arg(fileName)); //we use a pseudo-URL here, to avoid problems when the configuration directory is relocated
 	m_config->sync();
 	//add to the internal storage
-	addPuzzleInternal(newPuzzle, identifier);
+	addPuzzleInternal(puzzle, identifier);
 	return true;
 }
 

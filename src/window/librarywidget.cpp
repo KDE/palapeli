@@ -31,20 +31,24 @@
 Palapeli::LibraryWidget::LibraryWidget()
 	: Palapeli::TabWindow(QLatin1String("palapeli-library"))
 	, m_view(new Palapeli::CollectionView)
-	, m_model(new Palapeli::LibraryCollection)
+	, m_libraryCollection(new Palapeli::LibraryCollection)
 	, m_fsCollection(new Palapeli::FileSystemCollection)
 {
 	//setup view
-	m_view->setModel(m_model);
+	m_view->setModel(m_libraryCollection);
 	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	connect(m_view, SIGNAL(playRequest(const QModelIndex&)), this, SIGNAL(playRequest(const QModelIndex&)));
 	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(handleSelectionChanged()));
 	//setup actions
-	KAction* importAct = new KAction(KIcon("document-import"), i18n("&Import..."), 0);
+	KAction* createAct = new KAction(KIcon("tools-wizard"), i18n("Create &new puzzle..."), 0); //FIXME: This should be a custom "actions/puzzle-new" icon.
+	createAct->setToolTip(i18n("Create a new puzzle using an image file from your disk"));
+	actionCollection()->addAction("file_new", createAct);
+	connect(createAct, SIGNAL(triggered()), this, SIGNAL(createRequest()));
+	KAction* importAct = new KAction(KIcon("document-import"), i18n("&Import from file..."), 0);
 	importAct->setToolTip(i18n("Import a new puzzle from a file"));
 	actionCollection()->addAction("file_import", importAct);
 	connect(importAct, SIGNAL(triggered()), this, SLOT(handleImportRequest()));
-	m_exportAct = new KAction(KIcon("document-export"), i18n("&Export..."), 0);
+	m_exportAct = new KAction(KIcon("document-export"), i18n("&Export to file..."), 0);
 	m_exportAct->setEnabled(false); //will be enabled when something is selected
 	m_exportAct->setToolTip(i18n("Export the selected puzzle from the library into a file"));
 	actionCollection()->addAction("file_export", m_exportAct);
@@ -59,11 +63,16 @@ Palapeli::LibraryWidget::LibraryWidget()
 	setCentralWidget(m_view);
 }
 
+QModelIndex Palapeli::LibraryWidget::storeGeneratedPuzzle(Palapeli::Puzzle* puzzle)
+{
+	return m_libraryCollection->storeGeneratedPuzzle(puzzle);
+}
+
 void Palapeli::LibraryWidget::handleDeleteRequest()
 {
 	QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
 	foreach (const QModelIndex& index, indexes)
-		m_model->deletePuzzle(index);
+		m_libraryCollection->deletePuzzle(index);
 }
 
 void Palapeli::LibraryWidget::handleExportRequest()
@@ -88,7 +97,7 @@ void Palapeli::LibraryWidget::handleImportRequest()
 		Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
 		if (!puzzle)
 			continue;
-		m_model->importPuzzle(puzzle);
+		m_libraryCollection->importPuzzle(puzzle);
 	}
 }
 

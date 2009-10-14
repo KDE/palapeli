@@ -32,6 +32,7 @@
 
 Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	: KDialog(new KDialog)
+	, m_result(0)
 	, m_imageSelector(new KUrlRequester)
 	, m_slicerSelector(new KComboBox)
 	, m_nameEdit(new KLineEdit)
@@ -39,7 +40,7 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	, m_authorEdit(new KLineEdit)
 {
 	//setup dialog
-	setCaption(i18n("Create a puzzle"));
+	setCaption(i18n("Create new puzzle"));
 	setButtons(KDialog::Ok | KDialog::Cancel);
 	setButtonIcon(KDialog::Ok, KIcon("tools-wizard")); //FIXME: This should be a custom "actions/puzzle-new" icon.
 	setButtonText(KDialog::Ok, i18n("Create puzzle"));
@@ -82,6 +83,11 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	mainLayout->addWidget(basicBox);
 	mainLayout->addWidget(slicerConfigBox);
 	mainLayout->addWidget(metadataBox);
-	mainLayout->addItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding));
+	mainLayout->addItem(new QSpacerItem(1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding));
 	mainWidget()->setLayout(mainLayout);
+}
+
+Palapeli::Puzzle* Palapeli::PuzzleCreatorDialog::result() const
+{
+	return m_result;
 }

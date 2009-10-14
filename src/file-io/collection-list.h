@@ -39,6 +39,7 @@ namespace Palapeli
 			virtual bool importPuzzle(const Palapeli::Puzzle* const puzzle);
 			virtual bool canDeletePuzzle(const QModelIndex& index) const;
 			virtual bool deletePuzzle(const QModelIndex& index);
+			QModelIndex storeGeneratedPuzzle(Palapeli::Puzzle* puzzle);
 		protected:
 			ListCollection(); //interface to subclasses
 			void setConfig(KConfig* config);
@@ -47,6 +48,7 @@ namespace Palapeli
 		private:
 			KUrl readUrl(const KUrl& url) const;
 			void addPuzzleInternal(Palapeli::Puzzle* puzzle, const QString& identifier);
+			bool importPuzzleInternal(Palapeli::Puzzle* puzzle);
 
 			QStringList m_features;
 			KConfig* m_config;

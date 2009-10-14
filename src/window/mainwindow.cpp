@@ -17,6 +17,7 @@
 ***************************************************************************/
 
 #include "mainwindow.h"
+#include "../creator/puzzlecreator.h"
 #include "../engine/scene.h"
 #include "../engine/view.h"
 #include "librarywidget.h"
@@ -25,6 +26,7 @@
 #include "tabwindow.h"
 #include "ui_settings.h"
 
+#include <QPointer>
 #include <QTabBar> //krazy:exclude=qclasses
 #include <KActionCollection>
 #include <KConfigDialog>
@@ -56,6 +58,7 @@ Palapeli::MainWindow::MainWindow()
 	m_centralWidget->addTab(m_puzzleTable, i18n("Puzzle table"));
 	m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_puzzleTable), false); //... until a puzzle has been loaded
 	m_centralWidget->setCurrentWidget(m_library);
+	connect(m_library, SIGNAL(createRequest()), this, SLOT(createPuzzle()));
 	connect(m_library, SIGNAL(playRequest(const QModelIndex&)), this, SLOT(loadPuzzle(const QModelIndex&)));
 	//setup main window
 	setCentralWidget(m_centralWidget);
@@ -63,7 +66,7 @@ Palapeli::MainWindow::MainWindow()
 	guiOptions &= ~KXmlGuiWindow::StatusBar; //do not create statusbar
 	guiOptions &= ~KXmlGuiWindow::Keys;      //Palapeli has our own shortcuts dialog
 	guiOptions &= ~KXmlGuiWindow::ToolBar;   //I haven't yet found a way for KEditToolBar dialogs to work
-	setupGUI(QSize(600, 400), guiOptions);
+	setupGUI(QSize(500, 500), guiOptions);
 	//move the menubar inside the tabbar (to make the tabs feel like menus) - Unfortunately, we can't use QTabWidget::setCornerWidget because this would move the menubar to the right end of the window, while I want the menubar right next to the tabs. We therefore have to do our own layouting (and remove the menubar from the window's layout with reparenting)
 	m_menuBar = menuBar();
 	m_menuBar->QWidget::setParent(0);
@@ -94,12 +97,21 @@ void Palapeli::MainWindow::resizeEvent(QResizeEvent* event)
 	m_menuBar->setGeometry(rect);
 }
 
-void Palapeli::MainWindow::configureShortcuts()
+void Palapeli::MainWindow::createPuzzle()
 {
-	KShortcutsDialog dlg(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, this);
-	dlg.addCollection(m_library->actionCollection());
-	dlg.addCollection(m_puzzleTable->actionCollection());
-	dlg.configure(true);
+	QPointer<Palapeli::PuzzleCreatorDialog> creatorDialog(new Palapeli::PuzzleCreatorDialog);
+	if (creatorDialog->exec())
+	{
+		if (!creatorDialog)
+			return;
+		Palapeli::Puzzle* puzzle = creatorDialog->result();
+		if (!puzzle)
+			return;
+		QModelIndex index = m_library->storeGeneratedPuzzle(puzzle);
+		if (index.isValid())
+			loadPuzzle(index);
+	}
+	delete creatorDialog;
 }
 
 void Palapeli::MainWindow::loadPuzzle(const QModelIndex& index)
@@ -108,6 +120,16 @@ void Palapeli::MainWindow::loadPuzzle(const QModelIndex& index)
 	m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_puzzleTable), true);
 	m_centralWidget->setCurrentWidget(m_puzzleTable);
 }
+
+void Palapeli::MainWindow::configureShortcuts()
+{
+	KShortcutsDialog dlg(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, this);
+	dlg.addCollection(m_library->actionCollection());
+	dlg.addCollection(m_puzzleTable->actionCollection());
+	dlg.configure(true);
+}
+
+//TODO: Palapeli::MainWindow::configureToolbars
 
 void Palapeli::MainWindow::configurePalapeli()
 {
