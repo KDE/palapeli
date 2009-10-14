@@ -26,6 +26,7 @@
 #include <KIO/NetAccess>
 #include <KTar>
 #include <KTempDir>
+#include <KTemporaryFile>
 
 const QSize Palapeli::Puzzle::ThumbnailBaseSize(64, 64);
 
@@ -189,8 +190,13 @@ bool Palapeli::Puzzle::write()
 	//the complex write operation (the one that creates and fills a new cache, and writes a new manifest) is being run in a separate thread
 	if (!m_metadata || !m_contents)
 		return false; //not enough data available for this operation
-	QtConcurrent::run(this, &Palapeli::Puzzle::createNewArchiveFile);
-	return true; //we don't know better and have to assume that Palapeli::Puzzle::createNewArchiveFile does not fail
+	//createNewArchiveFile can only be called in separate thread if creation context is available (otherwise, we have to use the piece pixmaps from PuzzleContents, which cannot be used in a non-GUI thread)
+	if (m_creationContext)
+		QtConcurrent::run(this, &Palapeli::Puzzle::createNewArchiveFile);
+	else
+		createNewArchiveFile();
+	//in general, we don't know better and have to assume that Palapeli::Puzzle::createNewArchiveFile does not fail
+	return true;
 }
 
 void Palapeli::Puzzle::writeFinished(KJob* job)
@@ -199,9 +205,94 @@ void Palapeli::Puzzle::writeFinished(KJob* job)
 		static_cast<KIO::Job*>(job)->showErrorDialog();
 }
 
+#include <KDebug>
+
 void Palapeli::Puzzle::createNewArchiveFile()
 {
-	//TODO URGENT Palapeli::Puzzle::createNewArchiveFile()
+	delete m_cache; m_cache = new KTempDir;
+	const QString cachePath = m_cache->name();
+	//write manifest
+	KConfig manifest(cachePath + "pala.desktop");
+	KConfigGroup mainGroup(&manifest, "Desktop Entry");
+	mainGroup.writeEntry("Name", m_metadata->name);
+	mainGroup.writeEntry("Comment", m_metadata->comment);
+	mainGroup.writeEntry("X-KDE-PluginInfo-Author", m_metadata->author);
+	mainGroup.writeEntry("Type", "X-Palapeli-Puzzle");
+	KConfigGroup jobGroup(&manifest, "Job");
+	jobGroup.writeEntry("ImageSize", m_contents->imageSize);
+	if (m_creationContext)
+	{
+		jobGroup.writeEntry("Image", KUrl("kfiledialog:///palapeli/pseudopath")); //just a placeholder, to make sure that an "Image" key is available
+		jobGroup.writeEntry("Slicer", m_creationContext->usedSlicer);
+		QMapIterator<QByteArray, QVariant> iterSlicerArgs(m_creationContext->usedSlicerArgs);
+		while (iterSlicerArgs.hasNext())
+		{
+			iterSlicerArgs.next();
+			jobGroup.writeEntry(QString::fromUtf8(iterSlicerArgs.key()), iterSlicerArgs.value());
+		}
+	}
+	//write pieces to cache
+	if (m_creationContext)
+	{
+		QMapIterator<int, QImage> iterPieces(m_creationContext->pieces);
+		while (iterPieces.hasNext())
+		{
+			const QString imagePath = cachePath + QString::fromLatin1("%1.png").arg(iterPieces.next().key());
+			if (!iterPieces.value().save(imagePath))
+				return;
+		}
+	}
+	else
+	{
+		QMapIterator<int, QPixmap> iterPieces(m_contents->pieces);
+		while (iterPieces.hasNext())
+		{
+			const QString imagePath = cachePath + QString::fromLatin1("%1.png").arg(iterPieces.next().key());
+			if (!iterPieces.value().save(imagePath))
+				return;
+		}
+	}
+	//write thumbnail into tempdir
+	const QImage& thumbnail = m_creationContext ? m_creationContext->bigThumbnail : m_metadata->thumbnail;
+	const QString thumbnailPath = cachePath + QString::fromLatin1("thumbnail.jpg");
+	if (!thumbnail.save(thumbnailPath))
+		return;
+	//write piece offsets into target manifest
+	KConfigGroup offsetGroup(&manifest, "PieceOffsets");
+	QMapIterator<int, QPoint> iterOffsets(m_contents->pieceOffsets);
+	while (iterOffsets.hasNext())
+	{
+		iterOffsets.next();
+		offsetGroup.writeEntry(QString::number(iterOffsets.key()), iterOffsets.value());
+	}
+	//write piece relations into target manifest
+	KConfigGroup relationsGroup(&manifest, "Relations");
+	for (int index = 0; index < m_contents->relations.count(); ++index)
+	{
+		const QPair<int, int> relation = m_contents->relations[index];
+		relationsGroup.writeEntry(QString::number(index), QList<int>() << relation.first << relation.second);
+	}
+	//save manifest
+	manifest.sync();
+	//compress archive to temporary file
+	KTemporaryFile* tempFile = new KTemporaryFile;
+	tempFile->setSuffix(".puzzle");
+	tempFile->open();
+	KTar tar(tempFile->fileName(), "application/x-bzip");
+	if (!tar.open(QIODevice::WriteOnly))
+		return;
+	else if (!tar.addLocalDirectory(cachePath, QLatin1String(".")))
+		return;
+	else if (!tar.close())
+		return;
+	//upload puzzle file to m_location
+	kDebug() << tempFile->fileName() << m_location;
+	KIO::FileCopyJob* job = KIO::file_copy(KUrl(tempFile->fileName()), m_location);
+	connect(job, SIGNAL(result(KJob*)), this, SLOT(writeFinished(KJob*)));
+	tempFile->QObject::setParent(job); //tempfile can safely be deleted after copy job is finished
+	//NOTE: Above code is written in such a way that a boolean return value can be added to this method later without big efforts.
+	//puzzle is now available at m_location
+	m_loadLocation = m_location;
 }
 
 #include "puzzle.moc"
