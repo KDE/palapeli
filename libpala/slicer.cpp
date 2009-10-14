@@ -37,6 +37,7 @@ Pala::Slicer::Slicer(QObject* parent, const QVariantList& /*args*/)
 
 Pala::Slicer::~Slicer()
 {
+	qDeleteAll(p->m_properties);
 	delete p;
 }
 
