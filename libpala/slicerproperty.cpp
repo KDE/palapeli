@@ -100,5 +100,5 @@ void Pala::SlicerProperty::setRange(int min, int max)
 {
 	Q_ASSERT_X(p->m_type == Integer, "Pala::SlicerProperty::setRange", "wrong property type");
 	p->m_range.first = min;
-	p->m_range.first = max;
+	p->m_range.second = max;
 }
