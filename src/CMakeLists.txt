@@ -3,6 +3,7 @@ set_directory_properties(PROPERTIES COMPILE_DEFINITIONS USE_LOCAL_LIBPALA)
 
 set(palapeli_SRCS
 	creator/propertywidget.cpp
+	creator/slicerconfwidget.cpp
 	engine/part.cpp
 	engine/piece.cpp
 	engine/scene.cpp
