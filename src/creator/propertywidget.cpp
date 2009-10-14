@@ -56,6 +56,7 @@ void Palapeli::BooleanPropertyWidget::initialize(const Pala::SlicerProperty* pro
 	m_checkBox->setChecked(property->defaultValue().toBool());
 	QHBoxLayout* layout = new QHBoxLayout;
 	layout->addWidget(m_checkBox);
+	layout->setMargin(0);
 	setLayout(layout);
 }
 
@@ -93,6 +94,7 @@ void Palapeli::IntegerPropertyWidget::initialize(const Pala::SlicerProperty* pro
 	}
 	QHBoxLayout* layout = new QHBoxLayout;
 	layout->addWidget(usedWidget);
+	layout->setMargin(0);
 	setLayout(layout);
 }
 
@@ -124,6 +126,7 @@ void Palapeli::StringPropertyWidget::initialize(const Pala::SlicerProperty* prop
 	}
 	QHBoxLayout* layout = new QHBoxLayout;
 	layout->addWidget(usedWidget);
+	layout->setMargin(0);
 	setLayout(layout);
 }
 

@@ -35,7 +35,7 @@ Palapeli::SlicerConfigWidget::SlicerConfigWidget(Pala::Slicer* slicer)
 		const Pala::SlicerProperty* prop = i.next().value();
 		Palapeli::PropertyWidget* propWidget = Palapeli::createPropertyWidget(prop);
 		m_propertyWidgets[i.key()] = propWidget;
-		layout->addRow(prop->caption(), propWidget);
+		layout->addRow(prop->caption() + QChar(':'), propWidget);
 	}
 }
 
