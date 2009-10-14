@@ -38,6 +38,7 @@ Palapeli::Puzzle::Puzzle(const KUrl& location)
 	, m_creationContext(0)
 	, m_cache(0)
 {
+	connect(&m_createArchiveWatcher, SIGNAL(finished()), this, SLOT(finishWritingArchive()));
 }
 
 Palapeli::Puzzle::Puzzle(const Palapeli::Puzzle& other)
@@ -49,6 +50,7 @@ Palapeli::Puzzle::Puzzle(const Palapeli::Puzzle& other)
 	, m_creationContext(0)
 	, m_cache(0)
 {
+	connect(&m_createArchiveWatcher, SIGNAL(finished()), this, SLOT(finishWritingArchive()));
 	if (other.m_metadata)
 		m_metadata = new Palapeli::PuzzleMetadata(*other.m_metadata);
 	if (other.m_contents)
@@ -61,6 +63,7 @@ Palapeli::Puzzle::Puzzle(Palapeli::PuzzleMetadata* metadata, Palapeli::PuzzleCon
 	, m_creationContext(creationContext)
 	, m_cache(0)
 {
+	connect(&m_createArchiveWatcher, SIGNAL(finished()), this, SLOT(finishWritingArchive()));
 }
 
 Palapeli::Puzzle::~Puzzle()
@@ -192,7 +195,7 @@ bool Palapeli::Puzzle::write()
 		return false; //not enough data available for this operation
 	//createNewArchiveFile can only be called in separate thread if creation context is available (otherwise, we have to use the piece pixmaps from PuzzleContents, which cannot be used in a non-GUI thread)
 	if (m_creationContext)
-		QtConcurrent::run(this, &Palapeli::Puzzle::createNewArchiveFile);
+		m_createArchiveWatcher.setFuture(QtConcurrent::run(this, &Palapeli::Puzzle::createNewArchiveFile));
 	else
 		createNewArchiveFile();
 	//in general, we don't know better and have to assume that Palapeli::Puzzle::createNewArchiveFile does not fail
@@ -204,8 +207,6 @@ void Palapeli::Puzzle::writeFinished(KJob* job)
 	if (job->error())
 		static_cast<KIO::Job*>(job)->showErrorDialog();
 }
-
-#include <KDebug>
 
 void Palapeli::Puzzle::createNewArchiveFile()
 {
@@ -239,7 +240,10 @@ void Palapeli::Puzzle::createNewArchiveFile()
 		{
 			const QString imagePath = cachePath + QString::fromLatin1("%1.png").arg(iterPieces.next().key());
 			if (!iterPieces.value().save(imagePath))
+			{
+				delete m_cache;
 				return;
+			}
 		}
 	}
 	else
@@ -249,7 +253,10 @@ void Palapeli::Puzzle::createNewArchiveFile()
 		{
 			const QString imagePath = cachePath + QString::fromLatin1("%1.png").arg(iterPieces.next().key());
 			if (!iterPieces.value().save(imagePath))
+			{
+				delete m_cache;
 				return;
+			}
 		}
 	}
 	//write thumbnail into tempdir
@@ -274,6 +281,10 @@ void Palapeli::Puzzle::createNewArchiveFile()
 	}
 	//save manifest
 	manifest.sync();
+}
+
+void Palapeli::Puzzle::finishWritingArchive()
+{
 	//compress archive to temporary file
 	KTemporaryFile* tempFile = new KTemporaryFile;
 	tempFile->setSuffix(".puzzle");
@@ -281,12 +292,11 @@ void Palapeli::Puzzle::createNewArchiveFile()
 	KTar tar(tempFile->fileName(), "application/x-bzip");
 	if (!tar.open(QIODevice::WriteOnly))
 		return;
-	else if (!tar.addLocalDirectory(cachePath, QLatin1String(".")))
+	else if (!tar.addLocalDirectory(m_cache->name(), QLatin1String(".")))
 		return;
 	else if (!tar.close())
 		return;
 	//upload puzzle file to m_location
-	kDebug() << tempFile->fileName() << m_location;
 	KIO::FileCopyJob* job = KIO::file_copy(KUrl(tempFile->fileName()), m_location);
 	connect(job, SIGNAL(result(KJob*)), this, SLOT(writeFinished(KJob*)));
 	tempFile->QObject::setParent(job); //tempfile can safely be deleted after copy job is finished

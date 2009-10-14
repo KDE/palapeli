@@ -21,6 +21,7 @@
 
 #include "puzzlestructs.h"
 
+#include <QFutureWatcher>
 class KJob;
 class KTempDir;
 #include <KUrl>
@@ -53,6 +54,7 @@ namespace Palapeli
 			bool write();
 		private Q_SLOTS:
 			void writeFinished(KJob* job);
+			void finishWritingArchive();
 		private:
 			void createNewArchiveFile();
 
@@ -62,6 +64,7 @@ namespace Palapeli
 			Palapeli::PuzzleContents* m_contents;
 			Palapeli::PuzzleCreationContext* m_creationContext; //NOTE: This is NOT copied in copy-constructors.
 			KTempDir* m_cache;
+			QFutureWatcher<void> m_createArchiveWatcher;
 	};
 }
 
