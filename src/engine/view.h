@@ -21,8 +21,6 @@
 
 #include <QGraphicsView>
 
-//TODO: Show a prominent notice "Use the library to load a puzzle" when no puzzle has been loaded.
-
 namespace Palapeli
 {
 	class Scene;

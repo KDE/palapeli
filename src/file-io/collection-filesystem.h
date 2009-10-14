@@ -29,7 +29,6 @@ namespace Palapeli
 	//This "meta collection" maintains temporary links to puzzle files that are not part of any collection. (This is necessary because all puzzle transactions operate on QModelIndexes.)
 	class FileSystemCollection : public Palapeli::Collection
 	{
-		//TODO: add ability to "import" puzzles
 		public:
 			FileSystemCollection();
 
