@@ -20,6 +20,7 @@
 
 #include <cmath>
 #include <QPainter>
+#include <QRadialGradient>
 #include <QTimer>
 
 Palapeli::LoadingWidget::LoadingWidget(QWidget* parent)
@@ -53,7 +54,8 @@ void Palapeli::LoadingWidget::paintEvent(QPaintEvent* event)
 
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
-	painter.setBrush(painter.pen().color());
+	const QColor baseColor = painter.pen().color();
+	const QColor baseColorTransparent(baseColor.red(), baseColor.green(), baseColor.blue(), 0);
 	painter.setPen(Qt::NoPen);
 
 	//metrics
@@ -64,11 +66,17 @@ void Palapeli::LoadingWidget::paintEvent(QPaintEvent* event)
 		//determine position of circle
 		const qreal angle = 0.25 * M_PI * i;
 		const QPointF thisDirection(cos(angle), sin(angle));
-		const QPoint thisCenter = center + (distance * thisDirection).toPoint();
+		const QPointF thisCenter = center + distance * thisDirection;
 		//determine size of circle
 		const qreal scalarProd = thisDirection.x() * pointerDirection.x() + thisDirection.y() * pointerDirection.y();
-		const qreal thisCircleSize = 10 + 5 * scalarProd;
-		QSizeF thisSize(thisCircleSize, thisCircleSize);
+		const qreal thisRadius = 10 + 5 * scalarProd;
+		QSizeF thisSize(2 * thisRadius, 2 * thisRadius);
+		//create gradient for circle
+		QRadialGradient gradient(thisCenter, thisRadius);
+		gradient.setColorAt(0, baseColor);
+		gradient.setColorAt(0.4, baseColor);
+		gradient.setColorAt(0.6, baseColorTransparent);
+		painter.setBrush(gradient);
 		//draw circle
 		QRectF thisRect(QPointF(), thisSize);
 		thisRect.moveCenter(thisCenter);
