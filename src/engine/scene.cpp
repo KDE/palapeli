@@ -67,12 +67,15 @@ void Palapeli::Scene::loadPuzzleInternal()
 
 void Palapeli::Scene::startLoading()
 {
-	m_metadataLoader.setFuture(QtConcurrent::run(m_puzzle, &Palapeli::Puzzle::readMetadata, false));
+	if (m_puzzle)
+		m_metadataLoader.setFuture(QtConcurrent::run(m_puzzle.data(), &Palapeli::Puzzle::readMetadata, false));
 	//will call continueLoading() when done reading metadata
 }
 
 void Palapeli::Scene::continueLoading()
 {
+	if (!m_puzzle)
+		return;
 	//continue to read puzzle
 	if (m_metadataLoader.future().result() == false) //reading the archive has failed
 		return;
@@ -88,6 +91,8 @@ void Palapeli::Scene::continueLoading()
 
 void Palapeli::Scene::loadNextPart()
 {
+	if (!m_puzzle)
+		return;
 	//add pieces and parts, but only one piece at a time
 	const Palapeli::PuzzleContents* contents = m_puzzle->contents();
 	const QList<int> pieceIDs = contents->pieces.keys();
@@ -113,6 +118,8 @@ void Palapeli::Scene::loadNextPart()
 
 void Palapeli::Scene::finishLoading()
 {
+	if (!m_puzzle)
+		return;
 	const Palapeli::PuzzleContents* contents = m_puzzle->contents();
 	//add piece relations
 	foreach (const DoubleIntPair& relation, contents->relations)

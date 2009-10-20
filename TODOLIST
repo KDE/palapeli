@@ -1,0 +1,18 @@
+Ideas:
+- a movement mode (toggled by some modifier) in which moving the piece pushes other pieces away
+- rubberband selection
+- cooperative multiplayer (MPX support?)
+- baskets as a way to organise the puzzling action
+
+Mid-term todos:
+- interface for puzzle feeds (aka non-library ListCollection instances)
+- sound notification for events: puzzle started, puzzle finished, pieces snapped
+- timer mode / highscores
+- re-think zooming (100% in the center of the zoom level slider, increase scene rect on the go)
+- piece sorting
+
+Short-term todos:
+- use right mouse button for viewport movement even if table is obscured by pieces
+- simplify/streamline the texture selection
+- kbuildsycoca4 stuff
+- nice victory animation

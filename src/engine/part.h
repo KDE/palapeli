@@ -53,6 +53,7 @@ namespace Palapeli
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 			void validatePosition();
+			QRectF piecesBoundingRect() const; //like QGraphicsItem::childrenBoundingRect, but takes the pieces into account only (esp. not the shadow items)
 		private:
 			QList<Palapeli::Piece*> m_pieces;
 			QList<Palapeli::ShadowItem*> m_shadows;

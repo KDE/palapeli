@@ -66,8 +66,8 @@ QLineF leftSide(const QRect& rect)
 {
 	JigsawPlugParams result;
 	result.plugPosition = myrand(0.35, 0.65);
-	const qreal maxPlugLength = 0.29 - 0.88 * qAbs(0.5 - result.plugPosition);
-	result.plugLength = myrand(maxPlugLength * 2 / 3, maxPlugLength);
+	const qreal maxPlugLength = 0.3 - 0.88 * qAbs(0.5 - result.plugPosition);
+	result.plugLength = myrand(maxPlugLength * 3 / 4, maxPlugLength);
 	result.plugWidth = myrand(0.13, 0.33);
 	const qreal minDistortion1 = 0.75 * (0.7 + result.plugWidth);
 	result.distortion1 = myrand(minDistortion1, minDistortion1 * 1.1);

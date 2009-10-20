@@ -111,11 +111,25 @@ bool Palapeli::Part::searchConnections()
 	return !mergeParts.isEmpty();
 }
 
+QRectF Palapeli::Part::piecesBoundingRect() const
+{
+	QRectF boundingRect;
+	foreach (Palapeli::Piece* piece, m_pieces)
+	{
+		const QRectF subRect = piece->mapToParent(piece->boundingRect()).boundingRect();
+		if (!boundingRect.isValid())
+			boundingRect = subRect;
+		else
+			boundingRect = boundingRect.united(subRect);
+	}
+	return boundingRect;
+}
+
 void Palapeli::Part::validatePosition()
 {
 	//ensure that part stays inside scene rect
 	const QRectF sr = scene()->sceneRect();
-	const QRectF br = sceneTransform().mapRect(childrenBoundingRect()); //br = bounding rect
+	const QRectF br = sceneTransform().mapRect(piecesBoundingRect()); //br = bounding rect
 	if (!sr.contains(br))
 	{
 		QPointF pos = this->pos();

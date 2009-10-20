@@ -17,6 +17,7 @@
 ***************************************************************************/
 
 #include "view.h"
+#include "inaccessibleareashelper.h"
 #include "scene.h"
 #include "viewmenu.h"
 
@@ -31,6 +32,7 @@ Palapeli::View::View()
 	setDragMode(QGraphicsView::ScrollHandDrag);
 	setScene(m_scene);
 	connect(m_scene, SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(sceneRectChanged(const QRectF&)));
+	new Palapeli::InaccessibleAreasHelper(this);
 	//initialize menu
 	setContextMenuPolicy(Qt::CustomContextMenu);
 	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), m_menu, SLOT(showAtCursorPosition()));

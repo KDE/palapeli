@@ -20,6 +20,7 @@
 #include "collection.h"
 #include "collection-delegate.h"
 
+#include <QApplication>
 #include <QMouseEvent>
 #include <QToolButton>
 #include <KIcon>
@@ -32,6 +33,7 @@ Palapeli::CollectionView::CollectionView()
 	m_playButton->setIconSize(QSize(48, 48));
 	m_playButton->setIcon(KIcon("media-playback-start"));
 	connect(m_playButton, SIGNAL(clicked()), this, SLOT(playButtonClicked()));
+	connect(this, SIGNAL(activated(const QModelIndex&)), this, SLOT(handleActivated(const QModelIndex&)));
 	setMouseTracking(true);
 	viewport()->installEventFilter(this);
 }
@@ -91,6 +93,17 @@ void Palapeli::CollectionView::playButtonClicked()
 	);
 	if (!indexes.isEmpty())
 		emit playRequest(indexes[0]);
+}
+
+//NOTE The QAbstractItemView::activated signal honors the mouseclick selection behavior defined by the user (e.g. one-click is default on Linux, while two-click is default on Windows).
+void Palapeli::CollectionView::handleActivated(const QModelIndex& index)
+{
+	//do not emit a play request when the Control modifier is pressed (without this rule, users with one-click activation could not ever select multiple puzzles at once)
+	if (QApplication::keyboardModifiers() & Qt::ControlModifier)
+		return;
+	//change selection to indicate that the given puzzle has been chosen
+	selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
+	emit playRequest(index);
 }
 
 #include "collection-view.moc"

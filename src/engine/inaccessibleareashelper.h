@@ -16,50 +16,31 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_SCENE_H
-#define PALAPELI_SCENE_H
+#ifndef PALAPELI_INACCESSIBLEAREASHELPER_H
+#define PALAPELI_INACCESSIBLEAREASHELPER_H
 
-#include <QFutureWatcher>
-#include <QGraphicsScene>
-#include <QMap>
-class QModelIndex;
-#include <QPointer>
+class QGraphicsRectItem;
+class QGraphicsView;
+#include <QObject>
+#include <QRectF>
+#include <QVector>
 
 namespace Palapeli
 {
-	class Part;
-	class Piece;
-	class Puzzle;
-
-	class Scene : public QGraphicsScene
+	class InaccessibleAreasHelper : public QObject
 	{
-		Q_OBJECT
 		public:
-			Scene(QObject* parent = 0);
-			void loadPuzzle(const QModelIndex& index);
-		public Q_SLOTS:
-			void restartPuzzle();
-		Q_SIGNALS:
-			void reportProgress(int pieceCount, int partCount);
-		private Q_SLOTS:
-			void partDestroyed(QObject* object);
-			void partMoved();
-			//loading steps
-			void startLoading();
-			void continueLoading();
-			void loadNextPart();
-			void finishLoading();
+			InaccessibleAreasHelper(QGraphicsView* view);
+		protected:
+			virtual bool eventFilter(QObject* sender, QEvent* event);
 		private:
-			void loadPuzzleInternal();
+			enum Position { LeftPos = 0, RightPos, TopPos, BottomPos, PositionCount };
+			void update();
 
-			QString m_identifier;
-			QPointer<Palapeli::Puzzle> m_puzzle;
-			QMap<int, Palapeli::Piece*> m_pieces;
-			QList<Palapeli::Part*> m_parts;
-			//some stuff needed for loading puzzles
-			bool m_loadingPuzzle;
-			QFutureWatcher<bool> m_metadataLoader;
+			QGraphicsView* m_view;
+			QVector<QGraphicsRectItem*> m_items;
+			QRectF m_viewportRect;
 	};
 }
 
-#endif // PALAPELI_SCENE_H
+#endif // PALAPELI_INACCESSIBLEAREASHELPER_H

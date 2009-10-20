@@ -38,6 +38,7 @@ namespace Palapeli
 			void setHoveredIndex(const QModelIndex& index);
 		private Q_SLOTS:
 			void playButtonClicked();
+			void handleActivated(const QModelIndex& index);
 		private:
 			Palapeli::CollectionDelegate* m_delegate;
 			QString m_hoveredPuzzleIdentifier;
