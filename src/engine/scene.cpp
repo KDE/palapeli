@@ -83,7 +83,8 @@ void Palapeli::Scene::continueLoading()
 		return;
 	//initialize scene
 	const Palapeli::PuzzleContents* contents = m_puzzle->contents();
-	setSceneRect(QRectF(QPointF(), Settings::sceneSizeFactor() * QSizeF(contents->imageSize)));
+	qreal sceneSizeFactor = Settings::sceneSizeFactor() / 100.0;
+	setSceneRect(QRectF(QPointF(), sceneSizeFactor * QSizeF(contents->imageSize)));
 	//delay piece loading for UI responsibility
 	if (!contents->pieces.isEmpty())
 		QTimer::singleShot(0, this, SLOT(loadNextPart()));
@@ -154,7 +155,8 @@ void Palapeli::Scene::finishLoading()
 			QRectF br = part->sceneTransform().mapRect(part->childrenBoundingRect());
 			//NOTE: br = bounding rect (of part), sr = scene rect
 			const int minXPos = sr.left(), maxXPos = sr.right() - br.width();
-			const int minYPos = sr.top(), maxYPos = sr.bottom() - br.height();
+			const int minYPos = sr.top(), maxYPos = sr.center().y() - br.height();
+			//NOTE: In the above line, sr.bottom() is replaced by sr.center().y() to only fill half of the table.
 			const int xPos = qrand() % (maxXPos - minXPos) + minXPos;
 			const int yPos = qrand() % (maxYPos - minYPos) + minYPos;
 			part->setPos(xPos - br.left(), yPos - br.top());

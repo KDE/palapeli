@@ -71,22 +71,28 @@
       <item row="0" column="0" colspan="2">
        <widget class="QSlider" name="kcfg_SceneSizeFactor">
         <property name="minimum">
-         <number>2</number>
+         <number>250</number>
         </property>
         <property name="maximum">
-         <number>5</number>
+         <number>500</number>
+        </property>
+        <property name="singleStep">
+         <number>10</number>
         </property>
         <property name="pageStep">
-         <number>1</number>
+         <number>100</number>
         </property>
         <property name="value">
-         <number>2</number>
+         <number>250</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
         <property name="tickPosition">
          <enum>QSlider::TicksBelow</enum>
+        </property>
+        <property name="tickInterval">
+         <number>50</number>
         </property>
        </widget>
       </item>

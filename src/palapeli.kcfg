@@ -2,9 +2,9 @@
 <kcfg xmlns="http://www.kde.org/standards/kcfg/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0 http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
 	<kcfgfile name="palapelirc"/>
 	<group name="Puzzling">
-		<entry name="SceneSizeFactor" type="Double">
-			<label>Scene size (in multiples of the image size).</label>
-			<default>2.0</default>
+		<entry name="SceneSizeFactor" type="Int">
+			<label>Scene size (in percents of the image size).</label>
+			<default>250</default>
 		</entry>
 		<entry name="SnappingPrecision" type="Int">
 			<label>Precision of snapping (in percent of piece size).</label>
