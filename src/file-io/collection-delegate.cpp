@@ -62,16 +62,13 @@ void Palapeli::CollectionDelegate::paintItem(QPainter* painter, const QStyleOpti
 	QApplication::style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &option, painter, 0);
 	//draw thumbnail
 	QRect thumbnailBaseRect = this->thumbnailRect(baseRect);
-	if (!(option.state & QStyle::State_MouseOver))
-	{
-		QPixmap thumbnail = index.data(Palapeli::Collection::ThumbnailRole).value<QPixmap>();
-		QRect thumbnailRect(thumbnailBaseRect.topLeft(), thumbnail.size());
-		thumbnailRect.translate( //center inside thumbnailBaseRect
-			(thumbnailBaseRect.width() - thumbnailRect.width()) / 2,
-			(thumbnailBaseRect.height() - thumbnailRect.height()) / 2
-		);
-		painter->drawPixmap(thumbnailRect.topLeft(), thumbnail);
-	}
+	const QPixmap thumbnail = index.data(Palapeli::Collection::ThumbnailRole).value<QPixmap>();
+	QRect thumbnailRect(thumbnailBaseRect.topLeft(), thumbnail.size());
+	thumbnailRect.translate( //center inside thumbnailBaseRect
+		(thumbnailBaseRect.width() - thumbnailRect.width()) / 2,
+		(thumbnailBaseRect.height() - thumbnailRect.height()) / 2
+	);
+	painter->drawPixmap(thumbnailRect.topLeft(), thumbnail);
 	//find metrics: text
 	QStringList texts; QList<QFont> fonts;
 	{

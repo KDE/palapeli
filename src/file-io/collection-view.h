@@ -20,7 +20,6 @@
 #define PALAPELI_COLLECTIONVIEW_H
 
 #include <QListView>
-class QToolButton;
 
 namespace Palapeli
 {
@@ -33,16 +32,10 @@ namespace Palapeli
 			CollectionView();
 		Q_SIGNALS:
 			void playRequest(const QModelIndex&);
-		protected:
-			virtual bool eventFilter(QObject* object, QEvent* event);
-			void setHoveredIndex(const QModelIndex& index);
 		private Q_SLOTS:
-			void playButtonClicked();
 			void handleActivated(const QModelIndex& index);
 		private:
 			Palapeli::CollectionDelegate* m_delegate;
-			QString m_hoveredPuzzleIdentifier;
-			QToolButton* m_playButton;
 	};
 }
 
