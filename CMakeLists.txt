@@ -1,4 +1,14 @@
 project(palapeli)
+cmake_minimum_required(VERSION 2.6)
+
+if (NOT KDE4_FOUND)
+  find_package(Qt4 REQUIRED)
+  find_package(KDE4 REQUIRED)
+
+  include_directories(${KDE4_INCLUDES})
+
+  include(KDE4Defaults)
+endif (NOT KDE4_FOUND)
 
 add_subdirectory(libpala)
 add_subdirectory(cmake)
