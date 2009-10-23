@@ -25,14 +25,16 @@
 
 Palapeli::View::View()
 	: m_scene(new Palapeli::Scene(this))
+	, m_iaHelper(0) //cannot be initialized before scene has been set
 	, m_menu(new Palapeli::ViewMenu(m_scene))
 	, m_zoomLevel(0) //set to invalid level while scene has not specified its rect
 {
 	//initialize viewport and scene
 	setDragMode(QGraphicsView::ScrollHandDrag);
 	setScene(m_scene);
+	m_iaHelper = new Palapeli::InaccessibleAreasHelper(this);
 	connect(m_scene, SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(sceneRectChanged(const QRectF&)));
-	(new Palapeli::InaccessibleAreasHelper(this))->setActive(true);
+	m_iaHelper->setActive(true);
 	//initialize menu
 	setContextMenuPolicy(Qt::CustomContextMenu);
 	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), m_menu, SLOT(showAtCursorPosition()));
@@ -41,6 +43,14 @@ Palapeli::View::View()
 Palapeli::Scene* Palapeli::View::scene() const
 {
 	return m_scene;
+}
+
+void Palapeli::View::mousePressEvent(QMouseEvent* event)
+{
+	QGraphicsView::mousePressEvent(event);
+	//TODO: This is debug code to test QPropertyAnimation.
+	if (event->button() == Qt::MidButton)
+		m_iaHelper->setActive(!m_iaHelper->active());
 }
 
 void Palapeli::View::resizeEvent(QResizeEvent* event)

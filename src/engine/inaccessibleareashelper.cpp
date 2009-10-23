@@ -21,11 +21,18 @@
 #include <QEvent>
 #include <QGraphicsRectItem>
 #include <QGraphicsView>
+#if QT_VERSION >= 0x040600
+#	include <QPropertyAnimation>
+#endif
 
 Palapeli::InaccessibleAreasHelper::InaccessibleAreasHelper(QGraphicsView* view)
 	: m_view(view)
 	, m_active(false)
+	, m_opacity(0.0)
 	, m_items(PositionCount)
+#if QT_VERSION >= 0x040600
+	, m_animator(new QPropertyAnimation(this, "Opacity", this))
+#endif
 {
 	//create gray items (with null size!)
 	QColor rectColor(Qt::black);
@@ -33,7 +40,10 @@ Palapeli::InaccessibleAreasHelper::InaccessibleAreasHelper(QGraphicsView* view)
 	const QPen pen(Qt::NoPen);
 	const QBrush brush(rectColor);
 	for (int i = 0; i < PositionCount; ++i)
+	{
 		m_items[i] = view->scene()->addRect(QRect(), pen, brush);
+		m_items[i]->setOpacity(0);
+	}
 	//more initialization
 	QObject::setParent(view); //delete myself automatically when the view is destroyed
 	view->viewport()->installEventFilter(this);
@@ -44,12 +54,32 @@ bool Palapeli::InaccessibleAreasHelper::active() const
 	return m_active;
 }
 
+qreal Palapeli::InaccessibleAreasHelper::opacity() const
+{
+	return m_opacity;
+}
+
 void Palapeli::InaccessibleAreasHelper::setActive(bool active)
 {
 	if (m_active == active)
 		return;
 	m_active = active;
-	update();
+	const qreal targetOpacity = active ? 1.0 : 0.0;
+#if QT_VERSION >= 0x040600
+	m_animator->setDuration(200 * qAbs(targetOpacity - m_opacity));
+	m_animator->setStartValue(m_opacity);
+	m_animator->setEndValue(targetOpacity);
+	m_animator->start();
+#else
+	setOpacity(targetOpacity);
+#endif
+}
+
+void Palapeli::InaccessibleAreasHelper::setOpacity(qreal opacity)
+{
+	m_opacity = opacity;
+	for (int i = 0; i < PositionCount; ++i)
+		m_items[i]->setOpacity(opacity);
 }
 
 bool Palapeli::InaccessibleAreasHelper::eventFilter(QObject* sender, QEvent* event)
@@ -61,12 +91,6 @@ bool Palapeli::InaccessibleAreasHelper::eventFilter(QObject* sender, QEvent* eve
 
 void Palapeli::InaccessibleAreasHelper::update()
 {
-	if (!m_active)
-	{
-		for (int i = 0; i < PositionCount; ++i)
-			m_items[i]->setRect(QRectF());
-		return;
-	}
 	//find viewport rect
 	const QRectF viewportRect = m_view->mapToScene(m_view->rect()).boundingRect();
 	const QRectF sceneRect = m_view->sceneRect();

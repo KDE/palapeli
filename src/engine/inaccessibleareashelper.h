@@ -22,6 +22,7 @@
 class QGraphicsRectItem;
 class QGraphicsView;
 #include <QObject>
+class QPropertyAnimation;
 #include <QRectF>
 #include <QVector>
 
@@ -30,12 +31,15 @@ namespace Palapeli
 	class InaccessibleAreasHelper : public QObject
 	{
 		Q_OBJECT
+		Q_PROPERTY(qreal Opacity READ opacity WRITE setOpacity)
 		public:
 			InaccessibleAreasHelper(QGraphicsView* view);
 
 			bool active() const;
+			qreal opacity() const;
 		public Q_SLOTS:
 			void setActive(bool active);
+			void setOpacity(qreal opacity);
 		protected:
 			virtual bool eventFilter(QObject* sender, QEvent* event);
 		private:
@@ -43,9 +47,13 @@ namespace Palapeli
 			void update();
 
 			QGraphicsView* m_view;
-			bool m_active;
+			bool m_active; qreal m_opacity;
+
 			QVector<QGraphicsRectItem*> m_items;
 			QRectF m_viewportRect;
+#if QT_VERSION >= 0x040600
+			QPropertyAnimation* m_animator;
+#endif
 	};
 }
 
