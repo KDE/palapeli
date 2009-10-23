@@ -4,6 +4,7 @@ Long/mid-term todos:
 - baskets as a way to organise the puzzling action
 - rotateable pieces (as a way to optionally increase the difficulty of an easy puzzle)
 - piece sorting
+- "handicap" (a parameter that controls if some pieces are connected from the start, to make it easier for novice players)
 
 Mid-term todos:
 - interface for puzzle feeds (aka non-library ListCollection instances)
