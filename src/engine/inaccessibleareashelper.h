@@ -29,8 +29,13 @@ namespace Palapeli
 {
 	class InaccessibleAreasHelper : public QObject
 	{
+		Q_OBJECT
 		public:
 			InaccessibleAreasHelper(QGraphicsView* view);
+
+			bool active() const;
+		public Q_SLOTS:
+			void setActive(bool active);
 		protected:
 			virtual bool eventFilter(QObject* sender, QEvent* event);
 		private:
@@ -38,6 +43,7 @@ namespace Palapeli
 			void update();
 
 			QGraphicsView* m_view;
+			bool m_active;
 			QVector<QGraphicsRectItem*> m_items;
 			QRectF m_viewportRect;
 	};

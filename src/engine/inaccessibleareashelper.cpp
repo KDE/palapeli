@@ -24,11 +24,12 @@
 
 Palapeli::InaccessibleAreasHelper::InaccessibleAreasHelper(QGraphicsView* view)
 	: m_view(view)
+	, m_active(false)
 	, m_items(PositionCount)
 {
 	//create gray items (with null size!)
 	QColor rectColor(Qt::black);
-	rectColor.setAlpha(42);
+	rectColor.setAlpha(42 + 23);
 	const QPen pen(Qt::NoPen);
 	const QBrush brush(rectColor);
 	for (int i = 0; i < PositionCount; ++i)
@@ -36,6 +37,19 @@ Palapeli::InaccessibleAreasHelper::InaccessibleAreasHelper(QGraphicsView* view)
 	//more initialization
 	QObject::setParent(view); //delete myself automatically when the view is destroyed
 	view->viewport()->installEventFilter(this);
+}
+
+bool Palapeli::InaccessibleAreasHelper::active() const
+{
+	return m_active;
+}
+
+void Palapeli::InaccessibleAreasHelper::setActive(bool active)
+{
+	if (m_active == active)
+		return;
+	m_active = active;
+	update();
 }
 
 bool Palapeli::InaccessibleAreasHelper::eventFilter(QObject* sender, QEvent* event)
@@ -47,6 +61,12 @@ bool Palapeli::InaccessibleAreasHelper::eventFilter(QObject* sender, QEvent* eve
 
 void Palapeli::InaccessibleAreasHelper::update()
 {
+	if (!m_active)
+	{
+		for (int i = 0; i < PositionCount; ++i)
+			m_items[i]->setRect(QRectF());
+		return;
+	}
 	//find viewport rect
 	const QRectF viewportRect = m_view->mapToScene(m_view->rect()).boundingRect();
 	const QRectF sceneRect = m_view->sceneRect();
@@ -70,3 +90,5 @@ void Palapeli::InaccessibleAreasHelper::update()
 	itemRect.setTop(sceneRect.bottom());
 	m_items[BottomPos]->setRect(itemRect);
 }
+
+#include "inaccessibleareashelper.moc"

@@ -32,7 +32,7 @@ Palapeli::View::View()
 	setDragMode(QGraphicsView::ScrollHandDrag);
 	setScene(m_scene);
 	connect(m_scene, SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(sceneRectChanged(const QRectF&)));
-	new Palapeli::InaccessibleAreasHelper(this);
+	(new Palapeli::InaccessibleAreasHelper(this))->setActive(true);
 	//initialize menu
 	setContextMenuPolicy(Qt::CustomContextMenu);
 	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), m_menu, SLOT(showAtCursorPosition()));
