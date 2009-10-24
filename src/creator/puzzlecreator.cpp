@@ -75,6 +75,7 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	QMapIterator<QString, Palapeli::SlicerConfigWidget*> i(m_slicerConfigWidgets);
 	while (i.hasNext())
 		m_slicerConfigLayout->addWidget(i.next().value());
+	selectSlicerConfigWidget(m_slicerSelector->currentIndex());
 	//build group boxes
 	QGroupBox* basicBox = new QGroupBox(i18n("Basic slicing options"));
 	basicBox->setLayout(basicLayout);
