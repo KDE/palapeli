@@ -22,8 +22,9 @@
 #include "../libpala/slicer.h"
 #include "../libpala/slicerjob.h"
 #include "../libpala/slicerproperty.h"
+#include "../libpala/slicerpropertyset.h"
 
-class RectSlicer : public Pala::Slicer
+class RectSlicer : public Pala::Slicer, public Pala::SimpleGridPropertySet
 {
 	Q_OBJECT
 	public:

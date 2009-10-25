@@ -7,21 +7,24 @@ set(libpala_SRCS
 	slicer.cpp
 	slicerjob.cpp
 	slicerproperty.cpp
+	slicerpropertyset.cpp
 )
 set(libpala_HDRS
 	libpalamacros.h
 	slicer.h
 	slicerjob.h
 	slicerproperty.h
+	slicerpropertyset.cpp
 )
 set(libpala_FANCY_HDRS
 	Pala/Slicer
 	Pala/SlicerJob
 	Pala/SlicerProperty
+	Pala/SlicerPropertySet
 )
 
 kde4_add_library(pala SHARED ${libpala_SRCS})
-target_link_libraries(pala ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
+target_link_libraries(pala ${KDE4_KDECORE_LIBS} ${QT_QTGUI_LIBRARY})
 set_target_properties(pala PROPERTIES
 	VERSION ${libpala_VERSION}
 	SOVERSION ${libpala_SOVERSION}

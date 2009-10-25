@@ -32,6 +32,7 @@ namespace Pala
 {
 	class SlicerJob;
 	class SlicerProperty;
+	class SlicerPropertySet;
 
 	/**
 	 * \class Slicer slicer.h <Pala/Slicer>
@@ -80,6 +81,7 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 		protected:
 			///Add the given property to the property list of this slicer. Use this method in the subclass constructors to fill the slicer with properties. Properties let the user control how the slicing is done.
 			void addProperty(const QByteArray& key, Pala::SlicerProperty* property);
+			friend class SlicerPropertySet;
 		private:
 			class Private;
 			Private* const p;
