@@ -32,12 +32,12 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 MySlicer::MySlicer(QObject* parent, const QVariantList& args)
     : Pala::Slicer(parent, args)
 {
-    Pala::SlicerProperty* prop;
-    prop = new Pala::SlicerProperty(Pala::SlicerProperty::Integer, i18n("Piece count in horizontal direction"));
+    Pala::IntegerProperty* prop;
+    prop = new Pala::IntegerProperty(i18n("Piece count in horizontal direction"));
     prop->setRange(3, 100);
     prop->setDefaultValue(10);
     addProperty("XCount", prop);
-    prop = new Pala::SlicerProperty(Pala::SlicerProperty::Integer, i18n("Piece count in vertical direction"));
+    prop = new Pala::IntegerProperty(i18n("Piece count in vertical direction"));
     prop->setRange(3, 100);
     prop->setDefaultValue(10);
     addProperty("YCount", prop);

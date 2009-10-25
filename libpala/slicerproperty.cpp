@@ -18,25 +18,35 @@
 
 #include "slicerproperty.h"
 
-#include <QStringList>
+#include <QMutableListIterator>
 
-//BEGIN Pala::SlicerProperty::Private
+//BEGIN private classes
 
-class Pala::SlicerProperty::Private
+struct Pala::SlicerProperty::Private
 {
-	public:
-		Pala::SlicerProperty::Type m_type;
-		QString m_caption;
+	QVariant::Type m_type;
+	QString m_caption;
 
-		QStringList m_choices;
-		QPair<int, int> m_range;
-		QVariant m_defaultValue;
+	QVariantList m_choices;
+	QVariant m_defaultValue;
 };
 
-//END Pala::SlicerProperty::Private
+struct Pala::BooleanProperty::Private {};
 
-Pala::SlicerProperty::SlicerProperty(Pala::SlicerProperty::Type type, const QString& caption)
-	: p(new Private)
+struct Pala::IntegerProperty::Private
+{
+	QPair<int, int> m_range;
+	Pala::IntegerProperty::Representation m_representation;
+};
+
+struct Pala::StringProperty::Private {};
+
+//END private classes
+
+//BEGIN Pala::SlicerProperty
+
+Pala::SlicerProperty::SlicerProperty(QVariant::Type type, const QString& caption)
+	: p(new Pala::SlicerProperty::Private)
 {
 	p->m_type = type;
 	p->m_caption = caption;
@@ -52,7 +62,7 @@ QString Pala::SlicerProperty::caption() const
 	return p->m_caption;
 }
 
-QStringList Pala::SlicerProperty::choices() const
+QVariantList Pala::SlicerProperty::choices() const
 {
 	return p->m_choices;
 }
@@ -62,43 +72,83 @@ QVariant Pala::SlicerProperty::defaultValue() const
 	return p->m_defaultValue;
 }
 
-int Pala::SlicerProperty::rangeMinimum() const
-{
-	return p->m_range.first;
-}
-
-int Pala::SlicerProperty::rangeMaximum() const
-{
-	return p->m_range.second;
-}
-
-Pala::SlicerProperty::Type Pala::SlicerProperty::type() const
+QVariant::Type Pala::SlicerProperty::type() const
 {
 	return p->m_type;
 }
 
-void Pala::SlicerProperty::setChoices(const QStringList& strings)
+void Pala::SlicerProperty::setChoices(const QVariantList& choices)
 {
-	Q_ASSERT_X(p->m_type == String, "Pala::SlicerProperty::setChoices", "wrong property type");
-	p->m_choices = strings;
-}
-
-void Pala::SlicerProperty::setChoices(const QList<int>& numbers)
-{
-	Q_ASSERT_X(p->m_type == Integer, "Pala::SlicerProperty::setChoices", "wrong property type");
-	p->m_choices.clear();
-	foreach (int number, numbers)
-		p->m_choices << QString::number(number);
+	p->m_choices = choices;
+	QMutableListIterator<QVariant> iter(p->m_choices);
+	while (iter.hasNext())
+		iter.next().convert(p->m_type);
 }
 
 void Pala::SlicerProperty::setDefaultValue(const QVariant& value)
 {
 	p->m_defaultValue = value;
+	p->m_defaultValue.convert(p->m_type);
 }
 
-void Pala::SlicerProperty::setRange(int min, int max)
+//END Pala::SlicerProperty
+
+//BEGIN concrete implementations
+
+Pala::BooleanProperty::BooleanProperty(const QString& caption)
+	: Pala::SlicerProperty(QVariant::Bool, caption)
+	, p(0)
 {
-	Q_ASSERT_X(p->m_type == Integer, "Pala::SlicerProperty::setRange", "wrong property type");
+}
+
+Pala::BooleanProperty::~BooleanProperty()
+{
+	delete p;
+}
+
+Pala::IntegerProperty::IntegerProperty(const QString& caption)
+	: Pala::SlicerProperty(QVariant::Int, caption)
+	, p(new Pala::IntegerProperty::Private)
+{
+	p->m_range.first = p->m_range.second = 0;
+	p->m_representation = Pala::IntegerProperty::DefaultRepresentation;
+}
+
+Pala::IntegerProperty::~IntegerProperty()
+{
+	delete p;
+}
+
+QPair<int, int> Pala::IntegerProperty::range() const
+{
+	return p->m_range;
+}
+
+Pala::IntegerProperty::Representation Pala::IntegerProperty::representation() const
+{
+	return p->m_representation;
+}
+
+void Pala::IntegerProperty::setRange(int min, int max)
+{
 	p->m_range.first = min;
 	p->m_range.second = max;
 }
+
+void Pala::IntegerProperty::setRepresentation(Pala::IntegerProperty::Representation representation)
+{
+	p->m_representation = representation;
+}
+
+Pala::StringProperty::StringProperty(const QString& caption)
+	: Pala::SlicerProperty(QVariant::String, caption)
+	, p(0)
+{
+}
+
+Pala::StringProperty::~StringProperty()
+{
+	delete p;
+}
+
+//END concrete implementations

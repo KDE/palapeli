@@ -48,6 +48,7 @@ namespace Palapeli
 		private:
 			KComboBox* m_comboBox;
 			KIntSpinBox* m_spinBox;
+			QSlider* m_slider;
 	};
 
 	class StringPropertyWidget : public Palapeli::PropertyWidget

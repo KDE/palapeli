@@ -25,7 +25,9 @@
 # include <libpala/libpalamacros.h>
 #endif
 
+#include <QtCore/QPair>
 #include <QtCore/QVariant>
+#include <QtCore/QVariantList>
 
 namespace Pala
 {
@@ -33,48 +35,87 @@ namespace Pala
 	 * \class SlicerProperty slicerproperty.h <Pala/SlicerProperty>
 	 * \brief Representation of a slicing algorithm's configurable parameters.
 	 *
-	 * Slicer properties describe configurable parameters of slicing algorithms (i.e. Pala::Slicer instances) in a presentation-agnostic way. Note that it does not store any user-generated values, it just describes the possible input forms.
+	 * Slicer properties describe configurable parameters of slicing algorithms (i.e. Pala::Slicer instances) in a presentation-agnostic way. They do not store any user-generated values, they just describe the possible input forms.
+	 *
+	 * \note This is an abstract base class. Use the subclasses provided by this library. Defining own subclasses outside libpala is senseless, because Palapeli needs to know about them to use them correctly and to their full extent.
 	 *
 	 * \sa Pala::Slicer::addProperty
-	 *
-	 * \warning Some setter functions are only logical for certain property types. If such a function is called on a property with a "wrong" type, the method will not only fail, but terminate the whole application, to let you discover such errors in the early run.
 	 */
 	class LIBPALA_EXPORT SlicerProperty
 	{
+		protected:
+			explicit SlicerProperty(QVariant::Type type, const QString& caption);
 		public:
-			///This enumeration defines the possible property types. Note that (by far) not all possible QVariant types are included, as this would increase the implementation complexity and complicate the UI representation.
-			enum Type
-			{
-				Boolean = 1, ///< These properties are represented by a check box.
-				Integer = 2, ///< These properties are represented by an int spin box (or a combo box if setChoices() is used).
-				String = 3   ///< These properties are represented by a line edit (or a combo box if setChoices() is used).
-			};
-			explicit SlicerProperty(Type type, const QString& caption);
 			///Deletes this slicer property.
-			~SlicerProperty();
+			virtual ~SlicerProperty();
 
 			//The following functions belong to the interface to the Palapeli application. They are not documented because the documentation is targeted at slicer developers.
 			///\internal
 			QString caption() const;
 			///\internal
-			QStringList choices() const;
+			QVariantList choices() const;
 			///\internal
 			QVariant defaultValue() const;
 			///\internal
-			int rangeMinimum() const;
-			///\internal
-			int rangeMaximum() const;
-			///\internal
-			Type type() const;
+			QVariant::Type type() const;
 
-			///Only for string properties: Limits the user input to the selection of one of the given strings. (The first string in the given list will be the default.)
-			void setChoices(const QStringList& strings);
-			///Only for integer properties: Limits the user input to the selection of one of the given numbers. (The first number in the given list will be the default.) This will override setRange() in any case.
-			void setChoices(const QList<int>& numbers);
-			///Sets the default value of this property. This is overridden by setChoices(), because the first one of the choices given to that function will become the default in any case.
+			///Limits the user input to the selection of one of the given values. The first value in the given list will be the default.
+			///\warning This setting will override any other constraints to the user input, including the default value defined by setDefaultValue().
+			void setChoices(const QVariantList& choices);
+			///Sets the default value of this property.
 			void setDefaultValue(const QVariant& value);
-			///Only for integer properties: Limits the user input to the selection of a number inside the given range (including the bounds). This will be overridden by setChoices() in any case.
+		private:
+			class Private;
+			Private* const p;
+	};
+
+	/**
+	 * \class BooleanProperty slicerproperty.h <Pala/SlicerProperty>
+	 */
+	class LIBPALA_EXPORT BooleanProperty : public Pala::SlicerProperty
+	{
+		public:
+			explicit BooleanProperty(const QString& caption);
+			virtual ~BooleanProperty();
+		private:
+			class Private;
+			Private* const p;
+	};
+
+	/**
+	 * \class IntegerProperty slicerproperty.h <Pala/SlicerProperty>
+	 */
+	class LIBPALA_EXPORT IntegerProperty : public Pala::SlicerProperty
+	{
+		public:
+			///Decides how the property is represented in the user interface of Palapeli.
+			enum Representation { SpinBox, Slider, DefaultRepresentation = SpinBox };
+
+			explicit IntegerProperty(const QString& caption);
+			virtual ~IntegerProperty();
+
+			///\internal
+			QPair<int, int> range() const;
+			///\internal
+			Representation representation() const;
+
+			///Limits the user input to the selection of a number inside the given range (including the bounds).
 			void setRange(int min, int max);
+			///Decides how the property is represented in the user interface of Palapeli.
+			void setRepresentation(Representation representation);
+		private:
+			class Private;
+			Private* const p;
+	};
+
+	/**
+	 * \class StringProperty slicerproperty.h <Pala/SlicerProperty>
+	 */
+	class LIBPALA_EXPORT StringProperty : public Pala::SlicerProperty
+	{
+		public:
+			explicit StringProperty(const QString& caption);
+			virtual ~StringProperty();
 		private:
 			class Private;
 			Private* const p;

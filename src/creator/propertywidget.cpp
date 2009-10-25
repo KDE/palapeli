@@ -27,13 +27,13 @@ Palapeli::PropertyWidget* Palapeli::createPropertyWidget(const Pala::SlicerPrope
 	Palapeli::PropertyWidget* pw;
 	switch (property->type())
 	{
-		case Pala::SlicerProperty::Boolean:
+		case QVariant::Bool:
 			pw = new Palapeli::BooleanPropertyWidget;
 			break;
-		case Pala::SlicerProperty::Integer:
+		case QVariant::Int:
 			pw = new Palapeli::IntegerPropertyWidget;
 			break;
-		case Pala::SlicerProperty::String:
+		case QVariant::String:
 			pw = new Palapeli::StringPropertyWidget;
 			break;
 		default:
@@ -72,25 +72,39 @@ QVariant Palapeli::BooleanPropertyWidget::propertyValue() const
 Palapeli::IntegerPropertyWidget::IntegerPropertyWidget()
 	: m_comboBox(0)
 	, m_spinBox(0)
+	, m_slider(0)
 {
 }
 
 void Palapeli::IntegerPropertyWidget::initialize(const Pala::SlicerProperty* property)
 {
-	const QPair<int,int> range = qMakePair(property->rangeMinimum(), property->rangeMaximum());
-	const QStringList choices = property->choices();
+	const Pala::IntegerProperty* intProperty = reinterpret_cast<const Pala::IntegerProperty*>(property);
+	const QPair<int,int> range = intProperty->range();
+	const QVariantList choices = property->choices();
 	QWidget* usedWidget;
 	if (choices.isEmpty())
 	{
-		usedWidget = m_spinBox = new KIntSpinBox(this);
-		if (range.first != range.second) //only set range if it is not empty
-			m_spinBox->setRange(range.first, range.second);
-		m_spinBox->setValue(property->defaultValue().toInt());
+		switch (intProperty->representation())
+		{
+			case Pala::IntegerProperty::SpinBox:
+				usedWidget = m_spinBox = new KIntSpinBox(this);
+				if (range.first != range.second) //only set range if it is not empty
+					m_spinBox->setRange(range.first, range.second);
+				m_spinBox->setValue(property->defaultValue().toInt());
+				break;
+			case Pala::IntegerProperty::Slider:
+				usedWidget = m_slider = new QSlider(Qt::Horizontal, this);
+				if (range.first != range.second) //only set range if it is not empty
+					m_slider->setRange(range.first, range.second);
+				m_slider->setValue(property->defaultValue().toInt());
+				break;
+		}
 	}
 	else
 	{
 		usedWidget = m_comboBox = new KComboBox(false, this); //false = not editable (only given choices can be used)
-		m_comboBox->addItems(choices);
+		foreach (const QVariant& choice, choices)
+			m_comboBox->addItem(choice.toString());
 	}
 	QHBoxLayout* layout = new QHBoxLayout;
 	layout->addWidget(usedWidget);
@@ -100,7 +114,14 @@ void Palapeli::IntegerPropertyWidget::initialize(const Pala::SlicerProperty* pro
 
 QVariant Palapeli::IntegerPropertyWidget::propertyValue() const
 {
-	return m_spinBox ? QVariant(m_spinBox->value()) : (m_comboBox ? QVariant(m_comboBox->currentText()) : QVariant());
+	if (m_spinBox)
+		return m_spinBox->value();
+	else if (m_slider)
+		return m_slider->value();
+	else if (m_comboBox)
+		return m_comboBox->currentText();
+	else //This may never happen.
+		return QVariant();
 }
 
 //END Palapeli::IntegerPropertyWidget
@@ -115,14 +136,15 @@ Palapeli::StringPropertyWidget::StringPropertyWidget()
 
 void Palapeli::StringPropertyWidget::initialize(const Pala::SlicerProperty* property)
 {
-	const QStringList choices = property->choices();
+	const QVariantList choices = property->choices();
 	QWidget* usedWidget;
 	if (choices.isEmpty())
 		usedWidget = m_lineEdit = new KLineEdit(property->defaultValue().toString(), this);
 	else
 	{
 		usedWidget = m_comboBox = new KComboBox(false, this); //false = not editable (only given choices can be used)
-		m_comboBox->addItems(choices);
+		foreach (const QVariant& choice, choices)
+			m_comboBox->addItem(choice.toString());
 	}
 	QHBoxLayout* layout = new QHBoxLayout;
 	layout->addWidget(usedWidget);
