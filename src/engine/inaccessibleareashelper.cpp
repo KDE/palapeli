@@ -29,7 +29,7 @@ Palapeli::InaccessibleAreasHelper::InaccessibleAreasHelper(QGraphicsView* view)
 	: QObject(view)
 	, m_view(view)
 	, m_active(false)
-	, m_opacity(0.0)
+	, m_opacity(0.2)
 	, m_items(PositionCount)
 #if QT_VERSION >= 0x040600
 	, m_animator(new QPropertyAnimation(this, "Opacity", this))
@@ -37,13 +37,13 @@ Palapeli::InaccessibleAreasHelper::InaccessibleAreasHelper(QGraphicsView* view)
 {
 	//create gray items (with null size!)
 	QColor rectColor(Qt::black);
-	rectColor.setAlpha(42 + 23);
+	rectColor.setAlpha(80);
 	const QPen pen(Qt::NoPen);
 	const QBrush brush(rectColor);
 	for (int i = 0; i < PositionCount; ++i)
 	{
 		m_items[i] = view->scene()->addRect(QRect(), pen, brush);
-		m_items[i]->setOpacity(0);
+		m_items[i]->setOpacity(m_opacity);
 	}
 	//more initialization
 	QObject::setParent(view); //delete myself automatically when the view is destroyed
@@ -66,7 +66,7 @@ void Palapeli::InaccessibleAreasHelper::setActive(bool active)
 	if (m_active == active)
 		return;
 	m_active = active;
-	const qreal targetOpacity = active ? 1.0 : 0.0;
+	const qreal targetOpacity = active ? 1.0 : 0.2;
 #if QT_VERSION >= 0x040600
 	m_animator->setDuration(200 * qAbs(targetOpacity - m_opacity));
 	m_animator->setStartValue(m_opacity);
@@ -110,10 +110,14 @@ void Palapeli::InaccessibleAreasHelper::update()
 	//adjust top gray area
 	itemRect = viewportRect;
 	itemRect.setBottom(sceneRect.top());
+	itemRect.setLeft(sceneRect.left()); //do not overlap left area...
+	itemRect.setRight(sceneRect.right()); //..and right area
 	m_items[TopPos]->setRect(itemRect);
 	//adjust bottom gray area
 	itemRect = viewportRect;
 	itemRect.setTop(sceneRect.bottom());
+	itemRect.setLeft(sceneRect.left()); //same as above
+	itemRect.setRight(sceneRect.right());
 	m_items[BottomPos]->setRect(itemRect);
 }
 

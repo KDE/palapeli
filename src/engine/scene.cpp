@@ -125,6 +125,7 @@ void Palapeli::Scene::loadNextPart()
 		addItem(part);
 		connect(part, SIGNAL(destroyed(QObject*)), this, SLOT(partDestroyed(QObject*)));
 		connect(part, SIGNAL(partMoved()), this, SLOT(partMoved()));
+		connect(part, SIGNAL(partMoving()), this, SLOT(partMoving()));
 		m_parts << part;
 		//continue with next part after eventloop run
 		if (contents->pieces.size() > m_pieces.size())
@@ -181,8 +182,7 @@ void Palapeli::Scene::finishLoading()
 			QRectF br = part->sceneTransform().mapRect(part->childrenBoundingRect());
 			//NOTE: br = bounding rect (of part), sr = scene rect
 			const int minXPos = sr.left(), maxXPos = sr.right() - br.width();
-			const int minYPos = sr.top(), maxYPos = sr.center().y() - br.height();
-			//NOTE: In the above line, sr.bottom() is replaced by sr.center().y() to only fill half of the table.
+			const int minYPos = sr.top(), maxYPos = sr.bottom() - br.height();
 			const int xPos = qrand() % (maxXPos - minXPos) + minXPos;
 			const int yPos = qrand() % (maxYPos - minYPos) + minYPos;
 			part->setPos(xPos - br.left(), yPos - br.top());
@@ -191,6 +191,7 @@ void Palapeli::Scene::finishLoading()
 	m_loadingPuzzle = false; //finished
 	//initialize external progress display
 	emit reportProgress(m_pieces.count(), m_parts.count());
+	emit puzzleStarted();
 }
 
 void Palapeli::Scene::partDestroyed(QObject* object)
@@ -198,16 +199,8 @@ void Palapeli::Scene::partDestroyed(QObject* object)
 	m_parts.removeAll(reinterpret_cast<Palapeli::Part*>(object));
 }
 
-void Palapeli::Scene::partMoved()
+void Palapeli::Scene::partMoving()
 {
-	emit reportProgress(m_pieces.count(), m_parts.count());
-	//save piece positions
-	static const QString pathTemplate = QString::fromLatin1("puzzlelibrary/%1.save");
-	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier)));
-	KConfigGroup saveGroup(&saveConfig, "SaveGame");
-	const QList<int> pieceIDs = m_pieces.keys();
-	foreach (int pieceID, pieceIDs)
-		saveGroup.writeEntry(QString::number(pieceID), m_pieces[pieceID]->part()->pos());
 	//if scene size constraint is not active, enlarge scene rect as needed
 	if (!m_constrained)
 	{
@@ -216,6 +209,19 @@ void Palapeli::Scene::partMoved()
 			newSceneRect = newSceneRect.united(part->mapToScene(part->piecesBoundingRect()).boundingRect());
 		setSceneRect(newSceneRect);
 	}
+}
+
+void Palapeli::Scene::partMoved()
+{
+	partMoving();
+	emit reportProgress(m_pieces.count(), m_parts.count());
+	//save piece positions
+	static const QString pathTemplate = QString::fromLatin1("puzzlelibrary/%1.save");
+	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier)));
+	KConfigGroup saveGroup(&saveConfig, "SaveGame");
+	const QList<int> pieceIDs = m_pieces.keys();
+	foreach (int pieceID, pieceIDs)
+		saveGroup.writeEntry(QString::number(pieceID), m_pieces[pieceID]->part()->pos());
 }
 
 void Palapeli::Scene::restartPuzzle()

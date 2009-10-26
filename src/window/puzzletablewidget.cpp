@@ -66,10 +66,10 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	connect(m_view->scene(), SIGNAL(reportProgress(int, int)), this, SLOT(reportProgress(int, int)));
 	//setup zoom widget
 	m_zoomWidget->setEnabled(false); //will be enabled when a puzzle is loaded
-	connect(m_zoomWidget, SIGNAL(levelChanged(qreal)), m_view, SLOT(zoomTo(qreal)));
+	connect(m_zoomWidget, SIGNAL(levelChanged(int)), m_view, SLOT(zoomTo(int)));
 	connect(m_zoomWidget, SIGNAL(zoomInRequest()), m_view, SLOT(zoomIn()));
 	connect(m_zoomWidget, SIGNAL(zoomOutRequest()), m_view, SLOT(zoomOut()));
-	connect(m_view, SIGNAL(zoomLevelChanged(qreal)), m_zoomWidget, SLOT(setLevel(qreal)));
+	connect(m_view, SIGNAL(zoomLevelChanged(int)), m_zoomWidget, SLOT(setLevel(int)));
 	connect(m_zoomWidget, SIGNAL(constrainedChanged(bool)), m_view->scene(), SLOT(setConstrained(bool)));
 	connect(m_view->scene(), SIGNAL(constrainedChanged(bool)), m_zoomWidget, SLOT(setConstrained(bool)));
 	//setup widget stack

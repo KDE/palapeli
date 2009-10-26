@@ -17,6 +17,7 @@
 ***************************************************************************/
 
 #include "zoomwidget.h"
+#include "view.h" //for minimum/maximum values
 
 #include <QSlider>
 #include <QToolButton>
@@ -43,10 +44,10 @@ Palapeli::ZoomWidget::ZoomWidget(QWidget* parent)
 	m_zoomInButton->setIcon(KIcon("zoom-in"));
 	m_zoomInButton->setShortcut(KStandardShortcut::zoomIn().primary());
 	connect(m_zoomInButton, SIGNAL(pressed()), this, SIGNAL(zoomInRequest()));
-	//init slider
-	m_slider->setMinimum(1000);
-	m_slider->setMaximum(10 * m_slider->minimum());
-	connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(handleValueChanged(int)));
+	//init slider (TODO: logarithmic scale)
+	m_slider->setMinimum(Palapeli::View::MinimumZoomLevel);
+	m_slider->setMaximum(Palapeli::View::MaximumZoomLevel);
+	connect(m_slider, SIGNAL(valueChanged(int)), this, SIGNAL(levelChanged(int)));
 	//init widget layout
 	QHBoxLayout* layout = new QHBoxLayout;
 	layout->addWidget(m_constrainedButton);
@@ -66,14 +67,9 @@ void Palapeli::ZoomWidget::setConstrained(bool constrained)
 	}
 }
 
-void Palapeli::ZoomWidget::setLevel(qreal level)
+void Palapeli::ZoomWidget::setLevel(int level)
 {
-	m_slider->setValue(level * m_slider->minimum());
-}
-
-void Palapeli::ZoomWidget::handleValueChanged(int value)
-{
-	emit levelChanged(qreal(value) / m_slider->minimum());
+	m_slider->setValue(level);
 }
 
 #include "zoomwidget.moc"

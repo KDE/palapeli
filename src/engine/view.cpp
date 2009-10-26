@@ -21,21 +21,26 @@
 #include "scene.h"
 #include "texturehelper.h"
 
+#include <cmath>
 #include <QWheelEvent>
+
+const int Palapeli::View::MinimumZoomLevel = 10;
+const int Palapeli::View::MaximumZoomLevel = 200;
 
 Palapeli::View::View()
 	: m_scene(new Palapeli::Scene(this))
 	, m_iaHelper(0) //cannot be initialized before scene has been set
 	, m_txHelper(new Palapeli::TextureHelper(m_scene))
-	, m_zoomLevel(0) //set to invalid level while scene has not specified its rect
+	, m_zoomLevel(100)
 {
 	//initialize viewport and scene
 	setDragMode(QGraphicsView::ScrollHandDrag);
 	setScene(m_scene);
 	//initialize helpers
 	m_iaHelper = new Palapeli::InaccessibleAreasHelper(this);
-	connect(m_scene, SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(sceneRectChanged(const QRectF&)));
 	connect(m_scene, SIGNAL(constrainedChanged(bool)), m_iaHelper, SLOT(setActive(bool)));
+	connect(m_scene, SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(sceneRectChanged(const QRectF&)));
+	connect(m_scene, SIGNAL(puzzleStarted()), this, SLOT(puzzleStarted()));
 }
 
 Palapeli::View::~View()
@@ -53,13 +58,6 @@ Palapeli::TextureHelper* Palapeli::View::textureHelper() const
 	return m_txHelper;
 }
 
-void Palapeli::View::resizeEvent(QResizeEvent* event)
-{
-	QGraphicsView::resizeEvent(event);
-	//do not always react on resize events with viewport matrix changes, but make the scene appear bigger if the viewport grows much to big
-	restrictViewportToSceneRect();
-}
-
 void Palapeli::View::wheelEvent(QWheelEvent* event)
 {
 	zoomBy(event->delta());
@@ -67,36 +65,25 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 
 void Palapeli::View::zoomBy(int delta)
 {
-	static const qreal deltaAdaptationFactor = 600.0;
-	qreal scalingFactor = 1.0 + qAbs(delta) / deltaAdaptationFactor;
-	if (delta < 0) //zoom out
-	{
-		scalingFactor = 1.0 / scalingFactor;
-		if (scalingFactor <= 0.01)
-			scalingFactor = 0.01;
-	}
-	zoomTo(m_zoomLevel * scalingFactor);
+	zoomTo(m_zoomLevel + delta / 10);
 }
 
-void Palapeli::View::zoomTo(qreal level)
+void Palapeli::View::zoomTo(int level)
 {
 	//validate/normalize input
-	if (level <= 0)
-		return;
-	if (level >= 10)
-		level = 10;
-	if (level < 1)
-		level = 1;
+	level = qBound(MinimumZoomLevel, level, MaximumZoomLevel);
 	//skip unimportant requests
-	if (qFuzzyCompare(level, m_zoomLevel))
+	if (level == m_zoomLevel)
 		return;
-	//scale to this level
-	qreal scalingFactor = level / m_zoomLevel;
-	scale(scalingFactor, scalingFactor);
+	//create a new transform
+	const QPointF center = mapToScene(rect().center());
+	const qreal scalingFactor = level / 100.0;
+	QTransform t;
+	t.translate(center.x(), center.y());
+	t.scale(scalingFactor, scalingFactor);
+	setTransform(t);
+	//save and report changes
 	m_zoomLevel = level;
-	//extra sanity check
-	restrictViewportToSceneRect();
-	//report changes
 	emit zoomLevelChanged(m_zoomLevel);
 }
 
@@ -110,30 +97,21 @@ void Palapeli::View::zoomOut()
 	zoomBy(-120);
 }
 
-void Palapeli::View::sceneRectChanged(const QRectF& sceneRect)
+void Palapeli::View::sceneRectChanged(const QRectF& rect)
 {
-	m_zoomLevel = 1.0;
-	fitInView(sceneRect, Qt::KeepAspectRatio);
-	setSceneRect(sceneRect);
-	//report changes
-	emit zoomLevelChanged(m_zoomLevel);
+	setSceneRect(rect);
 }
 
-void Palapeli::View::restrictViewportToSceneRect()
+void Palapeli::View::puzzleStarted()
 {
-	//Rationale of this method: Adjust the viewport matrix in such a way that the scene rect is never displayed smaller than it would be after a call to fitInView(sceneRect, Qt::KeepAspectRatio).
-	//do not allow viewport to grow bigger than the scene rect
-	const QRectF sr = m_scene->sceneRect();
-	const QRectF vr = mapToScene(contentsRect()).boundingRect();
-	if (sr.isEmpty() && vr.isEmpty())
-		return;
-	else if (vr.width() > sr.width() && vr.height() > sr.height())
-	{
-		m_zoomLevel = 1.0;
-		fitInView(sr, Qt::KeepAspectRatio);
-		//report changes
-		emit zoomLevelChanged(m_zoomLevel);
-	}
+	resetTransform();
+	//scale viewport to show the whole puzzle table
+	const QRectF sr = sceneRect();
+	const QRectF vr = mapToScene(viewport()->rect()).boundingRect();
+	const qreal scalingFactor = qMin(vr.width() / sr.width(), vr.height() / sr.height());
+	const int level = 100 * scalingFactor;
+	zoomTo(level);
+	centerOn(sr.center());
 }
 
 #include "view.moc"

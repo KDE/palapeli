@@ -44,9 +44,11 @@ namespace Palapeli
 			void setConstrained(bool constrained);
 		Q_SIGNALS:
 			void constrainedChanged(bool constrained);
+			void puzzleStarted();
 			void reportProgress(int pieceCount, int partCount);
 		private Q_SLOTS:
 			void partDestroyed(QObject* object);
+			void partMoving();
 			void partMoved();
 			//loading steps
 			void startLoading();

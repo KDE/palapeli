@@ -49,6 +49,7 @@ namespace Palapeli
 			enum { Type = QGraphicsItem::UserType + 2 }; //UserType + 1 == Palapeli::Piece
 			virtual int type() const { return Type; }
 		Q_SIGNALS:
+			void partMoving();
 			void partMoved();
 		protected:
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);

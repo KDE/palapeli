@@ -36,24 +36,26 @@ namespace Palapeli
 
 			Palapeli::Scene* scene() const;
 			Palapeli::TextureHelper* textureHelper() const;
+
+			static const int MinimumZoomLevel;
+			static const int MaximumZoomLevel;
 		public Q_SLOTS:
 			void zoomIn();
 			void zoomOut();
 			void zoomBy(int delta); //delta = 0 -> no change, delta < 0 -> zoom out, delta > 0 -> zoom in
-			void zoomTo(qreal level); //level = 1 -> show complete scene rect, allowed values: 1 <= level <= 10
+			void zoomTo(int level); //level = 100 -> actual size
 		protected:
-			virtual void resizeEvent(QResizeEvent* event);
 			virtual void wheelEvent(QWheelEvent* event);
-			void restrictViewportToSceneRect();
 		Q_SIGNALS:
-			void zoomLevelChanged(qreal level);
+			void zoomLevelChanged(int level);
 		private Q_SLOTS:
-			void sceneRectChanged(const QRectF& sceneRect);
+			void sceneRectChanged(const QRectF& rect);
+			void puzzleStarted();
 		private:
 			Palapeli::Scene* m_scene;
 			Palapeli::InaccessibleAreasHelper* m_iaHelper;
 			Palapeli::TextureHelper* m_txHelper;
-			qreal m_zoomLevel;
+			int m_zoomLevel;
 	};
 }
 

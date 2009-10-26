@@ -61,7 +61,10 @@ void Palapeli::Part::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
 	QGraphicsItem::mouseMoveEvent(event); //handle dragging
 	if (event->buttons() & Qt::LeftButton)
+	{
 		validatePosition();
+		emit partMoving();
+	}
 }
 
 void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
