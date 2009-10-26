@@ -40,11 +40,11 @@ namespace Palapeli
 		public Q_SLOTS:
 			void setActive(bool active);
 			void setOpacity(qreal opacity);
+			void update();
 		protected:
 			virtual bool eventFilter(QObject* sender, QEvent* event);
 		private:
 			enum Position { LeftPos = 0, RightPos, TopPos, BottomPos, PositionCount };
-			void update();
 
 			QGraphicsView* m_view;
 			bool m_active; qreal m_opacity;

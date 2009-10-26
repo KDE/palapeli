@@ -70,6 +70,8 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	connect(m_zoomWidget, SIGNAL(zoomInRequest()), m_view, SLOT(zoomIn()));
 	connect(m_zoomWidget, SIGNAL(zoomOutRequest()), m_view, SLOT(zoomOut()));
 	connect(m_view, SIGNAL(zoomLevelChanged(qreal)), m_zoomWidget, SLOT(setLevel(qreal)));
+	connect(m_zoomWidget, SIGNAL(constrainedChanged(bool)), m_view->scene(), SLOT(setConstrained(bool)));
+	connect(m_view->scene(), SIGNAL(constrainedChanged(bool)), m_zoomWidget, SLOT(setConstrained(bool)));
 	//setup widget stack
 	m_stack->addWidget(m_loadingWidget);
 	m_stack->addWidget(m_view);

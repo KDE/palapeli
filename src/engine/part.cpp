@@ -18,6 +18,7 @@
 
 #include "part.h"
 #include "piece.h"
+#include "scene.h"
 #include "settings.h"
 #include "shadowitem.h"
 
@@ -84,6 +85,8 @@ bool Palapeli::Part::searchConnections()
 		foreach (Palapeli::Piece* mergeNeighbor, mergeNeighbors)
 			mergeParts << mergeNeighbor->part();
 	}
+	if (mergeParts.isEmpty())
+		return false;
 	//merge any parts that are near this part
 	foreach (Palapeli::Part* part, mergeParts)
 	{
@@ -108,7 +111,7 @@ bool Palapeli::Part::searchConnections()
 		piece->updateNeighborsList();
 	//make position valid again
 	validatePosition();
-	return !mergeParts.isEmpty();
+	return true;
 }
 
 QRectF Palapeli::Part::piecesBoundingRect() const
@@ -127,21 +130,27 @@ QRectF Palapeli::Part::piecesBoundingRect() const
 
 void Palapeli::Part::validatePosition()
 {
-	//ensure that part stays inside scene rect
-	const QRectF sr = scene()->sceneRect();
-	const QRectF br = sceneTransform().mapRect(piecesBoundingRect()); //br = bounding rect
-	if (!sr.contains(br))
+	Palapeli::Scene* s = qobject_cast<Palapeli::Scene*>(scene());
+	if (!s)
+		return;
+	if (s->isConstrained())
 	{
-		QPointF pos = this->pos();
-		if (br.left() < sr.left())
-			pos.rx() += sr.left() - br.left();
-		if (br.right() > sr.right())
-			pos.rx() += sr.right() - br.right();
-		if (br.top() < sr.top())
-			pos.ry() += sr.top() - br.top();
-		if (br.bottom() > sr.bottom())
-			pos.ry() += sr.bottom() - br.bottom();
-		setPos(pos);
+		//scene rect constraint is active -> ensure that part stays inside scene rect
+		const QRectF sr = s->sceneRect();
+		const QRectF br = sceneTransform().mapRect(piecesBoundingRect()); //br = bounding rect
+		if (!sr.contains(br))
+		{
+			QPointF pos = this->pos();
+			if (br.left() < sr.left())
+				pos.rx() += sr.left() - br.left();
+			if (br.right() > sr.right())
+				pos.rx() += sr.right() - br.right();
+			if (br.top() < sr.top())
+				pos.ry() += sr.top() - br.top();
+			if (br.bottom() > sr.bottom())
+				pos.ry() += sr.bottom() - br.bottom();
+			setPos(pos);
+		}
 	}
 }
 

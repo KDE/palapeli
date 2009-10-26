@@ -35,7 +35,7 @@ Palapeli::View::View()
 	//initialize helpers
 	m_iaHelper = new Palapeli::InaccessibleAreasHelper(this);
 	connect(m_scene, SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(sceneRectChanged(const QRectF&)));
-	m_iaHelper->setActive(true);
+	connect(m_scene, SIGNAL(constrainedChanged(bool)), m_iaHelper, SLOT(setActive(bool)));
 }
 
 Palapeli::View::~View()
@@ -51,14 +51,6 @@ Palapeli::Scene* Palapeli::View::scene() const
 Palapeli::TextureHelper* Palapeli::View::textureHelper() const
 {
 	return m_txHelper;
-}
-
-void Palapeli::View::mousePressEvent(QMouseEvent* event)
-{
-	QGraphicsView::mousePressEvent(event);
-	//TODO: This is debug code to test QPropertyAnimation.
-	if (event->button() == Qt::MidButton)
-		m_iaHelper->setActive(!m_iaHelper->isActive());
 }
 
 void Palapeli::View::resizeEvent(QResizeEvent* event)

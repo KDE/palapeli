@@ -48,6 +48,7 @@ Palapeli::InaccessibleAreasHelper::InaccessibleAreasHelper(QGraphicsView* view)
 	//more initialization
 	QObject::setParent(view); //delete myself automatically when the view is destroyed
 	view->viewport()->installEventFilter(this);
+	connect(view->scene(), SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(update()));
 }
 
 bool Palapeli::InaccessibleAreasHelper::isActive() const

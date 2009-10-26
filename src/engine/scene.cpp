@@ -34,9 +34,25 @@ typedef QPair<int, int> DoubleIntPair; //comma in type is not possible in foreac
 
 Palapeli::Scene::Scene(QObject* parent)
 	: QGraphicsScene(parent)
+	, m_constrained(false)
 	, m_loadingPuzzle(false)
 {
 	connect(&m_metadataLoader, SIGNAL(finished()), this, SLOT(continueLoading()));
+}
+
+bool Palapeli::Scene::isConstrained() const
+{
+	return m_constrained;
+}
+
+void Palapeli::Scene::setConstrained(bool constrained)
+{
+	if (m_constrained == constrained)
+		return;
+	m_constrained = constrained;
+	foreach (Palapeli::Part* part, m_parts)
+		part->validatePosition();
+	emit constrainedChanged(constrained);
 }
 
 void Palapeli::Scene::loadPuzzle(const QModelIndex& index)
@@ -56,6 +72,8 @@ void Palapeli::Scene::loadPuzzle(const QModelIndex& index)
 
 void Palapeli::Scene::loadPuzzleInternal()
 {
+	//reset behavioral parameters
+	setConstrained(false);
 	//clear scene
 	qDeleteAll(m_pieces); m_pieces.clear();
 	qDeleteAll(m_parts); m_parts.clear();
@@ -83,7 +101,7 @@ void Palapeli::Scene::continueLoading()
 		return;
 	//initialize scene
 	const Palapeli::PuzzleContents* contents = m_puzzle->contents();
-	qreal sceneSizeFactor = Settings::sceneSizeFactor() / 100.0;
+	const qreal sceneSizeFactor = 2.5; //TODO: replace this
 	setSceneRect(QRectF(QPointF(), sceneSizeFactor * QSizeF(contents->imageSize)));
 	//delay piece loading for UI responsibility
 	if (!contents->pieces.isEmpty())
@@ -141,9 +159,17 @@ void Palapeli::Scene::finishLoading()
 		foreach (int pieceID, pieceIDs)
 		{
 			Palapeli::Part* part = m_pieces[pieceID]->part();
-			//TODO: respect sceneRect
 			part->setPos(saveGroup.readEntry(QString::number(pieceID), QPointF()));
 			part->searchConnections();
+			part->validatePosition();
+		}
+		if (!m_constrained)
+		{
+			//read scene rect from piece positions
+			QRectF newSceneRect = sceneRect();
+			foreach (Palapeli::Part* part, m_parts)
+				newSceneRect = newSceneRect.united(part->mapToScene(part->piecesBoundingRect()).boundingRect());
+			setSceneRect(newSceneRect);
 		}
 	}
 	else
@@ -181,8 +207,15 @@ void Palapeli::Scene::partMoved()
 	KConfigGroup saveGroup(&saveConfig, "SaveGame");
 	const QList<int> pieceIDs = m_pieces.keys();
 	foreach (int pieceID, pieceIDs)
-		//TODO: save piece position relative to scene rect (to correctly react on scene size factor changes)
 		saveGroup.writeEntry(QString::number(pieceID), m_pieces[pieceID]->part()->pos());
+	//if scene size constraint is not active, enlarge scene rect as needed
+	if (!m_constrained)
+	{
+		QRectF newSceneRect = sceneRect();
+		foreach (Palapeli::Part* part, m_parts)
+			newSceneRect = newSceneRect.united(part->mapToScene(part->piecesBoundingRect()).boundingRect());
+		setSceneRect(newSceneRect);
+	}
 }
 
 void Palapeli::Scene::restartPuzzle()

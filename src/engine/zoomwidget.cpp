@@ -22,15 +22,21 @@
 #include <QToolButton>
 #include <QVBoxLayout>
 #include <KIcon>
+#include <KLocalizedString>
 #include <KStandardShortcut>
 
 Palapeli::ZoomWidget::ZoomWidget(QWidget* parent)
 	: QWidget(parent)
+	, m_constrainedButton(new QToolButton(this))
 	, m_zoomOutButton(new QToolButton(this))
 	, m_zoomInButton(new QToolButton(this))
 	, m_slider(new QSlider(Qt::Horizontal))
 {
 	//init buttons
+	m_constrainedButton->setIcon(KIcon("select-rectangular"));
+	m_constrainedButton->setToolTip(i18n("Lock the puzzle table size"));
+	m_constrainedButton->setCheckable(true);
+	connect(m_constrainedButton, SIGNAL(toggled(bool)), this, SIGNAL(constrainedChanged(bool)));
 	m_zoomOutButton->setIcon(KIcon("zoom-out"));
 	m_zoomOutButton->setShortcut(KStandardShortcut::zoomOut().primary());
 	connect(m_zoomOutButton, SIGNAL(pressed()), this, SIGNAL(zoomOutRequest()));
@@ -43,11 +49,21 @@ Palapeli::ZoomWidget::ZoomWidget(QWidget* parent)
 	connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(handleValueChanged(int)));
 	//init widget layout
 	QHBoxLayout* layout = new QHBoxLayout;
+	layout->addWidget(m_constrainedButton);
 	layout->addWidget(m_zoomOutButton);
 	layout->addWidget(m_slider);
 	layout->addWidget(m_zoomInButton);
 	layout->setMargin(0);
 	setLayout(layout);
+}
+
+void Palapeli::ZoomWidget::setConstrained(bool constrained)
+{
+	if (m_constrainedButton->isChecked() != constrained)
+	{
+		m_constrainedButton->setChecked(constrained);
+		emit constrainedChanged(constrained);
+	}
 }
 
 void Palapeli::ZoomWidget::setLevel(qreal level)

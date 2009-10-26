@@ -31,14 +31,17 @@ namespace Palapeli
 		public:
 			ZoomWidget(QWidget* parent = 0);
 		public Q_SLOTS:
+			void setConstrained(bool constrained);
 			void setLevel(qreal level);
 		Q_SIGNALS:
+			void constrainedChanged(bool constrained);
 			void levelChanged(qreal level);
 			void zoomInRequest();
 			void zoomOutRequest();
 		private Q_SLOTS:
 			void handleValueChanged(int value);
 		private:
+			QToolButton* m_constrainedButton;
 			QToolButton* m_zoomOutButton;
 			QToolButton* m_zoomInButton;
 			QSlider* m_slider;

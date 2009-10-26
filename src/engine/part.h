@@ -31,17 +31,19 @@ namespace Palapeli
 	{
 		Q_OBJECT
 #if QT_VERSION >= 0x040600
-                Q_INTERFACES(QGraphicsItem)
+		Q_INTERFACES(QGraphicsItem)
 #endif
 		public:
 			Part(Palapeli::Piece* piece);
 			virtual ~Part();
 
 			bool searchConnections();
+			void validatePosition();
 
 			//empty QGraphicsItem reimplementation
 			virtual QRectF boundingRect() const { return QRectF(); }
 			virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget* = 0) {}
+			QRectF piecesBoundingRect() const; //like QGraphicsItem::childrenBoundingRect, but takes the pieces into account only (esp. not the shadow items)
 
 			//enable qgraphicsitem_cast
 			enum { Type = QGraphicsItem::UserType + 2 }; //UserType + 1 == Palapeli::Piece
@@ -52,8 +54,6 @@ namespace Palapeli
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
-			void validatePosition();
-			QRectF piecesBoundingRect() const; //like QGraphicsItem::childrenBoundingRect, but takes the pieces into account only (esp. not the shadow items)
 		private:
 			QList<Palapeli::Piece*> m_pieces;
 			QList<Palapeli::ShadowItem*> m_shadows;

@@ -36,10 +36,14 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			Scene(QObject* parent = 0);
-			void loadPuzzle(const QModelIndex& index);
+
+			bool isConstrained() const;
 		public Q_SLOTS:
+			void loadPuzzle(const QModelIndex& index);
 			void restartPuzzle();
+			void setConstrained(bool constrained);
 		Q_SIGNALS:
+			void constrainedChanged(bool constrained);
 			void reportProgress(int pieceCount, int partCount);
 		private Q_SLOTS:
 			void partDestroyed(QObject* object);
@@ -52,6 +56,9 @@ namespace Palapeli
 		private:
 			void loadPuzzleInternal();
 
+			//behavioral parameteres
+			bool m_constrained;
+			//game parameters
 			QString m_identifier;
 			QPointer<Palapeli::Puzzle> m_puzzle;
 			QMap<int, Palapeli::Piece*> m_pieces;
