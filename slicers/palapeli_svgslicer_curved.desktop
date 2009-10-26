@@ -13,6 +13,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 Name=Rectangular pieces with curved edges
+Name[fr]=Pièces rectangulaires avec des bords arrondis
 Name[pt]=Peças rectangulares com cantos curvos
 Name[sv]=Rektangulära bitar med rundade kanter
 Name[tr]=Yuvarlaklaştırılmış kenarlıkları olan dikdörtgen parçalar
