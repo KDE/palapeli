@@ -26,7 +26,7 @@
 #include <KStandardDirs>
 #include <KSvgRenderer>
 
-const QSize Palapeli::TextureHelper::DefaultThumbnailSize(64, 64);
+const QSize Palapeli::TextureHelper::DefaultThumbnailSize(32, 32);
 const QSize Palapeli::TextureHelper::DefaultPixmapSize(128, 128);
 
 QPixmap Palapeli::TextureHelper::render(const QString& fileName)
