@@ -25,7 +25,7 @@ namespace Palapeli
 {
 	class InaccessibleAreasHelper;
 	class Scene;
-	class ViewMenu;
+	class TextureHelper;
 
 	class View : public QGraphicsView
 	{
@@ -34,6 +34,7 @@ namespace Palapeli
 			View();
 
 			Palapeli::Scene* scene() const;
+			Palapeli::TextureHelper* textureHelper() const;
 		public Q_SLOTS:
 			void zoomIn();
 			void zoomOut();
@@ -51,7 +52,7 @@ namespace Palapeli
 		private:
 			Palapeli::Scene* m_scene;
 			Palapeli::InaccessibleAreasHelper* m_iaHelper;
-			Palapeli::ViewMenu* m_menu;
+			Palapeli::TextureHelper* m_txHelper;
 			qreal m_zoomLevel;
 	};
 }

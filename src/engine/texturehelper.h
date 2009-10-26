@@ -16,45 +16,34 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_VIEWMENU_COMPONENTS_H
-#define PALAPELI_VIEWMENU_COMPONENTS_H
+#ifndef PALAPELI_TEXTUREHELPER_H
+#define PALAPELI_TEXTUREHELPER_H
 
-#include <QPushButton>
+class QGraphicsScene;
+#include <QStandardItemModel>
 
 namespace Palapeli
 {
-	class ViewMenuItem : public QPushButton
+	class TextureHelper : public QStandardItemModel
 	{
 		Q_OBJECT
 		public:
-			ViewMenuItem(const QString& fileName);
+			enum CustomRoles { PixmapRole = Qt::UserRole + 1 };
 
-			QBrush brush() const;
-		Q_SIGNALS:
-			void startPreview(const QBrush& brush);
-			void selected(const QString& fileName, const QBrush& brush);
-		protected:
-			virtual void enterEvent(QEvent* event);
-		private Q_SLOTS:
-			void handleClicked();
+			TextureHelper(QGraphicsScene* scene);
+
+			int currentIndex() const;
+		public Q_SLOTS:
+			void setCurrentIndex(int index);
 		private:
-			QBrush m_brush;
-			QString m_fileName;
+			static QPixmap render(const QString& fileName);
 
-			static const int DefaultButtonSize;
-			static const int DefaultPixmapSize;
-	};
+			QGraphicsScene* m_scene;
+			int m_currentIndex;
 
-	class ViewMenuWidget : public QWidget
-	{
-		Q_OBJECT
-		public:
-			ViewMenuWidget(const QList<Palapeli::ViewMenuItem*>& items);
-		Q_SIGNALS:
-			void stopPreview();
-		protected:
-			virtual void leaveEvent(QEvent* event);
+			static const QSize DefaultThumbnailSize;
+			static const QSize DefaultPixmapSize;
 	};
 }
 
-#endif // PALAPELI_VIEWMENU_COMPONENTS_H
+#endif // PALAPELI_TEXTUREHELPER_H

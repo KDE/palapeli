@@ -11,9 +11,8 @@ set(palapeli_SRCS
 	engine/scene.cpp
 	engine/shadowitem.cpp
 	engine/shadowhelper.cpp
+	engine/texturehelper.cpp
 	engine/view.cpp
-	engine/viewmenu.cpp
-	engine/viewmenu-components.cpp
 	engine/zoomwidget.cpp
 	file-io/collection.cpp
 	file-io/collection-delegate.cpp

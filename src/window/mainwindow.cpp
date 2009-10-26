@@ -19,6 +19,7 @@
 #include "mainwindow.h"
 #include "../creator/puzzlecreator.h"
 #include "../engine/scene.h"
+#include "../engine/texturehelper.h"
 #include "../engine/view.h"
 #include "librarywidget.h"
 #include "puzzletablewidget.h"
@@ -133,9 +134,14 @@ void Palapeli::MainWindow::configureShortcuts()
 
 void Palapeli::MainWindow::configurePalapeli()
 {
-	KConfigDialog settingsDialog(this, QString(), Settings::self());
+	//setup settings widget
 	QWidget* settingsWidget = new QWidget;
 	Ui::Settings settingsUi; settingsUi.setupUi(settingsWidget);
+	settingsUi.kcfg_ViewBackground->setModel(m_puzzleTable->view()->textureHelper());
+	settingsUi.kcfg_ViewBackground->setCurrentIndex(m_puzzleTable->view()->textureHelper()->currentIndex());
+	connect(settingsUi.kcfg_ViewBackground, SIGNAL(currentIndexChanged(int)), m_puzzleTable->view()->textureHelper(), SLOT(setCurrentIndex(int)));
+	//setup dialog
+	KConfigDialog settingsDialog(this, QString(), Settings::self());
 	settingsDialog.addPage(settingsWidget, i18n("General settings"))->setIcon(KIcon("configure"));
 	//NOTE: no need to connect KConfigDialog::settingsChanged(const QString&) because settings are read on demand
 	settingsDialog.setFaceType(KPageDialog::Plain);
