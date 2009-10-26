@@ -89,11 +89,8 @@ void Palapeli::TextureHelper::setCurrentIndex(int index)
 	m_scene->setBackgroundBrush(item(index)->data(PixmapRole).value<QPixmap>());
 	//write config
 	const QString key = item(index)->data(Qt::DisplayRole).toString();
-	if (Settings::viewBackground() != key)
-	{
-		Settings::setViewBackground(key);
-		Settings::self()->writeConfig();
-	}
+	Settings::setViewBackground(key);
+	Settings::self()->writeConfig();
 }
 
 #include "texturehelper.moc"

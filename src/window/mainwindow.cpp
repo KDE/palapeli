@@ -137,9 +137,10 @@ void Palapeli::MainWindow::configurePalapeli()
 	//setup settings widget
 	QWidget* settingsWidget = new QWidget;
 	Ui::Settings settingsUi; settingsUi.setupUi(settingsWidget);
-	settingsUi.kcfg_ViewBackground->setModel(m_puzzleTable->view()->textureHelper());
-	settingsUi.kcfg_ViewBackground->setCurrentIndex(m_puzzleTable->view()->textureHelper()->currentIndex());
-	connect(settingsUi.kcfg_ViewBackground, SIGNAL(currentIndexChanged(int)), m_puzzleTable->view()->textureHelper(), SLOT(setCurrentIndex(int)));
+	//NOTE: It is intentional that the widget "cfg_ViewBackground" is _not_ called "kcfg_ViewBackground". KConfigDialog's config handling would mess things up if it was used in this case.
+	settingsUi.cfg_ViewBackground->setModel(m_puzzleTable->view()->textureHelper());
+	settingsUi.cfg_ViewBackground->setCurrentIndex(m_puzzleTable->view()->textureHelper()->currentIndex());
+	connect(settingsUi.cfg_ViewBackground, SIGNAL(currentIndexChanged(int)), m_puzzleTable->view()->textureHelper(), SLOT(setCurrentIndex(int)));
 	//setup dialog
 	KConfigDialog settingsDialog(this, QString(), Settings::self());
 	settingsDialog.addPage(settingsWidget, i18n("General settings"))->setIcon(KIcon("configure"));
