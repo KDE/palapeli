@@ -26,7 +26,8 @@
 #endif
 
 Palapeli::InaccessibleAreasHelper::InaccessibleAreasHelper(QGraphicsView* view)
-	: m_view(view)
+	: QObject(view)
+	, m_view(view)
 	, m_active(false)
 	, m_opacity(0.0)
 	, m_items(PositionCount)
@@ -49,7 +50,7 @@ Palapeli::InaccessibleAreasHelper::InaccessibleAreasHelper(QGraphicsView* view)
 	view->viewport()->installEventFilter(this);
 }
 
-bool Palapeli::InaccessibleAreasHelper::active() const
+bool Palapeli::InaccessibleAreasHelper::isActive() const
 {
 	return m_active;
 }

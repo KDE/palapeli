@@ -35,7 +35,7 @@ namespace Palapeli
 		public:
 			InaccessibleAreasHelper(QGraphicsView* view);
 
-			bool active() const;
+			bool isActive() const;
 			qreal opacity() const;
 		public Q_SLOTS:
 			void setActive(bool active);

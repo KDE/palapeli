@@ -32,6 +32,7 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			View();
+			virtual ~View();
 
 			Palapeli::Scene* scene() const;
 			Palapeli::TextureHelper* textureHelper() const;

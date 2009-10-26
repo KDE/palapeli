@@ -38,6 +38,11 @@ Palapeli::View::View()
 	m_iaHelper->setActive(true);
 }
 
+Palapeli::View::~View()
+{
+	delete m_txHelper;
+}
+
 Palapeli::Scene* Palapeli::View::scene() const
 {
 	return m_scene;
@@ -53,7 +58,7 @@ void Palapeli::View::mousePressEvent(QMouseEvent* event)
 	QGraphicsView::mousePressEvent(event);
 	//TODO: This is debug code to test QPropertyAnimation.
 	if (event->button() == Qt::MidButton)
-		m_iaHelper->setActive(!m_iaHelper->active());
+		m_iaHelper->setActive(!m_iaHelper->isActive());
 }
 
 void Palapeli::View::resizeEvent(QResizeEvent* event)
