@@ -40,7 +40,7 @@ class JigsawSlicer : public Pala::Slicer
 		explicit JigsawSlicer(QObject* parent = 0, const QVariantList& args = QVariantList());
 		virtual bool run(Pala::SlicerJob* job);
 	protected:
-		void addPlugToPath(QPainterPath& path, const QLineF& line, const QPointF& plugDirection, const JigsawPlugParams& parameters);
+		void addPlugToPath(QPainterPath& path, qreal plugNormLength, const QLineF& line, const QPointF& plugDirection, const JigsawPlugParams& parameters);
 };
 
 #endif // PALAPELISLICERS_JIGSAW_SLICER_H

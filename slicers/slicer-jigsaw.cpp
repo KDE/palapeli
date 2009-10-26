@@ -66,9 +66,9 @@ QLineF leftSide(const QRect& rect)
 {
 	JigsawPlugParams result;
 	result.plugPosition = myrand(0.35, 0.65);
-	const qreal maxPlugLength = 0.3 - 0.88 * qAbs(0.5 - result.plugPosition);
-	result.plugLength = myrand(maxPlugLength * 3 / 4, maxPlugLength);
-	result.plugWidth = myrand(0.13, 0.33);
+	const qreal maxPlugLength = 0.4 - 0.88 * qAbs(0.5 - result.plugPosition);
+	result.plugLength = myrand(0.75, 1.0) * maxPlugLength;
+	result.plugWidth = myrand(0.18, 0.38);
 	const qreal minDistortion1 = 0.75 * (0.7 + result.plugWidth);
 	result.distortion1 = myrand(minDistortion1, minDistortion1 * 1.1);
 	result.distortion2 = myrand(0.4, 1.0);
@@ -170,22 +170,22 @@ bool JigsawSlicer::run(Pala::SlicerJob* job)
 			if (y == 0)
 				path.lineTo(maskBaseRect.topRight());
 			else
-				addPlugToPath(path, topSide(maskBaseRect), QPointF(0, verticalPlugDirections[x][y - 1]), verticalPlugParams[x][y - 1]);
+				addPlugToPath(path, maskBaseRect.height(), topSide(maskBaseRect), QPointF(0, verticalPlugDirections[x][y - 1]), verticalPlugParams[x][y - 1]);
 			//right plug
 			if (x == xCount - 1)
 				path.lineTo(maskBaseRect.bottomRight());
 			else
-				addPlugToPath(path, rightSide(maskBaseRect), QPointF(horizontalPlugDirections[x][y], 0), horizontalPlugParams[x][y].mirrored());
+				addPlugToPath(path, maskBaseRect.width(), rightSide(maskBaseRect), QPointF(horizontalPlugDirections[x][y], 0), horizontalPlugParams[x][y].mirrored());
 			//bottom plug
 			if (y == yCount - 1)
 				path.lineTo(maskBaseRect.bottomLeft());
 			else
-				addPlugToPath(path, bottomSide(maskBaseRect), QPointF(0, verticalPlugDirections[x][y]), verticalPlugParams[x][y].mirrored());
+				addPlugToPath(path, maskBaseRect.height(), bottomSide(maskBaseRect), QPointF(0, verticalPlugDirections[x][y]), verticalPlugParams[x][y].mirrored());
 			//left plug
 			if (x == 0)
 				path.lineTo(maskBaseRect.topLeft());
 			else
-				addPlugToPath(path, leftSide(maskBaseRect), QPointF(horizontalPlugDirections[x - 1][y], 0), horizontalPlugParams[x - 1][y]);
+				addPlugToPath(path, maskBaseRect.width(), leftSide(maskBaseRect), QPointF(horizontalPlugDirections[x - 1][y], 0), horizontalPlugParams[x - 1][y]);
 			//determine the required size of the mask
 			path.closeSubpath();
 			const QRect newMaskRect = path.boundingRect().toAlignedRect();
@@ -236,7 +236,7 @@ bool JigsawSlicer::run(Pala::SlicerJob* job)
 	return true;
 }
 
-void JigsawSlicer::addPlugToPath(QPainterPath& path, const QLineF& line, const QPointF& plugDirection, const JigsawPlugParams& params)
+void JigsawSlicer::addPlugToPath(QPainterPath& path, qreal plugNormLength, const QLineF& line, const QPointF& plugDirection, const JigsawPlugParams& params)
 {
 	//Naming convention: The path runs through five points (p1 through p5).
 	//pNbase is the projection of pN to the line between p1 and p5.
@@ -247,7 +247,7 @@ void JigsawSlicer::addPlugToPath(QPainterPath& path, const QLineF& line, const Q
 	const QPointF growthDirection = plugDirection / sqrt(plugDirection * plugDirection);
 	const qreal sizeFactor = line.length();
 	const QPointF growthVector = growthDirection * sizeFactor;
-	const QPointF plugVector = params.plugLength * growthVector;
+	const QPointF plugVector = params.plugLength * plugNormLength * growthDirection;
 	//calculate points p2, p3, p4
 	const qreal t3 = params.plugPosition;
 	const QPointF p3base = (1.0 - t3) * p1 + t3 * p5;
