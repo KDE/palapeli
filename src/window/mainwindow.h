@@ -39,7 +39,9 @@ namespace Palapeli
 			void configureShortcuts();
 			void configurePalapeli();
 		protected:
+			virtual void changeEvent(QEvent* event);
 			virtual void resizeEvent(QResizeEvent* event);
+			void doMenuLayout();
 		private:
 			KMenuBar* m_menuBar;
 			Palapeli::KTabWidget* m_centralWidget;

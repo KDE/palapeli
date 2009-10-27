@@ -73,12 +73,12 @@ Palapeli::MainWindow::MainWindow()
 	m_menuBar->QWidget::setParent(0);
 	m_menuBar->QWidget::setParent(this);
 	m_menuBar->raise();
-	setMinimumWidth(m_menuBar->sizeHint().width() + m_centralWidget->tabBar()->sizeHint().width());
+	doMenuLayout();
 }
 
-void Palapeli::MainWindow::resizeEvent(QResizeEvent* event)
+void Palapeli::MainWindow::doMenuLayout()
 {
-	KXmlGuiWindow::resizeEvent(event);
+	setMinimumWidth(m_menuBar->sizeHint().width() + m_centralWidget->tabBar()->sizeHint().width());
 	//determine geometry of menubar...
 	QRect rect = this->rect();
 	const QSize tabBarSize = m_centralWidget->tabBar()->sizeHint();
@@ -96,6 +96,30 @@ void Palapeli::MainWindow::resizeEvent(QResizeEvent* event)
 	rect.moveTop(qMax(yPos, 0)); //do not allow yPos < 0!
 	//done
 	m_menuBar->setGeometry(rect);
+}
+
+void Palapeli::MainWindow::changeEvent(QEvent* event)
+{
+	KXmlGuiWindow::changeEvent(event);
+	switch (event->type())
+	{
+		case QEvent::FontChange:
+		case QEvent::LanguageChange:
+		case QEvent::LayoutDirectionChange:
+		case QEvent::LocaleChange:
+		case QEvent::StyleChange:
+			//relayout the menu whenever the tabbar size may have changed
+			doMenuLayout();
+			break;
+		default:
+			break;
+	}
+}
+
+void Palapeli::MainWindow::resizeEvent(QResizeEvent* event)
+{
+	KXmlGuiWindow::resizeEvent(event);
+	doMenuLayout();
 }
 
 void Palapeli::MainWindow::createPuzzle()
