@@ -12,18 +12,18 @@
  *   GNU General Public License for more details.
  *
  *   You should have received a copy of the GNU General Public License
- *   along with this program; if not, write to the Free Software
+
+*   along with this program; if not, write to the Free Software
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
+#include "importhelper.h"
 #include "window/mainwindow.h"
 
 #include <ctime>
 #include <KAboutData>
 #include <KApplication>
 #include <KCmdLineArgs>
-#include <KGlobal>
-#include <KLocale>
 
 int main(int argc, char** argv)
 {
@@ -33,16 +33,23 @@ int main(int argc, char** argv)
 	KCmdLineArgs::init(argc, argv, &about);
 
 	KCmdLineOptions options;
-	options.add("+puzzlefile", ki18n("URL of puzzle file")); //FIXME: This CLI input is ignored currently.
-	options.add("", ki18n("If a puzzle file is given, it will be opened, and also appear in the library view in that Palapeli instance."));
+	options.add("+puzzlefile", ki18n("URL of puzzle file (will be opened if -i is not given)"));
+	options.add("i").add("import", ki18n("Import the given puzzle file into the library (does nothing if no puzzle file is given)"));
+	options.add("", ki18n("If the -i/--import option is specified, the main window will not be shown after importing the given puzzle."));
 	KCmdLineArgs::addCmdLineOptions(options);
 
 #ifdef Q_WS_X11
 	QApplication::setGraphicsSystem("raster");
 #endif
 	KApplication app;
-	KGlobal::locale()->insertCatalog("libkdegames");
 
-	(new Palapeli::MainWindow)->show();
+	KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
+	//NOTE: Syntax errors are reported on stderr, while file errors are presented to the user.
+	if (args->isSet("import"))
+		//perform import request
+		new Palapeli::ImportHelper(args);
+	else
+		//no import request, show main window
+		(new Palapeli::MainWindow)->show();
 	return app.exec();
 }

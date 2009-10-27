@@ -1,0 +1,12 @@
+[Global]
+Comment=Palapeli
+IconName=palapeli
+
+[Context/filemanagement]
+Name=File management operations
+
+[Event/importingPuzzle]
+Name=Importing puzzle
+Comment=A puzzle is being imported into the local library
+Action=Popup
+Contexts=filemanagement
