@@ -89,6 +89,7 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	mainLayout->addWidget(slicerConfigBox);
 	mainLayout->addWidget(metadataBox);
 	mainLayout->addItem(new QSpacerItem(1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding));
+	mainLayout->setMargin(0);
 	mainWidget()->setLayout(mainLayout);
 	//wire up stuff
 	connect(this, SIGNAL(okClicked()), this, SLOT(createPuzzle()));

@@ -108,6 +108,7 @@ void Palapeli::IntegerPropertyWidget::initialize(const Pala::SlicerProperty* pro
 	}
 	QHBoxLayout* layout = new QHBoxLayout;
 	layout->addWidget(usedWidget);
+	usedWidget->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed));
 	layout->setMargin(0);
 	setLayout(layout);
 }
@@ -148,6 +149,7 @@ void Palapeli::StringPropertyWidget::initialize(const Pala::SlicerProperty* prop
 	}
 	QHBoxLayout* layout = new QHBoxLayout;
 	layout->addWidget(usedWidget);
+	usedWidget->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed));
 	layout->setMargin(0);
 	setLayout(layout);
 }
