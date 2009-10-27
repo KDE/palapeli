@@ -38,10 +38,10 @@ namespace Palapeli
 
 			//"Import" means: Export a puzzle from another collection to an arbitrary file
 			virtual bool canImportPuzzles() const;
-			virtual bool importPuzzle(const Palapeli::Puzzle* const puzzle);
+			virtual QModelIndex importPuzzle(const Palapeli::Puzzle* const puzzle);
 		private:
 			int indexOfPuzzle(const KUrl& location) const;
-			void addPuzzleInternal(const KUrl& location, Palapeli::Puzzle* puzzle);
+			QModelIndex addPuzzleInternal(const KUrl& location, Palapeli::Puzzle* puzzle);
 
 			QStringList m_usedIdentifiers;
 	};

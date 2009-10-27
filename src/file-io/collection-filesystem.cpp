@@ -48,18 +48,17 @@ QModelIndex Palapeli::FileSystemCollection::providePuzzle(const KUrl& location)
 	Palapeli::Puzzle* puzzle = new Palapeli::Puzzle(location);
 	if (!puzzle->readMetadata())
 		return QModelIndex();
-	//add puzzle (NOTE: The index() call relies on the knowledge that Palapeli::Collection::addPuzzle adds puzzles to the end of its internal list.)
-	addPuzzleInternal(location, puzzle);
-	return index(rowCount() - 1);
+	//add puzzle
+	return addPuzzleInternal(location, puzzle);
 }
 
-void Palapeli::FileSystemCollection::addPuzzleInternal(const KUrl& location, Palapeli::Puzzle* puzzle)
+QModelIndex Palapeli::FileSystemCollection::addPuzzleInternal(const KUrl& location, Palapeli::Puzzle* puzzle)
 {
 	//find a sane identifier for this puzzle (must be unique during the session, but should also be the same for the same puzzle over the course of multiple sessions, in order to find savegames correctly)
 	QString fileName = location.fileName();
 #ifdef Q_OS_WIN
 	char* disallowedChars = "\\:*?\"<>|"; //Windows forbids using these chars in filenames, so we'll strip them
-	for (char* c = disallowedChars; c; ++c)
+	for (char* c = disallowedChars; *c; ++c)
 		fileName.remove(*c);
 #endif
 	const QString identifierPattern = QString::fromLatin1("__FSC_%1_%2_").arg(fileName);
@@ -69,7 +68,7 @@ void Palapeli::FileSystemCollection::addPuzzleInternal(const KUrl& location, Pal
 	const QString identifier = identifierPattern.arg(uniquifier);
 	m_usedIdentifiers << identifier;
 	//add to internal list
-	addPuzzle(puzzle, identifier);
+	return Palapeli::Collection::addPuzzle(puzzle, identifier);
 }
 
 bool Palapeli::FileSystemCollection::canImportPuzzles() const
@@ -77,23 +76,22 @@ bool Palapeli::FileSystemCollection::canImportPuzzles() const
 	return true;
 }
 
-bool Palapeli::FileSystemCollection::importPuzzle(const Palapeli::Puzzle* const puzzle)
+QModelIndex Palapeli::FileSystemCollection::importPuzzle(const Palapeli::Puzzle* const puzzle)
 {
 	if (!puzzle->metadata())
-		return false;
+		return QModelIndex();
 	//ask for a target file name
 	const KUrl startLoc = QString::fromLatin1("kfiledialog:///palapeli-export/%1.puzzle").arg(puzzle->metadata()->name);
 	const QString filter = i18nc("Filter for a file dialog", "*.puzzle|Palapeli puzzles (*.puzzle)");
 	const KUrl location = KFileDialog::getSaveUrl(startLoc, filter);
 	if (location.isEmpty())
-		return false; //process aborted by user
+		return QModelIndex(); //process aborted by user
 	//create a copy of the given puzzle, and relocate it to the new location
 	Palapeli::Puzzle* newPuzzle = new Palapeli::Puzzle(*puzzle);
 	newPuzzle->setLocation(location);
 	newPuzzle->write();
-	//add to the internal storage for future use
-	addPuzzleInternal(location, newPuzzle);
-	return true;
+	//add to the internal storage for future use, and return model index
+	return addPuzzleInternal(location, newPuzzle);
 }
 
 QModelIndexList Palapeli::FileSystemCollection::selectPuzzles()

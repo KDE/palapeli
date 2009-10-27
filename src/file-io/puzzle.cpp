@@ -197,7 +197,10 @@ bool Palapeli::Puzzle::write()
 	if (m_creationContext)
 		m_createArchiveWatcher.setFuture(QtConcurrent::run(this, &Palapeli::Puzzle::createNewArchiveFile));
 	else
+	{
 		createNewArchiveFile();
+		finishWritingArchive();
+	}
 	//in general, we don't know better and have to assume that Palapeli::Puzzle::createNewArchiveFile does not fail
 	return true;
 }
@@ -206,6 +209,15 @@ void Palapeli::Puzzle::writeFinished(KJob* job)
 {
 	if (job->error())
 		static_cast<KIO::Job*>(job)->showErrorDialog();
+	else
+	{
+		if (m_location.isLocalFile())
+		{
+			QFile file(m_location.path());
+			file.setPermissions(file.permissions() | QFile::WriteOwner | QFile::WriteGroup); //make file deleteable
+		}
+		emit writeFinished();
+	}
 }
 
 void Palapeli::Puzzle::createNewArchiveFile()

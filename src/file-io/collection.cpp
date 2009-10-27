@@ -30,7 +30,7 @@ Palapeli::Collection::~Collection()
 	qDeleteAll(m_puzzles);
 }
 
-QString Palapeli::Collection::addPuzzle(Palapeli::Puzzle* puzzle, const QString& identifier)
+QModelIndex Palapeli::Collection::addPuzzle(Palapeli::Puzzle* puzzle, const QString& identifier)
 {
 	//NOTE: the subclass implementation has to make sure that the puzzle's metadata is available
 	//generate an identifier if necessary
@@ -41,7 +41,7 @@ QString Palapeli::Collection::addPuzzle(Palapeli::Puzzle* puzzle, const QString&
 	m_identifiers << theIdentifier;
 	m_puzzles << puzzle;
 	endInsertRows();
-	return theIdentifier;
+	return index(newPos);
 }
 
 void Palapeli::Collection::removePuzzle(const QModelIndex& index)
@@ -78,10 +78,10 @@ bool Palapeli::Collection::canImportPuzzles() const
 	return false;
 }
 
-bool Palapeli::Collection::importPuzzle(const Palapeli::Puzzle* const puzzle)
+QModelIndex Palapeli::Collection::importPuzzle(const Palapeli::Puzzle* const puzzle)
 {
 	Q_UNUSED(puzzle)
-	return false;
+	return QModelIndex();
 }
 
 bool Palapeli::Collection::canDeletePuzzle(const QModelIndex& index) const

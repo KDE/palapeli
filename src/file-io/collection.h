@@ -47,7 +47,7 @@ namespace Palapeli
 
 			QString name() const;
 			virtual bool canImportPuzzles() const;
-			virtual bool importPuzzle(const Palapeli::Puzzle* const puzzle);
+			virtual QModelIndex importPuzzle(const Palapeli::Puzzle* const puzzle);
 			virtual bool canDeletePuzzle(const QModelIndex& index) const;
 			virtual bool deletePuzzle(const QModelIndex& index);
 
@@ -56,7 +56,7 @@ namespace Palapeli
 		protected:
 			Collection(); //"abstract base class"
 
-			QString addPuzzle(Palapeli::Puzzle* puzzle, const QString& identifier = QString()); ///< If no identifier is given, one will be generated. Returns the identifier of the new puzzle.
+			QModelIndex addPuzzle(Palapeli::Puzzle* puzzle, const QString& identifier = QString()); ///< If no identifier is given, one will be generated. Returns the model index of the new item.
 			void removePuzzle(const QModelIndex& index);
 			void setName(const QString& name);
 		private:

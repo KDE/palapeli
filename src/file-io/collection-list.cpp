@@ -30,6 +30,8 @@
 #include <KStandardDirs>
 #include <KTemporaryFile>
 
+//TODO: move the code that handles palapeli:/// URLs into LibraryCollection
+
 Palapeli::ListCollection::ListCollection()
 	: m_config(0)
 {
@@ -93,12 +95,14 @@ void Palapeli::ListCollection::setConfig(KConfig* config)
 		KConfigGroup puzzleGroup(&mainGroup, puzzleId);
 		//construct puzzle
 		KUrl url = readUrl(puzzleGroup.readEntry("Location", KUrl()));
+		if (url.isEmpty())
+			continue;
 		Palapeli::Puzzle* puzzle = new Palapeli::Puzzle(url);
 		addPuzzleInternal(puzzle, puzzleId);
 	}
 }
 
-void Palapeli::ListCollection::addPuzzleInternal(Palapeli::Puzzle* puzzle, const QString& identifier)
+QModelIndex Palapeli::ListCollection::addPuzzleInternal(Palapeli::Puzzle* puzzle, const QString& identifier)
 {
 	KConfigGroup mainGroup(m_config, "Palapeli Collection");
 	KConfigGroup puzzleGroup(&mainGroup, identifier);
@@ -136,7 +140,7 @@ void Palapeli::ListCollection::addPuzzleInternal(Palapeli::Puzzle* puzzle, const
 		metadata->thumbnail = image;
 		puzzle->injectMetadata(metadata);
 	}
-	addPuzzle(puzzle, identifier);
+	return addPuzzle(puzzle, identifier);
 }
 
 QModelIndex Palapeli::ListCollection::storeGeneratedPuzzle(Palapeli::Puzzle* puzzle)
@@ -145,17 +149,7 @@ QModelIndex Palapeli::ListCollection::storeGeneratedPuzzle(Palapeli::Puzzle* puz
 		return QModelIndex();
 	if (!puzzle->location().isEmpty())
 		return QModelIndex();
-	if (!importPuzzleInternal(puzzle))
-		return QModelIndex();
-	//find model index for this puzzle
-	for (int i = 0; i < rowCount(); ++i)
-	{
-		QModelIndex index = this->index(i);
-		if (index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>() == puzzle)
-			return index;
-	}
-	//if we did not find a QModelIndex, something strange is going on (because importPuzzleInternal reported success, but failed)
-	return QModelIndex();
+	return importPuzzleInternal(puzzle);
 }
 
 bool Palapeli::ListCollection::canImportPuzzles() const
@@ -163,16 +157,16 @@ bool Palapeli::ListCollection::canImportPuzzles() const
 	return m_features.contains("importpuzzle");
 }
 
-bool Palapeli::ListCollection::importPuzzle(const Palapeli::Puzzle* const puzzle)
+QModelIndex Palapeli::ListCollection::importPuzzle(const Palapeli::Puzzle* const puzzle)
 {
 	if (!puzzle->metadata())
-		return false;
+		return QModelIndex();
 	//create a writable copy of the given puzzle, and import this into the library
 	Palapeli::Puzzle* newPuzzle = new Palapeli::Puzzle(*puzzle);
 	return importPuzzleInternal(newPuzzle);
 }
 
-bool Palapeli::ListCollection::importPuzzleInternal(Palapeli::Puzzle* puzzle)
+QModelIndex Palapeli::ListCollection::importPuzzleInternal(Palapeli::Puzzle* puzzle)
 {
 	//determine location of new puzzle
 	const QString identifier = QUuid::createUuid().toString();
@@ -187,8 +181,7 @@ bool Palapeli::ListCollection::importPuzzleInternal(Palapeli::Puzzle* puzzle)
 	puzzleGroup.writeEntry("Location", QString("palapeli:///%1").arg(fileName)); //we use a pseudo-URL here, to avoid problems when the configuration directory is relocated
 	m_config->sync();
 	//add to the internal storage
-	addPuzzleInternal(puzzle, identifier);
-	return true;
+	return addPuzzleInternal(puzzle, identifier);
 }
 
 bool Palapeli::ListCollection::canDeletePuzzle(const QModelIndex& index) const

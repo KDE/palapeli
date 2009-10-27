@@ -52,6 +52,8 @@ namespace Palapeli
 			///If metadata has already being read, this function will do nothing unless \a force is true.
 			bool readContents(bool force = false);
 			bool write();
+		Q_SIGNALS:
+			void writeFinished();
 		private Q_SLOTS:
 			void writeFinished(KJob* job);
 			void finishWritingArchive();
