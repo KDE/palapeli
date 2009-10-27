@@ -24,7 +24,7 @@
 #include <cmath>
 #include <QWheelEvent>
 
-const int Palapeli::View::MinimumZoomLevel = 10;
+const int Palapeli::View::MinimumZoomLevel = 0;
 const int Palapeli::View::MaximumZoomLevel = 200;
 
 Palapeli::View::View()
@@ -77,7 +77,7 @@ void Palapeli::View::zoomTo(int level)
 		return;
 	//create a new transform
 	const QPointF center = mapToScene(rect().center());
-	const qreal scalingFactor = level / 100.0;
+	const qreal scalingFactor = pow(2, (level - 100) / 30.0);
 	QTransform t;
 	t.translate(center.x(), center.y());
 	t.scale(scalingFactor, scalingFactor);
@@ -109,7 +109,7 @@ void Palapeli::View::puzzleStarted()
 	const QRectF sr = sceneRect();
 	const QRectF vr = mapToScene(viewport()->rect()).boundingRect();
 	const qreal scalingFactor = qMin(vr.width() / sr.width(), vr.height() / sr.height());
-	const int level = 100 * scalingFactor;
+	const int level = 100 + (int)(30.0 * (log(scalingFactor) / log(2.0)));
 	zoomTo(level);
 	centerOn(sr.center());
 }
