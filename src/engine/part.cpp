@@ -118,6 +118,7 @@ bool Palapeli::Part::searchConnections()
 					anim->setStartValue(-posDiff);
 					anim->setEndValue(QPointF());
 					anim->setDuration(200);
+					anim->setEasingCurve(QEasingCurve::InCubic);
 					anim->start(QAbstractAnimation::DeleteWhenStopped);
 				}
 			}
@@ -137,6 +138,7 @@ bool Palapeli::Part::searchConnections()
 				anim->setStartValue(posDiff);
 				anim->setEndValue(QPointF());
 				anim->setDuration(200);
+				anim->setEasingCurve(QEasingCurve::InCubic);
 				anim->start(QAbstractAnimation::DeleteWhenStopped);
 			}
 #endif
@@ -153,6 +155,7 @@ bool Palapeli::Part::searchConnections()
 				anim->setStartValue(posDiff);
 				anim->setEndValue(QPointF());
 				anim->setDuration(200);
+				anim->setEasingCurve(QEasingCurve::InCubic);
 				anim->start(QAbstractAnimation::DeleteWhenStopped);
 			}
 #endif
