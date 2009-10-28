@@ -65,6 +65,12 @@ Palapeli::LibraryWidget::LibraryWidget()
 	setCentralWidget(m_view);
 }
 
+void Palapeli::LibraryWidget::startPuzzle(const KUrl& url)
+{
+	QModelIndex index = m_fsCollection->providePuzzle(url);
+	emit playRequest(index);
+}
+
 QModelIndex Palapeli::LibraryWidget::storeGeneratedPuzzle(Palapeli::Puzzle* puzzle)
 {
 	return m_libraryCollection->storeGeneratedPuzzle(puzzle);

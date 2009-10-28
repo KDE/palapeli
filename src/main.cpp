@@ -50,6 +50,6 @@ int main(int argc, char** argv)
 		new Palapeli::ImportHelper(args);
 	else
 		//no import request, show main window
-		(new Palapeli::MainWindow)->show();
+		(new Palapeli::MainWindow(args))->show();
 	return app.exec();
 }

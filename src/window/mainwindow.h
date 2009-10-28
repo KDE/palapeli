@@ -20,6 +20,7 @@
 #define PALAPELI_MAINWINDOW_H
 
 class QModelIndex;
+class KCmdLineArgs;
 #include <KXmlGuiWindow>
 
 namespace Palapeli
@@ -32,7 +33,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			MainWindow();
+			MainWindow(KCmdLineArgs* args);
 		public Q_SLOTS:
 			void createPuzzle();
 			void loadPuzzle(const QModelIndex& index);

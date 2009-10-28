@@ -30,6 +30,7 @@
 #include <QPointer>
 #include <QTabBar> //krazy:exclude=qclasses
 #include <KActionCollection>
+#include <KCmdLineArgs>
 #include <KConfigDialog>
 #include <KLocalizedString>
 #include <KMenuBar>
@@ -46,7 +47,7 @@ namespace Palapeli
 	};
 }
 
-Palapeli::MainWindow::MainWindow()
+Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 	: m_centralWidget(new Palapeli::KTabWidget)
 	, m_library(new Palapeli::LibraryWidget)
 	, m_puzzleTable(new Palapeli::PuzzleTableWidget)
@@ -74,6 +75,15 @@ Palapeli::MainWindow::MainWindow()
 	m_menuBar->QWidget::setParent(this);
 	m_menuBar->raise();
 	doMenuLayout();
+	//start a puzzle if a puzzle URL has been given
+	if (args->count() > 0)
+	{
+		m_library->startPuzzle(args->url(0));
+		m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_library), false);
+		m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_puzzleTable), true);
+		m_centralWidget->setCurrentWidget(m_puzzleTable);
+	}
+	args->clear();
 }
 
 void Palapeli::MainWindow::doMenuLayout()
