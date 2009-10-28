@@ -25,3 +25,5 @@ Palapeli::ShadowItem::ShadowItem(const QPixmap& pixmap, int radius, const QPoint
 	setAcceptedMouseButtons(0);
 	setOffset(offset + QPointF(-radius, -radius));
 }
+
+#include "shadowitem.moc"

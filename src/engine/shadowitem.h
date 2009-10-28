@@ -23,8 +23,10 @@
 
 namespace Palapeli
 {
-	class ShadowItem : public QGraphicsPixmapItem
+	class ShadowItem : public QObject, public QGraphicsPixmapItem
 	{
+		Q_OBJECT
+		Q_PROPERTY(QPointF pos READ pos WRITE setPos)
 		public:
 			ShadowItem(const QPixmap& pixmap, int radius, const QPointF& offset);
 	};

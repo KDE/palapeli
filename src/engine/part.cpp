@@ -24,6 +24,9 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
+#if QT_VERSION >= 0x040600
+#	include <QPropertyAnimation>
+#endif
 #include <QSet>
 
 Palapeli::Part::Part(Palapeli::Piece* piece)
@@ -94,18 +97,65 @@ bool Palapeli::Part::searchConnections()
 	foreach (Palapeli::Part* part, mergeParts)
 	{
 		//set position in such a way that the majority of the pieces do not move
-		if (part->m_pieces.count() > m_pieces.count())
+		const QPointF posDiff = part->pos() - pos();
+		const bool useAnimations = part->pos() != pos();
+		const bool reversePositioningOrder = part->m_pieces.count() > m_pieces.count();
+		if (reversePositioningOrder)
+		{
 			setPos(part->pos());
+			//instead of animating the new pieces, animate all old pieces to move to the new position
+#if QT_VERSION >= 0x040600
+			if (useAnimations)
+			{
+				QList<QObject*> objects;
+				foreach (Palapeli::Piece* piece, m_pieces)
+					objects << piece;
+				foreach (Palapeli::ShadowItem* shadowItem, m_shadows)
+					objects << shadowItem;
+				foreach (QObject* object, objects)
+				{
+					QPropertyAnimation* anim = new QPropertyAnimation(object, "pos", object);
+					anim->setStartValue(-posDiff);
+					anim->setEndValue(QPointF());
+					anim->setDuration(200);
+					anim->start(QAbstractAnimation::DeleteWhenStopped);
+				}
+			}
+#endif
+		}
 		//insert all pieces of the other part into this part
 		foreach (Palapeli::Piece* piece, part->m_pieces)
 		{
+			//move piece to this parent
 			piece->setParentItem(this);
 			m_pieces << piece;
+			//animate move to new position inside this parent
+#if QT_VERSION >= 0x040600
+			if (useAnimations && !reversePositioningOrder)
+			{
+				QPropertyAnimation* anim = new QPropertyAnimation(piece, "pos", piece);
+				anim->setStartValue(posDiff);
+				anim->setEndValue(QPointF());
+				anim->setDuration(200);
+				anim->start(QAbstractAnimation::DeleteWhenStopped);
+			}
+#endif
 		}
 		foreach (Palapeli::ShadowItem* shadowItem, part->m_shadows)
 		{
 			shadowItem->setParentItem(this);
 			m_shadows << shadowItem;
+			//animate move to new position inside this parent
+#if QT_VERSION >= 0x040600
+			if (useAnimations && !reversePositioningOrder)
+			{
+				QPropertyAnimation* anim = new QPropertyAnimation(shadowItem, "pos", shadowItem);
+				anim->setStartValue(posDiff);
+				anim->setEndValue(QPointF());
+				anim->setDuration(200);
+				anim->start(QAbstractAnimation::DeleteWhenStopped);
+			}
+#endif
 		}
 		delete part;
 	}

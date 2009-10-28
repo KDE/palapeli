@@ -25,8 +25,10 @@ namespace Palapeli
 {
 	class Part;
 
-	class Piece : public QGraphicsPixmapItem
+	class Piece : public QObject, public QGraphicsPixmapItem
 	{
+		Q_OBJECT
+		Q_PROPERTY(QPointF pos READ pos WRITE setPos)
 		public:
 			Piece(const QPixmap& pixmap, const QPointF& offset);
 

@@ -57,3 +57,5 @@ void Palapeli::Piece::updateNeighborsList()
 		if (iter.next()->part() == part())
 			iter.remove();
 }
+
+#include "piece.moc"
