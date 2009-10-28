@@ -44,6 +44,7 @@ namespace Palapeli
 			virtual QRectF boundingRect() const { return QRectF(); }
 			virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget* = 0) {}
 			QRectF piecesBoundingRect() const; //like QGraphicsItem::childrenBoundingRect, but takes the pieces into account only (esp. not the shadow items)
+			QRectF scenePiecesBoundingRect() const;
 
 			//enable qgraphicsitem_cast
 			enum { Type = QGraphicsItem::UserType + 2 }; //UserType + 1 == Palapeli::Piece

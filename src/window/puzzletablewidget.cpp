@@ -56,7 +56,7 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	, m_zoomWidget(new Palapeli::ZoomWidget(this))
 {
 	//setup actions
-	KAction* restartPuzzleAct = new KAction(KIcon("document-reload"), i18n("&Restart puzzle..."), 0);
+	KAction* restartPuzzleAct = new KAction(KIcon("view-refresh"), i18n("&Restart puzzle..."), 0);
 	restartPuzzleAct->setToolTip(i18n("Delete the saved progress"));
 	actionCollection()->addAction("game_restart", restartPuzzleAct);
 	connect(restartPuzzleAct, SIGNAL(triggered()), m_view->scene(), SLOT(restartPuzzle()));

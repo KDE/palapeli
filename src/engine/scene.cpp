@@ -23,6 +23,7 @@
 #include "../file-io/puzzle.h"
 #include "settings.h"
 
+#include <cmath>
 #include <QFile>
 #include <QTimer>
 #include <QtConcurrentRun>
@@ -86,8 +87,13 @@ void Palapeli::Scene::loadPuzzleInternal()
 void Palapeli::Scene::startLoading()
 {
 	if (m_puzzle)
-		m_metadataLoader.setFuture(QtConcurrent::run(m_puzzle.data(), &Palapeli::Puzzle::readMetadata, false));
-	//will call continueLoading() when done reading metadata
+	{
+		if (m_puzzle->metadata())
+			continueLoading();
+		else
+			m_metadataLoader.setFuture(QtConcurrent::run(m_puzzle.data(), &Palapeli::Puzzle::readMetadata, false));
+			//will call continueLoading() when done reading metadata
+	}
 }
 
 void Palapeli::Scene::continueLoading()
@@ -95,16 +101,12 @@ void Palapeli::Scene::continueLoading()
 	if (!m_puzzle)
 		return;
 	//continue to read puzzle
-	if (m_metadataLoader.future().result() == false) //reading the archive has failed
+	if (!m_puzzle->metadata()) //reading the archive has failed
 		return;
 	if (!m_puzzle->readContents()) //this cannot be done in a separate thread
 		return;
-	//initialize scene
-	const Palapeli::PuzzleContents* contents = m_puzzle->contents();
-	const qreal sceneSizeFactor = 2.5; //TODO: replace this
-	setSceneRect(QRectF(QPointF(), sceneSizeFactor * QSizeF(contents->imageSize)));
 	//delay piece loading for UI responsibility
-	if (!contents->pieces.isEmpty())
+	if (!m_puzzle->contents()->pieces.isEmpty())
 		QTimer::singleShot(0, this, SLOT(loadNextPart()));
 }
 
@@ -164,34 +166,55 @@ void Palapeli::Scene::finishLoading()
 			part->searchConnections();
 			part->validatePosition();
 		}
-		if (!m_constrained)
-		{
-			//read scene rect from piece positions
-			QRectF newSceneRect = sceneRect();
-			foreach (Palapeli::Part* part, m_parts)
-				newSceneRect = newSceneRect.united(part->mapToScene(part->piecesBoundingRect()).boundingRect());
-			setSceneRect(newSceneRect);
-		}
 	}
 	else
 	{
-		//place parts at random positions (inside the scene rect)
-		const QRectF sr = sceneRect();
+		//place parts at nice positions
+		//step 1: determine maximum part size
+		QSizeF partAreaSize;
 		foreach (Palapeli::Part* part, m_parts)
+			partAreaSize = partAreaSize.expandedTo(part->scenePiecesBoundingRect().size());
+		partAreaSize *= 1.3; //more space for each part
+		//step 2: place parts in a grid in random order
+		QList<Palapeli::Part*> partPool(m_parts);
+		const int xCount = floor(sqrt(partPool.count()));
+		for (int y = 0; !partPool.isEmpty(); ++y)
 		{
-			QRectF br = part->sceneTransform().mapRect(part->childrenBoundingRect());
-			//NOTE: br = bounding rect (of part), sr = scene rect
-			const int minXPos = sr.left(), maxXPos = sr.right() - br.width();
-			const int minYPos = sr.top(), maxYPos = sr.bottom() - br.height();
-			const int xPos = qrand() % (maxXPos - minXPos) + minXPos;
-			const int yPos = qrand() % (maxYPos - minYPos) + minYPos;
-			part->setPos(xPos - br.left(), yPos - br.top());
+			for (int x = 0; x < xCount && !partPool.isEmpty(); ++x)
+			{
+				//select random part
+				Palapeli::Part* part = partPool.takeAt(qrand() % partPool.count());
+				//determine part offset
+				part->setPos(QPointF());
+				const QRectF br = part->scenePiecesBoundingRect();
+				const QPointF partOffset = br.topLeft();
+				const QSizeF partSize = br.size();
+				//determine random position inside part area
+				const QPointF areaOffset(
+					qrand() % (int)(partAreaSize.width() - partSize.width()),
+					qrand() % (int)(partAreaSize.height() - partSize.height())
+				);
+				//move to desired position in (x,y) grid
+				const QPointF gridBasePosition(x * partAreaSize.width(), y * partAreaSize.height());
+				part->setPos(gridBasePosition + areaOffset - partOffset);
+			}
 		}
 	}
-	m_loadingPuzzle = false; //finished
+	//determine scene rect
+	QRectF newSceneRect;
+	foreach (Palapeli::Part* part, m_parts)
+	{
+		const QRectF partRect = part->mapToScene(part->piecesBoundingRect()).boundingRect();
+		if (newSceneRect.isEmpty())
+			newSceneRect = partRect;
+		else
+			newSceneRect = newSceneRect.united(partRect);
+	}
+	setSceneRect(newSceneRect);
 	//initialize external progress display
 	emit reportProgress(m_pieces.count(), m_parts.count());
 	emit puzzleStarted();
+	m_loadingPuzzle = false;
 }
 
 void Palapeli::Scene::partDestroyed(QObject* object)

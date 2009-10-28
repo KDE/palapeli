@@ -131,6 +131,11 @@ QRectF Palapeli::Part::piecesBoundingRect() const
 	return boundingRect;
 }
 
+QRectF Palapeli::Part::scenePiecesBoundingRect() const
+{
+	return sceneTransform().mapRect(piecesBoundingRect());
+}
+
 void Palapeli::Part::validatePosition()
 {
 	Palapeli::Scene* s = qobject_cast<Palapeli::Scene*>(scene());
