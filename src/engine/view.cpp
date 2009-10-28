@@ -22,6 +22,7 @@
 #include "texturehelper.h"
 
 #include <cmath>
+#include <QScrollBar>
 #include <QWheelEvent>
 
 const int Palapeli::View::MinimumZoomLevel = 0;
@@ -56,6 +57,27 @@ Palapeli::Scene* Palapeli::View::scene() const
 Palapeli::TextureHelper* Palapeli::View::textureHelper() const
 {
 	return m_txHelper;
+}
+
+void Palapeli::View::mousePressEvent(QMouseEvent* event)
+{
+	QGraphicsView::mousePressEvent(event);
+	if (event->button() == Qt::RightButton)
+		m_dragPrevPos = event->globalPos();
+}
+
+void Palapeli::View::mouseMoveEvent(QMouseEvent* event)
+{
+	QGraphicsView::mouseMoveEvent(event);
+	if (event->buttons() & Qt::RightButton)
+	{
+		//move viewport
+		const QPointF delta = event->globalPos() - m_dragPrevPos;
+		horizontalScrollBar()->setValue(horizontalScrollBar()->value() + (isRightToLeft() ? delta.x() : -delta.x()));
+		verticalScrollBar()->setValue(verticalScrollBar()->value() - delta.y());
+		//store mouse position for next event
+		m_dragPrevPos = event->globalPos();
+	}
 }
 
 void Palapeli::View::wheelEvent(QWheelEvent* event)
