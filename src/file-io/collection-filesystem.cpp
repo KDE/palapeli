@@ -55,13 +55,13 @@ QModelIndex Palapeli::FileSystemCollection::providePuzzle(const KUrl& location)
 QModelIndex Palapeli::FileSystemCollection::addPuzzleInternal(const KUrl& location, Palapeli::Puzzle* puzzle)
 {
 	//find a sane identifier for this puzzle (must be unique during the session, but should also be the same for the same puzzle over the course of multiple sessions, in order to find savegames correctly)
-	QString fileName = location.fileName();
-#ifdef Q_OS_WIN
-	char* disallowedChars = "\\:*?\"<>|"; //Windows forbids using these chars in filenames, so we'll strip them
-	for (char* c = disallowedChars; *c; ++c)
-		fileName.remove(*c);
-#endif
-	const QString identifierPattern = QString::fromLatin1("__FSC_%1_%2_").arg(fileName);
+	QString puzzleName = location.fileName();
+	if (puzzle->readMetadata())
+		puzzleName = puzzle->metadata()->name; //file name is only a fallback if puzzle could not be read
+	const char* disallowedChars = "\\:*?\"<>|"; //Windows forbids using these chars in filenames, so we'll strip them
+	for (const char* c = disallowedChars; *c; ++c)
+		puzzleName.remove(*c);
+	const QString identifierPattern = QString::fromLatin1("__FSC_%1_%2_").arg(puzzleName);
 	int uniquifier = 0;
 	while (m_usedIdentifiers.contains(identifierPattern.arg(uniquifier)))
 		++uniquifier;
