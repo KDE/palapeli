@@ -10,7 +10,6 @@ set(palapeli_SRCS
 	engine/piece.cpp
 	engine/scene.cpp
 	engine/shadowitem.cpp
-	engine/shadowhelper.cpp
 	engine/texturehelper.cpp
 	engine/view.cpp
 	engine/zoomwidget.cpp

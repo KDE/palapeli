@@ -23,6 +23,8 @@
 
 namespace Palapeli
 {
+	QPixmap createShadow(const QPixmap& source, int radius);
+
 	class ShadowItem : public QObject, public QGraphicsPixmapItem
 	{
 		Q_OBJECT
