@@ -17,7 +17,7 @@
 ***************************************************************************/
 
 #include "view.h"
-#include "inaccessibleareashelper.h"
+#include "constraintvisualizer.h"
 #include "scene.h"
 #include "texturehelper.h"
 
@@ -30,16 +30,14 @@ const int Palapeli::View::MaximumZoomLevel = 200;
 
 Palapeli::View::View()
 	: m_scene(new Palapeli::Scene(this))
-	, m_iaHelper(0) //cannot be initialized before scene has been set
+	, m_constraintVisualizer(0) //cannot be initialized before scene has been set
 	, m_txHelper(new Palapeli::TextureHelper(m_scene))
 	, m_zoomLevel(100)
 {
-	//initialize viewport and scene
 	setDragMode(QGraphicsView::ScrollHandDrag);
 	setScene(m_scene);
-	//initialize helpers
-	m_iaHelper = new Palapeli::InaccessibleAreasHelper(this);
-	connect(m_scene, SIGNAL(constrainedChanged(bool)), m_iaHelper, SLOT(setActive(bool)));
+	m_constraintVisualizer = new Palapeli::ConstraintVisualizer(this);
+	connect(m_scene, SIGNAL(constrainedChanged(bool)), m_constraintVisualizer, SLOT(setActive(bool)));
 	connect(m_scene, SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(sceneRectChanged(const QRectF&)));
 	connect(m_scene, SIGNAL(puzzleStarted()), this, SLOT(puzzleStarted()));
 }

@@ -23,7 +23,7 @@
 
 namespace Palapeli
 {
-	class InaccessibleAreasHelper;
+	class ConstraintVisualizer;
 	class Scene;
 	class TextureHelper;
 
@@ -55,7 +55,7 @@ namespace Palapeli
 			void puzzleStarted();
 		private:
 			Palapeli::Scene* m_scene;
-			Palapeli::InaccessibleAreasHelper* m_iaHelper;
+			Palapeli::ConstraintVisualizer* m_constraintVisualizer;
 			Palapeli::TextureHelper* m_txHelper;
 			QPointF m_dragPrevPos;
 			int m_zoomLevel;

@@ -16,74 +16,61 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#include "inaccessibleareashelper.h"
+#include "constraintvisualizer.h"
 
 #include <QEvent>
 #include <QGraphicsRectItem>
 #include <QGraphicsView>
 #include <QPropertyAnimation>
 
-Palapeli::InaccessibleAreasHelper::InaccessibleAreasHelper(QGraphicsView* view)
-	: QObject(view)
-	, m_view(view)
+Palapeli::ConstraintVisualizer::ConstraintVisualizer(QGraphicsView* view)
+	: m_view(view)
 	, m_active(false)
-	, m_opacity(0.2)
 	, m_items(PositionCount)
-	, m_animator(new QPropertyAnimation(this, "Opacity", this))
+	, m_animator(new QPropertyAnimation(this, "opacity", this))
 {
+	setOpacity(0.2);
 	//create gray items (with null size!)
 	QColor rectColor(Qt::black);
 	rectColor.setAlpha(80);
-	const QPen pen(Qt::NoPen);
-	const QBrush brush(rectColor);
 	for (int i = 0; i < PositionCount; ++i)
 	{
-		m_items[i] = view->scene()->addRect(QRect(), pen, brush);
-		m_items[i]->setOpacity(m_opacity);
+		m_items[i] = new QGraphicsRectItem(QRect(), this);
+		m_items[i]->setPen(Qt::NoPen);
+		m_items[i]->setBrush(rectColor);
 	}
 	//more initialization
 	QObject::setParent(view); //delete myself automatically when the view is destroyed
 	view->viewport()->installEventFilter(this);
+	view->scene()->addItem(this);
 	connect(view->scene(), SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(update()));
 }
 
-bool Palapeli::InaccessibleAreasHelper::isActive() const
+bool Palapeli::ConstraintVisualizer::isActive() const
 {
 	return m_active;
 }
 
-qreal Palapeli::InaccessibleAreasHelper::opacity() const
-{
-	return m_opacity;
-}
-
-void Palapeli::InaccessibleAreasHelper::setActive(bool active)
+void Palapeli::ConstraintVisualizer::setActive(bool active)
 {
 	if (m_active == active)
 		return;
 	m_active = active;
 	const qreal targetOpacity = active ? 1.0 : 0.2;
-	m_animator->setDuration(200 * qAbs(targetOpacity - m_opacity));
-	m_animator->setStartValue(m_opacity);
+	m_animator->setDuration(200 * qAbs(targetOpacity - opacity()));
+	m_animator->setStartValue(opacity());
 	m_animator->setEndValue(targetOpacity);
 	m_animator->start();
 }
 
-void Palapeli::InaccessibleAreasHelper::setOpacity(qreal opacity)
-{
-	m_opacity = opacity;
-	for (int i = 0; i < PositionCount; ++i)
-		m_items[i]->setOpacity(opacity);
-}
-
-bool Palapeli::InaccessibleAreasHelper::eventFilter(QObject* sender, QEvent* event)
+bool Palapeli::ConstraintVisualizer::eventFilter(QObject* sender, QEvent* event)
 {
 	if (sender == m_view->viewport() && event->type() == QEvent::Paint)
 		update();
 	return QObject::eventFilter(sender, event);
 }
 
-void Palapeli::InaccessibleAreasHelper::update()
+void Palapeli::ConstraintVisualizer::update()
 {
 	//find viewport rect
 	const QRectF viewportRect = m_view->mapToScene(m_view->rect()).boundingRect();
@@ -113,4 +100,4 @@ void Palapeli::InaccessibleAreasHelper::update()
 	m_items[BottomPos]->setRect(itemRect);
 }
 
-#include "inaccessibleareashelper.moc"
+#include "constraintvisualizer.moc"

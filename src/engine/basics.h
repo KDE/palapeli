@@ -44,7 +44,8 @@ namespace Palapeli
 	{
 		PieceUserType = 1,
 		PartUserType = 2,
-		ShadowUserType = 3
+		ShadowUserType = 3,
+		ConstraintVisualizerUserType = 11
 	};
 }
 

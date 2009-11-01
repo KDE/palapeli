@@ -16,30 +16,26 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_INACCESSIBLEAREASHELPER_H
-#define PALAPELI_INACCESSIBLEAREASHELPER_H
+#ifndef PALAPELI_CONSTRAINTVISUALIZER_H
+#define PALAPELI_CONSTRAINTVISUALIZER_H
 
-class QGraphicsRectItem;
+#include "basics.h"
+
 class QGraphicsView;
-#include <QObject>
 class QPropertyAnimation;
-#include <QRectF>
 #include <QVector>
 
 namespace Palapeli
 {
-	class InaccessibleAreasHelper : public QObject
+	class ConstraintVisualizer : public Palapeli::GraphicsObject<Palapeli::ConstraintVisualizerUserType>
 	{
 		Q_OBJECT
-		Q_PROPERTY(qreal Opacity READ opacity WRITE setOpacity)
 		public:
-			InaccessibleAreasHelper(QGraphicsView* view);
+			ConstraintVisualizer(QGraphicsView* view);
 
 			bool isActive() const;
-			qreal opacity() const;
 		public Q_SLOTS:
 			void setActive(bool active);
-			void setOpacity(qreal opacity);
 			void update();
 		protected:
 			virtual bool eventFilter(QObject* sender, QEvent* event);
@@ -47,7 +43,7 @@ namespace Palapeli
 			enum Position { LeftPos = 0, RightPos, TopPos, BottomPos, PositionCount };
 
 			QGraphicsView* m_view;
-			bool m_active; qreal m_opacity;
+			bool m_active;
 
 			QVector<QGraphicsRectItem*> m_items;
 			QRectF m_viewportRect;
@@ -55,4 +51,4 @@ namespace Palapeli
 	};
 }
 
-#endif // PALAPELI_INACCESSIBLEAREASHELPER_H
+#endif // PALAPELI_CONSTRAINTVISUALIZER_H
