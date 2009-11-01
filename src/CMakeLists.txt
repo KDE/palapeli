@@ -5,7 +5,7 @@ set(palapeli_SRCS
 	creator/propertywidget.cpp
 	creator/puzzlecreator.cpp
 	creator/slicerconfwidget.cpp
-	engine/inaccessibleareashelper.cpp
+	engine/constraintvisualizer.cpp
 	engine/part.cpp
 	engine/piece.cpp
 	engine/scene.cpp
