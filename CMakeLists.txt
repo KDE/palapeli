@@ -2,7 +2,7 @@ project(palapeli)
 cmake_minimum_required(VERSION 2.6)
 
 if (NOT KDE4_FOUND)
-  find_package(Qt4 REQUIRED)
+  find_package(Qt4 4.6.0 REQUIRED)
   find_package(KDE4 REQUIRED)
 
   include_directories(${KDE4_INCLUDES})
