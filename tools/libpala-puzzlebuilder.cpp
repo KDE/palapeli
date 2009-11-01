@@ -140,11 +140,10 @@ int main(int argc, char** argv)
 			return 1;
 		}
 	}
-	//write thumbnail into tempdir
-	const QImage thumbnail = image.scaled(QSize(128, 128), Qt::KeepAspectRatio);
-	if (!thumbnail.save(cachePath + QLatin1String("thumbnail.jpg")))
+	//write image into tempdir
+	if (!image.save(cachePath + QLatin1String("image.jpg")))
 	{
-		std::cerr << "Could not save thumbnail." << std::endl;
+		std::cerr << "Could not save image." << std::endl;
 		return 1;
 	}
 	//write piece offsets into target manifest
@@ -164,7 +163,7 @@ int main(int argc, char** argv)
 	targetManifest.sync();
 
 	//compress archive to temporary file
-	KTar tar(outputPath, "application/x-bzip");
+	KTar tar(outputPath, "application/x-gzip");
 	bool success = true;
 	if (!tar.open(QIODevice::WriteOnly))
 		success = false;

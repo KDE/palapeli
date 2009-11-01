@@ -116,7 +116,7 @@ bool Palapeli::Puzzle::readMetadata(bool force)
 	else
 		archiveFile = m_loadLocation.path();
 	//open archive and extract into temporary directory
-	KTar tar(archiveFile, "application/x-bzip");
+	KTar tar(archiveFile, "application/x-gzip");
 	if (!tar.open(QIODevice::ReadOnly))
 	{
 		KIO::NetAccess::removeTempFile(archiveFile);
@@ -135,7 +135,7 @@ bool Palapeli::Puzzle::readMetadata(bool force)
 	m_metadata->name = manifest.readName();
 	m_metadata->author = manifest.desktopGroup().readEntry("X-KDE-PluginInfo-Author", QString());
 	m_metadata->comment = manifest.readComment();
-	m_metadata->thumbnail = QImage(m_cache->name() + "thumbnail.jpg").scaled(ThumbnailBaseSize, Qt::KeepAspectRatio);
+	m_metadata->thumbnail = QImage(m_cache->name() + "image.jpg").scaled(ThumbnailBaseSize, Qt::KeepAspectRatio);
 	//find piece count
 	KConfigGroup offsetGroup(&manifest, "PieceOffsets");
 	QList<QString> offsetGroupKeys = offsetGroup.entryMap().keys();
@@ -272,8 +272,8 @@ void Palapeli::Puzzle::createNewArchiveFile()
 		}
 	}
 	//write thumbnail into tempdir
-	const QImage& thumbnail = m_creationContext ? m_creationContext->bigThumbnail : m_metadata->thumbnail;
-	const QString thumbnailPath = cachePath + QString::fromLatin1("thumbnail.jpg");
+	const QImage& thumbnail = m_creationContext ? m_creationContext->image : m_metadata->thumbnail;
+	const QString thumbnailPath = cachePath + QString::fromLatin1("image.jpg");
 	if (!thumbnail.save(thumbnailPath))
 		return;
 	//write piece offsets into target manifest
@@ -301,7 +301,7 @@ void Palapeli::Puzzle::finishWritingArchive()
 	KTemporaryFile* tempFile = new KTemporaryFile;
 	tempFile->setSuffix(".puzzle");
 	tempFile->open();
-	KTar tar(tempFile->fileName(), "application/x-bzip");
+	KTar tar(tempFile->fileName(), "application/x-gzip");
 	if (!tar.open(QIODevice::WriteOnly))
 		return;
 	else if (!tar.addLocalDirectory(m_cache->name(), QLatin1String(".")))

@@ -165,7 +165,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	Palapeli::PuzzleCreationContext* creationContext = new Palapeli::PuzzleCreationContext;
 	creationContext->usedSlicer = slicerKey;
 	creationContext->usedSlicerArgs = slicerArgs;
-	creationContext->bigThumbnail = image.scaled(QSize(256, 256), Qt::KeepAspectRatio);
+	creationContext->image = image;
 	creationContext->pieces = job.pieces();
 	//create puzzle
 	m_result = new Palapeli::Puzzle(metadata, contents, creationContext);

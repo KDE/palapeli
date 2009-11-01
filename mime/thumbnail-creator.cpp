@@ -44,7 +44,7 @@ bool Palapeli::ThumbCreator::create(const QString& path, int width, int height, 
 {
 	Q_UNUSED(width) Q_UNUSED(height) //NOTE: The ThumbCreator APIDOX says that these params should be ignored for images read from the disk.
 	//read archive
-	KTar tar(path, "application/x-bzip");
+	KTar tar(path, "application/x-gzip");
 	if (!tar.open(QIODevice::ReadOnly))
 		return false;
 	KTempDir cache;
@@ -52,6 +52,6 @@ bool Palapeli::ThumbCreator::create(const QString& path, int width, int height, 
 	tar.directory()->copyTo(cachePath);
 	tar.close();
 	//read image
-	image.load(cachePath + "thumbnail.jpg");
+	image.load(cachePath + "image.jpg");
 	return true;
 }
