@@ -16,20 +16,36 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_SHADOWITEM_H
-#define PALAPELI_SHADOWITEM_H
+#ifndef PALAPELI_ENGINE_BASICS_H
+#define PALAPELI_ENGINE_BASICS_H
 
-#include "basics.h"
+#include <QGraphicsObject>
 
 namespace Palapeli
 {
-	QPixmap createShadow(const QPixmap& source, int radius);
-
-	class ShadowItem : public Palapeli::GraphicsObject<Palapeli::ShadowUserType>
+	//A simple QGraphicsObject subclass with the following features:
+	//* automatically enabled qgraphicsitem_cast (template parameters are defined by the GraphicsObjectUserTypes enum)
+	//* empty QGraphicsItem reimplementation (i.e. item does not paint anything by default)
+	template<int userType> class GraphicsObject : public QGraphicsObject
 	{
 		public:
-			ShadowItem(const QPixmap& pixmap, int radius, const QPointF& offset);
+			GraphicsObject(bool noPainting = true)
+			{ if (noPainting) setFlag(QGraphicsItem::ItemHasNoContents); }
+
+			//empty QGraphicsItem reimplementation
+			virtual QRectF boundingRect() const { return QRectF(); }
+			virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*) {}
+			//enable qgraphicsitem_cast
+			enum { Type = QGraphicsItem::UserType + userType };
+			virtual int type() const { return Type; }
+	};
+
+	enum GraphicsObjectUserTypes
+	{
+		PieceUserType = 1,
+		PartUserType = 2,
+		ShadowUserType = 3
 	};
 }
 
-#endif // PALAPELI_SHADOWITEM_H
+#endif // PALAPELI_ENGINE_BASICS_H

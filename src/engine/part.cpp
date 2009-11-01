@@ -34,9 +34,10 @@ Palapeli::Part::Part(Palapeli::Piece* piece)
 	setFlag(QGraphicsItem::ItemIsMovable);
 	setHandlesChildEvents(true);
 	//add shadow to piece
-	const QSize pixmapSize = piece->pixmap().size();
-	const int radius = 0.15 * (pixmapSize.width() + pixmapSize.height());
-	Palapeli::ShadowItem* shadowItem = new Palapeli::ShadowItem(piece->pixmap(), radius, piece->offset());
+	const QPixmap piecePixmap = piece->pixmapItem()->pixmap();
+	const QSize pixmapSize = piecePixmap.size();
+	const int radius = 0.15 * (piecePixmap.width() + piecePixmap.height());
+	Palapeli::ShadowItem* shadowItem = new Palapeli::ShadowItem(piecePixmap, radius, piece->pixmapItem()->offset());
 	m_shadows << shadowItem;
 	shadowItem->setParentItem(this);
 	shadowItem->setZValue(-10);
@@ -166,13 +167,7 @@ QRectF Palapeli::Part::piecesBoundingRect() const
 {
 	QRectF boundingRect;
 	foreach (Palapeli::Piece* piece, m_pieces)
-	{
-		const QRectF subRect = piece->mapToParent(piece->boundingRect()).boundingRect();
-		if (!boundingRect.isValid())
-			boundingRect = subRect;
-		else
-			boundingRect = boundingRect.united(subRect);
-	}
+		boundingRect |= piece->mapToParent(piece->childrenBoundingRect()).boundingRect();
 	return boundingRect;
 }
 

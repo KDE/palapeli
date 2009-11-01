@@ -19,30 +19,26 @@
 #ifndef PALAPELI_PIECE_H
 #define PALAPELI_PIECE_H
 
-#include <QGraphicsPixmapItem>
+#include "basics.h"
 
 namespace Palapeli
 {
 	class Part;
 
-	class Piece : public QObject, public QGraphicsPixmapItem
+	class Piece : public Palapeli::GraphicsObject<Palapeli::PieceUserType>
 	{
-		Q_OBJECT
-		Q_PROPERTY(QPointF pos READ pos WRITE setPos)
 		public:
 			Piece(const QPixmap& pixmap, const QPointF& offset);
 
 			void addNeighbor(Palapeli::Piece* piece);
 			Palapeli::Part* part() const;
-
-			//enable qgraphicsitem_cast
-			enum { Type = QGraphicsItem::UserType + 1 }; //UserType + 2 == Palapeli::Part
-			virtual int type() const { return Type; }
+			QGraphicsPixmapItem* pixmapItem() const;
 		protected:
 			friend class Part;
 			QList<Palapeli::Piece*> connectableNeighbors(qreal snappingPrecision) const;
 			void updateNeighborsList();
 		private:
+			QGraphicsPixmapItem* m_pixmapItem;
 			QList<Palapeli::Piece*> m_missingNeighbors;
 	};
 }

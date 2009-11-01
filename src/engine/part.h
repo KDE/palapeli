@@ -19,18 +19,16 @@
 #ifndef PALAPELI_PART_H
 #define PALAPELI_PART_H
 
-#include <QGraphicsItem>
-#include <QObject>
+#include "basics.h"
 
 namespace Palapeli
 {
 	class Piece;
 	class ShadowItem;
 
-	class Part : public QObject, public QGraphicsItem
+	class Part : public Palapeli::GraphicsObject<Palapeli::PartUserType>
 	{
 		Q_OBJECT
-		Q_INTERFACES(QGraphicsItem)
 		public:
 			Part(Palapeli::Piece* piece);
 			virtual ~Part();
@@ -38,15 +36,8 @@ namespace Palapeli
 			bool searchConnections();
 			void validatePosition();
 
-			//empty QGraphicsItem reimplementation
-			virtual QRectF boundingRect() const { return QRectF(); }
-			virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget* = 0) {}
 			QRectF piecesBoundingRect() const; //like QGraphicsItem::childrenBoundingRect, but takes the pieces into account only (esp. not the shadow items)
 			QRectF scenePiecesBoundingRect() const;
-
-			//enable qgraphicsitem_cast
-			enum { Type = QGraphicsItem::UserType + 2 }; //UserType + 1 == Palapeli::Piece
-			virtual int type() const { return Type; }
 		Q_SIGNALS:
 			void partMoving();
 			void partMoved();

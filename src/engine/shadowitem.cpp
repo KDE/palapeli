@@ -99,10 +99,8 @@ QPixmap Palapeli::createShadow(const QPixmap& source, int radius)
 //END shadow blur algorithm
 
 Palapeli::ShadowItem::ShadowItem(const QPixmap& pixmap, int radius, const QPointF& offset)
-	: QGraphicsPixmapItem(Palapeli::createShadow(pixmap, radius))
 {
-	setAcceptedMouseButtons(0);
-	setOffset(offset + QPointF(-radius, -radius));
+	QGraphicsPixmapItem* item = new QGraphicsPixmapItem(Palapeli::createShadow(pixmap, radius), this);
+	item->setAcceptedMouseButtons(0);
+	item->setOffset(offset + QPointF(-radius, -radius));
 }
-
-#include "shadowitem.moc"

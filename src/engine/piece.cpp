@@ -20,9 +20,9 @@
 #include "part.h"
 
 Palapeli::Piece::Piece(const QPixmap& pixmap, const QPointF& offset)
-	: QGraphicsPixmapItem(pixmap)
+	: m_pixmapItem(new QGraphicsPixmapItem(pixmap, this))
 {
-	setOffset(offset);
+	m_pixmapItem->setOffset(offset);
 }
 
 void Palapeli::Piece::addNeighbor(Palapeli::Piece* piece)
@@ -36,15 +36,21 @@ Palapeli::Part* Palapeli::Piece::part() const
 	return qgraphicsitem_cast<Palapeli::Part*>(parentItem());
 }
 
+QGraphicsPixmapItem* Palapeli::Piece::pixmapItem() const
+{
+	return m_pixmapItem;
+}
+
 QList<Palapeli::Piece*> Palapeli::Piece::connectableNeighbors(qreal snappingPrecision) const
 {
 	QList<Palapeli::Piece*> result;
+	const QSizeF ownSize = m_pixmapItem->pixmap().size();
 	foreach (Palapeli::Piece* neighbor, m_missingNeighbors)
 	{
-		const qreal referenceDistanceX = snappingPrecision * qMax(pixmap().width(), neighbor->pixmap().width());
-		const qreal referenceDistanceY = snappingPrecision * qMax(pixmap().height(), neighbor->pixmap().height());
-		const QPointF posDifference = part()->pos() - neighbor->part()->pos(); //parentItem() is a Part
-		if (qAbs(posDifference.x()) <= referenceDistanceX && qAbs(posDifference.y()) <= referenceDistanceY)
+		const QSizeF neighborSize = neighbor->m_pixmapItem->pixmap().size();
+		const QSizeF snappingSize = snappingPrecision * ownSize.expandedTo(neighborSize);
+		const QPointF posDifference = parentItem()->pos() - neighbor->parentItem()->pos(); //parentItem() is a Part (do not use part() to save a cast)
+		if (qAbs(posDifference.x()) <= snappingSize.width() && qAbs(posDifference.y()) <= snappingSize.height())
 			result << neighbor;
 	}
 	return result;
@@ -54,8 +60,6 @@ void Palapeli::Piece::updateNeighborsList()
 {
 	QMutableListIterator<Palapeli::Piece*> iter(m_missingNeighbors);
 	while (iter.hasNext())
-		if (iter.next()->part() == part())
+		if (iter.next()->parentItem() == parentItem()) //parentItem is a Part (do not use part() to save a cast)
 			iter.remove();
 }
-
-#include "piece.moc"

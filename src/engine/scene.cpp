@@ -203,13 +203,7 @@ void Palapeli::Scene::finishLoading()
 	//determine scene rect
 	QRectF newSceneRect;
 	foreach (Palapeli::Part* part, m_parts)
-	{
-		const QRectF partRect = part->mapToScene(part->piecesBoundingRect()).boundingRect();
-		if (newSceneRect.isEmpty())
-			newSceneRect = partRect;
-		else
-			newSceneRect = newSceneRect.united(partRect);
-	}
+		newSceneRect |= part->mapToScene(part->piecesBoundingRect()).boundingRect();
 	setSceneRect(newSceneRect);
 	//initialize external progress display
 	emit reportProgress(m_pieces.count(), m_parts.count());
@@ -229,7 +223,7 @@ void Palapeli::Scene::partMoving()
 	{
 		QRectF newSceneRect = sceneRect();
 		foreach (Palapeli::Part* part, m_parts)
-			newSceneRect = newSceneRect.united(part->mapToScene(part->piecesBoundingRect()).boundingRect());
+			newSceneRect |= part->mapToScene(part->piecesBoundingRect()).boundingRect();
 		setSceneRect(newSceneRect);
 	}
 }
