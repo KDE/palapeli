@@ -3,6 +3,7 @@ Encoding=UTF-8
 Type=Service
 Name=Palapeli puzzles
 Name[pt]='Puzzles' do Palapeli
+Name[sv]=Palapeli-pussel
 Name[uk]=Головоломки Palapeli
 Name[x-test]=xxPalapeli puzzlesxx
 ServiceTypes=ThumbCreator
