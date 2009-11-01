@@ -31,7 +31,7 @@ namespace Palapeli
 	{
 		QString name, author, comment;
 		int pieceCount;
-		QImage thumbnail;
+		QImage image, thumbnail;
 	};
 
 	struct PuzzleContents
@@ -46,7 +46,6 @@ namespace Palapeli
 	{
 		QByteArray usedSlicer;
 		QMap<QByteArray, QVariant> usedSlicerArgs;
-		QImage image;
 		QMap<int, QImage> pieces; //The piece images are already in PuzzleContents, but we do also pass the QImage pictures because they have been generated anyway, and can be written in non-GUI threads.
 	};
 }

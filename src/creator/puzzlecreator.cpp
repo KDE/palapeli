@@ -151,6 +151,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	metadata->comment = m_commentEdit->text();
 	metadata->author = m_authorEdit->text();
 	metadata->pieceCount = job.pieces().count();
+	metadata->image = image;
 	metadata->thumbnail = image.scaled(Palapeli::Puzzle::ThumbnailBaseSize, Qt::KeepAspectRatio);
 	Palapeli::PuzzleContents* contents = new Palapeli::PuzzleContents;
 	contents->imageSize = image.size();
@@ -165,7 +166,6 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	Palapeli::PuzzleCreationContext* creationContext = new Palapeli::PuzzleCreationContext;
 	creationContext->usedSlicer = slicerKey;
 	creationContext->usedSlicerArgs = slicerArgs;
-	creationContext->image = image;
 	creationContext->pieces = job.pieces();
 	//create puzzle
 	m_result = new Palapeli::Puzzle(metadata, contents, creationContext);

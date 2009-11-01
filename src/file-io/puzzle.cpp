@@ -135,7 +135,8 @@ bool Palapeli::Puzzle::readMetadata(bool force)
 	m_metadata->name = manifest.readName();
 	m_metadata->author = manifest.desktopGroup().readEntry("X-KDE-PluginInfo-Author", QString());
 	m_metadata->comment = manifest.readComment();
-	m_metadata->thumbnail = QImage(m_cache->name() + "image.jpg").scaled(ThumbnailBaseSize, Qt::KeepAspectRatio);
+	m_metadata->image.load(m_cache->name() + "image.jpg");
+	m_metadata->thumbnail = m_metadata->image.scaled(ThumbnailBaseSize, Qt::KeepAspectRatio);
 	//find piece count
 	KConfigGroup offsetGroup(&manifest, "PieceOffsets");
 	QList<QString> offsetGroupKeys = offsetGroup.entryMap().keys();
@@ -272,9 +273,8 @@ void Palapeli::Puzzle::createNewArchiveFile()
 		}
 	}
 	//write thumbnail into tempdir
-	const QImage& thumbnail = m_creationContext ? m_creationContext->image : m_metadata->thumbnail;
-	const QString thumbnailPath = cachePath + QString::fromLatin1("image.jpg");
-	if (!thumbnail.save(thumbnailPath))
+	const QString imagePath = cachePath + QString::fromLatin1("image.jpg");
+	if (!m_metadata->image.save(imagePath))
 		return;
 	//write piece offsets into target manifest
 	KConfigGroup offsetGroup(&manifest, "PieceOffsets");
