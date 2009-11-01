@@ -51,9 +51,7 @@ namespace Palapeli
 
 			QVector<QGraphicsRectItem*> m_items;
 			QRectF m_viewportRect;
-#if QT_VERSION >= 0x040600
 			QPropertyAnimation* m_animator;
-#endif
 	};
 }
 

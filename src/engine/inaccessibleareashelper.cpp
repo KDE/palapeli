@@ -21,9 +21,7 @@
 #include <QEvent>
 #include <QGraphicsRectItem>
 #include <QGraphicsView>
-#if QT_VERSION >= 0x040600
-#	include <QPropertyAnimation>
-#endif
+#include <QPropertyAnimation>
 
 Palapeli::InaccessibleAreasHelper::InaccessibleAreasHelper(QGraphicsView* view)
 	: QObject(view)
@@ -31,9 +29,7 @@ Palapeli::InaccessibleAreasHelper::InaccessibleAreasHelper(QGraphicsView* view)
 	, m_active(false)
 	, m_opacity(0.2)
 	, m_items(PositionCount)
-#if QT_VERSION >= 0x040600
 	, m_animator(new QPropertyAnimation(this, "Opacity", this))
-#endif
 {
 	//create gray items (with null size!)
 	QColor rectColor(Qt::black);
@@ -67,14 +63,10 @@ void Palapeli::InaccessibleAreasHelper::setActive(bool active)
 		return;
 	m_active = active;
 	const qreal targetOpacity = active ? 1.0 : 0.2;
-#if QT_VERSION >= 0x040600
 	m_animator->setDuration(200 * qAbs(targetOpacity - m_opacity));
 	m_animator->setStartValue(m_opacity);
 	m_animator->setEndValue(targetOpacity);
 	m_animator->start();
-#else
-	setOpacity(targetOpacity);
-#endif
 }
 
 void Palapeli::InaccessibleAreasHelper::setOpacity(qreal opacity)

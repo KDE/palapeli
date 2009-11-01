@@ -24,9 +24,7 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
-#if QT_VERSION >= 0x040600
-#	include <QPropertyAnimation>
-#endif
+#include <QPropertyAnimation>
 #include <QSet>
 
 Palapeli::Part::Part(Palapeli::Piece* piece)
@@ -104,7 +102,6 @@ bool Palapeli::Part::searchConnections()
 		{
 			setPos(part->pos());
 			//instead of animating the new pieces, animate all old pieces to move to the new position
-#if QT_VERSION >= 0x040600
 			if (useAnimations)
 			{
 				QList<QObject*> objects;
@@ -122,7 +119,6 @@ bool Palapeli::Part::searchConnections()
 					anim->start(QAbstractAnimation::DeleteWhenStopped);
 				}
 			}
-#endif
 		}
 		//insert all pieces of the other part into this part
 		foreach (Palapeli::Piece* piece, part->m_pieces)
@@ -131,7 +127,6 @@ bool Palapeli::Part::searchConnections()
 			piece->setParentItem(this);
 			m_pieces << piece;
 			//animate move to new position inside this parent
-#if QT_VERSION >= 0x040600
 			if (useAnimations && !reversePositioningOrder)
 			{
 				QPropertyAnimation* anim = new QPropertyAnimation(piece, "pos", piece);
@@ -141,14 +136,12 @@ bool Palapeli::Part::searchConnections()
 				anim->setEasingCurve(QEasingCurve::InCubic);
 				anim->start(QAbstractAnimation::DeleteWhenStopped);
 			}
-#endif
 		}
 		foreach (Palapeli::ShadowItem* shadowItem, part->m_shadows)
 		{
 			shadowItem->setParentItem(this);
 			m_shadows << shadowItem;
 			//animate move to new position inside this parent
-#if QT_VERSION >= 0x040600
 			if (useAnimations && !reversePositioningOrder)
 			{
 				QPropertyAnimation* anim = new QPropertyAnimation(shadowItem, "pos", shadowItem);
@@ -158,7 +151,6 @@ bool Palapeli::Part::searchConnections()
 				anim->setEasingCurve(QEasingCurve::InCubic);
 				anim->start(QAbstractAnimation::DeleteWhenStopped);
 			}
-#endif
 		}
 		delete part;
 	}
