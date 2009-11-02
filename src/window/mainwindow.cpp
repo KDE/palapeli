@@ -88,11 +88,11 @@ Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 
 void Palapeli::MainWindow::doMenuLayout()
 {
-	setMinimumWidth(m_menuBar->sizeHint().width() + m_centralWidget->tabBar()->sizeHint().width());
 	//determine geometry of menubar...
 	QRect rect = this->rect();
 	const QSize tabBarSize = m_centralWidget->tabBar()->sizeHint();
 	const QSize menuBarSize = m_menuBar->sizeHint();
+	setMinimumWidth(tabBarSize.width());
 	//...in X direction
 	if (QApplication::isLeftToRight())
 		rect.setLeft(tabBarSize.width());
