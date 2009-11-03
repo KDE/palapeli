@@ -22,6 +22,7 @@
 #include "settings.h"
 #include "shadowitem.h"
 
+#include <QCursor>
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QPropertyAnimation>
@@ -31,6 +32,7 @@ Palapeli::Part::Part(Palapeli::Piece* piece)
 {
 	m_pieces << piece;
 	piece->setParentItem(this);
+	piece->setCursor(Qt::OpenHandCursor);
 	setFlag(QGraphicsItem::ItemIsMovable);
 	setHandlesChildEvents(true);
 	//add shadow to piece
@@ -49,13 +51,14 @@ Palapeli::Part::~Part()
 
 void Palapeli::Part::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-	QGraphicsItem::mouseReleaseEvent(event); //handle dragging
+	QGraphicsItem::mousePressEvent(event); //handle dragging
 	if (event->button() == Qt::LeftButton)
 	{
 		//move item to top
-		static int zValue = 1;
-		setZValue(zValue);
-		++zValue;
+		static int zValue = 0;
+		setZValue(++zValue);
+		foreach (Palapeli::Piece* piece, m_pieces)
+			piece->setCursor(Qt::ClosedHandCursor);
 	}
 }
 
@@ -76,6 +79,8 @@ void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 	{
 		searchConnections();
 		emit partMoved();
+		foreach (Palapeli::Piece* piece, m_pieces)
+			piece->setCursor(Qt::OpenHandCursor);
 	}
 }
 
