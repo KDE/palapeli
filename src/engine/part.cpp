@@ -96,29 +96,21 @@ bool Palapeli::Part::searchConnections()
 	foreach (Palapeli::Part* part, mergeParts)
 	{
 		//set position in such a way that the majority of the pieces do not move
-		const QPointF posDiff = part->pos() - pos();
+		QPointF posDiff = part->pos() - pos();
 		const bool useAnimations = part->pos() != pos();
+		QList<QObject*> animatedObjects;
 		const bool reversePositioningOrder = part->m_pieces.count() > m_pieces.count();
 		if (reversePositioningOrder)
 		{
 			setPos(part->pos());
-			//instead of animating the new pieces, animate all old pieces to move to the new position
+			//animate all old pieces to move to the new position
+			posDiff = -posDiff;
 			if (useAnimations)
 			{
-				QList<QObject*> objects;
 				foreach (Palapeli::Piece* piece, m_pieces)
-					objects << piece;
+					animatedObjects << piece;
 				foreach (Palapeli::ShadowItem* shadowItem, m_shadows)
-					objects << shadowItem;
-				foreach (QObject* object, objects)
-				{
-					QPropertyAnimation* anim = new QPropertyAnimation(object, "pos", object);
-					anim->setStartValue(-posDiff);
-					anim->setEndValue(QPointF());
-					anim->setDuration(200);
-					anim->setEasingCurve(QEasingCurve::InCubic);
-					anim->start(QAbstractAnimation::DeleteWhenStopped);
-				}
+					animatedObjects << shadowItem;
 			}
 		}
 		//insert all pieces of the other part into this part
@@ -127,32 +119,28 @@ bool Palapeli::Part::searchConnections()
 			//move piece to this parent
 			piece->setParentItem(this);
 			m_pieces << piece;
-			//animate move to new position inside this parent
 			if (useAnimations && !reversePositioningOrder)
-			{
-				QPropertyAnimation* anim = new QPropertyAnimation(piece, "pos", piece);
-				anim->setStartValue(posDiff);
-				anim->setEndValue(QPointF());
-				anim->setDuration(200);
-				anim->setEasingCurve(QEasingCurve::InCubic);
-				anim->start(QAbstractAnimation::DeleteWhenStopped);
-			}
+				animatedObjects << piece;
 		}
 		foreach (Palapeli::ShadowItem* shadowItem, part->m_shadows)
 		{
+			//move shadow item to this parent
 			shadowItem->setParentItem(this);
 			m_shadows << shadowItem;
-			//animate move to new position inside this parent
 			if (useAnimations && !reversePositioningOrder)
+				animatedObjects << shadowItem;
+		}
+		//start animations
+		if (useAnimations)
+			foreach (QObject* object, animatedObjects)
 			{
-				QPropertyAnimation* anim = new QPropertyAnimation(shadowItem, "pos", shadowItem);
+				QPropertyAnimation* anim = new QPropertyAnimation(object, "pos", object);
 				anim->setStartValue(posDiff);
 				anim->setEndValue(QPointF());
 				anim->setDuration(200);
 				anim->setEasingCurve(QEasingCurve::InCubic);
 				anim->start(QAbstractAnimation::DeleteWhenStopped);
 			}
-		}
 		delete part;
 	}
 	//update internal neighbor lists in the pieces
