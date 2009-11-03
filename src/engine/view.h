@@ -51,7 +51,6 @@ namespace Palapeli
 		Q_SIGNALS:
 			void zoomLevelChanged(int level);
 		private Q_SLOTS:
-			void sceneRectChanged(const QRectF& rect);
 			void puzzleStarted();
 		private:
 			Palapeli::Scene* m_scene;

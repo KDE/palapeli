@@ -38,7 +38,6 @@ Palapeli::View::View()
 	setScene(m_scene);
 	m_constraintVisualizer = new Palapeli::ConstraintVisualizer(this);
 	connect(m_scene, SIGNAL(constrainedChanged(bool)), m_constraintVisualizer, SLOT(setActive(bool)));
-	connect(m_scene, SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(sceneRectChanged(const QRectF&)));
 	connect(m_scene, SIGNAL(puzzleStarted()), this, SLOT(puzzleStarted()));
 }
 
@@ -115,11 +114,6 @@ void Palapeli::View::zoomIn()
 void Palapeli::View::zoomOut()
 {
 	zoomBy(-120);
-}
-
-void Palapeli::View::sceneRectChanged(const QRectF& rect)
-{
-	setSceneRect(rect);
 }
 
 void Palapeli::View::puzzleStarted()

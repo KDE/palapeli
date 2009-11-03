@@ -42,6 +42,7 @@ namespace Palapeli
 
 			bool arePartsVisible() const;
 			bool isConstrained() const;
+			QRectF partsBoundingRect() const;
 		public Q_SLOTS:
 			void loadPuzzle(const QModelIndex& index);
 			void restartPuzzle();

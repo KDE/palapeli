@@ -21,32 +21,38 @@
 
 #include "basics.h"
 
-class QGraphicsView;
 class QPropertyAnimation;
 #include <QVector>
 
 namespace Palapeli
 {
+	class View;
+
 	class ConstraintVisualizer : public Palapeli::GraphicsObject<Palapeli::ConstraintVisualizerUserType>
 	{
 		Q_OBJECT
 		public:
-			ConstraintVisualizer(QGraphicsView* view);
+			ConstraintVisualizer(Palapeli::View* view);
 
 			bool isActive() const;
 		public Q_SLOTS:
 			void setActive(bool active);
 			void update();
 		protected:
+			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
+			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
 			virtual bool eventFilter(QObject* sender, QEvent* event);
 		private:
-			enum Position { LeftPos = 0, RightPos, TopPos, BottomPos, PositionCount };
+			enum Side { LeftSide = 0, RightSide, TopSide, BottomSide, SideCount };
+			enum HandlePosition { LeftHandle = 0, TopLeftHandle, TopHandle, TopRightHandle, RightHandle, BottomRightHandle, BottomHandle, BottomLeftHandle, HandleCount };
 
-			QGraphicsView* m_view;
+			Palapeli::View* m_view;
 			bool m_active;
 
-			QVector<QGraphicsRectItem*> m_items;
-			QRectF m_viewportRect;
+			QVector<QGraphicsRectItem*> m_shadowItems, m_handleItems;
+			QRectF m_viewportRect, m_sceneRect;
+			qreal m_handleExtent;
+			QList<Side> m_draggingSides;
 			QPropertyAnimation* m_animator;
 	};
 }

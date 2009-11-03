@@ -46,6 +46,14 @@ Palapeli::Scene::Scene(QObject* parent)
 	connect(&m_metadataLoader, SIGNAL(finished()), this, SLOT(continueLoading()));
 }
 
+QRectF Palapeli::Scene::partsBoundingRect() const
+{
+	QRectF result;
+	foreach (Palapeli::Part* part, m_parts)
+		result |= part->mapToScene(part->piecesBoundingRect()).boundingRect();
+	return result;
+}
+
 bool Palapeli::Scene::isConstrained() const
 {
 	return m_constrained;
@@ -224,10 +232,7 @@ void Palapeli::Scene::finishLoading()
 		}
 	}
 	//determine scene rect
-	QRectF newSceneRect;
-	foreach (Palapeli::Part* part, m_parts)
-		newSceneRect |= part->mapToScene(part->piecesBoundingRect()).boundingRect();
-	setSceneRect(newSceneRect);
+	setSceneRect(partsBoundingRect());
 	//initialize external progress display
 	emit reportProgress(m_pieces.count(), m_parts.count());
 	emit puzzleStarted();
@@ -243,12 +248,7 @@ void Palapeli::Scene::partMoving()
 {
 	//if scene size constraint is not active, enlarge scene rect as needed
 	if (!m_constrained)
-	{
-		QRectF newSceneRect = sceneRect();
-		foreach (Palapeli::Part* part, m_parts)
-			newSceneRect |= part->mapToScene(part->piecesBoundingRect()).boundingRect();
-		setSceneRect(newSceneRect);
-	}
+		setSceneRect(partsBoundingRect() | sceneRect());
 }
 
 void Palapeli::Scene::partMoved()
