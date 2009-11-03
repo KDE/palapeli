@@ -23,6 +23,7 @@ Palapeli::Piece::Piece(const QPixmap& pixmap, const QPointF& offset)
 	: m_pixmapItem(new QGraphicsPixmapItem(pixmap, this))
 {
 	m_pixmapItem->setOffset(offset);
+	setCacheMode(QGraphicsItem::DeviceCoordinateCache);
 }
 
 void Palapeli::Piece::addNeighbor(Palapeli::Piece* piece)

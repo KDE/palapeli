@@ -19,11 +19,14 @@
 #ifndef PALAPELI_SCENE_H
 #define PALAPELI_SCENE_H
 
+#include "basics.h"
+
 #include <QFutureWatcher>
 #include <QGraphicsScene>
 #include <QMap>
 class QModelIndex;
 #include <QPointer>
+class QPropertyAnimation;
 
 namespace Palapeli
 {
@@ -37,11 +40,13 @@ namespace Palapeli
 		public:
 			Scene(QObject* parent = 0);
 
+			bool arePartsVisible() const;
 			bool isConstrained() const;
 		public Q_SLOTS:
 			void loadPuzzle(const QModelIndex& index);
 			void restartPuzzle();
 			void setConstrained(bool constrained);
+			void setPartsVisible(bool visible);
 		Q_SIGNALS:
 			void constrainedChanged(bool constrained);
 			void puzzleStarted();
@@ -58,8 +63,10 @@ namespace Palapeli
 		private:
 			void loadPuzzleInternal();
 
-			//behavioral parameteres
-			bool m_constrained;
+			//behavior and appearance parameters
+			bool m_constrained, m_partsVisible;
+			Palapeli::EmptyGraphicsObject* m_partGroup; //NOTE: This group is used to animate all parts at once.
+			QPropertyAnimation* m_partAnimation;
 			//game parameters
 			QString m_identifier;
 			QPointer<Palapeli::Puzzle> m_puzzle;

@@ -42,11 +42,14 @@ namespace Palapeli
 
 	enum GraphicsObjectUserTypes
 	{
+		GeneralUserType = 0,
 		PieceUserType = 1,
 		PartUserType = 2,
 		ShadowUserType = 3,
 		ConstraintVisualizerUserType = 11
 	};
+
+	typedef Palapeli::GraphicsObject<Palapeli::GeneralUserType> EmptyGraphicsObject;
 }
 
 #endif // PALAPELI_ENGINE_BASICS_H

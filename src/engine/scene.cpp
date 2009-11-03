@@ -25,6 +25,7 @@
 
 #include <cmath>
 #include <QFile>
+#include <QPropertyAnimation>
 #include <QTimer>
 #include <QtConcurrentRun>
 #include <KConfig>
@@ -36,8 +37,12 @@ typedef QPair<int, int> DoubleIntPair; //comma in type is not possible in foreac
 Palapeli::Scene::Scene(QObject* parent)
 	: QGraphicsScene(parent)
 	, m_constrained(false)
+	, m_partsVisible(true)
+	, m_partGroup(new Palapeli::EmptyGraphicsObject)
+	, m_partAnimation(new QPropertyAnimation(m_partGroup, "opacity", m_partGroup))
 	, m_loadingPuzzle(false)
 {
+	addItem(m_partGroup);
 	connect(&m_metadataLoader, SIGNAL(finished()), this, SLOT(continueLoading()));
 }
 
@@ -46,14 +51,29 @@ bool Palapeli::Scene::isConstrained() const
 	return m_constrained;
 }
 
+bool Palapeli::Scene::arePartsVisible() const
+{
+	return m_partsVisible;
+}
+
 void Palapeli::Scene::setConstrained(bool constrained)
 {
 	if (m_constrained == constrained)
 		return;
 	m_constrained = constrained;
-	foreach (Palapeli::Part* part, m_parts)
-		part->validatePosition();
 	emit constrainedChanged(constrained);
+}
+
+void Palapeli::Scene::setPartsVisible(bool visible)
+{
+	if (m_partsVisible == visible)
+		return;
+	m_partsVisible = visible;
+	const qreal targetOpacity = visible ? 1.0 : 0.0;
+	m_partAnimation->setDuration(200 * qAbs(targetOpacity - m_partGroup->opacity()));
+	m_partAnimation->setStartValue(m_partGroup->opacity());
+	m_partAnimation->setEndValue(targetOpacity);
+	m_partAnimation->start();
 }
 
 void Palapeli::Scene::loadPuzzle(const QModelIndex& index)
@@ -75,6 +95,9 @@ void Palapeli::Scene::loadPuzzleInternal()
 {
 	//reset behavioral parameters
 	setConstrained(false);
+	m_partAnimation->stop();
+	m_partsVisible = true;
+	m_partGroup->setOpacity(1);
 	//clear scene
 	qDeleteAll(m_pieces); m_pieces.clear();
 	qDeleteAll(m_parts); m_parts.clear();
@@ -124,10 +147,10 @@ void Palapeli::Scene::loadNextPart()
 		Palapeli::Piece* piece = new Palapeli::Piece(contents->pieces[pieceID], contents->pieceOffsets[pieceID]);
 		m_pieces[pieceID] = piece;
 		Palapeli::Part* part = new Palapeli::Part(piece);
-		addItem(part);
 		connect(part, SIGNAL(destroyed(QObject*)), this, SLOT(partDestroyed(QObject*)));
 		connect(part, SIGNAL(partMoved()), this, SLOT(partMoved()));
 		connect(part, SIGNAL(partMoving()), this, SLOT(partMoving()));
+		part->setParentItem(m_partGroup);
 		m_parts << part;
 		//continue with next part after eventloop run
 		if (contents->pieces.size() > m_pieces.size())
