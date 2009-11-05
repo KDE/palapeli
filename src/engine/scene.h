@@ -26,7 +26,6 @@
 #include <QMap>
 class QModelIndex;
 #include <QPointer>
-class QPropertyAnimation;
 
 namespace Palapeli
 {
@@ -40,14 +39,12 @@ namespace Palapeli
 		public:
 			Scene(QObject* parent = 0);
 
-			bool arePartsVisible() const;
 			bool isConstrained() const;
 			QRectF partsBoundingRect() const;
 		public Q_SLOTS:
 			void loadPuzzle(const QModelIndex& index);
 			void restartPuzzle();
 			void setConstrained(bool constrained);
-			void setPartsVisible(bool visible);
 		Q_SIGNALS:
 			void constrainedChanged(bool constrained);
 			void puzzleStarted();
@@ -64,10 +61,9 @@ namespace Palapeli
 		private:
 			void loadPuzzleInternal();
 
-			//behavior and appearance parameters
-			bool m_constrained, m_partsVisible;
-			Palapeli::EmptyGraphicsObject* m_partGroup; //NOTE: This group is used to animate all parts at once.
-			QPropertyAnimation* m_partAnimation;
+			//behavior parameters
+			bool m_constrained;
+			Palapeli::EmptyGraphicsObject* m_partGroup; //NOTE: This group can be used to animate all parts at once.
 			//game parameters
 			QString m_identifier;
 			QPointer<Palapeli::Puzzle> m_puzzle;
