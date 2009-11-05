@@ -200,7 +200,7 @@ bool JigsawSlicer::run(Pala::SlicerJob* job)
 			mask.fill(0x00000000); //fully transparent color
 			QPainter painter(&mask);
 			painter.translate(maskRect.topLeft() - newMaskRect.topLeft());
-			painter.setPen(Qt::black); //we explicitly use a pen stroke in order to let the pieces overlap a bit (which reduces rendering glitches at the edges where puzzle pieces touch)
+			painter.setPen(QPen(Qt::black, 1.5)); //we explicitly use a pen stroke in order to let the pieces overlap a bit (which reduces rendering glitches at the edges where puzzle pieces touch)
 			painter.setBrush(Qt::black);
 			painter.setRenderHint(QPainter::Antialiasing);
 			painter.drawPath(path);
