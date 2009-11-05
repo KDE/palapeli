@@ -145,7 +145,10 @@ void Palapeli::ConstraintVisualizer::mousePressEvent(QGraphicsSceneMouseEvent* e
 {
 	const QPointF pos = event->scenePos();
 	if (m_sceneRect.contains(pos))
+	{
 		event->accept();
+		m_lastScreenPos = event->screenPos();
+	}
 	else
 	{
 		event->ignore(); //do not react to clicks on the shadow items
@@ -166,9 +169,13 @@ void Palapeli::ConstraintVisualizer::mousePressEvent(QGraphicsSceneMouseEvent* e
 void Palapeli::ConstraintVisualizer::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
 	event->accept();
+	//prevent infinite loops (When the mouse reaches the end of the scene, the following will happen: 1. The ConstraintVisualizer enlarges the scene rect. 2. The QGraphicsView moves its viewport to accommodate the new scene rect. 3. The QGraphicsView might notice that the scene mouse position has changed, and fire a new mouseMoveEvent. 4. Repeat with step 1.)
+	if (m_lastScreenPos == event->screenPos())
+		return;
+	m_lastScreenPos = event->screenPos();
+	//modify scene rect
 	const QPointF pos = event->scenePos();
 	const QPointF posDiff = event->scenePos() - event->lastScenePos();
-	//modify scene rect
 	if (m_draggingSides.contains(LeftSide))
 		m_sceneRect.setLeft(m_sceneRect.left() + posDiff.x());
 	if (m_draggingSides.contains(RightSide))

@@ -52,8 +52,10 @@ namespace Palapeli
 			QVector<QGraphicsRectItem*> m_shadowItems, m_handleItems;
 			QRectF m_viewportRect, m_sceneRect;
 			qreal m_handleExtent;
-			QList<Side> m_draggingSides;
 			QPropertyAnimation* m_animator;
+			//the following are only used in the handles' mouse events
+			QList<Side> m_draggingSides;
+			QPoint m_lastScreenPos;
 	};
 }
 
