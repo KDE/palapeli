@@ -140,7 +140,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 		return;
 	}
 	Pala::SlicerJob job(image, slicerArgs);
-	if (!slicer->run(&job))
+	if (!slicer->process(&job))
 	{
 		KMessageBox::sorry(this, i18n("Puzzle cannot be created: Slicing failed because of undetermined problems."));
 		return;

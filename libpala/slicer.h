@@ -57,6 +57,18 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 		Q_OBJECT
 		public:
 			/**
+			 * \brief Behavioral flags of a slicer.
+			 * These flags can be used to programmatically configure the behavior of libpala for a single slicer. You should only set the slicer's flags once in the constructor, and not modify it later. (The latter might cause unexpected behavior.)
+			 * \see setFlags
+			 */
+			enum SlicerFlag
+			{
+				NoFlags = 0x0,
+				AllowFullTransparency = 0x1 ///< By default, libpala will increase the minimum alpha value of input images to avoid invisible pieces. Set this flag if you rely on the alpha channel in your slicing algorithm.
+			};
+			Q_DECLARE_FLAGS(SlicerFlags, SlicerFlag)
+
+			/**
 			 * \brief Constructs a new Slicer object.
 			 * In any subclass, the constructor signature has to be the same (due to the way the plugin loader works). The arguments should be passed to this constructor and ignored by the subclass implementation, as their format might change without notice in future versions.
 			 */
@@ -67,6 +79,19 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 			//The following function belongs to the interface to the Palapeli application. It is not documented because the documentation is targeted at slicer developers.
 			///\internal
 			QMap<QByteArray, const Pala::SlicerProperty*> properties() const;
+			///\internal
+			SlicerFlags flags() const;
+			///\internal
+			bool process(Pala::SlicerJob* job); //a wrapper function for Pala::Slicer::run
+
+			//This class is the only interface that slicers can use to communicate with Palapeli, and it is only instantiated very few times (one instance per slicer plugin), so it should be reasonable to reserve some space in the virtual table for future additions.
+			RESERVE_VIRTUAL_5
+		protected:
+			///Add the given property to the property list of this slicer. Use this method in the subclass constructors to fill the slicer with properties. Properties let the user control how the slicing is done.
+			void addProperty(const QByteArray& key, Pala::SlicerProperty* property);
+			friend class SlicerPropertySet;
+			///\see Pala::Slicer::SlicerFlags
+			void setFlags(SlicerFlags flags);
 
 			/**
 			 * \brief The slicing algorithm.
@@ -75,17 +100,12 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 			 * \see Pala::SlicerJob
 			 */
 			virtual bool run(Pala::SlicerJob* job) = 0;
-
-			//This class is the only interface that slicers can use to communicate with Palapeli, and it is only instantiated very few times (one instance per slicer plugin), so it should be reasonable to reserve some space in the virtual table for future additions.
-			RESERVE_VIRTUAL_5
-		protected:
-			///Add the given property to the property list of this slicer. Use this method in the subclass constructors to fill the slicer with properties. Properties let the user control how the slicing is done.
-			void addProperty(const QByteArray& key, Pala::SlicerProperty* property);
-			friend class SlicerPropertySet;
 		private:
 			class Private;
 			Private* const p;
 	};
 }
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(Pala::Slicer::SlicerFlags)
 
 #endif // LIBPALA_SLICER_H

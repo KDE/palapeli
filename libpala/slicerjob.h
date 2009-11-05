@@ -34,6 +34,8 @@
 
 namespace Pala
 {
+	class Slicer;
+
 	/**
 	 * \class SlicerJob slicerjob.h <Pala/SlicerJob>
 	 * \brief Representation of a single run of a slicing algorithm.
@@ -84,6 +86,10 @@ namespace Pala
 			 * Neighborship relations are crucial for the gameplay: Palapeli needs to know somehow which pieces are neighbors, to let these pieces snap together when they're near each other.
 			 */
 			void addRelation(int pieceID1, int pieceID2);
+		protected:
+			///\internal
+			void respectSlicerFlags(int flags);
+			friend class Slicer;
 		private:
 			class Private;
 			Private* const p;

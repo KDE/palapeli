@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "slicerjob.h"
+#include "slicer.h"
 
 #include <QtGui/QPainter>
 
@@ -70,6 +71,20 @@ QMap<int, QPoint> Pala::SlicerJob::pieceOffsets() const
 QList<QPair<int, int> > Pala::SlicerJob::relations() const
 {
 	return p->m_relations;
+}
+
+void Pala::SlicerJob::respectSlicerFlags(int flags)
+{
+	if (!(flags & Pala::Slicer::AllowFullTransparency))
+	{
+		QImage image(p->m_image.size(), p->m_image.format());
+		QColor blackShade(Qt::black); blackShade.setAlpha(42);
+		image.fill(blackShade.rgba());
+		QPainter painter(&image);
+		painter.drawImage(QPoint(), p->m_image);
+		painter.end();
+		p->m_image = image;
+	}
 }
 
 void Pala::SlicerJob::addPiece(int pieceID, const QImage& image, const QPoint& offset)

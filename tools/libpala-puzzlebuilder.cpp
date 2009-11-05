@@ -113,7 +113,7 @@ int main(int argc, char** argv)
 
 	//create slicer job
 	Pala::SlicerJob job(image, slicerArgs);
-	if (!slicer->run(&job))
+	if (!slicer->process(&job))
 	{
 		std::cerr << "Error: Slicing failed." << std::endl;
 		return 1;

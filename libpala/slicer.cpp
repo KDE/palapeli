@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "slicer.h"
+#include "slicerjob.h"
 #include "slicerproperty.h"
 
 //BEGIN Pala::Slicer::Private
@@ -25,6 +26,7 @@ class Pala::Slicer::Private
 {
 	public:
 		QMap<QByteArray, const Pala::SlicerProperty*> m_properties;
+		Pala::Slicer::SlicerFlags m_flags;
 };
 
 //END Pala::Slicer::Private
@@ -33,6 +35,7 @@ Pala::Slicer::Slicer(QObject* parent, const QVariantList& /*args*/)
 	: QObject(parent)
 	, p(new Private)
 {
+	p->m_flags = NoFlags;
 }
 
 Pala::Slicer::~Slicer()
@@ -46,10 +49,26 @@ QMap<QByteArray, const Pala::SlicerProperty*> Pala::Slicer::properties() const
 	return p->m_properties;
 }
 
+Pala::Slicer::SlicerFlags Pala::Slicer::flags() const
+{
+	return p->m_flags;
+}
+
 void Pala::Slicer::addProperty(const QByteArray& key, Pala::SlicerProperty* property)
 {
 	delete p->m_properties[key]; //this is safe because m_properties[key] == 0 if key has not been used yet
 	p->m_properties[key] = property;
+}
+
+void Pala::Slicer::setFlags(Pala::Slicer::SlicerFlags flags)
+{
+	p->m_flags = flags;
+}
+
+bool Pala::Slicer::process(Pala::SlicerJob* job)
+{
+	job->respectSlicerFlags(p->m_flags);
+	return run(job);
 }
 
 #include "slicer.moc"
