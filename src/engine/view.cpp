@@ -35,6 +35,8 @@ Palapeli::View::View()
 	, m_zoomLevel(100)
 {
 	setDragMode(QGraphicsView::ScrollHandDrag);
+	setResizeAnchor(QGraphicsView::AnchorUnderMouse);
+	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 	setScene(m_scene);
 	m_constraintVisualizer = new Palapeli::ConstraintVisualizer(this);
 	connect(m_scene, SIGNAL(constrainedChanged(bool)), m_constraintVisualizer, SLOT(setActive(bool)));
