@@ -21,7 +21,7 @@
 #include "../engine/scene.h"
 #include "../engine/texturehelper.h"
 #include "../engine/view.h"
-#include "librarywidget.h"
+#include "collectionwidget.h"
 #include "puzzletablewidget.h"
 #include "settings.h"
 #include "tabwindow.h"
@@ -49,19 +49,19 @@ namespace Palapeli
 
 Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 	: m_centralWidget(new Palapeli::KTabWidget)
-	, m_library(new Palapeli::LibraryWidget)
+	, m_collectionWidget(new Palapeli::CollectionWidget)
 	, m_puzzleTable(new Palapeli::PuzzleTableWidget)
 {
 	//create MainWindow-wide actions
 	KStandardAction::keyBindings(this, SLOT(configureShortcuts()), actionCollection());
 	KStandardAction::preferences(this, SLOT(configurePalapeli()), actionCollection());
 	//setup widgets
-	m_centralWidget->addTab(m_library, i18n("My library"));
+	m_centralWidget->addTab(m_collectionWidget, i18n("My collection"));
 	m_centralWidget->addTab(m_puzzleTable, i18n("Puzzle table"));
 	m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_puzzleTable), false); //... until a puzzle has been loaded
-	m_centralWidget->setCurrentWidget(m_library);
-	connect(m_library, SIGNAL(createRequest()), this, SLOT(createPuzzle()));
-	connect(m_library, SIGNAL(playRequest(const QModelIndex&)), this, SLOT(loadPuzzle(const QModelIndex&)));
+	m_centralWidget->setCurrentWidget(m_collectionWidget);
+	connect(m_collectionWidget, SIGNAL(createRequest()), this, SLOT(createPuzzle()));
+	connect(m_collectionWidget, SIGNAL(playRequest(const QModelIndex&)), this, SLOT(loadPuzzle(const QModelIndex&)));
 	//setup main window
 	setCentralWidget(m_centralWidget);
 	KXmlGuiWindow::StandardWindowOptions guiOptions = KXmlGuiWindow::Default;
@@ -78,8 +78,8 @@ Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 	//start a puzzle if a puzzle URL has been given
 	if (args->count() > 0)
 	{
-		m_library->startPuzzle(args->url(0));
-		m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_library), false);
+		m_collectionWidget->startPuzzle(args->url(0));
+		m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_collectionWidget), false);
 		m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_puzzleTable), true);
 		m_centralWidget->setCurrentWidget(m_puzzleTable);
 	}
@@ -142,7 +142,7 @@ void Palapeli::MainWindow::createPuzzle()
 		Palapeli::Puzzle* puzzle = creatorDialog->result();
 		if (!puzzle)
 			return;
-		QModelIndex index = m_library->storeGeneratedPuzzle(puzzle);
+		QModelIndex index = m_collectionWidget->storeGeneratedPuzzle(puzzle);
 		if (index.isValid())
 			loadPuzzle(index);
 	}
@@ -159,7 +159,7 @@ void Palapeli::MainWindow::loadPuzzle(const QModelIndex& index)
 void Palapeli::MainWindow::configureShortcuts()
 {
 	KShortcutsDialog dlg(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, this);
-	dlg.addCollection(m_library->actionCollection());
+	dlg.addCollection(m_collectionWidget->actionCollection());
 	dlg.addCollection(m_puzzleTable->actionCollection());
 	dlg.configure(true);
 }

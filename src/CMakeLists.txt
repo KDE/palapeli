@@ -21,7 +21,7 @@ set(palapeli_SRCS
 	file-io/puzzle.cpp
 	importhelper.cpp
 	main.cpp
-	window/librarywidget.cpp
+	window/collectionwidget.cpp
 	window/loadingwidget.cpp
 	window/mainwindow.cpp
 	window/puzzletablewidget.cpp
@@ -35,7 +35,7 @@ target_link_libraries(palapeli pala ${KDE4_KIO_LIBS})
 
 install(TARGETS palapeli ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeli.kcfg palapeli.notifyrc
-              palapeliui.rc palapeli-libraryui.rc palapeli-puzzletableui.rc
+              palapeliui.rc palapeli-collectionui.rc palapeli-puzzletableui.rc
         DESTINATION ${DATA_INSTALL_DIR}/palapeli)
 install(FILES palapeli.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 add_subdirectory(pics)

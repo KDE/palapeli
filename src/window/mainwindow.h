@@ -26,7 +26,7 @@ class KCmdLineArgs;
 namespace Palapeli
 {
 	class KTabWidget; //needs to be subclasses for public access to QTabBar
-	class LibraryWidget;
+	class CollectionWidget;
 	class PuzzleTableWidget;
 
 	class MainWindow : public KXmlGuiWindow
@@ -46,7 +46,7 @@ namespace Palapeli
 		private:
 			KMenuBar* m_menuBar;
 			Palapeli::KTabWidget* m_centralWidget;
-			Palapeli::LibraryWidget* m_library;
+			Palapeli::CollectionWidget* m_collectionWidget;
 			Palapeli::PuzzleTableWidget* m_puzzleTable;
 	};
 }

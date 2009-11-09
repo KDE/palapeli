@@ -16,8 +16,8 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_LIBRARYWIDGET_H
-#define PALAPELI_LIBRARYWIDGET_H
+#ifndef PALAPELI_COLLECTIONWIDGET_H
+#define PALAPELI_COLLECTIONWIDGET_H
 
 #include "tabwindow.h"
 
@@ -32,11 +32,11 @@ namespace Palapeli
 	class FileSystemCollection;
 	class Puzzle;
 
-	class LibraryWidget : public Palapeli::TabWindow
+	class CollectionWidget : public Palapeli::TabWindow
 	{
 		Q_OBJECT
 		public:
-			LibraryWidget();
+			CollectionWidget();
 
 			void startPuzzle(const KUrl& url);
 			QModelIndex storeGeneratedPuzzle(Palapeli::Puzzle* puzzle);
@@ -57,4 +57,4 @@ namespace Palapeli
 	};
 }
 
-#endif // PALAPELI_LIBRARYWIDGET_H
+#endif // PALAPELI_COLLECTIONWIDGET_H
