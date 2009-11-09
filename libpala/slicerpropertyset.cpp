@@ -69,7 +69,7 @@ Pala::SimpleGridPropertySet::SimpleGridPropertySet(Pala::Slicer* slicer)
 {
 	Pala::IntegerProperty* prop;
 	prop = new Pala::IntegerProperty(i18n("Piece count"));
-	prop->setRange(10, 10000);
+	prop->setRange(4, 10000);
 	prop->setDefaultValue(100);
 	addPropertyToSlicer("PieceCount", prop);
 	prop = new Pala::IntegerProperty(i18n("Piece aspect ratio"));
