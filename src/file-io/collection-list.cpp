@@ -109,40 +109,48 @@ QModelIndex Palapeli::ListCollection::addPuzzleInternal(Palapeli::Puzzle* puzzle
 	//if it is relevant for any of the operations, find modification time
 	//TODO: use KIO
 	QDateTime modificationTime;
+	bool fileExists = false;
 	const bool hasCache = m_features.contains("metadatacache");
 	if (hasCache && puzzle->location().isLocalFile())
-		modificationTime = QFileInfo(puzzle->location().path()).lastModified();
-	//try to read metadata
-	if (hasCache && puzzleGroup.readEntry("ModifyDateTime", QDateTime()) == modificationTime)
 	{
-		Palapeli::PuzzleMetadata* metadata = new Palapeli::PuzzleMetadata;
-		metadata->name = puzzleGroup.readEntry("Name", QString());
-		metadata->comment = puzzleGroup.readEntry("Comment", QString());
-		metadata->author = puzzleGroup.readEntry("Author", QString());
-		metadata->pieceCount = puzzleGroup.readEntry("PieceCount", 0);
-		//Reading the thumbnail is a bit harder, because KConfig does not support images directly.
-		QImage image; image.loadFromData(puzzleGroup.readEntry("Thumbnail", QByteArray()));
-		metadata->thumbnail = image;
-		puzzle->injectMetadata(metadata);
+		QFileInfo fi(puzzle->location().path());
+		modificationTime = fi.lastModified();
+		fileExists = fi.exists();
 	}
-	else
+	if (fileExists)
 	{
-		//no current metadata available -> fill cache
-		bool hasMetadata = (bool) puzzle->metadata();
-		if (!hasMetadata)
-			hasMetadata = puzzle->readMetadata();
-		if (hasMetadata && hasCache)
+		//try to read metadata from cache
+		if (hasCache && puzzleGroup.readEntry("ModifyDateTime", QDateTime()) == modificationTime)
 		{
-			puzzleGroup.writeEntry("Name", puzzle->metadata()->name);
-			puzzleGroup.writeEntry("Comment", puzzle->metadata()->comment);
-			puzzleGroup.writeEntry("Author", puzzle->metadata()->author);
-			puzzleGroup.writeEntry("PieceCount", puzzle->metadata()->pieceCount);
-			puzzleGroup.writeEntry("ModifyDateTime", modificationTime);
-			//Writing the thumbnail is a bit harder, because KConfig does not support images directly.
-			QBuffer buffer;
-			puzzle->metadata()->thumbnail.save(&buffer, "PNG");
-			puzzleGroup.writeEntry("Thumbnail", buffer.data());
-			m_config->sync();
+			Palapeli::PuzzleMetadata* metadata = new Palapeli::PuzzleMetadata;
+			metadata->name = puzzleGroup.readEntry("Name", QString());
+			metadata->comment = puzzleGroup.readEntry("Comment", QString());
+			metadata->author = puzzleGroup.readEntry("Author", QString());
+			metadata->pieceCount = puzzleGroup.readEntry("PieceCount", 0);
+			//Reading the thumbnail is a bit harder, because KConfig does not support images directly.
+			QImage image; image.loadFromData(puzzleGroup.readEntry("Thumbnail", QByteArray()));
+			metadata->thumbnail = image;
+			puzzle->injectMetadata(metadata);
+		}
+		else
+		{
+			//no current metadata available -> read from puzzle and fill cache
+			bool hasMetadata = (bool) puzzle->metadata();
+			if (!hasMetadata)
+				hasMetadata = puzzle->readMetadata();
+			if (hasMetadata && hasCache)
+			{
+				puzzleGroup.writeEntry("Name", puzzle->metadata()->name);
+				puzzleGroup.writeEntry("Comment", puzzle->metadata()->comment);
+				puzzleGroup.writeEntry("Author", puzzle->metadata()->author);
+				puzzleGroup.writeEntry("PieceCount", puzzle->metadata()->pieceCount);
+				puzzleGroup.writeEntry("ModifyDateTime", modificationTime);
+				//Writing the thumbnail is a bit harder, because KConfig does not support images directly.
+				QBuffer buffer;
+				puzzle->metadata()->thumbnail.save(&buffer, "PNG");
+				puzzleGroup.writeEntry("Thumbnail", buffer.data());
+				m_config->sync();
+			}
 		}
 	}
 	return addPuzzle(puzzle, identifier);
