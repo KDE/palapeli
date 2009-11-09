@@ -24,6 +24,8 @@
 #include <cmath>
 #include <QScrollBar>
 #include <QWheelEvent>
+#include <KLocalizedString>
+#include <KMessageBox>
 
 const int Palapeli::View::MinimumZoomLevel = 0;
 const int Palapeli::View::MaximumZoomLevel = 200;
@@ -128,6 +130,8 @@ void Palapeli::View::puzzleStarted()
 	const int level = 100 + (int)(30.0 * (log(scalingFactor) / log(2.0)));
 	zoomTo(level);
 	centerOn(sr.center());
+	//explain autosaving
+	KMessageBox::information(window(), i18n("Your progress is saved automatically while you play."), i18nc("used as caption for a dialog that explains the autosave feature", "Automatic saving"), QLatin1String("autosave-introduction"));
 }
 
 #include "view.moc"
