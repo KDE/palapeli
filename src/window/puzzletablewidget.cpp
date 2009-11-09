@@ -21,6 +21,7 @@
 #include "../engine/scene.h"
 #include "../engine/view.h"
 #include "../engine/zoomwidget.h"
+#include "settings.h"
 
 #include <QGridLayout>
 #include <QProgressBar>
@@ -91,6 +92,16 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 Palapeli::View* Palapeli::PuzzleTableWidget::view() const
 {
 	return m_view;
+}
+
+void Palapeli::PuzzleTableWidget::showStatusBar(bool visible)
+{
+	//apply setting
+	m_progressBar->setVisible(visible);
+	m_zoomWidget->setVisible(visible);
+	//save setting
+	Settings::setShowStatusBar(visible);
+	Settings::self()->writeConfig();
 }
 
 void Palapeli::PuzzleTableWidget::reportProgress(int pieceCount, int partCount)

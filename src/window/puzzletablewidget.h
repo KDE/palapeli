@@ -39,6 +39,7 @@ namespace Palapeli
 			Palapeli::View* view() const;
 		public Q_SLOTS:
 			void reportProgress(int pieceCount, int partCount);
+			void showStatusBar(bool visible);
 		private:
 			QStackedWidget* m_stack;
 			Palapeli::LoadingWidget* m_loadingWidget;

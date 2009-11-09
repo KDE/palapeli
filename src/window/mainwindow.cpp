@@ -35,6 +35,7 @@
 #include <KLocalizedString>
 #include <KMenuBar>
 #include <KTabWidget>
+#include <KToggleAction>
 #include <KShortcutsDialog>
 #include <KStandardAction>
 
@@ -55,6 +56,12 @@ Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 	//create MainWindow-wide actions
 	KStandardAction::keyBindings(this, SLOT(configureShortcuts()), actionCollection());
 	KStandardAction::preferences(this, SLOT(configurePalapeli()), actionCollection());
+	KAction* statusBarAct = KStandardAction::showStatusbar(m_puzzleTable, SLOT(showStatusBar(bool)), actionCollection());
+	statusBarAct->setText(i18n("Show statusbar of puzzle table"));
+	//read settings
+	bool showStatusBar = Settings::showStatusBar();
+	statusBarAct->setChecked(showStatusBar);
+	m_puzzleTable->showStatusBar(showStatusBar);
 	//setup widgets
 	m_centralWidget->addTab(m_collectionWidget, i18n("My collection"));
 	m_centralWidget->addTab(m_puzzleTable, i18n("Puzzle table"));
@@ -65,8 +72,8 @@ Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 	//setup main window
 	setCentralWidget(m_centralWidget);
 	KXmlGuiWindow::StandardWindowOptions guiOptions = KXmlGuiWindow::Default;
-	guiOptions &= ~KXmlGuiWindow::StatusBar; //do not create statusbar
-	guiOptions &= ~KXmlGuiWindow::Keys;      //Palapeli has our own shortcuts dialog
+	guiOptions &= ~KXmlGuiWindow::StatusBar; //do not create a statusbar for the mainwindow
+	guiOptions &= ~KXmlGuiWindow::Keys;      //Palapeli has its own shortcuts dialog
 	guiOptions &= ~KXmlGuiWindow::ToolBar;   //I haven't yet found a way for KEditToolBar dialogs to work
 	setupGUI(QSize(500, 500), guiOptions);
 	//move the menubar inside the tabbar (to make the tabs feel like menus) - Unfortunately, we can't use QTabWidget::setCornerWidget because this would move the menubar to the right end of the window, while I want the menubar right next to the tabs. We therefore have to do our own layouting (and remove the menubar from the window's layout with reparenting)
