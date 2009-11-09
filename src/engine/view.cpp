@@ -22,6 +22,7 @@
 #include "texturehelper.h"
 
 #include <cmath>
+#include <QPropertyAnimation>
 #include <QScrollBar>
 #include <QWheelEvent>
 #include <KLocalizedString>
@@ -43,6 +44,7 @@ Palapeli::View::View()
 	m_constraintVisualizer = new Palapeli::ConstraintVisualizer(this);
 	connect(m_scene, SIGNAL(constrainedChanged(bool)), m_constraintVisualizer, SLOT(setActive(bool)));
 	connect(m_scene, SIGNAL(puzzleStarted()), this, SLOT(puzzleStarted()));
+	connect(m_scene, SIGNAL(victoryAnimationFinished()), this, SLOT(startVictoryAnimation()));
 }
 
 Palapeli::View::~View()
@@ -58,6 +60,17 @@ Palapeli::Scene* Palapeli::View::scene() const
 Palapeli::TextureHelper* Palapeli::View::textureHelper() const
 {
 	return m_txHelper;
+}
+
+QRectF Palapeli::View::viewportRect() const
+{
+	return mapToScene(viewport()->rect()).boundingRect();
+}
+
+void Palapeli::View::setViewportRect(const QRectF& viewportRect)
+{
+	//NOTE: Do never ever use this except for the victory animation, or stuff will break!!!
+	fitInView(viewportRect, Qt::KeepAspectRatio);
 }
 
 void Palapeli::View::mousePressEvent(QMouseEvent* event)
@@ -126,12 +139,23 @@ void Palapeli::View::puzzleStarted()
 	//scale viewport to show the whole puzzle table
 	const QRectF sr = sceneRect();
 	const QRectF vr = mapToScene(viewport()->rect()).boundingRect();
-	const qreal scalingFactor = qMin(vr.width() / sr.width(), vr.height() / sr.height());
+	const qreal scalingFactor = 0.9 * qMin(vr.width() / sr.width(), vr.height() / sr.height()); //factor 0.9 avoids that scene rect touches viewport bounds (which does not look nice)
 	const int level = 100 + (int)(30.0 * (log(scalingFactor) / log(2.0)));
 	zoomTo(level);
 	centerOn(sr.center());
+	emit zoomAdjustable(true);
 	//explain autosaving
 	KMessageBox::information(window(), i18n("Your progress is saved automatically while you play."), i18nc("used as caption for a dialog that explains the autosave feature", "Automatic saving"), QLatin1String("autosave-introduction"));
+}
+
+void Palapeli::View::startVictoryAnimation()
+{
+	//move viewport to show the complete puzzle
+	QPropertyAnimation* animation = new QPropertyAnimation(this, "viewportRect", this);
+	animation->setEndValue(m_scene->partsBoundingRect());
+	animation->setDuration(1000);
+	animation->start(QAbstractAnimation::DeleteWhenStopped);
+	emit zoomAdjustable(false);
 }
 
 #include "view.moc"

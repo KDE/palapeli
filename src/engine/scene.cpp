@@ -26,6 +26,7 @@
 #include <cmath>
 #include <QFile>
 #include <QGraphicsView>
+#include <QPropertyAnimation>
 #include <QTimer>
 #include <QtConcurrentRun>
 #include <KConfig>
@@ -84,6 +85,7 @@ void Palapeli::Scene::loadPuzzle(const QModelIndex& index)
 
 void Palapeli::Scene::loadPuzzleInternal()
 {
+	m_loadingPuzzle = true;
 	//reset behavioral parameters
 	setConstrained(false);
 	//clear scene
@@ -91,7 +93,6 @@ void Palapeli::Scene::loadPuzzleInternal()
 	qDeleteAll(m_parts); m_parts.clear();
 	emit reportProgress(0, 0);
 	//begin to load puzzle
-	m_loadingPuzzle = true;
 	startLoading();
 }
 
@@ -220,7 +221,7 @@ void Palapeli::Scene::finishLoading()
 	//check if puzzle has been completed
 	if (m_parts.count() == 1)
 	{
-		int result = KMessageBox::questionYesNo(views()[0], i18n("You have finished the puzzle the last time. Do you want to restart it?"));
+		int result = KMessageBox::questionYesNo(views()[0], i18n("You have finished the puzzle the last time. Do you want to restart it now?"));
 		if (result == KMessageBox::Yes)
 			restartPuzzle();
 	}
@@ -228,7 +229,11 @@ void Palapeli::Scene::finishLoading()
 
 void Palapeli::Scene::partDestroyed(QObject* object)
 {
+	int oldCount = m_parts.count();
 	m_parts.removeAll(reinterpret_cast<Palapeli::Part*>(object));
+	//victory animation
+	if (m_parts.count() == 1 && oldCount > 1 && !m_loadingPuzzle)
+		QTimer::singleShot(0, this, SLOT(playVictoryAnimation()));
 }
 
 void Palapeli::Scene::partMoving()
@@ -249,6 +254,29 @@ void Palapeli::Scene::partMoved()
 	const QList<int> pieceIDs = m_pieces.keys();
 	foreach (int pieceID, pieceIDs)
 		saveGroup.writeEntry(QString::number(pieceID), m_pieces[pieceID]->part()->pos());
+}
+
+void Palapeli::Scene::playVictoryAnimation()
+{
+	setConstrained(true);
+	QPropertyAnimation* animation = new QPropertyAnimation(this, "sceneRect", this);
+	animation->setStartValue(sceneRect());
+	animation->setEndValue(partsBoundingRect());
+	animation->setDuration(1000);
+	connect(animation, SIGNAL(finished()), this, SLOT(playVictoryAnimation2()));
+	animation->start(QAbstractAnimation::DeleteWhenStopped);
+}
+
+void Palapeli::Scene::playVictoryAnimation2()
+{
+	setSceneRect(partsBoundingRect());
+	QTimer::singleShot(100, this, SIGNAL(victoryAnimationFinished()));
+	QTimer::singleShot(1500, this, SLOT(playVictoryAnimation3())); //give the View some time to play its part of the victory animation
+}
+
+void Palapeli::Scene::playVictoryAnimation3()
+{
+	KMessageBox::information(views()[0], i18n("Great! You have finished the puzzle."));
 }
 
 void Palapeli::Scene::restartPuzzle()

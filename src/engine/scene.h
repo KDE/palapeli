@@ -49,10 +49,14 @@ namespace Palapeli
 			void constrainedChanged(bool constrained);
 			void puzzleStarted();
 			void reportProgress(int pieceCount, int partCount);
+			void victoryAnimationFinished();
 		private Q_SLOTS:
 			void partDestroyed(QObject* object);
 			void partMoving();
 			void partMoved();
+			void playVictoryAnimation();
+			void playVictoryAnimation2();
+			void playVictoryAnimation3();
 			//loading steps
 			void startLoading();
 			void continueLoading();

@@ -50,6 +50,7 @@ namespace Palapeli
 
 Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	: Palapeli::TabWindow(QLatin1String("palapeli-puzzletable"))
+	, m_zoomAdjustable(true)
 	, m_stack(new QStackedWidget)
 	, m_loadingWidget(new Palapeli::LoadingWidget)
 	, m_view(new Palapeli::View)
@@ -66,11 +67,11 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	m_progressBar->setText(i18n("No puzzle loaded"));
 	connect(m_view->scene(), SIGNAL(reportProgress(int, int)), this, SLOT(reportProgress(int, int)));
 	//setup zoom widget
-	m_zoomWidget->setEnabled(false); //will be enabled when a puzzle is loaded
 	connect(m_zoomWidget, SIGNAL(levelChanged(int)), m_view, SLOT(zoomTo(int)));
 	connect(m_zoomWidget, SIGNAL(zoomInRequest()), m_view, SLOT(zoomIn()));
 	connect(m_zoomWidget, SIGNAL(zoomOutRequest()), m_view, SLOT(zoomOut()));
 	connect(m_view, SIGNAL(zoomLevelChanged(int)), m_zoomWidget, SLOT(setLevel(int)));
+	connect(m_view, SIGNAL(zoomAdjustable(bool)), this, SLOT(setZoomAdjustable(bool)));
 	connect(m_zoomWidget, SIGNAL(constrainedChanged(bool)), m_view->scene(), SLOT(setConstrained(bool)));
 	connect(m_view->scene(), SIGNAL(constrainedChanged(bool)), m_zoomWidget, SLOT(setConstrained(bool)));
 	//setup widget stack
@@ -132,6 +133,12 @@ void Palapeli::PuzzleTableWidget::reportProgress(int pieceCount, int partCount)
 		m_stack->setCurrentWidget(m_view);
 	else
 		m_stack->setCurrentWidget(m_loadingWidget);
+}
+
+void Palapeli::PuzzleTableWidget::setZoomAdjustable(bool adjustable)
+{
+	m_zoomAdjustable = adjustable;
+	m_zoomWidget->setVisible(Settings::showStatusBar() && adjustable);
 }
 
 #include "puzzletablewidget.moc"

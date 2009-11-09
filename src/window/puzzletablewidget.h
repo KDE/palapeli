@@ -40,7 +40,10 @@ namespace Palapeli
 		public Q_SLOTS:
 			void reportProgress(int pieceCount, int partCount);
 			void showStatusBar(bool visible);
+		private Q_SLOTS:
+			void setZoomAdjustable(bool adjustable);
 		private:
+			bool m_zoomAdjustable;
 			QStackedWidget* m_stack;
 			Palapeli::LoadingWidget* m_loadingWidget;
 			Palapeli::View* m_view;

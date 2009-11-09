@@ -30,12 +30,16 @@ namespace Palapeli
 	class View : public QGraphicsView
 	{
 		Q_OBJECT
+			Q_PROPERTY(QRectF viewportRect READ viewportRect WRITE setViewportRect)
 		public:
 			View();
 			virtual ~View();
 
 			Palapeli::Scene* scene() const;
 			Palapeli::TextureHelper* textureHelper() const;
+
+			QRectF viewportRect() const;
+			void setViewportRect(const QRectF& viewportRect);
 
 			static const int MinimumZoomLevel;
 			static const int MaximumZoomLevel;
@@ -50,8 +54,10 @@ namespace Palapeli
 			virtual void wheelEvent(QWheelEvent* event);
 		Q_SIGNALS:
 			void zoomLevelChanged(int level);
+			void zoomAdjustable(bool adjustable);
 		private Q_SLOTS:
 			void puzzleStarted();
+			void startVictoryAnimation();
 		private:
 			Palapeli::Scene* m_scene;
 			Palapeli::ConstraintVisualizer* m_constraintVisualizer;
