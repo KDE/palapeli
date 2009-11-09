@@ -184,7 +184,7 @@ bool Palapeli::Puzzle::readContents(bool force)
 
 bool Palapeli::Puzzle::write()
 {
-	//optimisation: if nothing has changed since the puzzle has been loaded, just copy the original puzzle file to the new location
+	//optimization: if nothing has changed since the puzzle has been loaded, just copy the original puzzle file to the new location
 	if (!m_loadLocation.isEmpty())
 	{
 		KIO::FileCopyJob* job = KIO::file_copy(m_loadLocation, m_location);
