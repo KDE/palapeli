@@ -22,6 +22,7 @@
 #include "../libpala/slicer.h"
 #include "../libpala/slicerjob.h"
 #include "../libpala/slicerproperty.h"
+#include "../libpala/slicerpropertyset.h"
 
 struct JigsawPlugParams
 {
@@ -33,7 +34,7 @@ struct JigsawPlugParams
 	JigsawPlugParams mirrored();
 };
 
-class JigsawSlicer : public Pala::Slicer
+class JigsawSlicer : public Pala::Slicer, public Pala::SimpleGridPropertySet
 {
 	Q_OBJECT
 	public:

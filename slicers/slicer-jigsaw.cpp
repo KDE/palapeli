@@ -89,24 +89,16 @@ K_EXPORT_PLUGIN(SvgSlicerFactory("palapeli_jigsawslicer"))
 
 JigsawSlicer::JigsawSlicer(QObject* parent, const QVariantList& args)
 	: Pala::Slicer(parent, args)
+	, Pala::SimpleGridPropertySet(this)
 {
-	Pala::IntegerProperty* prop;
-	prop = new Pala::IntegerProperty(i18n("Piece count in horizontal direction"));
-	prop->setRange(3, 100);
-	prop->setDefaultValue(10);
-	addProperty("XCount", prop);
-	prop = new Pala::IntegerProperty(i18n("Piece count in vertical direction"));
-	prop->setRange(3, 100);
-	prop->setDefaultValue(10);
-	addProperty("YCount", prop);
 }
 
 bool JigsawSlicer::run(Pala::SlicerJob* job)
 {
 	//read job
-	//TODO: Does not check input values. Perhaps introduce a check in the Slicer base class?
-	const int xCount = job->argument("XCount").toInt();
-	const int yCount = job->argument("YCount").toInt();
+	const QSize pieceCount = Pala::SimpleGridPropertySet::pieceCount(job);
+	const int xCount = pieceCount.width();
+	const int yCount = pieceCount.height();
 	const QImage image = job->image();
 	//calculate some metrics
 	const int width = image.width(), height = image.height();
