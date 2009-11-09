@@ -25,10 +25,13 @@
 
 #include <cmath>
 #include <QFile>
+#include <QGraphicsView>
 #include <QTimer>
 #include <QtConcurrentRun>
 #include <KConfig>
 #include <KConfigGroup>
+#include <KMessageBox>
+#include <KLocalizedString>
 #include <KStandardDirs>
 
 typedef QPair<int, int> DoubleIntPair; //comma in type is not possible in foreach macro
@@ -214,6 +217,13 @@ void Palapeli::Scene::finishLoading()
 	emit reportProgress(m_pieces.count(), m_parts.count());
 	emit puzzleStarted();
 	m_loadingPuzzle = false;
+	//check if puzzle has been completed
+	if (m_parts.count() == 1)
+	{
+		int result = KMessageBox::questionYesNo(views()[0], i18n("You have finished the puzzle the last time. Do you want to restart it?"));
+		if (result == KMessageBox::Yes)
+			restartPuzzle();
+	}
 }
 
 void Palapeli::Scene::partDestroyed(QObject* object)
