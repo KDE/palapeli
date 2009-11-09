@@ -50,7 +50,7 @@ namespace Palapeli
 			void handleSelectionChanged();
 		private:
 			Palapeli::CollectionView* m_view;
-			Palapeli::ListCollection* m_libraryCollection;
+			Palapeli::ListCollection* m_localCollection;
 			Palapeli::FileSystemCollection* m_fsCollection;
 			KAction* m_exportAct;
 			KAction* m_deleteAct;

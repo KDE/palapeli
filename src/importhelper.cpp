@@ -32,7 +32,7 @@
 Palapeli::ImportHelper::ImportHelper(KCmdLineArgs* args)
 	: m_args(args)
 	, m_fileSystemCollection(new Palapeli::FileSystemCollection)
-	, m_libraryCollection(new Palapeli::LibraryCollection)
+	, m_localCollection(new Palapeli::LocalCollection)
 {
 	QTimer::singleShot(0, this, SLOT(doWork()));
 }
@@ -54,7 +54,7 @@ void Palapeli::ImportHelper::doWork()
 		qApp->quit();
 	}
 	//do import
-	const QModelIndex newIndex = m_libraryCollection->importPuzzle(puzzle);
+	const QModelIndex newIndex = m_localCollection->importPuzzle(puzzle);
 	if (!newIndex.isValid())
 	{
 		KMessageBox::sorry(0, i18n("The puzzle file could not be imported into the library."));
@@ -73,5 +73,5 @@ void Palapeli::ImportHelper::doWork()
 Palapeli::ImportHelper::~ImportHelper()
 {
 	delete m_fileSystemCollection;
-	delete m_libraryCollection;
+	delete m_localCollection;
 }

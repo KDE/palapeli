@@ -30,7 +30,7 @@
 #include <KStandardDirs>
 #include <KTemporaryFile>
 
-//TODO: move the code that handles palapeli:/// URLs into LibraryCollection (this is not required for 1.0 because only LibraryCollection is used)
+//TODO: move the code that handles palapeli:/// URLs into LocalCollection (this is not required for 1.0 because only LocalCollection is used)
 
 Palapeli::ListCollection::ListCollection()
 	: m_config(0)
@@ -227,7 +227,7 @@ bool Palapeli::ListCollection::deletePuzzle(const QModelIndex& index)
 	return true;
 }
 
-Palapeli::LibraryCollection::LibraryCollection()
+Palapeli::LocalCollection::LocalCollection()
 {
 	setConfig(new KConfig("palapeli-libraryrc", KConfig::CascadeConfig));
 }

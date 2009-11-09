@@ -32,11 +32,11 @@
 Palapeli::LibraryWidget::LibraryWidget()
 	: Palapeli::TabWindow(QLatin1String("palapeli-library"))
 	, m_view(new Palapeli::CollectionView)
-	, m_libraryCollection(new Palapeli::LibraryCollection)
+	, m_localCollection(new Palapeli::LocalCollection)
 	, m_fsCollection(new Palapeli::FileSystemCollection)
 {
 	//setup view
-	m_view->setModel(m_libraryCollection);
+	m_view->setModel(m_localCollection);
 	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	connect(m_view, SIGNAL(playRequest(const QModelIndex&)), this, SIGNAL(playRequest(const QModelIndex&)));
 	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(handleSelectionChanged()));
@@ -73,14 +73,14 @@ void Palapeli::LibraryWidget::startPuzzle(const KUrl& url)
 
 QModelIndex Palapeli::LibraryWidget::storeGeneratedPuzzle(Palapeli::Puzzle* puzzle)
 {
-	return m_libraryCollection->storeGeneratedPuzzle(puzzle);
+	return m_localCollection->storeGeneratedPuzzle(puzzle);
 }
 
 void Palapeli::LibraryWidget::handleDeleteRequest()
 {
 	QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
 	foreach (const QModelIndex& index, indexes)
-		m_libraryCollection->deletePuzzle(index);
+		m_localCollection->deletePuzzle(index);
 }
 
 void Palapeli::LibraryWidget::handleExportRequest()
@@ -105,7 +105,7 @@ void Palapeli::LibraryWidget::handleImportRequest()
 		Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
 		if (!puzzle)
 			continue;
-		m_libraryCollection->importPuzzle(puzzle);
+		m_localCollection->importPuzzle(puzzle);
 	}
 }
 

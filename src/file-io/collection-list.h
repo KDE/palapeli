@@ -54,10 +54,10 @@ namespace Palapeli
 			KConfig* m_config;
 	};
 
-	class LibraryCollection : public Palapeli::ListCollection
+	class LocalCollection : public Palapeli::ListCollection
 	{
 		public:
-			LibraryCollection();
+			LocalCollection();
 	};
 }
 

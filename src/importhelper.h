@@ -25,7 +25,7 @@ class KCmdLineArgs;
 namespace Palapeli
 {
 	class FileSystemCollection;
-	class LibraryCollection;
+	class LocalCollection;
 
 	class ImportHelper : public QObject
 	{
@@ -38,7 +38,7 @@ namespace Palapeli
 		private:
 			KCmdLineArgs* m_args;
 			Palapeli::FileSystemCollection* m_fileSystemCollection;
-			Palapeli::LibraryCollection* m_libraryCollection;
+			Palapeli::LocalCollection* m_localCollection;
 	};
 }
 
