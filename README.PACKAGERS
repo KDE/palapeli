@@ -1,1 +1,1 @@
-You might want to distribute the files at $KDEDIR/share/apps/palapeli/puzzlelibrary/*.pala in a separate package. These are the puzzle files, which are quite big, but change only seldomly.
+You might want to distribute the files at $KDEDIR/share/apps/palapeli/collection/*.puzzle in a separate data package. These are the default puzzle files, which are quite big, but change only seldomly.

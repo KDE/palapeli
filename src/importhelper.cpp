@@ -57,12 +57,12 @@ void Palapeli::ImportHelper::doWork()
 	const QModelIndex newIndex = m_localCollection->importPuzzle(puzzle);
 	if (!newIndex.isValid())
 	{
-		KMessageBox::sorry(0, i18n("The puzzle file could not be imported into the library."));
+		KMessageBox::sorry(0, i18n("The puzzle file could not be imported into the local collection."));
 		qApp->quit();
 	}
-	//show notification (TODO: Why is the notification not shown?)
+	//show notification
 	KNotification::event(QLatin1String("importingPuzzle"),
-		i18n("Importing puzzle \"%1\" into local library", puzzle->metadata()->name),
+		i18n("Importing puzzle \"%1\" into your collection", puzzle->metadata()->name),
 		QPixmap::fromImage(puzzle->metadata()->thumbnail)
 	);
 	//keep program running until the puzzle has been written

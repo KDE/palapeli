@@ -34,7 +34,7 @@ int main(int argc, char** argv)
 
 	KCmdLineOptions options;
 	options.add("+puzzlefile", ki18n("URL of puzzle file (will be opened if -i is not given)"));
-	options.add("i").add("import", ki18n("Import the given puzzle file into the library (does nothing if no puzzle file is given)"));
+	options.add("i").add("import", ki18n("Import the given puzzle file into the local collection (does nothing if no puzzle file is given)"));
 	options.add("", ki18n("If the -i/--import option is specified, the main window will not be shown after importing the given puzzle."));
 	KCmdLineArgs::addCmdLineOptions(options);
 

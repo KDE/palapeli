@@ -160,8 +160,8 @@ void Palapeli::Scene::finishLoading()
 		secondPiece->addNeighbor(firstPiece);
 	}
 	//Is "savegame" available?
-	static const QString pathTemplate = QString::fromLatin1("palapeli/puzzlelibrary/%1.save");
-	KConfig saveConfig(KStandardDirs::locateLocal("data", pathTemplate.arg(m_identifier)));
+	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
+	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier)));
 	if (saveConfig.hasGroup("SaveGame"))
 	{
 		//read piece positions from savegame
@@ -233,7 +233,7 @@ void Palapeli::Scene::partMoved()
 	partMoving();
 	emit reportProgress(m_pieces.count(), m_parts.count());
 	//save piece positions
-	static const QString pathTemplate = QString::fromLatin1("puzzlelibrary/%1.save");
+	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
 	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier)));
 	KConfigGroup saveGroup(&saveConfig, "SaveGame");
 	const QList<int> pieceIDs = m_pieces.keys();
@@ -243,7 +243,7 @@ void Palapeli::Scene::partMoved()
 
 void Palapeli::Scene::restartPuzzle()
 {
-	static const QString pathTemplate = QString::fromLatin1("puzzlelibrary/%1.save");
+	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
 	QFile(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier))).remove();
 	//reload puzzle
 	loadPuzzleInternal();

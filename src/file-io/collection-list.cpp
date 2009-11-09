@@ -166,7 +166,7 @@ QModelIndex Palapeli::ListCollection::importPuzzle(const Palapeli::Puzzle* const
 {
 	if (!puzzle->metadata())
 		return QModelIndex();
-	//create a writable copy of the given puzzle, and import this into the library
+	//create a writable copy of the given puzzle, and import this into the collection
 	Palapeli::Puzzle* newPuzzle = new Palapeli::Puzzle(*puzzle);
 	return importPuzzleInternal(newPuzzle);
 }
@@ -175,7 +175,7 @@ QModelIndex Palapeli::ListCollection::importPuzzleInternal(Palapeli::Puzzle* puz
 {
 	//determine location of new puzzle
 	const QString identifier = QUuid::createUuid().toString();
-	const QString fileName = QString("puzzlelibrary/%1.puzzle").arg(identifier);
+	const QString fileName = QString("collection/%1.puzzle").arg(identifier);
 	const KUrl location(KStandardDirs::locateLocal("appdata", fileName));
 	//create a copy of the given puzzle, and relocate it to the new location
 	puzzle->setLocation(location);
@@ -229,7 +229,7 @@ bool Palapeli::ListCollection::deletePuzzle(const QModelIndex& index)
 
 Palapeli::LocalCollection::LocalCollection()
 {
-	setConfig(new KConfig("palapeli-libraryrc", KConfig::CascadeConfig));
+	setConfig(new KConfig("palapeli-collectionrc", KConfig::CascadeConfig));
 }
 
 #include "collection-list.moc"
