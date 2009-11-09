@@ -35,7 +35,7 @@ Palapeli::ZoomWidget::ZoomWidget(QWidget* parent)
 {
 	//init buttons
 	m_constrainedButton->setIcon(KIcon("select-rectangular"));
-	m_constrainedButton->setToolTip(i18n("Lock the puzzle table size"));
+	m_constrainedButton->setToolTip(i18n("Lock the puzzle table area"));
 	m_constrainedButton->setCheckable(true);
 	connect(m_constrainedButton, SIGNAL(toggled(bool)), this, SIGNAL(constrainedChanged(bool)));
 	m_zoomOutButton->setIcon(KIcon("zoom-out"));
