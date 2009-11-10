@@ -2,10 +2,6 @@
 Encoding=UTF-8
 Type=Service
 Name=Palapeli puzzles
-Name[pt]='Puzzles' do Palapeli
-Name[sv]=Palapeli-pussel
-Name[uk]=Складанки Palapeli
-Name[x-test]=xxPalapeli puzzlesxx
 ServiceTypes=ThumbCreator
 MimeType=application/x-palapeli-puzzle;
 CacheThumbnail=true
