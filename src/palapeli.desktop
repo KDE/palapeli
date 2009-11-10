@@ -48,3 +48,4 @@ Icon=palapeli
 X-KDE-StartupNotify=true
 Categories=Qt;KDE;Game;LogicGame;
 MimeType=application/x-palapeli-puzzle;
+X-DocPath=palapeli/index.html
