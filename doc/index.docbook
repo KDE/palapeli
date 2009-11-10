@@ -28,7 +28,7 @@
 		<releaseinfo>1.0</releaseinfo>
 
 		<abstract>
-			<para>This is the manual for &palapeli;, a jigsaw puzzle game based on KDE technology.</para>
+			<para>This is the manual for &palapeli;, a jigsaw puzzle game based on &kde; technology.</para>
 		</abstract>
 		<keywordset>
 			<keyword>KDE</keyword>
@@ -48,7 +48,7 @@
 
 	<chapter id="collection">
 		<title>Browsing the puzzle collection</title>
-		<para>When you launch Palapeli for the first time, your puzzle collection is preloaded with some default puzzles that come with Palapeli. Click on one of the puzzles to immediately start playing. Playing takes place on the puzzle table; see <link linkend="puzzletable">the next section</link> for how to use the puzzle table.</para>
+		<para>When you launch &palapeli; for the first time, your puzzle collection is preloaded with some default puzzles that come with &palapeli;. Click on one of the puzzles to immediately start playing. Playing takes place on the puzzle table; see <link linkend="puzzletable">the next section</link> for how to use the puzzle table.</para>
 		<para>Apart from selecting a puzzle, the puzzle collection can be used for the following actions:</para>
 		<itemizedlist>
 			<listitem><para><emphasis>create</emphasis> new puzzles from images on your disk</para></listitem>
@@ -64,7 +64,7 @@
 					<term><guiicon>Create new puzzle</guiicon></term>
 					<listitem>
 						<para><action>Opens a dialog which allows you to create a puzzle from an image on your disk.</action> Be sure to enter the correct metadata for the image: You should give attribution to the author of the image (e.&nbsp;g. the photographer or the painter); please respect the copyright of the image author.</para>
-						<para>Also, you will have to select the puzzle type. Palapeli does not restrict you to classic puzzle pieces, other puzzle types can be easily added by third-party developers. Each puzzle type may offer a set of further properties, such as the piece count.</para>
+						<para>Also, you will have to select the puzzle type. &palapeli; does not restrict you to classic puzzle pieces, other puzzle types can be easily added by third-party developers. Each puzzle type may offer a set of further properties, such as the piece count.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -73,7 +73,7 @@
 				</varlistentry>
 				<varlistentry>
 					<term><guiicon>Import from file</guiicon></term>
-					<listitem><para><action>When you have recieved a Palapeli puzzle file (which can usually be recognized by the file extension <literal role="extension">*.puzzle</literal>), you can use this action to import it into your local collection.</action> Puzzle files can also be played by simply clicking on them in the file manager of your choice, but after the import, the puzzle will appear in your local collection, and you can safely delete the downloaded puzzle file.</para></listitem>
+					<listitem><para><action>When you have recieved a &palapeli; puzzle file (which can usually be recognized by the file extension <literal role="extension">*.puzzle</literal>), you can use this action to import it into your local collection.</action> Puzzle files can also be played by simply clicking on them in the file manager of your choice, but after the import, the puzzle will appear in your local collection, and you can safely delete the downloaded puzzle file.</para></listitem>
 				</varlistentry>
 				<varlistentry>
 					<term><guiicon>Export to file</guiicon></term>
@@ -91,7 +91,7 @@
 		</mediaobject></screenshot>
 		<para>The object of the game is to assemble the given pieces to an image.</para>
 		<para>Pieces can be freely moved by clicking on them and dragging them. When you put one piece near a neighboring piece, both pieces will automatically snap together (1). After having snapped together, pieces cannot be torn apart anymore. Unlike in reality, you cannot combine two pieces that are not true neighbors.</para>
-		<para>The progress bar below the puzzle table indicates your progress (2). Palapeli will automatically save your progress after every move, so you'll normally not have to bother about saving.</para>
+		<para>The progress bar below the puzzle table indicates your progress (2). &palapeli; will automatically save your progress after every move, so you'll normally not have to bother about saving.</para>
 		<para>With the mouse wheel, or with the slider at the bottom right (3), you can change the zoom level of the puzzle table view. By left-clicking and dragging a free area of the puzzle table, you can move the puzzle table view. The same is possible with the right mouse button, but the right mouse button will even work if the mouse cursor is above a puzzle piece.</para>
 		<para>The movement of the pieces is limited by the <emphasis>puzzle table area</emphasis>. This area is represented on the puzzle table's background by a light rectangular shade. When you move pieces to the border (4) of the puzzle table area, the area will automatically expand to give you more space for moving your puzzle pieces. You can also adjust the puzzle table area by clicking and dragging the area's edges (when the mouse cursor changes to a double-headed arrow).</para>
 		<para>You can lock the puzzle table area with the small button (5) right next to the progress bar. The shade (4) around the puzzle table will darken, and pieces will now stop to move at the edges of the puzzle table area.</para>
@@ -108,7 +108,7 @@
 
 	<chapter id="interface">
 		<title>Interface Overview</title>
-		<para>Palapeli's two areas, the puzzle collection and the puzzle table, are embedded into the menubar as tabs. There are also two menus with standard actions which are described below.</para>
+		<para>&palapeli;'s two areas, the puzzle collection and the puzzle table, are embedded into the menubar as tabs. There are also two menus with standard actions which are described below.</para>
 		<sect1 id="settings-menu">
 			<title>The <guimenu>Settings</guimenu> Menu</title>
 			<variablelist>
