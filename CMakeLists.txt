@@ -11,7 +11,6 @@ if (NOT KDE4_FOUND)
 endif (NOT KDE4_FOUND)
 
 add_subdirectory(libpala)
-add_subdirectory(cmake)
 add_subdirectory(slicers)
 add_subdirectory(tools)
 add_subdirectory(src)
