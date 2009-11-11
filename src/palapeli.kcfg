@@ -3,7 +3,7 @@
 	<kcfgfile name="palapelirc"/>
 	<group name="Puzzling">
 		<entry name="SnappingPrecision" type="Int">
-			<label>Precision of snapping (in percent of piece size).</label>
+			<label>Precision of snapping (as a percentage of piece size).</label>
 			<default>20</default>
 		</entry>
 	</group>
@@ -13,7 +13,7 @@
 			<default>background.svg</default>
 		</entry>
 		<entry name="ShowStatusBar" type="Bool">
-			<label>Whether to show the status bar on the puzzle table. (It's not a real status bar, but the position and provided functionality is similar.)</label>
+			<label>Whether to show the status bar on the puzzle table. (It is not a real status bar, but the position and provided functionality is similar.)</label>
 			<default>true</default>
 		</entry>
 	</group>
