@@ -139,9 +139,9 @@ bool Palapeli::Puzzle::readMetadata(bool force)
 	m_metadata->thumbnail = m_metadata->image.scaled(ThumbnailBaseSize, Qt::KeepAspectRatio);
 	//find piece count
 	KConfigGroup offsetGroup(&manifest, "PieceOffsets");
-	QList<QString> offsetGroupKeys = offsetGroup.entryMap().keys();
+	const QMap<QString, QString> offsetGroupMap = offsetGroup.entryMap();
 	m_metadata->pieceCount = 0;
-	while (offsetGroupKeys.contains(QString::number(m_metadata->pieceCount)))
+	while (offsetGroupMap.contains(QString::number(m_metadata->pieceCount)))
 		++m_metadata->pieceCount;
 	return true;
 }
@@ -158,13 +158,15 @@ bool Palapeli::Puzzle::readContents(bool force)
 	m_contents->imageSize = KConfigGroup(&manifest, "Job").readEntry("ImageSize", QSize());
 	//load piece offsets
 	KConfigGroup offsetGroup(&manifest, "PieceOffsets");
-	QList<QString> offsetGroupKeys = offsetGroup.entryMap().keys();
-	foreach (const QString& offsetGroupKey, offsetGroupKeys)
+	const QMap<QString, QString> offsetGroupMap = offsetGroup.entryMap();
+	QMap<QString, QString>::const_iterator offsetGroupIterator = offsetGroupMap.begin();
+	const QMap<QString, QString>::const_iterator offsetGroupIteratorEnd = offsetGroupMap.end();
+	for (; offsetGroupIterator != offsetGroupIteratorEnd; ++offsetGroupIterator)
 	{
 		bool ok = true;
-		const int pieceIndex = offsetGroupKey.toInt(&ok);
+		const int pieceIndex = offsetGroupIterator.key().toInt(&ok);
 		if (ok)
-			m_contents->pieceOffsets[pieceIndex] = offsetGroup.readEntry(offsetGroupKey, QPoint());
+			m_contents->pieceOffsets[pieceIndex] = offsetGroup.readEntry(offsetGroupIterator.key(), QPoint());
 	}
 	//load pieces
 	QMap<int, QPoint>::const_iterator iterOffsets = m_contents->pieceOffsets.begin();
