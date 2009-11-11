@@ -167,8 +167,9 @@ bool Palapeli::Puzzle::readContents(bool force)
 			m_contents->pieceOffsets[pieceIndex] = offsetGroup.readEntry(offsetGroupKey, QPoint());
 	}
 	//load pieces
-	QList<int> pieceIDs = m_contents->pieceOffsets.keys();
-	foreach (int pieceID, pieceIDs)
+	QMap<int, QPoint>::const_iterator iterOffsets = m_contents->pieceOffsets.begin();
+	const QMap<int, QPoint>::const_iterator iterOffsetsEnd = m_contents->pieceOffsets.end();
+	for (int pieceID = iterOffsets.key(); iterOffsets != iterOffsetsEnd; pieceID = (++iterOffsets).key())
 		m_contents->pieces[pieceID].load(m_cache->name() + QString("%1.png").arg(pieceID));
 	//load relations
 	KConfigGroup relationsGroup(&manifest, "Relations");

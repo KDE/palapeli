@@ -128,12 +128,13 @@ void Palapeli::Scene::loadNextPart()
 		return;
 	//add pieces and parts, but only one piece at a time
 	const Palapeli::PuzzleContents* contents = m_puzzle->contents();
-	const QList<int> pieceIDs = contents->pieces.keys();
-	foreach (int pieceID, pieceIDs)
+	QMap<int, QPixmap>::const_iterator iterPieces = contents->pieces.begin();
+	const QMap<int, QPixmap>::const_iterator iterPiecesEnd = contents->pieces.end();
+	for (int pieceID = iterPieces.key(); iterPieces != iterPiecesEnd; pieceID = (++iterPieces).key())
 	{
 		if (m_pieces.contains(pieceID))
 			continue; //already loaded
-		Palapeli::Piece* piece = new Palapeli::Piece(contents->pieces[pieceID], contents->pieceOffsets[pieceID]);
+		Palapeli::Piece* piece = new Palapeli::Piece(iterPieces.value(), contents->pieceOffsets[pieceID]);
 		m_pieces[pieceID] = piece;
 		Palapeli::Part* part = new Palapeli::Part(piece);
 		connect(part, SIGNAL(destroyed(QObject*)), this, SLOT(partDestroyed(QObject*)));
@@ -170,10 +171,11 @@ void Palapeli::Scene::finishLoading()
 	{
 		//read piece positions from savegame
 		KConfigGroup saveGroup(&saveConfig, "SaveGame");
-		const QList<int> pieceIDs = m_pieces.keys();
-		foreach (int pieceID, pieceIDs)
+		QMap<int, Palapeli::Piece*>::const_iterator iterPieces = m_pieces.begin();
+		const QMap<int, Palapeli::Piece*>::const_iterator iterPiecesEnd = m_pieces.end();
+		for (int pieceID = iterPieces.key(); iterPieces != iterPiecesEnd; pieceID = (++iterPieces).key())
 		{
-			Palapeli::Part* part = m_pieces[pieceID]->part();
+			Palapeli::Part* part = iterPieces.value()->part();
 			part->setPos(saveGroup.readEntry(QString::number(pieceID), QPointF()));
 			part->searchConnections();
 			part->validatePosition();
@@ -251,9 +253,10 @@ void Palapeli::Scene::partMoved()
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
 	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier)));
 	KConfigGroup saveGroup(&saveConfig, "SaveGame");
-	const QList<int> pieceIDs = m_pieces.keys();
-	foreach (int pieceID, pieceIDs)
-		saveGroup.writeEntry(QString::number(pieceID), m_pieces[pieceID]->part()->pos());
+	QMap<int, Palapeli::Piece*>::const_iterator iterPieces = m_pieces.begin();
+	const QMap<int, Palapeli::Piece*>::const_iterator iterPiecesEnd = m_pieces.end();
+	for (int pieceID = iterPieces.key(); iterPieces != iterPiecesEnd; pieceID = (++iterPieces).key())
+		saveGroup.writeEntry(QString::number(pieceID), iterPieces.value()->part()->pos());
 }
 
 void Palapeli::Scene::playVictoryAnimation()

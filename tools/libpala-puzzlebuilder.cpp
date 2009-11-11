@@ -130,13 +130,14 @@ int main(int argc, char** argv)
 		return 1;
 	}
 	//copy pieces to tempdir
-	QMap<int, QImage> pieces = job.pieces();
-	QList<int> pieceIndices = pieces.keys();
-	foreach (int index, pieceIndices)
+	const QMap<int, QImage> pieces = job.pieces();
+	QMap<int, QImage>::const_iterator iterPieces = pieces.begin();
+	const QMap<int, QImage>::const_iterator iterPiecesEnd = pieces.end();
+	for (; iterPieces != iterPiecesEnd; ++iterPieces)
 	{
-		if (!pieces[index].save(cachePath + QString("%1.png").arg(index)))
+		if (!iterPieces->save(cachePath + QString("%1.png").arg(iterPieces.key())))
 		{
-			std::cerr << "Could not save piece image no. " << index << std::endl;
+			std::cerr << "Could not save piece image no. " << iterPieces.key() << std::endl;
 			return 1;
 		}
 	}
@@ -147,11 +148,13 @@ int main(int argc, char** argv)
 		return 1;
 	}
 	//write piece offsets into target manifest
-	QMap<int, QPoint> pieceOffsets = job.pieceOffsets();
 	KConfig targetManifest(targetManifestPath, KConfig::SimpleConfig);
 	KConfigGroup offsetGroup(&targetManifest, "PieceOffsets");
-	foreach (int index, pieceIndices)
-		offsetGroup.writeEntry(QString::number(index), pieceOffsets[index]);
+	const QMap<int, QPoint> pieceOffsets = job.pieceOffsets();
+	QMap<int, QPoint>::const_iterator iterPieceOffsets = pieceOffsets.begin();
+	const QMap<int, QPoint>::const_iterator iterPieceOffsetsEnd = pieceOffsets.end();
+	for (; iterPieceOffsets != iterPieceOffsetsEnd; ++iterPieceOffsets)
+		offsetGroup.writeEntry(QString::number(iterPieceOffsets.key()), iterPieceOffsets.value());
 	//write piece relations into target manifest
 	QList<QPair<int, int> > relations = job.relations();
 	KConfigGroup relationsGroup(&targetManifest, "Relations");
