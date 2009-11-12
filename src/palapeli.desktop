@@ -2,11 +2,13 @@
 Type=Application
 Exec=palapeli
 Name=Palapeli
+Name[en_GB]=Palapeli
 Name[es]=Palapeli
 Name[pt]=Palapeli
 Name[uk]=Palapeli
 Name[x-test]=xxPalapelixx
 GenericName=Jigsaw puzzle game
+GenericName[en_GB]=Jigsaw puzzle game
 GenericName[es]=Juego de rompecabezas
 GenericName[pt]=Um jogo de 'puzzle'
 GenericName[uk]=Гра у складанку

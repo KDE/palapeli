@@ -2,6 +2,7 @@
 Encoding=UTF-8
 Type=Service
 Name=Palapeli puzzles
+Name[en_GB]=Palapeli puzzles
 Name[es]=Rompecabezas de Palapeli
 Name[pt]='Puzzles' do Palapeli
 Name[uk]=Складанки Palapeli
