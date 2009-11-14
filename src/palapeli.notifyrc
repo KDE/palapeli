@@ -3,6 +3,7 @@ Comment=Palapeli
 Comment[en_GB]=Palapeli
 Comment[es]=Palapeli
 Comment[pt]=Palapeli
+Comment[tr]=Palapeli
 Comment[uk]=Palapeli
 Comment[x-test]=xxPalapelixx
 IconName=palapeli
@@ -12,6 +13,7 @@ Name=File management operations
 Name[en_GB]=File management operations
 Name[es]=Operaciones de gestión de archivos
 Name[pt]=Operações de gestão de ficheiros
+Name[tr]=Dosya yönetimi işlemleri
 Name[uk]=Дії з керування файлами
 Name[x-test]=xxFile management operationsxx
 
