@@ -2,6 +2,7 @@
 Name=My very first slicer
 Name[en_GB]=My very first slicer
 Name[es]=Mi primer herramienta de corte
+Name[et]=Minu esimene tükeldaja
 Name[pt]=O meu primeiro divisor
 Name[sv]=Min allra första skivningsmaskin
 Name[uk]=Мій найперший інструмент розрізання
@@ -9,6 +10,7 @@ Name[x-test]=xxMy very first slicerxx
 Comment=It's quite simple, actually.
 Comment[en_GB]=It's quite simple, actually.
 Comment[es]=Realmente es muy simple.
+Comment[et]=See on tegelikult päris lihtne.
 Comment[pt]=É muito simples, de facto.
 Comment[sv]=Den är faktiskt ganska enkel
 Comment[tr]=Çok basit, gerçekten.
