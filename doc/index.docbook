@@ -148,6 +148,12 @@
 				<listitem><para><action>Lets you choose how near neighbor pieces must be positioned to each other to snap together.</action> If you move the slider more to the right, pieces will snap together even if they are not so close. This makes the game a bit simpler to handle.</para></listitem>
 			</varlistentry>
 		</variablelist>
+		<variablelist>
+			<varlistentry>
+				<term><guilabel>Dragging with the left mouse button moves viewport</guilabel></term>
+				<listitem><para>You can move the puzzle table by clicking anywhere on it with the right mouse button and dragging the mouse. <action>Toggle this configuration option if you want the puzzle table to move also when click the left mouse button and drag the mouse.</action> Note that the left mouse button will only work if your cursor is above the puzzle table background. If a puzzle piece is under the cursor, clicking the left mouse button and dragging will move the puzzle piece.</para></listitem>
+			</varlistentry>
+		</variablelist>
 	</chapter>
 
 	<chapter id="credits">
