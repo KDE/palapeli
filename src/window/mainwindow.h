@@ -39,6 +39,7 @@ namespace Palapeli
 			void loadPuzzle(const QModelIndex& index);
 			void configureShortcuts();
 			void configurePalapeli();
+			void configureFinished();
 		protected:
 			virtual void changeEvent(QEvent* event);
 			virtual void resizeEvent(QResizeEvent* event);

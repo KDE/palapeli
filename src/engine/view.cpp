@@ -19,6 +19,7 @@
 #include "view.h"
 #include "constraintvisualizer.h"
 #include "scene.h"
+#include "settings.h"
 #include "texturehelper.h"
 
 #include <cmath>
@@ -37,7 +38,8 @@ Palapeli::View::View()
 	, m_txHelper(new Palapeli::TextureHelper(m_scene))
 	, m_zoomLevel(100)
 {
-	setDragMode(QGraphicsView::ScrollHandDrag);
+	if (Settings::leftMouseButtonMovesView())
+		setDragMode(QGraphicsView::ScrollHandDrag);
 	setResizeAnchor(QGraphicsView::AnchorUnderMouse);
 	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 	setScene(m_scene);

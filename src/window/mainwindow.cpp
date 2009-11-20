@@ -185,9 +185,14 @@ void Palapeli::MainWindow::configurePalapeli()
 	//setup dialog
 	KConfigDialog settingsDialog(this, QString(), Settings::self());
 	settingsDialog.addPage(settingsWidget, i18n("General settings"))->setIcon(KIcon("configure"));
-	//NOTE: no need to connect KConfigDialog::settingsChanged(const QString&) because settings are read on demand
+	connect(&settingsDialog, SIGNAL(settingsChanged(const QString&)), this, SLOT(configureFinished()));
 	settingsDialog.setFaceType(KPageDialog::Plain);
 	settingsDialog.exec();
+}
+
+void Palapeli::MainWindow::configureFinished()
+{
+	m_puzzleTable->view()->setDragMode(Settings::leftMouseButtonMovesView() ? QGraphicsView::ScrollHandDrag : QGraphicsView::NoDrag);
 }
 
 #include "mainwindow.moc"
