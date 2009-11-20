@@ -2,7 +2,9 @@
 Type=Application
 Exec=palapeli
 Name=Palapeli
+Name[cs]=Palapeli
 Name[en_GB]=Palapeli
+Name[eo]=Palapeli
 Name[es]=Palapeli
 Name[et]=Palapeli
 Name[pt]=Palapeli
