@@ -1,6 +1,7 @@
 project(palapeli)
 cmake_minimum_required(VERSION 2.6)
 
+# allow standalone build of Palapeli (outside kdegames, e.g. in work branches)
 if (NOT KDE4_FOUND)
   find_package(Qt4 4.6.0 REQUIRED)
   find_package(KDE4 REQUIRED)
