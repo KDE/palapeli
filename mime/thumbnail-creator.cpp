@@ -38,7 +38,7 @@ extern "C"
 	{
 		return new Palapeli::ThumbCreator;
 	}
-};
+}
 
 bool Palapeli::ThumbCreator::create(const QString& path, int width, int height, QImage& image)
 {
