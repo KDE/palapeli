@@ -29,7 +29,7 @@ class KUrlRequester;
 namespace Pala
 {
 	class Slicer;
-};
+}
 
 namespace Palapeli
 {

@@ -25,7 +25,7 @@
 namespace Pala
 {
 	class Slicer;
-};
+}
 
 namespace Palapeli
 {
