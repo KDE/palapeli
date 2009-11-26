@@ -1,6 +1,18 @@
 [Desktop Entry]
 Name=My very first slicer
+Name[en_GB]=My very first slicer
+Name[pt]=O meu primeiro divisor
+Name[sv]=Mitt allra första delningsprogram
+Name[uk]=Мій найперший інструмент розрізання
+Name[x-test]=xxMy very first slicerxx
+Name[zh_TW]=我的第一個切割器
 Comment=It is quite simple, actually.
+Comment[en_GB]=It is quite simple, actually.
+Comment[pt]=É muito simples, de facto.
+Comment[sv]=Det är faktiskt ganska enkelt.
+Comment[uk]=Насправді, дуже простий.
+Comment[x-test]=xxIt is quite simple, actually.xx
+Comment[zh_TW]=真的是很簡單的。
 Type=Service
 Icon=myslicer
 X-KDE-Library=myslicer
