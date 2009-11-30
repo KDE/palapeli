@@ -1,3 +1,4 @@
+if(NOT WIN32)
 install(FILES
 	castle-maintenon.puzzle
 	cincinnati-bridge.puzzle
@@ -12,3 +13,16 @@ install(FILES
 DESTINATION ${CONFIG_INSTALL_DIR}
 PERMISSIONS OWNER_READ GROUP_READ WORLD_READ
 RENAME palapeli-collectionrc)
+else(NOT WIN32)
+install(FILES
+	castle-maintenon.puzzle
+	cincinnati-bridge.puzzle
+	citrus-fruits.puzzle
+	european-honey-bee.puzzle
+	panther-chameleon-female.puzzle
+DESTINATION ${DATA_INSTALL_DIR}/palapeli/collection)
+install(FILES
+	default-collection.conf
+DESTINATION ${CONFIG_INSTALL_DIR}
+RENAME palapeli-collectionrc)
+endif(NOT WIN32)
