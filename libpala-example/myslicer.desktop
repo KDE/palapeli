@@ -1,13 +1,17 @@
 [Desktop Entry]
 Name=My very first slicer
+Name[ca]=El meu primer tallador
 Name[en_GB]=My very first slicer
+Name[et]=Minu esimene tükeldaja
 Name[pt]=O meu primeiro divisor
 Name[sv]=Mitt allra första delningsprogram
 Name[uk]=Мій найперший інструмент розрізання
 Name[x-test]=xxMy very first slicerxx
 Name[zh_TW]=我的第一個切割器
 Comment=It is quite simple, actually.
+Comment[ca]=És molt simple, actual.
 Comment[en_GB]=It is quite simple, actually.
+Comment[et]=See on tegelikult päris lihtne.
 Comment[pt]=É muito simples, de facto.
 Comment[sv]=Det är faktiskt ganska enkelt.
 Comment[uk]=Насправді, дуже простий.

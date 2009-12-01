@@ -1,7 +1,9 @@
 [Global]
 Comment=Palapeli
+Comment[ca]=Palapeli
 Comment[cs]=Palapeli
 Comment[en_GB]=Palapeli
+Comment[et]=Palapeli
 Comment[pt]=Palapeli
 Comment[sv]=Palapeli
 Comment[uk]=Palapeli
@@ -11,7 +13,9 @@ IconName=palapeli
 
 [Context/filemanagement]
 Name=File management operations
+Name[ca]=Operacions de gestió de fitxers
 Name[en_GB]=File management operations
+Name[et]=Failihalduse toimingud
 Name[pt]=Operações de gestão de ficheiros
 Name[sv]=Filhanteringsåtgärder
 Name[uk]=Дії з керування файлами
@@ -20,14 +24,18 @@ Name[zh_TW]=檔案管理操作
 
 [Event/importingPuzzle]
 Name=Importing puzzle
+Name[ca]=S'està important el trencaclosques
 Name[en_GB]=Importing puzzle
+Name[et]=Pusle import
 Name[pt]=A importar o 'puzzle'
 Name[sv]=Importerar pussel
 Name[uk]=Імпортування складанки
 Name[x-test]=xxImporting puzzlexx
 Name[zh_TW]=匯入謎題
 Comment=A puzzle is being imported into the local puzzle collection
+Comment[ca]=S'està important un trencaclosques en la vostra col·lecció de trencaclosques local
 Comment[en_GB]=A puzzle is being imported into the local puzzle collection
+Comment[et]=Kohalikku puslekogusse imporditakse pusle
 Comment[pt]=Está a ser importado um 'puzzle' para a colecção de 'puzzles' local
 Comment[sv]=Ett pussel importeras till den lokala pusselsamlingen
 Comment[uk]=Імпортування складанки до локальної збірки складанок
