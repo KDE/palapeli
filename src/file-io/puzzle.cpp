@@ -137,6 +137,8 @@ bool Palapeli::Puzzle::readMetadata(bool force)
 	m_metadata->comment = manifest.readComment();
 	m_metadata->image.load(m_cache->name() + "image.jpg");
 	m_metadata->thumbnail = m_metadata->image.scaled(ThumbnailBaseSize, Qt::KeepAspectRatio);
+	KConfigGroup collectionGroup(&manifest, "Collection");
+	m_metadata->modifyProtection = collectionGroup.readEntry("ModifyProtection", false);
 	//find piece count
 	KConfigGroup offsetGroup(&manifest, "PieceOffsets");
 	const QMap<QString, QString> offsetGroupMap = offsetGroup.entryMap();
@@ -235,6 +237,8 @@ void Palapeli::Puzzle::createNewArchiveFile()
 	mainGroup.writeEntry("Comment", m_metadata->comment);
 	mainGroup.writeEntry("X-KDE-PluginInfo-Author", m_metadata->author);
 	mainGroup.writeEntry("Type", "X-Palapeli-Puzzle");
+	KConfigGroup collectionGroup(&manifest, "Collection");
+	collectionGroup.writeEntry("ModifyProtection", m_metadata->modifyProtection);
 	KConfigGroup jobGroup(&manifest, "Job");
 	jobGroup.writeEntry("ImageSize", m_contents->imageSize);
 	if (m_creationContext)

@@ -32,6 +32,7 @@ namespace Palapeli
 		QString name, author, comment;
 		int pieceCount;
 		QImage image, thumbnail;
+		bool modifyProtection;
 	};
 
 	struct PuzzleContents

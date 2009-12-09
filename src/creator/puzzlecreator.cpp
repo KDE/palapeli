@@ -153,6 +153,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	metadata->pieceCount = job.pieces().count();
 	metadata->image = image;
 	metadata->thumbnail = image.scaled(Palapeli::Puzzle::ThumbnailBaseSize, Qt::KeepAspectRatio);
+	metadata->modifyProtection = false; //only enabled for puzzles in the default collection (see ListCollection::canDeletePuzzle)
 	Palapeli::PuzzleContents* contents = new Palapeli::PuzzleContents;
 	contents->imageSize = image.size();
 	QMapIterator<int, QImage> pieceIter(job.pieces());

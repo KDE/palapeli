@@ -127,6 +127,7 @@ QModelIndex Palapeli::ListCollection::addPuzzleInternal(Palapeli::Puzzle* puzzle
 			metadata->comment = puzzleGroup.readEntry("Comment", QString());
 			metadata->author = puzzleGroup.readEntry("Author", QString());
 			metadata->pieceCount = puzzleGroup.readEntry("PieceCount", 0);
+			metadata->modifyProtection = puzzleGroup.readEntry("ModifyProtection", false);
 			//Reading the thumbnail is a bit harder, because KConfig does not support images directly.
 			QImage image; image.loadFromData(puzzleGroup.readEntry("Thumbnail", QByteArray()));
 			metadata->thumbnail = image;
@@ -144,6 +145,7 @@ QModelIndex Palapeli::ListCollection::addPuzzleInternal(Palapeli::Puzzle* puzzle
 				puzzleGroup.writeEntry("Comment", puzzle->metadata()->comment);
 				puzzleGroup.writeEntry("Author", puzzle->metadata()->author);
 				puzzleGroup.writeEntry("PieceCount", puzzle->metadata()->pieceCount);
+				puzzleGroup.writeEntry("ModifyProtection", puzzle->metadata()->modifyProtection);
 				puzzleGroup.writeEntry("ModifyDateTime", modificationTime);
 				//Writing the thumbnail is a bit harder, because KConfig does not support images directly.
 				QBuffer buffer;
@@ -204,12 +206,11 @@ bool Palapeli::ListCollection::canDeletePuzzle(const QModelIndex& index) const
 	//get puzzle object
 	QObject* puzzlePayload = index.data(PuzzleObjectRole).value<QObject*>();
 	Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
-	if (!puzzle)
+	if (!puzzle || !puzzle->metadata())
 		return false;
-	//check whether that particular file can be removed
-	QString file = puzzle->location().path();
-	return QFileInfo(file).isWritable();
-	//NOTE: This is a protection for the default puzzles, which are installed with read-only permissions.
+	//check whether that particular puzzle can be removed
+	return !puzzle->metadata()->modifyProtection;
+	//NOTE: This is a protection for the default puzzles. In user-generated puzzles, ModifyProtection is not enabled.
 }
 
 bool Palapeli::ListCollection::deletePuzzle(const QModelIndex& index)
