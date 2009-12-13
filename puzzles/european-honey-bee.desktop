@@ -1,5 +1,10 @@
 [Desktop Entry]
 Name=European Honey Bee
+Name[en_GB]=European Honey Bee
+Name[pt]=Abelha Europeia
+Name[sv]=Europeiskt honungsbi
+Name[uk]=Європейська медова бджола
+Name[x-test]=xxEuropean Honey Beexx
 Comment=
 Icon=european-honey-bee.jpg
 Type=X-Palapeli-Puzzle

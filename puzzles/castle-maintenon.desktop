@@ -1,6 +1,16 @@
 [Desktop Entry]
 Name=Castle of Maintenon
+Name[en_GB]=Castle of Maintenon
+Name[pt]=Castelo de Maintenon
+Name[sv]=Maintenon-slottet
+Name[uk]=Замок Мейнтенон
+Name[x-test]=xxCastle of Maintenonxx
 Comment=Eure-et-Loir département, France
+Comment[en_GB]=Eure-et-Loir département, France
+Comment[pt]=Departamento de Eure-et-Loir, França
+Comment[sv]=Eure-et-Loir, franskt departement
+Comment[uk]=Департамент Ер на Луарі, Франція
+Comment[x-test]=xxEure-et-Loir département, Francexx
 Icon=castle-maintenon.jpg
 Type=X-Palapeli-Puzzle
 

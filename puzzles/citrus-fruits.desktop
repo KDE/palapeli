@@ -1,5 +1,10 @@
 [Desktop Entry]
 Name=Citrus Fruits
+Name[en_GB]=Citrus Fruits
+Name[pt]=Frutos Citrinos
+Name[sv]=Citrusfrukter
+Name[uk]=Цитрусові фрукти
+Name[x-test]=xxCitrus Fruitsxx
 Comment=
 Icon=citrus-fruits.jpg
 Type=X-Palapeli-Puzzle
