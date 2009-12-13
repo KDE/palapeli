@@ -14,7 +14,7 @@ set(libpala_HDRS
 	slicer.h
 	slicerjob.h
 	slicerproperty.h
-	slicerpropertyset.cpp
+	slicerpropertyset.h
 )
 set(libpala_FANCY_HDRS
 	Pala/Slicer
