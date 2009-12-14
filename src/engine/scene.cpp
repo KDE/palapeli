@@ -171,8 +171,8 @@ void Palapeli::Scene::finishLoading()
 	{
 		//read piece positions from savegame
 		KConfigGroup saveGroup(&saveConfig, "SaveGame");
-		QMap<int, Palapeli::Piece*>::const_iterator iterPieces = m_pieces.begin();
-		const QMap<int, Palapeli::Piece*>::const_iterator iterPiecesEnd = m_pieces.end();
+		QMap<int, Palapeli::Piece*>::const_iterator iterPieces = m_pieces.constBegin();
+		const QMap<int, Palapeli::Piece*>::const_iterator iterPiecesEnd = m_pieces.constEnd();
 		for (int pieceID = iterPieces.key(); iterPieces != iterPiecesEnd; pieceID = (++iterPieces).key())
 		{
 			Palapeli::Part* part = iterPieces.value()->part();
@@ -253,8 +253,8 @@ void Palapeli::Scene::partMoved()
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
 	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier)));
 	KConfigGroup saveGroup(&saveConfig, "SaveGame");
-	QMap<int, Palapeli::Piece*>::const_iterator iterPieces = m_pieces.begin();
-	const QMap<int, Palapeli::Piece*>::const_iterator iterPiecesEnd = m_pieces.end();
+	QMap<int, Palapeli::Piece*>::const_iterator iterPieces = m_pieces.constBegin();
+	const QMap<int, Palapeli::Piece*>::const_iterator iterPiecesEnd = m_pieces.constEnd();
 	for (int pieceID = iterPieces.key(); iterPieces != iterPiecesEnd; pieceID = (++iterPieces).key())
 		saveGroup.writeEntry(QString::number(pieceID), iterPieces.value()->part()->pos());
 }
