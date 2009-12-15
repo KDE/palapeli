@@ -32,7 +32,7 @@ Palapeli::Part::Part(Palapeli::Piece* piece)
 {
 	m_pieces << piece;
 	piece->setParentItem(this);
-	piece->setCursor(Qt::OpenHandCursor);
+	setCursor(Qt::OpenHandCursor);
 	setFlag(QGraphicsItem::ItemIsMovable);
 	setHandlesChildEvents(true);
 	//add shadow to piece
@@ -57,8 +57,7 @@ void Palapeli::Part::mousePressEvent(QGraphicsSceneMouseEvent* event)
 		//move item to top
 		static int zValue = 0;
 		setZValue(++zValue);
-		foreach (Palapeli::Piece* piece, m_pieces)
-			piece->setCursor(Qt::ClosedHandCursor);
+		setCursor(Qt::ClosedHandCursor);
 	}
 }
 
@@ -79,8 +78,7 @@ void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 	{
 		searchConnections();
 		emit partMoved();
-		foreach (Palapeli::Piece* piece, m_pieces)
-			piece->setCursor(Qt::OpenHandCursor);
+		setCursor(Qt::OpenHandCursor);
 	}
 }
 

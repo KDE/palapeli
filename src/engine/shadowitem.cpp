@@ -101,6 +101,6 @@ QPixmap Palapeli::createShadow(const QPixmap& source, int radius)
 Palapeli::ShadowItem::ShadowItem(const QPixmap& pixmap, int radius, const QPointF& offset)
 {
 	QGraphicsPixmapItem* item = new QGraphicsPixmapItem(Palapeli::createShadow(pixmap, radius), this);
-	item->setAcceptedMouseButtons(0);
+	item->setAcceptedMouseButtons(Qt::LeftButton);
 	item->setOffset(offset + QPointF(-radius, -radius));
 }
