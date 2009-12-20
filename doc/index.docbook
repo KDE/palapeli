@@ -59,6 +59,7 @@
 		<para>The following section shows how to perform these tasks with the toolbar buttons.</para>
 		<sect1 id="toolbars-collection">
 			<title>Toolbar overview</title>
+                        <note><para>You can select puzzles in the puzzle list by pressing &Ctrl; and &LMB; together. Pressing the &LMB; or &RMB; without &Ctrl; opens the specific puzzle in the puzzle table.</para></note>
 			<variablelist>
 				<varlistentry>
 					<term><guiicon>Create new puzzle</guiicon></term>
