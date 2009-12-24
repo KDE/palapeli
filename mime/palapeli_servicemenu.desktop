@@ -10,6 +10,7 @@ Exec=palapeli --import %U
 Icon=palapeli
 Name=Import into your Palapeli puzzle collection
 Name[ca]=Importació en la vostra col·lecció de trencaclosques del Palapeli
+Name[de]=In die Palapeli-Puzzle-Sammlung importieren.
 Name[en_GB]=Import into your Palapeli puzzle collection
 Name[et]=Importimine Palapeli puslekogusse
 Name[pt]=Importar para a sua colecção de 'puzzles' do Palapeli
