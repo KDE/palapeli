@@ -191,7 +191,7 @@ void Palapeli::Scene::finishLoading()
 		partAreaSize *= 1.3; //more space for each part
 		//step 2: place parts in a grid in random order
 		QList<Palapeli::Part*> partPool(m_parts);
-		const int xCount = floor(sqrt(partPool.count()));
+		const int xCount = floor(sqrt((float)partPool.count()));
 		for (int y = 0; !partPool.isEmpty(); ++y)
 		{
 			for (int x = 0; x < xCount && !partPool.isEmpty(); ++x)
