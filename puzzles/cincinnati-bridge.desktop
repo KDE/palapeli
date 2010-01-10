@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Roebling Suspension Bridge
 Name[ca]=Pont penjant de Roebling
+Name[ca@valencia]=Pont penjant de Roebling
 Name[de]=Roebling Suspension Bridge
 Name[en_GB]=Roebling Suspension Bridge
 Name[et]=Roeblingi rippsild
@@ -16,6 +17,7 @@ Name[x-test]=xxRoebling Suspension Bridgexx
 Name[zh_TW]=Roebling 吊橋
 Comment=in Cincinnati
 Comment[ca]=A Cincinnati
+Comment[ca@valencia]=A Cincinnati
 Comment[de]=Die John A. Roebling Suspension Bridge ist eine Hängebrücke, die den Ohio River zwischen Cincinnati (Ohio) und Covington (Kentucky) überspannt.
 Comment[en_GB]=in Cincinnati
 Comment[et]=Cincinnatis
