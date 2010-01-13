@@ -14,6 +14,7 @@ Name[sr@latin]=Panterski kameleon
 Name[sv]=Furcifer pardalis
 Name[uk]=Самиця барса
 Name[x-test]=xxFurcifer pardalisxx
+Name[zh_CN]=变色龙
 Name[zh_TW]=Furcifer pardalis
 Comment=Female panther chameleon
 Comment[ca]=Femella de camaleó pantera
@@ -30,6 +31,7 @@ Comment[sr@latin]=Ženka panterskog kameleona
 Comment[sv]=Panterkameleonthona
 Comment[uk]=Самиця п’ятнистого хамелеона
 Comment[x-test]=xxFemale panther chameleonxx
+Comment[zh_CN]=母豹
 Comment[zh_TW]=Female panther chameleon
 Type=X-Palapeli-Puzzle
 
