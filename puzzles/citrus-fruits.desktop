@@ -1,15 +1,27 @@
 [Desktop Entry]
 Name=Citrus Fruits
 Name[ca]=Fruits crítics
+Name[ca@valencia]=Fruits crítics
+Name[da]=Citrusfrugter
 Name[de]=Zitrusfrüchte
 Name[en_GB]=Citrus Fruits
+Name[es]=Frutas cítricas
 Name[et]=Tsitrusviljad
+Name[fr]=Agrumes
+Name[it]=Agrumi
 Name[nn]=Sitrusfrukter
 Name[pt]=Frutos Citrinos
 Name[pt_BR]=Frutas cítricas
+Name[ru]=Цитрусы
+Name[sk]=Citrusové plody
+Name[sr]=Цитрично воће
+Name[sr@ijekavian]=Цитрично воће
+Name[sr@ijekavianlatin]=Citrično voće
+Name[sr@latin]=Citrično voće
 Name[sv]=Citrusfrukter
 Name[uk]=Цитрусові фрукти
 Name[x-test]=xxCitrus Fruitsxx
+Name[zh_CN]=柑橘类水果
 Name[zh_TW]=柑橘類水果
 Comment=
 Icon=citrus-fruits.jpg
