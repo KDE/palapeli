@@ -45,10 +45,6 @@ Palapeli::Part::Part(Palapeli::Piece* piece)
 	shadowItem->setZValue(-10);
 }
 
-Palapeli::Part::~Part()
-{
-}
-
 void Palapeli::Part::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
 	QGraphicsItem::mousePressEvent(event); //handle dragging
@@ -96,16 +92,16 @@ bool Palapeli::Part::searchConnections()
 	if (mergeParts.isEmpty())
 		return false;
 	//merge any parts that are near this part
-	foreach (Palapeli::Part* part, mergeParts)
+	foreach (Palapeli::Part* mergePart, mergeParts)
 	{
-		//set position in such a way that the majority of the pieces do not move
-		QPointF posDiff = part->pos() - pos();
-		const bool useAnimations = part->pos() != pos();
+		QPointF posDiff = mergePart->pos() - pos();
+		const bool useAnimations = mergePart->pos() != pos();
 		QList<QObject*> animatedObjects;
-		const bool reversePositioningOrder = part->m_pieces.count() > m_pieces.count();
+		//set position in such a way that the majority of the pieces do not move
+		const bool reversePositioningOrder = mergePart->m_pieces.count() > m_pieces.count();
 		if (reversePositioningOrder)
 		{
-			setPos(part->pos());
+			setPos(mergePart->pos());
 			//animate all old pieces to move to the new position
 			posDiff = -posDiff;
 			if (useAnimations)
@@ -117,7 +113,7 @@ bool Palapeli::Part::searchConnections()
 			}
 		}
 		//insert all pieces of the other part into this part
-		foreach (Palapeli::Piece* piece, part->m_pieces)
+		foreach (Palapeli::Piece* piece, mergePart->m_pieces)
 		{
 			//move piece to this parent
 			piece->setParentItem(this);
@@ -125,7 +121,7 @@ bool Palapeli::Part::searchConnections()
 			if (useAnimations && !reversePositioningOrder)
 				animatedObjects << piece;
 		}
-		foreach (Palapeli::ShadowItem* shadowItem, part->m_shadows)
+		foreach (Palapeli::ShadowItem* shadowItem, mergePart->m_shadows)
 		{
 			//move shadow item to this parent
 			shadowItem->setParentItem(this);
@@ -144,7 +140,7 @@ bool Palapeli::Part::searchConnections()
 				anim->setEasingCurve(QEasingCurve::InCubic);
 				anim->start(QAbstractAnimation::DeleteWhenStopped);
 			}
-		delete part;
+		delete mergePart;
 	}
 	//update internal neighbor lists in the pieces
 	foreach (Palapeli::Piece* piece, m_pieces)
@@ -176,7 +172,7 @@ void Palapeli::Part::validatePosition()
 	{
 		//scene rect constraint is active -> ensure that part stays inside scene rect
 		const QRectF sr = s->sceneRect();
-		const QRectF br = sceneTransform().mapRect(piecesBoundingRect()); //br = bounding rect
+		const QRectF br = scenePiecesBoundingRect(); //br = bounding rect
 		if (!sr.contains(br))
 		{
 			QPointF pos = this->pos();

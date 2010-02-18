@@ -31,7 +31,6 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			Part(Palapeli::Piece* piece);
-			virtual ~Part();
 
 			bool searchConnections();
 			void validatePosition();
