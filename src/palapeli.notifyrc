@@ -1,32 +1,5 @@
 [Global]
 Comment=Palapeli Jigsaw Puzzle
-Comment[ca]=Palapeli
-Comment[ca@valencia]=Palapeli
-Comment[cs]=Palapeli
-Comment[da]=Palapeli
-Comment[de]=Palapeli
-Comment[en_GB]=Palapeli
-Comment[es]=Palapeli
-Comment[et]=Palapeli
-Comment[fr]=Palapeli
-Comment[hr]=Palapeli
-Comment[it]=Palapeli
-Comment[nds]=Palapeli
-Comment[nl]=Palapeli
-Comment[nn]=Palapeli
-Comment[pt]=Palapeli
-Comment[pt_BR]=Palapeli
-Comment[ru]=Palapeli
-Comment[sk]=Palapeli
-Comment[sr]=Палапели
-Comment[sr@ijekavian]=Палапели
-Comment[sr@ijekavianlatin]=Palapeli
-Comment[sr@latin]=Palapeli
-Comment[sv]=Palapeli
-Comment[uk]=Palapeli
-Comment[x-test]=xxPalapelixx
-Comment[zh_CN]=Palapeli
-Comment[zh_TW]=Palapeli
 IconName=palapeli
 
 [Context/filemanagement]
