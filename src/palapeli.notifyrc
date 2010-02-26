@@ -1,5 +1,9 @@
 [Global]
 Comment=Palapeli Jigsaw Puzzle
+Comment[pt]='Puzzle' Palapeli
+Comment[pt_BR]=Jogo de quebra-cabeças Palapeli
+Comment[uk]=Гра у складанку Palapeli
+Comment[x-test]=xxPalapeli Jigsaw Puzzlexx
 IconName=palapeli
 
 [Context/filemanagement]
