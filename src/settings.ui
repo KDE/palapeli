@@ -14,13 +14,13 @@
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Puzzle table</string>
+      <string comment="@title:group">Puzzle table</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>Background:</string>
+         <string comment="@label:chooser for different types of background textures">Background:</string>
         </property>
        </widget>
       </item>
@@ -37,7 +37,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="label_1">
         <property name="text">
-         <string>Snapping precision:</string>
+         <string comment="@label:slider">Snapping precision:</string>
         </property>
        </widget>
       </item>

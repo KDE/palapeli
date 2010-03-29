@@ -196,7 +196,7 @@ void Palapeli::MainWindow::configurePalapeli()
 
 void Palapeli::MainWindow::configure_TextureChanged(int index)
 {
-	QComboBox* backgroundBox = qobject_cast<QComboBox*>(sender());
+	QComboBox* backgroundBox = qobject_cast<QComboBox*>(sender()); //krazy:exclude=qclasses
 	if (!backgroundBox)
 		return;
 	const QString selectedStyle = backgroundBox->itemData(index, Palapeli::TextureHelper::StyleRole).toString();
