@@ -77,9 +77,14 @@ void Palapeli::View::setViewportRect(const QRectF& viewportRect)
 
 void Palapeli::View::mousePressEvent(QMouseEvent* event)
 {
-	QGraphicsView::mousePressEvent(event);
 	if (event->button() == Qt::RightButton)
+	{
+		if (!(event->buttons() & Qt::LeftButton))
+			setDragMode(QGraphicsView::NoDrag); //we need to deactivate the rubberband during our own mouse events
 		m_dragPrevPos = event->globalPos();
+	}
+	else
+		QGraphicsView::mousePressEvent(event);
 }
 
 void Palapeli::View::mouseMoveEvent(QMouseEvent* event)
@@ -99,6 +104,7 @@ void Palapeli::View::mouseMoveEvent(QMouseEvent* event)
 void Palapeli::View::mouseReleaseEvent(QMouseEvent* event)
 {
 	QGraphicsView::mouseReleaseEvent(event);
+	setDragMode(QGraphicsView::RubberBandDrag); //reactivate rubberband; it might have been disabled in mousePressEvent
 }
 
 void Palapeli::View::wheelEvent(QWheelEvent* event)
