@@ -161,6 +161,7 @@ void Palapeli::MainWindow::loadPuzzle(const QModelIndex& index)
 	m_puzzleTable->view()->scene()->loadPuzzle(index);
 	m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_puzzleTable), true);
 	m_centralWidget->setCurrentWidget(m_puzzleTable);
+	setCaption(index.data(Qt::DisplayRole).toString());
 }
 
 void Palapeli::MainWindow::configureShortcuts()
