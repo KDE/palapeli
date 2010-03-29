@@ -171,7 +171,7 @@ bool Palapeli::Part::searchConnections()
 
 QRectF Palapeli::Part::boundingRect() const
 {
-	return childrenBoundingRect();
+	return piecesBoundingRect();
 }
 
 QRectF Palapeli::Part::piecesBoundingRect() const
