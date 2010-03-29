@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -39,7 +39,6 @@ namespace Palapeli
 			void loadPuzzle(const QModelIndex& index);
 			void configureShortcuts();
 			void configurePalapeli();
-			void configureFinished();
 		protected:
 			virtual void changeEvent(QEvent* event);
 			virtual void resizeEvent(QResizeEvent* event);

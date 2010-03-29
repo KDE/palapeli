@@ -34,6 +34,7 @@ Palapeli::Part::Part(Palapeli::Piece* piece)
 	piece->setParentItem(this);
 	setCursor(Qt::OpenHandCursor);
 	setFlag(QGraphicsItem::ItemIsMovable);
+	setFlag(QGraphicsItem::ItemIsSelectable);
 	setHandlesChildEvents(true);
 	//add shadow to piece
 	const QPixmap piecePixmap = piece->pixmapItem()->pixmap();
@@ -43,6 +44,17 @@ Palapeli::Part::Part(Palapeli::Piece* piece)
 	m_shadows << shadowItem;
 	shadowItem->setParentItem(this);
 	shadowItem->setZValue(-10);
+}
+
+QVariant Palapeli::Part::itemChange(GraphicsItemChange change, const QVariant& value)
+{
+	if (change == ItemSelectedChange)
+	{
+		const bool selected = value.toBool();
+		foreach (Palapeli::ShadowItem* shadowItem, m_shadows)
+			shadowItem->setActive(selected);
+	}
+	return QGraphicsObject::itemChange(change, value);
 }
 
 void Palapeli::Part::mousePressEvent(QGraphicsSceneMouseEvent* event)
@@ -72,7 +84,13 @@ void Palapeli::Part::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 	QGraphicsItem::mouseReleaseEvent(event); //handle dragging
 	if (event->button() == Qt::LeftButton)
 	{
-		searchConnections();
+		//search connections in all moved parts
+		foreach (QGraphicsItem* item, scene()->selectedItems())
+		{
+			Palapeli::Part* part = qgraphicsitem_cast<Palapeli::Part*>(item);
+			if (part)
+				part->searchConnections();
+		}
 		emit partMoved();
 		setCursor(Qt::OpenHandCursor);
 	}
@@ -125,6 +143,7 @@ bool Palapeli::Part::searchConnections()
 		{
 			//move shadow item to this parent
 			shadowItem->setParentItem(this);
+			shadowItem->setActive(isSelected());
 			m_shadows << shadowItem;
 			if (useAnimations && !reversePositioningOrder)
 				animatedObjects << shadowItem;
@@ -148,6 +167,11 @@ bool Palapeli::Part::searchConnections()
 	//make position valid again
 	validatePosition();
 	return true;
+}
+
+QRectF Palapeli::Part::boundingRect() const
+{
+	return childrenBoundingRect();
 }
 
 QRectF Palapeli::Part::piecesBoundingRect() const

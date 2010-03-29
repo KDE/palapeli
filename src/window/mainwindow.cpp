@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -185,14 +185,9 @@ void Palapeli::MainWindow::configurePalapeli()
 	//setup dialog
 	KConfigDialog settingsDialog(this, QString(), Settings::self());
 	settingsDialog.addPage(settingsWidget, i18n("General settings"))->setIcon(KIcon("configure"));
-	connect(&settingsDialog, SIGNAL(settingsChanged(const QString&)), this, SLOT(configureFinished()));
+// 	connect(&settingsDialog, SIGNAL(settingsChanged(const QString&)), this, SLOT(configureFinished())); //NOTE: unused ATM (settings are read on demand)
 	settingsDialog.setFaceType(KPageDialog::Plain);
 	settingsDialog.exec();
-}
-
-void Palapeli::MainWindow::configureFinished()
-{
-	m_puzzleTable->view()->setDragMode(Settings::leftMouseButtonMovesView() ? QGraphicsView::ScrollHandDrag : QGraphicsView::NoDrag);
 }
 
 #include "mainwindow.moc"

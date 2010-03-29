@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -20,11 +20,14 @@
 
 #include <cmath>
 #include <QImage>
+#include <QApplication>
 #include <QPainter>
+#include <QPalette>
+#include <QPropertyAnimation>
 
 //BEGIN shadow blur algorithm
 
-void blur(QImage& image, const QRect& rect, int radius)
+static void blur(QImage& image, const QRect& rect, int radius)
 {
 	int tab[] = { 14, 10, 8, 6, 5, 5, 4, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2 };
 	int alpha = (radius < 1)  ? 16 : (radius > 17) ? 1 : tab[radius - 1];
@@ -75,20 +78,26 @@ void blur(QImage& image, const QRect& rect, int radius)
 	}
 }
 
+QPixmap Palapeli::makePixmapMonochrome(const QPixmap& pixmap, const QColor& color)
+{
+	QPixmap basePixmap(pixmap.size());
+	basePixmap.fill(color);
+
+	QPixmap monoPixmap(pixmap);
+	QPainter px(&monoPixmap);
+	px.setCompositionMode(QPainter::CompositionMode_SourceAtop);
+	px.drawPixmap(0, 0, basePixmap);
+	px.end();
+	return monoPixmap;
+}
+
 QPixmap Palapeli::createShadow(const QPixmap& source, int radius)
 {
-	QPixmap pix(source.size());
-	pix.fill(Qt::black);
-
-	QPixmap shadowPixmap(source);
-	QPainter px(&shadowPixmap);
-	px.setCompositionMode(QPainter::CompositionMode_SourceAtop);
-	px.drawPixmap(0, 0, pix);
-	px.end();
+	QPixmap shadowPixmap = Palapeli::makePixmapMonochrome(source, Qt::black);
 
 	QImage shadowImage(QSize(source.width() + 2 * radius, source.height() + 2 * radius), QImage::Format_ARGB32_Premultiplied);
 	shadowImage.fill(0x00000000); //transparent
-	px.begin(&shadowImage);
+	QPainter px(&shadowImage);
 	px.drawPixmap(QPoint(radius, radius), shadowPixmap);
 	px.end();
 
@@ -99,8 +108,44 @@ QPixmap Palapeli::createShadow(const QPixmap& source, int radius)
 //END shadow blur algorithm
 
 Palapeli::ShadowItem::ShadowItem(const QPixmap& pixmap, int radius, const QPointF& offset)
+	: m_baseShadow(new QGraphicsPixmapItem(this))
+	, m_activeShadow(new QGraphicsPixmapItem(this))
+	, m_animator(new QPropertyAnimation(this, "activeOpacity", this))
 {
-	QGraphicsPixmapItem* item = new QGraphicsPixmapItem(Palapeli::createShadow(pixmap, radius), this);
-	item->setAcceptedMouseButtons(Qt::LeftButton);
-	item->setOffset(offset + QPointF(-radius, -radius));
+	//create shadows
+	const QPixmap baseShadowPixmap = Palapeli::createShadow(pixmap, radius);
+	const QColor activeShadowColor = QApplication::palette().color(QPalette::Highlight);
+	const QPixmap activeShadowPixmap = Palapeli::makePixmapMonochrome(baseShadowPixmap, activeShadowColor);
+	//setup items
+	m_baseShadow->setPixmap(baseShadowPixmap);
+	m_baseShadow->setAcceptedMouseButtons(Qt::LeftButton);
+	m_baseShadow->setOffset(offset + QPointF(-radius, -radius));
+	m_activeShadow->setPixmap(activeShadowPixmap);
+	m_activeShadow->setAcceptedMouseButtons(Qt::LeftButton);
+	m_activeShadow->setOffset(offset + QPointF(-radius, -radius));
+	m_activeShadow->setOpacity(0.0);
 }
+
+qreal Palapeli::ShadowItem::activeOpacity() const
+{
+	return m_activeShadow->opacity();
+}
+
+void Palapeli::ShadowItem::setActiveOpacity(qreal activeOpacity)
+{
+	m_activeShadow->setOpacity(activeOpacity);
+// 	m_baseShadow->setOpacity(1.0 - activeOpacity);
+}
+
+void Palapeli::ShadowItem::setActive(bool active)
+{
+	const qreal targetOpacity = active ? 1.0 : 0.0;
+	if (targetOpacity == activeOpacity())
+		return;
+	m_animator->setDuration(200 * qAbs(targetOpacity - activeOpacity()));
+	m_animator->setStartValue(activeOpacity());
+	m_animator->setEndValue(targetOpacity);
+	m_animator->start();
+}
+
+#include "shadowitem.moc"

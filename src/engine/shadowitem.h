@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -21,14 +21,28 @@
 
 #include "basics.h"
 
+class QPropertyAnimation;
+
 namespace Palapeli
 {
+	QPixmap makePixmapMonochrome(const QPixmap& pixmap, const QColor& color);
 	QPixmap createShadow(const QPixmap& source, int radius);
 
 	class ShadowItem : public Palapeli::GraphicsObject<Palapeli::ShadowUserType>
 	{
+		Q_OBJECT
+		Q_PROPERTY(qreal activeOpacity READ activeOpacity WRITE setActiveOpacity)
 		public:
 			ShadowItem(const QPixmap& pixmap, int radius, const QPointF& offset);
+
+			qreal activeOpacity() const;
+			void setActiveOpacity(qreal activeOpacity);
+		public Q_SLOTS:
+			void setActive(bool active);
+		private:
+			QGraphicsPixmapItem* m_baseShadow;
+			QGraphicsPixmapItem* m_activeShadow;
+			QPropertyAnimation* m_animator;
 	};
 }
 

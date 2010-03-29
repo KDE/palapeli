@@ -35,12 +35,15 @@ namespace Palapeli
 			bool searchConnections();
 			void validatePosition();
 
+			virtual QRectF boundingRect() const;
+
 			QRectF piecesBoundingRect() const; //like QGraphicsItem::childrenBoundingRect, but takes the pieces into account only (esp. not the shadow items)
 			QRectF scenePiecesBoundingRect() const;
 		Q_SIGNALS:
 			void partMoving();
 			void partMoved();
 		protected:
+			virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);

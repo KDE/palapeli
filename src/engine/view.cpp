@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -38,8 +38,8 @@ Palapeli::View::View()
 	, m_txHelper(new Palapeli::TextureHelper(m_scene))
 	, m_zoomLevel(100)
 {
-	if (Settings::leftMouseButtonMovesView())
-		setDragMode(QGraphicsView::ScrollHandDrag);
+	setDragMode(QGraphicsView::RubberBandDrag);
+	setRubberBandSelectionMode(Qt::ContainsItemBoundingRect);
 	setResizeAnchor(QGraphicsView::AnchorUnderMouse);
 	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 	setScene(m_scene);
@@ -94,6 +94,11 @@ void Palapeli::View::mouseMoveEvent(QMouseEvent* event)
 		//store mouse position for next event
 		m_dragPrevPos = event->globalPos();
 	}
+}
+
+void Palapeli::View::mouseReleaseEvent(QMouseEvent* event)
+{
+	QGraphicsView::mouseReleaseEvent(event);
 }
 
 void Palapeli::View::wheelEvent(QWheelEvent* event)

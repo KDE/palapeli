@@ -16,9 +16,5 @@
 			<label>Whether to show the status bar on the puzzle table. (It is not a real status bar, but the position and provided functionality is similar.)</label>
 			<default>true</default>
 		</entry>
-		<entry name="LeftMouseButtonMovesView" type="Bool">
-			<label>Whether dragging with the left mouse button down will move the viewport.</label>
-			<default>false</default>
-		</entry>
 	</group>
 </kcfg>
