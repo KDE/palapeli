@@ -182,12 +182,25 @@ void Palapeli::MainWindow::configurePalapeli()
 	settingsUi.cfg_ViewBackground->setModel(m_puzzleTable->view()->textureHelper());
 	settingsUi.cfg_ViewBackground->setCurrentIndex(m_puzzleTable->view()->textureHelper()->currentIndex());
 	connect(settingsUi.cfg_ViewBackground, SIGNAL(currentIndexChanged(int)), m_puzzleTable->view()->textureHelper(), SLOT(setCurrentIndex(int)));
+	connect(settingsUi.cfg_ViewBackground, SIGNAL(currentIndexChanged(int)), this, SLOT(configure_TextureChanged(int)));
+	connect(settingsUi.kcfg_ViewBackgroundColor, SIGNAL(changed(QColor)), m_puzzleTable->view()->textureHelper(), SLOT(setSolidColor(QColor)));
+	connect(this, SIGNAL(configure_ColorEnabledChanged(bool)), settingsUi.kcfg_ViewBackgroundColor, SLOT(setEnabled(bool)));
 	//setup dialog
 	KConfigDialog settingsDialog(this, QString(), Settings::self());
 	settingsDialog.addPage(settingsWidget, i18n("General settings"))->setIcon(KIcon("configure"));
 // 	connect(&settingsDialog, SIGNAL(settingsChanged(const QString&)), this, SLOT(configureFinished())); //NOTE: unused ATM (settings are read on demand)
 	settingsDialog.setFaceType(KPageDialog::Plain);
 	settingsDialog.exec();
+}
+
+void Palapeli::MainWindow::configure_TextureChanged(int index)
+{
+	QComboBox* backgroundBox = qobject_cast<QComboBox*>(sender());
+	if (!backgroundBox)
+		return;
+	const QString selectedStyle = backgroundBox->itemData(index, Palapeli::TextureHelper::StyleRole).toString();
+	emit configure_ColorEnabledChanged(selectedStyle == "color");
+	
 }
 
 #include "mainwindow.moc"

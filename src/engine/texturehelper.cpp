@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -23,6 +23,7 @@
 #include <QGraphicsScene>
 #include <QPainter>
 #include <KGlobal>
+#include <KLocalizedString>
 #include <KStandardDirs>
 #include <KSvgRenderer>
 
@@ -51,8 +52,19 @@ Palapeli::TextureHelper::TextureHelper(QGraphicsScene* scene)
 	: m_scene(scene)
 	, m_currentIndex(-1)
 {
+	const QString selectedStyle = Settings::viewBackgroundStyle();
+	const QColor selectedColor = Settings::viewBackgroundColor();
 	const QString selectedFileName = Settings::viewBackground();
-	int selectedIndex = -1, currentIndex = -1;
+	int selectedIndex = 0, currentIndex = 0;
+	//create menu item for solid color
+	QPixmap colorThumbnail(DefaultThumbnailSize);
+	colorThumbnail.fill(selectedColor);
+	QStandardItem* colorItem = new QStandardItem;
+	colorItem->setData(selectedColor, BrushRole);
+	colorItem->setData("color", StyleRole);
+	colorItem->setData(colorThumbnail, Qt::DecorationRole);
+	colorItem->setData(i18nc("@item:inlistbox", "Single color"), Qt::DisplayRole);
+	appendRow(colorItem);
 	//fetch backgrounds, and create menu items
 	const QStringList backgroundFiles = KGlobal::dirs()->findAllResources("appdata", "backgrounds/*");
 	foreach (const QString& path, backgroundFiles)
@@ -60,18 +72,19 @@ Palapeli::TextureHelper::TextureHelper(QGraphicsScene* scene)
 		++currentIndex;
 		//get file name and find selected or default backgrounds
 		const QString fileName = QFileInfo(path).fileName();
-		if (fileName == selectedFileName)
+		if (fileName == selectedFileName && selectedStyle == "texture")
 			selectedIndex = currentIndex;
 		//create item for this brush
 		const QPixmap pixmap = render(fileName);
 		QStandardItem* item = new QStandardItem;
-		item->setData(pixmap, PixmapRole);
+		item->setData(pixmap, BrushRole);
+		item->setData("texture", StyleRole);
 		item->setData(pixmap.scaled(DefaultThumbnailSize, Qt::KeepAspectRatio), Qt::DecorationRole);
 		item->setData(fileName, Qt::DisplayRole);
 		appendRow(item);
 	}
 	//select initial brush
-	setCurrentIndex(qMax(selectedIndex, 0)); //the qMax chooses the index 0 if selectedIndex == -1
+	setCurrentIndex(selectedIndex);
 }
 
 int Palapeli::TextureHelper::currentIndex() const
@@ -86,11 +99,39 @@ void Palapeli::TextureHelper::setCurrentIndex(int index)
 	if (index < 0 || index >= rowCount())
 		return;
 	m_currentIndex = index;
-	m_scene->setBackgroundBrush(item(index)->data(PixmapRole).value<QPixmap>());
-	//write config
-	const QString key = item(index)->data(Qt::DisplayRole).toString();
-	Settings::setViewBackground(key);
+	QBrush brush;
+	if (index == 0)
+	{
+		const QColor color = item(index)->data(BrushRole).value<QColor>();
+		m_scene->setBackgroundBrush(item(index)->data(BrushRole).value<QColor>());
+		//write config
+		Settings::setViewBackgroundColor(color);
+		Settings::setViewBackgroundStyle("color");
+	}
+	else
+	{
+		m_scene->setBackgroundBrush(item(index)->data(BrushRole).value<QPixmap>());
+		//write config
+		const QString key = item(index)->data(Qt::DisplayRole).toString();
+		Settings::setViewBackground(key);
+		Settings::setViewBackgroundStyle("texture");
+	}
 	Settings::self()->writeConfig();
+}
+
+void Palapeli::TextureHelper::setSolidColor(const QColor& color)
+{
+	QStandardItem* item = this->item(0);
+	item->setData(color, BrushRole);
+	QPixmap colorThumbnail(DefaultThumbnailSize);
+	colorThumbnail.fill(color);
+	item->setData(colorThumbnail, Qt::DecorationRole);
+	//apply new color and write config if necessary
+	if (m_currentIndex == 0)
+	{
+		m_currentIndex = -1;
+		setCurrentIndex(0);
+	}
 }
 
 #include "texturehelper.moc"

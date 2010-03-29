@@ -8,9 +8,17 @@
 		</entry>
 	</group>
 	<group name="Appearance">
+		<entry name="ViewBackgroundStyle" type="String">
+			<label>The type of background to use for the view. Possible values are "texture" (use image from "ViewBackground" key) or "color" (use color from "ViewBackgroundColor" key).</label>
+			<default>texture</default>
+		</entry>
 		<entry name="ViewBackground" type="String">
 			<label>The background image to use for the View.</label>
 			<default>background.svg</default>
+		</entry>
+		<entry name="ViewBackgroundColor" type="Color">
+			<label>The background color to use for the View.</label>
+			<default>white</default>
 		</entry>
 		<entry name="ShowStatusBar" type="Bool">
 			<label>Whether to show the status bar on the puzzle table. (It is not a real status bar, but the position and provided functionality is similar.)</label>

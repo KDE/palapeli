@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -28,13 +28,17 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			enum CustomRoles { PixmapRole = Qt::UserRole + 1 };
+			enum CustomRoles {
+				BrushRole = Qt::UserRole + 1,
+				StyleRole = Qt::UserRole + 2
+			};
 
 			TextureHelper(QGraphicsScene* scene);
 
 			int currentIndex() const;
 		public Q_SLOTS:
 			void setCurrentIndex(int index);
+			void setSolidColor(const QColor& color);
 		private:
 			static QPixmap render(const QString& fileName);
 
