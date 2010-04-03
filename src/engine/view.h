@@ -24,7 +24,7 @@
 namespace Palapeli
 {
 	class ConstraintVisualizer;
-	class Interactor;
+	class InteractorManager;
 	class Scene;
 	class TextureHelper;
 
@@ -61,7 +61,7 @@ namespace Palapeli
 			void puzzleStarted();
 			void startVictoryAnimation();
 		private:
-			QList<Palapeli::Interactor*> m_interactors;
+			Palapeli::InteractorManager* m_interactorManager;
 			Palapeli::Scene* m_scene;
 			Palapeli::ConstraintVisualizer* m_constraintVisualizer;
 			Palapeli::TextureHelper* m_txHelper;

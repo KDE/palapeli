@@ -18,24 +18,21 @@
 
 #include "view.h"
 #include "constraintvisualizer.h"
+#include "interactormanager.h"
 #include "scene.h"
-#include "settings.h"
 #include "texturehelper.h"
 
 #include <cmath>
 #include <QPropertyAnimation>
-#include <QScrollBar>
-#include <QWheelEvent>
 #include <KLocalizedString>
 #include <KMessageBox>
 
 const int Palapeli::View::MinimumZoomLevel = 0;
 const int Palapeli::View::MaximumZoomLevel = 200;
 
-#include "interactors.h"
-
 Palapeli::View::View()
-	: m_scene(new Palapeli::Scene(this))
+	: m_interactorManager(0) //should not be initialized before scene has been set (some interactors may rely on the availability of a scene)
+	, m_scene(new Palapeli::Scene(this))
 	, m_constraintVisualizer(0) //cannot be initialized before scene has been set
 	, m_txHelper(new Palapeli::TextureHelper(m_scene))
 	, m_zoomLevel(100)
@@ -45,19 +42,10 @@ Palapeli::View::View()
 	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 	setScene(m_scene);
 	m_constraintVisualizer = new Palapeli::ConstraintVisualizer(this);
+	m_interactorManager = new Palapeli::InteractorManager(this);
 	connect(m_scene, SIGNAL(constrainedChanged(bool)), m_constraintVisualizer, SLOT(setActive(bool)));
 	connect(m_scene, SIGNAL(puzzleStarted()), this, SLOT(puzzleStarted()));
 	connect(m_scene, SIGNAL(victoryAnimationFinished()), this, SLOT(startVictoryAnimation()));
-	//DEBUG
-	m_interactors << new Palapeli::MoveViewportInteractor(this);
-	m_interactors << new Palapeli::ZoomViewportInteractor(this);
-	m_interactors << new Palapeli::RubberBandInteractor(this);
-	m_interactors[0]->setTriggerButton(Qt::RightButton);
-	m_interactors[0]->setTriggerModifiers(Qt::NoModifier);
-	m_interactors[1]->setTriggerOrientations(Qt::Vertical);
-	m_interactors[1]->setTriggerModifiers(Qt::NoModifier);
-	m_interactors[2]->setTriggerButton(Qt::LeftButton);
-	m_interactors[2]->setTriggerModifiers(Qt::NoModifier);
 }
 
 Palapeli::View::~View()
@@ -88,46 +76,26 @@ void Palapeli::View::setViewportRect(const QRectF& viewportRect)
 
 void Palapeli::View::mouseMoveEvent(QMouseEvent* event)
 {
-	foreach (Palapeli::Interactor* interactor, m_interactors)
-		if (interactor->handleMouseEvent(event))
-		{
-			event->accept();
-			return;
-		}
-	QGraphicsView::mouseMoveEvent(event);
+	if (!m_interactorManager->handleMouseEvent(event))
+		QGraphicsView::mouseMoveEvent(event);
 }
 
 void Palapeli::View::mousePressEvent(QMouseEvent* event)
 {
-	foreach (Palapeli::Interactor* interactor, m_interactors)
-		if (interactor->handleMouseEvent(event))
-		{
-			event->accept();
-			return;
-		}
-	QGraphicsView::mousePressEvent(event);
+	if (!m_interactorManager->handleMouseEvent(event))
+		QGraphicsView::mousePressEvent(event);
 }
 
 void Palapeli::View::mouseReleaseEvent(QMouseEvent* event)
 {
-	foreach (Palapeli::Interactor* interactor, m_interactors)
-		if (interactor->handleMouseEvent(event))
-		{
-			event->accept();
-			return;
-		}
-	QGraphicsView::mouseReleaseEvent(event);
+	if (!m_interactorManager->handleMouseEvent(event))
+		QGraphicsView::mouseReleaseEvent(event);
 }
 
 void Palapeli::View::wheelEvent(QWheelEvent* event)
 {
-	foreach (Palapeli::Interactor* interactor, m_interactors)
-		if (interactor->handleWheelEvent(event))
-		{
-			event->accept();
-			return;
-		}
-	QGraphicsView::wheelEvent(event);
+	if (!m_interactorManager->handleWheelEvent(event))
+		QGraphicsView::wheelEvent(event);
 }
 
 void Palapeli::View::zoomBy(int delta)

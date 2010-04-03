@@ -8,6 +8,7 @@ set(palapeli_SRCS
 	engine/constraintvisualizer.cpp
 	engine/interactor.cpp
 	engine/interactors.cpp
+	engine/interactormanager.cpp
 	engine/part.cpp
 	engine/piece.cpp
 	engine/scene.cpp
