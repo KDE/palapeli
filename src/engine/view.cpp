@@ -32,14 +32,15 @@
 const int Palapeli::View::MinimumZoomLevel = 0;
 const int Palapeli::View::MaximumZoomLevel = 200;
 
+#include "interactors.h"
+
 Palapeli::View::View()
 	: m_scene(new Palapeli::Scene(this))
 	, m_constraintVisualizer(0) //cannot be initialized before scene has been set
 	, m_txHelper(new Palapeli::TextureHelper(m_scene))
 	, m_zoomLevel(100)
 {
-	setDragMode(QGraphicsView::RubberBandDrag);
-	setRubberBandSelectionMode(Qt::ContainsItemBoundingRect);
+	setMouseTracking(true);
 	setResizeAnchor(QGraphicsView::AnchorUnderMouse);
 	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 	setScene(m_scene);
@@ -47,6 +48,16 @@ Palapeli::View::View()
 	connect(m_scene, SIGNAL(constrainedChanged(bool)), m_constraintVisualizer, SLOT(setActive(bool)));
 	connect(m_scene, SIGNAL(puzzleStarted()), this, SLOT(puzzleStarted()));
 	connect(m_scene, SIGNAL(victoryAnimationFinished()), this, SLOT(startVictoryAnimation()));
+	//DEBUG
+	m_interactors << new Palapeli::MoveViewportInteractor(this);
+	m_interactors << new Palapeli::ZoomViewportInteractor(this);
+	m_interactors << new Palapeli::RubberBandInteractor(this);
+	m_interactors[0]->setTriggerButton(Qt::RightButton);
+	m_interactors[0]->setTriggerModifiers(Qt::NoModifier);
+	m_interactors[1]->setTriggerOrientations(Qt::Vertical);
+	m_interactors[1]->setTriggerModifiers(Qt::NoModifier);
+	m_interactors[2]->setTriggerButton(Qt::LeftButton);
+	m_interactors[2]->setTriggerModifiers(Qt::NoModifier);
 }
 
 Palapeli::View::~View()
@@ -75,41 +86,48 @@ void Palapeli::View::setViewportRect(const QRectF& viewportRect)
 	fitInView(viewportRect, Qt::KeepAspectRatio);
 }
 
-void Palapeli::View::mousePressEvent(QMouseEvent* event)
-{
-	if (event->button() == Qt::RightButton)
-	{
-		if (!(event->buttons() & Qt::LeftButton))
-			setDragMode(QGraphicsView::NoDrag); //we need to deactivate the rubberband during our own mouse events
-		m_dragPrevPos = event->globalPos();
-	}
-	else
-		QGraphicsView::mousePressEvent(event);
-}
-
 void Palapeli::View::mouseMoveEvent(QMouseEvent* event)
 {
+	foreach (Palapeli::Interactor* interactor, m_interactors)
+		if (interactor->handleMouseEvent(event))
+		{
+			event->accept();
+			return;
+		}
 	QGraphicsView::mouseMoveEvent(event);
-	if (event->buttons() & Qt::RightButton)
-	{
-		//move viewport
-		const QPointF delta = event->globalPos() - m_dragPrevPos;
-		horizontalScrollBar()->setValue(horizontalScrollBar()->value() + (isRightToLeft() ? delta.x() : -delta.x()));
-		verticalScrollBar()->setValue(verticalScrollBar()->value() - delta.y());
-		//store mouse position for next event
-		m_dragPrevPos = event->globalPos();
-	}
+}
+
+void Palapeli::View::mousePressEvent(QMouseEvent* event)
+{
+	foreach (Palapeli::Interactor* interactor, m_interactors)
+		if (interactor->handleMouseEvent(event))
+		{
+			event->accept();
+			return;
+		}
+	QGraphicsView::mousePressEvent(event);
 }
 
 void Palapeli::View::mouseReleaseEvent(QMouseEvent* event)
 {
+	foreach (Palapeli::Interactor* interactor, m_interactors)
+		if (interactor->handleMouseEvent(event))
+		{
+			event->accept();
+			return;
+		}
 	QGraphicsView::mouseReleaseEvent(event);
-	setDragMode(QGraphicsView::RubberBandDrag); //reactivate rubberband; it might have been disabled in mousePressEvent
 }
 
 void Palapeli::View::wheelEvent(QWheelEvent* event)
 {
-	zoomBy(event->delta());
+	foreach (Palapeli::Interactor* interactor, m_interactors)
+		if (interactor->handleWheelEvent(event))
+		{
+			event->accept();
+			return;
+		}
+	QGraphicsView::wheelEvent(event);
 }
 
 void Palapeli::View::zoomBy(int delta)

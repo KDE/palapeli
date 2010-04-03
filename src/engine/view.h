@@ -24,6 +24,7 @@
 namespace Palapeli
 {
 	class ConstraintVisualizer;
+	class Interactor;
 	class Scene;
 	class TextureHelper;
 
@@ -49,8 +50,8 @@ namespace Palapeli
 			void zoomBy(int delta); //delta = 0 -> no change, delta < 0 -> zoom out, delta > 0 -> zoom in
 			void zoomTo(int level); //level = 100 -> actual size
 		protected:
-			virtual void mousePressEvent(QMouseEvent* event);
 			virtual void mouseMoveEvent(QMouseEvent* event);
+			virtual void mousePressEvent(QMouseEvent* event);
 			virtual void mouseReleaseEvent(QMouseEvent* event);
 			virtual void wheelEvent(QWheelEvent* event);
 		Q_SIGNALS:
@@ -60,6 +61,7 @@ namespace Palapeli
 			void puzzleStarted();
 			void startVictoryAnimation();
 		private:
+			QList<Palapeli::Interactor*> m_interactors;
 			Palapeli::Scene* m_scene;
 			Palapeli::ConstraintVisualizer* m_constraintVisualizer;
 			Palapeli::TextureHelper* m_txHelper;
