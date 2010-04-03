@@ -181,11 +181,11 @@ void Palapeli::MainWindow::configurePalapeli()
 	Ui::Settings settingsUi; settingsUi.setupUi(settingsWidget);
 	//NOTE: It is intentional that the widget "cfg_ViewBackground" is _not_ called "kcfg_ViewBackground". KConfigDialog's config handling would mess things up if it was used in this case.
 	settingsUi.cfg_ViewBackground->setModel(m_puzzleTable->view()->textureHelper());
+	connect(settingsUi.cfg_ViewBackground, SIGNAL(currentIndexChanged(int)), this, SLOT(configure_TextureChanged(int)));
+	connect(this, SIGNAL(configure_ColorEnabledChanged(bool)), settingsUi.kcfg_ViewBackgroundColor, SLOT(setEnabled(bool)));
 	settingsUi.cfg_ViewBackground->setCurrentIndex(m_puzzleTable->view()->textureHelper()->currentIndex());
 	connect(settingsUi.cfg_ViewBackground, SIGNAL(currentIndexChanged(int)), m_puzzleTable->view()->textureHelper(), SLOT(setCurrentIndex(int)));
-	connect(settingsUi.cfg_ViewBackground, SIGNAL(currentIndexChanged(int)), this, SLOT(configure_TextureChanged(int)));
 	connect(settingsUi.kcfg_ViewBackgroundColor, SIGNAL(changed(QColor)), m_puzzleTable->view()->textureHelper(), SLOT(setSolidColor(QColor)));
-	connect(this, SIGNAL(configure_ColorEnabledChanged(bool)), settingsUi.kcfg_ViewBackgroundColor, SLOT(setEnabled(bool)));
 	//setup dialog
 	KConfigDialog settingsDialog(this, QString(), Settings::self());
 	settingsDialog.addPage(settingsWidget, i18n("General settings"))->setIcon(KIcon("configure"));
@@ -201,7 +201,6 @@ void Palapeli::MainWindow::configure_TextureChanged(int index)
 		return;
 	const QString selectedStyle = backgroundBox->itemData(index, Palapeli::TextureHelper::StyleRole).toString();
 	emit configure_ColorEnabledChanged(selectedStyle == "color");
-	
 }
 
 #include "mainwindow.moc"
