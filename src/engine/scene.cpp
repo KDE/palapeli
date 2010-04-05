@@ -213,12 +213,12 @@ void Palapeli::Scene::loadNextPiece()
 		if (contents->pieces.size() > m_pieces.size())
 			QTimer::singleShot(0, this, SLOT(loadNextPiece()));
 		else
-			QTimer::singleShot(0, this, SLOT(finishLoading()));
+			QTimer::singleShot(0, this, SLOT(loadPiecePositions()));
 		return;
 	}
 }
 
-void Palapeli::Scene::finishLoading()
+void Palapeli::Scene::loadPiecePositions()
 {
 	if (!m_puzzle)
 		return;
@@ -280,11 +280,31 @@ void Palapeli::Scene::finishLoading()
 			}
 		}
 	}
+	//continue after eventloop run
+	QTimer::singleShot(0, this, SLOT(createShadowForNextPiece()));
+}
+
+void Palapeli::Scene::createShadowForNextPiece()
+{
+	foreach (Palapeli::Piece* piece, m_pieces)
+	{
+		if (!piece->hasShadow())
+		{
+			//found a piece without shadow
+			piece->createShadow();
+			//continue with next piece after eventloop run
+			QTimer::singleShot(0, this, SLOT(createShadowForNextPiece()));
+			return;
+		}
+	}
+	//no pieces without shadow left
+	finishLoading();
+}
+
+void Palapeli::Scene::finishLoading()
+{
 	//determine scene rect
 	setSceneRect(piecesBoundingRect());
-	//enable shadows
-	foreach (Palapeli::Piece* piece, m_pieces)
-		piece->createShadow(); //TODO: some eventloop runs during this operation might be helpful
 	//initialize external progress display
 	m_atomicPieceCount = m_loadedPieces.count();
 	emit reportProgress(m_atomicPieceCount, m_pieces.count());

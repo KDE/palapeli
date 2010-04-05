@@ -52,6 +52,11 @@ void Palapeli::Piece::createShadow()
 		createShadowItems(Palapeli::createShadow(pieceVisuals(), m_atomicSize));
 }
 
+bool Palapeli::Piece::hasShadow() const
+{
+	return (bool) m_inactiveShadowItem;
+}
+
 void Palapeli::Piece::createShadowItems(const Palapeli::PieceVisuals& shadowVisuals)
 {
 	const QColor activeShadowColor = QApplication::palette().color(QPalette::Highlight);

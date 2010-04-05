@@ -43,6 +43,7 @@ namespace Palapeli
 			QRectF bareBoundingRect() const;
 			QRectF sceneBareBoundingRect() const;
 			Palapeli::PieceVisuals pieceVisuals() const;
+			bool hasShadow() const;
 			Palapeli::PieceVisuals shadowVisuals() const;
 
 			bool isSelected() const;
