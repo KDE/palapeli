@@ -17,7 +17,7 @@
 ***************************************************************************/
 
 #include "mergegroup.h"
-#include "newpiece.h"
+#include "piece.h"
 #include "settings.h"
 
 #include <QGraphicsScene>

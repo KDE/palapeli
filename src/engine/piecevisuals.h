@@ -16,8 +16,8 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_NEWPIECEVISUALS_H
-#define PALAPELI_NEWPIECEVISUALS_H
+#ifndef PALAPELI_PIECEVISUALS_H
+#define PALAPELI_PIECEVISUALS_H
 
 #include <QPixmap>
 
@@ -36,4 +36,4 @@ namespace Palapeli
 	Palapeli::PieceVisuals mergeVisuals(const QList<Palapeli::PieceVisuals>& visuals);
 }
 
-#endif // PALAPELI_NEWPIECEVISUALS_H
+#endif // PALAPELI_PIECEVISUALS_H

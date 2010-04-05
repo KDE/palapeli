@@ -19,10 +19,10 @@
 #include "scene.h"
 #include "constraintvisualizer.h"
 #include "mergegroup.h"
-#include "newpiece.h"
+#include "piece.h"
+#include "settings.h"
 #include "../file-io/collection.h"
 #include "../file-io/puzzle.h"
-#include "settings.h"
 
 #include <cmath>
 #include <QFile>
