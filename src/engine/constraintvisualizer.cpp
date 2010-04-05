@@ -165,17 +165,19 @@ void Palapeli::ConstraintVisualizer::mouseMoveEvent(QGraphicsSceneMouseEvent* ev
 		return;
 	m_lastScreenPos = event->screenPos();
 	//modify scene rect
+	QRectF newSceneRect = m_sceneRect;
 	const QPointF pos = event->scenePos();
 	const QPointF posDiff = event->scenePos() - event->lastScenePos();
 	if (m_draggingSides.contains(LeftSide))
-		m_sceneRect.setLeft(m_sceneRect.left() + posDiff.x());
+		newSceneRect.setLeft(m_sceneRect.left() + posDiff.x());
 	if (m_draggingSides.contains(RightSide))
-		m_sceneRect.setRight(m_sceneRect.right() + posDiff.x());
+		newSceneRect.setRight(m_sceneRect.right() + posDiff.x());
 	if (m_draggingSides.contains(TopSide))
-		m_sceneRect.setTop(m_sceneRect.top() + posDiff.y());
+		newSceneRect.setTop(m_sceneRect.top() + posDiff.y());
 	if (m_draggingSides.contains(BottomSide))
-		m_sceneRect.setBottom(m_sceneRect.bottom() + posDiff.y());
-	m_scene->setSceneRect(m_sceneRect | m_scene->partsBoundingRect());
+		newSceneRect.setBottom(m_sceneRect.bottom() + posDiff.y());
+	newSceneRect |= m_scene->partsBoundingRect();
+	m_scene->setSceneRect(newSceneRect);
 }
 
 #include "constraintvisualizer.moc"
