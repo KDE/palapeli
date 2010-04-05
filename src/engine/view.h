@@ -34,7 +34,6 @@ namespace Palapeli
 			Q_PROPERTY(QRectF viewportRect READ viewportRect WRITE setViewportRect)
 		public:
 			View();
-			virtual ~View();
 
 			Palapeli::Scene* scene() const;
 			Palapeli::TextureHelper* textureHelper() const;

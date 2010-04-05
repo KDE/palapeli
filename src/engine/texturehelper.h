@@ -33,17 +33,19 @@ namespace Palapeli
 				StyleRole = Qt::UserRole + 2
 			};
 
-			TextureHelper(QGraphicsScene* scene);
+			TextureHelper(QObject* parent = 0);
 
 			int currentIndex() const;
 		public Q_SLOTS:
 			void setCurrentIndex(int index);
+			void setScene(QGraphicsScene* scene);
 			void setSolidColor(const QColor& color);
 		private:
 			static QPixmap render(const QString& fileName);
 
 			QGraphicsScene* m_scene;
 			int m_currentIndex;
+			QBrush m_currentBrush;
 
 			static const QSize DefaultThumbnailSize;
 			static const QSize DefaultPixmapSize;

@@ -48,8 +48,9 @@ QPixmap Palapeli::TextureHelper::render(const QString& fileName)
 	return pixmap;
 }
 
-Palapeli::TextureHelper::TextureHelper(QGraphicsScene* scene)
-	: m_scene(scene)
+Palapeli::TextureHelper::TextureHelper(QObject* parent)
+	: QStandardItemModel(parent)
+	, m_scene(0)
 	, m_currentIndex(-1)
 {
 	const QString selectedStyle = Settings::viewBackgroundStyle();
@@ -103,20 +104,33 @@ void Palapeli::TextureHelper::setCurrentIndex(int index)
 	if (index == 0)
 	{
 		const QColor color = item(index)->data(BrushRole).value<QColor>();
-		m_scene->setBackgroundBrush(item(index)->data(BrushRole).value<QColor>());
+		m_currentBrush = color;
+		if (m_scene)
+			m_scene->setBackgroundBrush(m_currentBrush);
 		//write config
 		Settings::setViewBackgroundColor(color);
 		Settings::setViewBackgroundStyle("color");
 	}
 	else
 	{
-		m_scene->setBackgroundBrush(item(index)->data(BrushRole).value<QPixmap>());
+		m_currentBrush = item(index)->data(BrushRole).value<QPixmap>();
+		if (m_scene)
+			m_scene->setBackgroundBrush(m_currentBrush);
 		//write config
 		const QString key = item(index)->data(Qt::DisplayRole).toString();
 		Settings::setViewBackground(key);
 		Settings::setViewBackgroundStyle("texture");
 	}
 	Settings::self()->writeConfig();
+}
+
+void Palapeli::TextureHelper::setScene(QGraphicsScene* scene)
+{
+	if (m_scene == scene)
+		return;
+	m_scene = scene;
+	if (m_scene)
+		m_scene->setBackgroundBrush(m_currentBrush);
 }
 
 void Palapeli::TextureHelper::setSolidColor(const QColor& color)
