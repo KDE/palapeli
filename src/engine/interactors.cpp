@@ -120,13 +120,24 @@ Palapeli::RubberBandInteractor::RubberBandInteractor(QGraphicsView* view)
 	: Palapeli::Interactor(Palapeli::MouseInteractor, view)
 	, m_item(new Palapeli::RubberBandItem)
 {
-	view->scene()->addItem(m_item);
-	m_item->hide();
+	if (scene())
+		scene()->addItem(m_item);
+	m_item->hide(); //NOTE: This is not necessary for the painting, but we use m_item->isVisible() to determine whether we are rubberbanding at the moment.
 }
 
 Palapeli::RubberBandInteractor::~RubberBandInteractor()
 {
 	delete m_item;
+}
+
+void Palapeli::RubberBandInteractor::sceneChangeEvent(QGraphicsScene* oldScene, QGraphicsScene* newScene)
+{
+	const bool isVisible = m_item->isVisible();
+	if (oldScene)
+		oldScene->removeItem(m_item);
+	if (newScene)
+		newScene->addItem(m_item);
+	m_item->setVisible(isVisible); //just to be sure that the scene change does not break the visibility setting
 }
 
 bool Palapeli::RubberBandInteractor::acceptItemUnderMouse(QGraphicsItem* item)

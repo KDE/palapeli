@@ -60,6 +60,13 @@ Palapeli::InteractorManager::InteractorManager(QGraphicsView* view)
 	}
 }
 
+void Palapeli::InteractorManager::setScene(QGraphicsScene* scene)
+{
+	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = m_interactors.begin(), it2 = m_interactors.end();
+	for (; it1 != it2; ++it1)
+		it1.value()->setScene(scene);
+}
+
 bool Palapeli::InteractorManager::handleMouseEvent(QMouseEvent* event)
 {
 	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = m_interactors.begin(), it2 = m_interactors.end();

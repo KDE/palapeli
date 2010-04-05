@@ -59,13 +59,17 @@ namespace Palapeli
 			Qt::Orientations triggerOrientations() const;
 			void setTriggerOrientations(Qt::Orientations orientations);
 
+			void setScene(QGraphicsScene* scene);
+
 			//NOTE: For reasons which I do not know, implementing these interactors via QObject::eventFilter does not work.
 			bool handleMouseEvent(QMouseEvent* event);
 			bool handleWheelEvent(QWheelEvent* event);
 		protected:
+			///\warning You may not expect at this point that the \a view has a scene assigned to it.
 			Interactor(Palapeli::InteractorType type, QGraphicsView* view);
 
 			QGraphicsView* view() const;
+			QGraphicsScene* scene() const;
 
 			///This method is always called shortly before an event is delivered to the interactor. The parameter \a item is the item currently under the mouse, or 0 if there is no such item. Return false to abort event processing in this interactor, and forward the event to that item instead. The default implementation returns true, indicating that the interactor handles all events, regardless of the items on the scene.
 			///NOTE: For mouse interactors, those items that do not accept the interactor's trigger button are ignored.
@@ -77,9 +81,12 @@ namespace Palapeli
 			virtual void mousePressEvent(const Palapeli::InteractorMouseEvent& event);
 			virtual void mouseReleaseEvent(const Palapeli::InteractorMouseEvent& event);
 			virtual void wheelEvent(const Palapeli::InteractorWheelEvent& event);
+			///This method is called whenever the view() changes its scene. Both parameters may be null pointers, indicating that the view had no scene up to now, or that the view will have no scene after this operation.
+			virtual void sceneChangeEvent(QGraphicsScene* oldScene, QGraphicsScene* newScene);
 		private:
 			Palapeli::InteractorType m_type;
 			QGraphicsView* m_view;
+			QGraphicsScene* m_scene;
 			Qt::KeyboardModifiers m_triggerModifiers;
 			Qt::MouseButton m_triggerButton;
 			Qt::Orientations m_triggerOrientations;

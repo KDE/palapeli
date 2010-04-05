@@ -30,7 +30,7 @@ const int Palapeli::View::MinimumZoomLevel = 0;
 const int Palapeli::View::MaximumZoomLevel = 200;
 
 Palapeli::View::View()
-	: m_interactorManager(0) //should not be initialized before scene has been set (some interactors may rely on the availability of a scene)
+	: m_interactorManager(new Palapeli::InteractorManager(this))
 	, m_scene(new Palapeli::Scene(this))
 	, m_txHelper(new Palapeli::TextureHelper(this))
 	, m_zoomLevel(100)
@@ -39,8 +39,8 @@ Palapeli::View::View()
 	setResizeAnchor(QGraphicsView::AnchorUnderMouse);
 	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 	setScene(m_scene);
+	m_interactorManager->setScene(m_scene);
 	m_txHelper->setScene(m_scene);
-	m_interactorManager = new Palapeli::InteractorManager(this);
 	connect(m_scene, SIGNAL(puzzleStarted()), this, SLOT(puzzleStarted()));
 	connect(m_scene, SIGNAL(victoryAnimationFinished()), this, SLOT(startVictoryAnimation()));
 }

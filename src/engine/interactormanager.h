@@ -19,6 +19,7 @@
 #ifndef PALAPELI_INTERACTORMANAGER_H
 #define PALAPELI_INTERACTORMANAGER_H
 
+class QGraphicsScene;
 class QGraphicsView;
 #include <QMap>
 class QMouseEvent;
@@ -36,6 +37,8 @@ namespace Palapeli
 
 			bool handleMouseEvent(QMouseEvent* event);
 			bool handleWheelEvent(QWheelEvent* event);
+
+			void setScene(QGraphicsScene* scene);
 		private:
 			QMap<QByteArray, QList<int> > m_defaultConfiguration;
 			QMap<QByteArray, Palapeli::Interactor*> m_interactors;

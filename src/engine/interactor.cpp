@@ -40,6 +40,7 @@ Palapeli::InteractorWheelEvent::InteractorWheelEvent(QGraphicsView* view, const 
 Palapeli::Interactor::Interactor(Palapeli::InteractorType type, QGraphicsView* view)
 	: m_type(type)
 	, m_view(view)
+	, m_scene(view->scene())
 {
 }
 
@@ -53,6 +54,20 @@ Palapeli::InteractorType Palapeli::Interactor::type() const
 QGraphicsView* Palapeli::Interactor::view() const
 {
 	return m_view;
+}
+
+QGraphicsScene* Palapeli::Interactor::scene() const
+{
+	return m_scene;
+}
+
+void Palapeli::Interactor::setScene(QGraphicsScene* scene)
+{
+	if (m_scene == scene)
+		return;
+	QGraphicsScene* oldScene = m_scene;
+	m_scene = scene;
+	sceneChangeEvent(oldScene, scene);
 }
 
 Qt::KeyboardModifiers Palapeli::Interactor::triggerModifiers() const
@@ -188,6 +203,12 @@ void Palapeli::Interactor::mouseReleaseEvent(const Palapeli::InteractorMouseEven
 void Palapeli::Interactor::wheelEvent(const Palapeli::InteractorWheelEvent& event)
 {
 	Q_UNUSED(event)
+}
+
+void Palapeli::Interactor::sceneChangeEvent(QGraphicsScene* oldScene, QGraphicsScene* newScene)
+{
+	Q_UNUSED(oldScene)
+	Q_UNUSED(newScene)
 }
 
 //END empty base class implementations

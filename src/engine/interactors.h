@@ -61,6 +61,7 @@ namespace Palapeli
 			RubberBandInteractor(QGraphicsView* view);
 			virtual ~RubberBandInteractor();
 		protected:
+			virtual void sceneChangeEvent(QGraphicsScene* oldScene, QGraphicsScene* newScene);
 			virtual bool acceptItemUnderMouse(QGraphicsItem* item);
 			virtual void mousePressEvent(const Palapeli::InteractorMouseEvent& event);
 			virtual void mouseMoveEvent(const Palapeli::InteractorMouseEvent& event);
