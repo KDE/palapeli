@@ -31,16 +31,14 @@ const int Palapeli::View::MaximumZoomLevel = 200;
 
 Palapeli::View::View()
 	: m_interactorManager(new Palapeli::InteractorManager(this))
-	, m_scene(new Palapeli::Scene(this))
+	, m_scene(0)
 	, m_txHelper(new Palapeli::TextureHelper(this))
 	, m_zoomLevel(100)
 {
 	setMouseTracking(true);
 	setResizeAnchor(QGraphicsView::AnchorUnderMouse);
 	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
-	setScene(m_scene);
-	m_interactorManager->setScene(m_scene);
-	m_txHelper->setScene(m_scene);
+	setScene(new Palapeli::Scene(this));
 	connect(m_scene, SIGNAL(puzzleStarted()), this, SLOT(puzzleStarted()));
 	connect(m_scene, SIGNAL(victoryAnimationFinished()), this, SLOT(startVictoryAnimation()));
 }
@@ -48,6 +46,18 @@ Palapeli::View::View()
 Palapeli::Scene* Palapeli::View::scene() const
 {
 	return m_scene;
+}
+
+void Palapeli::View::setScene(Palapeli::Scene* scene)
+{
+	if (m_scene == scene)
+		return;
+	m_scene = scene;
+	this->QGraphicsView::setScene(m_scene);
+	m_interactorManager->setScene(m_scene);
+	m_txHelper->setScene(m_scene);
+	//reset zoom level (TODO: store viewport geometry in Scene)
+	zoomTo(100);
 }
 
 Palapeli::TextureHelper* Palapeli::View::textureHelper() const
