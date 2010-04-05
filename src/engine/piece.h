@@ -35,7 +35,7 @@ namespace Palapeli
 		Q_PROPERTY(qreal activeShadowOpacity READ activeShadowOpacity WRITE setActiveShadowOpacity)
 		public:
 			///This constructor creates a piece without a shadow, unless a shadow is provided explicitly.
-			Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals = Palapeli::PieceVisuals());
+			explicit Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals = Palapeli::PieceVisuals());
 			///This method will create a shadow for this piece if there is none ATM.
 			void createShadow();
 

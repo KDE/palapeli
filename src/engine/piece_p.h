@@ -29,7 +29,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			SelectionAwarePixmapItem(const QPixmap& pixmap, QGraphicsItem* parent = 0)
+			explicit SelectionAwarePixmapItem(const QPixmap& pixmap, QGraphicsItem* parent = 0)
 				: QGraphicsPixmapItem(pixmap, parent)
 			{
 			}
