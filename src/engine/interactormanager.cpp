@@ -86,6 +86,11 @@ bool Palapeli::InteractorManager::handleEvent(QMouseEvent* event)
 			matchingTriggers.removeAt(i--); //decrement because another trigger is at this index after the removeAt()
 	//convert event
 	Palapeli::MouseEvent pEvent(m_view, event->pos());
+	//save button state (this information is needed for key events *following* this event, but not available from them)
+	m_buttons = event->buttons();
+	if (event->type() != QEvent::MouseButtonRelease)
+		m_buttons |= event->button();
+	m_mousePos = event->pos();
 	//find all keys which need to be handled
 	QMap<Qt::MouseButton, QEvent::Type> unhandledButtons;
 	switch (event->type())
@@ -93,7 +98,7 @@ bool Palapeli::InteractorManager::handleEvent(QMouseEvent* event)
 		case QEvent::MouseButtonPress:
 		case QEvent::MouseButtonRelease:
 			unhandledButtons.insert(event->button(), event->type());
-			//FALL THROUGH (We need to interpret press/release events as move events for all other buttons, in order to keep the active triggers
+			//FALL THROUGH (We need to interpret press/release events as move events for all other buttons, in order to keep the active triggers.)
 		case QEvent::MouseMove:
 			foreach (Qt::MouseButton button, Palapeli::analyzeFlags(event->buttons()))
 				if (!unhandledButtons.contains(button))
@@ -103,6 +108,51 @@ bool Palapeli::InteractorManager::handleEvent(QMouseEvent* event)
 		default:
 			return false;
 	}
+	//further processing in a method which is shared with the KeyEvent handler
+	handleMouseEvent(pEvent, matchingTriggers, unhandledButtons);
+	//finish processing
+	unhandledButtons.remove(Qt::NoButton); //this was just a help to simplify the algorithm
+	//HACK: The QGraphicsView needs to know about mouseMoveEvents because of QGraphicsView::transformationAnchor and QGraphicsView::resizeAnchor.
+	if (event->type() == QEvent::MouseMove)
+		return false;
+	else
+		return unhandledButtons.isEmpty(); //filter the event if all buttons have been handled FIXME: This is too easy. The proper solution would be to rewrite the mouse event which is delivered to QGV::mouse*Event().
+}
+
+//TODO: an interactor with very high priority (not as high as active triggers, but higher than all others) that propagates mouse events to items under the mouse that accept that mouse button
+
+/*
+ * We also need to process KeyPress and KeyRelease events for all triggers with
+ * NoButton and NoOrientation. The MousePress-MouseMove-...-MouseRelease event
+ * series becomes KeyPress-MouseMove-...-KeyRelease in this case (where KeyPress
+ * and KeyRelease are for modifiers).
+ */
+bool Palapeli::InteractorManager::handleEvent(QKeyEvent* event)
+{
+	//determine all triggers which are activated by this event
+	QList<Palapeli::AssociatedInteractorTrigger> matchingTriggers(m_triggers);
+	for (int i = 0; i < matchingTriggers.size(); ++i)
+		if (!testTrigger(matchingTriggers[i].first, event))
+			matchingTriggers.removeAt(i--); //decrement because another trigger is at this index after the removeAt()
+	//convert event
+	Palapeli::MouseEvent pEvent(m_view, m_mousePos);
+	//find all keys which need to be handled
+	QMap<Qt::MouseButton, QEvent::Type> unhandledButtons;
+	foreach (Qt::MouseButton button, Palapeli::analyzeFlags(m_buttons))
+		unhandledButtons.insert(button, event->type());
+	unhandledButtons.insert(Qt::NoButton, event->type());
+	//further processing in a method which is shared with the KeyEvent handler
+	handleMouseEvent(pEvent, matchingTriggers, unhandledButtons);
+	//finish processing
+	unhandledButtons.remove(Qt::NoButton); //this was just a help to simplify the algorithm
+	return false; //we never filter these events
+}
+
+/*
+ * This is the common base for handleEvent(QMouseEvent*) and handleEvent(QKeyEvent*).
+ */
+void Palapeli::InteractorManager::handleMouseEvent(const Palapeli::MouseEvent& pEvent, QList<Palapeli::AssociatedInteractorTrigger>& matchingTriggers, QMap<Qt::MouseButton, QEvent::Type>& unhandledButtons)
+{
 	//try to use active triggers where possible
 	QList<Palapeli::AssociatedInteractorTrigger> activeTriggersCopy(m_activeTriggers);
 	foreach (const Palapeli::AssociatedInteractorTrigger& activeTrigger, activeTriggersCopy)
@@ -121,8 +171,13 @@ bool Palapeli::InteractorManager::handleEvent(QMouseEvent* event)
 			if (triggerButton != Qt::NoButton)
 				unhandledButtons.remove(triggerButton);
 		}
-		if (!keepTrigger || eventType == QEvent::MouseButtonRelease)
+		if (eventType == QEvent::MouseButtonRelease)
 			m_activeTriggers.removeAll(activeTrigger);
+		else if (!keepTrigger)
+		{
+			activeTrigger.second->handleEvent(pEvent, QEvent::MouseButtonRelease);
+			m_activeTriggers.removeAll(activeTrigger);
+		}
 		matchingTriggers.removeAll(activeTrigger); //no need to check this trigger again below
 	}
 	//try to find matching triggers for those buttons that have not been handled by the active triggers, and make these triggers active
@@ -146,25 +201,6 @@ bool Palapeli::InteractorManager::handleEvent(QMouseEvent* event)
 			m_activeTriggers << trigger;
 		}
 	}
-	unhandledButtons.remove(Qt::NoButton); //this was just a help to simplify the algorithm
-	//HACK: The QGraphicsView needs to know about mouseMoveEvents because of QGraphicsView::transformationAnchor and QGraphicsView::resizeAnchor.
-	if (event->type() == QEvent::MouseMove)
-		return false;
-	else
-		return unhandledButtons.isEmpty(); //filter the event if all buttons have been handled FIXME: This is too easy. The proper solution would be to rewrite the mouse event which is delivered to QGV::mouse*Event().
-}
-
-//TODO: an interactor with very high priority (not as high as active triggers, but higher than all others) that propagates mouse events to items under the mouse that accept that mouse button
-
-/*
- * We also need to process KeyPress and KeyRelease events for all triggers with
- * NoButton and NoOrientation. The MousePress-MouseMove-...-MouseRelease event
- * series becomes KeyPress-MouseMove-...-KeyRelease in this case (where KeyPress
- * and KeyRelease are for modifiers).
- */
-bool Palapeli::InteractorManager::handleEvent(QKeyEvent* event)
-{
-	return false; //TODO (NOTE: m_keyModifierMap[event->key()])
 }
 
 bool Palapeli::InteractorManager::testTrigger(const Palapeli::InteractorTrigger& trigger, QWheelEvent* event)
@@ -178,7 +214,9 @@ bool Palapeli::InteractorManager::testTrigger(const Palapeli::InteractorTrigger&
 {
 	if (trigger.wheelDirection() != 0 || trigger.modifiers() != event->modifiers())
 		return false;
-	if (event->type() == QEvent::MouseMove)
+	if (trigger.button() == Qt::NoButton)
+		return true;
+	else if (event->type() == QEvent::MouseMove)
 		return event->buttons() & trigger.button();
 	else
 		return (event->button() | event->buttons()) & trigger.button();
@@ -186,7 +224,13 @@ bool Palapeli::InteractorManager::testTrigger(const Palapeli::InteractorTrigger&
 
 bool Palapeli::InteractorManager::testTrigger(const Palapeli::InteractorTrigger& trigger, QKeyEvent* event)
 {
-	return trigger.modifiers() == event->modifiers()
+	//read modifiers
+	Qt::KeyboardModifiers modifiers = event->modifiers();
+	const Qt::Key key = (Qt::Key) event->key();
+	if (m_keyModifierMap.contains(key))
+		modifiers |= m_keyModifierMap[key];
+	//checking
+	return trigger.modifiers() == modifiers
 		&& trigger.button() == Qt::NoButton
 		&& trigger.wheelDirection() == 0;
 }

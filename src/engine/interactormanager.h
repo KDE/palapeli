@@ -21,6 +21,7 @@
 
 #include "interactorutils.h"
 
+#include <QEvent>
 #include <QGraphicsView>
 #include <QMap>
 
@@ -43,6 +44,8 @@ namespace Palapeli
 			bool testTrigger(const Palapeli::InteractorTrigger& trigger, QWheelEvent* event);
 			bool testTrigger(const Palapeli::InteractorTrigger& trigger, QMouseEvent* event);
 			bool testTrigger(const Palapeli::InteractorTrigger& trigger, QKeyEvent* event);
+
+			void handleMouseEvent(const Palapeli::MouseEvent& pEvent, QList<Palapeli::AssociatedInteractorTrigger>& matchingTriggers, QMap<Qt::MouseButton, QEvent::Type>& unhandledButtons);
 		private:
 			QGraphicsView* m_view;
 			QMap<QByteArray, Palapeli::Interactor*> m_interactors;
@@ -50,6 +53,8 @@ namespace Palapeli
 			QList<Palapeli::AssociatedInteractorTrigger> m_triggers;
 			//state
 			QList<Palapeli::AssociatedInteractorTrigger> m_activeTriggers;
+			Qt::MouseButtons m_buttons;
+			QPoint m_mousePos;
 			//quasi-static data
 			QMap<Qt::Key, Qt::KeyboardModifier> m_keyModifierMap;
 	};
