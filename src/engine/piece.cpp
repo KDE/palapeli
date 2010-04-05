@@ -201,8 +201,7 @@ void Palapeli::Piece::doMove()
 	if (scene)
 	{
 		scene->validatePiecePosition(this);
-		//TODO: savegame is updated multiple times at once when multiple pieces are moved
-		scene->updateSavegame();
+		scene->invalidateSavegame();
 	}
 }
 

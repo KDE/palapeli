@@ -42,8 +42,12 @@ Palapeli::Scene::Scene(QObject* parent)
 	: QGraphicsScene(parent)
 	, m_constrained(false)
 	, m_constraintVisualizer(new Palapeli::ConstraintVisualizer(this))
+	, m_savegameTimer(new QTimer(this))
 	, m_loadingPuzzle(false)
 {
+	m_savegameTimer->setInterval(500); //write savegame twice per second at most
+	m_savegameTimer->setSingleShot(true);
+	connect(m_savegameTimer, SIGNAL(timeout()), this, SLOT(updateSavegame()));
 	connect(&m_metadataLoader, SIGNAL(finished()), this, SLOT(continueLoading()));
 }
 
@@ -332,8 +336,14 @@ void Palapeli::Scene::pieceMoved()
 			mergeCandidates << piece;
 	}
 	searchConnections(mergeCandidates);
-	updateSavegame();
+	invalidateSavegame();
 	emit reportProgress(m_atomicPieceCount, m_pieces.count());
+}
+
+void Palapeli::Scene::invalidateSavegame()
+{
+	if (!m_savegameTimer->isActive())
+		m_savegameTimer->start();
 }
 
 void Palapeli::Scene::updateSavegame()
