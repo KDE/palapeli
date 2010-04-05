@@ -141,7 +141,11 @@ bool Palapeli::InteractorManager::handleEvent(QMouseEvent* event)
 		}
 	}
 	unhandledButtons.remove(Qt::NoButton); //this was just a help to simplify the algorithm
-	return event->type() != QEvent::MouseMove; //HACK: The QGraphicsView needs to know about mouseMoveEvents because of QGraphicsView::transformationAnchor and QGraphicsView::resizeAnchor.
+	//HACK: The QGraphicsView needs to know about mouseMoveEvents because of QGraphicsView::transformationAnchor and QGraphicsView::resizeAnchor.
+	if (event->type() == QEvent::MouseMove)
+		return false;
+	else
+		return unhandledButtons.isEmpty(); //filter the event if all buttons have been handled FIXME: This is too easy. The proper solution would be to rewrite the mouse event which is delivered to QGV::mouse*Event().
 }
 
 /*

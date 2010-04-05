@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -16,49 +16,36 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_CONSTRAINTVISUALIZER_H
-#define PALAPELI_CONSTRAINTVISUALIZER_H
+#ifndef PALAPELI_CONSTRAINTVISUALIZER_P_H
+#define PALAPELI_CONSTRAINTVISUALIZER_P_H
 
-#include "basics.h"
-
-class QPropertyAnimation;
-#include <QVector>
+#include <QCursor>
+#include <QGraphicsItem>
+#include <QPropertyAnimation>
 
 namespace Palapeli
 {
-	class CvHandleItem;
-	class Scene;
-
-	class ConstraintVisualizer : public Palapeli::GraphicsObject<Palapeli::ConstraintVisualizerUserType>
+	class CvHandleItem : public QObject, public QGraphicsRectItem
 	{
 		Q_OBJECT
+		Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity)
 		public:
-			ConstraintVisualizer(Palapeli::Scene* scene);
+			CvHandleItem(const QCursor& cursor, const QColor& baseColor, QGraphicsItem* parent = 0);
 
-			bool isActive() const;
-		public Q_SLOTS:
-			void setActive(bool active);
-			void update(const QRectF& sceneRect);
+			qreal opacity() const;
+			void setOpacity(qreal opacity);
+			void setOpacityAnimated(qreal opacity);
 		protected:
-			friend class CvHandleItem;
+			virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
+			virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
+			virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
 		private:
-			enum Side { LeftSide = 0, RightSide, TopSide, BottomSide, SideCount };
-			enum HandlePosition { LeftHandle = 0, TopLeftHandle, TopHandle, TopRightHandle, RightHandle, BottomRightHandle, BottomHandle, BottomLeftHandle, HandleCount };
-
-			Palapeli::Scene* m_scene;
-			bool m_active;
-
-			QVector<QGraphicsRectItem*> m_shadowItems;
-			QVector<Palapeli::CvHandleItem*> m_handleItems;
-			QRectF m_sceneRect;
-			qreal m_handleExtent;
+			QColor m_baseColor;
+			qreal m_opacity;
 			QPropertyAnimation* m_animator;
-			//the following are only used in the handles' mouse events
-			QList<Side> m_draggingSides;
-			QPoint m_lastScreenPos;
 	};
 }
 
-#endif // PALAPELI_CONSTRAINTVISUALIZER_H
+#endif // PALAPELI_CONSTRAINTVISUALIZER_P_H

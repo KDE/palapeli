@@ -17,12 +17,87 @@
 ***************************************************************************/
 
 #include "constraintvisualizer.h"
+#include "constraintvisualizer_p.h"
 #include "scene.h"
 
-#include <QCursor>
-#include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
-#include <QPropertyAnimation>
+
+//BEGIN Palapeli::CvHandleItem
+
+Palapeli::CvHandleItem::CvHandleItem(const QCursor& cursor, const QColor& baseColor, QGraphicsItem* parent)
+	: QGraphicsRectItem(QRectF(), parent)
+	, m_baseColor(baseColor)
+	, m_opacity(0)
+	, m_animator(new QPropertyAnimation(this, "opacity", this))
+{
+	setPen(Qt::NoPen);
+	setOpacity(0.01); //not visible in the beginning (HACK: QGV is overly clever and won't deliver any events to opacity=0.0 items)
+	setCursor(cursor);
+	setAcceptHoverEvents(true); //we need these for the animated show/hide
+	setAcceptedMouseButtons(Qt::LeftButton); //this is for dragging
+	setFlag(QGraphicsItem::ItemIsSelectable); //see CvHandleItem::itemChange
+}
+
+qreal Palapeli::CvHandleItem::opacity() const
+{
+	return m_opacity;
+}
+
+void Palapeli::CvHandleItem::setOpacity(qreal opacity)
+{
+	if (m_opacity == opacity)
+		return;
+	m_opacity = opacity;
+	QColor brushColor(m_baseColor);
+	brushColor.setAlpha(m_baseColor.alpha() * opacity);
+	setBrush(brushColor);
+}
+
+void Palapeli::CvHandleItem::setOpacityAnimated(qreal targetOpacity)
+{
+	if (m_opacity == targetOpacity)
+		return;
+	m_animator->setDuration(150 * qAbs(targetOpacity - m_opacity));
+	m_animator->setStartValue(m_opacity);
+	m_animator->setEndValue(targetOpacity);
+	m_animator->start();
+}
+
+QVariant Palapeli::CvHandleItem::itemChange(GraphicsItemChange change, const QVariant& value)
+{
+	//HACK: The MovePieceInteractor does not propagate mouse events to non-selectable items. We therefore have the ItemIsSelectable flag set in this item, but deny any activation through this method.
+	if (change == ItemSelectedChange)
+		return qVariantFromValue(false);
+	return QGraphicsRectItem::itemChange(change, value);
+}
+
+void Palapeli::CvHandleItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
+{
+	Q_UNUSED(event)
+	setOpacityAnimated(1);
+}
+
+void Palapeli::CvHandleItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
+{
+	Q_UNUSED(event)
+	setOpacityAnimated(0.01); //HACK: QGV is overly clever and won't deliver any events to opacity=0.0 items
+}
+
+void Palapeli::CvHandleItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+{
+	//let parent handle this type of event
+	Palapeli::ConstraintVisualizer* cv = qgraphicsitem_cast<Palapeli::ConstraintVisualizer*>(parentItem());
+	cv->mouseMoveEvent(event);
+}
+
+void Palapeli::CvHandleItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+	//let parent handle this type of event
+	Palapeli::ConstraintVisualizer* cv = qgraphicsitem_cast<Palapeli::ConstraintVisualizer*>(parentItem());
+	cv->mousePressEvent(event);
+}
+
+//END Palapeli::CvHandleItem
 
 Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)
 	: m_scene(scene)
@@ -33,7 +108,6 @@ Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)
 	, m_animator(new QPropertyAnimation(this, "opacity", this))
 {
 	setOpacity(0.2);
-	setHandlesChildEvents(true);
 	//create gray items (with null size!)
 	QColor rectColor(Qt::black);
 	rectColor.setAlpha(80);
@@ -43,14 +117,10 @@ Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)
 		m_shadowItems[i]->setPen(Qt::NoPen);
 		m_shadowItems[i]->setBrush(rectColor);
 	}
+	rectColor.setAlpha(2 * rectColor.alpha());
 	Qt::CursorShape shapes[] = { Qt::SizeHorCursor, Qt::SizeFDiagCursor, Qt::SizeVerCursor, Qt::SizeBDiagCursor };
 	for (int i = 0; i < HandleCount; ++i)
-	{
-		m_handleItems[i] = new QGraphicsRectItem(QRect(), this);
-		m_handleItems[i]->setPen(Qt::NoPen);
-		m_handleItems[i]->setAcceptedMouseButtons(Qt::LeftButton);
-		m_handleItems[i]->setCursor(shapes[i % 4]);
-	}
+		m_handleItems[i] = new Palapeli::CvHandleItem(shapes[i % 4], rectColor, this);
 	//more initialization
 	QObject::setParent(scene); //delete myself automatically when the scene is destroyed
 	scene->addItem(this);
@@ -69,7 +139,7 @@ void Palapeli::ConstraintVisualizer::setActive(bool active)
 		return;
 	m_active = active;
 	const qreal targetOpacity = active ? 1.0 : 0.2;
-	m_animator->setDuration(200 * qAbs(targetOpacity - opacity()));
+	m_animator->setDuration(150 * qAbs(targetOpacity - opacity()));
 	m_animator->setStartValue(opacity());
 	m_animator->setEndValue(targetOpacity);
 	m_animator->start();
@@ -181,3 +251,4 @@ void Palapeli::ConstraintVisualizer::mouseMoveEvent(QGraphicsSceneMouseEvent* ev
 }
 
 #include "constraintvisualizer.moc"
+#include "constraintvisualizer_p.moc"
