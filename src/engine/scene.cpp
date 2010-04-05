@@ -168,7 +168,7 @@ void Palapeli::Scene::loadNextPiece()
 		piece->addRepresentedAtomicPieces(QSet<int>() << pieceID);
 		addItem(piece);
 		m_pieces << piece;
-		m_loadedPieces << pieceID;
+		m_loadedPieces[pieceID] = piece;
 		//continue with next piece after eventloop run
 		if (contents->pieces.size() > m_pieces.size())
 			QTimer::singleShot(0, this, SLOT(loadNextPiece()));
@@ -191,7 +191,6 @@ void Palapeli::Scene::finishLoading()
 		firstPiece->addLogicalNeighbors(QSet<Palapeli::Piece*>() << secondPiece);
 		secondPiece->addLogicalNeighbors(QSet<Palapeli::Piece*>() << firstPiece);
 	}
-#if 0 //TODO: port
 	//Is "savegame" available?
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
 	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier)));
@@ -199,18 +198,19 @@ void Palapeli::Scene::finishLoading()
 	{
 		//read piece positions from savegame
 		KConfigGroup saveGroup(&saveConfig, "SaveGame");
-		QMap<int, Palapeli::Piece*>::const_iterator iterPieces = m_pieces.constBegin();
-		const QMap<int, Palapeli::Piece*>::const_iterator iterPiecesEnd = m_pieces.constEnd();
+		QMap<int, Palapeli::Piece*>::const_iterator iterPieces = m_loadedPieces.constBegin();
+		const QMap<int, Palapeli::Piece*>::const_iterator iterPiecesEnd = m_loadedPieces.constEnd();
 		for (int pieceID = iterPieces.key(); iterPieces != iterPiecesEnd; pieceID = (++iterPieces).key())
 		{
-			Palapeli::Part* part = iterPieces.value()->part();
-			part->setPos(saveGroup.readEntry(QString::number(pieceID), QPointF()));
-			part->searchConnections();
-			part->validatePosition();
+			Palapeli::Piece* piece = iterPieces.value();
+			piece->setPos(saveGroup.readEntry(QString::number(pieceID), QPointF()));
+#if 0 //TODO: port
+			piece->searchConnections();
+			piece->validatePosition();
+#endif
 		}
 	}
 	else
-#endif
 	{
 		//place pieces at nice positions
 		//step 1: determine maximum piece size
@@ -268,21 +268,22 @@ void Palapeli::Scene::partDestroyed(QObject* object)
 	if (m_parts.count() == 1 && oldCount > 1 && !m_loadingPuzzle)
 		QTimer::singleShot(0, this, SLOT(playVictoryAnimation()));
 }
+#endif
 
-void Palapeli::Scene::partMoved()
+void Palapeli::Scene::updateSavegame()
 {
-	partMoving();
-	emit reportProgress(m_atomicPieceCount, m_pieces.count());
+	emit reportProgress(m_atomicPieceCount, m_pieces.count()); //TODO: necessary?
 	//save piece positions
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
 	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier)));
 	KConfigGroup saveGroup(&saveConfig, "SaveGame");
-	QMap<int, Palapeli::Piece*>::const_iterator iterPieces = m_pieces.constBegin();
-	const QMap<int, Palapeli::Piece*>::const_iterator iterPiecesEnd = m_pieces.constEnd();
-	for (int pieceID = iterPieces.key(); iterPieces != iterPiecesEnd; pieceID = (++iterPieces).key())
-		saveGroup.writeEntry(QString::number(pieceID), iterPieces.value()->part()->pos());
+	foreach (Palapeli::Piece* piece, m_pieces)
+	{
+		const QPointF pos = piece->pos();
+		foreach (int atomicPieceID, piece->representedAtomicPieces())
+			saveGroup.writeEntry(QString::number(atomicPieceID), pos);
+	}
 }
-#endif
 
 void Palapeli::Scene::playVictoryAnimation()
 {

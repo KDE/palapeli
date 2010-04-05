@@ -47,6 +47,7 @@ namespace Palapeli
 			void loadPuzzle(const QModelIndex& index);
 			void restartPuzzle();
 			void setConstrained(bool constrained);
+			void updateSavegame();
 		Q_SIGNALS:
 			void constrainedChanged(bool constrained);
 			void puzzleStarted();
@@ -55,7 +56,6 @@ namespace Palapeli
 		private Q_SLOTS:
 #if 0 //TODO: port
 			void partDestroyed(QObject* object);
-			void partMoved();
 #endif
 			void playVictoryAnimation();
 			void playVictoryAnimation2();
@@ -79,7 +79,7 @@ namespace Palapeli
 			//some stuff needed for loading puzzles
 			bool m_loadingPuzzle;
 			QFutureWatcher<bool> m_metadataLoader;
-			QList<int> m_loadedPieces;
+			QMap<int, Palapeli::Piece*> m_loadedPieces;
 	};
 }
 

@@ -185,7 +185,10 @@ void Palapeli::Piece::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 	{
 		Palapeli::Scene* scene = qobject_cast<Palapeli::Scene*>(this->scene());
 		if (scene)
+		{
 			scene->validatePiecePosition(this);
+			scene->updateSavegame();
+		}
 	}
 }
 
