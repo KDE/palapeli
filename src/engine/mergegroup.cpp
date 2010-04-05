@@ -21,6 +21,8 @@
 #include "settings.h"
 
 #include <QGraphicsScene>
+#include <QParallelAnimationGroup>
+#include <QPropertyAnimation>
 #include <QSet>
 
 static bool arePiecesPhysicallyNeighboring(Palapeli::Piece* piece1, Palapeli::Piece* piece2)
@@ -66,7 +68,10 @@ QList<Palapeli::Piece*> Palapeli::MergeGroup::tryGrowMergeGroup(Palapeli::Piece*
 }
 
 Palapeli::MergeGroup::MergeGroup(const QList<Palapeli::Piece*>& pieces, QGraphicsScene* scene, bool animated)
-	: m_mergedPiece(0)
+	: m_animated(animated)
+	, m_pieces(pieces)
+	, m_mergedPiece(0)
+	, m_scene(scene)
 {
 	//find united coordinate system (UCS) -> large pieces contribute more than smaller pieces
 	int totalWeight = 0;
@@ -77,12 +82,43 @@ Palapeli::MergeGroup::MergeGroup(const QList<Palapeli::Piece*>& pieces, QGraphic
 		totalWeight += weight;
 	}
 	m_ucsPosition /= totalWeight;
-	//TODO: animation setting is ignored ATM, code for animated == false follows
+}
+
+void Palapeli::MergeGroup::start()
+{
+	//if no animation is needed, continue directly
+	if (!m_animated)
+		createMergedPiece();
+	else
+	{
+		//create animations for merging the piece coordinate systems into the UCS
+		QParallelAnimationGroup* masterAnimator = new QParallelAnimationGroup(this);
+		foreach (Palapeli::Piece* piece, m_pieces)
+		{
+			QPropertyAnimation* pieceAnimator = new QPropertyAnimation(piece, "pos", 0);
+			pieceAnimator->setStartValue(piece->pos());
+			pieceAnimator->setEndValue(m_ucsPosition);
+			pieceAnimator->setDuration(200);
+			pieceAnimator->setEasingCurve(QEasingCurve::InCubic);
+			masterAnimator->addAnimation(pieceAnimator);
+		}
+		masterAnimator->start(QAbstractAnimation::DeleteWhenStopped);
+		connect(masterAnimator, SIGNAL(finished()), this, SLOT(createMergedPiece()));
+	}
+}
+
+Palapeli::Piece* Palapeli::MergeGroup::mergedPiece() const
+{
+	return m_mergedPiece;
+}
+
+void Palapeli::MergeGroup::createMergedPiece()
+{
 	//collect pixmaps for merging (also shadows if possible)
 	QList<Palapeli::PieceVisuals> pieceVisuals;
 	QList<Palapeli::PieceVisuals> shadowVisuals;
 	bool allPiecesHaveShadows = true;
-	foreach (Palapeli::Piece* piece, pieces)
+	foreach (Palapeli::Piece* piece, m_pieces)
 	{
 		pieceVisuals << piece->pieceVisuals();
 		if (allPiecesHaveShadows) //we stop collecting shadow samples when one piece has no shadow
@@ -104,24 +140,24 @@ Palapeli::MergeGroup::MergeGroup(const QList<Palapeli::Piece*>& pieces, QGraphic
 	else
 		m_mergedPiece = new Palapeli::Piece(combinedPieceVisuals);
 	//apply UCS
-	scene->addItem(m_mergedPiece);
+	m_scene->addItem(m_mergedPiece);
 	m_mergedPiece->setPos(m_ucsPosition);
 	//transfer information from old pieces to new piece, then destroy old pieces
-	foreach (Palapeli::Piece* piece, pieces)
+	foreach (Palapeli::Piece* piece, m_pieces)
 	{
 		m_mergedPiece->addRepresentedAtomicPieces(piece->representedAtomicPieces());
 		m_mergedPiece->addLogicalNeighbors(piece->logicalNeighbors());
 		m_mergedPiece->addAtomicSize(piece->atomicSize());
+		if (piece->isSelected())
+			m_mergedPiece->setSelected(true);
 		delete piece;
 	}
-	m_mergedPiece->rewriteLogicalNeighbors(pieces, 0); //0 = these neighbors should be dropped
+	m_mergedPiece->rewriteLogicalNeighbors(m_pieces, 0); //0 = these neighbors should be dropped
 	foreach (Palapeli::Piece* logicalNeighbor, m_mergedPiece->logicalNeighbors())
-		logicalNeighbor->rewriteLogicalNeighbors(pieces, m_mergedPiece); //these neighbors are now represented by m_mergedPiece
-}
-
-Palapeli::Piece* Palapeli::MergeGroup::mergedPiece() const
-{
-	return m_mergedPiece;
+		logicalNeighbor->rewriteLogicalNeighbors(m_pieces, m_mergedPiece); //these neighbors are now represented by m_mergedPiece
+	//transaction done
+	emit pieceInstanceTransaction(m_pieces, QList<Palapeli::Piece*>() << m_mergedPiece);
+	deleteLater();
 }
 
 #include "mergegroup.moc"

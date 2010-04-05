@@ -56,6 +56,7 @@ namespace Palapeli
 			void victoryAnimationFinished();
 		private Q_SLOTS:
 			void pieceMoved();
+			void pieceInstanceTransaction(const QList<Palapeli::Piece*>& deletedPieces, const QList<Palapeli::Piece*>& createdPieces);
 			void playVictoryAnimation();
 			void playVictoryAnimation2();
 			void playVictoryAnimation3();

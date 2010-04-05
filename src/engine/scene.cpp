@@ -99,6 +99,7 @@ void Palapeli::Scene::validatePiecePosition(Palapeli::Piece* piece)
 void Palapeli::Scene::searchConnections(const QList<Palapeli::Piece*>& pieces)
 {
 	QList<Palapeli::Piece*> uncheckedPieces(pieces);
+	const bool animatedMerging = !m_loadingPuzzle;
 	while (!uncheckedPieces.isEmpty())
 	{
 		Palapeli::Piece* piece = uncheckedPieces.takeFirst();
@@ -107,13 +108,29 @@ void Palapeli::Scene::searchConnections(const QList<Palapeli::Piece*>& pieces)
 			uncheckedPieces.removeAll(checkedPiece);
 		if (pieceGroup.size() > 1)
 		{
-			Palapeli::MergeGroup mergeGroup(pieceGroup, this);
-			foreach (Palapeli::Piece* oldPiece, pieceGroup)
-				m_pieces.removeAll(oldPiece); //the MergeGroup has already deleted the old pieces
-			Palapeli::Piece* newPiece = mergeGroup.mergedPiece();
-			m_pieces << newPiece;
-			connect(newPiece, SIGNAL(moved()), this, SLOT(pieceMoved()));
+			Palapeli::MergeGroup* mergeGroup = new Palapeli::MergeGroup(pieceGroup, this, animatedMerging);
+			connect(mergeGroup, SIGNAL(pieceInstanceTransaction(const QList<Palapeli::Piece*>&, const QList<Palapeli::Piece*>&)), this, SLOT(pieceInstanceTransaction(const QList<Palapeli::Piece*>&, const QList<Palapeli::Piece*>&)));
+			mergeGroup->start();
 		}
+	}
+}
+
+void Palapeli::Scene::pieceInstanceTransaction(const QList<Palapeli::Piece*>& deletedPieces, const QList<Palapeli::Piece*>& createdPieces)
+{
+	const int oldPieceCount = m_pieces.count();
+	foreach (Palapeli::Piece* oldPiece, deletedPieces)
+		m_pieces.removeAll(oldPiece); //these pieces have been deleted by the caller
+	foreach (Palapeli::Piece* newPiece, createdPieces)
+	{
+		m_pieces << newPiece;
+		connect(newPiece, SIGNAL(moved()), this, SLOT(pieceMoved()));
+	}
+	if (!m_loadingPuzzle)
+	{
+		emit reportProgress(m_atomicPieceCount, m_pieces.count());
+		//victory animation
+		if (m_pieces.count() == 1 && oldPieceCount > 1)
+			QTimer::singleShot(0, this, SLOT(playVictoryAnimation()));
 	}
 }
 
@@ -291,18 +308,13 @@ void Palapeli::Scene::pieceMoved()
 		if (piece)
 			mergeCandidates << piece;
 	}
-	const int oldPieceCount = m_pieces.count();
 	searchConnections(mergeCandidates);
 	updateSavegame();
 	emit reportProgress(m_atomicPieceCount, m_pieces.count());
-	//victory animation
-	if (m_pieces.count() == 1 && oldPieceCount > 1)
-		QTimer::singleShot(0, this, SLOT(playVictoryAnimation()));
 }
 
 void Palapeli::Scene::updateSavegame()
 {
-	emit reportProgress(m_atomicPieceCount, m_pieces.count()); //TODO: necessary?
 	//save piece positions
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
 	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier)));
