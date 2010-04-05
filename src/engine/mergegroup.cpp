@@ -150,6 +150,7 @@ void Palapeli::MergeGroup::createMergedPiece()
 		m_mergedPiece->addAtomicSize(piece->atomicSize());
 		if (piece->isSelected())
 			m_mergedPiece->setSelected(true);
+		m_mergedPiece->setZValue(qMax(m_mergedPiece->zValue(), piece->zValue()));
 		delete piece;
 	}
 	m_mergedPiece->rewriteLogicalNeighbors(m_pieces, 0); //0 = these neighbors should be dropped

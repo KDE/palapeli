@@ -36,6 +36,7 @@ Palapeli::CvHandleItem::CvHandleItem(const QCursor& cursor, const QColor& baseCo
 	setAcceptHoverEvents(true); //we need these for the animated show/hide
 	setAcceptedMouseButtons(Qt::LeftButton); //this is for dragging
 	setFlag(QGraphicsItem::ItemIsSelectable); //see CvHandleItem::itemChange
+	setFlag(QGraphicsItem::ItemIgnoresParentOpacity); //which controls the appearance of the shadow items
 }
 
 qreal Palapeli::CvHandleItem::opacity() const
@@ -117,7 +118,7 @@ Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)
 		m_shadowItems[i]->setPen(Qt::NoPen);
 		m_shadowItems[i]->setBrush(rectColor);
 	}
-	rectColor.setAlpha(2 * rectColor.alpha());
+	rectColor.setAlpha(0.6 * rectColor.alpha());
 	Qt::CursorShape shapes[] = { Qt::SizeHorCursor, Qt::SizeFDiagCursor, Qt::SizeVerCursor, Qt::SizeBDiagCursor };
 	for (int i = 0; i < HandleCount; ++i)
 		m_handleItems[i] = new Palapeli::CvHandleItem(shapes[i % 4], rectColor, this);
