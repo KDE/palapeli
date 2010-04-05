@@ -133,7 +133,13 @@ bool Palapeli::InteractorManager::handleEvent(QMouseEvent* event)
 		if (eventType == QEvent::None)
 			continue; //this trigger button has been handled by an active trigger
 		//try to handle this event
-		if (trigger.second->handleEvent(pEvent, eventType))
+		bool eventHandled = true;
+		if (eventType == QEvent::MouseMove)
+			//always start with mousePressEvent
+			eventHandled = trigger.second->handleEvent(pEvent, QEvent::MouseButtonPress);
+		if (eventHandled)
+			eventHandled = trigger.second->handleEvent(pEvent, eventType);
+		if (eventHandled)
 		{
 			if (triggerButton != Qt::NoButton)
 				unhandledButtons.remove(triggerButton);
@@ -147,6 +153,8 @@ bool Palapeli::InteractorManager::handleEvent(QMouseEvent* event)
 	else
 		return unhandledButtons.isEmpty(); //filter the event if all buttons have been handled FIXME: This is too easy. The proper solution would be to rewrite the mouse event which is delivered to QGV::mouse*Event().
 }
+
+//TODO: an interactor with very high priority (not as high as active triggers, but higher than all others) that propagates mouse events to items under the mouse that accept that mouse button
 
 /*
  * We also need to process KeyPress and KeyRelease events for all triggers with
