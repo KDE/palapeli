@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -17,6 +17,7 @@
 ***************************************************************************/
 
 #include "scene.h"
+#include "constraintvisualizer.h"
 #include "part.h"
 #include "piece.h"
 #include "../file-io/collection.h"
@@ -40,6 +41,7 @@ typedef QPair<int, int> DoubleIntPair; //comma in type is not possible in foreac
 Palapeli::Scene::Scene(QObject* parent)
 	: QGraphicsScene(parent)
 	, m_constrained(false)
+	, m_constraintVisualizer(new Palapeli::ConstraintVisualizer(this))
 	, m_partGroup(new Palapeli::EmptyGraphicsObject)
 	, m_loadingPuzzle(false)
 {
@@ -65,6 +67,7 @@ void Palapeli::Scene::setConstrained(bool constrained)
 	if (m_constrained == constrained)
 		return;
 	m_constrained = constrained;
+	m_constraintVisualizer->setActive(constrained);
 	emit constrainedChanged(constrained);
 }
 

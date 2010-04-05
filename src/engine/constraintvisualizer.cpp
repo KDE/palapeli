@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -18,16 +18,14 @@
 
 #include "constraintvisualizer.h"
 #include "scene.h"
-#include "view.h"
 
-#include <QEvent>
+#include <QCursor>
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
-#include <QGraphicsView>
 #include <QPropertyAnimation>
 
-Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::View* view)
-	: m_view(view)
+Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)
+	: m_scene(scene)
 	, m_active(false)
 	, m_shadowItems(SideCount)
 	, m_handleItems(HandleCount)
@@ -54,11 +52,10 @@ Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::View* view)
 		m_handleItems[i]->setCursor(shapes[i % 4]);
 	}
 	//more initialization
-	QObject::setParent(view); //delete myself automatically when the view is destroyed
-	view->viewport()->installEventFilter(this);
-	view->scene()->addItem(this);
+	QObject::setParent(scene); //delete myself automatically when the scene is destroyed
+	scene->addItem(this);
 	setZValue(-1);
-	connect(view->scene(), SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(update()));
+	connect(scene, SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(update(const QRectF&)));
 }
 
 bool Palapeli::ConstraintVisualizer::isActive() const
@@ -78,23 +75,17 @@ void Palapeli::ConstraintVisualizer::setActive(bool active)
 	m_animator->start();
 }
 
-bool Palapeli::ConstraintVisualizer::eventFilter(QObject* sender, QEvent* event)
+void Palapeli::ConstraintVisualizer::update(const QRectF& sceneRect)
 {
-	if (sender == m_view->viewport() && event->type() == QEvent::Paint)
-		update();
-	return QObject::eventFilter(sender, event);
-}
-
-void Palapeli::ConstraintVisualizer::update()
-{
-	//find viewport rect
-	const QRectF viewportRect = m_view->mapToScene(m_view->rect()).boundingRect();
-	const QRectF sceneRect = m_view->scene()->sceneRect();
-	if (m_viewportRect == viewportRect && m_sceneRect == sceneRect)
+	if (m_sceneRect == sceneRect)
 		return;
-	m_viewportRect = viewportRect;
 	m_sceneRect = sceneRect;
 	m_handleExtent = qMin(sceneRect.width(), sceneRect.height()) / 20;
+	//find a fictional viewport rect which we want to cover (except for the contained scene rect)
+	const qreal viewportRectSizeFactor = 10;
+	QRectF viewportRect = sceneRect;
+	viewportRect.setSize(viewportRectSizeFactor * sceneRect.size());
+	viewportRect.moveCenter(sceneRect.center());
 	//adjust left shadow area
 	QRectF itemRect = viewportRect;
 	itemRect.setRight(sceneRect.left());
@@ -184,7 +175,7 @@ void Palapeli::ConstraintVisualizer::mouseMoveEvent(QGraphicsSceneMouseEvent* ev
 		m_sceneRect.setTop(m_sceneRect.top() + posDiff.y());
 	if (m_draggingSides.contains(BottomSide))
 		m_sceneRect.setBottom(m_sceneRect.bottom() + posDiff.y());
-	m_view->scene()->setSceneRect(m_sceneRect | m_view->scene()->partsBoundingRect());
+	m_scene->setSceneRect(m_sceneRect | m_scene->partsBoundingRect());
 }
 
 #include "constraintvisualizer.moc"

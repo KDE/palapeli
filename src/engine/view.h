@@ -62,7 +62,6 @@ namespace Palapeli
 		private:
 			Palapeli::InteractorManager* m_interactorManager;
 			Palapeli::Scene* m_scene;
-			Palapeli::ConstraintVisualizer* m_constraintVisualizer;
 			Palapeli::TextureHelper* m_txHelper;
 			QPointF m_dragPrevPos;
 			int m_zoomLevel;

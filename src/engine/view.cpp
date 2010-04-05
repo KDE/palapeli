@@ -17,7 +17,6 @@
 ***************************************************************************/
 
 #include "view.h"
-#include "constraintvisualizer.h"
 #include "interactormanager.h"
 #include "scene.h"
 #include "texturehelper.h"
@@ -33,7 +32,6 @@ const int Palapeli::View::MaximumZoomLevel = 200;
 Palapeli::View::View()
 	: m_interactorManager(0) //should not be initialized before scene has been set (some interactors may rely on the availability of a scene)
 	, m_scene(new Palapeli::Scene(this))
-	, m_constraintVisualizer(0) //cannot be initialized before scene has been set
 	, m_txHelper(new Palapeli::TextureHelper(this))
 	, m_zoomLevel(100)
 {
@@ -42,9 +40,7 @@ Palapeli::View::View()
 	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 	setScene(m_scene);
 	m_txHelper->setScene(m_scene);
-	m_constraintVisualizer = new Palapeli::ConstraintVisualizer(this);
 	m_interactorManager = new Palapeli::InteractorManager(this);
-	connect(m_scene, SIGNAL(constrainedChanged(bool)), m_constraintVisualizer, SLOT(setActive(bool)));
 	connect(m_scene, SIGNAL(puzzleStarted()), this, SLOT(puzzleStarted()));
 	connect(m_scene, SIGNAL(victoryAnimationFinished()), this, SLOT(startVictoryAnimation()));
 }

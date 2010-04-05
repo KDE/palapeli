@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -26,31 +26,30 @@ class QPropertyAnimation;
 
 namespace Palapeli
 {
-	class View;
+	class Scene;
 
 	class ConstraintVisualizer : public Palapeli::GraphicsObject<Palapeli::ConstraintVisualizerUserType>
 	{
 		Q_OBJECT
 		public:
-			ConstraintVisualizer(Palapeli::View* view);
+			ConstraintVisualizer(Palapeli::Scene* scene);
 
 			bool isActive() const;
 		public Q_SLOTS:
 			void setActive(bool active);
-			void update();
+			void update(const QRectF& sceneRect);
 		protected:
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
-			virtual bool eventFilter(QObject* sender, QEvent* event);
 		private:
 			enum Side { LeftSide = 0, RightSide, TopSide, BottomSide, SideCount };
 			enum HandlePosition { LeftHandle = 0, TopLeftHandle, TopHandle, TopRightHandle, RightHandle, BottomRightHandle, BottomHandle, BottomLeftHandle, HandleCount };
 
-			Palapeli::View* m_view;
+			Palapeli::Scene* m_scene;
 			bool m_active;
 
 			QVector<QGraphicsRectItem*> m_shadowItems, m_handleItems;
-			QRectF m_viewportRect, m_sceneRect;
+			QRectF m_sceneRect;
 			qreal m_handleExtent;
 			QPropertyAnimation* m_animator;
 			//the following are only used in the handles' mouse events

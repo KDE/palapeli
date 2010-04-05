@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -29,6 +29,7 @@ class QModelIndex;
 
 namespace Palapeli
 {
+	class ConstraintVisualizer;
 	class Part;
 	class Piece;
 	class Puzzle;
@@ -67,6 +68,7 @@ namespace Palapeli
 
 			//behavior parameters
 			bool m_constrained;
+			Palapeli::ConstraintVisualizer* m_constraintVisualizer;
 			Palapeli::EmptyGraphicsObject* m_partGroup; //NOTE: This group can be used to animate all parts at once.
 			//game parameters
 			QString m_identifier;
