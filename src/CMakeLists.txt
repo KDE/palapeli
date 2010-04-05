@@ -9,10 +9,10 @@ set(palapeli_SRCS
 	engine/interactor.cpp
 	engine/interactors.cpp
 	engine/interactormanager.cpp
+	engine/newpiecevisuals.cpp
 	engine/part.cpp
 	engine/piece.cpp
 	engine/scene.cpp
-	engine/shadowitem.cpp
 	engine/texturehelper.cpp
 	engine/view.cpp
 	engine/zoomwidget.cpp

@@ -16,7 +16,7 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#include "shadowitem.h"
+#include "newpiecevisuals.h"
 
 #include <cmath>
 #include <QImage>
@@ -148,4 +148,4 @@ void Palapeli::ShadowItem::setActive(bool active)
 	m_animator->start();
 }
 
-#include "shadowitem.moc"
+#include "newpiecevisuals.moc"

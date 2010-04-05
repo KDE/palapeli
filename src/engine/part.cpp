@@ -20,7 +20,7 @@
 #include "piece.h"
 #include "scene.h"
 #include "settings.h"
-#include "shadowitem.h"
+#include "newpiecevisuals.h"
 
 #include <QCursor>
 #include <QGraphicsScene>
