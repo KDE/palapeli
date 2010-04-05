@@ -47,7 +47,7 @@ Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapel
 void Palapeli::Piece::createShadow()
 {
 	if (!m_inactiveShadowItem)
-		createShadowItems(Palapeli::createShadow(pieceVisuals()));
+		createShadowItems(Palapeli::createShadow(pieceVisuals(), m_atomicSize));
 }
 
 void Palapeli::Piece::createShadowItems(const Palapeli::PieceVisuals& shadowVisuals)
@@ -86,7 +86,7 @@ QRectF Palapeli::Piece::sceneBareBoundingRect() const
 
 Palapeli::PieceVisuals Palapeli::Piece::pieceVisuals() const
 {
-	Palapeli::PieceVisuals result = { m_pieceItem->pixmap(), m_pieceItem->offset() };
+	Palapeli::PieceVisuals result = { m_pieceItem->pixmap(), m_pieceItem->offset().toPoint() };
 	return result;
 }
 
@@ -94,7 +94,7 @@ Palapeli::PieceVisuals Palapeli::Piece::shadowVisuals() const
 {
 	if (!m_inactiveShadowItem)
 		return Palapeli::PieceVisuals();
-	Palapeli::PieceVisuals result = { m_inactiveShadowItem->pixmap(), m_inactiveShadowItem->offset() };
+	Palapeli::PieceVisuals result = { m_inactiveShadowItem->pixmap(), m_inactiveShadowItem->offset().toPoint() };
 	return result;
 }
 
@@ -129,33 +129,54 @@ QVariant Palapeli::Piece::itemChange(GraphicsItemChange change, const QVariant& 
 //END visuals
 //BEGIN internal datastructures
 
-void Palapeli::Piece::addRepresentedAtomicPieces(const QSet<int>& representedAtomicPieces)
+void Palapeli::Piece::addRepresentedAtomicPieces(const QList<int>& representedAtomicPieces)
 {
-	m_representedAtomicPieces += representedAtomicPieces;
+	foreach (int id, representedAtomicPieces)
+		if (!m_representedAtomicPieces.contains(id))
+			m_representedAtomicPieces << id;
 }
 
-QSet<int> Palapeli::Piece::representedAtomicPieces() const
+QList<int> Palapeli::Piece::representedAtomicPieces() const
 {
 	return m_representedAtomicPieces;
 }
 
-void Palapeli::Piece::addLogicalNeighbors(const QSet<Palapeli::Piece*>& logicalNeighbors)
+void Palapeli::Piece::addLogicalNeighbors(const QList<Palapeli::Piece*>& logicalNeighbors)
 {
-	m_logicalNeighbors += logicalNeighbors;
+	foreach (Palapeli::Piece* piece, logicalNeighbors)
+		if (!m_logicalNeighbors.contains(piece))
+			m_logicalNeighbors << piece;
 }
 
-QSet<Palapeli::Piece*> Palapeli::Piece::logicalNeighbors() const
+QList<Palapeli::Piece*> Palapeli::Piece::logicalNeighbors() const
 {
 	return m_logicalNeighbors;
 }
 
-void Palapeli::Piece::rewriteLogicalNeighbor(const QList<Palapeli::Piece*>& oldPieces, Palapeli::Piece* newPiece)
+void Palapeli::Piece::rewriteLogicalNeighbors(const QList<Palapeli::Piece*>& oldPieces, Palapeli::Piece* newPiece)
 {
 	bool oldPiecesFound = false;
 	foreach (Palapeli::Piece* oldPiece, oldPieces)
-		oldPiecesFound = oldPiecesFound || m_logicalNeighbors.remove(oldPiece); //returns whether something was removed
-	if (oldPiecesFound)
+	{
+		int index = m_logicalNeighbors.indexOf(oldPiece);
+		if (index != -1)
+		{
+			oldPiecesFound = true;
+			m_logicalNeighbors.removeAt(index);
+		}
+	}
+	if (oldPiecesFound && newPiece) //newPiece == 0 allows to just drop the old pieces
 		m_logicalNeighbors += newPiece;
+}
+
+void Palapeli::Piece::addAtomicSize(const QSize& size)
+{
+	m_atomicSize = m_atomicSize.expandedTo(size);
+}
+
+QSize Palapeli::Piece::atomicSize() const
+{
+	return m_atomicSize;
 }
 
 //END internal datastructures
@@ -203,17 +224,8 @@ void Palapeli::Piece::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 		m_pieceItem->setCursor(Qt::OpenHandCursor);
 		m_inactiveShadowItem->setCursor(Qt::OpenHandCursor);
 		m_activeShadowItem->setCursor(Qt::OpenHandCursor);
-		//TODO: propagate end of move (the relevant code from the old Part follows for reference)
-#if 0
-		//search connections in all moved parts
-		foreach (QGraphicsItem* item, scene()->selectedItems())
-		{
-			Palapeli::Part* part = qgraphicsitem_cast<Palapeli::Part*>(item);
-			if (part)
-				part->searchConnections();
-		}
-		emit partMoved();
-#endif
+		//propagate end of move
+		emit moved();
 	}
 }
 

@@ -18,6 +18,7 @@
 
 #include "scene.h"
 #include "constraintvisualizer.h"
+#include "mergegroup.h"
 #include "newpiece.h"
 #include "../file-io/collection.h"
 #include "../file-io/puzzle.h"
@@ -95,6 +96,27 @@ void Palapeli::Scene::validatePiecePosition(Palapeli::Piece* piece)
 		setSceneRect(sr | br);
 }
 
+void Palapeli::Scene::searchConnections(const QList<Palapeli::Piece*>& pieces)
+{
+	QList<Palapeli::Piece*> uncheckedPieces(pieces);
+	while (!uncheckedPieces.isEmpty())
+	{
+		Palapeli::Piece* piece = uncheckedPieces.takeFirst();
+		const QList<Palapeli::Piece*> pieceGroup = Palapeli::MergeGroup::tryGrowMergeGroup(piece);
+		foreach (Palapeli::Piece* checkedPiece, pieceGroup)
+			uncheckedPieces.removeAll(checkedPiece);
+		if (pieceGroup.size() > 1)
+		{
+			Palapeli::MergeGroup mergeGroup(pieceGroup, this);
+			foreach (Palapeli::Piece* oldPiece, pieceGroup)
+				m_pieces.removeAll(oldPiece); //the MergeGroup has already deleted the old pieces
+			Palapeli::Piece* newPiece = mergeGroup.mergedPiece();
+			m_pieces << newPiece;
+			connect(newPiece, SIGNAL(moved()), this, SLOT(pieceMoved()));
+		}
+	}
+}
+
 void Palapeli::Scene::loadPuzzle(const QModelIndex& index)
 {
 	if (m_loadingPuzzle)
@@ -164,11 +186,12 @@ void Palapeli::Scene::loadNextPiece()
 		//load piece
 		Palapeli::PieceVisuals pieceVisuals = { iterPieces.value(), contents->pieceOffsets[pieceID] };
 		Palapeli::Piece* piece = new Palapeli::Piece(pieceVisuals);
-		piece->createShadow(); //TODO: delay this operation when a savegame is available
-		piece->addRepresentedAtomicPieces(QSet<int>() << pieceID);
+		piece->addRepresentedAtomicPieces(QList<int>() << pieceID);
+		piece->addAtomicSize(pieceVisuals.pixmap.size());
 		addItem(piece);
 		m_pieces << piece;
 		m_loadedPieces[pieceID] = piece;
+		connect(piece, SIGNAL(moved()), this, SLOT(pieceMoved()));
 		//continue with next piece after eventloop run
 		if (contents->pieces.size() > m_pieces.size())
 			QTimer::singleShot(0, this, SLOT(loadNextPiece()));
@@ -188,8 +211,8 @@ void Palapeli::Scene::finishLoading()
 	{
 		Palapeli::Piece* firstPiece = m_pieces[relation.first];
 		Palapeli::Piece* secondPiece = m_pieces[relation.second];
-		firstPiece->addLogicalNeighbors(QSet<Palapeli::Piece*>() << secondPiece);
-		secondPiece->addLogicalNeighbors(QSet<Palapeli::Piece*>() << firstPiece);
+		firstPiece->addLogicalNeighbors(QList<Palapeli::Piece*>() << secondPiece);
+		secondPiece->addLogicalNeighbors(QList<Palapeli::Piece*>() << firstPiece);
 	}
 	//Is "savegame" available?
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
@@ -204,11 +227,8 @@ void Palapeli::Scene::finishLoading()
 		{
 			Palapeli::Piece* piece = iterPieces.value();
 			piece->setPos(saveGroup.readEntry(QString::number(pieceID), QPointF()));
-#if 0 //TODO: port
-			piece->searchConnections();
-			piece->validatePosition();
-#endif
 		}
+		searchConnections(m_pieces);
 	}
 	else
 	{
@@ -245,8 +265,11 @@ void Palapeli::Scene::finishLoading()
 	}
 	//determine scene rect
 	setSceneRect(piecesBoundingRect());
+	//enable shadows
+	foreach (Palapeli::Piece* piece, m_pieces)
+		piece->createShadow(); //TODO: some eventloop runs during this operation might be helpful
 	//initialize external progress display
-	m_atomicPieceCount = m_pieces.count();
+	m_atomicPieceCount = m_loadedPieces.count();
 	emit reportProgress(m_atomicPieceCount, m_pieces.count());
 	emit puzzleStarted();
 	m_loadingPuzzle = false;
@@ -259,16 +282,23 @@ void Palapeli::Scene::finishLoading()
 	}
 }
 
-#if 0 //TODO: port
-void Palapeli::Scene::partDestroyed(QObject* object)
+void Palapeli::Scene::pieceMoved()
 {
-	int oldCount = m_parts.count();
-	m_parts.removeAll(reinterpret_cast<Palapeli::Part*>(object));
+	QList<Palapeli::Piece*> mergeCandidates;
+	foreach (QGraphicsItem* item, selectedItems())
+	{
+		Palapeli::Piece* piece = qgraphicsitem_cast<Palapeli::Piece*>(item);
+		if (piece)
+			mergeCandidates << piece;
+	}
+	const int oldPieceCount = m_pieces.count();
+	searchConnections(mergeCandidates);
+	updateSavegame();
+	emit reportProgress(m_atomicPieceCount, m_pieces.count());
 	//victory animation
-	if (m_parts.count() == 1 && oldCount > 1 && !m_loadingPuzzle)
+	if (m_pieces.count() == 1 && oldPieceCount > 1)
 		QTimer::singleShot(0, this, SLOT(playVictoryAnimation()));
 }
-#endif
 
 void Palapeli::Scene::updateSavegame()
 {

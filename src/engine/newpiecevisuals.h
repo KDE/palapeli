@@ -26,13 +26,14 @@ namespace Palapeli
 	struct PieceVisuals
 	{
 		QPixmap pixmap;
-		QPointF offset;
+		QPoint offset;
 
 		bool isNull() const { return pixmap.isNull(); }
 	};
 
-	Palapeli::PieceVisuals createShadow(const Palapeli::PieceVisuals& pieceVisuals);
+	Palapeli::PieceVisuals createShadow(const Palapeli::PieceVisuals& pieceVisuals, const QSize& shadowSizeHint = QSize());
 	Palapeli::PieceVisuals changeShadowColor(const Palapeli::PieceVisuals& shadowVisuals, const QColor& color);
+	Palapeli::PieceVisuals mergeVisuals(const QList<Palapeli::PieceVisuals>& visuals);
 }
 
 #endif // PALAPELI_NEWPIECEVISUALS_H

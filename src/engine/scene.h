@@ -43,6 +43,7 @@ namespace Palapeli
 			QRectF piecesBoundingRect() const;
 
 			void validatePiecePosition(Palapeli::Piece* piece);
+			void searchConnections(const QList<Palapeli::Piece*>& pieces);
 		public Q_SLOTS:
 			void loadPuzzle(const QModelIndex& index);
 			void restartPuzzle();
@@ -54,9 +55,7 @@ namespace Palapeli
 			void reportProgress(int pieceCount, int atomicPieceCount);
 			void victoryAnimationFinished();
 		private Q_SLOTS:
-#if 0 //TODO: port
-			void partDestroyed(QObject* object);
-#endif
+			void pieceMoved();
 			void playVictoryAnimation();
 			void playVictoryAnimation2();
 			void playVictoryAnimation3();

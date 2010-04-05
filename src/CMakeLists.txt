@@ -9,6 +9,7 @@ set(palapeli_SRCS
 	engine/interactor.cpp
 	engine/interactors.cpp
 	engine/interactormanager.cpp
+	engine/mergegroup.cpp
 	engine/newpiece.cpp
 	engine/newpiecevisuals.cpp
 	engine/scene.cpp

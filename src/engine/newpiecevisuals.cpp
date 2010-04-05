@@ -107,12 +107,13 @@ static QPixmap createShadow(const QPixmap& source, int radius)
 
 //END shadow blur algorithm
 
-Palapeli::PieceVisuals Palapeli::createShadow(const Palapeli::PieceVisuals& pieceVisuals)
+Palapeli::PieceVisuals Palapeli::createShadow(const Palapeli::PieceVisuals& pieceVisuals, const QSize& shadowSizeHint)
 {
-	const int shadowRadius = 0.15 * (pieceVisuals.pixmap.width() + pieceVisuals.pixmap.height());
+	const QSize shadowSizeHintUse = shadowSizeHint.isEmpty() ? pieceVisuals.pixmap.size() : shadowSizeHint;
+	const int shadowRadius = 0.15 * (shadowSizeHintUse.width() + shadowSizeHintUse.height());
 	Palapeli::PieceVisuals result;
 	result.pixmap = createShadow(pieceVisuals.pixmap, shadowRadius);
-	result.offset = pieceVisuals.offset - QPointF(shadowRadius, shadowRadius);
+	result.offset = pieceVisuals.offset - QPoint(shadowRadius, shadowRadius);
 	return result;
 }
 
@@ -120,5 +121,30 @@ Palapeli::PieceVisuals Palapeli::changeShadowColor(const Palapeli::PieceVisuals&
 {
 	Palapeli::PieceVisuals result = shadowVisuals;
 	result.pixmap = makePixmapMonochrome(result.pixmap, color);
+	return result;
+}
+
+Palapeli::PieceVisuals Palapeli::mergeVisuals(const QList<Palapeli::PieceVisuals>& visuals)
+{
+	//determine geometry of combined pixmap
+	QRect combinedGeometry;
+	foreach (const Palapeli::PieceVisuals& sample, visuals)
+	{
+		QRect sampleGeometry(sample.offset, sample.pixmap.size());
+		if (combinedGeometry.isNull())
+			combinedGeometry = sampleGeometry;
+		else
+			combinedGeometry |= sampleGeometry;
+	}
+	//combine pixmaps
+	const QPoint combinedOffset = combinedGeometry.topLeft();
+	QPixmap combinedPixmap(combinedGeometry.size());
+	combinedPixmap.fill(Qt::transparent);
+	QPainter painter(&combinedPixmap);
+	foreach (const Palapeli::PieceVisuals& sample, visuals)
+		painter.drawPixmap(sample.offset - combinedOffset, sample.pixmap);
+	painter.end();
+	//create result
+	Palapeli::PieceVisuals result = { combinedPixmap, combinedOffset };
 	return result;
 }

@@ -23,7 +23,6 @@
 #include "newpiecevisuals.h"
 
 class QPropertyAnimation;
-#include <QSet>
 
 namespace Palapeli
 {
@@ -47,13 +46,18 @@ namespace Palapeli
 			Palapeli::PieceVisuals shadowVisuals() const;
 
 			///This method lets the piece remember which atomic pieces it represents. (Atomic pieces are what the scene creates when the puzzle is loaded.)
-			void addRepresentedAtomicPieces(const QSet<int>& representedAtomicPieces);
-			QSet<int> representedAtomicPieces() const;
-			void addLogicalNeighbors(const QSet<Palapeli::Piece*>& logicalNeighbors);
-			QSet<Palapeli::Piece*> logicalNeighbors() const;
+			void addRepresentedAtomicPieces(const QList<int>& representedAtomicPieces);
+			QList<int> representedAtomicPieces() const;
+			void addLogicalNeighbors(const QList<Palapeli::Piece*>& logicalNeighbors);
+			QList<Palapeli::Piece*> logicalNeighbors() const;
+			void addAtomicSize(const QSize& size);
+			///This method returns the biggest size of an atomic piece contained in this piece.
+			QSize atomicSize() const;
 
 			///When piece instances have been replaced by other piece instances, this method can be used to update the internal data structures of their logical neighbors.
-			void rewriteLogicalNeighbor(const QList<Palapeli::Piece*>& oldPieces, Palapeli::Piece* newPiece);
+			void rewriteLogicalNeighbors(const QList<Palapeli::Piece*>& oldPieces, Palapeli::Piece* newPiece);
+		Q_SIGNALS:
+			void moved();
 		protected:
 			virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
@@ -69,8 +73,9 @@ namespace Palapeli
 			QGraphicsPixmapItem* m_activeShadowItem;
 			QPropertyAnimation* m_animator;
 
-			QSet<int> m_representedAtomicPieces;
-			QSet<Palapeli::Piece*> m_logicalNeighbors;
+			QList<int> m_representedAtomicPieces;
+			QList<Palapeli::Piece*> m_logicalNeighbors;
+			QSize m_atomicSize;
 	};
 }
 
