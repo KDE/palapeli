@@ -25,7 +25,7 @@
 //BEGIN Palapeli::CvHandleItem
 
 Palapeli::CvHandleItem::CvHandleItem(const QCursor& cursor, const QColor& baseColor, QGraphicsItem* parent)
-	: QGraphicsRectItem(QRectF(), parent)
+	: QGraphicsPathItem(parent)
 	, m_baseColor(baseColor)
 	, m_opacity(0)
 	, m_animator(new QPropertyAnimation(this, "opacity", this))
@@ -68,7 +68,7 @@ QVariant Palapeli::CvHandleItem::itemChange(GraphicsItemChange change, const QVa
 	//HACK: The MovePieceInteractor does not propagate mouse events to non-selectable items. We therefore have the ItemIsSelectable flag set in this item, but deny any activation through this method.
 	if (change == ItemSelectedChange)
 		return qVariantFromValue(false);
-	return QGraphicsRectItem::itemChange(change, value);
+	return QGraphicsPathItem::itemChange(change, value);
 }
 
 void Palapeli::CvHandleItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
@@ -87,14 +87,14 @@ void Palapeli::CvHandleItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
 	//let parent handle this type of event
 	Palapeli::ConstraintVisualizer* cv = qgraphicsitem_cast<Palapeli::ConstraintVisualizer*>(parentItem());
-	cv->mouseMoveEvent(event);
+	cv->mouseMove(event, this);
 }
 
 void Palapeli::CvHandleItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
 	//let parent handle this type of event
 	Palapeli::ConstraintVisualizer* cv = qgraphicsitem_cast<Palapeli::ConstraintVisualizer*>(parentItem());
-	cv->mousePressEvent(event);
+	cv->mousePress(event, this);
 }
 
 //END Palapeli::CvHandleItem
@@ -176,6 +176,71 @@ void Palapeli::ConstraintVisualizer::update(const QRectF& sceneRect)
 	itemRect.setLeft(sceneRect.left()); //same as above
 	itemRect.setRight(sceneRect.right());
 	m_shadowItems[BottomSide]->setRect(itemRect);
+	//some helper variables
+	QPointF stepLeft(-m_handleExtent, 0);
+	QPointF stepRight(m_handleExtent, 0);
+	QPointF stepUp(0, -m_handleExtent);
+	QPointF stepDown(0, m_handleExtent);
+	//adjust left and right handle
+	QPainterPath p1;
+	p1.moveTo(sceneRect.bottomLeft());
+	p1.lineTo(sceneRect.bottomLeft() + stepRight + stepUp);
+	p1.lineTo(sceneRect.topLeft() + stepRight + stepDown);
+	p1.lineTo(sceneRect.topLeft());
+	p1.closeSubpath();
+	m_handleItems[LeftHandle]->setPath(p1);
+	QPainterPath p2;
+	p2.moveTo(sceneRect.bottomRight());
+	p2.lineTo(sceneRect.bottomRight() + stepLeft + stepUp);
+	p2.lineTo(sceneRect.topRight() + stepLeft + stepDown);
+	p2.lineTo(sceneRect.topRight());
+	p2.closeSubpath();
+	m_handleItems[RightHandle]->setPath(p2);
+	//adjust top and bottom handle
+	QPainterPath p3;
+	p3.moveTo(sceneRect.topLeft());
+	p3.lineTo(sceneRect.topLeft() + stepDown + stepRight);
+	p3.lineTo(sceneRect.topRight() + stepDown + stepLeft);
+	p3.lineTo(sceneRect.topRight());
+	p3.closeSubpath();
+	m_handleItems[TopHandle]->setPath(p3);
+	QPainterPath p4;
+	p4.moveTo(sceneRect.bottomLeft());
+	p4.lineTo(sceneRect.bottomLeft() + stepUp + stepRight);
+	p4.lineTo(sceneRect.bottomRight() + stepUp + stepLeft);
+	p4.lineTo(sceneRect.bottomRight());
+	p4.closeSubpath();
+	m_handleItems[BottomHandle]->setPath(p4);
+	//adjust edge handles
+	QPainterPath p5;
+	p5.moveTo(sceneRect.topLeft());
+	p5.lineTo(sceneRect.topLeft() + 2 * stepRight);
+	p5.lineTo(sceneRect.topLeft() + 2 * stepDown);
+	p5.closeSubpath();
+	m_handleItems[TopLeftHandle]->setPath(p5);
+	m_handleItems[TopLeftHandle]->setZValue(1);
+	QPainterPath p6;
+	p6.moveTo(sceneRect.topRight());
+	p6.lineTo(sceneRect.topRight() + 2 * stepLeft);
+	p6.lineTo(sceneRect.topRight() + 2 * stepDown);
+	p6.closeSubpath();
+	m_handleItems[TopRightHandle]->setPath(p6);
+	m_handleItems[TopRightHandle]->setZValue(1);
+	QPainterPath p7;
+	p7.moveTo(sceneRect.bottomLeft());
+	p7.lineTo(sceneRect.bottomLeft() + 2 * stepRight);
+	p7.lineTo(sceneRect.bottomLeft() + 2 * stepUp);
+	p7.closeSubpath();
+	m_handleItems[BottomLeftHandle]->setPath(p7);
+	m_handleItems[BottomLeftHandle]->setZValue(1);
+	QPainterPath p8;
+	p8.moveTo(sceneRect.bottomRight());
+	p8.lineTo(sceneRect.bottomRight() + 2 * stepLeft);
+	p8.lineTo(sceneRect.bottomRight() + 2 * stepUp);
+	p8.closeSubpath();
+	m_handleItems[BottomRightHandle]->setPath(p8);
+	m_handleItems[BottomRightHandle]->setZValue(1);
+#if 0
 	//adjust edge handles
 	QRectF handleRect(QPointF(), QSizeF(m_handleExtent, m_handleExtent));
 	handleRect.moveTopLeft(sceneRect.topLeft());
@@ -200,35 +265,34 @@ void Palapeli::ConstraintVisualizer::update(const QRectF& sceneRect)
 	m_handleItems[LeftHandle]->setRect(handleRect);
 	handleRect.moveRight(sceneRect.right());
 	m_handleItems[RightHandle]->setRect(handleRect);
+#endif
 }
 
-void Palapeli::ConstraintVisualizer::mousePressEvent(QGraphicsSceneMouseEvent* event)
+void Palapeli::ConstraintVisualizer::mousePress(QGraphicsSceneMouseEvent* event, Palapeli::CvHandleItem* sender)
 {
-	const QPointF pos = event->scenePos();
-	if (m_sceneRect.contains(pos))
+	const int handleIndex = m_handleItems.indexOf(sender);
+	if (handleIndex == -1)
 	{
-		event->accept();
-		m_lastScreenPos = event->screenPos();
-	}
-	else
-	{
-		event->ignore(); //do not react to clicks on the shadow items
+		event->ignore();
 		return;
 	}
+	event->accept();
+	m_lastScreenPos = event->screenPos();
 	//determine which coordinates can be moved
 	m_draggingSides.clear();
-	if (m_sceneRect.left() >= pos.x() - m_handleExtent)
+	if ((handleIndex + 1) % HandleCount < 3)
 		m_draggingSides << LeftSide;
-	else if (m_sceneRect.right() <= pos.x() + m_handleExtent)
+	else if ((handleIndex + 5) % HandleCount < 3)
 		m_draggingSides << RightSide;
-	if (m_sceneRect.top() >= pos.y() - m_handleExtent)
+	if ((handleIndex + 7) % HandleCount < 3)
 		m_draggingSides << TopSide;
-	else if (m_sceneRect.bottom() <= pos.y() + m_handleExtent)
+	else if ((handleIndex + 3) % HandleCount < 3)
 		m_draggingSides << BottomSide;
 }
 
-void Palapeli::ConstraintVisualizer::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+void Palapeli::ConstraintVisualizer::mouseMove(QGraphicsSceneMouseEvent* event, Palapeli::CvHandleItem* sender)
 {
+	Q_UNUSED(sender)
 	event->accept();
 	//prevent infinite loops (When the mouse reaches the end of the scene, the following will happen: 1. The ConstraintVisualizer enlarges the scene rect. 2. The QGraphicsView moves its viewport to accommodate the new scene rect. 3. The QGraphicsView might notice that the scene mouse position has changed, and fire a new mouseMoveEvent. 4. Repeat with step 1.)
 	if (m_lastScreenPos == event->screenPos())

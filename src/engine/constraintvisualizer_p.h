@@ -25,7 +25,7 @@
 
 namespace Palapeli
 {
-	class CvHandleItem : public QObject, public QGraphicsRectItem
+	class CvHandleItem : public QObject, public QGraphicsPathItem
 	{
 		Q_OBJECT
 		Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity)

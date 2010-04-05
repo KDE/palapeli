@@ -41,10 +41,11 @@ namespace Palapeli
 			void update(const QRectF& sceneRect);
 		protected:
 			friend class CvHandleItem;
-			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
-			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
+			void mouseMove(QGraphicsSceneMouseEvent* event, Palapeli::CvHandleItem* sender);
+			void mousePress(QGraphicsSceneMouseEvent* event, Palapeli::CvHandleItem* sender);
 		private:
 			enum Side { LeftSide = 0, RightSide, TopSide, BottomSide, SideCount };
+			//WARNING: Do not change the order of entries in the following enum. Some code in ConstraintVisualizer relies on it.
 			enum HandlePosition { LeftHandle = 0, TopLeftHandle, TopHandle, TopRightHandle, RightHandle, BottomRightHandle, BottomHandle, BottomLeftHandle, HandleCount };
 
 			Palapeli::Scene* m_scene;
