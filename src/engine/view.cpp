@@ -54,7 +54,7 @@ void Palapeli::View::setScene(Palapeli::Scene* scene)
 		return;
 	m_scene = scene;
 	this->QGraphicsView::setScene(m_scene);
-	m_interactorManager->setScene(m_scene);
+	m_interactorManager->updateScene();
 	m_txHelper->setScene(m_scene);
 	//reset zoom level (TODO: store viewport geometry in Scene)
 	zoomTo(100);
@@ -76,27 +76,39 @@ void Palapeli::View::setViewportRect(const QRectF& viewportRect)
 	fitInView(viewportRect, Qt::KeepAspectRatio);
 }
 
+void Palapeli::View::keyPressEvent(QKeyEvent* event)
+{
+	if (!m_interactorManager->handleEvent(event))
+		QGraphicsView::keyPressEvent(event);
+}
+
+void Palapeli::View::keyReleaseEvent(QKeyEvent* event)
+{
+	if (!m_interactorManager->handleEvent(event))
+		QGraphicsView::keyPressEvent(event);
+}
+
 void Palapeli::View::mouseMoveEvent(QMouseEvent* event)
 {
-	if (!m_interactorManager->handleMouseEvent(event))
+	if (!m_interactorManager->handleEvent(event))
 		QGraphicsView::mouseMoveEvent(event);
 }
 
 void Palapeli::View::mousePressEvent(QMouseEvent* event)
 {
-	if (!m_interactorManager->handleMouseEvent(event))
+	if (!m_interactorManager->handleEvent(event))
 		QGraphicsView::mousePressEvent(event);
 }
 
 void Palapeli::View::mouseReleaseEvent(QMouseEvent* event)
 {
-	if (!m_interactorManager->handleMouseEvent(event))
+	if (!m_interactorManager->handleEvent(event))
 		QGraphicsView::mouseReleaseEvent(event);
 }
 
 void Palapeli::View::wheelEvent(QWheelEvent* event)
 {
-	if (!m_interactorManager->handleWheelEvent(event))
+	if (!m_interactorManager->handleEvent(event))
 		QGraphicsView::wheelEvent(event);
 }
 

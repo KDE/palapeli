@@ -19,29 +19,39 @@
 #ifndef PALAPELI_INTERACTORMANAGER_H
 #define PALAPELI_INTERACTORMANAGER_H
 
-class QGraphicsScene;
-class QGraphicsView;
+#include "interactorutils.h"
+
+#include <QGraphicsView>
 #include <QMap>
-class QMouseEvent;
-#include <QObject>
-class QWheelEvent;
 
 namespace Palapeli
 {
 	class Interactor;
+	typedef QPair<Palapeli::InteractorTrigger, Palapeli::Interactor*> AssociatedInteractorTrigger;
 
-	class InteractorManager : public QObject
+	class InteractorManager
 	{
 		public:
-			InteractorManager(QGraphicsView* view);
+			explicit InteractorManager(QGraphicsView* view);
 
-			bool handleMouseEvent(QMouseEvent* event);
-			bool handleWheelEvent(QWheelEvent* event);
+			bool handleEvent(QWheelEvent* event);
+			bool handleEvent(QMouseEvent* event);
+			bool handleEvent(QKeyEvent* event);
 
-			void setScene(QGraphicsScene* scene);
+			void updateScene();
+		protected:
+			bool testTrigger(const Palapeli::InteractorTrigger& trigger, QWheelEvent* event);
+			bool testTrigger(const Palapeli::InteractorTrigger& trigger, QMouseEvent* event);
+			bool testTrigger(const Palapeli::InteractorTrigger& trigger, QKeyEvent* event);
 		private:
-			QMap<QByteArray, QList<int> > m_defaultConfiguration;
+			QGraphicsView* m_view;
 			QMap<QByteArray, Palapeli::Interactor*> m_interactors;
+			//configuration
+			QList<Palapeli::AssociatedInteractorTrigger> m_triggers;
+			//state
+			QList<Palapeli::AssociatedInteractorTrigger> m_activeTriggers;
+			//quasi-static data
+			QMap<Qt::Key, Qt::KeyboardModifier> m_keyModifierMap;
 	};
 }
 
