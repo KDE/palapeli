@@ -153,7 +153,7 @@ void Palapeli::View::startVictoryAnimation()
 {
 	//move viewport to show the complete puzzle
 	QPropertyAnimation* animation = new QPropertyAnimation(this, "viewportRect", this);
-	animation->setEndValue(m_scene->partsBoundingRect());
+	animation->setEndValue(m_scene->piecesBoundingRect());
 	animation->setDuration(1000);
 	animation->start(QAbstractAnimation::DeleteWhenStopped);
 	emit zoomAdjustable(false);

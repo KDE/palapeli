@@ -176,7 +176,7 @@ void Palapeli::ConstraintVisualizer::mouseMoveEvent(QGraphicsSceneMouseEvent* ev
 		newSceneRect.setTop(m_sceneRect.top() + posDiff.y());
 	if (m_draggingSides.contains(BottomSide))
 		newSceneRect.setBottom(m_sceneRect.bottom() + posDiff.y());
-	newSceneRect |= m_scene->partsBoundingRect();
+	newSceneRect |= m_scene->piecesBoundingRect();
 	m_scene->setSceneRect(newSceneRect);
 }
 

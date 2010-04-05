@@ -18,8 +18,7 @@
 
 #include "scene.h"
 #include "constraintvisualizer.h"
-#include "part.h"
-#include "piece.h"
+#include "newpiece.h"
 #include "../file-io/collection.h"
 #include "../file-io/puzzle.h"
 #include "settings.h"
@@ -42,18 +41,16 @@ Palapeli::Scene::Scene(QObject* parent)
 	: QGraphicsScene(parent)
 	, m_constrained(false)
 	, m_constraintVisualizer(new Palapeli::ConstraintVisualizer(this))
-	, m_partGroup(new Palapeli::EmptyGraphicsObject)
 	, m_loadingPuzzle(false)
 {
-	addItem(m_partGroup);
 	connect(&m_metadataLoader, SIGNAL(finished()), this, SLOT(continueLoading()));
 }
 
-QRectF Palapeli::Scene::partsBoundingRect() const
+QRectF Palapeli::Scene::piecesBoundingRect() const
 {
 	QRectF result;
-	foreach (Palapeli::Part* part, m_parts)
-		result |= part->mapToScene(part->piecesBoundingRect()).boundingRect();
+	foreach (Palapeli::Piece* piece, m_pieces)
+		result |= piece->sceneBareBoundingRect();
 	return result;
 }
 
@@ -69,6 +66,33 @@ void Palapeli::Scene::setConstrained(bool constrained)
 	m_constrained = constrained;
 	m_constraintVisualizer->setActive(constrained);
 	emit constrainedChanged(constrained);
+}
+
+void Palapeli::Scene::validatePiecePosition(Palapeli::Piece* piece)
+{
+	//get system geometry
+	const QRectF sr = sceneRect();
+	const QRectF br = piece->sceneBareBoundingRect(); //br = bounding rect
+	if (sr.contains(br))
+		return;
+	//check constraint
+	if (m_constrained)
+	{
+		QPointF pos = piece->pos();
+		//scene rect constraint is active -> ensure that piece stays inside scene rect
+		if (br.left() < sr.left())
+			pos.rx() += sr.left() - br.left();
+		if (br.right() > sr.right())
+			pos.rx() += sr.right() - br.right();
+		if (br.top() < sr.top())
+			pos.ry() += sr.top() - br.top();
+		if (br.bottom() > sr.bottom())
+			pos.ry() += sr.bottom() - br.bottom();
+		piece->setPos(pos);
+	}
+	else
+		//scene rect constraint is not active -> enlarge scene rect as necessary
+		setSceneRect(sr | br);
 }
 
 void Palapeli::Scene::loadPuzzle(const QModelIndex& index)
@@ -93,9 +117,9 @@ void Palapeli::Scene::loadPuzzleInternal()
 	setConstrained(false);
 	//clear scene
 	qDeleteAll(m_pieces); m_pieces.clear();
-	qDeleteAll(m_parts); m_parts.clear();
 	emit reportProgress(0, 0);
 	//begin to load puzzle
+	m_loadedPieces.clear();
 	startLoading();
 }
 
@@ -122,32 +146,32 @@ void Palapeli::Scene::continueLoading()
 		return;
 	//delay piece loading for UI responsibility
 	if (!m_puzzle->contents()->pieces.isEmpty())
-		QTimer::singleShot(0, this, SLOT(loadNextPart()));
+		QTimer::singleShot(0, this, SLOT(loadNextPiece()));
 }
 
-void Palapeli::Scene::loadNextPart()
+void Palapeli::Scene::loadNextPiece()
 {
 	if (!m_puzzle)
 		return;
-	//add pieces and parts, but only one piece at a time
+	//add pieces, but only one at a time
 	const Palapeli::PuzzleContents* contents = m_puzzle->contents();
 	QMap<int, QPixmap>::const_iterator iterPieces = contents->pieces.begin();
 	const QMap<int, QPixmap>::const_iterator iterPiecesEnd = contents->pieces.end();
 	for (int pieceID = iterPieces.key(); iterPieces != iterPiecesEnd; pieceID = (++iterPieces).key())
 	{
-		if (m_pieces.contains(pieceID))
+		if (m_loadedPieces.contains(pieceID))
 			continue; //already loaded
-		Palapeli::Piece* piece = new Palapeli::Piece(iterPieces.value(), contents->pieceOffsets[pieceID]);
-		m_pieces[pieceID] = piece;
-		Palapeli::Part* part = new Palapeli::Part(piece);
-		connect(part, SIGNAL(destroyed(QObject*)), this, SLOT(partDestroyed(QObject*)));
-		connect(part, SIGNAL(partMoved()), this, SLOT(partMoved()));
-		connect(part, SIGNAL(partMoving()), this, SLOT(partMoving()));
-		part->setParentItem(m_partGroup);
-		m_parts << part;
-		//continue with next part after eventloop run
+		//load piece
+		Palapeli::PieceVisuals pieceVisuals = { iterPieces.value(), contents->pieceOffsets[pieceID] };
+		Palapeli::Piece* piece = new Palapeli::Piece(pieceVisuals);
+		piece->createShadow(); //TODO: delay this operation when a savegame is available
+		piece->addRepresentedAtomicPieces(QSet<int>() << pieceID);
+		addItem(piece);
+		m_pieces << piece;
+		m_loadedPieces << pieceID;
+		//continue with next piece after eventloop run
 		if (contents->pieces.size() > m_pieces.size())
-			QTimer::singleShot(0, this, SLOT(loadNextPart()));
+			QTimer::singleShot(0, this, SLOT(loadNextPiece()));
 		else
 			QTimer::singleShot(0, this, SLOT(finishLoading()));
 		return;
@@ -164,9 +188,10 @@ void Palapeli::Scene::finishLoading()
 	{
 		Palapeli::Piece* firstPiece = m_pieces[relation.first];
 		Palapeli::Piece* secondPiece = m_pieces[relation.second];
-		firstPiece->addNeighbor(secondPiece);
-		secondPiece->addNeighbor(firstPiece);
+		firstPiece->addLogicalNeighbors(QSet<Palapeli::Piece*>() << secondPiece);
+		secondPiece->addLogicalNeighbors(QSet<Palapeli::Piece*>() << firstPiece);
 	}
+#if 0 //TODO: port
 	//Is "savegame" available?
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
 	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier)));
@@ -185,46 +210,48 @@ void Palapeli::Scene::finishLoading()
 		}
 	}
 	else
+#endif
 	{
-		//place parts at nice positions
-		//step 1: determine maximum part size
-		QSizeF partAreaSize;
-		foreach (Palapeli::Part* part, m_parts)
-			partAreaSize = partAreaSize.expandedTo(part->scenePiecesBoundingRect().size());
-		partAreaSize *= 1.3; //more space for each part
-		//step 2: place parts in a grid in random order
-		QList<Palapeli::Part*> partPool(m_parts);
-		const int xCount = floor(sqrt((float)partPool.count()));
-		for (int y = 0; !partPool.isEmpty(); ++y)
+		//place pieces at nice positions
+		//step 1: determine maximum piece size
+		QSizeF pieceAreaSize;
+		foreach (Palapeli::Piece* piece, m_pieces)
+			pieceAreaSize = pieceAreaSize.expandedTo(piece->sceneBareBoundingRect().size());
+		pieceAreaSize *= 1.3; //more space for each piece
+		//step 2: place pieces in a grid in random order
+		QList<Palapeli::Piece*> piecePool(m_pieces);
+		const int xCount = floor(sqrt((float)piecePool.count()));
+		for (int y = 0; !piecePool.isEmpty(); ++y)
 		{
-			for (int x = 0; x < xCount && !partPool.isEmpty(); ++x)
+			for (int x = 0; x < xCount && !piecePool.isEmpty(); ++x)
 			{
-				//select random part
-				Palapeli::Part* part = partPool.takeAt(qrand() % partPool.count());
-				//determine part offset
-				part->setPos(QPointF());
-				const QRectF br = part->scenePiecesBoundingRect();
-				const QPointF partOffset = br.topLeft();
-				const QSizeF partSize = br.size();
-				//determine random position inside part area
+				//select random piece
+				Palapeli::Piece* piece = piecePool.takeAt(qrand() % piecePool.count());
+				//determine piece offset
+				piece->setPos(QPointF());
+				const QRectF br = piece->sceneBareBoundingRect();
+				const QPointF pieceOffset = br.topLeft();
+				const QSizeF pieceSize = br.size();
+				//determine random position inside piece area
 				const QPointF areaOffset(
-					qrand() % (int)(partAreaSize.width() - partSize.width()),
-					qrand() % (int)(partAreaSize.height() - partSize.height())
+					qrand() % (int)(pieceAreaSize.width() - pieceSize.width()),
+					qrand() % (int)(pieceAreaSize.height() - pieceSize.height())
 				);
 				//move to desired position in (x,y) grid
-				const QPointF gridBasePosition(x * partAreaSize.width(), y * partAreaSize.height());
-				part->setPos(gridBasePosition + areaOffset - partOffset);
+				const QPointF gridBasePosition(x * pieceAreaSize.width(), y * pieceAreaSize.height());
+				piece->setPos(gridBasePosition + areaOffset - pieceOffset);
 			}
 		}
 	}
 	//determine scene rect
-	setSceneRect(partsBoundingRect());
+	setSceneRect(piecesBoundingRect());
 	//initialize external progress display
-	emit reportProgress(m_pieces.count(), m_parts.count());
+	m_atomicPieceCount = m_pieces.count();
+	emit reportProgress(m_atomicPieceCount, m_pieces.count());
 	emit puzzleStarted();
 	m_loadingPuzzle = false;
 	//check if puzzle has been completed
-	if (m_parts.count() == 1)
+	if (m_pieces.count() == 1)
 	{
 		int result = KMessageBox::questionYesNo(views()[0], i18n("You have finished the puzzle the last time. Do you want to restart it now?"));
 		if (result == KMessageBox::Yes)
@@ -232,6 +259,7 @@ void Palapeli::Scene::finishLoading()
 	}
 }
 
+#if 0 //TODO: port
 void Palapeli::Scene::partDestroyed(QObject* object)
 {
 	int oldCount = m_parts.count();
@@ -241,17 +269,10 @@ void Palapeli::Scene::partDestroyed(QObject* object)
 		QTimer::singleShot(0, this, SLOT(playVictoryAnimation()));
 }
 
-void Palapeli::Scene::partMoving()
-{
-	//if scene size constraint is not active, enlarge scene rect as needed
-	if (!m_constrained)
-		setSceneRect(partsBoundingRect() | sceneRect());
-}
-
 void Palapeli::Scene::partMoved()
 {
 	partMoving();
-	emit reportProgress(m_pieces.count(), m_parts.count());
+	emit reportProgress(m_atomicPieceCount, m_pieces.count());
 	//save piece positions
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
 	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier)));
@@ -261,13 +282,14 @@ void Palapeli::Scene::partMoved()
 	for (int pieceID = iterPieces.key(); iterPieces != iterPiecesEnd; pieceID = (++iterPieces).key())
 		saveGroup.writeEntry(QString::number(pieceID), iterPieces.value()->part()->pos());
 }
+#endif
 
 void Palapeli::Scene::playVictoryAnimation()
 {
 	setConstrained(true);
 	QPropertyAnimation* animation = new QPropertyAnimation(this, "sceneRect", this);
 	animation->setStartValue(sceneRect());
-	animation->setEndValue(partsBoundingRect());
+	animation->setEndValue(piecesBoundingRect());
 	animation->setDuration(1000);
 	connect(animation, SIGNAL(finished()), this, SLOT(playVictoryAnimation2()));
 	animation->start(QAbstractAnimation::DeleteWhenStopped);
@@ -275,7 +297,7 @@ void Palapeli::Scene::playVictoryAnimation()
 
 void Palapeli::Scene::playVictoryAnimation2()
 {
-	setSceneRect(partsBoundingRect());
+	setSceneRect(piecesBoundingRect());
 	QTimer::singleShot(100, this, SIGNAL(victoryAnimationFinished()));
 	QTimer::singleShot(1500, this, SLOT(playVictoryAnimation3())); //give the View some time to play its part of the victory animation
 }

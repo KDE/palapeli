@@ -30,7 +30,6 @@ class QModelIndex;
 namespace Palapeli
 {
 	class ConstraintVisualizer;
-	class Part;
 	class Piece;
 	class Puzzle;
 
@@ -41,7 +40,9 @@ namespace Palapeli
 			Scene(QObject* parent = 0);
 
 			bool isConstrained() const;
-			QRectF partsBoundingRect() const;
+			QRectF piecesBoundingRect() const;
+
+			void validatePiecePosition(Palapeli::Piece* piece);
 		public Q_SLOTS:
 			void loadPuzzle(const QModelIndex& index);
 			void restartPuzzle();
@@ -49,19 +50,20 @@ namespace Palapeli
 		Q_SIGNALS:
 			void constrainedChanged(bool constrained);
 			void puzzleStarted();
-			void reportProgress(int pieceCount, int partCount);
+			void reportProgress(int pieceCount, int atomicPieceCount);
 			void victoryAnimationFinished();
 		private Q_SLOTS:
+#if 0 //TODO: port
 			void partDestroyed(QObject* object);
-			void partMoving();
 			void partMoved();
+#endif
 			void playVictoryAnimation();
 			void playVictoryAnimation2();
 			void playVictoryAnimation3();
 			//loading steps
 			void startLoading();
 			void continueLoading();
-			void loadNextPart();
+			void loadNextPiece();
 			void finishLoading();
 		private:
 			void loadPuzzleInternal();
@@ -69,15 +71,15 @@ namespace Palapeli
 			//behavior parameters
 			bool m_constrained;
 			Palapeli::ConstraintVisualizer* m_constraintVisualizer;
-			Palapeli::EmptyGraphicsObject* m_partGroup; //NOTE: This group can be used to animate all parts at once.
 			//game parameters
 			QString m_identifier;
 			QPointer<Palapeli::Puzzle> m_puzzle;
-			QMap<int, Palapeli::Piece*> m_pieces;
-			QList<Palapeli::Part*> m_parts;
+			QList<Palapeli::Piece*> m_pieces;
+			int m_atomicPieceCount;
 			//some stuff needed for loading puzzles
 			bool m_loadingPuzzle;
 			QFutureWatcher<bool> m_metadataLoader;
+			QList<int> m_loadedPieces;
 	};
 }
 

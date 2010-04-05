@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -16,34 +16,23 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_SHADOWITEM_H
-#define PALAPELI_SHADOWITEM_H
+#ifndef PALAPELI_NEWPIECEVISUALS_H
+#define PALAPELI_NEWPIECEVISUALS_H
 
-#include "basics.h"
-
-class QPropertyAnimation;
+#include <QPixmap>
 
 namespace Palapeli
 {
-	QPixmap makePixmapMonochrome(const QPixmap& pixmap, const QColor& color);
-	QPixmap createShadow(const QPixmap& source, int radius);
-
-	class ShadowItem : public Palapeli::GraphicsObject<Palapeli::ShadowUserType>
+	struct PieceVisuals
 	{
-		Q_OBJECT
-		Q_PROPERTY(qreal activeOpacity READ activeOpacity WRITE setActiveOpacity)
-		public:
-			ShadowItem(const QPixmap& pixmap, int radius, const QPointF& offset);
+		QPixmap pixmap;
+		QPointF offset;
 
-			qreal activeOpacity() const;
-			void setActiveOpacity(qreal activeOpacity);
-		public Q_SLOTS:
-			void setActive(bool active);
-		private:
-			QGraphicsPixmapItem* m_baseShadow;
-			QGraphicsPixmapItem* m_activeShadow;
-			QPropertyAnimation* m_animator;
+		bool isNull() const { return pixmap.isNull(); }
 	};
+
+	Palapeli::PieceVisuals createShadow(const Palapeli::PieceVisuals& pieceVisuals);
+	Palapeli::PieceVisuals changeShadowColor(const Palapeli::PieceVisuals& shadowVisuals, const QColor& color);
 }
 
-#endif // PALAPELI_SHADOWITEM_H
+#endif // PALAPELI_NEWPIECEVISUALS_H

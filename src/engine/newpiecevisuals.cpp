@@ -78,7 +78,7 @@ static void blur(QImage& image, const QRect& rect, int radius)
 	}
 }
 
-QPixmap Palapeli::makePixmapMonochrome(const QPixmap& pixmap, const QColor& color)
+static QPixmap makePixmapMonochrome(const QPixmap& pixmap, const QColor& color)
 {
 	QPixmap basePixmap(pixmap.size());
 	basePixmap.fill(color);
@@ -91,9 +91,9 @@ QPixmap Palapeli::makePixmapMonochrome(const QPixmap& pixmap, const QColor& colo
 	return monoPixmap;
 }
 
-QPixmap Palapeli::createShadow(const QPixmap& source, int radius)
+static QPixmap createShadow(const QPixmap& source, int radius)
 {
-	QPixmap shadowPixmap = Palapeli::makePixmapMonochrome(source, Qt::black);
+	QPixmap shadowPixmap = makePixmapMonochrome(source, Qt::black);
 
 	QImage shadowImage(QSize(source.width() + 2 * radius, source.height() + 2 * radius), QImage::Format_ARGB32_Premultiplied);
 	shadowImage.fill(0x00000000); //transparent
@@ -107,45 +107,18 @@ QPixmap Palapeli::createShadow(const QPixmap& source, int radius)
 
 //END shadow blur algorithm
 
-Palapeli::ShadowItem::ShadowItem(const QPixmap& pixmap, int radius, const QPointF& offset)
-	: m_baseShadow(new QGraphicsPixmapItem(this))
-	, m_activeShadow(new QGraphicsPixmapItem(this))
-	, m_animator(new QPropertyAnimation(this, "activeOpacity", this))
+Palapeli::PieceVisuals Palapeli::createShadow(const Palapeli::PieceVisuals& pieceVisuals)
 {
-	//create shadows
-	const QPixmap baseShadowPixmap = Palapeli::createShadow(pixmap, radius);
-	const QColor activeShadowColor = QApplication::palette().color(QPalette::Highlight);
-	const QPixmap activeShadowPixmap = Palapeli::makePixmapMonochrome(baseShadowPixmap, activeShadowColor);
-	//setup items
-	m_baseShadow->setPixmap(baseShadowPixmap);
-	m_baseShadow->setAcceptedMouseButtons(Qt::LeftButton);
-	m_baseShadow->setOffset(offset + QPointF(-radius, -radius));
-	m_activeShadow->setPixmap(activeShadowPixmap);
-	m_activeShadow->setAcceptedMouseButtons(Qt::LeftButton);
-	m_activeShadow->setOffset(offset + QPointF(-radius, -radius));
-	m_activeShadow->setOpacity(0.0);
+	const int shadowRadius = 0.15 * (pieceVisuals.pixmap.width() + pieceVisuals.pixmap.height());
+	Palapeli::PieceVisuals result;
+	result.pixmap = createShadow(pieceVisuals.pixmap, shadowRadius);
+	result.offset = pieceVisuals.offset - QPointF(shadowRadius, shadowRadius);
+	return result;
 }
 
-qreal Palapeli::ShadowItem::activeOpacity() const
+Palapeli::PieceVisuals Palapeli::changeShadowColor(const Palapeli::PieceVisuals& shadowVisuals, const QColor& color)
 {
-	return m_activeShadow->opacity();
+	Palapeli::PieceVisuals result = shadowVisuals;
+	result.pixmap = makePixmapMonochrome(result.pixmap, color);
+	return result;
 }
-
-void Palapeli::ShadowItem::setActiveOpacity(qreal activeOpacity)
-{
-	m_activeShadow->setOpacity(activeOpacity);
-// 	m_baseShadow->setOpacity(1.0 - activeOpacity);
-}
-
-void Palapeli::ShadowItem::setActive(bool active)
-{
-	const qreal targetOpacity = active ? 1.0 : 0.0;
-	if (targetOpacity == activeOpacity())
-		return;
-	m_animator->setDuration(200 * qAbs(targetOpacity - activeOpacity()));
-	m_animator->setStartValue(activeOpacity());
-	m_animator->setEndValue(targetOpacity);
-	m_animator->start();
-}
-
-#include "newpiecevisuals.moc"
