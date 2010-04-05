@@ -287,7 +287,7 @@ void Palapeli::RubberBandInteractor::mousePressEvent(const Palapeli::MouseEvent&
 
 void Palapeli::RubberBandInteractor::mouseMoveEvent(const Palapeli::MouseEvent& event)
 {
-	//let the interactor pick up the mouse move event only if rubberbanding is actually active (TODO: this is a bug in InteractorManager -> it should recognize chains of mouse events consisting of a series of press-move-move-...-move-release events)
+	//let the interactor pick up the mouse move event only if rubberbanding is actually active
 	if (!m_item->isVisible())
 		return;
 	QSizeF size(event.scenePos.x() - m_basePosition.x(), event.scenePos.y() - m_basePosition.y());

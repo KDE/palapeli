@@ -39,26 +39,17 @@ namespace Palapeli
 		public Q_SLOTS:
 			void setActive(bool active);
 			void update(const QRectF& sceneRect);
-		protected:
-			friend class CvHandleItem;
-			void mouseMove(QGraphicsSceneMouseEvent* event, Palapeli::CvHandleItem* sender);
-			void mousePress(QGraphicsSceneMouseEvent* event, Palapeli::CvHandleItem* sender);
 		private:
 			enum Side { LeftSide = 0, RightSide, TopSide, BottomSide, SideCount };
-			//WARNING: Do not change the order of entries in the following enum. Some code in ConstraintVisualizer relies on it.
 			enum HandlePosition { LeftHandle = 0, TopLeftHandle, TopHandle, TopRightHandle, RightHandle, BottomRightHandle, BottomHandle, BottomLeftHandle, HandleCount };
 
 			Palapeli::Scene* m_scene;
 			bool m_active;
 
-			QVector<QGraphicsRectItem*> m_shadowItems;
-			QVector<Palapeli::CvHandleItem*> m_handleItems;
+			QVector<QGraphicsRectItem*> m_shadowItems, m_handleItems;
+			QGraphicsPathItem* m_indicatorItem;
 			QRectF m_sceneRect;
-			qreal m_handleExtent;
 			QPropertyAnimation* m_animator;
-			//the following are only used in the handles' mouse events
-			QList<Side> m_draggingSides;
-			QPoint m_lastScreenPos;
 	};
 }
 

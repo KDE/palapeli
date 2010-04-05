@@ -17,13 +17,12 @@
 ***************************************************************************/
 
 #include "interactormanager.h"
+#include "constraintinteractor.h"
 #include "interactors.h"
 
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QWheelEvent>
-
-//TODO: Rewrite the interactive parts of the ConstraintVisualizer into an Interactor.
 
 Palapeli::InteractorManager::InteractorManager(QGraphicsView* view)
 	: m_view(view)
@@ -33,11 +32,13 @@ Palapeli::InteractorManager::InteractorManager(QGraphicsView* view)
 	m_interactors["MoveViewport"] = new Palapeli::MoveViewportInteractor(view);
 	m_interactors["ZoomViewport"] = new Palapeli::ZoomViewportInteractor(view);
 	m_interactors["RubberBand"] = new Palapeli::RubberBandInteractor(view);
-	//setup triggers
+	m_interactors["Constraints"] = new Palapeli::ConstraintInteractor(view);
+	//setup triggers (WARNING: the insertion order implements priority)
 	typedef Palapeli::InteractorTrigger PIT;
 	m_triggers << qMakePair(PIT("LeftButton;NoModifier"), m_interactors["MovePiece"]);
 	m_triggers << qMakePair(PIT("RightButton;NoModifier"), m_interactors["MoveViewport"]);
 	m_triggers << qMakePair(PIT("wheel:Vertical;NoModifier"), m_interactors["ZoomViewport"]);
+	m_triggers << qMakePair(PIT("LeftButton;NoModifier"), m_interactors["Constraints"]);
 	m_triggers << qMakePair(PIT("LeftButton;NoModifier"), m_interactors["RubberBand"]);
 	//initialize quasi-static data
 	m_keyModifierMap[Qt::Key_Shift] = Qt::ShiftModifier;

@@ -16,36 +16,29 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_CONSTRAINTVISUALIZER_P_H
-#define PALAPELI_CONSTRAINTVISUALIZER_P_H
+#ifndef PALAPELI_CONSTRAINTINTERACTOR_H
+#define PALAPELI_CONSTRAINTINTERACTOR_H
 
-#include <QCursor>
-#include <QGraphicsItem>
-#include <QPropertyAnimation>
+#include "interactor.h"
 
 namespace Palapeli
 {
-	class CvHandleItem : public QObject, public QGraphicsPathItem
+	class ConstraintInteractor : public Palapeli::Interactor
 	{
-		Q_OBJECT
-		Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity)
 		public:
-			CvHandleItem(const QCursor& cursor, const QColor& baseColor, QGraphicsItem* parent = 0);
-
-			qreal opacity() const;
-			void setOpacity(qreal opacity);
-			void setOpacityAnimated(qreal opacity);
+			ConstraintInteractor(QGraphicsView* view);
 		protected:
-			virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
-			virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
-			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
-			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
-			virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
+			virtual bool acceptMousePosition(const QPoint& pos);
+			virtual void mousePressEvent(const Palapeli::MouseEvent& event);
+			virtual void mouseMoveEvent(const Palapeli::MouseEvent& event);
+			virtual void mouseReleaseEvent(const Palapeli::MouseEvent& event);
 		private:
-			QColor m_baseColor;
-			qreal m_opacity;
-			QPropertyAnimation* m_animator;
+			enum Side { LeftSide = 0, RightSide, TopSide, BottomSide };
+			QList<Side> touchingSides(const QPointF& scenePos) const;
+
+			QList<Side> m_draggingSides;
+			QPointF m_baseSceneRectOffset;
 	};
 }
 
-#endif // PALAPELI_CONSTRAINTVISUALIZER_P_H
+#endif // PALAPELI_CONSTRAINTINTERACTOR_H
