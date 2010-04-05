@@ -28,6 +28,8 @@ Palapeli::InteractorManager::InteractorManager(QGraphicsView* view)
 	: QObject(view)
 {
 	//create interactors, specify default configuration
+	m_interactors["MovePiece"] = new Palapeli::MovePieceInteractor(view);
+	m_defaultConfiguration["MovePiece"] = QList<int>() << Qt::NoModifier << Qt::LeftButton;
 	m_interactors["MoveViewport"] = new Palapeli::MoveViewportInteractor(view);
 	m_defaultConfiguration["MoveViewport"] = QList<int>() << Qt::NoModifier << Qt::RightButton;
 	m_interactors["ZoomViewport"] = new Palapeli::ZoomViewportInteractor(view);

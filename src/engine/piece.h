@@ -26,6 +26,7 @@ class QPropertyAnimation;
 
 namespace Palapeli
 {
+	class MovePieceInteractor;
 	struct PieceVisuals;
 
 	class Piece : public Palapeli::GraphicsObject<Palapeli::PieceUserType>
@@ -38,12 +39,14 @@ namespace Palapeli
 			///This method will create a shadow for this piece if there is none ATM.
 			void createShadow();
 
-			virtual QRectF boundingRect() const;
 			///Returns the bounding rect without shadows.
 			QRectF bareBoundingRect() const;
 			QRectF sceneBareBoundingRect() const;
 			Palapeli::PieceVisuals pieceVisuals() const;
 			Palapeli::PieceVisuals shadowVisuals() const;
+
+			bool isSelected() const;
+			void setSelected(bool selected);
 
 			///This method lets the piece remember which atomic pieces it represents. (Atomic pieces are what the scene creates when the puzzle is loaded.)
 			void addRepresentedAtomicPieces(const QList<int>& representedAtomicPieces);
@@ -59,10 +62,12 @@ namespace Palapeli
 		Q_SIGNALS:
 			void moved();
 		protected:
-			virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
-			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
-			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
-			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+			friend class MovePieceInteractor;
+			void beginMove();
+			void doMove();
+			void endMove();
+		private Q_SLOTS:
+			void pieceItemSelectedChanged(bool selected);
 		private:
 			void createShadowItems(const Palapeli::PieceVisuals& shadowVisuals);
 			qreal activeShadowOpacity() const;

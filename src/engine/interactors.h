@@ -25,6 +25,27 @@
 
 namespace Palapeli
 {
+	class Piece;
+
+	class MovePieceInteractor : public Palapeli::Interactor
+	{
+		public:
+			MovePieceInteractor(QGraphicsView* view);
+		protected:
+			virtual bool acceptItemUnderMouse(QGraphicsItem* item);
+			virtual void mousePressEvent(const Palapeli::InteractorMouseEvent& event);
+			virtual void mouseMoveEvent(const Palapeli::InteractorMouseEvent& event);
+			virtual void mouseReleaseEvent(const Palapeli::InteractorMouseEvent& event);
+		private:
+			Palapeli::Piece* findPieceForItem(QGraphicsItem* mouseInteractingItem) const;
+			void determineSelectedItems(QGraphicsItem* clickedItem, Palapeli::Piece* clickedPiece);
+
+			QList<QGraphicsItem*> m_currentItems; //the item which accepts the events
+			QList<Palapeli::Piece*> m_currentPieces; //the piece for this item
+			QPointF m_baseScenePosition;
+			QList<QPointF> m_basePositions;
+	};
+
 	class MoveViewportInteractor : public Palapeli::Interactor
 	{
 		public:

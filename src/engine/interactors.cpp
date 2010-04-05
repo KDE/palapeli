@@ -17,12 +17,105 @@
 ***************************************************************************/
 
 #include "interactors.h"
+#include "piece.h"
 #include "view.h"
 
 #include <QScrollBar>
 #include <QStyle>
 #include <QStyleOptionRubberBand>
 
+//BEGIN Palapeli::MovePieceInteractor
+
+Palapeli::MovePieceInteractor::MovePieceInteractor(QGraphicsView* view)
+	: Palapeli::Interactor(Palapeli::MouseInteractor, view)
+{
+}
+
+bool Palapeli::MovePieceInteractor::acceptItemUnderMouse(QGraphicsItem* item)
+{
+	//we are currently moving something -> grab all events
+	if (!m_currentPieces.isEmpty())
+		return true;
+	//we are not moving anything -> is there anything at all under the mouse?
+	if (!item)
+		return false;
+	//we will only move pieces -> find the piece which we are moving
+	Palapeli::Piece* piece = findPieceForItem(item);
+	if (!piece)
+		return false;
+	//start moving this piece
+	determineSelectedItems(item, piece);
+	return true;
+}
+
+Palapeli::Piece* Palapeli::MovePieceInteractor::findPieceForItem(QGraphicsItem* mouseInteractingItem) const
+{
+	//try to cast the item and its parent
+	Palapeli::Piece* piece = qgraphicsitem_cast<Palapeli::Piece*>(mouseInteractingItem);
+	return piece ? piece : qgraphicsitem_cast<Palapeli::Piece*>(mouseInteractingItem->parentItem());
+}
+
+void Palapeli::MovePieceInteractor::determineSelectedItems(QGraphicsItem* clickedItem, Palapeli::Piece* clickedPiece)
+{
+	m_currentItems.clear();
+	m_currentPieces.clear();
+	const QList<QGraphicsItem*> selectedItems = clickedItem->scene()->selectedItems();
+	if (clickedItem->isSelected())
+	{
+		//clicked item is already selected -> include all selected items/pieces in this move
+		foreach (QGraphicsItem* selectedItem, selectedItems)
+		{
+			Palapeli::Piece* selectedPiece = findPieceForItem(selectedItem);
+			if (selectedPiece)
+			{
+				m_currentItems << selectedItem;
+				m_currentPieces << selectedPiece;
+			}
+		}
+		//NOTE: clickedItem is in the list selectedItems, so it need not be handled separately.
+	}
+	else
+	{
+		//clicked item is not selected -> deselect everything else and select only this item
+		foreach (QGraphicsItem* selectedItem, selectedItems)
+			selectedItem->setSelected(false);
+		clickedItem->setSelected(true);
+		m_currentItems << clickedItem;
+		m_currentPieces << clickedPiece;
+	}
+}
+
+void Palapeli::MovePieceInteractor::mousePressEvent(const Palapeli::InteractorMouseEvent& event)
+{
+	//begin moving
+	m_baseScenePosition = event.scenePos;
+	m_basePositions.clear();
+	foreach(Palapeli::Piece* piece, m_currentPieces)
+	{
+		m_basePositions << piece->pos();
+		piece->beginMove();
+	}
+}
+
+void Palapeli::MovePieceInteractor::mouseMoveEvent(const Palapeli::InteractorMouseEvent& event)
+{
+	for (int i = 0; i < m_currentPieces.count(); ++i)
+	{
+		m_currentPieces[i]->setPos(m_basePositions[i] + event.scenePos - m_baseScenePosition);
+		m_currentPieces[i]->doMove();
+	}
+}
+
+void Palapeli::MovePieceInteractor::mouseReleaseEvent(const Palapeli::InteractorMouseEvent& event)
+{
+	Q_UNUSED(event)
+	foreach(Palapeli::Piece* piece, m_currentPieces)
+		piece->endMove();
+	m_currentItems.clear();
+	m_currentPieces.clear();
+}
+
+//END Palapeli::MovePieceInteractor
 //BEGIN Palapeli::MoveViewportInteractor
 
 Palapeli::MoveViewportInteractor::MoveViewportInteractor(QGraphicsView* view)
@@ -158,7 +251,7 @@ void Palapeli::RubberBandInteractor::mousePressEvent(const Palapeli::InteractorM
 
 void Palapeli::RubberBandInteractor::mouseMoveEvent(const Palapeli::InteractorMouseEvent& event)
 {
-	//let the interactor pick up the mouse move event only if rubberbanding is actually active (TODO: this is a bug in Interactor -> it should recognize chains of mouse events consisting of a series of press-move-move-...-move-release events)
+	//let the interactor pick up the mouse move event only if rubberbanding is actually active (TODO: this is a bug in InteractorManager -> it should recognize chains of mouse events consisting of a series of press-move-move-...-move-release events)
 	if (!m_item->isVisible())
 		return;
 	QSizeF size(event.scenePos.x() - m_basePosition.x(), event.scenePos.y() - m_basePosition.y());

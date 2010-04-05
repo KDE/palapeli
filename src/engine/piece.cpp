@@ -17,6 +17,7 @@
 ***************************************************************************/
 
 #include "piece.h"
+#include "piece_p.h"
 #include "scene.h"
 
 #include <QApplication>
@@ -25,20 +26,22 @@
 #include <QPropertyAnimation>
 
 Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals)
-	: m_pieceItem(new QGraphicsPixmapItem(pieceVisuals.pixmap, this))
+	: m_pieceItem(0)
 	, m_inactiveShadowItem(0)
 	, m_activeShadowItem(0)
 	, m_animator(0)
 {
-	m_pieceItem->setAcceptedMouseButtons(Qt::LeftButton);
+	//initialize appearance
+	Palapeli::SelectionAwarePixmapItem* pieceItem = new Palapeli::SelectionAwarePixmapItem(pieceVisuals.pixmap, this);
+	connect(pieceItem, SIGNAL(selectedChanged(bool)), this, SLOT(pieceItemSelectedChanged(bool)));
+	m_pieceItem = pieceItem;
 	m_pieceItem->setOffset(pieceVisuals.offset);
 	if (!shadowVisuals.isNull())
 		createShadowItems(shadowVisuals);
-	//initialize behavior of this item
-	setCursor(Qt::OpenHandCursor);
-	setFlag(QGraphicsItem::ItemIsMovable);
-	setFlag(QGraphicsItem::ItemIsSelectable);
-	setHandlesChildEvents(true);
+	//initialize behavior
+	m_pieceItem->setAcceptedMouseButtons(Qt::LeftButton);
+	m_pieceItem->setCursor(Qt::OpenHandCursor);
+	m_pieceItem->setFlag(QGraphicsItem::ItemIsSelectable);
 }
 
 //BEGIN visuals
@@ -57,20 +60,12 @@ void Palapeli::Piece::createShadowItems(const Palapeli::PieceVisuals& shadowVisu
 	m_inactiveShadowItem = new QGraphicsPixmapItem(shadowVisuals.pixmap, this);
 	m_inactiveShadowItem->setOffset(shadowVisuals.offset);
 	m_inactiveShadowItem->setZValue(-2);
-	m_inactiveShadowItem->setCursor(cursor());
 	//create active shadow item and animator for its opacity
 	m_activeShadowItem = new QGraphicsPixmapItem(activeShadowVisuals.pixmap, this);
 	m_activeShadowItem->setOffset(activeShadowVisuals.offset);
 	m_activeShadowItem->setZValue(-1);
-	m_activeShadowItem->setCursor(cursor());
 	m_activeShadowItem->setOpacity(isSelected() ? 1.0 : 0.0);
 	m_animator = new QPropertyAnimation(this, "activeShadowOpacity", this);
-}
-
-QRectF Palapeli::Piece::boundingRect() const
-{
-	//for proper activation
-	return childrenBoundingRect();
 }
 
 QRectF Palapeli::Piece::bareBoundingRect() const
@@ -108,21 +103,18 @@ void Palapeli::Piece::setActiveShadowOpacity(qreal opacity)
 		m_activeShadowItem->setOpacity(opacity);
 }
 
-QVariant Palapeli::Piece::itemChange(GraphicsItemChange change, const QVariant& value)
+void Palapeli::Piece::pieceItemSelectedChanged(bool selected)
 {
-	if (change == ItemSelectedChange)
+	//change visibility of active shadow
+	const qreal targetOpacity = selected ? 1.0 : 0.0;
+	const qreal opacityDiff = qAbs(targetOpacity - activeShadowOpacity());
+	if (opacityDiff != 0)
 	{
-		const qreal targetOpacity = value.toBool() ? 1.0 : 0.0;
-		const qreal opacityDiff = qAbs(targetOpacity - activeShadowOpacity());
-		if (opacityDiff != 0)
-		{
-			m_animator->setDuration(150 * opacityDiff);
-			m_animator->setStartValue(activeShadowOpacity());
-			m_animator->setEndValue(targetOpacity);
-			m_animator->start();
-		}
+		m_animator->setDuration(150 * opacityDiff);
+		m_animator->setStartValue(activeShadowOpacity());
+		m_animator->setEndValue(targetOpacity);
+		m_animator->start();
 	}
-	return QGraphicsObject::itemChange(change, value);
 }
 
 //END visuals
@@ -181,53 +173,41 @@ QSize Palapeli::Piece::atomicSize() const
 //END internal datastructures
 //BEGIN mouse interaction
 
-void Palapeli::Piece::mousePressEvent(QGraphicsSceneMouseEvent* event)
+bool Palapeli::Piece::isSelected() const
 {
-	QGraphicsItem::mousePressEvent(event); //handle dragging
-	if (event->button() == Qt::LeftButton)
+	return m_pieceItem->isSelected();
+}
+
+void Palapeli::Piece::setSelected(bool selected)
+{
+	m_pieceItem->setSelected(selected);
+}
+
+void Palapeli::Piece::beginMove()
+{
+	static int zValue = 0;
+	setZValue(++zValue); //move piece to top
+	m_pieceItem->setCursor(Qt::ClosedHandCursor);
+}
+
+void Palapeli::Piece::doMove()
+{
+	Palapeli::Scene* scene = qobject_cast<Palapeli::Scene*>(this->scene());
+	if (scene)
 	{
-		//move item to top
-		static int zValue = 0;
-		setZValue(++zValue);
-		//indicate dragging
-		setCursor(Qt::ClosedHandCursor);
-		//hack because cursors do not properly propagate to child items
-		m_pieceItem->setCursor(Qt::ClosedHandCursor);
-		m_inactiveShadowItem->setCursor(Qt::ClosedHandCursor);
-		m_activeShadowItem->setCursor(Qt::ClosedHandCursor);
+		scene->validatePiecePosition(this);
+		//TODO: savegame is updated multiple times at once when multiple pieces are moved
+		scene->updateSavegame();
 	}
 }
 
-void Palapeli::Piece::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+void Palapeli::Piece::endMove()
 {
-	QGraphicsItem::mouseMoveEvent(event); //handle dragging
-	if (event->buttons() & Qt::LeftButton)
-	{
-		Palapeli::Scene* scene = qobject_cast<Palapeli::Scene*>(this->scene());
-		if (scene)
-		{
-			scene->validatePiecePosition(this);
-			scene->updateSavegame();
-		}
-	}
-}
-
-void Palapeli::Piece::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
-{
-	QGraphicsItem::mouseReleaseEvent(event); //handle dragging
-	if (event->button() == Qt::LeftButton)
-	{
-		//indicate end of dragging
-		setCursor(Qt::OpenHandCursor);
-		//hack because cursors do not properly propagate to child items
-		m_pieceItem->setCursor(Qt::OpenHandCursor);
-		m_inactiveShadowItem->setCursor(Qt::OpenHandCursor);
-		m_activeShadowItem->setCursor(Qt::OpenHandCursor);
-		//propagate end of move
-		emit moved();
-	}
+	m_pieceItem->setCursor(Qt::OpenHandCursor);
+	emit moved();
 }
 
 //END mouse interaction
 
 #include "piece.moc"
+#include "piece_p.moc"
