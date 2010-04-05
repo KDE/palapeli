@@ -35,9 +35,9 @@ namespace Palapeli
 		public:
 			explicit InteractorManager(QGraphicsView* view);
 
-			bool handleEvent(QWheelEvent* event);
-			bool handleEvent(QMouseEvent* event);
-			bool handleEvent(QKeyEvent* event);
+			void handleEvent(QWheelEvent* event);
+			void handleEvent(QMouseEvent* event);
+			void handleEvent(QKeyEvent* event);
 
 			void updateScene();
 		protected:

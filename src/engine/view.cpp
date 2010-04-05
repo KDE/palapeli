@@ -22,6 +22,7 @@
 #include "texturehelper.h"
 
 #include <cmath>
+#include <QMouseEvent>
 #include <QPropertyAnimation>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -78,38 +79,44 @@ void Palapeli::View::setViewportRect(const QRectF& viewportRect)
 
 void Palapeli::View::keyPressEvent(QKeyEvent* event)
 {
-	if (!m_interactorManager->handleEvent(event))
-		QGraphicsView::keyPressEvent(event);
+	m_interactorManager->handleEvent(event);
+	QGraphicsView::keyPressEvent(event);
 }
 
 void Palapeli::View::keyReleaseEvent(QKeyEvent* event)
 {
-	if (!m_interactorManager->handleEvent(event))
-		QGraphicsView::keyPressEvent(event);
+	m_interactorManager->handleEvent(event);
+	QGraphicsView::keyReleaseEvent(event);
 }
 
 void Palapeli::View::mouseMoveEvent(QMouseEvent* event)
 {
-	if (!m_interactorManager->handleEvent(event))
-		QGraphicsView::mouseMoveEvent(event);
+	m_interactorManager->handleEvent(event);
+	event->accept();
+	//send a stripped QMouseEvent to base class to update resizeAnchor() etc.
+	QMouseEvent modifiedEvent(event->type(),
+		event->pos(), event->globalPos(),
+		Qt::NoButton, Qt::NoButton, event->modifiers()
+	);
+	QGraphicsView::mouseMoveEvent(&modifiedEvent);
 }
 
 void Palapeli::View::mousePressEvent(QMouseEvent* event)
 {
-	if (!m_interactorManager->handleEvent(event))
-		QGraphicsView::mousePressEvent(event);
+	m_interactorManager->handleEvent(event);
+	event->accept();
 }
 
 void Palapeli::View::mouseReleaseEvent(QMouseEvent* event)
 {
-	if (!m_interactorManager->handleEvent(event))
-		QGraphicsView::mouseReleaseEvent(event);
+	m_interactorManager->handleEvent(event);
+	event->accept();
 }
 
 void Palapeli::View::wheelEvent(QWheelEvent* event)
 {
-	if (!m_interactorManager->handleEvent(event))
-		QGraphicsView::wheelEvent(event);
+	m_interactorManager->handleEvent(event);
+	//We do intentionally *not* propagate to QGV::wheelEvent.
 }
 
 void Palapeli::View::zoomBy(int delta)
