@@ -44,7 +44,7 @@ Palapeli::ZoomWidget::ZoomWidget(QWidget* parent)
 	m_zoomInButton->setIcon(KIcon("zoom-in"));
 	m_zoomInButton->setShortcut(KStandardShortcut::zoomIn().primary());
 	connect(m_zoomInButton, SIGNAL(pressed()), this, SIGNAL(zoomInRequest()));
-	//init slider (TODO: logarithmic scale)
+	//init slider
 	m_slider->setMinimum(Palapeli::View::MinimumZoomLevel);
 	m_slider->setMaximum(Palapeli::View::MaximumZoomLevel);
 	connect(m_slider, SIGNAL(valueChanged(int)), this, SIGNAL(levelChanged(int)));
