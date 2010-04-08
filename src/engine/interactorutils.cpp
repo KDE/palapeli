@@ -74,6 +74,7 @@ struct Palapeli::InteractorTrigger::Data
 			m_modifierStrings[Qt::GroupSwitchModifier] = i18nc("a special keyboard modifier", "GroupSwitch");
 			m_buttonStrings[Qt::NoButton] = i18nc("refers to no mouse buttons being pressed", "No-Button");
 			//FIXME: Left/right may be wrong if mouse buttons are swapped.
+			m_buttonStrings[(Qt::MouseButton) -1] = QLatin1String("%1"); //allow external users to insert their custom strings into here
 			m_buttonStrings[Qt::LeftButton] = i18nc("a mouse button", "Left-Button");
 			m_buttonStrings[Qt::RightButton] = i18nc("a mouse button", "Right-Button");
 			m_buttonStrings[Qt::MidButton] = i18nc("a mouse button", "Middle-Button");
@@ -91,6 +92,7 @@ K_GLOBAL_STATIC_WITH_ARGS(Palapeli::InteractorTrigger::Data, itPrettyData, (fals
 //BEGIN Palapeli::InteractorTrigger
 
 Palapeli::InteractorTrigger::InteractorTrigger()
+	: m_button((Qt::MouseButton) -1)
 {
 }
 
@@ -138,8 +140,18 @@ QPair<QString, QStringList> Palapeli::InteractorTrigger::toStringGeneric(const P
 	return qMakePair(actionString, modifierStrings);
 }
 
+bool Palapeli::InteractorTrigger::isValid() const
+{
+	if (m_wheelDirection > 0 && m_button > 0)
+		return false; //do not allow wheel and mouse triggers at the same time
+	else
+		return m_button >= 0; //do not allow negative m_button values
+}
+
 QString Palapeli::InteractorTrigger::serialized() const
 {
+	if (!isValid())
+		return QString();
 	QPair<QString, QStringList> bits = toStringGeneric(*itParserData);
 	if (bits.second.isEmpty())
 		bits.second << QLatin1String("NoModifier");

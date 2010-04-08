@@ -20,6 +20,7 @@
 #define PALAPELI_INTERACTORUTILS_H
 
 class QGraphicsView;
+#include <QMetaType>
 #include <QPair>
 #include <QPointF>
 
@@ -47,12 +48,14 @@ namespace Palapeli
 	struct InteractorTrigger
 	{
 		public:
-			///Constructs a trigger which corresponds to no modifier + no button.
+			///Constructs an invalid trigger. (The mouse button is set to -1.)
 			InteractorTrigger();
-			///Constructs a trigger from the given serialization. If the parsing fails, this constructor returns the same as the default constructor.
+			///Constructs a trigger from the given serialization. If the parsing fails, this constructor returns an invalid trigger (just like the default constructor).
 			///Possible serializations include "MidButton;NoModifier", "RightButton;ShiftModifier" and "wheel:Horizontal;ShiftModifier|ControlModifier". (A formal specification of the format is left as an exercise to the reader.)
 			InteractorTrigger(const QString& serialization); //krazy:exclude=explicit (I want implicit conversions)
 
+			///Returns whether this triger is valid.
+			bool isValid() const;
 			///Returns the serialization for this trigger, or an empty string if this trigger is invalid.
 			///\see isValid()
 			QString serialized() const;
@@ -79,5 +82,7 @@ namespace Palapeli
 			Qt::Orientation m_wheelDirection;
 	};
 }
+
+Q_DECLARE_METATYPE(Palapeli::InteractorTrigger)
 
 #endif // PALAPELI_INTERACTORUTILS_H
