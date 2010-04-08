@@ -23,12 +23,13 @@
 
 #include <QGraphicsItem>
 
-//TODO: interactor for selecting and deselecting pieces by clicking (like provided by QGV when Ctrl is held down)
-
 namespace Palapeli
 {
 	class Piece;
 
+	//This interactor is assigned to LeftButton;NoModifier by default.
+	//1. When you click on and drag a selected piece, all selected pieces are moved.
+	//2. When you click on and drag an unselected piece, all other pieces are deselected, the clicked piece is selected and moved.
 	class MovePieceInteractor : public Palapeli::Interactor
 	{
 		public:
@@ -48,6 +49,21 @@ namespace Palapeli
 			QList<QPointF> m_basePositions;
 	};
 
+	//This interactor is assigned to LeftButton;ControlModifier by default.
+	//When you click on a piece, its selection state will be toggled.
+	class SelectPieceInteractor : public Palapeli::Interactor
+	{
+		public:
+			SelectPieceInteractor(QGraphicsView* view);
+		protected:
+			virtual bool acceptMousePosition(const QPoint& pos);
+			virtual void mousePressEvent(const Palapeli::MouseEvent& event);
+		private:
+			Palapeli::Piece* m_currentPiece;
+	};
+
+	//This interactor is assigned to RightButton;NoModifier by default.
+	//Dragging will drag the viewport (only translations, no rotation or zooming).
 	class MoveViewportInteractor : public Palapeli::Interactor
 	{
 		public:
@@ -59,6 +75,8 @@ namespace Palapeli
 			QPoint m_lastPos;
 	};
 
+	//This interactor is assigned to wheel:Vertical;NoModifier by default.
+	//Turning the wheel will zoom the viewport.
 	class ZoomViewportInteractor : public Palapeli::Interactor
 	{
 		public:
@@ -81,6 +99,8 @@ namespace Palapeli
 			QRectF m_rect;
 	};
 
+	//This interactor is assigned to LeftClick;NoModifier by default.
+	//When you click on a free area of the view and drag the mouse, a rectangular rubberband will appear. All pieces inside the rubberband will be selected, all other pieces are deselected.
 	class RubberBandInteractor : public Palapeli::Interactor
 	{
 		public:

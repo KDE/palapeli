@@ -188,6 +188,12 @@ void Palapeli::Piece::setSelected(bool selected)
 	m_pieceItem->setSelected(selected);
 }
 
+Palapeli::Piece* Palapeli::Piece::fromSelectedItem(QGraphicsItem* item)
+{
+	//We expect: item == piece->m_pieceItem && item->parentItem() == piece
+	return qgraphicsitem_cast<Palapeli::Piece*>(item->parentItem());
+}
+
 void Palapeli::Piece::beginMove()
 {
 	static int zValue = 0;

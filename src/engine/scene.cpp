@@ -328,10 +328,7 @@ void Palapeli::Scene::pieceMoved()
 	QList<Palapeli::Piece*> mergeCandidates;
 	foreach (QGraphicsItem* item, selectedItems())
 	{
-		//NOTE same as Palapeli::MovePieceInteractor::findPieceForItem
-		Palapeli::Piece* piece = qgraphicsitem_cast<Palapeli::Piece*>(item);
-		if (!piece)
-			piece = qgraphicsitem_cast<Palapeli::Piece*>(item->parentItem());
+		Palapeli::Piece* piece = Palapeli::Piece::fromSelectedItem(item);
 		if (piece)
 			mergeCandidates << piece;
 	}

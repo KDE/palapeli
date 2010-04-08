@@ -29,6 +29,7 @@ Palapeli::InteractorManager::InteractorManager(QGraphicsView* view)
 {
 	//create interactors
 	m_interactors["MovePiece"] = new Palapeli::MovePieceInteractor(view);
+	m_interactors["SelectPiece"] = new Palapeli::SelectPieceInteractor(view);
 	m_interactors["MoveViewport"] = new Palapeli::MoveViewportInteractor(view);
 	m_interactors["ZoomViewport"] = new Palapeli::ZoomViewportInteractor(view);
 	m_interactors["RubberBand"] = new Palapeli::RubberBandInteractor(view);
@@ -36,6 +37,7 @@ Palapeli::InteractorManager::InteractorManager(QGraphicsView* view)
 	//setup triggers (WARNING: the insertion order implements priority)
 	typedef Palapeli::InteractorTrigger PIT;
 	m_triggers << qMakePair(PIT("LeftButton;NoModifier"), m_interactors["MovePiece"]);
+	m_triggers << qMakePair(PIT("LeftButton;ControlModifier"), m_interactors["SelectPiece"]);
 	m_triggers << qMakePair(PIT("RightButton;NoModifier"), m_interactors["MoveViewport"]);
 	m_triggers << qMakePair(PIT("wheel:Vertical;NoModifier"), m_interactors["ZoomViewport"]);
 	m_triggers << qMakePair(PIT("LeftButton;NoModifier"), m_interactors["Constraints"]);
