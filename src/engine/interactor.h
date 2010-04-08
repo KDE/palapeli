@@ -24,6 +24,7 @@
 #include <QEvent>
 #include <QGraphicsView>
 #include <QIcon>
+#include <QMetaType>
 
 namespace Palapeli
 {
@@ -79,5 +80,6 @@ namespace Palapeli
 }
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Palapeli::InteractorTypes)
+Q_DECLARE_METATYPE(Palapeli::Interactor*)
 
 #endif // PALAPELI_INTERACTOR_H

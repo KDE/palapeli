@@ -35,6 +35,7 @@ namespace Palapeli
 		public:
 			View();
 
+			Palapeli::InteractorManager* interactorManager() const;
 			Palapeli::Scene* scene() const;
 			Palapeli::TextureHelper* textureHelper() const;
 

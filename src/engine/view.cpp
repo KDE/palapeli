@@ -44,6 +44,11 @@ Palapeli::View::View()
 	connect(m_scene, SIGNAL(victoryAnimationFinished()), this, SLOT(startVictoryAnimation()));
 }
 
+Palapeli::InteractorManager* Palapeli::View::interactorManager() const
+{
+	return m_interactorManager;
+}
+
 Palapeli::Scene* Palapeli::View::scene() const
 {
 	return m_scene;

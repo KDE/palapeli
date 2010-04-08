@@ -25,7 +25,8 @@
 #include <QWheelEvent>
 
 Palapeli::InteractorManager::InteractorManager(QGraphicsView* view)
-	: m_view(view)
+	: QObject(view)
+	, m_view(view)
 {
 	//create interactors
 	m_interactors["MovePiece"] = new Palapeli::MovePieceInteractor(view);
@@ -196,6 +197,8 @@ void Palapeli::InteractorManager::handleMouseEvent(const Palapeli::MouseEvent& p
 
 bool Palapeli::InteractorManager::testTrigger(const Palapeli::InteractorTrigger& trigger, QWheelEvent* event)
 {
+	if (!trigger.isValid())
+		return false;
 	return trigger.modifiers() == event->modifiers()
 		&& trigger.wheelDirection() == event->orientation()
 		&& trigger.wheelDirection() != 0;
@@ -203,6 +206,8 @@ bool Palapeli::InteractorManager::testTrigger(const Palapeli::InteractorTrigger&
 
 bool Palapeli::InteractorManager::testTrigger(const Palapeli::InteractorTrigger& trigger, QMouseEvent* event)
 {
+	if (!trigger.isValid())
+		return false;
 	if (trigger.wheelDirection() != 0 || trigger.modifiers() != event->modifiers())
 		return false;
 	if (trigger.button() == Qt::NoButton)
@@ -215,6 +220,8 @@ bool Palapeli::InteractorManager::testTrigger(const Palapeli::InteractorTrigger&
 
 bool Palapeli::InteractorManager::testTrigger(const Palapeli::InteractorTrigger& trigger, QKeyEvent* event)
 {
+	if (!trigger.isValid())
+		return false;
 	//read modifiers
 	Qt::KeyboardModifiers modifiers = event->modifiers();
 	const Qt::Key key = (Qt::Key) event->key();
@@ -225,3 +232,47 @@ bool Palapeli::InteractorManager::testTrigger(const Palapeli::InteractorTrigger&
 		&& trigger.button() == Qt::NoButton
 		&& trigger.wheelDirection() == 0;
 }
+
+//BEGIN API to configuration UI
+
+const QList<Palapeli::Interactor*> Palapeli::InteractorManager::interactors() const
+{
+	return m_interactors.values();
+}
+
+const QList<Palapeli::AssociatedInteractorTrigger> Palapeli::InteractorManager::triggers() const
+{
+	return m_triggers;
+}
+
+//FIXME: changeTrigger() and removeTrigger() break if the triggers in question are active.
+
+int Palapeli::InteractorManager::addTrigger(const Palapeli::AssociatedInteractorTrigger& trigger)
+{
+	const int i = m_triggers.size();
+	m_triggers << trigger;
+	emit triggerAdded(i);
+	return i;
+}
+
+bool Palapeli::InteractorManager::changeTrigger(int i, const Palapeli::AssociatedInteractorTrigger& newTrigger)
+{
+	if (i < 0 || i >= m_triggers.size())
+		return false;
+	m_triggers[i] = newTrigger;
+	emit triggerChanged(i);
+	return true;
+}
+
+bool Palapeli::InteractorManager::removeTrigger(int i)
+{
+	if (i < 0 || i >= m_triggers.size())
+		return false;
+	m_triggers.removeAt(i);
+	emit triggerRemoved(i);
+	return true;
+}
+
+//END API to configuration UI
+
+#include "interactormanager.moc"

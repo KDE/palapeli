@@ -21,6 +21,7 @@
 
 #include <QApplication>
 #include <QKeyEvent>
+#include <KIcon>
 #include <KLocalizedString>
 
 const QString Palapeli::MouseInputButton::DefaultText = i18n("Set Trigger...");
@@ -29,12 +30,13 @@ const QString Palapeli::MouseInputButton::DefaultToolTip = i18n("Click to change
 Palapeli::MouseInputButton::MouseInputButton(QWidget* parent)
 	: QPushButton(parent)
 	, m_noButtonAllowed(true)
-	, m_requiresValidation(true)
+	, m_requiresValidation(false)
 {
 	qRegisterMetaType<Palapeli::InteractorTrigger>();
 	connect(this, SIGNAL(clicked()), SLOT(captureTrigger()));
 	setCheckable(true);
 	setChecked(false);
+	setIcon(KIcon("input-mouse"));
 	setText(DefaultText);
 	setToolTip(DefaultToolTip);
 }
@@ -69,6 +71,7 @@ void Palapeli::MouseInputButton::captureTrigger()
 	setChecked(true);
 	setText(i18n("Input here..."));
 	setToolTip(i18n("Hold down the modifier keys you want, then click a mouse button or scroll a mouse wheel here"));
+	setFocus(Qt::MouseFocusReason);
 }
 
 void Palapeli::MouseInputButton::clearTrigger()
@@ -143,7 +146,7 @@ bool Palapeli::MouseInputButton::event(QEvent* event)
 void Palapeli::MouseInputButton::setTrigger(const Palapeli::InteractorTrigger& trigger)
 {
 	//NOTE: Invalid triggers need not be confirmed (esp. calls to clearTrigger()).
-	if (m_requiresValidation && trigger.isValid() && trigger != m_trigger)
+	if (m_requiresValidation && trigger.isValid() && m_trigger != trigger)
 	{
 		m_stagedTrigger = trigger;
 		emit triggerRequest(trigger);

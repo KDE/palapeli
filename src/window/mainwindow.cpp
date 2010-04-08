@@ -17,6 +17,7 @@
 ***************************************************************************/
 
 #include "mainwindow.h"
+#include "../config/interactormanagerwidget.h"
 #include "../creator/puzzlecreator.h"
 #include "../engine/scene.h"
 #include "../engine/texturehelper.h"
@@ -176,7 +177,7 @@ void Palapeli::MainWindow::configureShortcuts()
 
 void Palapeli::MainWindow::configurePalapeli()
 {
-	//setup settings widget
+	//setup "General settings" widget
 	QWidget* settingsWidget = new QWidget;
 	Ui::Settings settingsUi; settingsUi.setupUi(settingsWidget);
 	//NOTE: It is intentional that the widget "cfg_ViewBackground" is _not_ called "kcfg_ViewBackground". KConfigDialog's config handling would mess things up if it was used in this case.
@@ -186,11 +187,12 @@ void Palapeli::MainWindow::configurePalapeli()
 	settingsUi.cfg_ViewBackground->setCurrentIndex(m_puzzleTable->view()->textureHelper()->currentIndex());
 	connect(settingsUi.cfg_ViewBackground, SIGNAL(currentIndexChanged(int)), m_puzzleTable->view()->textureHelper(), SLOT(setCurrentIndex(int)));
 	connect(settingsUi.kcfg_ViewBackgroundColor, SIGNAL(changed(QColor)), m_puzzleTable->view()->textureHelper(), SLOT(setSolidColor(QColor)));
+	//FIXME: Both TextureHelper and InteractorManager immediately apply changes made to their configuration through the UI, which is not what the user expects.
 	//setup dialog
 	KConfigDialog settingsDialog(this, QString(), Settings::self());
 	settingsDialog.addPage(settingsWidget, i18n("General settings"))->setIcon(KIcon("configure"));
+	settingsDialog.addPage(new Palapeli::InteractorManagerWidget(m_puzzleTable->view()->interactorManager()), i18n("Mouse interaction"))->setIcon(KIcon("input-mouse"));
 // 	connect(&settingsDialog, SIGNAL(settingsChanged(const QString&)), this, SLOT(configureFinished())); //NOTE: unused ATM (settings are read on demand)
-	settingsDialog.setFaceType(KPageDialog::Plain);
 	settingsDialog.exec();
 }
 

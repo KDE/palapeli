@@ -30,8 +30,9 @@ namespace Palapeli
 	class Interactor;
 	typedef QPair<Palapeli::InteractorTrigger, Palapeli::Interactor*> AssociatedInteractorTrigger;
 
-	class InteractorManager
+	class InteractorManager : public QObject
 	{
+		Q_OBJECT
 		public:
 			explicit InteractorManager(QGraphicsView* view);
 
@@ -40,6 +41,19 @@ namespace Palapeli
 			void handleEvent(QKeyEvent* event);
 
 			void updateScene();
+
+			///\note This list will never change at run-time.
+			const QList<Palapeli::Interactor*> interactors() const;
+			const QList<Palapeli::AssociatedInteractorTrigger> triggers() const;
+			///\return The index of the new trigger.
+			int addTrigger(const Palapeli::AssociatedInteractorTrigger& trigger);
+			bool changeTrigger(int index, const Palapeli::AssociatedInteractorTrigger& newTrigger);
+			///\return whether the trigger was found and removed successfully.
+			bool removeTrigger(int index);
+		Q_SIGNALS:
+			void triggerAdded(int index);
+			void triggerChanged(int index);
+			void triggerRemoved(int index);
 		protected:
 			bool testTrigger(const Palapeli::InteractorTrigger& trigger, QWheelEvent* event);
 			bool testTrigger(const Palapeli::InteractorTrigger& trigger, QMouseEvent* event);
@@ -48,7 +62,7 @@ namespace Palapeli
 			void handleMouseEvent(const Palapeli::MouseEvent& pEvent, QList<Palapeli::AssociatedInteractorTrigger>& matchingTriggers, QMap<Qt::MouseButton, QEvent::Type>& unhandledButtons);
 		private:
 			QGraphicsView* m_view;
-			QMap<QByteArray, Palapeli::Interactor*> m_interactors;
+			QMap<QByteArray, Palapeli::Interactor*> m_interactors; //NOTE: The interactor list is always hard-coded, based on what is available. The keys are used for writing the trigger list to the config.
 			//configuration
 			QList<Palapeli::AssociatedInteractorTrigger> m_triggers;
 			//state
