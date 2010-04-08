@@ -19,6 +19,9 @@
 #include "interactorutils.h"
 
 #include <QGraphicsView>
+#include <QMap>
+#include <KGlobal>
+#include <KLocalizedString>
 
 //BEGIN events
 
@@ -36,6 +39,55 @@ Palapeli::WheelEvent::WheelEvent(QGraphicsView* view, const QPoint& pos_, int de
 }
 
 //END events
+
+struct Palapeli::InteractorTrigger::Data
+{
+	QMap<Qt::KeyboardModifier, QString> m_modifierStrings;
+	QMap<Qt::MouseButton, QString> m_buttonStrings;
+	QMap<Qt::Orientation, QString> m_orientationStrings;
+
+	Data(bool machineReadableStrings)
+	{
+		if (machineReadableStrings)
+		{
+			m_modifierStrings[Qt::ShiftModifier] = QLatin1String("ShiftModifier");
+			m_modifierStrings[Qt::ControlModifier] = QLatin1String("ControlModifier");
+			m_modifierStrings[Qt::AltModifier] = QLatin1String("AltModifier");
+			m_modifierStrings[Qt::MetaModifier] = QLatin1String("MetaModifier");
+			m_modifierStrings[Qt::GroupSwitchModifier] = QLatin1String("GroupSwitchModifier");
+			m_buttonStrings[Qt::NoButton] = QLatin1String("NoButton");
+			m_buttonStrings[Qt::LeftButton] = QLatin1String("LeftButton");
+			m_buttonStrings[Qt::RightButton] = QLatin1String("RightButton");
+			m_buttonStrings[Qt::MidButton] = QLatin1String("MidButton");
+			m_buttonStrings[Qt::XButton1] = QLatin1String("XButton1");
+			m_buttonStrings[Qt::XButton2] = QLatin1String("XButton2");
+			m_orientationStrings[Qt::Horizontal] = QLatin1String("wheel:Horizontal");
+			m_orientationStrings[Qt::Vertical] = QLatin1String("wheel:Vertical");
+		}
+		else
+		{
+			//FIXME: These are probably wrong for Macs.
+			m_modifierStrings[Qt::ShiftModifier] = i18nc("a keyboard modifier", "Shift");
+			m_modifierStrings[Qt::ControlModifier] = i18nc("a keyboard modifier", "Ctrl");
+			m_modifierStrings[Qt::AltModifier] = i18nc("a keyboard modifier", "Alt");
+			m_modifierStrings[Qt::MetaModifier] = i18nc("a keyboard modifier", "Meta");
+			m_modifierStrings[Qt::GroupSwitchModifier] = i18nc("a special keyboard modifier", "GroupSwitch");
+			m_buttonStrings[Qt::NoButton] = i18nc("refers to no mouse buttons being pressed", "No-Button");
+			//FIXME: Left/right may be wrong if mouse buttons are swapped.
+			m_buttonStrings[Qt::LeftButton] = i18nc("a mouse button", "Left-Button");
+			m_buttonStrings[Qt::RightButton] = i18nc("a mouse button", "Right-Button");
+			m_buttonStrings[Qt::MidButton] = i18nc("a mouse button", "Middle-Button");
+			m_buttonStrings[Qt::XButton1] = i18nc("a special mouse button", "XButton1");
+			m_buttonStrings[Qt::XButton2] = i18nc("a special mouse button", "XButton2");
+			m_orientationStrings[Qt::Horizontal] = i18n("Horizontal-Scroll");
+			m_orientationStrings[Qt::Vertical] = i18n("Vertical-Scroll");
+		}
+	}
+};
+
+K_GLOBAL_STATIC_WITH_ARGS(Palapeli::InteractorTrigger::Data, itParserData, (true))
+K_GLOBAL_STATIC_WITH_ARGS(Palapeli::InteractorTrigger::Data, itPrettyData, (false))
+
 //BEGIN Palapeli::InteractorTrigger
 
 Palapeli::InteractorTrigger::InteractorTrigger()
@@ -44,122 +96,63 @@ Palapeli::InteractorTrigger::InteractorTrigger()
 
 Palapeli::InteractorTrigger::InteractorTrigger(const QString& serialization)
 {
+	const Palapeli::InteractorTrigger::Data& data = *itParserData;
 	//expect format "BUTTON_OR_WHEEL;MODIFIERLIST", i.e. two sections separated by semicolon
 	const QStringList sections = serialization.split(';');
 	if (sections.size() != 2)
 		return;
-	//parse first section ("BUTTON_OR_WHEEL")
-	Qt::MouseButton button = Qt::NoButton;
-	Qt::Orientation wheelDirection = (Qt::Orientation) 0;
-	const QString section1 = sections.value(0);
-	if (section1.startsWith(QLatin1String("wheel:")))
+	//parse modifier list (separated by vertical pipes) -> We do this first because this one can fail.
+	Qt::KeyboardModifiers modifiers = Qt::NoModifier;
+	if (sections[1] != QLatin1String("NoModifier"))
 	{
-		//parse wheel direction
-		const QString wheelDirectionString = section1.mid(6);
-		if (wheelDirectionString == QLatin1String("Horizontal"))
-			wheelDirection = Qt::Horizontal;
-		else if (wheelDirectionString == QLatin1String("Vertical"))
-			wheelDirection = Qt::Vertical;
-		else
-			return; //parsing failed
-	}
-	else
-	{
-		//parse button
-		if (section1 == QLatin1String("NoButton"))
-			button = Qt::NoButton;
-		else if (section1 == QLatin1String("LeftButton"))
-			button = Qt::LeftButton;
-		else if (section1 == QLatin1String("RightButton"))
-			button = Qt::RightButton;
-		else if (section1 == QLatin1String("MidButton"))
-			button = Qt::MidButton;
-		else if (section1 == QLatin1String("XButton1"))
-			button = Qt::XButton1;
-		else if (section1 == QLatin1String("XButton2"))
-			button = Qt::XButton2;
-		else
-			return; //parsing failed
-	}
-	//parse modifier list (separated by vertical pipes)
-	Qt::KeyboardModifiers modifiers;
-	if (sections.value(1) != QLatin1String("NoModifier"))
-	{
-		const QStringList modifierStrings = sections.value(1).split('|');
+		const QStringList modifierStrings = sections[1].split('|');
 		foreach (const QString& modifierString, modifierStrings)
 		{
-			if (modifierString == QLatin1String("ShiftModifier"))
-				modifiers |= Qt::ShiftModifier;
-			else if (modifierString == QLatin1String("ControlModifier"))
-				modifiers |= Qt::ControlModifier;
-			else if (modifierString == QLatin1String("AltModifier"))
-				modifiers |= Qt::AltModifier;
-			else if (modifierString == QLatin1String("MetaModifier"))
-				modifiers |= Qt::MetaModifier;
-			else if (modifierString == QLatin1String("GroupSwitchModifier"))
-				modifiers |= Qt::GroupSwitchModifier;
-			else
+			Qt::KeyboardModifier modifier = data.m_modifierStrings.key(modifierString, Qt::NoModifier);
+			if (modifier == Qt::NoModifier)
 				return; //parsing failed
+			modifiers |= modifier;
 		}
 	}
-	//parsing succeeded
 	m_modifiers = modifiers;
-	m_button = button;
-	m_wheelDirection = wheelDirection;
+	//parse first section (button or wheel direction) -> default to NoButton + NoOrientation if parsing fails
+	m_button = data.m_buttonStrings.key(sections[0], Qt::NoButton);
+	m_wheelDirection = data.m_orientationStrings.key(sections[0], (Qt::Orientation) 0);
+}
+
+QPair<QString, QStringList> Palapeli::InteractorTrigger::toStringGeneric(const Palapeli::InteractorTrigger::Data& data) const
+{
+	//find modifier strings
+	QStringList modifierStrings;
+	QMap<Qt::KeyboardModifier, QString>::const_iterator it1 = data.m_modifierStrings.begin(), it2 = data.m_modifierStrings.end();
+	for (; it1 != it2; ++it1)
+		if (m_modifiers & it1.key())
+			modifierStrings << it1.value();
+	//write wheel direction or mouse button
+	QString actionString;
+	if (data.m_orientationStrings.contains(m_wheelDirection))
+		actionString = data.m_orientationStrings[m_wheelDirection];
+	else
+		actionString = data.m_buttonStrings[m_button];
+	//pass result bits to caller
+	return qMakePair(actionString, modifierStrings);
 }
 
 QString Palapeli::InteractorTrigger::serialized() const
 {
-	QString result;
-	//write wheel direction
-	if (m_wheelDirection == Qt::Horizontal)
-		result = QLatin1String("wheel:Horizontal");
-	else if (m_wheelDirection == Qt::Vertical)
-		result = QLatin1String("wheel:Vertical");
-	//write button
-	else if (m_button == Qt::LeftButton)
-		result = QLatin1String("LeftButton");
-	else if (m_button == Qt::RightButton)
-		result = QLatin1String("RightButton");
-	else if (m_button == Qt::MidButton)
-		result = QLatin1String("MidButton");
-	else if (m_button == Qt::XButton1)
-		result = QLatin1String("XButton1");
-	else if (m_button == Qt::XButton2)
-		result = QLatin1String("XButton2");
+	QPair<QString, QStringList> bits = toStringGeneric(*itParserData);
+	if (bits.second.isEmpty())
+		bits.second << QLatin1String("NoModifier");
+	return bits.first + QChar(';') + bits.second.join(QChar('|'));
+}
+
+QString Palapeli::InteractorTrigger::toString() const
+{
+	const QPair<QString, QStringList> bits = toStringGeneric(*itPrettyData);
+	if (bits.second.isEmpty())
+		return bits.first;
 	else
-		result = QLatin1String("NoButton");
-	//write modifiers
-	QChar separator = ';';
-	if (m_modifiers & Qt::ShiftModifier)
-	{
-		result += separator + QLatin1String("ShiftModifier");
-		separator = '|';
-	}
-	if (m_modifiers & Qt::ControlModifier)
-	{
-		result += separator + QLatin1String("ControlModifier");
-		separator = '|';
-	}
-	if (m_modifiers & Qt::AltModifier)
-	{
-		result += separator + QLatin1String("AltModifier");
-		separator = '|';
-	}
-	if (m_modifiers & Qt::MetaModifier)
-	{
-		result += separator + QLatin1String("MetaModifier");
-		separator = '|';
-	}
-	if (m_modifiers & Qt::GroupSwitchModifier)
-	{
-		result += separator + QLatin1String("GroupSwitchModifier");
-		separator = '|';
-	}
-	//if we wrote nothing, insert NoModifier
-	if (separator == ';')
-		result += separator + QLatin1String("NoModifier");
-	return result;
+		return bits.second.join(QChar('+')) + '+' + bits.first;
 }
 
 Qt::KeyboardModifiers Palapeli::InteractorTrigger::modifiers() const
@@ -207,16 +200,10 @@ bool Palapeli::InteractorTrigger::operator==(const Palapeli::InteractorTrigger& 
 
 QList<Qt::MouseButton> Palapeli::analyzeFlags(Qt::MouseButtons buttons)
 {
+	const QList<Qt::MouseButton>& knownButtons = itParserData->m_buttonStrings.keys();
 	QList<Qt::MouseButton> result;
-	if (buttons & Qt::LeftButton)
-		result << Qt::LeftButton;
-	if (buttons & Qt::RightButton)
-		result << Qt::RightButton;
-	if (buttons & Qt::MidButton)
-		result << Qt::MidButton;
-	if (buttons & Qt::XButton1)
-		result << Qt::XButton1;
-	if (buttons & Qt::XButton2)
-		result << Qt::XButton2;
+	foreach (Qt::MouseButton button, knownButtons)
+		if (buttons & button)
+			result << button;
 	return result;
 }

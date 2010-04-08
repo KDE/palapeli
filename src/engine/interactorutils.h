@@ -20,8 +20,8 @@
 #define PALAPELI_INTERACTORUTILS_H
 
 class QGraphicsView;
+#include <QPair>
 #include <QPointF>
-#include <QString>
 
 namespace Palapeli
 {
@@ -56,6 +56,14 @@ namespace Palapeli
 			///Returns the serialization for this trigger, or an empty string if this trigger is invalid.
 			///\see isValid()
 			QString serialized() const;
+			///Returns a translated (i.e. user-compatible) string representation for this trigger. This representation is not suitable for machine-readable files, use serialized() instead.
+			QString toString() const;
+
+			///\internal
+			struct Data;
+			///\internal
+			QPair<QString, QStringList> toStringGeneric(const Data& data) const;
+
 
 			Qt::KeyboardModifiers modifiers() const;
 			void setModifiers(Qt::KeyboardModifiers modifiers);
