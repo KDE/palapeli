@@ -26,6 +26,7 @@ Palapeli::CollectionView::CollectionView()
 	: m_delegate(new Palapeli::CollectionDelegate(this))
 {
 	connect(this, SIGNAL(activated(const QModelIndex&)), this, SLOT(handleActivated(const QModelIndex&)));
+	setAlternatingRowColors(true);
 	setMouseTracking(true);
 }
 
