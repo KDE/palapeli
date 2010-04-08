@@ -76,11 +76,17 @@ namespace Palapeli
 			void setWheelDirection(Qt::Orientation orientation); ///< Setting this will reset button().
 
 			bool operator==(const Palapeli::InteractorTrigger& other) const;
+			inline bool operator!=(const Palapeli::InteractorTrigger& other) const;
 		private:
 			Qt::KeyboardModifiers m_modifiers;
 			Qt::MouseButton m_button;
 			Qt::Orientation m_wheelDirection;
 	};
+}
+
+bool Palapeli::InteractorTrigger::operator!=(const Palapeli::InteractorTrigger& other) const
+{
+	return !(*this == other);
 }
 
 Q_DECLARE_METATYPE(Palapeli::InteractorTrigger)

@@ -32,26 +32,31 @@ namespace Palapeli
 		public:
 			MouseInputButton(QWidget* parent = 0);
 
-			void setDefaultText(const QString& text, const QString& toolTip);
 			bool isNoButtonAllowed() const;
 			void setNoButtonAllowed(bool noButtonAllowed);
+			///If set, a call to setTrigger() will not immediately change the trigger. Instead, the triggerRequest() signal will be fired, and the new trigger will be set only after confirmTrigger() has been called.
+			bool requiresValidation() const;
+			void setRequiresValidation(bool requiresValidation);
 			Palapeli::InteractorTrigger trigger() const;
-			void setTrigger(const Palapeli::InteractorTrigger& trigger);
 		Q_SIGNALS:
-			void triggerChanged(const Palapeli::InteractorTrigger& oldTrigger, const Palapeli::InteractorTrigger& newTrigger);
+			void triggerChanged(const Palapeli::InteractorTrigger& newTrigger);
+			void triggerRequest(const Palapeli::InteractorTrigger& newTrigger);
 		public Q_SLOTS:
-			void reset();
+			void captureTrigger();
+			void clearTrigger();
+			void confirmTrigger(const Palapeli::InteractorTrigger& trigger);
+			void setTrigger(const Palapeli::InteractorTrigger& trigger);
 		protected:
 			bool event(QEvent* event);
-		private Q_SLOTS:
-			void getTrigger();
 		private:
+			void applyTrigger(const Palapeli::InteractorTrigger& newTrigger);
 			void showModifiers(Qt::KeyboardModifiers modifiers);
 
-			Palapeli::InteractorTrigger m_trigger;
-			bool m_noButtonAllowed;
-			QString m_defaultText;
-			QString m_defaultToolTip;
+			static const QString DefaultText;
+			static const QString DefaultToolTip;
+
+			Palapeli::InteractorTrigger m_trigger, m_stagedTrigger; ///< m_stagedTrigger is the trigger which has been set with setTrigger(), but which is still waiting to be confirmed with confirmTrigger().
+			bool m_noButtonAllowed, m_requiresValidation;
 	};
 }
 
