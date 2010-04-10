@@ -32,7 +32,6 @@ namespace Palapeli
 
 	class InteractorManager : public QObject
 	{
-		Q_OBJECT
 		public:
 			explicit InteractorManager(QGraphicsView* view);
 
@@ -45,15 +44,7 @@ namespace Palapeli
 			///\note This list will never change at run-time.
 			const QList<Palapeli::Interactor*> interactors() const;
 			const QList<Palapeli::AssociatedInteractorTrigger> triggers() const;
-			///\return The index of the new trigger.
-			int addTrigger(const Palapeli::AssociatedInteractorTrigger& trigger);
-			bool changeTrigger(int index, const Palapeli::AssociatedInteractorTrigger& newTrigger);
-			///\return whether the trigger was found and removed successfully.
-			bool removeTrigger(int index);
-		Q_SIGNALS:
-			void triggerAdded(int index);
-			void triggerChanged(int index);
-			void triggerRemoved(int index);
+			void setTriggers(const QList<Palapeli::AssociatedInteractorTrigger>& triggers);
 		protected:
 			bool testTrigger(const Palapeli::InteractorTrigger& trigger, QWheelEvent* event);
 			bool testTrigger(const Palapeli::InteractorTrigger& trigger, QMouseEvent* event);

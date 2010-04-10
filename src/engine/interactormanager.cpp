@@ -245,34 +245,11 @@ const QList<Palapeli::AssociatedInteractorTrigger> Palapeli::InteractorManager::
 	return m_triggers;
 }
 
-//FIXME: changeTrigger() and removeTrigger() break if the triggers in question are active.
-
-int Palapeli::InteractorManager::addTrigger(const Palapeli::AssociatedInteractorTrigger& trigger)
+void Palapeli::InteractorManager::setTriggers(const QList<Palapeli::AssociatedInteractorTrigger>& triggers)
 {
-	const int i = m_triggers.size();
-	m_triggers << trigger;
-	emit triggerAdded(i);
-	return i;
-}
-
-bool Palapeli::InteractorManager::changeTrigger(int i, const Palapeli::AssociatedInteractorTrigger& newTrigger)
-{
-	if (i < 0 || i >= m_triggers.size())
-		return false;
-	m_triggers[i] = newTrigger;
-	emit triggerChanged(i);
-	return true;
-}
-
-bool Palapeli::InteractorManager::removeTrigger(int i)
-{
-	if (i < 0 || i >= m_triggers.size())
-		return false;
-	m_triggers.removeAt(i);
-	emit triggerRemoved(i);
-	return true;
+	m_activeTriggers.clear();
+	m_triggers = triggers;
+	//TODO: write triggers to config file
 }
 
 //END API to configuration UI
-
-#include "interactormanager.moc"

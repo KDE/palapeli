@@ -17,7 +17,6 @@
 ***************************************************************************/
 
 #include "mainwindow.h"
-#include "../config/interactormanagerwidget.h"
 #include "../creator/puzzlecreator.h"
 #include "../engine/scene.h"
 #include "../engine/texturehelper.h"
@@ -191,7 +190,7 @@ void Palapeli::MainWindow::configurePalapeli()
 	//setup dialog
 	KConfigDialog settingsDialog(this, QString(), Settings::self());
 	settingsDialog.addPage(settingsWidget, i18n("General settings"))->setIcon(KIcon("configure"));
-	settingsDialog.addPage(new Palapeli::InteractorManagerWidget(m_puzzleTable->view()->interactorManager()), i18n("Mouse interaction"))->setIcon(KIcon("input-mouse"));
+// 	settingsDialog.addPage(new Palapeli::InteractorManagerWidget(m_puzzleTable->view()->interactorManager()), i18n("Mouse interaction"))->setIcon(KIcon("input-mouse"));
 // 	connect(&settingsDialog, SIGNAL(settingsChanged(const QString&)), this, SLOT(configureFinished())); //NOTE: unused ATM (settings are read on demand)
 	settingsDialog.exec();
 }

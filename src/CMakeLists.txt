@@ -2,8 +2,6 @@
 set_directory_properties(PROPERTIES COMPILE_DEFINITIONS USE_LOCAL_LIBPALA)
 
 set(palapeli_SRCS
-	config/interactorwidget.cpp
-	config/interactormanagerwidget.cpp
 	config/mouseinputbutton.cpp
 	creator/propertywidget.cpp
 	creator/puzzlecreator.cpp
