@@ -82,6 +82,9 @@ namespace Palapeli
 			Qt::MouseButton m_button;
 			Qt::Orientation m_wheelDirection;
 	};
+
+	class Interactor;
+	typedef QPair<Palapeli::InteractorTrigger, Palapeli::Interactor*> AssociatedInteractorTrigger;
 }
 
 bool Palapeli::InteractorTrigger::operator!=(const Palapeli::InteractorTrigger& other) const

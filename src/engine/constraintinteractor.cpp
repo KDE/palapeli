@@ -24,7 +24,7 @@
 Palapeli::ConstraintInteractor::ConstraintInteractor(QGraphicsView* view)
 	: Palapeli::Interactor(Palapeli::MouseInteractor, view)
 {
-	setMetadata(i18n("Change size of puzzle table by dragging its edges"), QIcon());
+	setMetadata(TableInteraction, i18n("Change size of puzzle table by dragging its edges"), QIcon());
 }
 
 QList<Palapeli::ConstraintInteractor::Side> Palapeli::ConstraintInteractor::touchingSides(const QPointF& scenePos) const

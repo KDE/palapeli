@@ -27,9 +27,6 @@
 
 namespace Palapeli
 {
-	class Interactor;
-	typedef QPair<Palapeli::InteractorTrigger, Palapeli::Interactor*> AssociatedInteractorTrigger;
-
 	class InteractorManager : public QObject
 	{
 		public:

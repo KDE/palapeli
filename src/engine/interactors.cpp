@@ -30,7 +30,7 @@
 Palapeli::MovePieceInteractor::MovePieceInteractor(QGraphicsView* view)
 	: Palapeli::Interactor(Palapeli::MouseInteractor, view)
 {
-	setMetadata(i18nc("Description (used like a name) for a mouse interaction method", "Move pieces by dragging"), QIcon());
+	setMetadata(PieceInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Move pieces by dragging"), QIcon());
 }
 
 static QGraphicsItem* findSelectableItemAt(const QPointF& scenePos, QGraphicsScene* scene)
@@ -128,7 +128,7 @@ void Palapeli::MovePieceInteractor::mouseReleaseEvent(const Palapeli::MouseEvent
 Palapeli::SelectPieceInteractor::SelectPieceInteractor(QGraphicsView* view)
 	: Palapeli::Interactor(Palapeli::MouseInteractor, view)
 {
-	setMetadata(i18nc("Description (used like a name) for a mouse interaction method", "Select pieces by clicking"), QIcon());
+	setMetadata(PieceInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Select pieces by clicking"), QIcon());
 }
 
 bool Palapeli::SelectPieceInteractor::acceptMousePosition(const QPoint& pos)
@@ -157,7 +157,7 @@ void Palapeli::SelectPieceInteractor::mousePressEvent(const Palapeli::MouseEvent
 Palapeli::MoveViewportInteractor::MoveViewportInteractor(QGraphicsView* view)
 	: Palapeli::Interactor(Palapeli::MouseInteractor, view)
 {
-	setMetadata(i18nc("Description (used like a name) for a mouse interaction method", "Move viewport by dragging"), QIcon());
+	setMetadata(ViewportInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Move viewport by dragging"), QIcon());
 }
 
 void Palapeli::MoveViewportInteractor::mousePressEvent(const Palapeli::MouseEvent& event)
@@ -180,7 +180,7 @@ void Palapeli::MoveViewportInteractor::mouseMoveEvent(const Palapeli::MouseEvent
 Palapeli::ZoomViewportInteractor::ZoomViewportInteractor(QGraphicsView* view)
 	: Palapeli::Interactor(Palapeli::WheelInteractor, view)
 {
-	setMetadata(i18nc("Description (used like a name) for a mouse interaction method", "Zoom viewport"), QIcon());
+	setMetadata(ViewportInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Zoom viewport"), QIcon());
 }
 
 void Palapeli::ZoomViewportInteractor::wheelEvent(const Palapeli::WheelEvent& event)
@@ -257,7 +257,7 @@ Palapeli::RubberBandInteractor::RubberBandInteractor(QGraphicsView* view)
 	: Palapeli::Interactor(Palapeli::MouseInteractor, view)
 	, m_item(new Palapeli::RubberBandItem)
 {
-	setMetadata(i18nc("Description (used like a name) for a mouse interaction method", "Select multiple pieces at once"), QIcon());
+	setMetadata(PieceInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Select multiple pieces at once"), QIcon());
 	if (scene())
 		scene()->addItem(m_item);
 	m_item->hide(); //NOTE: This is not necessary for the painting, but we use m_item->isVisible() to determine whether we are rubberbanding at the moment.

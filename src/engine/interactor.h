@@ -30,8 +30,8 @@ namespace Palapeli
 {
 	enum InteractorType
 	{
-		MouseInteractor,
-		WheelInteractor
+		MouseInteractor = 0x1,
+		WheelInteractor = 0x2
 	};
 	Q_DECLARE_FLAGS(InteractorTypes, InteractorType)
 
@@ -42,6 +42,8 @@ namespace Palapeli
 		public:
 			virtual ~Interactor();
 
+			enum Category { NoCategory, PieceInteraction, TableInteraction, ViewportInteraction };
+			Category category() const;
 			QString description() const;
 			QIcon icon() const;
 
@@ -55,7 +57,7 @@ namespace Palapeli
 			void updateScene();
 		protected:
 			Interactor(Palapeli::InteractorTypes types, QGraphicsView* view);
-			void setMetadata(const QString& description, const QIcon& icon);
+			void setMetadata(Category category, const QString& description, const QIcon& icon);
 
 			QGraphicsView* view() const;
 			QGraphicsScene* scene() const;
@@ -74,6 +76,7 @@ namespace Palapeli
 			QGraphicsView* m_view;
 			QGraphicsScene* m_scene;
 			//metadata
+			Category m_category;
 			QString m_description;
 			QIcon m_icon;
 	};

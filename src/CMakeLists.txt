@@ -3,6 +3,8 @@ set_directory_properties(PROPERTIES COMPILE_DEFINITIONS USE_LOCAL_LIBPALA)
 
 set(palapeli_SRCS
 	config/mouseinputbutton.cpp
+	config/triggerconfigwidget.cpp
+	config/triggerlistview.cpp
 	creator/propertywidget.cpp
 	creator/puzzlecreator.cpp
 	creator/slicerconfwidget.cpp

@@ -33,6 +33,7 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			MouseInputButton(QWidget* parent = 0);
+			virtual QSize sizeHint() const;
 
 			bool isNoButtonAllowed() const;
 			void setNoButtonAllowed(bool noButtonAllowed);

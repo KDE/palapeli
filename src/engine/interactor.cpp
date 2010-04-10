@@ -22,6 +22,7 @@ Palapeli::Interactor::Interactor(Palapeli::InteractorTypes types, QGraphicsView*
 	: m_types(types)
 	, m_view(view)
 	, m_scene(view->scene())
+	, m_category(NoCategory)
 {
 }
 
@@ -44,6 +45,11 @@ Palapeli::InteractorTypes Palapeli::Interactor::interactorTypes() const
 	return m_types;
 }
 
+Palapeli::Interactor::Category Palapeli::Interactor::category() const
+{
+	return m_category;
+}
+
 QString Palapeli::Interactor::description() const
 {
 	return m_description;
@@ -54,13 +60,14 @@ QIcon Palapeli::Interactor::icon() const
 	return m_icon;
 }
 
-void Palapeli::Interactor::setMetadata(const QString& description, const QIcon& icon)
+void Palapeli::Interactor::setMetadata(Palapeli::Interactor::Category category, const QString& description, const QIcon& icon)
 {
+	m_category = category;
 	m_description = description;
 	m_icon = icon;
 }
 
-void Palapeli::Interactor::updateScene() //NOTE: Read the scene of the view, and when it has changed, fire a sceneChangeEvent.
+void Palapeli::Interactor::updateScene()
 {
 	QGraphicsScene* oldScene = m_scene;
 	QGraphicsScene* newScene = m_view->scene();

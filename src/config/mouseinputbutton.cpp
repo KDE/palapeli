@@ -73,6 +73,12 @@ Palapeli::MouseInputButton::MouseInputButton(QWidget* parent)
 	layout->setContentsMargins(marginX, marginY, marginX, marginY);
 }
 
+QSize Palapeli::MouseInputButton::sizeHint() const
+{
+	//The layout's size hint is the right one, not the one calculated by QPushButton::sizeHint.
+	return QWidget::sizeHint();
+}
+
 bool Palapeli::MouseInputButton::isNoButtonAllowed() const
 {
 	return m_noButtonAllowed;
