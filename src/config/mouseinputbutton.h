@@ -22,7 +22,9 @@
 
 #include "../engine/interactorutils.h"
 
+class QLabel;
 #include <QPushButton>
+class QToolButton;
 
 namespace Palapeli
 {
@@ -34,6 +36,8 @@ namespace Palapeli
 
 			bool isNoButtonAllowed() const;
 			void setNoButtonAllowed(bool noButtonAllowed);
+			bool showClearButton() const;
+			void setShowClearButton(bool showClearButton);
 			///If set, a call to setTrigger() will not immediately change the trigger. Instead, the triggerRequest() signal will be fired, and the new trigger will be set only after confirmTrigger() has been called.
 			bool requiresValidation() const;
 			void setRequiresValidation(bool requiresValidation);
@@ -49,11 +53,15 @@ namespace Palapeli
 		protected:
 			bool event(QEvent* event);
 		private:
+			void updateAppearance();
 			void applyTrigger(const Palapeli::InteractorTrigger& newTrigger);
 			void showModifiers(Qt::KeyboardModifiers modifiers);
 
-			static const QString DefaultText;
 			static const QString DefaultToolTip;
+
+			QLabel* m_iconLabel;
+			QLabel* m_mainLabel;
+			QLabel* m_clearButton;
 
 			Palapeli::InteractorTrigger m_trigger, m_stagedTrigger; ///< m_stagedTrigger is the trigger which has been set with setTrigger(), but which is still waiting to be confirmed with confirmTrigger().
 			bool m_noButtonAllowed, m_requiresValidation;

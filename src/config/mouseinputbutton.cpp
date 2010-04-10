@@ -18,27 +18,59 @@
 ***************************************************************************/
 
 #include "mouseinputbutton.h"
+#include "mouseinputbutton_p.h"
 
 #include <QApplication>
-#include <QKeyEvent>
+#include <QHBoxLayout>
+#include <QStyleOptionButton>
 #include <KIcon>
 #include <KLocalizedString>
 
-const QString Palapeli::MouseInputButton::DefaultText = i18n("Set Trigger...");
 const QString Palapeli::MouseInputButton::DefaultToolTip = i18n("Click to change how an action is triggered");
+
+static QIcon clearIcon()
+{
+	if (QApplication::isLeftToRight())
+		return KIcon("edit-clear-locationbar-rtl");
+	else
+		return KIcon("edit-clear-locationbar-ltr");
+}
 
 Palapeli::MouseInputButton::MouseInputButton(QWidget* parent)
 	: QPushButton(parent)
+	, m_iconLabel(new QLabel)
+	, m_mainLabel(new QLabel)
+	, m_clearButton(new Palapeli::FlatButton(clearIcon()))
 	, m_noButtonAllowed(true)
 	, m_requiresValidation(false)
 {
 	qRegisterMetaType<Palapeli::InteractorTrigger>();
 	connect(this, SIGNAL(clicked()), SLOT(captureTrigger()));
+	connect(m_clearButton, SIGNAL(clicked()), SLOT(clearTrigger()));
 	setCheckable(true);
-	setChecked(false);
-	setIcon(KIcon("input-mouse"));
-	setText(DefaultText);
-	setToolTip(DefaultToolTip);
+	m_iconLabel->setPixmap(KIcon("input-mouse").pixmap(22)); //TODO: respect global icon size configuration
+	//setup child widgets
+	m_iconLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	m_mainLabel->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+	m_mainLabel->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
+	m_clearButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	m_clearButton->setToolTip(i18n("Remove this trigger"));
+	//setup layout
+	QHBoxLayout* layout = new QHBoxLayout;
+	setLayout(layout);
+	layout->setMargin(0);
+	layout->addWidget(m_iconLabel);
+	layout->addWidget(m_mainLabel);
+	layout->addWidget(m_clearButton);
+	updateAppearance();
+	//calculate margin for layout from QStyle::sizeFromContents
+	QStyleOptionButton opt;
+	QPushButton::initStyleOption(&opt);
+	const QSize bareSizeHint = layout->sizeHint();
+	const QSize fullSizeHint = style()->sizeFromContents(QStyle::CT_PushButton, &opt, bareSizeHint, this).expandedTo(QApplication::globalStrut());
+	const int marginX = (fullSizeHint.width() - bareSizeHint.width()) / 2;
+	const int marginY = (fullSizeHint.height() - bareSizeHint.height()) / 2;
+	layout->setContentsMargins(marginX, marginY, marginX, marginY);
 }
 
 bool Palapeli::MouseInputButton::isNoButtonAllowed() const
@@ -69,7 +101,8 @@ Palapeli::InteractorTrigger Palapeli::MouseInputButton::trigger() const
 void Palapeli::MouseInputButton::captureTrigger()
 {
 	setChecked(true);
-	setText(i18n("Input here..."));
+	m_clearButton->setVisible(false); //while capture is in progress
+	m_mainLabel->setText(i18n("Input here..."));
 	setToolTip(i18n("Hold down the modifier keys you want, then click a mouse button or scroll a mouse wheel here"));
 	setFocus(Qt::MouseFocusReason);
 }
@@ -161,15 +194,27 @@ void Palapeli::MouseInputButton::confirmTrigger(const Palapeli::InteractorTrigge
 		applyTrigger(m_stagedTrigger);
 }
 
+void Palapeli::MouseInputButton::updateAppearance()
+{
+	//find caption
+	static const QString noTriggerString = i18nc("This is used for describing that no mouse action has been assigned to this interaction plugin.", "None");
+	QString text = m_trigger.toString();
+	if (!m_trigger.isValid())
+		text = text.arg(noTriggerString);
+	//apply properties
+	setChecked(false);
+	setToolTip(DefaultToolTip);
+	m_mainLabel->setText(text);
+	m_clearButton->setVisible(m_trigger.isValid());
+}
+
 void Palapeli::MouseInputButton::applyTrigger(const Palapeli::InteractorTrigger& trigger)
 {
 	const bool announceChange = m_trigger != trigger;
 	//apply new trigger
 	m_trigger = trigger;
 	m_stagedTrigger = Palapeli::InteractorTrigger();
-	setChecked(false);
-	setToolTip(DefaultToolTip);
-	setText(m_trigger.isValid() ? m_trigger.toString() : DefaultText);
+	updateAppearance();
 	//announce change
 	if (announceChange)
 		emit triggerChanged(trigger);
@@ -179,7 +224,8 @@ void Palapeli::MouseInputButton::showModifiers(Qt::KeyboardModifiers modifiers)
 {
 	Palapeli::InteractorTrigger dummyTrigger;
 	dummyTrigger.setModifiers(modifiers);
-	setText(dummyTrigger.toString().arg(i18n("Input here...")));
+	m_mainLabel->setText(dummyTrigger.toString().arg(i18n("Input here...")));
 }
 
 #include "mouseinputbutton.moc"
+#include "mouseinputbutton_p.moc"
