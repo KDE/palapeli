@@ -26,13 +26,11 @@ namespace Palapeli
 	class TriggerComboBox : public KComboBox
 	{
 		Q_OBJECT
-		Q_PROPERTY(QString backgroundKey READ backgroundKey WRITE setBackgroundKey NOTIFY backgroundKeyChanged)
-		Q_PROPERTY(QByteArray kcfg_property READ kcfgProperty)
+		Q_PROPERTY(QString backgroundKey READ backgroundKey WRITE setBackgroundKey NOTIFY backgroundKeyChanged USER true)
 		public:
 			TriggerComboBox(QWidget* parent = 0);
 
 			QString backgroundKey() const;
-			QByteArray kcfgProperty() const { return "backgroundKey"; }
 		public Q_SLOTS:
 			void setBackgroundKey(const QString& backgroundKey);
 		Q_SIGNALS:
