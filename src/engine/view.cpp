@@ -33,7 +33,6 @@ const int Palapeli::View::MaximumZoomLevel = 200;
 Palapeli::View::View()
 	: m_interactorManager(new Palapeli::InteractorManager(this))
 	, m_scene(0)
-	, m_txHelper(new Palapeli::TextureHelper(this))
 	, m_zoomLevel(100)
 {
 	setMouseTracking(true);
@@ -61,14 +60,9 @@ void Palapeli::View::setScene(Palapeli::Scene* scene)
 	m_scene = scene;
 	this->QGraphicsView::setScene(m_scene);
 	m_interactorManager->updateScene();
-	m_txHelper->setScene(m_scene);
+	Palapeli::TextureHelper::instance()->addScene(m_scene);
 	//reset zoom level (TODO: store viewport geometry in Scene)
 	zoomTo(100);
-}
-
-Palapeli::TextureHelper* Palapeli::View::textureHelper() const
-{
-	return m_txHelper;
 }
 
 QRectF Palapeli::View::viewportRect() const

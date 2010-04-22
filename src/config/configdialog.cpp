@@ -19,7 +19,6 @@
 #include "configdialog.h"
 #include "configdialog_p.h"
 #include "../engine/texturehelper.h"
-#include "../engine/view.h"
 #include "settings.h"
 
 #include <QTimer>
@@ -55,14 +54,13 @@ void Palapeli::TriggerComboBox::handleCurrentIndexChanged(int index)
 //END Palapeli::TriggerComboBox
 //BEGIN Palapeli::ConfigDialog
 
-Palapeli::ConfigDialog::ConfigDialog(Palapeli::View* view, QWidget* parent)
+Palapeli::ConfigDialog::ConfigDialog(QWidget* parent)
 	: KConfigDialog(parent, QString(), Settings::self())
-	, m_view(view)
 {
 	//setup page "General settings"
 	QWidget* generalPage = new QWidget;
 	m_generalUi.setupUi(generalPage);
-	m_generalUi.kcfg_ViewBackground->setModel(view->textureHelper());
+	m_generalUi.kcfg_ViewBackground->setModel(Palapeli::TextureHelper::instance());
 	addPage(generalPage, i18n("General settings"))->setIcon(KIcon("configure"));
 	//TODO: add TriggerConfigWidget
 }
@@ -70,7 +68,7 @@ Palapeli::ConfigDialog::ConfigDialog(Palapeli::View* view, QWidget* parent)
 void Palapeli::ConfigDialog::updateSettings()
 {
 	//schedule update of TextureHelper (but only after KConfigDialog has written the settings, which might happen after this slot call)
-	QTimer::singleShot(0, m_generalUi.kcfg_ViewBackground->model(), SLOT(readSettings()));
+	QTimer::singleShot(0, Palapeli::TextureHelper::instance(), SLOT(readSettings()));
 	//TODO: Here goes code for applying the settings from the TriggerConfigWidget.
 }
 

@@ -30,6 +30,12 @@
 const QSize Palapeli::TextureHelper::DefaultThumbnailSize(32, 32);
 const QSize Palapeli::TextureHelper::DefaultPixmapSize(128, 128);
 
+Palapeli::TextureHelper* Palapeli::TextureHelper::instance()
+{
+	static Palapeli::TextureHelper instance;
+	return &instance;
+}
+
 QPixmap Palapeli::TextureHelper::render(const QString& fileName)
 {
 	const QString path = KStandardDirs::locate("appdata", "backgrounds/" + fileName);
@@ -48,10 +54,8 @@ QPixmap Palapeli::TextureHelper::render(const QString& fileName)
 	return pixmap;
 }
 
-Palapeli::TextureHelper::TextureHelper(QObject* parent)
-	: QStandardItemModel(parent)
-	, m_scene(0)
-	, m_currentIndex(-1)
+Palapeli::TextureHelper::TextureHelper()
+	: m_currentIndex(-1)
 {
 	//create menu item for solid color
 	QPixmap colorThumbnail(DefaultThumbnailSize);
@@ -101,18 +105,23 @@ void Palapeli::TextureHelper::readSettings()
 			m_currentBrush = selectedColor;
 		else
 			m_currentBrush = item->data(BrushRole).value<QPixmap>();
-		if (m_scene)
-			m_scene->setBackgroundBrush(m_currentBrush);
+		foreach (QGraphicsScene* scene, m_scenes)
+			scene->setBackgroundBrush(m_currentBrush);
 	}
 }
 
-void Palapeli::TextureHelper::setScene(QGraphicsScene* scene)
+void Palapeli::TextureHelper::addScene(QGraphicsScene* scene)
 {
-	if (m_scene == scene)
+	if (!scene || m_scenes.contains(scene))
 		return;
-	m_scene = scene;
-	if (m_scene)
-		m_scene->setBackgroundBrush(m_currentBrush);
+	m_scenes << scene;
+	scene->setBackgroundBrush(m_currentBrush);
+	connect(scene, SIGNAL(destroyed(QObject*)), SLOT(removeScene(QObject*)));
+}
+
+void Palapeli::TextureHelper::removeScene(QObject* scene)
+{
+	m_scenes.removeAll(reinterpret_cast<QGraphicsScene*>(scene));
 }
 
 #include "texturehelper.moc"

@@ -25,20 +25,16 @@
 
 namespace Palapeli
 {
-	class ConfigDialog_PageGeneral;
-	class View;
-
 	class ConfigDialog : public KConfigDialog
 	{
 		Q_OBJECT
 		public:
-			ConfigDialog(Palapeli::View* view, QWidget* parent = 0);
+			ConfigDialog(QWidget* parent = 0);
 		protected:
 			virtual void updateSettings();
 			virtual void updateWidgets();
 			virtual void updateWidgetsDefault();
 		private:
-			Palapeli::View* m_view;
 			Ui::Settings m_generalUi;
 	};
 }

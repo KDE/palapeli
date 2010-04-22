@@ -24,6 +24,7 @@ class QGraphicsScene;
 
 namespace Palapeli
 {
+	//NOTE: Singleton, needs to be initialized in main().
 	class TextureHelper : public QStandardItemModel
 	{
 		Q_OBJECT
@@ -33,16 +34,17 @@ namespace Palapeli
 				IdentifierRole = Qt::UserRole + 2
 			};
 
-			TextureHelper(QObject* parent = 0);
-
+			static Palapeli::TextureHelper* instance();
 			int currentIndex() const;
 		public Q_SLOTS:
 			void readSettings();
-			void setScene(QGraphicsScene* scene);
+			void addScene(QGraphicsScene* scene);
+			void removeScene(QObject* object);
 		private:
+			TextureHelper();
 			static QPixmap render(const QString& fileName);
 
-			QGraphicsScene* m_scene;
+			QList<QGraphicsScene*> m_scenes;
 			int m_currentIndex;
 			QBrush m_currentBrush;
 

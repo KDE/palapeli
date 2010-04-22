@@ -26,7 +26,6 @@ namespace Palapeli
 	class ConstraintVisualizer;
 	class InteractorManager;
 	class Scene;
-	class TextureHelper;
 
 	class View : public QGraphicsView
 	{
@@ -37,7 +36,6 @@ namespace Palapeli
 
 			Palapeli::InteractorManager* interactorManager() const;
 			Palapeli::Scene* scene() const;
-			Palapeli::TextureHelper* textureHelper() const;
 
 			QRectF viewportRect() const;
 			void setViewportRect(const QRectF& viewportRect);
@@ -67,7 +65,6 @@ namespace Palapeli
 		private:
 			Palapeli::InteractorManager* m_interactorManager;
 			Palapeli::Scene* m_scene;
-			Palapeli::TextureHelper* m_txHelper;
 			QPointF m_dragPrevPos;
 			int m_zoomLevel;
 	};

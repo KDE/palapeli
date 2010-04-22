@@ -19,27 +19,23 @@
 #include "mainwindow.h"
 #include "../config/configdialog.h"
 #include "../creator/puzzlecreator.h"
-#include "../engine/interactormanager.h"
 #include "../engine/scene.h"
-#include "../engine/texturehelper.h"
 #include "../engine/view.h"
 #include "collectionwidget.h"
 #include "puzzletablewidget.h"
 #include "settings.h"
 #include "tabwindow.h"
-#include "ui_settings.h"
 
 #include <QPointer>
 #include <QTabBar> //krazy:exclude=qclasses
 #include <KActionCollection>
 #include <KCmdLineArgs>
-#include <KConfigDialog>
 #include <KLocalizedString>
 #include <KMenuBar>
-#include <KTabWidget>
-#include <KToggleAction>
 #include <KShortcutsDialog>
 #include <KStandardAction>
+#include <KTabWidget>
+#include <KToggleAction>
 
 namespace Palapeli
 {
@@ -178,36 +174,7 @@ void Palapeli::MainWindow::configureShortcuts()
 
 void Palapeli::MainWindow::configurePalapeli()
 {
-	Palapeli::ConfigDialog dialog(m_puzzleTable->view());
-	dialog.exec();
-#if 0
-	//setup "General settings" widget
-	QWidget* settingsWidget = new QWidget;
-	Ui::Settings settingsUi; settingsUi.setupUi(settingsWidget);
-	//NOTE: It is intentional that the widget "cfg_ViewBackground" is _not_ called "kcfg_ViewBackground". KConfigDialog's config handling would mess things up if it was used in this case.
-	settingsUi.cfg_ViewBackground->setModel(m_puzzleTable->view()->textureHelper());
-	connect(settingsUi.cfg_ViewBackground, SIGNAL(currentIndexChanged(int)), this, SLOT(configure_TextureChanged(int)));
-	connect(this, SIGNAL(configure_ColorEnabledChanged(bool)), settingsUi.kcfg_ViewBackgroundColor, SLOT(setEnabled(bool)));
-	settingsUi.cfg_ViewBackground->setCurrentIndex(m_puzzleTable->view()->textureHelper()->currentIndex());
-	connect(settingsUi.cfg_ViewBackground, SIGNAL(currentIndexChanged(int)), m_puzzleTable->view()->textureHelper(), SLOT(setCurrentIndex(int)));
-	connect(settingsUi.kcfg_ViewBackgroundColor, SIGNAL(changed(QColor)), m_puzzleTable->view()->textureHelper(), SLOT(setSolidColor(QColor)));
-	//FIXME: Both TextureHelper and InteractorManager immediately apply changes made to their configuration through the UI, which is not what the user expects.
-	//setup dialog
-	KConfigDialog settingsDialog(this, QString(), Settings::self());
-	settingsDialog.addPage(settingsWidget, i18n("General settings"))->setIcon(KIcon("configure"));
-	settingsDialog.addPage(new Palapeli::TriggerConfigWidget(m_puzzleTable->view()->interactorManager()), i18n("Mouse interaction"))->setIcon(KIcon("input-mouse"));
-// 	connect(&settingsDialog, SIGNAL(settingsChanged(const QString&)), this, SLOT(configureFinished())); //NOTE: unused ATM (settings are read on demand)
-	settingsDialog.exec();
-}
-
-void Palapeli::MainWindow::configure_TextureChanged(int index)
-{
-	QComboBox* backgroundBox = qobject_cast<QComboBox*>(sender()); //krazy:exclude=qclasses
-	if (!backgroundBox)
-		return;
-	const QString selectedStyle = backgroundBox->itemData(index, Palapeli::TextureHelper::StyleRole).toString();
-	emit configure_ColorEnabledChanged(selectedStyle == "color");
-#endif
+	Palapeli::ConfigDialog().exec();
 }
 
 #include "mainwindow.moc"
