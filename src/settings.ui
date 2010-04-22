@@ -25,7 +25,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="KComboBox" name="cfg_ViewBackground">
+       <widget class="Palapeli::TriggerComboBox" name="kcfg_ViewBackground">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -106,7 +106,32 @@
    <extends>QPushButton</extends>
    <header>kcolorbutton.h</header>
   </customwidget>
+  <customwidget>
+   <class>Palapeli::TriggerComboBox</class>
+   <extends>KComboBox</extends>
+   <header>config/configdialog_p.h</header>
+   <slots>
+    <signal>itemTypeChanged(bool)</signal>
+   </slots>
+  </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>kcfg_ViewBackground</sender>
+   <signal>itemTypeChanged(bool)</signal>
+   <receiver>kcfg_ViewBackgroundColor</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>270</x>
+     <y>51</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>440</x>
+     <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

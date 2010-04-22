@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -16,39 +16,31 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_TEXTUREHELPER_H
-#define PALAPELI_TEXTUREHELPER_H
+#ifndef PALAPELI_CONFIGDIALOG_H
+#define PALAPELI_CONFIGDIALOG_H
 
-class QGraphicsScene;
-#include <QStandardItemModel>
+#include "ui_settings.h"
+
+#include <KConfigDialog>
 
 namespace Palapeli
 {
-	class TextureHelper : public QStandardItemModel
+	class ConfigDialog_PageGeneral;
+	class View;
+
+	class ConfigDialog : public KConfigDialog
 	{
 		Q_OBJECT
 		public:
-			enum CustomRoles {
-				BrushRole = Qt::UserRole + 1,
-				IdentifierRole = Qt::UserRole + 2
-			};
-
-			TextureHelper(QObject* parent = 0);
-
-			int currentIndex() const;
-		public Q_SLOTS:
-			void readSettings();
-			void setScene(QGraphicsScene* scene);
+			ConfigDialog(Palapeli::View* view, QWidget* parent = 0);
+		protected:
+			virtual void updateSettings();
+			virtual void updateWidgets();
+			virtual void updateWidgetsDefault();
 		private:
-			static QPixmap render(const QString& fileName);
-
-			QGraphicsScene* m_scene;
-			int m_currentIndex;
-			QBrush m_currentBrush;
-
-			static const QSize DefaultThumbnailSize;
-			static const QSize DefaultPixmapSize;
+			Palapeli::View* m_view;
+			Ui::Settings m_generalUi;
 	};
 }
 
-#endif // PALAPELI_TEXTUREHELPER_H
+#endif // PALAPELI_CONFIGDIALOG_H

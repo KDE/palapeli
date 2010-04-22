@@ -39,8 +39,6 @@ namespace Palapeli
 			void loadPuzzle(const QModelIndex& index);
 			void configureShortcuts();
 			void configurePalapeli();
-		protected Q_SLOTS:
-			void configure_TextureChanged(int index);
 		Q_SIGNALS:
 			void configure_ColorEnabledChanged(bool enabled);
 		protected:

@@ -53,16 +53,11 @@ Palapeli::TextureHelper::TextureHelper(QObject* parent)
 	, m_scene(0)
 	, m_currentIndex(-1)
 {
-	const QString selectedStyle = Settings::viewBackgroundStyle();
-	const QColor selectedColor = Settings::viewBackgroundColor();
-	const QString selectedFileName = Settings::viewBackground();
-	int selectedIndex = 0, currentIndex = 0;
 	//create menu item for solid color
 	QPixmap colorThumbnail(DefaultThumbnailSize);
-	colorThumbnail.fill(selectedColor);
+	colorThumbnail.fill(Qt::transparent);
 	QStandardItem* colorItem = new QStandardItem;
-	colorItem->setData(selectedColor, BrushRole);
-	colorItem->setData("color", StyleRole);
+	colorItem->setData(QLatin1String("__color__"), IdentifierRole);
 	colorItem->setData(colorThumbnail, Qt::DecorationRole);
 	colorItem->setData(i18nc("@item:inlistbox", "Single color"), Qt::DisplayRole);
 	appendRow(colorItem);
@@ -70,22 +65,19 @@ Palapeli::TextureHelper::TextureHelper(QObject* parent)
 	const QStringList backgroundFiles = KGlobal::dirs()->findAllResources("appdata", "backgrounds/*");
 	foreach (const QString& path, backgroundFiles)
 	{
-		++currentIndex;
 		//get file name and find selected or default backgrounds
 		const QString fileName = QFileInfo(path).fileName();
-		if (fileName == selectedFileName && selectedStyle == "texture")
-			selectedIndex = currentIndex;
 		//create item for this brush
 		const QPixmap pixmap = render(fileName);
 		QStandardItem* item = new QStandardItem;
 		item->setData(pixmap, BrushRole);
-		item->setData("texture", StyleRole);
+		item->setData(fileName, IdentifierRole);
 		item->setData(pixmap.scaled(DefaultThumbnailSize, Qt::KeepAspectRatio), Qt::DecorationRole);
 		item->setData(fileName, Qt::DisplayRole);
 		appendRow(item);
 	}
 	//select initial brush
-	setCurrentIndex(selectedIndex);
+	readSettings();
 }
 
 int Palapeli::TextureHelper::currentIndex() const
@@ -93,35 +85,25 @@ int Palapeli::TextureHelper::currentIndex() const
 	return m_currentIndex;
 }
 
-void Palapeli::TextureHelper::setCurrentIndex(int index)
+void Palapeli::TextureHelper::readSettings()
 {
-	if (m_currentIndex == index)
-		return;
-	if (index < 0 || index >= rowCount())
-		return;
-	m_currentIndex = index;
-	QBrush brush;
-	if (index == 0)
+	//read config
+	const QString selectedBackground = Settings::viewBackground();
+	const QColor selectedColor = Settings::viewBackgroundColor();
+	for (int i = 0; i < rowCount(); ++i)
 	{
-		const QColor color = item(index)->data(BrushRole).value<QColor>();
-		m_currentBrush = color;
+		QStandardItem* item = this->item(i);
+		if (item->data(IdentifierRole) != selectedBackground)
+			continue;
+		//use this brush
+		m_currentIndex = i;
+		if (selectedBackground == QLatin1String("__color__"))
+			m_currentBrush = selectedColor;
+		else
+			m_currentBrush = item->data(BrushRole).value<QPixmap>();
 		if (m_scene)
 			m_scene->setBackgroundBrush(m_currentBrush);
-		//write config
-		Settings::setViewBackgroundColor(color);
-		Settings::setViewBackgroundStyle("color");
 	}
-	else
-	{
-		m_currentBrush = item(index)->data(BrushRole).value<QPixmap>();
-		if (m_scene)
-			m_scene->setBackgroundBrush(m_currentBrush);
-		//write config
-		const QString key = item(index)->data(Qt::DisplayRole).toString();
-		Settings::setViewBackground(key);
-		Settings::setViewBackgroundStyle("texture");
-	}
-	Settings::self()->writeConfig();
 }
 
 void Palapeli::TextureHelper::setScene(QGraphicsScene* scene)
@@ -131,21 +113,6 @@ void Palapeli::TextureHelper::setScene(QGraphicsScene* scene)
 	m_scene = scene;
 	if (m_scene)
 		m_scene->setBackgroundBrush(m_currentBrush);
-}
-
-void Palapeli::TextureHelper::setSolidColor(const QColor& color)
-{
-	QStandardItem* item = this->item(0);
-	item->setData(color, BrushRole);
-	QPixmap colorThumbnail(DefaultThumbnailSize);
-	colorThumbnail.fill(color);
-	item->setData(colorThumbnail, Qt::DecorationRole);
-	//apply new color and write config if necessary
-	if (m_currentIndex == 0)
-	{
-		m_currentIndex = -1;
-		setCurrentIndex(0);
-	}
 }
 
 #include "texturehelper.moc"

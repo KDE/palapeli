@@ -17,7 +17,7 @@
 ***************************************************************************/
 
 #include "mainwindow.h"
-#include "../config/triggerconfigwidget.h"
+#include "../config/configdialog.h"
 #include "../creator/puzzlecreator.h"
 #include "../engine/interactormanager.h"
 #include "../engine/scene.h"
@@ -178,6 +178,9 @@ void Palapeli::MainWindow::configureShortcuts()
 
 void Palapeli::MainWindow::configurePalapeli()
 {
+	Palapeli::ConfigDialog dialog(m_puzzleTable->view());
+	dialog.exec();
+#if 0
 	//setup "General settings" widget
 	QWidget* settingsWidget = new QWidget;
 	Ui::Settings settingsUi; settingsUi.setupUi(settingsWidget);
@@ -204,6 +207,7 @@ void Palapeli::MainWindow::configure_TextureChanged(int index)
 		return;
 	const QString selectedStyle = backgroundBox->itemData(index, Palapeli::TextureHelper::StyleRole).toString();
 	emit configure_ColorEnabledChanged(selectedStyle == "color");
+#endif
 }
 
 #include "mainwindow.moc"

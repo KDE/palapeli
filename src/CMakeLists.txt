@@ -2,6 +2,7 @@
 set_directory_properties(PROPERTIES COMPILE_DEFINITIONS USE_LOCAL_LIBPALA)
 
 set(palapeli_SRCS
+	config/configdialog.cpp
 	config/elidinglabel.cpp
 	config/mouseinputbutton.cpp
 	config/triggerconfigwidget.cpp
