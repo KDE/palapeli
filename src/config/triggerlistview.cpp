@@ -17,6 +17,7 @@
 ***************************************************************************/
 
 #include "triggerlistview.h"
+#include "elidinglabel.h"
 #include "mouseinputbutton.h"
 #include "../engine/interactor.h"
 
@@ -63,7 +64,7 @@ namespace Palapeli
 			TriggerListDelegateWidget(QWidget* parent = 0) : QWidget(parent)
 			{
 				m_iconLabel = new QLabel(this);
-				m_nameLabel = new QLabel(this);
+				m_nameLabel = new Palapeli::ElidingLabel(this);
 				m_inputButton = new Palapeli::MouseInputButton(this);
 				connect(m_inputButton, SIGNAL(triggerChanged(const Palapeli::InteractorTrigger&)), SIGNAL(triggerChanged(const Palapeli::InteractorTrigger&)));
 				//construct layout
@@ -72,7 +73,6 @@ namespace Palapeli
 				layout->addWidget(m_iconLabel);
 				m_iconLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 				layout->addWidget(m_nameLabel);
-				m_nameLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 				layout->addWidget(m_inputButton);
 				m_inputButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 			}
@@ -83,7 +83,7 @@ namespace Palapeli
 			}
 			void setText(const QString& text)
 			{
-				m_nameLabel->setText(text);
+				m_nameLabel->setFullText(text);
 			}
 			void setTrigger(const Palapeli::InteractorTrigger& trigger)
 			{
@@ -93,7 +93,7 @@ namespace Palapeli
 			void triggerChanged(const Palapeli::InteractorTrigger& newTrigger);
 		private:
 			QLabel* m_iconLabel;
-			QLabel* m_nameLabel;
+			Palapeli::ElidingLabel* m_nameLabel;
 			Palapeli::MouseInputButton* m_inputButton;
 	};
 

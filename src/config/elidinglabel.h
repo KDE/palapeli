@@ -16,56 +16,28 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_MOUSEINPUTBUTTON_P_H
-#define PALAPELI_MOUSEINPUTBUTTON_P_H
+#ifndef PALAPELI_ELIDINGLABEL_H
+#define PALAPELI_ELIDINGLABEL_H
 
 #include <QLabel>
-#include <QMouseEvent>
 
 namespace Palapeli
 {
-	class FlatButton : public QLabel
+	class ElidingLabel : public QLabel
 	{
-		Q_OBJECT
 		public:
-			FlatButton(const QIcon& icon, QWidget* parent = 0) : QLabel(parent), m_icon(icon)
-			{
-				leaveEvent(0); //apply icon
-				setMouseTracking(true);
-			}
-		Q_SIGNALS:
-			void clicked();
+			ElidingLabel(QWidget* parent = 0);
+
+			virtual QSize minimumSizeHint() const;
+			virtual QSize sizeHint() const;
+
+			QString fullText() const;
+			void setFullText(const QString& text);
 		protected:
-			virtual void enterEvent(QEvent*)
-			{
-				//TODO: respect global icon size configuration
-				setPixmap(m_icon.pixmap(16, QIcon::Active));
-			}
-			virtual void leaveEvent(QEvent*)
-			{
-				setPixmap(m_icon.pixmap(16, QIcon::Normal));
-			}
-			virtual void mousePressEvent(QMouseEvent* event)
-			{
-				if (event->button() == Qt::LeftButton)
-					event->accept();
-				else
-					QLabel::mousePressEvent(event);
-			}
-			virtual void mouseReleaseEvent(QMouseEvent* event)
-			{
-				if (event->button() == Qt::LeftButton)
-				{
-					event->accept();
-					if (rect().contains(event->pos()))
-						emit clicked();
-				}
-				else
-					QLabel::mouseReleaseEvent(event);
-			}
+			virtual void resizeEvent(QResizeEvent* event);
 		private:
-			QIcon m_icon;
+			QString m_fullText;
 	};
 }
 
-#endif // PALAPELI_MOUSEINPUTBUTTON_P_H
+#endif // PALAPELI_ELIDINGLABEL_H
