@@ -23,6 +23,7 @@
 
 #include <QStyle>
 #include <QStyleOptionRubberBand>
+#include <KIcon>
 #include <KLocalizedString>
 
 //BEGIN Palapeli::MovePieceInteractor
@@ -30,7 +31,7 @@
 Palapeli::MovePieceInteractor::MovePieceInteractor(QGraphicsView* view)
 	: Palapeli::Interactor(20, Palapeli::MouseInteractor, view) //priority: very high because this is the most important interaction
 {
-	setMetadata(PieceInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Move pieces by dragging"), QIcon());
+	setMetadata(PieceInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Move pieces by dragging"), KIcon("transform-move"));
 }
 
 static QGraphicsItem* findSelectableItemAt(const QPointF& scenePos, QGraphicsScene* scene)
@@ -120,7 +121,7 @@ void Palapeli::MovePieceInteractor::stopInteraction(const Palapeli::MouseEvent& 
 Palapeli::SelectPieceInteractor::SelectPieceInteractor(QGraphicsView* view)
 	: Palapeli::Interactor(19, Palapeli::MouseInteractor, view) //priority: a bit less than MovePieceInteractor
 {
-	setMetadata(PieceInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Select pieces by clicking"), QIcon());
+	setMetadata(PieceInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Select pieces by clicking"), KIcon("edit-select"));
 }
 
 bool Palapeli::SelectPieceInteractor::startInteraction(const Palapeli::MouseEvent& event)
@@ -144,7 +145,7 @@ bool Palapeli::SelectPieceInteractor::startInteraction(const Palapeli::MouseEven
 Palapeli::MoveViewportInteractor::MoveViewportInteractor(QGraphicsView* view)
 	: Palapeli::Interactor(1, Palapeli::MouseInteractor, view) //priority: very low because specific interaction points (e.g. pieces, scene boundaries) are much more important
 {
-	setMetadata(ViewportInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Move viewport by dragging"), QIcon());
+	setMetadata(ViewportInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Move viewport by dragging"), KIcon("transform-move"));
 }
 
 bool Palapeli::MoveViewportInteractor::startInteraction(const Palapeli::MouseEvent& event)
@@ -167,7 +168,7 @@ void Palapeli::MoveViewportInteractor::continueInteraction(const Palapeli::Mouse
 Palapeli::ZoomViewportInteractor::ZoomViewportInteractor(QGraphicsView* view)
 	: Palapeli::Interactor(0, Palapeli::WheelInteractor, view) //priority: unused for wheel interactors ATM
 {
-	setMetadata(ViewportInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Zoom viewport"), QIcon());
+	setMetadata(ViewportInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Zoom viewport"), KIcon("zoom-in"));
 }
 
 void Palapeli::ZoomViewportInteractor::doInteraction(const Palapeli::WheelEvent& event)
@@ -267,7 +268,7 @@ Palapeli::RubberBandInteractor::RubberBandInteractor(QGraphicsView* view)
 	: Palapeli::Interactor(2, Palapeli::MouseInteractor, view) //priority: a bit more than MoveViewport, but still much less than interactions with specific interaction points (e.g. pieces, scene boundaries)
 	, m_item(new Palapeli::RubberBandItem)
 {
-	setMetadata(PieceInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Select multiple pieces at once"), QIcon());
+	setMetadata(PieceInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Select multiple pieces at once"), KIcon("select-rectangular"));
 	if (scene())
 		scene()->addItem(m_item);
 	m_item->hide(); //NOTE: This is not necessary for the painting, but we use m_item->isVisible() to determine whether we are rubberbanding at the moment. //FIXME: really?
