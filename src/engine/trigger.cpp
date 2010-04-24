@@ -125,6 +125,7 @@ Palapeli::Trigger::Trigger()
 }
 
 Palapeli::Trigger::Trigger(const QByteArray& serialization)
+	: m_button((Qt::MouseButton) -1)
 {
 	//expect format "BUTTON_OR_WHEEL;MODIFIERLIST", i.e. two sections separated by semicolon
 	const QList<QByteArray> sections = serialization.split(';');

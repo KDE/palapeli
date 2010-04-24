@@ -80,7 +80,8 @@ void Palapeli::TriggerListView::getAssociations(QMap<QByteArray, Palapeli::Trigg
 		QStandardItem* item = m_baseModel->item(i);
 		const QByteArray interactor = item->data(Palapeli::InteractorRole).value<QByteArray>();
 		const Palapeli::Trigger trigger = item->data(Palapeli::TriggerRole).value<Palapeli::Trigger>();
-		associations.insertMulti(interactor, trigger);
+		if (trigger.isValid())
+			associations.insertMulti(interactor, trigger);
 	}
 }
 
