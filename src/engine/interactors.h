@@ -35,10 +35,9 @@ namespace Palapeli
 		public:
 			MovePieceInteractor(QGraphicsView* view);
 		protected:
-			virtual bool acceptMousePosition(const QPoint& pos);
-			virtual void mousePressEvent(const Palapeli::MouseEvent& event);
-			virtual void mouseMoveEvent(const Palapeli::MouseEvent& event);
-			virtual void mouseReleaseEvent(const Palapeli::MouseEvent& event);
+			virtual bool startInteraction(const Palapeli::MouseEvent& event);
+			virtual void continueInteraction(const Palapeli::MouseEvent& event);
+			virtual void stopInteraction(const Palapeli::MouseEvent& event);
 		private:
 			Palapeli::Piece* findPieceForItem(QGraphicsItem* mouseInteractingItem) const;
 			void determineSelectedItems(QGraphicsItem* clickedItem, Palapeli::Piece* clickedPiece);
@@ -56,10 +55,7 @@ namespace Palapeli
 		public:
 			SelectPieceInteractor(QGraphicsView* view);
 		protected:
-			virtual bool acceptMousePosition(const QPoint& pos);
-			virtual void mousePressEvent(const Palapeli::MouseEvent& event);
-		private:
-			Palapeli::Piece* m_currentPiece;
+			virtual bool startInteraction(const Palapeli::MouseEvent& event);
 	};
 
 	//This interactor is assigned to RightButton;NoModifier by default.
@@ -69,8 +65,8 @@ namespace Palapeli
 		public:
 			MoveViewportInteractor(QGraphicsView* view);
 		protected:
-			virtual void mousePressEvent(const Palapeli::MouseEvent& event);
-			virtual void mouseMoveEvent(const Palapeli::MouseEvent& event);
+			virtual bool startInteraction(const Palapeli::MouseEvent& event);
+			virtual void continueInteraction(const Palapeli::MouseEvent& event);
 		private:
 			QPoint m_lastPos;
 	};
@@ -82,7 +78,7 @@ namespace Palapeli
 		public:
 			ZoomViewportInteractor(QGraphicsView* view);
 		protected:
-			virtual void wheelEvent(const Palapeli::WheelEvent& event);
+			virtual void doInteraction(const Palapeli::WheelEvent& event);
 	};
 
 	class RubberBandItem : public QGraphicsItem
@@ -108,10 +104,9 @@ namespace Palapeli
 			virtual ~RubberBandInteractor();
 		protected:
 			virtual void sceneChangeEvent(QGraphicsScene* oldScene, QGraphicsScene* newScene);
-			virtual bool acceptMousePosition(const QPoint& pos);
-			virtual void mousePressEvent(const Palapeli::MouseEvent& event);
-			virtual void mouseMoveEvent(const Palapeli::MouseEvent& event);
-			virtual void mouseReleaseEvent(const Palapeli::MouseEvent& event);
+			virtual bool startInteraction(const Palapeli::MouseEvent& event);
+			virtual void continueInteraction(const Palapeli::MouseEvent& event);
+			virtual void stopInteraction(const Palapeli::MouseEvent& event);
 		private:
 			Palapeli::RubberBandItem* m_item;
 			QPointF m_basePosition;

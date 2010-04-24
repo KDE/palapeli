@@ -43,22 +43,14 @@ QList<Palapeli::ConstraintInteractor::Side> Palapeli::ConstraintInteractor::touc
 	return result;
 }
 
-bool Palapeli::ConstraintInteractor::acceptMousePosition(const QPoint& pos)
+bool Palapeli::ConstraintInteractor::startInteraction(const Palapeli::MouseEvent& event)
 {
 	if (!scene())
 		return false;
-	if (!m_draggingSides.isEmpty())
-		return true; //dragging in progress
-	//check mouse position
-	return !touchingSides(view()->mapToScene(pos)).isEmpty();
-}
-
-void Palapeli::ConstraintInteractor::mousePressEvent(const Palapeli::MouseEvent& event)
-{
-	if (!scene())
-		return;
 	//determine touching sides
 	m_draggingSides = touchingSides(event.scenePos);
+	if (m_draggingSides.isEmpty())
+		return false;
 	//record the position where we grabbed the handles (more precisely: its distance to the sides of the scene rect)
 	m_baseSceneRectOffset = QPointF();
 	const QRectF sceneRect = scene()->sceneRect();
@@ -70,9 +62,10 @@ void Palapeli::ConstraintInteractor::mousePressEvent(const Palapeli::MouseEvent&
 		m_baseSceneRectOffset.ry() = event.scenePos.y() - sceneRect.top();
 	else if (m_draggingSides.contains(BottomSide))
 		m_baseSceneRectOffset.ry() = event.scenePos.y() - sceneRect.bottom();
+	return true;
 }
 
-void Palapeli::ConstraintInteractor::mouseMoveEvent(const Palapeli::MouseEvent& event)
+void Palapeli::ConstraintInteractor::continueInteraction(const Palapeli::MouseEvent& event)
 {
 	//in this method, we need the scene() as Palapeli::Scene for the piecesBoundingRect
 	Palapeli::Scene* scene = qobject_cast<Palapeli::Scene*>(this->scene());
@@ -92,7 +85,7 @@ void Palapeli::ConstraintInteractor::mouseMoveEvent(const Palapeli::MouseEvent& 
 	scene->setSceneRect(sceneRect | scene->piecesBoundingRect());
 }
 
-void Palapeli::ConstraintInteractor::mouseReleaseEvent(const Palapeli::MouseEvent& event)
+void Palapeli::ConstraintInteractor::stopInteraction(const Palapeli::MouseEvent& event)
 {
 	Q_UNUSED(event)
 	m_draggingSides.clear();

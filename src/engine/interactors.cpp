@@ -35,31 +35,13 @@ Palapeli::MovePieceInteractor::MovePieceInteractor(QGraphicsView* view)
 
 static QGraphicsItem* findSelectableItemAt(const QPointF& scenePos, QGraphicsScene* scene)
 {
+	if (!scene)
+		return 0;
 	QList<QGraphicsItem*> itemsUnderMouse = scene->items(scenePos);
 	foreach (QGraphicsItem* itemUnderMouse, itemsUnderMouse)
-		if (itemUnderMouse->flags() && QGraphicsItem::ItemIsSelectable)
+		if (itemUnderMouse->flags() & QGraphicsItem::ItemIsSelectable)
 			return itemUnderMouse;
 	return 0;
-}
-
-bool Palapeli::MovePieceInteractor::acceptMousePosition(const QPoint& pos)
-{
-	if (!scene())
-		return false;
-	//we are currently moving something -> grab all events
-	if (!m_currentPieces.isEmpty())
-		return true;
-	//no item under mouse -> no interaction possible
-	QGraphicsItem* selectableItemUnderMouse = findSelectableItemAt(view()->mapToScene(pos), scene());
-	if (!selectableItemUnderMouse)
-		return false;
-	//we will only move pieces -> find the piece which we are moving
-	Palapeli::Piece* piece = Palapeli::Piece::fromSelectedItem(selectableItemUnderMouse);
-	if (!piece)
-		return false;
-	//start moving this piece
-	determineSelectedItems(selectableItemUnderMouse, piece);
-	return true;
 }
 
 void Palapeli::MovePieceInteractor::determineSelectedItems(QGraphicsItem* clickedItem, Palapeli::Piece* clickedPiece)
@@ -92,9 +74,18 @@ void Palapeli::MovePieceInteractor::determineSelectedItems(QGraphicsItem* clicke
 	}
 }
 
-void Palapeli::MovePieceInteractor::mousePressEvent(const Palapeli::MouseEvent& event)
+bool Palapeli::MovePieceInteractor::startInteraction(const Palapeli::MouseEvent& event)
 {
-	//begin moving
+	//no item under mouse -> no interaction possible
+	QGraphicsItem* selectableItemUnderMouse = findSelectableItemAt(event.scenePos, scene());
+	if (!selectableItemUnderMouse)
+		return false;
+	//we will only move pieces -> find the piece which we are moving
+	Palapeli::Piece* piece = Palapeli::Piece::fromSelectedItem(selectableItemUnderMouse);
+	if (!piece)
+		return false;
+	//start moving this piece
+	determineSelectedItems(selectableItemUnderMouse, piece);
 	m_baseScenePosition = event.scenePos;
 	m_basePositions.clear();
 	foreach(Palapeli::Piece* piece, m_currentPieces)
@@ -102,9 +93,10 @@ void Palapeli::MovePieceInteractor::mousePressEvent(const Palapeli::MouseEvent& 
 		m_basePositions << piece->pos();
 		piece->beginMove();
 	}
+	return true;
 }
 
-void Palapeli::MovePieceInteractor::mouseMoveEvent(const Palapeli::MouseEvent& event)
+void Palapeli::MovePieceInteractor::continueInteraction(const Palapeli::MouseEvent& event)
 {
 	for (int i = 0; i < m_currentPieces.count(); ++i)
 	{
@@ -113,7 +105,7 @@ void Palapeli::MovePieceInteractor::mouseMoveEvent(const Palapeli::MouseEvent& e
 	}
 }
 
-void Palapeli::MovePieceInteractor::mouseReleaseEvent(const Palapeli::MouseEvent& event)
+void Palapeli::MovePieceInteractor::stopInteraction(const Palapeli::MouseEvent& event)
 {
 	Q_UNUSED(event)
 	foreach(Palapeli::Piece* piece, m_currentPieces)
@@ -131,24 +123,19 @@ Palapeli::SelectPieceInteractor::SelectPieceInteractor(QGraphicsView* view)
 	setMetadata(PieceInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Select pieces by clicking"), QIcon());
 }
 
-bool Palapeli::SelectPieceInteractor::acceptMousePosition(const QPoint& pos)
+bool Palapeli::SelectPieceInteractor::startInteraction(const Palapeli::MouseEvent& event)
 {
-	if (!scene())
-		return false;
 	//no item under mouse -> no interaction possible
-	QGraphicsItem* selectableItemUnderMouse = findSelectableItemAt(view()->mapToScene(pos), scene());
+	QGraphicsItem* selectableItemUnderMouse = findSelectableItemAt(event.scenePos, scene());
 	if (!selectableItemUnderMouse)
 		return false;
 	//we will only move pieces -> find the piece which we are moving
-	m_currentPiece = Palapeli::Piece::fromSelectedItem(selectableItemUnderMouse);
-	return (bool) m_currentPiece;
-}
-
-void Palapeli::SelectPieceInteractor::mousePressEvent(const Palapeli::MouseEvent& event)
-{
-	Q_UNUSED(event)
+	Palapeli::Piece* currentPiece = Palapeli::Piece::fromSelectedItem(selectableItemUnderMouse);
+	if (!currentPiece)
+		return false;
 	//toggle selection state for piece under mouse
-	m_currentPiece->setSelected(!m_currentPiece->isSelected());
+	currentPiece->setSelected(!currentPiece->isSelected());
+	return true;
 }
 
 //END Palapeli::SelectPieceInteractor
@@ -160,12 +147,13 @@ Palapeli::MoveViewportInteractor::MoveViewportInteractor(QGraphicsView* view)
 	setMetadata(ViewportInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Move viewport by dragging"), QIcon());
 }
 
-void Palapeli::MoveViewportInteractor::mousePressEvent(const Palapeli::MouseEvent& event)
+bool Palapeli::MoveViewportInteractor::startInteraction(const Palapeli::MouseEvent& event)
 {
 	m_lastPos = event.pos;
+	return true;
 }
 
-void Palapeli::MoveViewportInteractor::mouseMoveEvent(const Palapeli::MouseEvent& event)
+void Palapeli::MoveViewportInteractor::continueInteraction(const Palapeli::MouseEvent& event)
 {
 	QGraphicsView* v = view();
 	const QPointF delta = event.pos - m_lastPos;
@@ -183,7 +171,7 @@ Palapeli::ZoomViewportInteractor::ZoomViewportInteractor(QGraphicsView* view)
 	setMetadata(ViewportInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Zoom viewport"), QIcon());
 }
 
-void Palapeli::ZoomViewportInteractor::wheelEvent(const Palapeli::WheelEvent& event)
+void Palapeli::ZoomViewportInteractor::doInteraction(const Palapeli::WheelEvent& event)
 {
 	Palapeli::View* view = qobject_cast<Palapeli::View*>(this->view());
 	if (view)
@@ -260,7 +248,7 @@ Palapeli::RubberBandInteractor::RubberBandInteractor(QGraphicsView* view)
 	setMetadata(PieceInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Select multiple pieces at once"), QIcon());
 	if (scene())
 		scene()->addItem(m_item);
-	m_item->hide(); //NOTE: This is not necessary for the painting, but we use m_item->isVisible() to determine whether we are rubberbanding at the moment.
+	m_item->hide(); //NOTE: This is not necessary for the painting, but we use m_item->isVisible() to determine whether we are rubberbanding at the moment. //FIXME: really?
 }
 
 Palapeli::RubberBandInteractor::~RubberBandInteractor()
@@ -270,57 +258,37 @@ Palapeli::RubberBandInteractor::~RubberBandInteractor()
 
 void Palapeli::RubberBandInteractor::sceneChangeEvent(QGraphicsScene* oldScene, QGraphicsScene* newScene)
 {
-	const bool isVisible = m_item->isVisible();
 	if (oldScene)
 		oldScene->removeItem(m_item);
 	if (newScene)
 		newScene->addItem(m_item);
-	m_item->setVisible(isVisible); //just to be sure that the scene change does not break the visibility setting
+	m_item->setVisible(false);
 }
 
-bool Palapeli::RubberBandInteractor::acceptMousePosition(const QPoint& pos)
+bool Palapeli::RubberBandInteractor::startInteraction(const Palapeli::MouseEvent& event)
 {
-	if (!scene())
-		return false;
-	//are we rubberbanding ATM?
-	if (m_item->isVisible())
-		return true;
 	//check items under mouse
-	const QPointF scenePos = view()->mapToScene(pos);
-	QList<QGraphicsItem*> itemsUnderMouse = scene()->items(scenePos);
-	foreach (QGraphicsItem* itemUnderMouse, itemsUnderMouse)
-	{
-		if (itemUnderMouse->flags() && QGraphicsItem::ItemIsSelectable)
-			return false;
-	}
-	//no selectable item under mouse
-	return true;
-}
-
-void Palapeli::RubberBandInteractor::mousePressEvent(const Palapeli::MouseEvent& event)
-{
+	if (findSelectableItemAt(event.scenePos, scene()))
+		return false;
+	//start rubberbanding
 	m_basePosition = event.scenePos;
 	m_item->show(); //NOTE: This is not necessary for the painting, but we use m_item->isVisible() to determine whether we are rubberbanding at the moment.
 	m_item->setRect(QRectF(m_basePosition, QSizeF()));
-	m_item->scene()->setSelectionArea(QPainterPath()); //deselect everything
+	scene()->setSelectionArea(QPainterPath()); //deselect everything
+	return true;
 }
 
-void Palapeli::RubberBandInteractor::mouseMoveEvent(const Palapeli::MouseEvent& event)
+void Palapeli::RubberBandInteractor::continueInteraction(const Palapeli::MouseEvent& event)
 {
-	//let the interactor pick up the mouse move event only if rubberbanding is actually active
-	if (!m_item->isVisible())
-		return;
 	QSizeF size(event.scenePos.x() - m_basePosition.x(), event.scenePos.y() - m_basePosition.y());
 	QRectF rect(m_basePosition, size);
 	m_item->setRect(rect.normalized());
 }
 
-void Palapeli::RubberBandInteractor::mouseReleaseEvent(const Palapeli::MouseEvent& event)
+void Palapeli::RubberBandInteractor::stopInteraction(const Palapeli::MouseEvent& event)
 {
-	if (!m_item->isVisible())
-		return;
 	Q_UNUSED(event)
-	m_item->hide();
+	m_item->hide(); //NOTE: This is not necessary for the painting, but we use m_item->isVisible() to determine whether we are rubberbanding at the moment.
 	m_item->setRect(QRectF());
 }
 

@@ -43,18 +43,22 @@ namespace Palapeli
 			const QList<Palapeli::AssociatedInteractorTrigger> triggers() const;
 			void setTriggers(const QList<Palapeli::AssociatedInteractorTrigger>& triggers);
 		protected:
-			bool testTrigger(const Palapeli::InteractorTrigger& trigger, QWheelEvent* event);
-			bool testTrigger(const Palapeli::InteractorTrigger& trigger, QMouseEvent* event);
-			bool testTrigger(const Palapeli::InteractorTrigger& trigger, QKeyEvent* event);
+			Palapeli::EventProcessingFlags testTrigger(const Palapeli::InteractorTrigger& trigger, QWheelEvent* event);
+			Palapeli::EventProcessingFlags testTrigger(const Palapeli::InteractorTrigger& trigger, QMouseEvent* event);
+			Palapeli::EventProcessingFlags testTrigger(const Palapeli::InteractorTrigger& trigger, QKeyEvent* event);
 
-			void handleMouseEvent(const Palapeli::MouseEvent& pEvent, QList<Palapeli::AssociatedInteractorTrigger>& matchingTriggers, QMap<Qt::MouseButton, QEvent::Type>& unhandledButtons);
+			struct EventContext
+			{
+				Palapeli::EventProcessingFlags flags;
+				Qt::MouseButtons triggeringButtons;
+			};
+			void handleEventCommon(const Palapeli::MouseEvent& pEvent, QMap<Palapeli::Interactor*, EventContext>& interactorData, Qt::MouseButtons unhandledButtons);
 		private:
 			QGraphicsView* m_view;
 			QMap<QByteArray, Palapeli::Interactor*> m_interactors; //NOTE: The interactor list is always hard-coded, based on what is available. The keys are used for writing the trigger list to the config.
 			//configuration
 			QList<Palapeli::AssociatedInteractorTrigger> m_triggers;
 			//state
-			QList<Palapeli::AssociatedInteractorTrigger> m_activeTriggers;
 			Qt::MouseButtons m_buttons;
 			QPoint m_mousePos;
 			//quasi-static data

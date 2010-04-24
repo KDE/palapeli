@@ -18,10 +18,11 @@
 
 #include "interactor.h"
 
-Palapeli::Interactor::Interactor(Palapeli::InteractorTypes types, QGraphicsView* view)
-	: m_types(types)
+Palapeli::Interactor::Interactor(Palapeli::InteractorType type, QGraphicsView* view)
+	: m_type(type)
 	, m_view(view)
 	, m_scene(view->scene())
+	, m_active(false)
 	, m_category(NoCategory)
 {
 }
@@ -30,19 +31,9 @@ Palapeli::Interactor::~Interactor()
 {
 }
 
-bool Palapeli::Interactor::isMouseInteractor() const
+Palapeli::InteractorType Palapeli::Interactor::interactorType() const
 {
-	return m_types && Palapeli::MouseInteractor;
-}
-
-bool Palapeli::Interactor::isWheelInteractor() const
-{
-	return m_types && Palapeli::WheelInteractor;
-}
-
-Palapeli::InteractorTypes Palapeli::Interactor::interactorTypes() const
-{
-	return m_types;
+	return m_type;
 }
 
 Palapeli::Interactor::Category Palapeli::Interactor::category() const
@@ -73,6 +64,7 @@ void Palapeli::Interactor::updateScene()
 	QGraphicsScene* newScene = m_view->scene();
 	if (oldScene != newScene)
 	{
+		setInactive();
 		m_scene = newScene;
 		sceneChangeEvent(oldScene, newScene);
 	}
@@ -88,32 +80,40 @@ QGraphicsScene* Palapeli::Interactor::scene() const
 	return m_scene;
 }
 
-bool Palapeli::Interactor::handleEvent(const Palapeli::MouseEvent& event, QEvent::Type type)
+bool Palapeli::Interactor::isActive() const
 {
-	if (!acceptMousePosition(event.pos))
-		return false;
-	switch (type)
+	return m_active;
+}
+
+void Palapeli::Interactor::setInactive()
+{
+	//resend last event as release event
+	if (m_active)
 	{
-		case QEvent::MouseMove:
-			mouseMoveEvent(event);
-			return true;
-		case QEvent::MouseButtonPress:
-		case QEvent::KeyPress:
-			mousePressEvent(event);
-			return true;
-		case QEvent::MouseButtonRelease:
-		case QEvent::KeyRelease:
-			mouseReleaseEvent(event);
-			return true;
-		default:
-			return false;
+		stopInteraction(m_lastMouseEvent);
+		m_active = false;
 	}
 }
 
-bool Palapeli::Interactor::handleEvent(const Palapeli::WheelEvent& event)
+void Palapeli::Interactor::sendEvent(const Palapeli::MouseEvent& event, Palapeli::EventProcessingFlags flags)
 {
-	if (!acceptMousePosition(event.pos))
-		return false;
-	wheelEvent(event);
-	return true;
+	//conclude interaction
+	if (flags & Palapeli::EventConcludesInteraction || !(flags & Palapeli::EventMatches))
+	{
+		setInactive();
+		return;
+	}
+	//check if caller attempts to start new interaction chain while an old one is still in progress
+	if (flags & Palapeli::EventStartsInteraction)
+		setInactive();
+	//handle event, thereby starting a new interaction if necessary
+	if (m_active)
+		continueInteraction(event);
+	else
+		m_active = startInteraction(event);
+}
+
+void Palapeli::Interactor::sendEvent(const Palapeli::WheelEvent& event)
+{
+	doInteraction(event);
 }

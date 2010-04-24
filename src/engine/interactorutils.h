@@ -32,6 +32,9 @@ namespace Palapeli
 			MouseEvent(QGraphicsView* view, const QPoint& pos);
 			QPoint pos;
 			QPointF scenePos;
+		protected:
+			friend class Interactor;
+			MouseEvent();
 	};
 
 	struct WheelEvent
@@ -85,6 +88,13 @@ namespace Palapeli
 
 	class Interactor;
 	typedef QPair<Palapeli::InteractorTrigger, Palapeli::Interactor*> AssociatedInteractorTrigger;
+
+	enum EventProcessingFlag {
+		EventMatches = 1 << 0,
+		EventStartsInteraction = 1 << 1,
+		EventConcludesInteraction = 1 << 2
+	};
+	Q_DECLARE_FLAGS(EventProcessingFlags, EventProcessingFlag)
 }
 
 bool Palapeli::InteractorTrigger::operator!=(const Palapeli::InteractorTrigger& other) const
@@ -92,6 +102,7 @@ bool Palapeli::InteractorTrigger::operator!=(const Palapeli::InteractorTrigger& 
 	return !(*this == other);
 }
 
+Q_DECLARE_OPERATORS_FOR_FLAGS(Palapeli::EventProcessingFlags)
 Q_DECLARE_METATYPE(Palapeli::InteractorTrigger)
 
 #endif // PALAPELI_INTERACTORUTILS_H

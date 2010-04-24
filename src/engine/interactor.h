@@ -30,10 +30,9 @@ namespace Palapeli
 {
 	enum InteractorType
 	{
-		MouseInteractor = 0x1,
-		WheelInteractor = 0x2
+		MouseInteractor = 1,
+		WheelInteractor = 2
 	};
-	Q_DECLARE_FLAGS(InteractorTypes, InteractorType)
 
 	class Interactor
 	{
@@ -46,35 +45,40 @@ namespace Palapeli
 			Category category() const;
 			QString description() const;
 			QIcon icon() const;
+			Palapeli::InteractorType interactorType() const;
 
-			bool isMouseInteractor() const;
-			bool isWheelInteractor() const;
-			Palapeli::InteractorTypes interactorTypes() const;
+			bool isActive() const;
+			void setInactive();
+			void sendEvent(const Palapeli::MouseEvent& event, Palapeli::EventProcessingFlags flags);
+			void sendEvent(const Palapeli::WheelEvent& event);
 
-			bool handleEvent(const Palapeli::MouseEvent& event, QEvent::Type type);
-			bool handleEvent(const Palapeli::WheelEvent& event);
 			///Call this method when the view for this interactor sets a different scene.
 			void updateScene();
 		protected:
-			Interactor(Palapeli::InteractorTypes types, QGraphicsView* view);
+			Interactor(Palapeli::InteractorType type, QGraphicsView* view);
 			void setMetadata(Category category, const QString& description, const QIcon& icon);
 
 			QGraphicsView* view() const;
 			QGraphicsScene* scene() const;
 
-			///This method is always called shortly before an event is delivered to the interactor. The parameter \a pos is the position of the mouse cursor on the view. Return false to abort event processing in this interactor. The default implementation returns true, indicating that the interactor handles all events, regardless of the mouse position.
-			virtual bool acceptMousePosition(const QPoint& pos) { Q_UNUSED(pos) return true; }
-
-			virtual void mouseMoveEvent(const Palapeli::MouseEvent& event) { Q_UNUSED(event) }
-			virtual void mousePressEvent(const Palapeli::MouseEvent& event) { Q_UNUSED(event) }
-			virtual void mouseReleaseEvent(const Palapeli::MouseEvent& event) { Q_UNUSED(event) }
-			virtual void wheelEvent(const Palapeli::WheelEvent& event) { Q_UNUSED(event) }
+			///This corresponds to a mousePressEvent. Return false unless you want to accept this interaction. The default implementation does nothing and accepts all interactions.
+			virtual bool startInteraction(const Palapeli::MouseEvent& event) { Q_UNUSED(event) return true; }
+			///This corresponds to a mouseMoveEvent.
+			virtual void continueInteraction(const Palapeli::MouseEvent& event) { Q_UNUSED(event) }
+			///This corresponds to a mouseRelease.
+			virtual void stopInteraction(const Palapeli::MouseEvent& event) { Q_UNUSED(event) }
+			///This corresponds to a wheelEvent
+			virtual void doInteraction(const Palapeli::WheelEvent& event) { Q_UNUSED(event) }
 			///This method is called whenever the view() changes its scene. Both parameters may be null pointers, indicating that the view had no scene up to now, or that the view will have no scene after this operation.
 			virtual void sceneChangeEvent(QGraphicsScene* oldScene, QGraphicsScene* newScene) { Q_UNUSED(oldScene) Q_UNUSED(newScene) }
 		private:
-			Palapeli::InteractorTypes m_types;
+			Palapeli::InteractorType m_type;
+			//context
 			QGraphicsView* m_view;
 			QGraphicsScene* m_scene;
+			//state
+			bool m_active;
+			Palapeli::MouseEvent m_lastMouseEvent;
 			//metadata
 			Category m_category;
 			QString m_description;
@@ -82,7 +86,6 @@ namespace Palapeli
 	};
 }
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(Palapeli::InteractorTypes)
 Q_DECLARE_METATYPE(Palapeli::Interactor*)
 
 #endif // PALAPELI_INTERACTOR_H
