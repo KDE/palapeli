@@ -52,14 +52,6 @@ Palapeli::TriggerMapper::TriggerMapper()
 	m_keyModifierMap[Qt::Key_Control] = Qt::ControlModifier;
 	m_keyModifierMap[Qt::Key_Alt] = Qt::AltModifier;
 	m_keyModifierMap[Qt::Key_Meta] = Qt::MetaModifier;
-	//NOTE: I know that the following is ugly, but two copies of the key list are error-prone enough. ;-)
-	QMap<QByteArray, Palapeli::Interactor*> interactors = Palapeli::TriggerMapper::createInteractors(0);
-	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = interactors.begin(), it2 = interactors.end();
-	for (; it1 != it2; ++it1)
-	{
-		m_knownInteractors << it1.key();
-		delete it1.value();
-	}
 	//intialize dynamic data
 	readSettings();
 }

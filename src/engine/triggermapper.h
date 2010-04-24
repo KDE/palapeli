@@ -62,7 +62,6 @@ namespace Palapeli
 
 			QMap<QByteArray, Palapeli::Trigger> m_associations;
 			//quasi-static data
-			QList<QByteArray> m_knownInteractors;
 			QMap<Qt::Key, Qt::KeyboardModifier> m_keyModifierMap;
 	};
 }
