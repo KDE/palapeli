@@ -40,6 +40,9 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			static Palapeli::TriggerMapper* instance();
+			static QMap<QByteArray, Palapeli::Interactor*> createInteractors(QGraphicsView* view);
+
+			QMap<QByteArray, Palapeli::Trigger> associations() const;
 		Q_SIGNALS:
 			void associationsChanged();
 		public Q_SLOTS:
@@ -48,7 +51,6 @@ namespace Palapeli
 			void writeSettings();
 		protected:
 			friend class InteractorManager;
-			static QMap<QByteArray, Palapeli::Interactor*> createInteractors(QGraphicsView* view);
 
 			Palapeli::EventProcessingFlags testTrigger(const QByteArray& interactor, QWheelEvent* event) const;
 			Palapeli::EventContext testTrigger(const QByteArray& interactor, QMouseEvent* event) const;

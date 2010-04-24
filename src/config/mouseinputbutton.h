@@ -20,7 +20,7 @@
 #ifndef PALAPELI_MOUSEINPUTBUTTON_H
 #define PALAPELI_MOUSEINPUTBUTTON_H
 
-#include "../engine/interactorutils.h"
+#include "../engine/trigger.h"
 
 class QLabel;
 #include <QPushButton>
@@ -42,20 +42,20 @@ namespace Palapeli
 			///If set, a call to setTrigger() will not immediately change the trigger. Instead, the triggerRequest() signal will be fired, and the new trigger will be set only after confirmTrigger() has been called.
 			bool requiresValidation() const;
 			void setRequiresValidation(bool requiresValidation);
-			Palapeli::InteractorTrigger trigger() const;
+			Palapeli::Trigger trigger() const;
 		Q_SIGNALS:
-			void triggerChanged(const Palapeli::InteractorTrigger& newTrigger);
-			void triggerRequest(const Palapeli::InteractorTrigger& newTrigger);
+			void triggerChanged(const Palapeli::Trigger& newTrigger);
+			void triggerRequest(const Palapeli::Trigger& newTrigger);
 		public Q_SLOTS:
 			void captureTrigger();
 			void clearTrigger();
-			void confirmTrigger(const Palapeli::InteractorTrigger& trigger);
-			void setTrigger(const Palapeli::InteractorTrigger& trigger);
+			void confirmTrigger(const Palapeli::Trigger& trigger);
+			void setTrigger(const Palapeli::Trigger& trigger);
 		protected:
 			bool event(QEvent* event);
 		private:
 			void updateAppearance();
-			void applyTrigger(const Palapeli::InteractorTrigger& newTrigger);
+			void applyTrigger(const Palapeli::Trigger& newTrigger);
 			void showModifiers(Qt::KeyboardModifiers modifiers);
 
 			static const QString DefaultToolTip;
@@ -64,7 +64,7 @@ namespace Palapeli
 			QLabel* m_mainLabel;
 			QLabel* m_clearButton;
 
-			Palapeli::InteractorTrigger m_trigger, m_stagedTrigger; ///< m_stagedTrigger is the trigger which has been set with setTrigger(), but which is still waiting to be confirmed with confirmTrigger().
+			Palapeli::Trigger m_trigger, m_stagedTrigger; ///< m_stagedTrigger is the trigger which has been set with setTrigger(), but which is still waiting to be confirmed with confirmTrigger().
 			bool m_noButtonAllowed, m_requiresValidation;
 	};
 }

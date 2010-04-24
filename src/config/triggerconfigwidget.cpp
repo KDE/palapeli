@@ -18,13 +18,14 @@
 
 #include "triggerconfigwidget.h"
 #include "triggerlistview.h"
-#include "../engine/interactormanager.h"
+#include "../engine/interactor.h"
+#include "../engine/triggermapper.h"
 
 #include <KLocalizedString>
 
-Palapeli::TriggerConfigWidget::TriggerConfigWidget(Palapeli::InteractorManager* manager, QWidget* parent)
+Palapeli::TriggerConfigWidget::TriggerConfigWidget(QWidget* parent)
 	: QTabWidget(parent)
-	, m_manager(manager)
+	, m_interactors(Palapeli::TriggerMapper::createInteractors(0)) //these interactors are just for reading metadata
 {
 	createTriggerListView(m_mouseView, Palapeli::MouseInteractor);
 	createTriggerListView(m_wheelView, Palapeli::WheelInteractor);
@@ -32,22 +33,27 @@ Palapeli::TriggerConfigWidget::TriggerConfigWidget(Palapeli::InteractorManager* 
 	addTab(m_wheelView, i18n("Mouse wheel"));
 }
 
-void Palapeli::TriggerConfigWidget::createTriggerListView(Palapeli::TriggerListView*& view, Palapeli::InteractorTypes types)
+Palapeli::TriggerConfigWidget::~TriggerConfigWidget()
+{
+	qDeleteAll(m_interactors);
+}
+
+void Palapeli::TriggerConfigWidget::createTriggerListView(Palapeli::TriggerListView*& view, int interactorType)
 {
 	//filter interactors
-	QList<Palapeli::Interactor*> interactors = m_manager->interactors();
-	QMutableListIterator<Palapeli::Interactor*> it1(interactors);
-	while (it1.hasNext())
-		if ((it1.next()->interactorTypes() & types) != types)
-			it1.remove();
-	//filter triggers
-	QList<Palapeli::AssociatedInteractorTrigger> triggers = m_manager->triggers();
-	QMutableListIterator<Palapeli::AssociatedInteractorTrigger> it2(triggers);
-	while (it2.hasNext())
-		if (!interactors.contains(it2.next().second))
-			it2.remove();
+	QMap<QByteArray, Palapeli::Interactor*> interactors(m_interactors);
+	QMutableMapIterator<QByteArray, Palapeli::Interactor*> iter1(interactors);
+	while (iter1.hasNext())
+		if (iter1.next().value()->interactorType() != interactorType)
+			iter1.remove();
+	//filter associations
+	QMap<QByteArray, Palapeli::Trigger> associations = Palapeli::TriggerMapper::instance()->associations();
+	QMutableMapIterator<QByteArray, Palapeli::Trigger> iter2(associations);
+	while (iter2.hasNext())
+		if (!interactors.contains(iter2.next().key()))
+			iter2.remove();
 	//create view
-	view = new Palapeli::TriggerListView(interactors, triggers, this);
+	view = new Palapeli::TriggerListView(interactors, associations, this);
 }
 
 void Palapeli::TriggerConfigWidget::writeConfig()

@@ -19,7 +19,7 @@
 #ifndef PALAPELI_TRIGGERLISTVIEW_H
 #define PALAPELI_TRIGGERLISTVIEW_H
 
-#include "../engine/interactorutils.h"
+#include "../engine/trigger.h"
 
 class QStandardItemModel;
 class KCategorizedSortFilterProxyModel;
@@ -28,16 +28,17 @@ class KCategoryDrawer;
 
 namespace Palapeli
 {
+	class Interactor;
 	class TriggerListDelegate;
 	enum TriggerListRoles { TriggerRole = Qt::UserRole + 42, InteractorRole };
 
 	class TriggerListView : public KCategorizedView
 	{
 		public:
-			TriggerListView(const QList<Palapeli::Interactor*> interactors, const QList<Palapeli::AssociatedInteractorTrigger>& triggers, QWidget* parent = 0);
+			TriggerListView(const QMap<QByteArray, Palapeli::Interactor*>& interactors, const QMap<QByteArray, Palapeli::Trigger>& associations, QWidget* parent = 0);
 			virtual ~TriggerListView();
 
-			QList<Palapeli::AssociatedInteractorTrigger> triggers() const;
+			QMap<QByteArray, Palapeli::Trigger> triggers() const;
 		private:
 			KCategoryDrawer* m_categoryDrawer;
 			QStandardItemModel* m_baseModel;

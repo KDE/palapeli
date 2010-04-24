@@ -56,6 +56,11 @@ Palapeli::TriggerMapper::TriggerMapper()
 	readSettings();
 }
 
+QMap<QByteArray, Palapeli::Trigger> Palapeli::TriggerMapper::associations() const
+{
+	return m_associations;
+}
+
 void Palapeli::TriggerMapper::readDefaultSettings()
 {
 	m_associations.clear();

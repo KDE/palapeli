@@ -31,6 +31,11 @@ Palapeli::InteractorManager::InteractorManager(QGraphicsView* view)
 	connect(Palapeli::TriggerMapper::instance(), SIGNAL(associationsChanged()), SLOT(resetActiveTriggers()));
 }
 
+Palapeli::InteractorManager::~InteractorManager()
+{
+	qDeleteAll(m_interactors);
+}
+
 void Palapeli::InteractorManager::updateScene()
 {
 	foreach (Palapeli::Interactor* interactor, m_interactors)

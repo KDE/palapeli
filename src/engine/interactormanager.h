@@ -33,6 +33,7 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			explicit InteractorManager(QGraphicsView* view);
+			virtual ~InteractorManager();
 
 			void handleEvent(QWheelEvent* event);
 			void handleEvent(QMouseEvent* event);

@@ -31,7 +31,6 @@
 #include <KStringHandler>
 #include <KWidgetItemDelegate>
 
-#include <KDebug>
 namespace Palapeli
 {
 	class TriggerListProxyModel : public KCategorizedSortFilterProxyModel
@@ -45,14 +44,14 @@ namespace Palapeli
 		protected:
 			virtual int compareCategories(const QModelIndex& left, const QModelIndex& right) const
 			{
-				const int categoryLeft = left.data(Palapeli::InteractorRole).value<Palapeli::Interactor*>()->category();
-				const int categoryRight = right.data(Palapeli::InteractorRole).value<Palapeli::Interactor*>()->category();
+				const int categoryLeft = left.data(KCategorizedSortFilterProxyModel::CategorySortRole).value<int>();
+				const int categoryRight = right.data(KCategorizedSortFilterProxyModel::CategorySortRole).value<int>();
 				return categoryRight - categoryLeft;
 			}
 			virtual bool subSortLessThan(const QModelIndex& left, const QModelIndex& right) const
 			{
-				const QString textLeft = left.data(Palapeli::InteractorRole).value<Palapeli::Interactor*>()->description();
-				const QString textRight = right.data(Palapeli::InteractorRole).value<Palapeli::Interactor*>()->description();
+				const QString textLeft = left.data(Qt::DisplayRole).toString();
+				const QString textRight = right.data(Qt::DisplayRole).toString();
 				return KStringHandler::naturalCompare(textLeft, textRight) < 0;
 			}
 	};
@@ -66,7 +65,7 @@ namespace Palapeli
 				m_iconLabel = new QLabel(this);
 				m_nameLabel = new Palapeli::ElidingLabel(this);
 				m_inputButton = new Palapeli::MouseInputButton(this);
-				connect(m_inputButton, SIGNAL(triggerChanged(const Palapeli::InteractorTrigger&)), SIGNAL(triggerChanged(const Palapeli::InteractorTrigger&)));
+				connect(m_inputButton, SIGNAL(triggerChanged(const Palapeli::Trigger&)), SIGNAL(triggerChanged(const Palapeli::Trigger&)));
 				//construct layout
 				QHBoxLayout* layout = new QHBoxLayout;
 				setLayout(layout);
@@ -85,12 +84,12 @@ namespace Palapeli
 			{
 				m_nameLabel->setFullText(text);
 			}
-			void setTrigger(const Palapeli::InteractorTrigger& trigger)
+			void setTrigger(const Palapeli::Trigger& trigger)
 			{
 				m_inputButton->setTrigger(trigger);
 			}
 		Q_SIGNALS:
-			void triggerChanged(const Palapeli::InteractorTrigger& newTrigger);
+			void triggerChanged(const Palapeli::Trigger& newTrigger);
 		private:
 			QLabel* m_iconLabel;
 			Palapeli::ElidingLabel* m_nameLabel;
@@ -128,15 +127,15 @@ namespace Palapeli
 				widget->setIcon(index.data(Qt::DecorationRole).value<QIcon>());
 				widget->setText(index.data(Qt::DisplayRole).value<QString>());
 				disconnect(widget, 0, this, 0);
-				widget->setTrigger(index.data(TriggerRole).value<Palapeli::InteractorTrigger>());
-				connect(widget, SIGNAL(triggerChanged(const Palapeli::InteractorTrigger&)), SLOT(triggerChanged(const Palapeli::InteractorTrigger&)));
+				widget->setTrigger(index.data(TriggerRole).value<Palapeli::Trigger>());
+				connect(widget, SIGNAL(triggerChanged(const Palapeli::Trigger&)), SLOT(triggerChanged(const Palapeli::Trigger&)));
 				//adjust widget geometry
 				QRect rect = option.rect;
 				rect.moveTop(0);
 				widget->setGeometry(rect);
 			}
 		private Q_SLOTS:
-			void triggerChanged(const Palapeli::InteractorTrigger& newTrigger)
+			void triggerChanged(const Palapeli::Trigger& newTrigger)
 			{
 				const QModelIndex index = focusedIndex();
 				QAbstractItemModel* model = const_cast<QAbstractItemModel*>(index.model());
@@ -162,7 +161,7 @@ static QString categoryToString(Palapeli::Interactor::Category category)
 	}
 }
 
-Palapeli::TriggerListView::TriggerListView(const QList<Palapeli::Interactor*> interactors, const QList<Palapeli::AssociatedInteractorTrigger>& triggers, QWidget* parent)
+Palapeli::TriggerListView::TriggerListView(const QMap<QByteArray, Palapeli::Interactor*>& interactors, const QMap<QByteArray, Palapeli::Trigger>& associations, QWidget* parent)
 	: KCategorizedView(parent)
 	, m_categoryDrawer(new KCategoryDrawer)
 	, m_baseModel(new QStandardItemModel(this))
@@ -170,29 +169,18 @@ Palapeli::TriggerListView::TriggerListView(const QList<Palapeli::Interactor*> in
 	, m_delegate(new Palapeli::TriggerListDelegate(this))
 {
 	//fill base model with interactors
-	foreach (Palapeli::Interactor* interactor, interactors)
+	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = interactors.begin(), it2 = interactors.end();
+	for (; it1 != it2; ++it1)
 	{
+		Palapeli::Interactor* interactor = it1.value();
 		QStandardItem* item = new QStandardItem;
 		item->setData(interactor->description(), Qt::DisplayRole);
 		item->setData(interactor->icon(), Qt::DecorationRole);
-		item->setData(qVariantFromValue(interactor), Palapeli::InteractorRole);
-		item->setData(qVariantFromValue(Palapeli::InteractorTrigger()), Palapeli::TriggerRole);
+		item->setData(it1.key(), Palapeli::InteractorRole);
+		item->setData(qVariantFromValue(associations.value(it1.key())), Palapeli::TriggerRole);
 		item->setData(categoryToString(interactor->category()), KCategorizedSortFilterProxyModel::CategoryDisplayRole);
 		item->setData(interactor->category(), KCategorizedSortFilterProxyModel::CategorySortRole);
 		m_baseModel->appendRow(item);
-	}
-	//fill base model with triggers
-	foreach (const Palapeli::AssociatedInteractorTrigger& trigger, triggers)
-	{
-		for (int i = 0; i < m_baseModel->rowCount(); ++i)
-		{
-			QStandardItem* item = m_baseModel->item(i);
-			if (item->data(Palapeli::InteractorRole).value<Palapeli::Interactor*>() == trigger.second)
-			{
-				item->setData(qVariantFromValue(trigger.first), Palapeli::TriggerRole);
-				break;
-			}
-		}
 	}
 	//setup model/view
 	m_proxyModel->setSourceModel(m_baseModel);
@@ -206,16 +194,16 @@ Palapeli::TriggerListView::~TriggerListView()
 	delete m_categoryDrawer;
 }
 
-QList<Palapeli::AssociatedInteractorTrigger> Palapeli::TriggerListView::triggers() const
+QMap<QByteArray, Palapeli::Trigger> Palapeli::TriggerListView::triggers() const
 {
 	//read triggers from base model
-	QList<Palapeli::AssociatedInteractorTrigger> result;
+	QMap<QByteArray, Palapeli::Trigger> result;
 	for (int i = 0; i < m_baseModel->rowCount(); ++i)
 	{
 		QStandardItem* item = m_baseModel->item(i);
-		Palapeli::Interactor* interactor = item->data(Palapeli::InteractorRole).value<Palapeli::Interactor*>();
-		Palapeli::InteractorTrigger trigger = item->data(Palapeli::TriggerRole).value<Palapeli::InteractorTrigger>();
-		result << qMakePair(trigger, interactor);
+		const QByteArray interactor = item->data(Palapeli::InteractorRole).value<QByteArray>();
+		const Palapeli::Trigger trigger = item->data(Palapeli::TriggerRole).value<Palapeli::Trigger>();
+		result.insert(interactor, trigger);
 	}
 	return result;
 }

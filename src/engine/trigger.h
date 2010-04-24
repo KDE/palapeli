@@ -19,6 +19,7 @@
 #ifndef PALAPELI_TRIGGER_H
 #define PALAPELI_TRIGGER_H
 
+#include <QMetaType>
 #include <QString>
 
 namespace Palapeli
@@ -60,5 +61,7 @@ bool Palapeli::Trigger::operator!=(const Palapeli::Trigger& other) const
 {
 	return !(*this == other);
 }
+
+Q_DECLARE_METATYPE(Palapeli::Trigger)
 
 #endif // PALAPELI_TRIGGER_H

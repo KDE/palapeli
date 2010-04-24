@@ -18,6 +18,7 @@
 
 #include "configdialog.h"
 #include "configdialog_p.h"
+#include "triggerconfigwidget.h"
 #include "../engine/texturehelper.h"
 #include "settings.h"
 
@@ -56,13 +57,15 @@ void Palapeli::TriggerComboBox::handleCurrentIndexChanged(int index)
 
 Palapeli::ConfigDialog::ConfigDialog(QWidget* parent)
 	: KConfigDialog(parent, QString(), Settings::self())
+	, m_triggerPage(new Palapeli::TriggerConfigWidget)
 {
 	//setup page "General settings"
 	QWidget* generalPage = new QWidget;
 	m_generalUi.setupUi(generalPage);
 	m_generalUi.kcfg_ViewBackground->setModel(Palapeli::TextureHelper::instance());
 	addPage(generalPage, i18n("General settings"))->setIcon(KIcon("configure"));
-	//TODO: add TriggerConfigWidget
+	//setup page "Mouse interaction"
+	addPage(m_triggerPage, i18n("Mouse interaction"))->setIcon(KIcon("input-mouse"));
 }
 
 void Palapeli::ConfigDialog::updateSettings()

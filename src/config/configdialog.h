@@ -25,6 +25,8 @@
 
 namespace Palapeli
 {
+	class TriggerConfigWidget;
+
 	class ConfigDialog : public KConfigDialog
 	{
 		Q_OBJECT
@@ -36,6 +38,7 @@ namespace Palapeli
 			virtual void updateWidgetsDefault();
 		private:
 			Ui::Settings m_generalUi;
+			Palapeli::TriggerConfigWidget* m_triggerPage;
 	};
 }
 

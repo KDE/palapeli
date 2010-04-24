@@ -19,25 +19,26 @@
 #ifndef PALAPELI_TRIGGERCONFIGWIDGET_H
 #define PALAPELI_TRIGGERCONFIGWIDGET_H
 
-#include "../engine/interactor.h"
-
+#include <QMap>
 #include <QTabWidget>
 
 namespace Palapeli
 {
-	class InteractorManager;
+	class Interactor;
 	class TriggerListView;
 
 	class TriggerConfigWidget : public QTabWidget
 	{
 		public:
 			//TODO: Provide signal interface for changes (to enable "Apply" button in config dialog.)
-			TriggerConfigWidget(Palapeli::InteractorManager* manager, QWidget* parent = 0);
+			TriggerConfigWidget(QWidget* parent = 0);
+			virtual ~TriggerConfigWidget();
+
 			void writeConfig();
 		private:
-			void createTriggerListView(Palapeli::TriggerListView*& view, Palapeli::InteractorTypes types);
+			void createTriggerListView(Palapeli::TriggerListView*& view, int type);
 
-			Palapeli::InteractorManager* m_manager;
+			QMap<QByteArray, Palapeli::Interactor*> m_interactors;
 			Palapeli::TriggerListView* m_mouseView;
 			Palapeli::TriggerListView* m_wheelView;
 	};
