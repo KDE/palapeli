@@ -87,6 +87,11 @@ namespace Palapeli
 			{
 				m_inputButton->setTrigger(trigger);
 			}
+			void setInteractorType(Palapeli::InteractorType type)
+			{
+				m_inputButton->setMouseAllowed(type == Palapeli::MouseInteractor);
+				m_inputButton->setWheelAllowed(type == Palapeli::WheelInteractor);
+			}
 		Q_SIGNALS:
 			void triggerChanged(const Palapeli::Trigger& newTrigger);
 		private:
@@ -132,6 +137,8 @@ namespace Palapeli
 				QRect rect = option.rect;
 				rect.moveTop(0);
 				widget->setGeometry(rect);
+				//adjust widget behavior
+				widget->setInteractorType((Palapeli::InteractorType) index.data(Palapeli::InteractorTypeRole).toInt());
 			}
 		private Q_SLOTS:
 			void triggerChanged(const Palapeli::Trigger& newTrigger)
@@ -179,6 +186,7 @@ Palapeli::TriggerListView::TriggerListView(const QMap<QByteArray, Palapeli::Inte
 		QStandardItem* item = new QStandardItem;
 		item->setData(interactor->description(), Qt::DisplayRole);
 		item->setData(interactor->icon(), Qt::DecorationRole);
+		item->setData(interactorType, Palapeli::InteractorTypeRole);
 		item->setData(it1.key(), Palapeli::InteractorRole);
 		item->setData(qVariantFromValue(Palapeli::Trigger()), Palapeli::TriggerRole);
 		item->setData(categoryToString(interactor->category()), KCategorizedSortFilterProxyModel::CategoryDisplayRole);

@@ -35,6 +35,12 @@ namespace Palapeli
 			MouseInputButton(QWidget* parent = 0);
 			virtual QSize sizeHint() const;
 
+			///If unset, this button will not generate any wheel triggers.
+			bool isMouseAllowed() const;
+			void setMouseAllowed(bool mouseAllowed);
+			///If iunset, this button will not generate any wheel triggers.
+			bool isWheelAllowed() const;
+			void setWheelAllowed(bool wheelAllowed);
 			bool isNoButtonAllowed() const;
 			void setNoButtonAllowed(bool noButtonAllowed);
 			bool showClearButton() const;
@@ -65,6 +71,7 @@ namespace Palapeli
 			QLabel* m_clearButton;
 
 			Palapeli::Trigger m_trigger, m_stagedTrigger; ///< m_stagedTrigger is the trigger which has been set with setTrigger(), but which is still waiting to be confirmed with confirmTrigger().
+			bool m_mouseAllowed, m_wheelAllowed;
 			bool m_noButtonAllowed, m_requiresValidation;
 	};
 }

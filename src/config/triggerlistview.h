@@ -31,7 +31,7 @@ namespace Palapeli
 {
 	class Interactor;
 	class TriggerListDelegate;
-	enum TriggerListRoles { TriggerRole = Qt::UserRole + 42, InteractorRole };
+	enum TriggerListRoles { TriggerRole = Qt::UserRole + 42, InteractorTypeRole, InteractorRole };
 
 	class TriggerListView : public KCategorizedView
 	{

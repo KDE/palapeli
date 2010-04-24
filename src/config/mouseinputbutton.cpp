@@ -41,6 +41,8 @@ Palapeli::MouseInputButton::MouseInputButton(QWidget* parent)
 	, m_iconLabel(new QLabel)
 	, m_mainLabel(new QLabel)
 	, m_clearButton(new Palapeli::FlatButton(clearIcon()))
+	, m_mouseAllowed(true)
+	, m_wheelAllowed(true)
 	, m_noButtonAllowed(true)
 	, m_requiresValidation(false)
 {
@@ -77,6 +79,26 @@ QSize Palapeli::MouseInputButton::sizeHint() const
 {
 	//The layout's size hint is the right one, not the one calculated by QPushButton::sizeHint.
 	return QWidget::sizeHint();
+}
+
+bool Palapeli::MouseInputButton::isMouseAllowed() const
+{
+	return m_mouseAllowed;
+}
+
+void Palapeli::MouseInputButton::setMouseAllowed(bool mouseAllowed)
+{
+	m_mouseAllowed = mouseAllowed;
+}
+
+bool Palapeli::MouseInputButton::isWheelAllowed() const
+{
+	return m_wheelAllowed;
+}
+
+void Palapeli::MouseInputButton::setWheelAllowed(bool wheelAllowed)
+{
+	m_wheelAllowed = wheelAllowed;
 }
 
 bool Palapeli::MouseInputButton::isNoButtonAllowed() const
@@ -129,6 +151,8 @@ bool Palapeli::MouseInputButton::event(QEvent* event)
 		switch ((int) event->type())
 		{
 			case QEvent::Wheel: {
+				if (!m_wheelAllowed)
+					return false;
 				Palapeli::Trigger newTrigger;
 				newTrigger.setModifiers(wEvent->modifiers());
 				newTrigger.setWheelDirection(wEvent->orientation());
@@ -137,6 +161,8 @@ bool Palapeli::MouseInputButton::event(QEvent* event)
 				return true;
 			}
 			case QEvent::MouseButtonRelease: {
+				if (!m_mouseAllowed)
+					return false;
 				Palapeli::Trigger newTrigger;
 				newTrigger.setModifiers(mEvent->modifiers());
 				newTrigger.setButton(mEvent->button());
