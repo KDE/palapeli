@@ -36,7 +36,7 @@ Palapeli::InteractorManager::InteractorManager(QGraphicsView* view)
 	m_interactors["RubberBand"] = new Palapeli::RubberBandInteractor(view);
 	m_interactors["Constraints"] = new Palapeli::ConstraintInteractor(view);
 	//setup triggers
-	typedef Palapeli::InteractorTrigger PIT;
+	typedef Palapeli::Trigger PIT;
 	m_triggers << qMakePair(PIT("LeftButton;NoModifier"), m_interactors["MovePiece"]);
 	m_triggers << qMakePair(PIT("LeftButton;ControlModifier"), m_interactors["SelectPiece"]);
 	m_triggers << qMakePair(PIT("RightButton;NoModifier"), m_interactors["MoveViewport"]);
@@ -64,7 +64,7 @@ void Palapeli::InteractorManager::handleEvent(QWheelEvent* event)
 	//convert event
 	Palapeli::WheelEvent pEvent(m_view, event->pos(), event->delta());
 	//try to handle event
-	foreach (const Palapeli::AssociatedInteractorTrigger& aTrigger, m_triggers)
+	foreach (const Palapeli::AssociatedTrigger& aTrigger, m_triggers)
 		if (testTrigger(aTrigger.first, event) & Palapeli::EventMatches)
 			aTrigger.second->sendEvent(pEvent);
 }
@@ -87,7 +87,7 @@ void Palapeli::InteractorManager::handleEvent(QMouseEvent* event)
 	m_mousePos = event->pos();
 	//check which triggers are activated by this event
 	QMap<Palapeli::Interactor*, EventContext> interactorData;
-	foreach (const Palapeli::AssociatedInteractorTrigger& trigger, m_triggers)
+	foreach (const Palapeli::AssociatedTrigger& trigger, m_triggers)
 	{
 		//NOTE: One interactor may have multiple triggers, so we OR stuff together.
 		const Palapeli::EventProcessingFlags flags = testTrigger(trigger.first, event);
@@ -108,7 +108,7 @@ void Palapeli::InteractorManager::handleEvent(QKeyEvent* event)
 	Palapeli::MouseEvent pEvent(m_view, m_mousePos);
 	//check which triggers are activated by this event
 	QMap<Palapeli::Interactor*, EventContext> interactorData;
-	foreach (const Palapeli::AssociatedInteractorTrigger& trigger, m_triggers)
+	foreach (const Palapeli::AssociatedTrigger& trigger, m_triggers)
 	{
 		//NOTE: One interactor may have multiple triggers, so we OR all flags together.
 		interactorData[trigger.second].flags |= testTrigger(trigger.first, event);
@@ -163,7 +163,7 @@ void Palapeli::InteractorManager::handleEventCommon(const Palapeli::MouseEvent& 
 	}
 }
 
-Palapeli::EventProcessingFlags Palapeli::InteractorManager::testTrigger(const Palapeli::InteractorTrigger& trigger, QWheelEvent* event)
+Palapeli::EventProcessingFlags Palapeli::InteractorManager::testTrigger(const Palapeli::Trigger& trigger, QWheelEvent* event)
 {
 	if (trigger.isValid())
 	{
@@ -177,7 +177,7 @@ Palapeli::EventProcessingFlags Palapeli::InteractorManager::testTrigger(const Pa
 	return 0;
 }
 
-Palapeli::EventProcessingFlags Palapeli::InteractorManager::testTrigger(const Palapeli::InteractorTrigger& trigger, QMouseEvent* event)
+Palapeli::EventProcessingFlags Palapeli::InteractorManager::testTrigger(const Palapeli::Trigger& trigger, QMouseEvent* event)
 {
 	if (trigger.isValid())
 	{
@@ -208,7 +208,7 @@ Palapeli::EventProcessingFlags Palapeli::InteractorManager::testTrigger(const Pa
 	return 0;
 }
 
-Palapeli::EventProcessingFlags Palapeli::InteractorManager::testTrigger(const Palapeli::InteractorTrigger& trigger, QKeyEvent* event)
+Palapeli::EventProcessingFlags Palapeli::InteractorManager::testTrigger(const Palapeli::Trigger& trigger, QKeyEvent* event)
 {
 	if (trigger.isValid())
 	{
@@ -244,12 +244,12 @@ const QList<Palapeli::Interactor*> Palapeli::InteractorManager::interactors() co
 	return m_interactors.values();
 }
 
-const QList<Palapeli::AssociatedInteractorTrigger> Palapeli::InteractorManager::triggers() const
+const QList<Palapeli::AssociatedTrigger> Palapeli::InteractorManager::triggers() const
 {
 	return m_triggers;
 }
 
-void Palapeli::InteractorManager::setTriggers(const QList<Palapeli::AssociatedInteractorTrigger>& triggers)
+void Palapeli::InteractorManager::setTriggers(const QList<Palapeli::AssociatedTrigger>& triggers)
 {
 	foreach (Palapeli::Interactor* interactor, m_interactors)
 		interactor->setInactive();

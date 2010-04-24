@@ -19,20 +19,44 @@
 #ifndef PALAPELI_INTERACTOR_H
 #define PALAPELI_INTERACTOR_H
 
-#include "interactorutils.h"
-
-#include <QEvent>
-#include <QGraphicsView>
+class QGraphicsScene;
+class QGraphicsView;
 #include <QIcon>
-#include <QMetaType>
 
 namespace Palapeli
 {
+	struct MouseEvent
+	{
+		public:
+			MouseEvent(QGraphicsView* view, const QPoint& pos);
+			QPoint pos;
+			QPointF scenePos;
+		protected:
+			friend class Interactor;
+			MouseEvent();
+	};
+
+	struct WheelEvent
+	{
+		public:
+			WheelEvent(QGraphicsView* view, const QPoint& pos, int delta);
+			QPoint pos;
+			QPointF scenePos;
+			int delta;
+	};
+
 	enum InteractorType
 	{
 		MouseInteractor = 1,
 		WheelInteractor = 2
 	};
+
+	enum EventProcessingFlag {
+		EventMatches = 1 << 0,
+		EventStartsInteraction = 1 << 1,
+		EventConcludesInteraction = 1 << 2
+	};
+	Q_DECLARE_FLAGS(EventProcessingFlags, EventProcessingFlag)
 
 	class Interactor
 	{
@@ -87,7 +111,6 @@ namespace Palapeli
 			int m_priority;
 	};
 }
-
-Q_DECLARE_METATYPE(Palapeli::Interactor*)
+Q_DECLARE_OPERATORS_FOR_FLAGS(Palapeli::EventProcessingFlags)
 
 #endif // PALAPELI_INTERACTOR_H

@@ -18,6 +18,29 @@
 
 #include "interactor.h"
 
+#include <QGraphicsView>
+
+//BEGIN events
+
+Palapeli::MouseEvent::MouseEvent(QGraphicsView* view, const QPoint& pos_)
+	: pos(pos_)
+	, scenePos(view->mapToScene(pos_))
+{
+}
+
+Palapeli::MouseEvent::MouseEvent()
+{
+}
+
+Palapeli::WheelEvent::WheelEvent(QGraphicsView* view, const QPoint& pos_, int delta_)
+	: pos(pos_)
+	, scenePos(view->mapToScene(pos_))
+	, delta(delta_)
+{
+}
+
+//END events
+
 Palapeli::Interactor::Interactor(int priority, Palapeli::InteractorType type, QGraphicsView* view)
 	: m_type(type)
 	, m_view(view)

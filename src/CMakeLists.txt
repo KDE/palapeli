@@ -15,12 +15,12 @@ set(palapeli_SRCS
 	engine/interactor.cpp
 	engine/interactors.cpp
 	engine/interactormanager.cpp
-	engine/interactorutils.cpp
 	engine/mergegroup.cpp
 	engine/piece.cpp
 	engine/piecevisuals.cpp
 	engine/scene.cpp
 	engine/texturehelper.cpp
+	engine/trigger.cpp
 	engine/view.cpp
 	engine/zoomwidget.cpp
 	file-io/collection.cpp

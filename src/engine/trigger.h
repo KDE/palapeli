@@ -16,60 +16,29 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_INTERACTORUTILS_H
-#define PALAPELI_INTERACTORUTILS_H
+#ifndef PALAPELI_TRIGGER_H
+#define PALAPELI_TRIGGER_H
 
-class QGraphicsView;
-#include <QMetaType>
-#include <QPair>
-#include <QPointF>
+#include <QString>
 
 namespace Palapeli
 {
-	struct MouseEvent
-	{
-		public:
-			MouseEvent(QGraphicsView* view, const QPoint& pos);
-			QPoint pos;
-			QPointF scenePos;
-		protected:
-			friend class Interactor;
-			MouseEvent();
-	};
-
-	struct WheelEvent
-	{
-		public:
-			WheelEvent(QGraphicsView* view, const QPoint& pos, int delta);
-			QPoint pos;
-			QPointF scenePos;
-			int delta;
-	};
-
-	QList<Qt::MouseButton> analyzeFlags(Qt::MouseButtons buttons);
-
-	struct InteractorTrigger
+	struct Trigger
 	{
 		public:
 			///Constructs an invalid trigger. (The mouse button is set to -1.)
-			InteractorTrigger();
+			Trigger();
 			///Constructs a trigger from the given serialization. If the parsing fails, this constructor returns an invalid trigger (just like the default constructor).
 			///Possible serializations include "MidButton;NoModifier", "RightButton;ShiftModifier" and "wheel:Horizontal;ShiftModifier|ControlModifier". (A formal specification of the format is left as an exercise to the reader.)
-			InteractorTrigger(const QString& serialization); //krazy:exclude=explicit (I want implicit conversions)
+			Trigger(const QByteArray& serialization); //krazy:exclude=explicit (I want implicit conversions)
 
 			///Returns whether this triger is valid.
 			bool isValid() const;
 			///Returns the serialization for this trigger, or an empty string if this trigger is invalid.
 			///\see isValid()
-			QString serialized() const;
+			QByteArray serialized() const;
 			///Returns a translated (i.e. user-compatible) string representation for this trigger. This representation is not suitable for machine-readable files, use serialized() instead.
 			QString toString() const;
-
-			///\internal
-			struct Data;
-			///\internal
-			QPair<QString, QStringList> toStringGeneric(const Data& data) const;
-
 
 			Qt::KeyboardModifiers modifiers() const;
 			void setModifiers(Qt::KeyboardModifiers modifiers);
@@ -78,31 +47,18 @@ namespace Palapeli
 			Qt::Orientation wheelDirection() const; ///< Returns 0 by default or when a trigger button has been set.
 			void setWheelDirection(Qt::Orientation orientation); ///< Setting this will reset button().
 
-			bool operator==(const Palapeli::InteractorTrigger& other) const;
-			inline bool operator!=(const Palapeli::InteractorTrigger& other) const;
+			bool operator==(const Palapeli::Trigger& other) const;
+			inline bool operator!=(const Palapeli::Trigger& other) const;
 		private:
 			Qt::KeyboardModifiers m_modifiers;
 			Qt::MouseButton m_button;
 			Qt::Orientation m_wheelDirection;
 	};
-
-	class Interactor;
-	typedef QPair<Palapeli::InteractorTrigger, Palapeli::Interactor*> AssociatedInteractorTrigger;
-
-	enum EventProcessingFlag {
-		EventMatches = 1 << 0,
-		EventStartsInteraction = 1 << 1,
-		EventConcludesInteraction = 1 << 2
-	};
-	Q_DECLARE_FLAGS(EventProcessingFlags, EventProcessingFlag)
 }
 
-bool Palapeli::InteractorTrigger::operator!=(const Palapeli::InteractorTrigger& other) const
+bool Palapeli::Trigger::operator!=(const Palapeli::Trigger& other) const
 {
 	return !(*this == other);
 }
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(Palapeli::EventProcessingFlags)
-Q_DECLARE_METATYPE(Palapeli::InteractorTrigger)
-
-#endif // PALAPELI_INTERACTORUTILS_H
+#endif // PALAPELI_TRIGGER_H

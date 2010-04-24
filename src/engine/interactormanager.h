@@ -19,7 +19,8 @@
 #ifndef PALAPELI_INTERACTORMANAGER_H
 #define PALAPELI_INTERACTORMANAGER_H
 
-#include "interactorutils.h"
+#include "interactor.h"
+#include "trigger.h"
 
 #include <QEvent>
 #include <QGraphicsView>
@@ -27,6 +28,8 @@
 
 namespace Palapeli
 {
+	typedef QPair<Palapeli::Trigger, Palapeli::Interactor*> AssociatedTrigger;
+
 	class InteractorManager : public QObject
 	{
 		public:
@@ -40,12 +43,12 @@ namespace Palapeli
 
 			///\note This list will never change at run-time.
 			const QList<Palapeli::Interactor*> interactors() const;
-			const QList<Palapeli::AssociatedInteractorTrigger> triggers() const;
-			void setTriggers(const QList<Palapeli::AssociatedInteractorTrigger>& triggers);
+			const QList<Palapeli::AssociatedTrigger> triggers() const;
+			void setTriggers(const QList<Palapeli::AssociatedTrigger>& triggers);
 		protected:
-			Palapeli::EventProcessingFlags testTrigger(const Palapeli::InteractorTrigger& trigger, QWheelEvent* event);
-			Palapeli::EventProcessingFlags testTrigger(const Palapeli::InteractorTrigger& trigger, QMouseEvent* event);
-			Palapeli::EventProcessingFlags testTrigger(const Palapeli::InteractorTrigger& trigger, QKeyEvent* event);
+			Palapeli::EventProcessingFlags testTrigger(const Palapeli::Trigger& trigger, QWheelEvent* event);
+			Palapeli::EventProcessingFlags testTrigger(const Palapeli::Trigger& trigger, QMouseEvent* event);
+			Palapeli::EventProcessingFlags testTrigger(const Palapeli::Trigger& trigger, QKeyEvent* event);
 
 			struct EventContext
 			{
@@ -57,7 +60,7 @@ namespace Palapeli
 			QGraphicsView* m_view;
 			QMap<QByteArray, Palapeli::Interactor*> m_interactors; //NOTE: The interactor list is always hard-coded, based on what is available. The keys are used for writing the trigger list to the config.
 			//configuration
-			QList<Palapeli::AssociatedInteractorTrigger> m_triggers;
+			QList<Palapeli::AssociatedTrigger> m_triggers;
 			//state
 			Qt::MouseButtons m_buttons;
 			QPoint m_mousePos;
