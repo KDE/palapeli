@@ -35,7 +35,7 @@ Palapeli::InteractorManager::InteractorManager(QGraphicsView* view)
 	m_interactors["ZoomViewport"] = new Palapeli::ZoomViewportInteractor(view);
 	m_interactors["RubberBand"] = new Palapeli::RubberBandInteractor(view);
 	m_interactors["Constraints"] = new Palapeli::ConstraintInteractor(view);
-	//setup triggers (WARNING: the insertion order implements priority)
+	//setup triggers
 	typedef Palapeli::InteractorTrigger PIT;
 	m_triggers << qMakePair(PIT("LeftButton;NoModifier"), m_interactors["MovePiece"]);
 	m_triggers << qMakePair(PIT("LeftButton;ControlModifier"), m_interactors["SelectPiece"]);
@@ -138,12 +138,19 @@ void Palapeli::InteractorManager::handleEventCommon(const Palapeli::MouseEvent& 
 					unhandledButtons &= ~context.triggeringButtons;
 			}
 		}
-	//try to activate interactors with matching triggers
-	QMutableMapIterator<Palapeli::Interactor*, EventContext> iter(interactorData);
-	while (iter.hasNext())
+	//sort remaining interactors by priority (the sorting is done by QMap)
+	QMap<int, Palapeli::Interactor*> sortedInteractors;
+	QMapIterator<Palapeli::Interactor*, EventContext> iter1(interactorData);
+	while (iter1.hasNext())
 	{
-		Palapeli::Interactor* interactor = iter.next().key();
-		const EventContext context = iter.value();
+		Palapeli::Interactor* interactor = iter1.next().key();
+		//NOTE: The minus below implements a descending sort order.
+		sortedInteractors.insertMulti(-interactor->priority(), interactor);
+	}
+	//try to activate interactors with matching triggers
+	foreach (Palapeli::Interactor* interactor, sortedInteractors)
+	{
+		const EventContext context = interactorData.value(interactor);
 		//send event, mark button as processed
 		if ((unhandledButtons & context.triggeringButtons) || context.triggeringButtons == Qt::NoButton)
 		{

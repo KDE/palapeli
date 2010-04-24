@@ -46,6 +46,7 @@ namespace Palapeli
 			QString description() const;
 			QIcon icon() const;
 			Palapeli::InteractorType interactorType() const;
+			int priority() const;
 
 			bool isActive() const;
 			void setInactive();
@@ -55,7 +56,7 @@ namespace Palapeli
 			///Call this method when the view for this interactor sets a different scene.
 			void updateScene();
 		protected:
-			Interactor(Palapeli::InteractorType type, QGraphicsView* view);
+			Interactor(int priority, Palapeli::InteractorType type, QGraphicsView* view);
 			void setMetadata(Category category, const QString& description, const QIcon& icon);
 
 			QGraphicsView* view() const;
@@ -83,6 +84,7 @@ namespace Palapeli
 			Category m_category;
 			QString m_description;
 			QIcon m_icon;
+			int m_priority;
 	};
 }
 

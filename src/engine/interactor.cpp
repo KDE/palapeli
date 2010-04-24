@@ -18,12 +18,13 @@
 
 #include "interactor.h"
 
-Palapeli::Interactor::Interactor(Palapeli::InteractorType type, QGraphicsView* view)
+Palapeli::Interactor::Interactor(int priority, Palapeli::InteractorType type, QGraphicsView* view)
 	: m_type(type)
 	, m_view(view)
 	, m_scene(view->scene())
 	, m_active(false)
 	, m_category(NoCategory)
+	, m_priority(priority)
 {
 }
 
@@ -34,6 +35,11 @@ Palapeli::Interactor::~Interactor()
 Palapeli::InteractorType Palapeli::Interactor::interactorType() const
 {
 	return m_type;
+}
+
+int Palapeli::Interactor::priority() const
+{
+	return m_priority;
 }
 
 Palapeli::Interactor::Category Palapeli::Interactor::category() const
