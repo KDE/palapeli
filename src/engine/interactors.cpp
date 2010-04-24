@@ -20,7 +20,6 @@
 #include "piece.h"
 #include "view.h"
 
-#include <QScrollBar>
 #include <QStyle>
 #include <QStyleOptionRubberBand>
 #include <KLocalizedString>
@@ -155,18 +154,17 @@ bool Palapeli::MoveViewportInteractor::startInteraction(const Palapeli::MouseEve
 
 void Palapeli::MoveViewportInteractor::continueInteraction(const Palapeli::MouseEvent& event)
 {
-	QGraphicsView* v = view();
-	const QPointF delta = event.pos - m_lastPos;
+	Palapeli::View* view = qobject_cast<Palapeli::View*>(this->view());
+	if (view)
+		view->moveViewportBy(event.pos - m_lastPos);
 	m_lastPos = event.pos;
-	v->horizontalScrollBar()->setValue(v->horizontalScrollBar()->value() + (v->isRightToLeft() ? delta.x() : -delta.x()));
-	v->verticalScrollBar()->setValue(v->verticalScrollBar()->value() - delta.y());
 }
 
 //END Palapeli::MoveViewportInteractor
 //BEGIN Palapeli::ZoomViewportInteractor
 
 Palapeli::ZoomViewportInteractor::ZoomViewportInteractor(QGraphicsView* view)
-	: Palapeli::Interactor(0, Palapeli::WheelInteractor, view) //priority: undecided ATM
+	: Palapeli::Interactor(0, Palapeli::WheelInteractor, view) //priority: unused for wheel interactors ATM
 {
 	setMetadata(ViewportInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Zoom viewport"), QIcon());
 }
@@ -179,6 +177,29 @@ void Palapeli::ZoomViewportInteractor::doInteraction(const Palapeli::WheelEvent&
 }
 
 //END Palapeli::ZoomViewportInteractor
+//BEGIN Palapeli::ScrollViewportInteractor
+
+Palapeli::ScrollViewportInteractor::ScrollViewportInteractor(Qt::Orientation orientation, QGraphicsView* view)
+	: Palapeli::Interactor(0, Palapeli::WheelInteractor, view) //priority: unused for wheel interactors ATM
+	, m_orientation(orientation)
+{
+	QString description;
+	if (orientation == Qt::Horizontal)
+		description = i18nc("Description (used like a name) for a mouse interaction method", "Scroll viewport horizontally");
+	else
+		description = i18nc("Description (used like a name) for a mouse interaction method", "Scroll viewport vertically");
+	setMetadata(ViewportInteraction, description, QIcon());
+}
+
+void Palapeli::ScrollViewportInteractor::doInteraction(const Palapeli::WheelEvent& event)
+{
+	const QPoint widgetDelta = (m_orientation == Qt::Horizontal) ? QPoint(event.delta, 0) : QPoint(0, event.delta);
+	Palapeli::View* view = qobject_cast<Palapeli::View*>(this->view());
+	if (view)
+		view->moveViewportBy(view->mapToScene(widgetDelta)- view->mapToScene(QPoint()));
+}
+
+//END Palapeli::ScrollViewportInteractor
 //BEGIN Palapeli::RubberBandItem
 
 Palapeli::RubberBandItem::RubberBandItem(QGraphicsItem* parent)

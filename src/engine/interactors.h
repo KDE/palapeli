@@ -81,6 +81,18 @@ namespace Palapeli
 			virtual void doInteraction(const Palapeli::WheelEvent& event);
 	};
 
+	//This interactor is assigned to nothing by default.
+	//Turning the wheel will scroll the viewport either horizontally or vertically.
+	class ScrollViewportInteractor : public Palapeli::Interactor
+	{
+		public:
+			ScrollViewportInteractor(Qt::Orientation orientation, QGraphicsView* view);
+		protected:
+			virtual void doInteraction(const Palapeli::WheelEvent& event);
+		private:
+			Qt::Orientation m_orientation;
+	};
+
 	class RubberBandItem : public QGraphicsItem
 	{
 		public:

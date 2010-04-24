@@ -45,6 +45,7 @@ namespace Palapeli
 		public Q_SLOTS:
 			void setScene(Palapeli::Scene* scene);
 
+			void moveViewportBy(const QPointF& sceneDelta);
 			void zoomIn();
 			void zoomOut();
 			void zoomBy(int delta); //delta = 0 -> no change, delta < 0 -> zoom out, delta > 0 -> zoom in

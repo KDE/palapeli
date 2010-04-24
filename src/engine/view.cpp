@@ -24,6 +24,7 @@
 #include <cmath>
 #include <QMouseEvent>
 #include <QPropertyAnimation>
+#include <QScrollBar>
 #include <KLocalizedString>
 #include <KMessageBox>
 
@@ -116,6 +117,12 @@ void Palapeli::View::wheelEvent(QWheelEvent* event)
 {
 	m_interactorManager->handleEvent(event);
 	//We do intentionally *not* propagate to QGV::wheelEvent.
+}
+
+void Palapeli::View::moveViewportBy(const QPointF& sceneDelta)
+{
+	horizontalScrollBar()->setValue(horizontalScrollBar()->value() + (isRightToLeft() ? sceneDelta.x() : -sceneDelta.x()));
+	verticalScrollBar()->setValue(verticalScrollBar()->value() - sceneDelta.y());
 }
 
 void Palapeli::View::zoomBy(int delta)

@@ -40,6 +40,8 @@ QMap<QByteArray, Palapeli::Interactor*> Palapeli::TriggerMapper::createInteracto
 	result["SelectPiece"] = new Palapeli::SelectPieceInteractor(view);
 	result["MoveViewport"] = new Palapeli::MoveViewportInteractor(view);
 	result["ZoomViewport"] = new Palapeli::ZoomViewportInteractor(view);
+	result["ScrollViewportHoriz"] = new Palapeli::ScrollViewportInteractor(Qt::Horizontal, view);
+	result["ScrollViewportVert"] = new Palapeli::ScrollViewportInteractor(Qt::Vertical, view);
 	result["RubberBand"] = new Palapeli::RubberBandInteractor(view);
 	result["Constraints"] = new Palapeli::ConstraintInteractor(view);
 	return result;
