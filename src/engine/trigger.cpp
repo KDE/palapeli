@@ -120,12 +120,16 @@ K_GLOBAL_STATIC(TriggerParserData, tParserData)
 K_GLOBAL_STATIC(TriggerPrinterData, tPrinterData)
 
 Palapeli::Trigger::Trigger()
-	: m_button((Qt::MouseButton) -1)
+	: m_modifiers(Qt::NoModifier)
+	, m_button((Qt::MouseButton) -1)
+	, m_wheelDirection((Qt::Orientation) 0)
 {
 }
 
 Palapeli::Trigger::Trigger(const QByteArray& serialization)
-	: m_button((Qt::MouseButton) -1)
+	: m_modifiers(Qt::NoModifier)
+	, m_button((Qt::MouseButton) -1)
+	, m_wheelDirection((Qt::Orientation) 0)
 {
 	//expect format "BUTTON_OR_WHEEL;MODIFIERLIST", i.e. two sections separated by semicolon
 	const QList<QByteArray> sections = serialization.split(';');
