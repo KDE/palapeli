@@ -29,14 +29,19 @@ namespace Palapeli
 
 	class TriggerConfigWidget : public QTabWidget
 	{
+		Q_OBJECT
 		public:
 			//TODO: Provide signal interface for changes (to enable "Apply" button in config dialog.)
 			TriggerConfigWidget(QWidget* parent = 0);
 			virtual ~TriggerConfigWidget();
 
+			bool hasChanged() const;
+			bool isDefault() const;
 			void updateSettings();
 			void updateWidgets();
 			void updateWidgetsDefault();
+		Q_SIGNALS:
+			void associationsChanged();
 		private:
 			QMap<QByteArray, Palapeli::Interactor*> m_interactors;
 			Palapeli::TriggerListView* m_mouseView;

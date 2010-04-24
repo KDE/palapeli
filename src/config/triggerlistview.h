@@ -35,12 +35,15 @@ namespace Palapeli
 
 	class TriggerListView : public KCategorizedView
 	{
+		Q_OBJECT
 		public:
 			TriggerListView(const QMap<QByteArray, Palapeli::Interactor*>& interactors, Palapeli::InteractorType interactorType, QWidget* parent = 0);
 			virtual ~TriggerListView();
 
 			void getAssociations(QMap<QByteArray, Palapeli::Trigger>& associations);
 			void setAssociations(const QMap<QByteArray, Palapeli::Trigger>& associations);
+		Q_SIGNALS:
+			void associationsChanged();
 		private:
 			KCategoryDrawer* m_categoryDrawer;
 			QStandardItemModel* m_baseModel;

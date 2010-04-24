@@ -66,6 +66,17 @@ Palapeli::ConfigDialog::ConfigDialog(QWidget* parent)
 	addPage(generalPage, i18n("General settings"))->setIcon(KIcon("configure"));
 	//setup page "Mouse interaction"
 	addPage(m_triggerPage, i18n("Mouse interaction"))->setIcon(KIcon("input-mouse"));
+	connect(m_triggerPage, SIGNAL(associationsChanged()), SLOT(updateButtons()));
+}
+
+bool Palapeli::ConfigDialog::hasChanged()
+{
+	return m_triggerPage->hasChanged();
+}
+
+bool Palapeli::ConfigDialog::isDefault()
+{
+	return m_triggerPage->isDefault();
 }
 
 void Palapeli::ConfigDialog::updateSettings()

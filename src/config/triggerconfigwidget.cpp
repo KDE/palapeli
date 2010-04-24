@@ -31,11 +31,29 @@ Palapeli::TriggerConfigWidget::TriggerConfigWidget(QWidget* parent)
 {
 	addTab(m_mouseView, i18n("Mouse buttons"));
 	addTab(m_wheelView, i18n("Mouse wheel"));
+	connect(m_mouseView, SIGNAL(associationsChanged()), SIGNAL(associationsChanged()));
+	connect(m_wheelView, SIGNAL(associationsChanged()), SIGNAL(associationsChanged()));
 }
 
 Palapeli::TriggerConfigWidget::~TriggerConfigWidget()
 {
 	qDeleteAll(m_interactors);
+}
+
+bool Palapeli::TriggerConfigWidget::hasChanged() const
+{
+	QMap<QByteArray, Palapeli::Trigger> associations;
+	m_mouseView->getAssociations(associations);
+	m_wheelView->getAssociations(associations);
+	return associations != Palapeli::TriggerMapper::instance()->associations();
+}
+
+bool Palapeli::TriggerConfigWidget::isDefault() const
+{
+	QMap<QByteArray, Palapeli::Trigger> associations;
+	m_mouseView->getAssociations(associations);
+	m_wheelView->getAssociations(associations);
+	return associations == Palapeli::TriggerMapper::defaultAssociations();
 }
 
 void Palapeli::TriggerConfigWidget::updateSettings()
@@ -51,6 +69,7 @@ void Palapeli::TriggerConfigWidget::updateWidgets()
 	const QMap<QByteArray, Palapeli::Trigger> associations = Palapeli::TriggerMapper::instance()->associations();
 	m_mouseView->setAssociations(associations);
 	m_wheelView->setAssociations(associations);
+	emit associationsChanged();
 }
 
 void Palapeli::TriggerConfigWidget::updateWidgetsDefault()
@@ -58,4 +77,7 @@ void Palapeli::TriggerConfigWidget::updateWidgetsDefault()
 	const QMap<QByteArray, Palapeli::Trigger> associations = Palapeli::TriggerMapper::defaultAssociations();
 	m_mouseView->setAssociations(associations);
 	m_wheelView->setAssociations(associations);
+	emit associationsChanged();
 }
+
+#include "triggerconfigwidget.moc"

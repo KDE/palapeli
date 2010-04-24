@@ -33,6 +33,8 @@ namespace Palapeli
 		public:
 			ConfigDialog(QWidget* parent = 0);
 		protected:
+			virtual bool hasChanged();
+			virtual bool isDefault();
 			virtual void updateSettings();
 			virtual void updateWidgets();
 			virtual void updateWidgetsDefault();
