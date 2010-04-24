@@ -73,6 +73,7 @@ namespace Palapeli
 				setLayout(layout);
 				layout->addWidget(m_iconLabel);
 				m_iconLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+				m_iconLabel->setFixedSize(QSize(32, 32));
 				layout->addWidget(m_nameLabel);
 				layout->addWidget(m_inputButton);
 				m_inputButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -80,7 +81,7 @@ namespace Palapeli
 			void setIcon(const QIcon& icon)
 			{
 				//TODO: respect global icon size configuration
-				m_iconLabel->setPixmap(icon.pixmap(22));
+				m_iconLabel->setPixmap(icon.pixmap(32));
 			}
 			void setText(const QString& text)
 			{
