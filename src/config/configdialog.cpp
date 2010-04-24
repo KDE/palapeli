@@ -72,17 +72,17 @@ void Palapeli::ConfigDialog::updateSettings()
 {
 	//schedule update of TextureHelper (but only after KConfigDialog has written the settings, which might happen after this slot call)
 	QTimer::singleShot(0, Palapeli::TextureHelper::instance(), SLOT(readSettings()));
-	//TODO: Here goes code for applying the settings from the TriggerConfigWidget.
+	m_triggerPage->updateSettings();
 }
 
 void Palapeli::ConfigDialog::updateWidgets()
 {
-	//TODO: Here goes code for initializing the TriggerConfigWidget.
+	m_triggerPage->updateWidgets();
 }
 
 void Palapeli::ConfigDialog::updateWidgetsDefault()
 {
-	//TODO: Here goes code for resetting the TriggerConfigWidget to default values.
+	m_triggerPage->updateWidgetsDefault();
 }
 
 //END Palapeli::ConfigDialog

@@ -45,6 +45,18 @@ QMap<QByteArray, Palapeli::Interactor*> Palapeli::TriggerMapper::createInteracto
 	return result;
 }
 
+QMap<QByteArray, Palapeli::Trigger> Palapeli::TriggerMapper::defaultAssociations()
+{
+	QMap<QByteArray, Palapeli::Trigger> result;
+	result.insert("MovePiece", Palapeli::Trigger("LeftButton;NoModifier"));
+	result.insert("SelectPiece", Palapeli::Trigger("LeftButton;ControlModifier"));
+	result.insert("MoveViewport", Palapeli::Trigger("RightButton;NoModifier"));
+	result.insert("ZoomViewport", Palapeli::Trigger("wheel:Vertical;NoModifier"));
+	result.insert("RubberBand", Palapeli::Trigger("LeftButton;NoModifier"));
+	result.insert("Constraints", Palapeli::Trigger("LeftButton;NoModifier"));
+	return result;
+}
+
 Palapeli::TriggerMapper::TriggerMapper()
 {
 	//initialize quasi-static data
@@ -61,18 +73,6 @@ QMap<QByteArray, Palapeli::Trigger> Palapeli::TriggerMapper::associations() cons
 	return m_associations;
 }
 
-void Palapeli::TriggerMapper::readDefaultSettings()
-{
-	m_associations.clear();
-	m_associations.insert("MovePiece", Palapeli::Trigger("LeftButton;NoModifier"));
-	m_associations.insert("SelectPiece", Palapeli::Trigger("LeftButton;ControlModifier"));
-	m_associations.insert("MoveViewport", Palapeli::Trigger("RightButton;NoModifier"));
-	m_associations.insert("ZoomViewport", Palapeli::Trigger("wheel:Vertical;NoModifier"));
-	m_associations.insert("RubberBand", Palapeli::Trigger("LeftButton;NoModifier"));
-	m_associations.insert("Constraints", Palapeli::Trigger("LeftButton;NoModifier"));
-	emit associationsChanged();
-}
-
 void Palapeli::TriggerMapper::readSettings()
 {
 	m_associations.clear();
@@ -87,15 +87,18 @@ void Palapeli::TriggerMapper::readSettings()
 			if (trigger.isValid())
 				m_associations.insertMulti(interactorKey, trigger);
 	}
-	//fallback to default settings
+	//fallback to default settings if necessary
 	if (m_associations.isEmpty())
-		readDefaultSettings();
-	else
-		emit associationsChanged();
+		m_associations = Palapeli::TriggerMapper::defaultAssociations();
+	//announce update to InteractorManagers
+	emit associationsChanged();
 }
 
-void Palapeli::TriggerMapper::writeSettings()
+void Palapeli::TriggerMapper::setAssociations(const QMap<QByteArray, Palapeli::Trigger>& associations)
 {
+	m_associations = associations;
+	//announce update to InteractorManagers
+	emit associationsChanged();
 	//assemble trigger serializations
 	QMap<QByteArray, QList<QByteArray> > triggerSerializations;
 	{

@@ -19,7 +19,6 @@
 #include "triggerlistview.h"
 #include "elidinglabel.h"
 #include "mouseinputbutton.h"
-#include "../engine/interactor.h"
 
 #include <QApplication>
 #include <QHBoxLayout>
@@ -161,7 +160,7 @@ static QString categoryToString(Palapeli::Interactor::Category category)
 	}
 }
 
-Palapeli::TriggerListView::TriggerListView(const QMap<QByteArray, Palapeli::Interactor*>& interactors, const QMap<QByteArray, Palapeli::Trigger>& associations, QWidget* parent)
+Palapeli::TriggerListView::TriggerListView(const QMap<QByteArray, Palapeli::Interactor*>& interactors, Palapeli::InteractorType interactorType, QWidget* parent)
 	: KCategorizedView(parent)
 	, m_categoryDrawer(new KCategoryDrawer)
 	, m_baseModel(new QStandardItemModel(this))
@@ -172,12 +171,16 @@ Palapeli::TriggerListView::TriggerListView(const QMap<QByteArray, Palapeli::Inte
 	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = interactors.begin(), it2 = interactors.end();
 	for (; it1 != it2; ++it1)
 	{
+		//filter interactor
 		Palapeli::Interactor* interactor = it1.value();
+		if (interactor->interactorType() != interactorType)
+			continue;
+		//create item for interactor
 		QStandardItem* item = new QStandardItem;
 		item->setData(interactor->description(), Qt::DisplayRole);
 		item->setData(interactor->icon(), Qt::DecorationRole);
 		item->setData(it1.key(), Palapeli::InteractorRole);
-		item->setData(qVariantFromValue(associations.value(it1.key())), Palapeli::TriggerRole);
+		item->setData(qVariantFromValue(Palapeli::Trigger()), Palapeli::TriggerRole);
 		item->setData(categoryToString(interactor->category()), KCategorizedSortFilterProxyModel::CategoryDisplayRole);
 		item->setData(interactor->category(), KCategorizedSortFilterProxyModel::CategorySortRole);
 		m_baseModel->appendRow(item);
@@ -194,18 +197,25 @@ Palapeli::TriggerListView::~TriggerListView()
 	delete m_categoryDrawer;
 }
 
-QMap<QByteArray, Palapeli::Trigger> Palapeli::TriggerListView::triggers() const
+void Palapeli::TriggerListView::getAssociations(QMap<QByteArray, Palapeli::Trigger>& associations)
 {
-	//read triggers from base model
-	QMap<QByteArray, Palapeli::Trigger> result;
 	for (int i = 0; i < m_baseModel->rowCount(); ++i)
 	{
 		QStandardItem* item = m_baseModel->item(i);
 		const QByteArray interactor = item->data(Palapeli::InteractorRole).value<QByteArray>();
 		const Palapeli::Trigger trigger = item->data(Palapeli::TriggerRole).value<Palapeli::Trigger>();
-		result.insert(interactor, trigger);
+		associations.insertMulti(interactor, trigger);
 	}
-	return result;
+}
+
+void Palapeli::TriggerListView::setAssociations(const QMap<QByteArray, Palapeli::Trigger>& associations)
+{
+	for (int i = 0; i < m_baseModel->rowCount(); ++i)
+	{
+		QStandardItem* item = m_baseModel->item(i);
+		const QByteArray interactor = item->data(Palapeli::InteractorRole).value<QByteArray>();
+		item->setData(qVariantFromValue(associations.value(interactor)), Palapeli::TriggerRole);
+	}
 }
 
 #include "triggerlistview.moc"

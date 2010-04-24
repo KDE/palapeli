@@ -26,9 +26,9 @@
 Palapeli::TriggerConfigWidget::TriggerConfigWidget(QWidget* parent)
 	: QTabWidget(parent)
 	, m_interactors(Palapeli::TriggerMapper::createInteractors(0)) //these interactors are just for reading metadata
+	, m_mouseView(new Palapeli::TriggerListView(m_interactors, Palapeli::MouseInteractor, this))
+	, m_wheelView(new Palapeli::TriggerListView(m_interactors, Palapeli::WheelInteractor, this))
 {
-	createTriggerListView(m_mouseView, Palapeli::MouseInteractor);
-	createTriggerListView(m_wheelView, Palapeli::WheelInteractor);
 	addTab(m_mouseView, i18n("Mouse buttons"));
 	addTab(m_wheelView, i18n("Mouse wheel"));
 }
@@ -38,25 +38,24 @@ Palapeli::TriggerConfigWidget::~TriggerConfigWidget()
 	qDeleteAll(m_interactors);
 }
 
-void Palapeli::TriggerConfigWidget::createTriggerListView(Palapeli::TriggerListView*& view, int interactorType)
+void Palapeli::TriggerConfigWidget::updateSettings()
 {
-	//filter interactors
-	QMap<QByteArray, Palapeli::Interactor*> interactors(m_interactors);
-	QMutableMapIterator<QByteArray, Palapeli::Interactor*> iter1(interactors);
-	while (iter1.hasNext())
-		if (iter1.next().value()->interactorType() != interactorType)
-			iter1.remove();
-	//filter associations
-	QMap<QByteArray, Palapeli::Trigger> associations = Palapeli::TriggerMapper::instance()->associations();
-	QMutableMapIterator<QByteArray, Palapeli::Trigger> iter2(associations);
-	while (iter2.hasNext())
-		if (!interactors.contains(iter2.next().key()))
-			iter2.remove();
-	//create view
-	view = new Palapeli::TriggerListView(interactors, associations, this);
+	QMap<QByteArray, Palapeli::Trigger> associations;
+	m_mouseView->getAssociations(associations);
+	m_wheelView->getAssociations(associations);
+	Palapeli::TriggerMapper::instance()->setAssociations(associations);
 }
 
-void Palapeli::TriggerConfigWidget::writeConfig()
+void Palapeli::TriggerConfigWidget::updateWidgets()
 {
-	//TODO
+	const QMap<QByteArray, Palapeli::Trigger> associations = Palapeli::TriggerMapper::instance()->associations();
+	m_mouseView->setAssociations(associations);
+	m_wheelView->setAssociations(associations);
+}
+
+void Palapeli::TriggerConfigWidget::updateWidgetsDefault()
+{
+	const QMap<QByteArray, Palapeli::Trigger> associations = Palapeli::TriggerMapper::defaultAssociations();
+	m_mouseView->setAssociations(associations);
+	m_wheelView->setAssociations(associations);
 }

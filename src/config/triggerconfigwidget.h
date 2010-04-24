@@ -34,10 +34,10 @@ namespace Palapeli
 			TriggerConfigWidget(QWidget* parent = 0);
 			virtual ~TriggerConfigWidget();
 
-			void writeConfig();
+			void updateSettings();
+			void updateWidgets();
+			void updateWidgetsDefault();
 		private:
-			void createTriggerListView(Palapeli::TriggerListView*& view, int type);
-
 			QMap<QByteArray, Palapeli::Interactor*> m_interactors;
 			Palapeli::TriggerListView* m_mouseView;
 			Palapeli::TriggerListView* m_wheelView;

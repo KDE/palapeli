@@ -43,12 +43,12 @@ namespace Palapeli
 			static QMap<QByteArray, Palapeli::Interactor*> createInteractors(QGraphicsView* view);
 
 			QMap<QByteArray, Palapeli::Trigger> associations() const;
+			static QMap<QByteArray, Palapeli::Trigger> defaultAssociations();
 		Q_SIGNALS:
 			void associationsChanged();
 		public Q_SLOTS:
-			void readDefaultSettings();
 			void readSettings();
-			void writeSettings();
+			void setAssociations(const QMap<QByteArray, Palapeli::Trigger>& associations);
 		protected:
 			friend class InteractorManager;
 

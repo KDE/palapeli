@@ -19,6 +19,7 @@
 #ifndef PALAPELI_TRIGGERLISTVIEW_H
 #define PALAPELI_TRIGGERLISTVIEW_H
 
+#include "../engine/interactor.h"
 #include "../engine/trigger.h"
 
 class QStandardItemModel;
@@ -35,10 +36,11 @@ namespace Palapeli
 	class TriggerListView : public KCategorizedView
 	{
 		public:
-			TriggerListView(const QMap<QByteArray, Palapeli::Interactor*>& interactors, const QMap<QByteArray, Palapeli::Trigger>& associations, QWidget* parent = 0);
+			TriggerListView(const QMap<QByteArray, Palapeli::Interactor*>& interactors, Palapeli::InteractorType interactorType, QWidget* parent = 0);
 			virtual ~TriggerListView();
 
-			QMap<QByteArray, Palapeli::Trigger> triggers() const;
+			void getAssociations(QMap<QByteArray, Palapeli::Trigger>& associations);
+			void setAssociations(const QMap<QByteArray, Palapeli::Trigger>& associations);
 		private:
 			KCategoryDrawer* m_categoryDrawer;
 			QStandardItemModel* m_baseModel;
