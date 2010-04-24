@@ -23,6 +23,9 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QWheelEvent>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KGlobal>
 
 Palapeli::TriggerMapper* Palapeli::TriggerMapper::instance()
 {
@@ -49,6 +52,14 @@ Palapeli::TriggerMapper::TriggerMapper()
 	m_keyModifierMap[Qt::Key_Control] = Qt::ControlModifier;
 	m_keyModifierMap[Qt::Key_Alt] = Qt::AltModifier;
 	m_keyModifierMap[Qt::Key_Meta] = Qt::MetaModifier;
+	//NOTE: I know that the following is ugly, but two copies of the key list are error-prone enough. ;-)
+	QMap<QByteArray, Palapeli::Interactor*> interactors = Palapeli::TriggerMapper::createInteractors(0);
+	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = interactors.begin(), it2 = interactors.end();
+	for (; it1 != it2; ++it1)
+	{
+		m_knownInteractors << it1.key();
+		delete it1.value();
+	}
 	//intialize dynamic data
 	readSettings();
 }
@@ -67,13 +78,40 @@ void Palapeli::TriggerMapper::readDefaultSettings()
 
 void Palapeli::TriggerMapper::readSettings()
 {
-	//TODO: read settings from config
-	readDefaultSettings();
+	m_associations.clear();
+	//read config
+	KConfigGroup group(KGlobal::config(), "Mouse Interaction");
+	const QStringList configKeys = group.keyList();
+	foreach (const QString& configKey, configKeys)
+	{
+		const QByteArray interactorKey = configKey.toLatin1();
+		const QList<QByteArray> triggers = group.readEntry(configKey, QList<QByteArray>());
+		foreach (const Palapeli::Trigger& trigger, triggers) //implicit casts FTW
+			if (trigger.isValid())
+				m_associations.insertMulti(interactorKey, trigger);
+	}
+	//fallback to default settings
+	if (m_associations.isEmpty())
+		readDefaultSettings();
+	else
+		emit associationsChanged();
 }
 
 void Palapeli::TriggerMapper::writeSettings()
 {
-	//TODO: write settings to config
+	//assemble trigger serializations
+	QMap<QByteArray, QList<QByteArray> > triggerSerializations;
+	{
+		QMap<QByteArray, Palapeli::Trigger>::const_iterator it1 = m_associations.begin(), it2 = m_associations.end();
+		for (; it1 != it2; ++it1)
+			triggerSerializations[it1.key()] << it1.value().serialized();
+	}
+	//write config (in a way that supports multiple triggers for one interactor)
+	KConfigGroup group(KGlobal::config(), "Mouse Interaction");
+	QMap<QByteArray, QList<QByteArray> >::const_iterator it1 = triggerSerializations.begin(), it2 = triggerSerializations.end();
+	for (; it1 != it2; ++it1)
+		group.writeEntry(it1.key().data(), it1.value());
+	KGlobal::config()->sync();
 }
 
 Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const QByteArray& interactor, QWheelEvent* event) const
