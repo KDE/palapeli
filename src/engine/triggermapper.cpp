@@ -1,0 +1,191 @@
+/***************************************************************************
+ *   Copyright 2010 Stefan Majewsky <majewsky@gmx.net>
+ *
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU General Public
+ *   License as published by the Free Software Foundation; either
+ *   version 2 of the License, or (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, write to the Free Software
+ *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+***************************************************************************/
+
+#include "triggermapper.h"
+#include "constraintinteractor.h"
+#include "interactors.h"
+
+#include <QKeyEvent>
+#include <QMouseEvent>
+#include <QWheelEvent>
+
+Palapeli::TriggerMapper* Palapeli::TriggerMapper::instance()
+{
+	static Palapeli::TriggerMapper instance;
+	return &instance;
+}
+
+QMap<QByteArray, Palapeli::Interactor*> Palapeli::TriggerMapper::createInteractors(QGraphicsView* view)
+{
+	QMap<QByteArray, Palapeli::Interactor*> result;
+	result["MovePiece"] = new Palapeli::MovePieceInteractor(view);
+	result["SelectPiece"] = new Palapeli::SelectPieceInteractor(view);
+	result["MoveViewport"] = new Palapeli::MoveViewportInteractor(view);
+	result["ZoomViewport"] = new Palapeli::ZoomViewportInteractor(view);
+	result["RubberBand"] = new Palapeli::RubberBandInteractor(view);
+	result["Constraints"] = new Palapeli::ConstraintInteractor(view);
+	return result;
+}
+
+Palapeli::TriggerMapper::TriggerMapper()
+{
+	//initialize quasi-static data
+	m_keyModifierMap[Qt::Key_Shift] = Qt::ShiftModifier;
+	m_keyModifierMap[Qt::Key_Control] = Qt::ControlModifier;
+	m_keyModifierMap[Qt::Key_Alt] = Qt::AltModifier;
+	m_keyModifierMap[Qt::Key_Meta] = Qt::MetaModifier;
+	//intialize dynamic data
+	readSettings();
+}
+
+void Palapeli::TriggerMapper::readDefaultSettings()
+{
+	m_associations.clear();
+	m_associations.insert("MovePiece", Palapeli::Trigger("LeftButton;NoModifier"));
+	m_associations.insert("SelectPiece", Palapeli::Trigger("LeftButton;ControlModifier"));
+	m_associations.insert("MoveViewport", Palapeli::Trigger("RightButton;NoModifier"));
+	m_associations.insert("ZoomViewport", Palapeli::Trigger("wheel:Vertical;NoModifier"));
+	m_associations.insert("RubberBand", Palapeli::Trigger("LeftButton;NoModifier"));
+	m_associations.insert("Constraints", Palapeli::Trigger("LeftButton;NoModifier"));
+	emit associationsChanged();
+}
+
+void Palapeli::TriggerMapper::readSettings()
+{
+	//TODO: read settings from config
+	readDefaultSettings();
+}
+
+void Palapeli::TriggerMapper::writeSettings()
+{
+	//TODO: write settings to config
+}
+
+Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const QByteArray& interactor, QWheelEvent* event) const
+{
+	Palapeli::EventProcessingFlags result;
+	QMap<QByteArray, Palapeli::Trigger>::const_iterator it1 = m_associations.begin(), it2 = m_associations.end();
+	for (; it1 != it2; ++it1)
+		if (it1.key() == interactor)
+			result |= testTrigger(it1.value(), event);
+	return result;
+}
+
+Palapeli::EventContext Palapeli::TriggerMapper::testTrigger(const QByteArray& interactor, QMouseEvent* event) const
+{
+	Palapeli::EventContext result;
+	QMap<QByteArray, Palapeli::Trigger>::const_iterator it1 = m_associations.begin(), it2 = m_associations.end();
+	for (; it1 != it2; ++it1)
+		if (it1.key() == interactor)
+		{
+			const Palapeli::EventProcessingFlags flags = testTrigger(it1.value(), event);
+			result.flags |= flags;
+			if (flags & Palapeli::EventMatches)
+				result.triggeringButtons |= it1.value().button();
+		}
+	return result;
+}
+
+Palapeli::EventContext Palapeli::TriggerMapper::testTrigger(const QByteArray& interactor, QKeyEvent* event, Qt::MouseButtons buttons) const
+{
+	Palapeli::EventContext result;
+	QMap<QByteArray, Palapeli::Trigger>::const_iterator it1 = m_associations.begin(), it2 = m_associations.end();
+	for (; it1 != it2; ++it1)
+		if (it1.key() == interactor)
+		{
+			result.flags |= testTrigger(it1.value(), event, buttons);
+			result.triggeringButtons |= it1.value().button();
+		}
+	return result;
+}
+
+Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palapeli::Trigger& trigger, QWheelEvent* event) const
+{
+	if (trigger.isValid())
+	{
+		const bool testModifiers = trigger.modifiers() == event->modifiers();
+		const bool checkDirection = trigger.wheelDirection() != 0;
+		const bool testDirection = trigger.wheelDirection() == event->orientation();
+		if (testModifiers && checkDirection && testDirection)
+			return Palapeli::EventMatches;
+	}
+	//if execution comes to this point, trigger does not match
+	return 0;
+}
+
+Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palapeli::Trigger& trigger, QMouseEvent* event) const
+{
+	if (trigger.isValid())
+	{
+		const bool testModifiers = trigger.modifiers() == event->modifiers();
+		const bool checkDirection = trigger.wheelDirection() == 0;
+		if (testModifiers && checkDirection)
+		{
+			if (trigger.button() == Qt::NoButton)
+				//trigger matches
+				return Palapeli::EventMatches;
+			const bool checkButtons = (event->button() | event->buttons()) & trigger.button();
+			if (checkButtons)
+			{
+				//trigger matches - construct result
+				Palapeli::EventProcessingFlags result = Palapeli::EventMatches;
+				if (event->button() == trigger.button())
+				{
+					if (event->type() == QEvent::MouseButtonPress)
+						result |= Palapeli::EventStartsInteraction;
+					if (event->type() == QEvent::MouseButtonRelease)
+						result |= Palapeli::EventConcludesInteraction;
+				}
+				return result;
+			}
+		}
+	}
+	//if execution comes to this point, trigger does not match
+	return 0;
+}
+
+Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palapeli::Trigger& trigger, QKeyEvent* event, Qt::MouseButtons buttons) const
+{
+	if (trigger.isValid())
+	{
+		//read modifiers
+		const Qt::KeyboardModifier keyModifier = m_keyModifierMap.value((Qt::Key) event->key(), Qt::NoModifier);
+		const Qt::KeyboardModifiers modifiers = keyModifier | event->modifiers();
+		//checking
+		const bool testModifiers = trigger.modifiers() == modifiers;
+		const bool checkDirection = trigger.wheelDirection() == 0;
+		const bool checkButton = (trigger.button() & buttons) || trigger.button() == Qt::NoButton;
+		if (testModifiers && checkDirection && checkButton)
+		{
+			//trigger matches - construct result
+			Palapeli::EventProcessingFlags result = Palapeli::EventMatches;
+			if (keyModifier != Qt::NoModifier)
+			{
+				if (event->type() == QEvent::KeyPress)
+					result |= Palapeli::EventStartsInteraction;
+				if (event->type() == QEvent::KeyRelease)
+					result |= Palapeli::EventConcludesInteraction;
+			}
+			return result;
+		}
+	}
+	//if execution comes to this point, trigger does not match
+	return 0;
+}
+
+#include "triggermapper.moc"

@@ -21,6 +21,7 @@ set(palapeli_SRCS
 	engine/scene.cpp
 	engine/texturehelper.cpp
 	engine/trigger.cpp
+	engine/triggermapper.cpp
 	engine/view.cpp
 	engine/zoomwidget.cpp
 	file-io/collection.cpp

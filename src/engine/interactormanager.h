@@ -19,19 +19,18 @@
 #ifndef PALAPELI_INTERACTORMANAGER_H
 #define PALAPELI_INTERACTORMANAGER_H
 
-#include "interactor.h"
-#include "trigger.h"
-
-#include <QEvent>
 #include <QGraphicsView>
 #include <QMap>
 
 namespace Palapeli
 {
-	typedef QPair<Palapeli::Trigger, Palapeli::Interactor*> AssociatedTrigger;
+	class EventContext;
+	class Interactor;
+	class MouseEvent;
 
 	class InteractorManager : public QObject
 	{
+		Q_OBJECT
 		public:
 			explicit InteractorManager(QGraphicsView* view);
 
@@ -40,32 +39,16 @@ namespace Palapeli
 			void handleEvent(QKeyEvent* event);
 
 			void updateScene();
-
-			///\note This list will never change at run-time.
-			const QList<Palapeli::Interactor*> interactors() const;
-			const QList<Palapeli::AssociatedTrigger> triggers() const;
-			void setTriggers(const QList<Palapeli::AssociatedTrigger>& triggers);
+		public Q_SLOTS:
+			void resetActiveTriggers();
 		protected:
-			Palapeli::EventProcessingFlags testTrigger(const Palapeli::Trigger& trigger, QWheelEvent* event);
-			Palapeli::EventProcessingFlags testTrigger(const Palapeli::Trigger& trigger, QMouseEvent* event);
-			Palapeli::EventProcessingFlags testTrigger(const Palapeli::Trigger& trigger, QKeyEvent* event);
-
-			struct EventContext
-			{
-				Palapeli::EventProcessingFlags flags;
-				Qt::MouseButtons triggeringButtons;
-			};
-			void handleEventCommon(const Palapeli::MouseEvent& pEvent, QMap<Palapeli::Interactor*, EventContext>& interactorData, Qt::MouseButtons unhandledButtons);
+			void handleEventCommon(const Palapeli::MouseEvent& pEvent, QMap<Palapeli::Interactor*, Palapeli::EventContext>& interactorData, Qt::MouseButtons unhandledButtons);
 		private:
 			QGraphicsView* m_view;
 			QMap<QByteArray, Palapeli::Interactor*> m_interactors; //NOTE: The interactor list is always hard-coded, based on what is available. The keys are used for writing the trigger list to the config.
-			//configuration
-			QList<Palapeli::AssociatedTrigger> m_triggers;
 			//state
 			Qt::MouseButtons m_buttons;
 			QPoint m_mousePos;
-			//quasi-static data
-			QMap<Qt::Key, Qt::KeyboardModifier> m_keyModifierMap;
 	};
 }
 

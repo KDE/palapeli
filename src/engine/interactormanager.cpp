@@ -17,8 +17,7 @@
 ***************************************************************************/
 
 #include "interactormanager.h"
-#include "constraintinteractor.h"
-#include "interactors.h"
+#include "triggermapper.h"
 
 #include <QKeyEvent>
 #include <QMouseEvent>
@@ -27,33 +26,21 @@
 Palapeli::InteractorManager::InteractorManager(QGraphicsView* view)
 	: QObject(view)
 	, m_view(view)
+	, m_interactors(Palapeli::TriggerMapper::createInteractors(view))
 {
-	//create interactors
-	m_interactors["MovePiece"] = new Palapeli::MovePieceInteractor(view);
-	m_interactors["SelectPiece"] = new Palapeli::SelectPieceInteractor(view);
-	m_interactors["MoveViewport"] = new Palapeli::MoveViewportInteractor(view);
-	m_interactors["ZoomViewport"] = new Palapeli::ZoomViewportInteractor(view);
-	m_interactors["RubberBand"] = new Palapeli::RubberBandInteractor(view);
-	m_interactors["Constraints"] = new Palapeli::ConstraintInteractor(view);
-	//setup triggers
-	typedef Palapeli::Trigger PIT;
-	m_triggers << qMakePair(PIT("LeftButton;NoModifier"), m_interactors["MovePiece"]);
-	m_triggers << qMakePair(PIT("LeftButton;ControlModifier"), m_interactors["SelectPiece"]);
-	m_triggers << qMakePair(PIT("RightButton;NoModifier"), m_interactors["MoveViewport"]);
-	m_triggers << qMakePair(PIT("wheel:Vertical;NoModifier"), m_interactors["ZoomViewport"]);
-	m_triggers << qMakePair(PIT("LeftButton;NoModifier"), m_interactors["Constraints"]);
-	m_triggers << qMakePair(PIT("LeftButton;NoModifier"), m_interactors["RubberBand"]);
-	//initialize quasi-static data
-	m_keyModifierMap[Qt::Key_Shift] = Qt::ShiftModifier;
-	m_keyModifierMap[Qt::Key_Control] = Qt::ControlModifier;
-	m_keyModifierMap[Qt::Key_Alt] = Qt::AltModifier;
-	m_keyModifierMap[Qt::Key_Meta] = Qt::MetaModifier;
+	connect(Palapeli::TriggerMapper::instance(), SIGNAL(associationsChanged()), SLOT(resetActiveTriggers()));
 }
 
 void Palapeli::InteractorManager::updateScene()
 {
 	foreach (Palapeli::Interactor* interactor, m_interactors)
 		interactor->updateScene();
+}
+
+void Palapeli::InteractorManager::resetActiveTriggers()
+{
+	foreach (Palapeli::Interactor* interactor, m_interactors)
+		interactor->setInactive();
 }
 
 /*
@@ -63,10 +50,11 @@ void Palapeli::InteractorManager::handleEvent(QWheelEvent* event)
 {
 	//convert event
 	Palapeli::WheelEvent pEvent(m_view, event->pos(), event->delta());
-	//try to handle event
-	foreach (const Palapeli::AssociatedTrigger& aTrigger, m_triggers)
-		if (testTrigger(aTrigger.first, event) & Palapeli::EventMatches)
-			aTrigger.second->sendEvent(pEvent);
+	//check interactors
+	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = m_interactors.begin(), it2 = m_interactors.end();
+	for (; it1 != it2; ++it1)
+		if (Palapeli::TriggerMapper::instance()->testTrigger(it1.key(), event) & Palapeli::EventMatches)
+			it1.value()->sendEvent(pEvent);
 }
 
 /*
@@ -85,16 +73,11 @@ void Palapeli::InteractorManager::handleEvent(QMouseEvent* event)
 	if (event->type() != QEvent::MouseButtonRelease)
 		m_buttons |= event->button();
 	m_mousePos = event->pos();
-	//check which triggers are activated by this event
+	//check which interactors are triggered by this event
 	QMap<Palapeli::Interactor*, EventContext> interactorData;
-	foreach (const Palapeli::AssociatedTrigger& trigger, m_triggers)
-	{
-		//NOTE: One interactor may have multiple triggers, so we OR stuff together.
-		const Palapeli::EventProcessingFlags flags = testTrigger(trigger.first, event);
-		interactorData[trigger.second].flags |= flags;
-		if (flags & Palapeli::EventMatches)
-			interactorData[trigger.second].triggeringButtons |= trigger.first.button();
-	}
+	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = m_interactors.begin(), it2 = m_interactors.end();
+	for (; it1 != it2; ++it1)
+		interactorData[it1.value()] = Palapeli::TriggerMapper::instance()->testTrigger(it1.key(), event);
 	//further processing in a method which is shared with the KeyEvent handler
 	handleEventCommon(pEvent, interactorData, event->buttons() | event->button());
 }
@@ -106,14 +89,11 @@ void Palapeli::InteractorManager::handleEvent(QKeyEvent* event)
 {
 	//convert event
 	Palapeli::MouseEvent pEvent(m_view, m_mousePos);
-	//check which triggers are activated by this event
+	//check which interactors are triggered by this event
 	QMap<Palapeli::Interactor*, EventContext> interactorData;
-	foreach (const Palapeli::AssociatedTrigger& trigger, m_triggers)
-	{
-		//NOTE: One interactor may have multiple triggers, so we OR all flags together.
-		interactorData[trigger.second].flags |= testTrigger(trigger.first, event);
-		interactorData[trigger.second].triggeringButtons |= trigger.first.button();
-	}
+	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = m_interactors.begin(), it2 = m_interactors.end();
+	for (; it1 != it2; ++it1)
+		interactorData[it1.value()] = Palapeli::TriggerMapper::instance()->testTrigger(it1.key(), event, m_buttons);
 	//further processing in a method which is shared with the KeyEvent handler
 	handleEventCommon(pEvent, interactorData, m_buttons);
 }
@@ -121,7 +101,7 @@ void Palapeli::InteractorManager::handleEvent(QKeyEvent* event)
 /*
  * This is the common base for handleEvent(QMouseEvent*) and handleEvent(QKeyEvent*).
  */
-void Palapeli::InteractorManager::handleEventCommon(const Palapeli::MouseEvent& pEvent, QMap<Palapeli::Interactor*, EventContext>& interactorData, Qt::MouseButtons unhandledButtons)
+void Palapeli::InteractorManager::handleEventCommon(const Palapeli::MouseEvent& pEvent, QMap<Palapeli::Interactor*, Palapeli::EventContext>& interactorData, Qt::MouseButtons unhandledButtons)
 {
 	//try to use active triggers where possible
 	foreach (Palapeli::Interactor* interactor, m_interactors)
@@ -163,98 +143,4 @@ void Palapeli::InteractorManager::handleEventCommon(const Palapeli::MouseEvent& 
 	}
 }
 
-Palapeli::EventProcessingFlags Palapeli::InteractorManager::testTrigger(const Palapeli::Trigger& trigger, QWheelEvent* event)
-{
-	if (trigger.isValid())
-	{
-		const bool testModifiers = trigger.modifiers() == event->modifiers();
-		const bool checkDirection = trigger.wheelDirection() != 0;
-		const bool testDirection = trigger.wheelDirection() == event->orientation();
-		if (testModifiers && checkDirection && testDirection)
-			return Palapeli::EventMatches;
-	}
-	//if execution comes to this point, trigger does not match
-	return 0;
-}
-
-Palapeli::EventProcessingFlags Palapeli::InteractorManager::testTrigger(const Palapeli::Trigger& trigger, QMouseEvent* event)
-{
-	if (trigger.isValid())
-	{
-		const bool testModifiers = trigger.modifiers() == event->modifiers();
-		const bool checkDirection = trigger.wheelDirection() == 0;
-		if (testModifiers && checkDirection)
-		{
-			if (trigger.button() == Qt::NoButton)
-				//trigger matches
-				return Palapeli::EventMatches;
-			const bool checkButtons = (event->button() | event->buttons()) & trigger.button();
-			if (checkButtons)
-			{
-				//trigger matches - construct result
-				Palapeli::EventProcessingFlags result = Palapeli::EventMatches;
-				if (event->button() == trigger.button())
-				{
-					if (event->type() == QEvent::MouseButtonPress)
-						result |= Palapeli::EventStartsInteraction;
-					if (event->type() == QEvent::MouseButtonRelease)
-						result |= Palapeli::EventConcludesInteraction;
-				}
-				return result;
-			}
-		}
-	}
-	//if execution comes to this point, trigger does not match
-	return 0;
-}
-
-Palapeli::EventProcessingFlags Palapeli::InteractorManager::testTrigger(const Palapeli::Trigger& trigger, QKeyEvent* event)
-{
-	if (trigger.isValid())
-	{
-		//read modifiers
-		const Qt::KeyboardModifier keyModifier = m_keyModifierMap.value((Qt::Key) event->key(), Qt::NoModifier);
-		const Qt::KeyboardModifiers modifiers = keyModifier | event->modifiers();
-		//checking
-		const bool testModifiers = trigger.modifiers() == modifiers;
-		const bool checkDirection = trigger.wheelDirection() == 0;
-		const bool checkButton = trigger.button() & m_buttons;
-		if (testModifiers && checkDirection && checkButton)
-		{
-			//trigger matches - construct result
-			Palapeli::EventProcessingFlags result = Palapeli::EventMatches;
-			if (keyModifier != Qt::NoModifier)
-			{
-					if (event->type() == QEvent::KeyPress)
-						result |= Palapeli::EventStartsInteraction;
-					if (event->type() == QEvent::KeyRelease)
-						result |= Palapeli::EventConcludesInteraction;
-			}
-			return result;
-		}
-	}
-	//if execution comes to this point, trigger does not match
-	return 0;
-}
-
-//BEGIN API to configuration UI
-
-const QList<Palapeli::Interactor*> Palapeli::InteractorManager::interactors() const
-{
-	return m_interactors.values();
-}
-
-const QList<Palapeli::AssociatedTrigger> Palapeli::InteractorManager::triggers() const
-{
-	return m_triggers;
-}
-
-void Palapeli::InteractorManager::setTriggers(const QList<Palapeli::AssociatedTrigger>& triggers)
-{
-	foreach (Palapeli::Interactor* interactor, m_interactors)
-		interactor->setInactive();
-	m_triggers = triggers;
-	//TODO: write triggers to config file
-}
-
-//END API to configuration UI
+#include "interactormanager.moc"
