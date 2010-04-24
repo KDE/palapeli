@@ -171,7 +171,7 @@ QByteArray Palapeli::Trigger::serialized() const
 QString Palapeli::Trigger::toString() const
 {
 	const QString actionString = tPrinterData->actionString(m_wheelDirection, m_button);
-	const QString modifierString = tPrinterData->modifierString(m_modifiers, '|');
+	const QString modifierString = tPrinterData->modifierString(m_modifiers, '+');
 	if (modifierString.isEmpty())
 		return actionString;
 	else

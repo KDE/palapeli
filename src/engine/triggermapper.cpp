@@ -44,6 +44,7 @@ QMap<QByteArray, Palapeli::Interactor*> Palapeli::TriggerMapper::createInteracto
 	result["ScrollViewportVert"] = new Palapeli::ScrollViewportInteractor(Qt::Vertical, view);
 	result["RubberBand"] = new Palapeli::RubberBandInteractor(view);
 	result["Constraints"] = new Palapeli::ConstraintInteractor(view);
+	result["ToggleConstraints"] = new Palapeli::ToggleConstraintInteractor(view);
 	return result;
 }
 

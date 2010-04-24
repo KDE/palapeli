@@ -123,6 +123,16 @@ namespace Palapeli
 			Palapeli::RubberBandItem* m_item;
 			QPointF m_basePosition;
 	};
+
+	//This interactor is assigned to nothing by default.
+	//When the interactor is triggered, the scene constraint is toggled.
+	class ToggleConstraintInteractor : public Palapeli::Interactor
+	{
+		public:
+			ToggleConstraintInteractor(QGraphicsView* view);
+		protected:
+			virtual bool startInteraction(const Palapeli::MouseEvent& event);
+	};
 }
 
 #endif // PALAPELI_INTERACTORS_H

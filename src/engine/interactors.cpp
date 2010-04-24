@@ -18,6 +18,7 @@
 
 #include "interactors.h"
 #include "piece.h"
+#include "scene.h"
 #include "view.h"
 
 #include <QStyle>
@@ -314,3 +315,21 @@ void Palapeli::RubberBandInteractor::stopInteraction(const Palapeli::MouseEvent&
 }
 
 //END Palapeli::RubberBandInteractor
+//BEGIN Palapeli::ToggleConstraintInteractor
+
+Palapeli::ToggleConstraintInteractor::ToggleConstraintInteractor(QGraphicsView* view)
+	: Palapeli::Interactor(30, Palapeli::MouseInteractor, view) //priority: higher than anything else (this should not depend on what the cursor is currently pointing)
+{
+	setMetadata(TableInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Toggle lock state of the puzzle table area"), QIcon());
+}
+
+bool Palapeli::ToggleConstraintInteractor::startInteraction(const Palapeli::MouseEvent& event)
+{
+	Q_UNUSED(event)
+	Palapeli::Scene* scene = qobject_cast<Palapeli::Scene*>(this->scene());
+	if (scene)
+		scene->setConstrained(!scene->isConstrained());
+	return (bool) scene;
+}
+
+//END Palapeli::ToggleConstraintInteractor
