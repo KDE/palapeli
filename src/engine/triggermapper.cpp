@@ -67,7 +67,7 @@ Palapeli::TriggerMapper::TriggerMapper()
 	m_keyModifierMap[Qt::Key_Control] = Qt::ControlModifier;
 	m_keyModifierMap[Qt::Key_Alt] = Qt::AltModifier;
 	m_keyModifierMap[Qt::Key_Meta] = Qt::MetaModifier;
-	//intialize dynamic data
+	//initialize dynamic data
 	readSettings();
 }
 

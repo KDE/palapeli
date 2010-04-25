@@ -108,7 +108,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			TriggerListDelegate(QAbstractItemView* view, QObject* parent = 0) : KWidgetItemDelegate(view, parent)
+			explicit TriggerListDelegate(QAbstractItemView* view, QObject* parent = 0) : KWidgetItemDelegate(view, parent)
 			{
 				m_calculator = new Palapeli::TriggerListDelegateWidget(view);
 				m_calculator->setVisible(false);

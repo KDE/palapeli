@@ -51,7 +51,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_3">
      <property name="title">
-      <string>Piece behavior</string>
+      <string comment="@title:group">Piece behavior</string>
      </property>
      <layout class="QFormLayout" name="formLayout">
       <property name="fieldGrowthPolicy">
@@ -100,7 +100,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string extracomment="description for the &quot;snapping precision&quot; setting">Very precise (harder)</string>
+           <string comment="@item:inrange description for the &quot;snapping precision&quot; setting">Very precise (harder)</string>
           </property>
          </widget>
         </item>
@@ -129,7 +129,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string extracomment="description for the &quot;snapping precision&quot; setting">Unprecise (easier)</string>
+           <string comment="@item:inrange description for the &quot;snapping precision&quot; setting">Unprecise (easier)</string>
           </property>
          </widget>
         </item>

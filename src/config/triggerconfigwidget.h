@@ -20,14 +20,14 @@
 #define PALAPELI_TRIGGERCONFIGWIDGET_H
 
 #include <QMap>
-#include <QTabWidget>
+#include <KTabWidget>
 
 namespace Palapeli
 {
 	class Interactor;
 	class TriggerListView;
 
-	class TriggerConfigWidget : public QTabWidget
+	class TriggerConfigWidget : public KTabWidget
 	{
 		Q_OBJECT
 		public:
