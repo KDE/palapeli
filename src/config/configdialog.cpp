@@ -58,6 +58,7 @@ void Palapeli::TriggerComboBox::handleCurrentIndexChanged(int index)
 Palapeli::ConfigDialog::ConfigDialog(QWidget* parent)
 	: KConfigDialog(parent, QString(), Settings::self())
 	, m_triggerPage(new Palapeli::TriggerConfigWidget)
+	, m_shownForFirstTime(false)
 {
 	//setup page "General settings"
 	QWidget* generalPage = new QWidget;
@@ -94,6 +95,17 @@ void Palapeli::ConfigDialog::updateWidgets()
 void Palapeli::ConfigDialog::updateWidgetsDefault()
 {
 	m_triggerPage->updateWidgetsDefault();
+}
+
+void Palapeli::ConfigDialog::showEvent(QShowEvent* event)
+{
+	KConfigDialog::showEvent(event);
+	//the dialog is usually created a bit small
+	if (!m_shownForFirstTime)
+	{
+		resize(minimumSize().expandedTo(geometry().size()) + QSize(50, 100));
+		m_shownForFirstTime = true;
+	}
 }
 
 //END Palapeli::ConfigDialog

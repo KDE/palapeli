@@ -38,9 +38,11 @@ namespace Palapeli
 			virtual void updateSettings();
 			virtual void updateWidgets();
 			virtual void updateWidgetsDefault();
+			virtual void showEvent(QShowEvent* event);
 		private:
 			Ui::Settings m_generalUi;
 			Palapeli::TriggerConfigWidget* m_triggerPage;
+			bool m_shownForFirstTime;
 	};
 }
 
