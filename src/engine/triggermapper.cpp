@@ -109,8 +109,11 @@ void Palapeli::TriggerMapper::setAssociations(const QMap<QByteArray, Palapeli::T
 		for (; it1 != it2; ++it1)
 			triggerSerializations[it1.key()] << it1.value().serialized();
 	}
-	//write config (in a way that supports multiple triggers for one interactor)
+	//clear config
 	KConfigGroup group(KGlobal::config(), "Mouse Interaction");
+	foreach (const QString& key, group.keyList())
+		group.deleteEntry(key);
+	//write config (in a way that supports multiple triggers for one interactor)
 	QMap<QByteArray, QList<QByteArray> >::const_iterator it1 = triggerSerializations.begin(), it2 = triggerSerializations.end();
 	for (; it1 != it2; ++it1)
 		group.writeEntry(it1.key().data(), it1.value());
