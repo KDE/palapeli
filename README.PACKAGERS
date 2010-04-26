@@ -1,1 +1,6 @@
-You might want to distribute the files at $KDEDIR/share/apps/palapeli/collection/*.puzzle in a separate data package. These are the default puzzle files, which are quite big, but change only seldomly.
+You might want to distribute the files at $KDEDIR/share/apps/palapeli/collection/*.{desktop,jpg} in a separate data package.
+
+Changelog for packagers
+-----------------------
+
+Version 1.0 -> 1.1: If you have previously distributed libpala-puzzlebuilder in some development package, this is the right moment to move it to the main palapeli package, because Palapeli needs this tool to build its default puzzles on first run.

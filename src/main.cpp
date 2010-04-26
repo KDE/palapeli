@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -16,10 +16,12 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
+#include "firsttimehelper.h"
 #include "importhelper.h"
 #include "window/mainwindow.h"
 
 #include <ctime>
+#include <QTimer>
 #include <KAboutData>
 #include <KApplication>
 #include <KCmdLineArgs>
@@ -48,7 +50,16 @@ int main(int argc, char** argv)
 		//perform import request
 		new Palapeli::ImportHelper(args);
 	else
+	{
 		//no import request, show main window
-		(new Palapeli::MainWindow(args))->show();
+		Palapeli::FirstTimeHelper* helper = new Palapeli::FirstTimeHelper;
+		if (helper->isNecessary())
+			QTimer::singleShot(0, helper, SLOT(execute()));
+		else
+		{
+			delete helper;
+			(new Palapeli::MainWindow(args))->show();
+		}
+	}
 	return app.exec();
 }
