@@ -63,8 +63,11 @@ namespace Palapeli
 
 			///When piece instances have been replaced by other piece instances, this method can be used to update the internal data structures of their logical neighbors.
 			void rewriteLogicalNeighbors(const QList<Palapeli::Piece*>& oldPieces, Palapeli::Piece* newPiece);
+			///Call this when this piece instance has been replaced by another piece instance. This will also delete this instance.
+			void announceReplaced(Palapeli::Piece* replacement);
 		Q_SIGNALS:
 			void moved();
+			void replacedBy(Palapeli::Piece* newPiece);
 		protected:
 			friend class MovePieceInteractor;
 			void beginMove();

@@ -47,7 +47,6 @@ static QGraphicsItem* findSelectableItemAt(const QPointF& scenePos, QGraphicsSce
 
 void Palapeli::MovePieceInteractor::determineSelectedItems(QGraphicsItem* clickedItem, Palapeli::Piece* clickedPiece)
 {
-	m_currentItems.clear();
 	m_currentPieces.clear();
 	const QList<QGraphicsItem*> selectedItems = clickedItem->scene()->selectedItems();
 	if (clickedItem->isSelected())
@@ -57,10 +56,7 @@ void Palapeli::MovePieceInteractor::determineSelectedItems(QGraphicsItem* clicke
 		{
 			Palapeli::Piece* selectedPiece = Palapeli::Piece::fromSelectedItem(selectedItem);
 			if (selectedPiece)
-			{
-				m_currentItems << selectedItem;
 				m_currentPieces << selectedPiece;
-			}
 		}
 		//NOTE: clickedItem is in the list selectedItems, so it need not be handled separately.
 	}
@@ -70,7 +66,6 @@ void Palapeli::MovePieceInteractor::determineSelectedItems(QGraphicsItem* clicke
 		foreach (QGraphicsItem* selectedItem, selectedItems)
 			selectedItem->setSelected(false);
 		clickedItem->setSelected(true);
-		m_currentItems << clickedItem;
 		m_currentPieces << clickedPiece;
 	}
 }
@@ -88,10 +83,12 @@ bool Palapeli::MovePieceInteractor::startInteraction(const Palapeli::MouseEvent&
 	//start moving this piece
 	determineSelectedItems(selectableItemUnderMouse, piece);
 	m_baseScenePosition = event.scenePos;
+	m_currentOffset = QPointF();
 	m_basePositions.clear();
 	foreach(Palapeli::Piece* piece, m_currentPieces)
 	{
 		m_basePositions << piece->pos();
+		connect(piece, SIGNAL(replacedBy(Palapeli::Piece*)), SLOT(pieceReplacedBy(Palapeli::Piece*)), Qt::DirectConnection);
 		piece->beginMove();
 	}
 	return true;
@@ -99,10 +96,26 @@ bool Palapeli::MovePieceInteractor::startInteraction(const Palapeli::MouseEvent&
 
 void Palapeli::MovePieceInteractor::continueInteraction(const Palapeli::MouseEvent& event)
 {
+	m_currentOffset = event.scenePos - m_baseScenePosition;
 	for (int i = 0; i < m_currentPieces.count(); ++i)
 	{
-		m_currentPieces[i]->setPos(m_basePositions[i] + event.scenePos - m_baseScenePosition);
+		m_currentPieces[i]->setPos(m_basePositions[i] + m_currentOffset);
 		m_currentPieces[i]->doMove();
+	}
+}
+
+void Palapeli::MovePieceInteractor::pieceReplacedBy(Palapeli::Piece* replacement)
+{
+	//This slot is triggered when a MergeGroup replaces one of the m_currentPieces by a new piece.
+	//remove old piece from data structures
+	int index = m_currentPieces.indexOf(reinterpret_cast<Palapeli::Piece*>(sender()));
+	m_currentPieces.removeAt(index);
+	m_basePositions.removeAt(index);
+	//add new piece (might not always be necessary, if the new piece replaces more than one of the selected pieces)
+	if (!m_currentPieces.contains(replacement))
+	{
+		m_currentPieces << replacement;
+		m_basePositions << replacement->pos() - m_currentOffset;
 	}
 }
 
@@ -110,8 +123,10 @@ void Palapeli::MovePieceInteractor::stopInteraction(const Palapeli::MouseEvent& 
 {
 	Q_UNUSED(event)
 	foreach(Palapeli::Piece* piece, m_currentPieces)
+	{
+		disconnect(piece, 0, this, 0);
 		piece->endMove();
-	m_currentItems.clear();
+	}
 	m_currentPieces.clear();
 }
 
@@ -334,3 +349,5 @@ bool Palapeli::ToggleConstraintInteractor::startInteraction(const Palapeli::Mous
 }
 
 //END Palapeli::ToggleConstraintInteractor
+
+#include "interactors.moc"

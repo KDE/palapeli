@@ -30,21 +30,23 @@ namespace Palapeli
 	//This interactor is assigned to LeftButton;NoModifier by default.
 	//1. When you click on and drag a selected piece, all selected pieces are moved.
 	//2. When you click on and drag an unselected piece, all other pieces are deselected, the clicked piece is selected and moved.
-	class MovePieceInteractor : public Palapeli::Interactor
+	class MovePieceInteractor : public QObject, public Palapeli::Interactor
 	{
+		Q_OBJECT
 		public:
 			MovePieceInteractor(QGraphicsView* view);
 		protected:
 			virtual bool startInteraction(const Palapeli::MouseEvent& event);
 			virtual void continueInteraction(const Palapeli::MouseEvent& event);
 			virtual void stopInteraction(const Palapeli::MouseEvent& event);
+		protected Q_SLOTS:
+			void pieceReplacedBy(Palapeli::Piece* replacement);
 		private:
 			Palapeli::Piece* findPieceForItem(QGraphicsItem* mouseInteractingItem) const;
 			void determineSelectedItems(QGraphicsItem* clickedItem, Palapeli::Piece* clickedPiece);
 
-			QList<QGraphicsItem*> m_currentItems; //the item which accepts the events
-			QList<Palapeli::Piece*> m_currentPieces; //the piece for this item
-			QPointF m_baseScenePosition;
+			QList<Palapeli::Piece*> m_currentPieces;
+			QPointF m_baseScenePosition, m_currentOffset;
 			QList<QPointF> m_basePositions;
 	};
 

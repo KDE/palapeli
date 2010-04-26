@@ -165,6 +165,12 @@ void Palapeli::Piece::rewriteLogicalNeighbors(const QList<Palapeli::Piece*>& old
 		m_logicalNeighbors += newPiece;
 }
 
+void Palapeli::Piece::announceReplaced(Palapeli::Piece* replacement)
+{
+	emit replacedBy(replacement);
+	delete this;
+}
+
 void Palapeli::Piece::addAtomicSize(const QSize& size)
 {
 	m_atomicSize = m_atomicSize.expandedTo(size);

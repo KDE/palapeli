@@ -151,7 +151,7 @@ void Palapeli::MergeGroup::createMergedPiece()
 		if (piece->isSelected())
 			m_mergedPiece->setSelected(true);
 		m_mergedPiece->setZValue(qMax(m_mergedPiece->zValue(), piece->zValue()));
-		delete piece;
+		piece->announceReplaced(m_mergedPiece); //make sure that interactors know about the change, and delete the piece
 	}
 	m_mergedPiece->rewriteLogicalNeighbors(m_pieces, 0); //0 = these neighbors should be dropped
 	foreach (Palapeli::Piece* logicalNeighbor, m_mergedPiece->logicalNeighbors())
