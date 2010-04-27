@@ -162,7 +162,7 @@ Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palape
 {
 	if (trigger.isValid())
 	{
-		const bool testModifiers = trigger.modifiers() == event->modifiers();
+		const bool testModifiers = trigger.modifiers() == Qt::NoModifier || trigger.modifiers() == event->modifiers();
 		const bool checkDirection = trigger.wheelDirection() != 0;
 		const bool testDirection = trigger.wheelDirection() == event->orientation();
 		if (testModifiers && checkDirection && testDirection)
@@ -176,7 +176,7 @@ Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palape
 {
 	if (trigger.isValid())
 	{
-		const bool testModifiers = trigger.modifiers() == event->modifiers();
+		const bool testModifiers = trigger.modifiers() == Qt::NoModifier || trigger.modifiers() == event->modifiers();
 		const bool checkDirection = trigger.wheelDirection() == 0;
 		if (testModifiers && checkDirection)
 		{
@@ -211,7 +211,7 @@ Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palape
 		const Qt::KeyboardModifier keyModifier = m_keyModifierMap.value((Qt::Key) event->key(), Qt::NoModifier);
 		const Qt::KeyboardModifiers modifiers = keyModifier | event->modifiers();
 		//checking
-		const bool testModifiers = trigger.modifiers() == modifiers;
+		const bool testModifiers = trigger.modifiers() == Qt::NoModifier || trigger.modifiers() == modifiers;
 		const bool checkDirection = trigger.wheelDirection() == 0;
 		const bool checkButton = (trigger.button() & buttons) || trigger.button() == Qt::NoButton;
 		if (testModifiers && checkDirection && checkButton)
