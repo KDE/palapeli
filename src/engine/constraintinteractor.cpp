@@ -24,7 +24,7 @@
 Palapeli::ConstraintInteractor::ConstraintInteractor(QGraphicsView* view)
 	: Palapeli::Interactor(10, Palapeli::MouseInteractor, view) //priority: less than interaction with pieces, but more than interaction with viewport
 {
-	setMetadata(TableInteraction, i18n("Change size of puzzle table by dragging its edges"), QIcon());
+	setMetadata(TableInteraction, i18n("Change size of puzzle table area by dragging its edges"), QIcon());
 }
 
 QList<Palapeli::ConstraintInteractor::Side> Palapeli::ConstraintInteractor::touchingSides(const QPointF& scenePos) const
