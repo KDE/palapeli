@@ -162,7 +162,7 @@ Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palape
 {
 	if (trigger.isValid())
 	{
-		const bool testModifiers = trigger.modifiers() == Qt::NoModifier || trigger.modifiers() == event->modifiers();
+		const bool testModifiers = trigger.modifiers() == event->modifiers();
 		const bool checkDirection = trigger.wheelDirection() != 0;
 		const bool testDirection = trigger.wheelDirection() == event->orientation();
 		if (testModifiers && checkDirection && testDirection)
