@@ -53,8 +53,9 @@ namespace Palapeli
 
 	enum EventProcessingFlag {
 		EventMatches = 1 << 0,
-		EventStartsInteraction = 1 << 1,
-		EventConcludesInteraction = 1 << 2
+		EventMatchesExactly = (1 << 1) + EventMatches,
+		EventStartsInteraction = 1 << 2,
+		EventConcludesInteraction = 1 << 3
 	};
 	Q_DECLARE_FLAGS(EventProcessingFlags, EventProcessingFlag)
 

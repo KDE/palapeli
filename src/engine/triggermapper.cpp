@@ -162,11 +162,16 @@ Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palape
 {
 	if (trigger.isValid())
 	{
-		const bool testModifiers = trigger.modifiers() == event->modifiers();
+		const bool testModifiers = trigger.modifiers() == Qt::NoModifier || trigger.modifiers() == event->modifiers();
 		const bool checkDirection = trigger.wheelDirection() != 0;
 		const bool testDirection = trigger.wheelDirection() == event->orientation();
 		if (testModifiers && checkDirection && testDirection)
-			return Palapeli::EventMatches;
+		{
+			if (trigger.modifiers() == event->modifiers())
+				return Palapeli::EventMatchesExactly;
+			else
+				return Palapeli::EventMatches;
+		}
 	}
 	//if execution comes to this point, trigger does not match
 	return 0;
@@ -177,17 +182,18 @@ Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palape
 	if (trigger.isValid())
 	{
 		const bool testModifiers = trigger.modifiers() == Qt::NoModifier || trigger.modifiers() == event->modifiers();
+		const Palapeli::EventProcessingFlags positiveResult = (trigger.modifiers() == event->modifiers()) ? Palapeli::EventMatchesExactly : Palapeli::EventMatches;
 		const bool checkDirection = trigger.wheelDirection() == 0;
 		if (testModifiers && checkDirection)
 		{
 			if (trigger.button() == Qt::NoButton)
 				//trigger matches
-				return Palapeli::EventMatches;
+				return positiveResult;
 			const bool checkButtons = (event->button() | event->buttons()) & trigger.button();
 			if (checkButtons)
 			{
 				//trigger matches - construct result
-				Palapeli::EventProcessingFlags result = Palapeli::EventMatches;
+				Palapeli::EventProcessingFlags result = positiveResult;
 				if (event->button() == trigger.button())
 				{
 					if (event->type() == QEvent::MouseButtonPress)
@@ -212,12 +218,13 @@ Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palape
 		const Qt::KeyboardModifiers modifiers = keyModifier | event->modifiers();
 		//checking
 		const bool testModifiers = trigger.modifiers() == Qt::NoModifier || trigger.modifiers() == modifiers;
+		const Palapeli::EventProcessingFlags positiveResult = trigger.modifiers() == event->modifiers() ? Palapeli::EventMatchesExactly : Palapeli::EventMatches;
 		const bool checkDirection = trigger.wheelDirection() == 0;
 		const bool checkButton = (trigger.button() & buttons) || trigger.button() == Qt::NoButton;
 		if (testModifiers && checkDirection && checkButton)
 		{
 			//trigger matches - construct result
-			Palapeli::EventProcessingFlags result = Palapeli::EventMatches;
+			Palapeli::EventProcessingFlags result = positiveResult;
 			if (keyModifier != Qt::NoModifier)
 			{
 				if (event->type() == QEvent::KeyPress)

@@ -181,7 +181,7 @@ void Palapeli::MoveViewportInteractor::continueInteraction(const Palapeli::Mouse
 //BEGIN Palapeli::ZoomViewportInteractor
 
 Palapeli::ZoomViewportInteractor::ZoomViewportInteractor(QGraphicsView* view)
-	: Palapeli::Interactor(0, Palapeli::WheelInteractor, view) //priority: unused for wheel interactors ATM
+	: Palapeli::Interactor(2, Palapeli::WheelInteractor, view) //priority: more important than ScrollViewport
 {
 	setMetadata(ViewportInteraction, i18nc("Description (used like a name) for a mouse interaction method", "Zoom viewport"), KIcon("zoom-in"));
 }
@@ -197,7 +197,7 @@ void Palapeli::ZoomViewportInteractor::doInteraction(const Palapeli::WheelEvent&
 //BEGIN Palapeli::ScrollViewportInteractor
 
 Palapeli::ScrollViewportInteractor::ScrollViewportInteractor(Qt::Orientation orientation, QGraphicsView* view)
-	: Palapeli::Interactor(0, Palapeli::WheelInteractor, view) //priority: unused for wheel interactors ATM
+	: Palapeli::Interactor(1, Palapeli::WheelInteractor, view) //priority: less important than ZoomViewport
 	, m_orientation(orientation)
 {
 	QString description;

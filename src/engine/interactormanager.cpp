@@ -23,6 +23,8 @@
 #include <QMouseEvent>
 #include <QWheelEvent>
 
+static const int AdditionalPriorityForExactMatches = 10000;
+
 Palapeli::InteractorManager::InteractorManager(QGraphicsView* view)
 	: QObject(view)
 	, m_view(view)
@@ -55,11 +57,28 @@ void Palapeli::InteractorManager::handleEvent(QWheelEvent* event)
 {
 	//convert event
 	Palapeli::WheelEvent pEvent(m_view, event->pos(), event->delta());
-	//check interactors
+	//check which interactors are triggered by this event
+	Palapeli::Interactor* bestMatchInteractor = 0;
+	int bestMatchPriority = -1;
 	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = m_interactors.begin(), it2 = m_interactors.end();
 	for (; it1 != it2; ++it1)
-		if (Palapeli::TriggerMapper::instance()->testTrigger(it1.key(), event) & Palapeli::EventMatches)
-			it1.value()->sendEvent(pEvent);
+	{
+		Palapeli::Interactor* const interactor = it1.value();
+		const Palapeli::EventProcessingFlags flags = Palapeli::TriggerMapper::instance()->testTrigger(it1.key(), event);
+		if (!(flags & Palapeli::EventMatches))
+			continue;
+		int priority = interactor->priority();
+		if ((flags & Palapeli::EventMatchesExactly) == Palapeli::EventMatchesExactly)
+			priority += AdditionalPriorityForExactMatches;
+		if (priority > bestMatchPriority)
+		{
+			bestMatchInteractor = interactor;
+			bestMatchPriority = priority;
+		}
+	}
+	//activate matching interactor with highest priority
+	if (bestMatchInteractor)
+		bestMatchInteractor->sendEvent(pEvent);
 }
 
 /*
@@ -79,7 +98,7 @@ void Palapeli::InteractorManager::handleEvent(QMouseEvent* event)
 		m_buttons |= event->button();
 	m_mousePos = event->pos();
 	//check which interactors are triggered by this event
-	QMap<Palapeli::Interactor*, EventContext> interactorData;
+	QMap<Palapeli::Interactor*, Palapeli::EventContext> interactorData;
 	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = m_interactors.begin(), it2 = m_interactors.end();
 	for (; it1 != it2; ++it1)
 		interactorData[it1.value()] = Palapeli::TriggerMapper::instance()->testTrigger(it1.key(), event);
@@ -95,11 +114,11 @@ void Palapeli::InteractorManager::handleEvent(QKeyEvent* event)
 	//convert event
 	Palapeli::MouseEvent pEvent(m_view, m_mousePos);
 	//check which interactors are triggered by this event
-	QMap<Palapeli::Interactor*, EventContext> interactorData;
+	QMap<Palapeli::Interactor*, Palapeli::EventContext> interactorData;
 	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = m_interactors.begin(), it2 = m_interactors.end();
 	for (; it1 != it2; ++it1)
 		interactorData[it1.value()] = Palapeli::TriggerMapper::instance()->testTrigger(it1.key(), event, m_buttons);
-	//further processing in a method which is shared with the KeyEvent handler
+	//further processing in a method which is shared with the MouseEvent handler
 	handleEventCommon(pEvent, interactorData, m_buttons);
 }
 
@@ -129,8 +148,11 @@ void Palapeli::InteractorManager::handleEventCommon(const Palapeli::MouseEvent& 
 	while (iter1.hasNext())
 	{
 		Palapeli::Interactor* interactor = iter1.next().key();
+		int priority = interactor->priority();
+		if ((iter1.value().flags & Palapeli::EventMatchesExactly) == Palapeli::EventMatchesExactly)
+			priority += AdditionalPriorityForExactMatches;
 		//NOTE: The minus below implements a descending sort order.
-		sortedInteractors.insertMulti(-interactor->priority(), interactor);
+		sortedInteractors.insertMulti(-priority, interactor);
 	}
 	//try to activate interactors with matching triggers
 	foreach (Palapeli::Interactor* interactor, sortedInteractors)
