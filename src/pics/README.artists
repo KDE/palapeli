@@ -1,3 +1,0 @@
-Notice: The default background is hardcoded in palapeli/src/palapeli.kcfg, where you will find a line that reads like this:
-	<default>background.svg</default>
-Change the file name to alter the default background.

@@ -1,0 +1,36 @@
+You will need:
+ * KDE 4.4 development libraries
+ * libpala header files
+ * cmake
+ * palapeli, of course.
+
+Under (K)Ubuntu Lucid (or Karmic with backported KDE4.4) you can get those by
+typing
+{{{
+    sudo apt-get install kdelibs5-dev libkdegames-dev cmake palapeli
+}}}
+into a terminal window. Under other Linux distributions the package names
+probably won't be much different.
+
+Once you have done this, you need the sources. If you do not already have them,
+you can get them from
+{{{
+    http://code.google.com/p/palapeli-goldberg-slicer/downloads/list
+}}}
+(look for the latest tarball). Extract the `.tar.bz2` file with the command:
+{{{
+    tar xjf slicer-goldberg-x.y.tar.bz2
+}}}
+Change into the new directory and build:
+{{{
+    cd slicer-goldberg-x.y
+    cmake -DCMAKE_INSTALL_PREFIX=/usr .
+    make
+}}}
+If everything succeded, you can install with the commands
+{{{    
+    sudo make install
+    kbuildsycoca4
+}}}
+The latter takes care that the plugin is registered and readily available after
+restarting Palapeli.

@@ -1,0 +1,17 @@
+[Desktop Entry]
+Type=Service
+Icon=palapeli-goldbergslicer
+X-KDE-Library=palapeli_goldbergslicer
+X-KDE-ServiceTypes=Libpala/SlicerPlugin
+X-KDE-PluginInfo-Author=Johannes Loehnert
+X-KDE-PluginInfo-Email=loehnert.kde@gmx.de
+X-KDE-PluginInfo-Name=palapeli_goldbergslicer
+X-KDE-PluginInfo-Version=0.3+svn
+X-KDE-PluginInfo-Website=
+X-KDE-PluginInfo-Category=
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+Name=Goldberg
+Name[de]=Goldberg
+Comment=

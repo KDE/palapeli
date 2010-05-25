@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ "$1" = "" ]; then
+    echo "usage: make-tarball <version>"
+    echo "e.g. ./make-tarball 0.3"
+    exit 0
+fi
+
+VERSION=$1
+DIR=slicer-goldberg-$VERSION
+
+mkdir $DIR
+cp INSTALL README LICENSE $DIR
+cp palapeli_goldbergslicer.desktop $DIR
+cp -r src CMakeLists.txt $DIR
+/bin/tar cjf slicer-goldberg-$VERSION.tar.bz2 $DIR
+rm -r $DIR
