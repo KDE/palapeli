@@ -62,7 +62,7 @@ Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 	m_puzzleTable->showStatusBar(showStatusBar);
 	//setup widgets
 	m_centralWidget->addTab(m_collectionWidget, i18n("My collection"));
-	m_centralWidget->addTab(m_puzzleTable, i18n("Puzzle table"));
+	m_centralWidget->addTab(m_puzzleTable, i18nc("General note to translators: There is an important distinction to make between \"puzzle table\" and \"puzzle table area\". The first one is the complete widget with zooming controls, progress bar and all, while the latter is that part of it where pieces can be moved.", "Puzzle table"));
 	m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_puzzleTable), false); //... until a puzzle has been loaded
 	m_centralWidget->setCurrentWidget(m_collectionWidget);
 	connect(m_collectionWidget, SIGNAL(createRequest()), this, SLOT(createPuzzle()));
