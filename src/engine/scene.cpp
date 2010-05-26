@@ -177,6 +177,10 @@ void Palapeli::Scene::finishLoading()
 		{
 			Palapeli::Part* part = iterPieces.value()->part();
 			part->setPos(saveGroup.readEntry(QString::number(pieceID), QPointF()));
+		}
+		for (iterPieces = m_pieces.constBegin(); iterPieces != iterPiecesEnd; ++iterPieces)
+		{
+			Palapeli::Part* part = iterPieces.value()->part();
 			part->searchConnections();
 			part->validatePosition();
 		}
