@@ -1,0 +1,1 @@
+#NOTE: please do not add, messages will be added to palapeli.mo after merge into kdegames
