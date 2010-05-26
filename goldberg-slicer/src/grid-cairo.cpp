@@ -56,7 +56,7 @@ void generateCairoGrid(GoldbergEngine *e, int piece_count) {
     qDebug() << "cell count y = " << yCount;
 
 
-    const double cellWidth = 1.0 * width / xCount, cellHeight = 1.0 * height / yCount;
+    const qreal cellWidth = 1.0 * width / xCount, cellHeight = 1.0 * height / yCount;
 
     // rationale: knobs should visually cover the same fraction of area as for the rect grid.
     e->m_length_base = sqrt(cellWidth * cellHeight * 0.5) * e->m_plug_size;

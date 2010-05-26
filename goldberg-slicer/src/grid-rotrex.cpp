@@ -43,11 +43,11 @@ void generateRotrexGrid(GoldbergEngine *e, int piece_count) {
     // fixed offsets in relative units of cell size. see image.
     // set as constants so we don't have to throw magic numbers around all the time.
     // square root of three - helper number
-    const double _R3 = 1.7320508075689;
-    const double _xunit = 1.5 + _R3;
-    const double x1 = 0.5 / _xunit, x2 = 1.0 / _xunit, x3 = (0.5 + _R3) / _xunit, x4 = (1 + _R3) / _xunit;
-    const double _yunit = 1.0 + 0.5*_R3;
-    const double y1 = (0.5*_R3) / _yunit, y2 = 1.0 / _yunit;
+    const qreal _R3 = sqrt(3.0);
+    const qreal _xunit = 1.5 + _R3;
+    const qreal x1 = 0.5 / _xunit, x2 = 1.0 / _xunit, x3 = (0.5 + _R3) / _xunit, x4 = (1 + _R3) / _xunit;
+    const qreal _yunit = 1.0 + 0.5*_R3;
+    const qreal y1 = (0.5*_R3) / _yunit, y2 = 1.0 / _yunit;
 
 
     int next_piece_id = 0;
@@ -66,7 +66,7 @@ void generateRotrexGrid(GoldbergEngine *e, int piece_count) {
     qDebug() << "cell count x = " << xCount;
     qDebug() << "cell count y = " << yCount;
 
-    const double cellWidth = 1.0 * width / xCount, cellHeight = 1.0 * height / yCount;
+    const qreal cellWidth = 1.0 * width / xCount, cellHeight = 1.0 * height / yCount;
 
 
     e->m_length_base = sqrt(cellWidth * cellHeight / 3.0) * e->m_plug_size;

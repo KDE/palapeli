@@ -24,17 +24,17 @@
 
 inline qreal dotproduct(const QPointF& a, const QPointF& b) { return a.x() * b.x() + a.y() * b.y(); }
 
-inline double dsin(double angle) { return sin(angle* 0.01745329222); }
-inline double dcos(double angle) { return cos(angle* 0.01745329222); }
+inline qreal dsin(qreal angle) { return sin(angle* M_PI / 180.0); }
+inline qreal dcos(qreal angle) { return cos(angle* M_PI / 180.0); }
 
 
 // get recommended cell count for the given aspect.
 // aspect is image_width / image_height / (cell_aspect)
 //  with cell_aspect = cell_width / cell_height (for non-square grid cell).
 // sets xCount, yCount.
-void getBestFit(int &xCount, int &yCount, double target_aspect, int approx_count); 
-void getBestFitExtended(int &xCount, int &yCount, double target_aspect, int approx_count,
-            double tiles_per_cell, double additional_tiles_per_row, double additional_tiles_per_column, double additional_tiles);
+void getBestFit(int &xCount, int &yCount, qreal target_aspect, int approx_count); 
+void getBestFitExtended(int &xCount, int &yCount, qreal target_aspect, int approx_count,
+            qreal tiles_per_cell, qreal additional_tiles_per_row, qreal additional_tiles_per_column, qreal additional_tiles);
 
 //A modified version of QImage::copy, which avoids rendering errors even if rect is outside the bounds of the source image.
 QImage safeQImageCopy(const QImage& source, const QRect& rect);

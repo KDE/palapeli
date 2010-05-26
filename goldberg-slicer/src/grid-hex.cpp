@@ -37,7 +37,7 @@ struct HexCell {
     int id;
 };
 void generateHexGrid(GoldbergEngine *e, int piece_count) {
-    const double ONE_SIXTH = 0.16666666666666;
+    const qreal ONE_SIXTH = 1/6.0;
 
     int collision_tries = 10 * e->m_plug_size * e->m_plug_size;
     if (collision_tries < 5) collision_tries = 5;
@@ -56,7 +56,7 @@ void generateHexGrid(GoldbergEngine *e, int piece_count) {
     qDebug() << "cell count y = " << yCount;
 
 
-    const double cellWidth = 1.0 * width / xCount, cellHeight = 1.0 * height / yCount;
+    const qreal cellWidth = 1.0 * width / xCount, cellHeight = 1.0 * height / yCount;
 
     // rationale: knobs should visually cover the same fraction of area as for the rect grid.
     e->m_length_base = sqrt(cellWidth * cellHeight) * e->m_plug_size;
@@ -89,7 +89,7 @@ void generateHexGrid(GoldbergEngine *e, int piece_count) {
             }
 
             // determine border vectors
-            double xleft1, xleft2, xright;
+            qreal xleft1, xleft2, xright;
             xleft1 = odd_column? ((x-ONE_SIXTH) * cellWidth) : ((x + ONE_SIXTH) * cellWidth);
             xleft2 = odd_column? ((x+ONE_SIXTH) * cellWidth) : ((x - ONE_SIXTH) * cellWidth);
             xright = (x+1-ONE_SIXTH) * cellWidth;

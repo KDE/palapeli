@@ -50,10 +50,10 @@ class GoldbergEngine {
         int m_flip_threshold;
         bool m_alternate_flip;
         int m_edge_curviness;
-        double m_plug_size;
-        double m_sigma_curviness;
-        double m_sigma_basepos;
-        double m_sigma_plugs;
+        qreal m_plug_size;
+        qreal m_sigma_curviness;
+        qreal m_sigma_basepos;
+        qreal m_sigma_plugs;
         bool m_outlines;
         // length of a "normal" border. 
         // determines the actual size of the knob.

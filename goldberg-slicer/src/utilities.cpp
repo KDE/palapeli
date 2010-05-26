@@ -21,17 +21,17 @@
 #include <QDebug>
 
 
-void getBestFit(int &xCount, int &yCount, double target_aspect, int approx_count) {
-    double nx_exact = sqrt(approx_count * target_aspect);
+void getBestFit(int &xCount, int &yCount, qreal target_aspect, int approx_count) {
+    qreal nx_exact = sqrt(approx_count * target_aspect);
     // avoid taking the sqrt again
-    double ny_exact = approx_count / nx_exact;
+    qreal ny_exact = approx_count / nx_exact;
 
     // catch very odd cases
     if (nx_exact < 1) nx_exact = 1.01;
     if (ny_exact < 1) ny_exact = 1.01;
 
-    double aspect1 = floor(nx_exact) / ceil(ny_exact);
-    double aspect2 = ceil(nx_exact) / floor(ny_exact);
+    qreal aspect1 = floor(nx_exact) / ceil(ny_exact);
+    qreal aspect2 = ceil(nx_exact) / floor(ny_exact);
 
     aspect1 = target_aspect - aspect1;
     aspect2 = aspect2 - target_aspect;
@@ -42,25 +42,25 @@ void getBestFit(int &xCount, int &yCount, double target_aspect, int approx_count
     yCount = (int)(floor(ny_exact) + 0.1);
 }
 
-void getBestFitExtended(int &xCount, int &yCount, double target_aspect, int approx_count,
-            double tiles_per_cell, double additional_tiles_per_row, double additional_tiles_per_column, double additional_tiles) {
+void getBestFitExtended(int &xCount, int &yCount, qreal target_aspect, int approx_count,
+            qreal tiles_per_cell, qreal additional_tiles_per_row, qreal additional_tiles_per_column, qreal additional_tiles) {
     // solves the equations
     //  N = TPC * x * y  +  ATPC * x + ATPR * y + AT
     //  target_aspect = x / y
     //
     // for x, y; and rounds them to the nearest integer values giving least distance to target_aspect.
-    double p_half = (target_aspect * additional_tiles_per_column + additional_tiles_per_row) / (2 * target_aspect * tiles_per_cell);
-    double q = (approx_count - additional_tiles) / (target_aspect * tiles_per_cell);
+    qreal p_half = (target_aspect * additional_tiles_per_column + additional_tiles_per_row) / (2 * target_aspect * tiles_per_cell);
+    qreal q = (approx_count - additional_tiles) / (target_aspect * tiles_per_cell);
     
-    double p_half_sq = p_half*p_half;
+    qreal p_half_sq = p_half*p_half;
     if (p_half_sq + q < 0) {
         xCount = 1;
         yCount = 1;
         return;
     }
     
-    double ny_exact = -p_half + sqrt(p_half_sq + q);
-    double nx_exact = target_aspect * ny_exact;
+    qreal ny_exact = -p_half + sqrt(p_half_sq + q);
+    qreal nx_exact = target_aspect * ny_exact;
 
     qDebug() << "nx_exact: " << nx_exact << " ny_exact: " << ny_exact <<
                 "giving count: " << (tiles_per_cell*nx_exact*ny_exact + additional_tiles_per_column * nx_exact + additional_tiles_per_row * ny_exact + additional_tiles);
@@ -69,9 +69,9 @@ void getBestFitExtended(int &xCount, int &yCount, double target_aspect, int appr
     if (nx_exact < 1) nx_exact = 1.01;
     if (ny_exact < 1) ny_exact = 1.01;
 
-    double aspect1 = floor(nx_exact) / ceil(ny_exact);
-    double aspect2 = ceil(nx_exact) / floor(ny_exact);
-    double aspect3 = ceil(nx_exact) / ceil(ny_exact);
+    qreal aspect1 = floor(nx_exact) / ceil(ny_exact);
+    qreal aspect2 = ceil(nx_exact) / floor(ny_exact);
+    qreal aspect3 = ceil(nx_exact) / ceil(ny_exact);
 
     aspect1 = target_aspect - aspect1;
     aspect2 = aspect2 - target_aspect;
