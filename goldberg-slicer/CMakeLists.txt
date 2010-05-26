@@ -1,32 +1,19 @@
-project(libpala-goldbergslicer)
-cmake_minimum_required(VERSION 2.6)
+include_directories(${pala_INCLUDE_DIRS})
 
-find_package(Qt4 4.6.0 REQUIRED)
-find_package(KDE4 REQUIRED)
-find_package(LibPala REQUIRED)
+set(palapeli_goldbergslicer_SRCS
+	src/slicer-goldberg.cpp
+	src/goldberg-engine.cpp
+	src/grid-cairo.cpp
+	src/grid-hex.cpp
+	src/grid-rect.cpp
+	src/grid-rotrex.cpp
+	src/grid-voronoi.cpp
+	src/utilities.cpp
+)
 
-include(KDE4Defaults)
-include_directories(${KDE4_INCLUDES} ${pala_INCLUDE_DIRS})
+kde4_add_plugin(palapeli_goldbergslicer ${palapeli_goldbergslicer_SRCS})
+target_link_libraries(palapeli_goldbergslicer pala ${KDE4_KDECORE_LIBS} ${QT_QTGUI_LIBRARY})
+#TODO: Fix libpala's link interface.
 
-set(SLICER_LINK_LIBS ${KDE4_KDECORE_LIBS} ${QT_QTGUI_LIBRARY} pala)
-
-set(SOURCE_FILES
-            src/slicer-goldberg.cpp
-            src/goldberg-engine.cpp 
-            src/grid-cairo.cpp
-            src/grid-hex.cpp
-            src/grid-rect.cpp
-            src/grid-rotrex.cpp
-            src/grid-voronoi.cpp
-            src/utilities.cpp
-    )
-
-kde4_add_plugin(palapeli_goldbergslicer ${SOURCE_FILES})
-target_link_libraries(palapeli_goldbergslicer ${SLICER_LINK_LIBS})
-
-install(TARGETS
-	palapeli_goldbergslicer
-DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES
-	palapeli_goldbergslicer.desktop
-DESTINATION ${SERVICES_INSTALL_DIR})
+install(TARGETS palapeli_goldbergslicer DESTINATION ${PLUGIN_INSTALL_DIR})
+install(FILES palapeli_goldbergslicer.desktop DESTINATION ${SERVICES_INSTALL_DIR})
