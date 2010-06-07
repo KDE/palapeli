@@ -3,11 +3,12 @@ You will need:
  * libpala header files
  * cmake
  * palapeli, of course.
+ * optional: qhull (for irregular grid generator)
 
 Under (K)Ubuntu Lucid (or Karmic with backported KDE4.4) you can get those by
 typing
 {{{
-    sudo apt-get install kdelibs5-dev libkdegames-dev cmake palapeli
+    sudo apt-get install kdelibs5-dev libkdegames-dev cmake palapeli qhull-bin
 }}}
 into a terminal window. Under other Linux distributions the package names
 probably won't be much different.

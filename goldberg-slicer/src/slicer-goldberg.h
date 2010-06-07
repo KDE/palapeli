@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright  2010 J. Loehnert <loehnert.kde@gmx.de>
+ *   Copyright  2010 Johannes Loehnert <loehnert.kde@gmx.de>
  * based on the Jigsaw slicer (c) 2009 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or

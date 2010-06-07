@@ -2,7 +2,6 @@
 
 == More grid types ==
 
- * Voronoi (= irregular) grid
  * "domains" grid (irregular domains containing randomly-oriented rect grids)
  * Penrose tiling (quasiregular)
  * "tetrille" tiling (kites)

@@ -40,9 +40,7 @@ Infos about Palapeli can be found on the author's blog,
 USAGE
 =====
 
-Start Palapeli, click "Create puzzle". "Goldberg" should now be available as
-puzzle type. The options you can set are:
-
+Start Palapeli, click "Create puzzle". "Goldberg" should now be available as puzzle type. The options you can set are:
 
 == Tesselation type ==
 
@@ -52,6 +50,7 @@ determines which grid is used to split up the image, or put another way, what sh
  * *Cairo pentagonal*: Five-sided pieces with unequal edge angles.
  * *Hexagonal*: Six-sided pieces.
  * *Rotrex (rhombi-trihexagonal)*: Hexagons surrounded by rectangles and triangles. Looks like many intersecting circles.
+ * *Irregular*: random pieces. The program `qvoronoi` (part of qhull) is needed to generate irregular puzzles.
 
 The Cairo tesselation is rather hard to puzzle, since the pieces fit together in an unfamiliar manner. The Rotrex tesselation is simpler than the rectangular grid and looks pretty when put together.
 
@@ -70,6 +69,8 @@ sets the probability for each edge (plug) to be "flipped". A plug is "flipped" i
  * 100% (slider at the right): Fully regular grid again, but now with "alternate" rule.
 
 "Alternate" rule does _not_ simply mean reversal of all plugs. In the alternate rectangular grid, each piece has 4 inward or 4 outward-pointing plugs. For the other tesselations, just try it out.
+
+This setting has no effect when using the irregular tesselation.
 
 
 == Edge curviness ==
@@ -112,6 +113,15 @@ determines how individual the plugs look like.
 
  * 0%: Plugs look all the same.
  * 100%: Each plug will be a unique piece of art crafted especially for you.
+
+
+== Irr.: Diversity of piece size ==
+
+applies only to irregular tesselation, and determines how much the piece size varies.
+
+ * 100%: very small and large pieces
+ * 50%: (default) pieces are all roughly of same size
+ * 0%: pieces are roughly of same size, crystallite-like structures arise
 
 
 == Piece outlines ==

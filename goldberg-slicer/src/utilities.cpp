@@ -1,5 +1,5 @@
  /***************************************************************************
- *   Copyright  2010 J. Loehnert <loehnert.kde@gmx.de>
+ *   Copyright  2010 Johannes Loehnert <loehnert.kde@gmx.de>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
