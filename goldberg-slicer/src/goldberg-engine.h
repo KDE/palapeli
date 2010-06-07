@@ -54,6 +54,7 @@ class GoldbergEngine {
         qreal m_sigma_curviness;
         qreal m_sigma_basepos;
         qreal m_sigma_plugs;
+        int m_irregular_relaxation_steps;
         bool m_outlines;
         // length of a "normal" border. 
         // determines the actual size of the knob.

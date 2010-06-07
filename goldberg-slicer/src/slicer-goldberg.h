@@ -40,6 +40,8 @@ class GoldbergSlicer : public Pala::Slicer {
         virtual bool run(Pala::SlicerJob* job);
     protected:
         QVariantList m_tesselations;
+    private:
+        bool m_qvoronoi_available;
 
 };
 

@@ -8,6 +8,7 @@ set(palapeli_goldbergslicer_SRCS
 	src/grid-rect.cpp
 	src/grid-rotrex.cpp
 	src/grid-voronoi.cpp
+    src/pointfinder.cpp
 	src/utilities.cpp
 )
 

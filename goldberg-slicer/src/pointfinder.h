@@ -16,16 +16,29 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELISLICERS_GOLDBERG_GRIDVORONOI_H
-#define PALAPELISLICERS_GOLDBERG_GRIDVORONOI_H
+#ifndef POINTFINDER_H
+#define POINTFINDER_H
 
-#include "goldberg-engine.h"
+#include <QtGlobal>
+#include <QPointF>
+#include <QList>
 
-/// Checks if qvoronoi executable is there.
-bool checkForQVoronoi();
+class PointFinder {
+    public:
+        PointFinder(int width, int height, qreal radius);
+        ~PointFinder();
+        void append(QPointF point);
 
-void generateIrregularGrid(GoldbergEngine *e, int piece_count);
+        QList<QPointF> points();
+        QList<QPointF> find_neighbours(QPointF point);
+    protected:
+        QList<QPointF> **m_boxes;
+        QList<QPointF> m_points;
+        int m_radius;
+        int m_xbins;
+        int m_ybins;
+        int m_width;
+        int m_height;
+};
 
-void generateVoronoiGrid(GoldbergEngine *e, QList<QPointF> cell_centers);
-
-#endif // PALAPELISLICERS_GOLDBERG_GRIDVORONOI_H
+#endif

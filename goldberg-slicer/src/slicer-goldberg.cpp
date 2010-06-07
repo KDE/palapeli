@@ -21,6 +21,7 @@
 #include "slicer-goldberg.h"
 
 #include <QDebug>
+#include <QMessageBox>
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KPluginLoader>
@@ -41,11 +42,19 @@ GoldbergSlicer::GoldbergSlicer(QObject* parent, const QVariantList& args)
     Pala::StringProperty* sprop;
     Pala::BooleanProperty* bprop;
 
+    m_qvoronoi_available = checkForQVoronoi();
+
     m_tesselations.clear();
     m_tesselations.append(i18n("Rectangular grid"));
     m_tesselations.append(i18n("Cairo Pentagonal"));
     m_tesselations.append(i18n("Hexagonal"));
     m_tesselations.append(i18n("Rotrex (rhombi-trihexagonal)"));
+    if (m_qvoronoi_available) {
+        m_tesselations.append(i18n("Irregular"));
+    }
+    else {
+        m_tesselations.append(i18n("(QHull missing): Irregular"));
+    }
     sprop = new Pala::StringProperty(i18n("Tesselation type"));
     sprop->setChoices(m_tesselations);
     addProperty("010_Tesselation", sprop);
@@ -91,7 +100,12 @@ GoldbergSlicer::GoldbergSlicer(QObject* parent, const QVariantList& args)
     prop->setDefaultValue(50);
     prop->setRepresentation(Pala::IntegerProperty::Slider);
     addProperty("057_SigmaPlugs", prop);
- 
+
+    prop = new Pala::IntegerProperty(i18n("Irr.: diversity of piece size"));
+    prop->setRange(0, 30);
+    prop->setDefaultValue(15);
+    prop->setRepresentation(Pala::IntegerProperty::Slider);
+    addProperty("058_IrrPieceSizeDiversity", prop);
 
     bprop = new Pala::BooleanProperty(i18n("Piece outlines"));
     bprop->setDefaultValue(true);
@@ -116,6 +130,7 @@ bool GoldbergSlicer::run(Pala::SlicerJob* job) {
     engine.m_sigma_curviness = 0.01*job->argument("055_SigmaCurviness").toInt();
     engine.m_sigma_basepos = 0.01*job->argument("056_SigmaBasepos").toInt();
     engine.m_sigma_plugs = 0.01*job->argument("057_SigmaPlugs").toInt();
+    engine.m_irregular_relaxation_steps = 30 - job->argument("058_IrrPieceSizeDiversity").toInt();
 
     // square the sigmas, so that lower values are more stretched out on the slider
     engine.m_sigma_curviness *= engine.m_sigma_curviness;
@@ -143,6 +158,17 @@ bool GoldbergSlicer::run(Pala::SlicerJob* job) {
     case 3:
         generateRotrexGrid(&engine, piece_count);
         break;
+    case 4:
+        if (m_qvoronoi_available) {
+            generateIrregularGrid(&engine, piece_count);
+        }
+        else {
+            QMessageBox msgBox;
+            msgBox.setText(i18n("Please install qvoronoi (part of the package QHull) to generate this tesselation type."));
+            msgBox.setIcon(QMessageBox::Information);
+            msgBox.exec();
+            return false;
+        }
     }
 
     engine.dump_grid_image();
