@@ -25,14 +25,6 @@
 #include <Pala/SlicerProperty>
 #include <Pala/SlicerPropertySet>
 
-#include "goldberg-engine.h"
-
-#include "grid-rect.h"
-#include "grid-hex.h"
-#include "grid-cairo.h"
-#include "grid-rotrex.h"
-#include "grid-voronoi.h"
-
 class GoldbergSlicer : public Pala::Slicer {
     Q_OBJECT
     public:

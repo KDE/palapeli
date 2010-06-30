@@ -25,6 +25,8 @@
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KPluginLoader>
+
+#include "goldberg-engine.h"
 #include "grid-rect.h"
 #include "grid-hex.h"
 #include "grid-cairo.h"
@@ -46,14 +48,14 @@ GoldbergSlicer::GoldbergSlicer(QObject* parent, const QVariantList& args)
 
     m_tesselations.clear();
     m_tesselations.append(i18n("Rectangular grid"));
-    m_tesselations.append(i18n("Cairo Pentagonal"));
-    m_tesselations.append(i18n("Hexagonal"));
-    m_tesselations.append(i18n("Rotrex (rhombi-trihexagonal)"));
+    m_tesselations.append(i18nc("Puzzle grid type", "Cairo Pentagonal"));
+    m_tesselations.append(i18nc("Puzzle grid type", "Hexagonal"));
+    m_tesselations.append(i18nc("Puzzle grid type", "Rotrex (rhombi-trihexagonal)"));
     if (m_qvoronoi_available) {
-        m_tesselations.append(i18n("Irregular"));
+        m_tesselations.append(i18nc("Puzzle grid type", "Irregular"));
     }
     else {
-        m_tesselations.append(i18n("(QHull missing): Irregular"));
+        m_tesselations.append(i18nc("Puzzle grid type", "(QHull missing): Irregular"));
     }
     sprop = new Pala::StringProperty(i18n("Tesselation type"));
     sprop->setChoices(m_tesselations);
