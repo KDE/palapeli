@@ -60,7 +60,7 @@ void Palapeli::InteractorManager::handleEvent(QWheelEvent* event)
 	//check which interactors are triggered by this event
 	Palapeli::Interactor* bestMatchInteractor = 0;
 	int bestMatchPriority = -1;
-	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = m_interactors.begin(), it2 = m_interactors.end();
+	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = m_interactors.constBegin(), it2 = m_interactors.constEnd();
 	for (; it1 != it2; ++it1)
 	{
 		Palapeli::Interactor* const interactor = it1.value();
@@ -99,7 +99,7 @@ void Palapeli::InteractorManager::handleEvent(QMouseEvent* event)
 	m_mousePos = event->pos();
 	//check which interactors are triggered by this event
 	QMap<Palapeli::Interactor*, Palapeli::EventContext> interactorData;
-	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = m_interactors.begin(), it2 = m_interactors.end();
+	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = m_interactors.constBegin(), it2 = m_interactors.constEnd();
 	for (; it1 != it2; ++it1)
 		interactorData[it1.value()] = Palapeli::TriggerMapper::instance()->testTrigger(it1.key(), event);
 	//further processing in a method which is shared with the KeyEvent handler
@@ -115,7 +115,7 @@ void Palapeli::InteractorManager::handleEvent(QKeyEvent* event)
 	Palapeli::MouseEvent pEvent(m_view, m_mousePos);
 	//check which interactors are triggered by this event
 	QMap<Palapeli::Interactor*, Palapeli::EventContext> interactorData;
-	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = m_interactors.begin(), it2 = m_interactors.end();
+	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = m_interactors.constBegin(), it2 = m_interactors.constEnd();
 	for (; it1 != it2; ++it1)
 		interactorData[it1.value()] = Palapeli::TriggerMapper::instance()->testTrigger(it1.key(), event, m_buttons);
 	//further processing in a method which is shared with the MouseEvent handler
