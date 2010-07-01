@@ -105,7 +105,7 @@ void Palapeli::TriggerMapper::setAssociations(const QMap<QByteArray, Palapeli::T
 	//assemble trigger serializations
 	QMap<QByteArray, QList<QByteArray> > triggerSerializations;
 	{
-		QMap<QByteArray, Palapeli::Trigger>::const_iterator it1 = m_associations.begin(), it2 = m_associations.end();
+		QMap<QByteArray, Palapeli::Trigger>::const_iterator it1 = m_associations.constBegin(), it2 = m_associations.constEnd();
 		for (; it1 != it2; ++it1)
 			triggerSerializations[it1.key()] << it1.value().serialized();
 	}
@@ -114,7 +114,7 @@ void Palapeli::TriggerMapper::setAssociations(const QMap<QByteArray, Palapeli::T
 	foreach (const QString& key, group.keyList())
 		group.deleteEntry(key);
 	//write config (in a way that supports multiple triggers for one interactor)
-	QMap<QByteArray, QList<QByteArray> >::const_iterator it1 = triggerSerializations.begin(), it2 = triggerSerializations.end();
+	QMap<QByteArray, QList<QByteArray> >::const_iterator it1 = triggerSerializations.constBegin(), it2 = triggerSerializations.constEnd();
 	for (; it1 != it2; ++it1)
 		group.writeEntry(it1.key().data(), it1.value());
 	KGlobal::config()->sync();
