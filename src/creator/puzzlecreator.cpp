@@ -133,7 +133,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	}
 	QMap<QByteArray, QVariant> slicerArgs = m_slicerConfigWidgets[slicerKey]->arguments();
 	QImage image;
-	if (!image.load(m_imageSelector->url().path())) //TODO: allow to load remote images
+	if (!image.load(m_imageSelector->url().toLocalFile())) //TODO: allow to load remote images
 	{
 		KMessageBox::sorry(this, i18n("Puzzle cannot be created: The file you selected is not an image."));
 		return;

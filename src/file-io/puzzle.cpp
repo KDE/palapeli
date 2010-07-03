@@ -114,7 +114,7 @@ bool Palapeli::Puzzle::readMetadata(bool force)
 			return false;
 	}
 	else
-		archiveFile = m_loadLocation.path();
+		archiveFile = m_loadLocation.toLocalFile();
 	//open archive and extract into temporary directory
 	KTar tar(archiveFile, "application/x-gzip");
 	if (!tar.open(QIODevice::ReadOnly))
@@ -219,7 +219,7 @@ void Palapeli::Puzzle::writeFinished(KJob* job)
 	{
 		if (m_location.isLocalFile())
 		{
-			QFile file(m_location.path());
+			QFile file(m_location.toLocalFile());
 			file.setPermissions(file.permissions() | QFile::WriteOwner | QFile::WriteGroup); //make file deleteable
 		}
 		emit writeFinished();

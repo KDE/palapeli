@@ -41,7 +41,7 @@ Palapeli::ListCollection::ListCollection(const KUrl& url)
 	: m_config(0)
 {
 	if (url.isLocalFile())
-		setConfig(new KConfig(url.path(), KConfig::SimpleConfig));
+		setConfig(new KConfig(url.toLocalFile(), KConfig::SimpleConfig));
 	else
 	{
 		KTemporaryFile* tempFile = new KTemporaryFile;
@@ -61,7 +61,7 @@ void Palapeli::ListCollection::collectionDataCopyFinished(KJob* job)
 	if (job->error())
 		static_cast<KIO::Job*>(job)->showErrorDialog();
 	else
-		setConfig(new KConfig(static_cast<KIO::FileCopyJob*>(job)->destUrl().path(), KConfig::SimpleConfig));
+		setConfig(new KConfig(static_cast<KIO::FileCopyJob*>(job)->destUrl().toLocalFile(), KConfig::SimpleConfig));
 }
 
 KUrl Palapeli::ListCollection::readUrl(const KUrl& url) const
@@ -113,7 +113,7 @@ QModelIndex Palapeli::ListCollection::addPuzzleInternal(Palapeli::Puzzle* puzzle
 	const bool hasCache = m_features.contains("metadatacache");
 	if (hasCache && puzzle->location().isLocalFile())
 	{
-		QFileInfo fi(puzzle->location().path());
+		QFileInfo fi(puzzle->location().toLocalFile());
 		modificationTime = fi.lastModified();
 		fileExists = fi.exists();
 	}
@@ -223,7 +223,7 @@ bool Palapeli::ListCollection::deletePuzzle(const QModelIndex& index)
 	if (!puzzle)
 		return false;
 	//check whether that particular file can be removed
-	QString file = puzzle->location().path();
+	QString file = puzzle->location().toLocalFile();
 	if (!QFile(file).remove())
 		return false;
 	//remove file from config
