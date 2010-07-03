@@ -25,7 +25,7 @@
 #include <KGlobal>
 #include <KLocalizedString>
 #include <KStandardDirs>
-#include <KSvgRenderer>
+#include <QSvgRenderer>
 
 const QSize Palapeli::TextureHelper::DefaultThumbnailSize(32, 32);
 const QSize Palapeli::TextureHelper::DefaultPixmapSize(128, 128);
@@ -42,7 +42,7 @@ QPixmap Palapeli::TextureHelper::render(const QString& fileName)
 	QPixmap pixmap;
 	if (fileName.contains(".svg"))
 	{
-		KSvgRenderer renderer(path);
+		QSvgRenderer renderer(path);
 		pixmap = QPixmap(DefaultPixmapSize);
 		pixmap.fill(Qt::transparent);
 		QPainter painter(&pixmap);
