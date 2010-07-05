@@ -23,6 +23,7 @@
 #include "file-io/puzzlestructs.h"
 #include "../libpala/slicer.h"
 #include "../libpala/slicerjob.h"
+#include "../libpala/slicermode.h"
 
 #include <QBoxLayout>
 #include <QFormLayout>
@@ -125,13 +126,6 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 		KMessageBox::sorry(this, i18n("Puzzle cannot be created: Slicing failed because of undetermined problems."));
 		return;
 	}
-	//find key for mode
-	QString modeKey;
-	typedef QPair<QString, const Pala::SlicerMode*> ModePair;
-	if (selection.mode)
-		foreach (const ModePair& pair, slicer->modes())
-			if (pair.second == selection.mode)
-				modeKey = pair.first;
 	//create puzzle structs
 	Palapeli::PuzzleMetadata* metadata = new Palapeli::PuzzleMetadata;
 	metadata->name = m_nameEdit->text();
@@ -153,7 +147,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	contents->relations = job.relations();
 	Palapeli::PuzzleCreationContext* creationContext = new Palapeli::PuzzleCreationContext;
 	creationContext->usedSlicer = selection.slicerPluginName;
-	creationContext->usedSlicerMode = modeKey;
+	creationContext->usedSlicerMode = selection.mode ? selection.mode->key() : QByteArray();
 	creationContext->usedSlicerArgs = slicerArgs;
 	creationContext->pieces = job.pieces();
 	//create puzzle

@@ -19,6 +19,7 @@
 #include "slicerselector.h"
 #include "../libpala/slicer.h"
 #include "../libpala/slicerjob.h"
+#include "../libpala/slicermode.h"
 
 #include <KServiceTypeTrader>
 
@@ -44,8 +45,7 @@ Palapeli::SlicerSelector::SlicerSelector(QWidget* parent)
 		QTreeWidgetItem* slicerItem = new QTreeWidgetItem(this);
 		slicerItem->setData(0, Qt::DisplayRole, slicerName);
 		//scan mode list
-		typedef QPair<QString, const Pala::SlicerMode*> ModePair;
-		const QList<ModePair> modes = slicer->modes();
+		const QList<const Pala::SlicerMode*> modes = slicer->modes();
 		if (modes.isEmpty())
 		{
 			//no modes - make slicer item selectable (i.e. fallback to list-like behavior)
@@ -59,11 +59,11 @@ Palapeli::SlicerSelector::SlicerSelector(QWidget* parent)
 		{
 			//slicer has modes - require to select a specific mode
 			slicerItem->setFlags(Qt::ItemIsEnabled);
-			foreach (const ModePair& modePair, modes)
+			foreach (const Pala::SlicerMode* mode, modes)
 			{
 				QTreeWidgetItem* modeItem = new QTreeWidgetItem(slicerItem);
-				modeItem->setData(0, Qt::DisplayRole, modePair.first);
-				Palapeli::SlicerSelection sel(pluginName, slicer, modePair.second);
+				modeItem->setData(0, Qt::DisplayRole, mode->name());
+				Palapeli::SlicerSelection sel(pluginName, slicer, mode);
 				m_knownSelections << sel;
 				//the index in m_knownSelections is recorded in Qt::UserRole to map selected items to SlicerSelections
 				modeItem->setData(0, Qt::UserRole, m_knownSelections.count() - 1);

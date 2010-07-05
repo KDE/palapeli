@@ -22,12 +22,17 @@
 class Pala::SlicerMode::Private
 {
 	public:
+		QByteArray m_key;
+		QString m_name;
+
 		QHash<QByteArray, bool> m_propertyEnabledExceptions;
 };
 
-Pala::SlicerMode::SlicerMode()
+Pala::SlicerMode::SlicerMode(const QByteArray& key, const QString& name)
 	: p(new Pala::SlicerMode::Private)
 {
+	p->m_key = key;
+	p->m_name = name;
 }
 
 Pala::SlicerMode::~SlicerMode()
@@ -35,18 +40,28 @@ Pala::SlicerMode::~SlicerMode()
 	delete p;
 }
 
-void Pala::SlicerMode::filterProperties(QMap<QByteArray, const Pala::SlicerProperty*>& properties) const
+void Pala::SlicerMode::filterProperties(QList<const Pala::SlicerProperty*>& properties) const
 {
-	QMutableMapIterator<QByteArray, const Pala::SlicerProperty*> iter(properties);
+	QMutableListIterator<const Pala::SlicerProperty*> iter(properties);
 	while (iter.hasNext())
 	{
-		const QByteArray key = iter.next().key();
-		bool isEnabled = iter.value()->isEnabled();
-		if (p->m_propertyEnabledExceptions.contains(key))
-			isEnabled = p->m_propertyEnabledExceptions.value(key);
+		const Pala::SlicerProperty* property = iter.next();
+		bool isEnabled = property->isEnabled();
+		if (p->m_propertyEnabledExceptions.contains(property->key()))
+			isEnabled = p->m_propertyEnabledExceptions.value(property->key());
 		if (!isEnabled)
 			iter.remove();
 	}
+}
+
+QByteArray Pala::SlicerMode::key() const
+{
+	return p->m_key;
+}
+
+QString Pala::SlicerMode::name() const
+{
+	return p->m_name;
 }
 
 void Pala::SlicerMode::setPropertyEnabled(const QByteArray& property, bool enabled)

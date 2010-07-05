@@ -29,13 +29,11 @@ Palapeli::SlicerConfigWidget::SlicerConfigWidget(const Pala::Slicer* slicer)
 {
 	setLayout(m_layout);
 	//create property widgets
-	typedef QPair<QByteArray, const Pala::SlicerProperty*> PropertyPair;
-	QList<PropertyPair> properties = slicer->propertyList();
-	foreach (const PropertyPair& propPair, properties)
+	QList<const Pala::SlicerProperty*> properties = slicer->propertyList();
+	foreach (const Pala::SlicerProperty* property, properties)
 	{
-		const Pala::SlicerProperty* property = propPair.second;
 		Palapeli::PropertyWidget* propWidget = Palapeli::createPropertyWidget(property);
-		Entry entry = { propPair.first, property, propWidget };
+		Entry entry = { property, propWidget };
 		m_entries << entry;
 		m_layout->addRow(property->caption() + QChar(':'), propWidget);
 	}
@@ -45,22 +43,22 @@ QMap<QByteArray, QVariant> Palapeli::SlicerConfigWidget::arguments() const
 {
 	QMap<QByteArray, QVariant> result;
 	foreach (const Entry& entry, m_entries)
-		result.insert(entry.key, entry.widget->propertyValue());
+		result.insert(entry.property->key(), entry.widget->propertyValue());
 	return result;
 }
 
 void Palapeli::SlicerConfigWidget::setMode(const Pala::SlicerMode* mode)
 {
 	//determine enabled properties
-	QMap<QByteArray, const Pala::SlicerProperty*> enabledProps;
+	QList<const Pala::SlicerProperty*> enabledProps;
 	foreach (const Entry& entry, m_entries)
-		enabledProps.insert(entry.key, entry.property);
+		enabledProps << entry.property;
 	if (mode)
 		mode->filterProperties(enabledProps);
 	//update widget visibility according to enabled/disabled state
 	foreach (const Entry& entry, m_entries)
 	{
-		const bool isVisible = enabledProps.contains(entry.key);
+		const bool isVisible = enabledProps.contains(entry.property);
 		entry.widget->setVisible(isVisible);
 		m_layout->labelForField(entry.widget)->setVisible(isVisible);
 	}

@@ -43,7 +43,6 @@ namespace Palapeli
 		private:
 			struct Entry
 			{
-				QByteArray key;
 				const Pala::SlicerProperty* property;
 				Palapeli::PropertyWidget* widget;
 			};

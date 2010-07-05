@@ -26,7 +26,6 @@
 #endif
 
 #include <QtCore/QByteArray>
-#include <QtCore/QPair>
 
 namespace Pala
 {
@@ -47,12 +46,19 @@ namespace Pala
 	class LIBPALA_EXPORT SlicerMode
 	{
 		public:
-			SlicerMode();
+			///Create a new SlicerMode instance.
+			///\param key an identifier which is unique among the modes of one slicer
+			///\param name a user-visible name that describes this mode
+			SlicerMode(const QByteArray& key, const QString& name);
 			virtual ~SlicerMode();
 
 			//The following functions belong to the interface to the Palapeli application. They are not documented because the documentation is targeted at slicer developers.
 			///\internal
-			void filterProperties(QMap<QByteArray, const Pala::SlicerProperty*>& properties) const; //This function removes all properties from the given map which are disabled in this mode, taking both Pala::SlicerProperty::isEnabled and the exceptions defined by this mode into account.
+			void filterProperties(QList<const Pala::SlicerProperty*>& properties) const; //This function removes all properties from the given map which are disabled in this mode, taking both Pala::SlicerProperty::isEnabled and the exceptions defined by this mode into account.
+			///\internal
+			QByteArray key() const;
+			///\internal
+			QString name() const;
 
 			///Defines whether the property which has been added to Pala::Slicer with the given key, is enabled when this mode is selected. If this mode does not define the state for some property, the state defined by the property itself (through the Palapeli::SlicerProperty::setEnabled() method) is used. You will therefore probably use this function only to define exceptions from this default state.
 			void setPropertyEnabled(const QByteArray& property, bool enabled);

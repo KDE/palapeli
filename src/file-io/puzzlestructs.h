@@ -45,7 +45,8 @@ namespace Palapeli
 
 	struct PuzzleCreationContext
 	{
-		QString usedSlicer, usedSlicerMode;
+		QString usedSlicer;
+		QByteArray usedSlicerMode;
 		QMap<QByteArray, QVariant> usedSlicerArgs;
 		QMap<int, QImage> pieces; //The piece images are already in PuzzleContents, but we do also pass the QImage pictures because they have been generated anyway, and can be written in non-GUI threads.
 	};

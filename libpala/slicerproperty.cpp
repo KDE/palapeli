@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This library is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU Library General Public
@@ -28,6 +28,7 @@ struct Pala::SlicerProperty::Private
 
 	QVariant::Type m_type;
 	QString m_caption;
+	QByteArray m_key;
 
 	QVariantList m_choices;
 	QVariant m_defaultValue;
@@ -86,6 +87,11 @@ bool Pala::SlicerProperty::isEnabled() const
 	return p->m_enabled;
 }
 
+QByteArray Pala::SlicerProperty::key() const
+{
+	return p->m_key;
+}
+
 QVariant::Type Pala::SlicerProperty::type() const
 {
 	return p->m_type;
@@ -113,6 +119,11 @@ void Pala::SlicerProperty::setDefaultValue(const QVariant& value)
 void Pala::SlicerProperty::setEnabled(bool enabled)
 {
 	p->m_enabled = enabled;
+}
+
+void Pala::SlicerProperty::setKey(const QByteArray& key)
+{
+	p->m_key = key;
 }
 
 //END Pala::SlicerProperty
