@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -28,14 +28,14 @@ Palapeli::SlicerConfigWidget::SlicerConfigWidget(Pala::Slicer* slicer)
 	QFormLayout* layout = new QFormLayout;
 	setLayout(layout);
 	//create property widgets
-	QMap<QByteArray, const Pala::SlicerProperty*> properties = slicer->properties();
-	QMapIterator<QByteArray, const Pala::SlicerProperty*> i(properties);
-	while (i.hasNext())
+	typedef QPair<QByteArray, const Pala::SlicerProperty*> PropertyPair;
+	QList<PropertyPair> properties = slicer->propertyList();
+	foreach (const PropertyPair& propPair, properties)
 	{
-		const Pala::SlicerProperty* prop = i.next().value();
-		Palapeli::PropertyWidget* propWidget = Palapeli::createPropertyWidget(prop);
-		m_propertyWidgets[i.key()] = propWidget;
-		layout->addRow(prop->caption() + QChar(':'), propWidget);
+		const Pala::SlicerProperty* property = propPair.second;
+		Palapeli::PropertyWidget* propWidget = Palapeli::createPropertyWidget(property);
+		m_propertyWidgets[propPair.first] = propWidget;
+		layout->addRow(property->caption() + QChar(':'), propWidget);
 	}
 }
 
