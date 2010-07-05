@@ -30,11 +30,10 @@
 #include <QtCore/QVariant>
 #include <QtGui/QImage>
 
-//TODO: Add support for hidden debug output.
-
 namespace Pala
 {
 	class Slicer;
+	class SlicerMode;
 
 	/**
 	 * \class SlicerJob slicerjob.h <Pala/SlicerJob>
@@ -56,6 +55,8 @@ namespace Pala
 			QVariant argument(const QByteArray& key) const;
 			///Returns the image that should be sliced.
 			QImage image() const;
+			///Returns the selected slicer mode, or 0 if the slicer does not define any slicer modes.
+			const Pala::SlicerMode* mode() const;
 
 			//The following functions belong to the interface to the Palapeli application. They are not documented because the documentation is targeted at slicer developers.
 			///\internal
@@ -64,6 +65,8 @@ namespace Pala
 			QMap<int, QPoint> pieceOffsets() const;
 			///\internal
 			QList<QPair<int, int> > relations() const;
+			///\internal
+			void setMode(const Pala::SlicerMode* mode);
 
 			/**
 			 * \brief Add a generated piece to the result set of this slicing job.

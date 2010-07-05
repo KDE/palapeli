@@ -26,8 +26,11 @@
 class Pala::SlicerJob::Private
 {
 	public:
+		Private() : m_mode(0) {}
+
 		QMap<QByteArray, QVariant> m_args;
 		QImage m_image;
+		const Pala::SlicerMode* m_mode;
 
 		QMap<int, QImage> m_pieces;
 		QMap<int, QPoint> m_pieceOffsets;
@@ -58,6 +61,11 @@ QImage Pala::SlicerJob::image() const
 	return p->m_image;
 }
 
+const Pala::SlicerMode* Pala::SlicerJob::mode() const
+{
+	return p->m_mode;
+}
+
 QMap<int, QImage> Pala::SlicerJob::pieces() const
 {
 	return p->m_pieces;
@@ -71,6 +79,11 @@ QMap<int, QPoint> Pala::SlicerJob::pieceOffsets() const
 QList<QPair<int, int> > Pala::SlicerJob::relations() const
 {
 	return p->m_relations;
+}
+
+void Pala::SlicerJob::setMode(const Pala::SlicerMode* mode)
+{
+	p->m_mode = mode;
 }
 
 void Pala::SlicerJob::respectSlicerFlags(int flags)

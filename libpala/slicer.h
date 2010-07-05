@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This library is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU Library General Public
@@ -31,6 +31,7 @@
 namespace Pala
 {
 	class SlicerJob;
+	class SlicerMode;
 	class SlicerProperty;
 	class SlicerPropertySet;
 
@@ -38,7 +39,9 @@ namespace Pala
 	 * \class Slicer slicer.h <Pala/Slicer>
 	 * \brief Representation of a slicing algorithm.
 	 *
-	 * This class represents a slicing algorithm. It has to be subclassed by slicing plugin developers. Subclasses need to implement the constructor (where the slicer's property list has to be created) and the run() method (where the actual slicing is performed).
+	 * This class represents a slicing algorithm. It has to be subclassed by slicing plugin developers. Subclasses need to implement
+	 * \li the constructor (where the slicer's properties and, if used, the modes have to be instantiated)
+	 * \li the run() method (where the actual slicing is performed).
 	 *
 	 * Additionally, the class must be flagged as entry point into the plugin, with the following code:
 \code
@@ -50,7 +53,7 @@ class MySlicer : public Pala::Slicer { ... };
 K_PLUGIN_FACTORY(MySlicerFactory, registerPlugin<MySlicer>();)
 K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 \endcode
-	 * Replace \a myslicer with the file name of the plugin library (e.g. \a myslicer is the name for a library  \a libmyslicer.so on unixoid systems, or \a myslicer.dll on Windows systems).
+	 * In the last line, put inside the string literal the file name of the plugin library (e.g. \a myslicer is the name for a library  \a libmyslicer.so on unixoid systems, or \a myslicer.dll on Windows systems).
 	 */
 	class LIBPALA_EXPORT Slicer : public QObject
 	{
@@ -73,12 +76,19 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 			 * In any subclass, the constructor signature has to be the same (due to the way the plugin loader works). The arguments should be passed to this constructor and ignored by the subclass implementation, as their format might change without notice in future versions.
 			 */
 			explicit Slicer(QObject* parent = 0, const QVariantList& args = QVariantList());
-			///Deletes this slicer.
+			///Deletes this slicer, and all properties and modes which have been added with addProperty() and addMode().
 			virtual ~Slicer();
 
 			//The following function belongs to the interface to the Palapeli application. It is not documented because the documentation is targeted at slicer developers.
 			///\internal
+			///\since libpala 1.2 (KDE SC 4.6)
+			QList<QPair<QString, const Pala::SlicerMode*> > modes() const;
+			///\internal
+			///\deprecated because sorting order is not right
 			QMap<QByteArray, const Pala::SlicerProperty*> properties() const;
+			///\internal
+			///\since libpala 1.2 (KDE SC 4.6)
+			QList<QPair<QByteArray, const Pala::SlicerProperty*> > propertyList() const; //BIC: rename to properties()
 			///\internal
 			SlicerFlags flags() const;
 			///\internal
@@ -87,8 +97,17 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 			//This class is the only interface that slicers can use to communicate with Palapeli, and it is only instantiated very few times (one instance per slicer plugin), so it should be reasonable to reserve some space in the virtual table for future additions.
 			RESERVE_VIRTUAL_5
 		protected:
-			///Add the given property to the property list of this slicer. Use this method in the subclass constructors to fill the slicer with properties. Properties let the user control how the slicing is done.
+			///Add the given property to the property list of this slicer. The slicer will take care of destructing the given Pala::SlicerProperty instance when it is destructed.
+			///Use this method in the subclass constructors to fill the slicer with properties. Properties let the user control how the slicing is done.
+			///\warning It is not safe to add new properties outside the constructor of a Pala::Slicer subclass.
 			void addProperty(const QByteArray& key, Pala::SlicerProperty* property);
+			///Add an operation mode to this slicer. The slicer will take care of destructing the given Pala::SlicerMode instance when it is destructed.
+			///You may use modes e.g. if your slicer includes different slicing algorithms at once which might need a different set of properties (see Pala::SlicerMode documentation for details). If you choose not to use modes, just ignore this function and all other functions concerning modes.
+			///\note The given \a key is user-visible. Do not forget i18n(), tr() or whatever localization macro you're using.
+			///\warning It is not safe to add new modes outside the constructor of a Pala::Slicer subclass.
+			///\since libpala 1.2 (KDE SC 4.6)
+			void addMode(const QString& key, Pala::SlicerMode* mode);
+
 			friend class SlicerPropertySet;
 			///\see Pala::Slicer::SlicerFlags
 			void setFlags(SlicerFlags flags);

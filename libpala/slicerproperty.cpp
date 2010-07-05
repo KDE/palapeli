@@ -24,11 +24,15 @@
 
 struct Pala::SlicerProperty::Private
 {
+	Private() : m_advanced(false), m_enabled(true) {}
+
 	QVariant::Type m_type;
 	QString m_caption;
 
 	QVariantList m_choices;
 	QVariant m_defaultValue;
+
+	bool m_advanced, m_enabled;
 };
 
 struct Pala::BooleanProperty::Private {};
@@ -72,9 +76,24 @@ QVariant Pala::SlicerProperty::defaultValue() const
 	return p->m_defaultValue;
 }
 
+bool Pala::SlicerProperty::isAdvanced() const
+{
+	return p->m_advanced;
+}
+
+bool Pala::SlicerProperty::isEnabled() const
+{
+	return p->m_enabled;
+}
+
 QVariant::Type Pala::SlicerProperty::type() const
 {
 	return p->m_type;
+}
+
+void Pala::SlicerProperty::setAdvanced(bool advanced)
+{
+	p->m_advanced = advanced;
 }
 
 void Pala::SlicerProperty::setChoices(const QVariantList& choices)
@@ -89,6 +108,11 @@ void Pala::SlicerProperty::setDefaultValue(const QVariant& value)
 {
 	p->m_defaultValue = value;
 	p->m_defaultValue.convert(p->m_type);
+}
+
+void Pala::SlicerProperty::setEnabled(bool enabled)
+{
+	p->m_enabled = enabled;
 }
 
 //END Pala::SlicerProperty

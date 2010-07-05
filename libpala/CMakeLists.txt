@@ -1,11 +1,12 @@
 project(libpala)
 
-set(libpala_VERSION "0.1.0")
+set(libpala_VERSION "0.2.0")
 set(libpala_SOVERSION "0")
 
 set(libpala_SRCS
 	slicer.cpp
 	slicerjob.cpp
+	slicermode.cpp
 	slicerproperty.cpp
 	slicerpropertyset.cpp
 )
@@ -13,12 +14,14 @@ set(libpala_HDRS
 	libpalamacros.h
 	slicer.h
 	slicerjob.h
+	slicermode.h
 	slicerproperty.h
 	slicerpropertyset.h
 )
 set(libpala_FANCY_HDRS
 	Pala/Slicer
 	Pala/SlicerJob
+	Pala/SlicerMode
 	Pala/SlicerProperty
 	Pala/SlicerPropertySet
 )

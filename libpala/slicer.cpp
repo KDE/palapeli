@@ -18,6 +18,7 @@
 
 #include "slicer.h"
 #include "slicerjob.h"
+#include "slicermode.h"
 #include "slicerproperty.h"
 
 //BEGIN Pala::Slicer::Private
@@ -25,7 +26,8 @@
 class Pala::Slicer::Private
 {
 	public:
-		QMap<QByteArray, const Pala::SlicerProperty*> m_properties;
+		QList<QPair<QString, const Pala::SlicerMode*> > m_modes;
+		QList<QPair<QByteArray, const Pala::SlicerProperty*> > m_properties;
 		Pala::Slicer::SlicerFlags m_flags;
 };
 
@@ -40,11 +42,27 @@ Pala::Slicer::Slicer(QObject* parent, const QVariantList& /*args*/)
 
 Pala::Slicer::~Slicer()
 {
-	qDeleteAll(p->m_properties);
+	for (int i = 0; i < p->m_modes.size(); ++i)
+		delete p->m_modes[i].second;
+	for (int i = 0; i < p->m_properties.size(); ++i)
+		delete p->m_properties[i].second;
 	delete p;
 }
 
+QList<QPair<QString, const Pala::SlicerMode*> > Pala::Slicer::modes() const
+{
+	return p->m_modes;
+}
+
 QMap<QByteArray, const Pala::SlicerProperty*> Pala::Slicer::properties() const
+{
+	QMap<QByteArray, const Pala::SlicerProperty*> result;
+	for (int i = 0; i < p->m_properties.size(); ++i)
+		result[p->m_properties[i].first] = p->m_properties[i].second;
+	return result;
+}
+
+QList<QPair<QByteArray, const Pala::SlicerProperty*> > Pala::Slicer::propertyList() const
 {
 	return p->m_properties;
 }
@@ -56,8 +74,26 @@ Pala::Slicer::SlicerFlags Pala::Slicer::flags() const
 
 void Pala::Slicer::addProperty(const QByteArray& key, Pala::SlicerProperty* property)
 {
-	delete p->m_properties[key]; //this is safe because m_properties[key] == 0 if key has not been used yet
-	p->m_properties[key] = property;
+	//NOTE: This function is done such that it retains the insertion order in the list.
+	for (int i = 0; i < p->m_properties.size(); ++i)
+		if (p->m_properties[i].first == key)
+		{
+			p->m_properties.removeAt(i);
+			break;
+		}
+	p->m_properties << QPair<QByteArray, const Pala::SlicerProperty*>(key, property);
+}
+
+void Pala::Slicer::addMode(const QString& key, Pala::SlicerMode* mode)
+{
+	//NOTE: This one too. ;-)
+	for (int i = 0; i < p->m_modes.size(); ++i)
+		if (p->m_modes[i].first == key)
+		{
+			p->m_modes.removeAt(i);
+			break;
+		}
+	p->m_modes << QPair<QString, const Pala::SlicerMode*>(key, mode);
 }
 
 void Pala::Slicer::setFlags(Pala::Slicer::SlicerFlags flags)
