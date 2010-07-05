@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -21,8 +21,8 @@
 
 #include <QMap>
 class QStackedLayout;
+#include <KAssistantDialog>
 class KComboBox;
-#include <KDialog>
 class KLineEdit;
 class KUrlRequester;
 
@@ -36,7 +36,7 @@ namespace Palapeli
 	class Puzzle;
 	class SlicerConfigWidget;
 
-	class PuzzleCreatorDialog : public KDialog
+	class PuzzleCreatorDialog : public KAssistantDialog
 	{
 		Q_OBJECT
 		public:
@@ -49,15 +49,20 @@ namespace Palapeli
 			void createPuzzle();
 		private:
 			Palapeli::Puzzle* m_result;
-			//general information
+			//page items
+			KPageWidgetItem* m_sourcePage;
+			KPageWidgetItem* m_slicerPage;
+			KPageWidgetItem* m_slicerConfigPage;
+			//first page
 			KUrlRequester* m_imageSelector;
-			KComboBox* m_slicerSelector;
-			//metadata
 			KLineEdit* m_nameEdit;
 			KLineEdit* m_commentEdit;
 			KLineEdit* m_authorEdit;
+			//second page
+			KComboBox* m_slicerSelector;
 			//NOTE: The keys are retrieved from KService::library(), and should only be used internally.
 			QMap<QString, Pala::Slicer*> m_slicers;
+			//third page
 			QMap<QString, Palapeli::SlicerConfigWidget*> m_slicerConfigWidgets;
 			QStackedLayout* m_slicerConfigLayout;
 	};

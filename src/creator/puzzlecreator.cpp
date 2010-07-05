@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -25,6 +25,7 @@
 
 #include <QBoxLayout>
 #include <QFormLayout>
+#include <QLabel>
 #include <QStackedLayout>
 #include <KComboBox>
 #include <KLineEdit>
@@ -36,19 +37,15 @@
 Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	: m_result(0)
 	, m_imageSelector(new KUrlRequester)
-	, m_slicerSelector(new KComboBox)
 	, m_nameEdit(new KLineEdit)
 	, m_commentEdit(new KLineEdit)
 	, m_authorEdit(new KLineEdit)
+	, m_slicerSelector(new KComboBox)
 	, m_slicerConfigLayout(new QStackedLayout)
 {
 	//setup dialog
-	setCaption(i18n("Create new puzzle"));
-	setButtons(KDialog::Ok | KDialog::Cancel);
-	enableButton(KDialog::Ok, false); //too much data is missing (see checkData())
-	setButtonIcon(KDialog::Ok, KIcon("tools-wizard")); //FIXME: This should be a custom "actions/puzzle-new" icon.
-	setButtonText(KDialog::Ok, i18n("Create puzzle"));
-	setButtonToolTip(KDialog::Ok, i18n("Create a new puzzle with the given information, and save it in my collection"));
+	setCaption(i18nc("@title:window", "Create new puzzle"));
+	showButton(KDialog::Help, false);
 	//setup image selector
 	m_imageSelector->setMode(KFile::File | KFile::LocalOnly | KFile::ExistingOnly);
 	//create slicers
@@ -64,38 +61,35 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 		m_slicerSelector->addItem(offer->name(), QVariant(key)); //key is stored as user data
 	}
 	//build sublayouts
-	QFormLayout* basicLayout = new QFormLayout;
-	basicLayout->addRow(i18n("Image file:"), m_imageSelector);
-	basicLayout->addRow(i18n("Puzzle type:"), m_slicerSelector);
-	QFormLayout* metadataLayout = new QFormLayout;
-	metadataLayout->addRow(i18n("Puzzle name:"), m_nameEdit);
-	metadataLayout->addRow(i18nc("Like in: This is an optional comment.", "Optional comment:"), m_commentEdit);
-	metadataLayout->addRow(i18n("Name of image author:"), m_authorEdit);
+	QFormLayout* sourceLayout = new QFormLayout;
+	sourceLayout->addRow(i18nc("@label:chooser", "Image file:"), m_imageSelector);
+	sourceLayout->addRow(new QLabel(i18nc("@info", "Please describe below the image which you have chosen.")));
+	sourceLayout->addRow(i18nc("@label:textbox", "Image name:"), m_nameEdit);
+	sourceLayout->addRow(i18nc("@label:textbox (like in: This comment is optional.)", "Optional comment:"), m_commentEdit);
+	sourceLayout->addRow(i18nc("@label:textbox", "Name of image author:"), m_authorEdit);
+	QFormLayout* slicerLayout = new QFormLayout;
+	slicerLayout->addRow(i18n("Puzzle type:"), m_slicerSelector);
 	QMapIterator<QString, Palapeli::SlicerConfigWidget*> i(m_slicerConfigWidgets);
 	while (i.hasNext())
 		m_slicerConfigLayout->addWidget(i.next().value());
 	selectSlicerConfigWidget(m_slicerSelector->currentIndex());
-	//build group boxes
-	QGroupBox* basicBox = new QGroupBox(i18n("Basic slicing options"));
-	basicBox->setLayout(basicLayout);
-	QGroupBox* metadataBox = new QGroupBox(i18n("Puzzle information"));
-	metadataBox->setLayout(metadataLayout);
-	QGroupBox* slicerConfigBox = new QGroupBox(i18n("Advanced slicing options"));
-	slicerConfigBox->setLayout(m_slicerConfigLayout);
-	//build main layout
-	QVBoxLayout* mainLayout = new QVBoxLayout;
-	mainLayout->addWidget(basicBox);
-	mainLayout->addWidget(slicerConfigBox);
-	mainLayout->addWidget(metadataBox);
-	mainLayout->addItem(new QSpacerItem(1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding));
-	mainLayout->setMargin(0);
-	mainWidget()->setLayout(mainLayout);
+	//build page widget items
+	m_sourcePage = addPage(new QWidget, i18nc("@item:inlistbox (page name in an assistant dialog)", "Choose image"));
+	m_sourcePage->setHeader(i18nc("@title:tab (page header in an assistant dialog)", "Specify the source image to be sliced into pieces"));
+	m_sourcePage->widget()->setLayout(sourceLayout);
+	m_slicerPage = addPage(new QWidget, i18nc("@item:inlistbox (page name in an assistant dialog)", "Choose slicer"));
+	m_slicerPage->setHeader(i18nc("@title:tab (page header in an assistant dialog)", "Choose a slicing method"));
+	m_slicerPage->widget()->setLayout(slicerLayout);
+	m_slicerConfigPage = addPage(new QWidget, i18nc("@item:inlistbox (page name in an assistant dialog)", "Configure slicer"));
+	m_slicerConfigPage->setHeader(i18nc("@title:tab (page header in an assistant dialog)", "Tweak the parameters of the chosen slicing method"));
+	m_slicerConfigPage->widget()->setLayout(m_slicerConfigLayout);
 	//wire up stuff
-	connect(this, SIGNAL(okClicked()), this, SLOT(createPuzzle()));
+	connect(this, SIGNAL(accepted()), this, SLOT(createPuzzle()));
 	connect(m_imageSelector, SIGNAL(urlSelected(const KUrl&)), this, SLOT(checkData()));
 	connect(m_slicerSelector, SIGNAL(currentIndexChanged(int)), this, SLOT(selectSlicerConfigWidget(int)));
 	connect(m_nameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(checkData()));
 	connect(m_authorEdit, SIGNAL(textChanged(const QString&)), this, SLOT(checkData()));
+	checkData(); //to invalidate first page
 }
 
 Palapeli::Puzzle* Palapeli::PuzzleCreatorDialog::result() const
@@ -105,11 +99,11 @@ Palapeli::Puzzle* Palapeli::PuzzleCreatorDialog::result() const
 
 void Palapeli::PuzzleCreatorDialog::checkData()
 {
-	bool enableOk = !m_slicerConfigWidgets.isEmpty();
-	enableOk &= !m_imageSelector->url().isEmpty();
-	enableOk &= !m_nameEdit->text().isEmpty();
-	enableOk &= !m_authorEdit->text().isEmpty();
-	enableButton(KDialog::Ok, enableOk);
+	bool sourceValid = !m_imageSelector->url().isEmpty();
+	sourceValid &= !m_nameEdit->text().isEmpty();
+	sourceValid &= !m_authorEdit->text().isEmpty();
+	setValid(m_sourcePage, sourceValid);
+	setValid(m_slicerPage, !m_slicers.isEmpty());
 }
 
 void Palapeli::PuzzleCreatorDialog::selectSlicerConfigWidget(int index)
