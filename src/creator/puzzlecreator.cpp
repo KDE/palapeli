@@ -18,6 +18,7 @@
 
 #include "puzzlecreator.h"
 #include "slicerconfwidget.h"
+#include "slicerselector.h"
 #include "file-io/puzzle.h"
 #include "file-io/puzzlestructs.h"
 #include "../libpala/slicer.h"
@@ -26,12 +27,11 @@
 #include <QBoxLayout>
 #include <QFormLayout>
 #include <QLabel>
-#include <QStackedLayout>
+#include <QStackedWidget>
 #include <KComboBox>
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KServiceTypeTrader>
 #include <KUrlRequester>
 
 Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
@@ -40,26 +40,14 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	, m_nameEdit(new KLineEdit)
 	, m_commentEdit(new KLineEdit)
 	, m_authorEdit(new KLineEdit)
-	, m_slicerSelector(new KComboBox)
-	, m_slicerConfigLayout(new QStackedLayout)
+	, m_slicerSelector(new Palapeli::SlicerSelector)
+	, m_slicerConfigMasterWidget(new QStackedWidget)
 {
 	//setup dialog
 	setCaption(i18nc("@title:window", "Create new puzzle"));
 	showButton(KDialog::Help, false);
 	//setup image selector
 	m_imageSelector->setMode(KFile::File | KFile::LocalOnly | KFile::ExistingOnly);
-	//create slicers
-	KService::List offers = KServiceTypeTrader::self()->query("Libpala/SlicerPlugin");
-	foreach (KService::Ptr offer, offers) //FIXME: What happens if offers.isEmpty()?
-	{
-		const QString key = offer->library();
-		Pala::Slicer* slicer = offer->createInstance<Pala::Slicer>(0, QVariantList());
-		if (!slicer)
-			continue;
-		m_slicers[key] = slicer;
-		m_slicerConfigWidgets[key] = new Palapeli::SlicerConfigWidget(slicer);
-		m_slicerSelector->addItem(offer->name(), QVariant(key)); //key is stored as user data
-	}
 	//build sublayouts
 	QFormLayout* sourceLayout = new QFormLayout;
 	sourceLayout->addRow(i18nc("@label:chooser", "Image file:"), m_imageSelector);
@@ -67,29 +55,26 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	sourceLayout->addRow(i18nc("@label:textbox", "Image name:"), m_nameEdit);
 	sourceLayout->addRow(i18nc("@label:textbox (like in: This comment is optional.)", "Optional comment:"), m_commentEdit);
 	sourceLayout->addRow(i18nc("@label:textbox", "Name of image author:"), m_authorEdit);
-	QFormLayout* slicerLayout = new QFormLayout;
-	slicerLayout->addRow(i18n("Puzzle type:"), m_slicerSelector);
-	QMapIterator<QString, Palapeli::SlicerConfigWidget*> i(m_slicerConfigWidgets);
-	while (i.hasNext())
-		m_slicerConfigLayout->addWidget(i.next().value());
-	selectSlicerConfigWidget(m_slicerSelector->currentIndex());
+	foreach (const Pala::Slicer* slicer, m_slicerSelector->slicers())
+	{
+		m_slicerConfigWidgets[slicer] = new Palapeli::SlicerConfigWidget(slicer);
+		m_slicerConfigMasterWidget->addWidget(m_slicerConfigWidgets[slicer]);
+	}
 	//build page widget items
 	m_sourcePage = addPage(new QWidget, i18nc("@item:inlistbox (page name in an assistant dialog)", "Choose image"));
 	m_sourcePage->setHeader(i18nc("@title:tab (page header in an assistant dialog)", "Specify the source image to be sliced into pieces"));
 	m_sourcePage->widget()->setLayout(sourceLayout);
-	m_slicerPage = addPage(new QWidget, i18nc("@item:inlistbox (page name in an assistant dialog)", "Choose slicer"));
+	m_slicerPage = addPage(m_slicerSelector, i18nc("@item:inlistbox (page name in an assistant dialog)", "Choose slicer"));
 	m_slicerPage->setHeader(i18nc("@title:tab (page header in an assistant dialog)", "Choose a slicing method"));
-	m_slicerPage->widget()->setLayout(slicerLayout);
-	m_slicerConfigPage = addPage(new QWidget, i18nc("@item:inlistbox (page name in an assistant dialog)", "Configure slicer"));
+	m_slicerConfigPage = addPage(m_slicerConfigMasterWidget, i18nc("@item:inlistbox (page name in an assistant dialog)", "Configure slicer"));
 	m_slicerConfigPage->setHeader(i18nc("@title:tab (page header in an assistant dialog)", "Tweak the parameters of the chosen slicing method"));
-	m_slicerConfigPage->widget()->setLayout(m_slicerConfigLayout);
 	//wire up stuff
 	connect(this, SIGNAL(accepted()), this, SLOT(createPuzzle()));
 	connect(m_imageSelector, SIGNAL(urlSelected(const KUrl&)), this, SLOT(checkData()));
-	connect(m_slicerSelector, SIGNAL(currentIndexChanged(int)), this, SLOT(selectSlicerConfigWidget(int)));
 	connect(m_nameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(checkData()));
 	connect(m_authorEdit, SIGNAL(textChanged(const QString&)), this, SLOT(checkData()));
 	checkData(); //to invalidate first page
+	connect(m_slicerSelector, SIGNAL(currentSelectionChanged(Palapeli::SlicerSelection)), this, SLOT(updateSlicerSelection(Palapeli::SlicerSelection)));
 }
 
 Palapeli::Puzzle* Palapeli::PuzzleCreatorDialog::result() const
@@ -103,14 +88,15 @@ void Palapeli::PuzzleCreatorDialog::checkData()
 	sourceValid &= !m_nameEdit->text().isEmpty();
 	sourceValid &= !m_authorEdit->text().isEmpty();
 	setValid(m_sourcePage, sourceValid);
-	setValid(m_slicerPage, !m_slicers.isEmpty());
 }
 
-void Palapeli::PuzzleCreatorDialog::selectSlicerConfigWidget(int index)
+void Palapeli::PuzzleCreatorDialog::updateSlicerSelection(const Palapeli::SlicerSelection& selection)
 {
-	const QByteArray slicerKey = m_slicerSelector->itemData(index).toByteArray();
-	Palapeli::SlicerConfigWidget* scWidget = m_slicerConfigWidgets[slicerKey];
-	m_slicerConfigLayout->setCurrentWidget(scWidget);
+	setValid(m_slicerPage, (bool) selection.slicer);
+	//update slicer configuration widget
+	Palapeli::SlicerConfigWidget* scWidget = m_slicerConfigWidgets.value(selection.slicer);
+	scWidget->setMode(selection.mode);
+	m_slicerConfigMasterWidget->setCurrentWidget(scWidget);
 }
 
 void Palapeli::PuzzleCreatorDialog::createPuzzle()
@@ -118,14 +104,14 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	if (m_result)
 		return; //We won't create the puzzle if there is one already.
 	//assemble data for slicer run
-	const QByteArray slicerKey = m_slicerSelector->itemData(m_slicerSelector->currentIndex()).toByteArray();
-	Pala::Slicer* slicer = m_slicers[slicerKey];
+	const Palapeli::SlicerSelection selection = m_slicerSelector->currentSelection();
+	const Pala::Slicer* slicer = selection.slicer;
 	if (!slicer)
 	{
 		KMessageBox::sorry(this, i18n("Puzzle cannot be created: The slicer plugin could not be loaded."));
 		return;
 	}
-	QMap<QByteArray, QVariant> slicerArgs = m_slicerConfigWidgets[slicerKey]->arguments();
+	QMap<QByteArray, QVariant> slicerArgs = m_slicerConfigWidgets[selection.slicer]->arguments();
 	QImage image;
 	if (!image.load(m_imageSelector->url().toLocalFile())) //TODO: allow to load remote images
 	{
@@ -133,11 +119,19 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 		return;
 	}
 	Pala::SlicerJob job(image, slicerArgs);
-	if (!slicer->process(&job))
+	job.setMode(selection.mode);
+	if (!const_cast<Pala::Slicer*>(slicer)->process(&job)) //BIC: make Pala::Slicer::process() and run() const
 	{
 		KMessageBox::sorry(this, i18n("Puzzle cannot be created: Slicing failed because of undetermined problems."));
 		return;
 	}
+	//find key for mode
+	QString modeKey;
+	typedef QPair<QString, const Pala::SlicerMode*> ModePair;
+	if (selection.mode)
+		foreach (const ModePair& pair, slicer->modes())
+			if (pair.second == selection.mode)
+				modeKey = pair.first;
 	//create puzzle structs
 	Palapeli::PuzzleMetadata* metadata = new Palapeli::PuzzleMetadata;
 	metadata->name = m_nameEdit->text();
@@ -158,7 +152,8 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	contents->pieceOffsets = job.pieceOffsets();
 	contents->relations = job.relations();
 	Palapeli::PuzzleCreationContext* creationContext = new Palapeli::PuzzleCreationContext;
-	creationContext->usedSlicer = slicerKey;
+	creationContext->usedSlicer = selection.slicerPluginName;
+	creationContext->usedSlicerMode = modeKey;
 	creationContext->usedSlicerArgs = slicerArgs;
 	creationContext->pieces = job.pieces();
 	//create puzzle

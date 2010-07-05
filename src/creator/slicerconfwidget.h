@@ -19,12 +19,14 @@
 #ifndef PALAPELI_SLICERCONFWIDGET_H
 #define PALAPELI_SLICERCONFWIDGET_H
 
-#include <QMap>
+class QFormLayout;
 #include <QWidget>
 
 namespace Pala
 {
 	class Slicer;
+	class SlicerMode;
+	class SlicerProperty;
 }
 
 namespace Palapeli
@@ -34,11 +36,19 @@ namespace Palapeli
 	class SlicerConfigWidget : public QWidget
 	{
 		public:
-			SlicerConfigWidget(Pala::Slicer* slicer);
+			SlicerConfigWidget(const Pala::Slicer* slicer);
 
 			QMap<QByteArray, QVariant> arguments() const;
+			void setMode(const Pala::SlicerMode* mode);
 		private:
-			QMap<QByteArray, Palapeli::PropertyWidget*> m_propertyWidgets;
+			struct Entry
+			{
+				QByteArray key;
+				const Pala::SlicerProperty* property;
+				Palapeli::PropertyWidget* widget;
+			};
+			QList<Entry> m_entries;
+			QFormLayout* m_layout;
 	};
 }
 

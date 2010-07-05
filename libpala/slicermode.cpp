@@ -35,13 +35,13 @@ Pala::SlicerMode::~SlicerMode()
 	delete p;
 }
 
-void Pala::SlicerMode::filterProperties(QList<QPair<QByteArray, const Pala::SlicerProperty*> >& properties)
+void Pala::SlicerMode::filterProperties(QMap<QByteArray, const Pala::SlicerProperty*>& properties) const
 {
-	QMutableListIterator<QPair<QByteArray, const Pala::SlicerProperty*> > iter(properties);
+	QMutableMapIterator<QByteArray, const Pala::SlicerProperty*> iter(properties);
 	while (iter.hasNext())
 	{
-		const QByteArray key = iter.next().first;
-		bool isEnabled = iter.value().second->isEnabled();
+		const QByteArray key = iter.next().key();
+		bool isEnabled = iter.value()->isEnabled();
 		if (p->m_propertyEnabledExceptions.contains(key))
 			isEnabled = p->m_propertyEnabledExceptions.value(key);
 		if (!isEnabled)

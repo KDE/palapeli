@@ -44,7 +44,7 @@ namespace Pala
 	 *
 	 * \sa Pala::Slicer::addMode, Pala::SlicerJob::mode
 	 */
-	class SlicerMode
+	class LIBPALA_EXPORT SlicerMode
 	{
 		public:
 			SlicerMode();
@@ -52,7 +52,7 @@ namespace Pala
 
 			//The following functions belong to the interface to the Palapeli application. They are not documented because the documentation is targeted at slicer developers.
 			///\internal
-			void filterProperties(QList<QPair<QByteArray, const Pala::SlicerProperty*> >& properties); //This function removes all properties from the given map which are disabled in this mode, taking both Pala::SlicerProperty::isEnabled and the exceptions defined by this mode into account.
+			void filterProperties(QMap<QByteArray, const Pala::SlicerProperty*>& properties) const; //This function removes all properties from the given map which are disabled in this mode, taking both Pala::SlicerProperty::isEnabled and the exceptions defined by this mode into account.
 
 			///Defines whether the property which has been added to Pala::Slicer with the given key, is enabled when this mode is selected. If this mode does not define the state for some property, the state defined by the property itself (through the Palapeli::SlicerProperty::setEnabled() method) is used. You will therefore probably use this function only to define exceptions from this default state.
 			void setPropertyEnabled(const QByteArray& property, bool enabled);

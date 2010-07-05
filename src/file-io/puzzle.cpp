@@ -245,6 +245,7 @@ void Palapeli::Puzzle::createNewArchiveFile()
 	{
 		jobGroup.writeEntry("Image", KUrl("kfiledialog:///palapeli/pseudopath")); //just a placeholder, to make sure that an "Image" key is available
 		jobGroup.writeEntry("Slicer", m_creationContext->usedSlicer);
+		jobGroup.writeEntry("SlicerMode", m_creationContext->usedSlicerMode);
 		QMapIterator<QByteArray, QVariant> iterSlicerArgs(m_creationContext->usedSlicerArgs);
 		while (iterSlicerArgs.hasNext())
 		{

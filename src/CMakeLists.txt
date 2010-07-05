@@ -10,6 +10,7 @@ set(palapeli_SRCS
 	creator/propertywidget.cpp
 	creator/puzzlecreator.cpp
 	creator/slicerconfwidget.cpp
+	creator/slicerselector.cpp
 	engine/constraintinteractor.cpp
 	engine/constraintvisualizer.cpp
 	engine/interactor.cpp

@@ -19,14 +19,15 @@
 #include "slicerconfwidget.h"
 #include "propertywidget.h"
 #include "../libpala/slicer.h"
+#include "../libpala/slicermode.h"
 #include "../libpala/slicerproperty.h"
 
 #include <QFormLayout>
 
-Palapeli::SlicerConfigWidget::SlicerConfigWidget(Pala::Slicer* slicer)
+Palapeli::SlicerConfigWidget::SlicerConfigWidget(const Pala::Slicer* slicer)
+	: m_layout(new QFormLayout)
 {
-	QFormLayout* layout = new QFormLayout;
-	setLayout(layout);
+	setLayout(m_layout);
 	//create property widgets
 	typedef QPair<QByteArray, const Pala::SlicerProperty*> PropertyPair;
 	QList<PropertyPair> properties = slicer->propertyList();
@@ -34,19 +35,33 @@ Palapeli::SlicerConfigWidget::SlicerConfigWidget(Pala::Slicer* slicer)
 	{
 		const Pala::SlicerProperty* property = propPair.second;
 		Palapeli::PropertyWidget* propWidget = Palapeli::createPropertyWidget(property);
-		m_propertyWidgets[propPair.first] = propWidget;
-		layout->addRow(property->caption() + QChar(':'), propWidget);
+		Entry entry = { propPair.first, property, propWidget };
+		m_entries << entry;
+		m_layout->addRow(property->caption() + QChar(':'), propWidget);
 	}
 }
 
 QMap<QByteArray, QVariant> Palapeli::SlicerConfigWidget::arguments() const
 {
 	QMap<QByteArray, QVariant> result;
-	QMapIterator<QByteArray, Palapeli::PropertyWidget*> i(m_propertyWidgets);
-	while (i.hasNext())
-	{
-		const Palapeli::PropertyWidget* propWidget = i.next().value();
-		result[i.key()] = propWidget->propertyValue();
-	}
+	foreach (const Entry& entry, m_entries)
+		result.insert(entry.key, entry.widget->propertyValue());
 	return result;
+}
+
+void Palapeli::SlicerConfigWidget::setMode(const Pala::SlicerMode* mode)
+{
+	//determine enabled properties
+	QMap<QByteArray, const Pala::SlicerProperty*> enabledProps;
+	foreach (const Entry& entry, m_entries)
+		enabledProps.insert(entry.key, entry.property);
+	if (mode)
+		mode->filterProperties(enabledProps);
+	//update widget visibility according to enabled/disabled state
+	foreach (const Entry& entry, m_entries)
+	{
+		const bool isVisible = enabledProps.contains(entry.key);
+		entry.widget->setVisible(isVisible);
+		m_layout->labelForField(entry.widget)->setVisible(isVisible);
+	}
 }

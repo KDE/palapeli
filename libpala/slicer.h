@@ -93,6 +93,7 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 			SlicerFlags flags() const;
 			///\internal
 			bool process(Pala::SlicerJob* job); //a wrapper function for Pala::Slicer::run
+			//BIC: constify method
 
 			//This class is the only interface that slicers can use to communicate with Palapeli, and it is only instantiated very few times (one instance per slicer plugin), so it should be reasonable to reserve some space in the virtual table for future additions.
 			RESERVE_VIRTUAL_5
@@ -119,6 +120,7 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 			 * \see Pala::SlicerJob
 			 */
 			virtual bool run(Pala::SlicerJob* job) = 0;
+			//BIC: constify method
 		private:
 			class Private;
 			Private* const p;

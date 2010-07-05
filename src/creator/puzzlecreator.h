@@ -19,8 +19,10 @@
 #ifndef PALAPELI_PUZZLECREATOR_H
 #define PALAPELI_PUZZLECREATOR_H
 
+#include "slicerselector.h"
+
 #include <QMap>
-class QStackedLayout;
+class QStackedWidget;
 #include <KAssistantDialog>
 class KComboBox;
 class KLineEdit;
@@ -45,7 +47,7 @@ namespace Palapeli
 			Palapeli::Puzzle* result() const;
 		private Q_SLOTS:
 			void checkData();
-			void selectSlicerConfigWidget(int index);
+			void updateSlicerSelection(const Palapeli::SlicerSelection& selection);
 			void createPuzzle();
 		private:
 			Palapeli::Puzzle* m_result;
@@ -58,13 +60,10 @@ namespace Palapeli
 			KLineEdit* m_nameEdit;
 			KLineEdit* m_commentEdit;
 			KLineEdit* m_authorEdit;
-			//second page
-			KComboBox* m_slicerSelector;
-			//NOTE: The keys are retrieved from KService::library(), and should only be used internally.
-			QMap<QString, Pala::Slicer*> m_slicers;
-			//third page
-			QMap<QString, Palapeli::SlicerConfigWidget*> m_slicerConfigWidgets;
-			QStackedLayout* m_slicerConfigLayout;
+			//second/third page
+			Palapeli::SlicerSelector* m_slicerSelector;
+			QMap<const Pala::Slicer*, Palapeli::SlicerConfigWidget*> m_slicerConfigWidgets;
+			QStackedWidget* m_slicerConfigMasterWidget;
 	};
 }
 
