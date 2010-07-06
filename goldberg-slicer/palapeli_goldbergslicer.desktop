@@ -13,6 +13,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 Name=Goldberg
+Name[da]=Goldberg
 Name[pt]=Goldberg
 Name[pt_BR]=Goldberg
 Name[sv]=Goldberg
