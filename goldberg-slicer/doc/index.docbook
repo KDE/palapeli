@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+<!ENTITY palapeli "<application>Palapeli</application>">
+<!ENTITY kappname "&palapeli;">
+<!ENTITY package "kdegames">
+<!ENTITY % English "INCLUDE">
+<!ENTITY % addindex "IGNORE">
+]>
+<book lang="&language;">
+  <bookinfo>
+    <title>Chapter for the Goldberg slicer plugin for &palapeli;</title>
+    <authorgroup>
+      <author>
+        <firstname>Johannes</firstname>
+        <surname>L&#xF6;hnert</surname>
+        <affiliation>
+          <address>
+            <email>loehnert_kde@gmx.de</email>
+          </address>
+        </affiliation>
+      </author>
+      <!-- TRANS:ROLES_OF_TRANSLATORS -->
+    </authorgroup>
+    <copyright>
+      <year>2009, 2010</year>
+      <holder>Johannes L&#xF6;hnert, Stefan Majewsky</holder>
+    </copyright>
+    <legalnotice>&FDLNotice;</legalnotice>
+    <date>2010-06-28</date>
+    <releaseinfo>0.4</releaseinfo>
+    <abstract>
+      <para>This chapter is to be included in the palapeli documentation when the plugin is moved there.</para>
+    </abstract>
+  </bookinfo>
+  <chapter id="creating">
+    <title>Creating a new puzzle</title>
+    <para>The following options can be set when creating a puzzle:</para>
+    <sect1 id="tesselation-type">
+      <title>Tesselation type</title>
+      <para>determines which grid is used to split up the image, or put another way, what shape the puzzle pieces will have. You have the following choices:</para>
+      <variablelist>
+        <varlistentry>
+            <term><guimenuitem>Rectangular Grid</guimenuitem></term>
+            <listitem><para>The ordinary jigsaw puzzle as we all know and love it.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><guimenuitem>Cairo pentagonal</guimenuitem></term>
+            <listitem><para>Five-sided pieces with unequal edge angles.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><guimenuitem>Hexagonal</guimenuitem></term>
+            <listitem><para>Six-sided pieces.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><guimenuitem>Rotrex (rhombi-trihexagonal)</guimenuitem></term>
+            <listitem><para>Hexagons surrounded by rectangles and triangles. Looks like many intersecting circles.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><guimenuitem>Irregular</guimenuitem></term>
+            <listitem><para>random pieces. The program <application>qvoronoi</application> (part of <application>qhull</application>) is needed to generate irregular puzzles.</para></listitem>
+        </varlistentry>
+      </variablelist>
+      <para>The Cairo tesselation is rather hard to puzzle, since the pieces fit together in an unfamiliar manner. The Rotrex tesselation is simpler than the rectangular grid and looks pretty when put together.</para>
+    </sect1>
+    <sect1 id="piece-count">
+      <title>Approx. piece count</title>
+      <para>is used to calculate the grid size. In most cases the actual piece count will be somewhat larger or smaller than what you set.</para>
+    </sect1>
+    <sect1 id="flipped-edges">
+      <title>Flipped edge percentage</title>
+      <para>sets the probability for each edge (plug) to be "flipped". A plug is "flipped" if it points in the opposite direction as it would in a fully regular grid. On the rectangular grid, this results in pieces with 3 or 4 plugs pointing inwards resp. outwards.</para>
+      <itemizedlist>
+        <listitem><para>0% (slider at the left): no edges are flipped, fully regular grid</para></listitem>
+        <listitem><para>50% (slider in the middle): All edges are random.</para></listitem>
+        <listitem><para>100% (slider at the right): Fully regular grid again, but now with "alternate" rule.</para></listitem>
+      </itemizedlist>
+      <para>"Alternate" rule does <emphasis>not</emphasis> simply mean reversal of all plugs. In the alternate rectangular grid, each piece has 4 inward or 4 outward-pointing plugs. For the other tesselations, just try it out.</para>
+      <para>This setting has no effect when using the irregular tesselation.</para>
+    </sect1>
+    <sect1 id="edge-curviness">
+      <title>Edge curviness</title>
+      <para>determines how curvy the edges are, &ie; how strongly the borders "dent in" or "bulge out".</para>
+      <itemizedlist>
+        <listitem><para>0%: edges are straight lines (except for the plugs)</para></listitem>
+        <listitem><para>100%: edges are very curved.</para></listitem>
+      </itemizedlist>
+    </sect1>
+    <sect1 id="plug-size">
+      <title>Plug size</title>
+      <para>determines the size of the "plug" part of each edge. The default (middle) setting is chosen to look like a real puzzle.</para>
+      <itemizedlist>
+        <listitem><para>0%: plugs are half the default size.</para></listitem>
+        <listitem><para>100%: plugs are 1.5x the default size, which already looks obscenely large.</para></listitem>
+      </itemizedlist>
+      <para>The program tries very hard to avoid collisions between plugs. Colliding edges are reshaped multiple times and shrinked in small steps. However there still remain cases where no solution can be found, especially for large plug sizes.</para>
+    </sect1>
+    <sect1 id="diversity-curviness">
+      <title>Diversity of curviness</title>
+      <para>determines how much the "curviness" (see above) varies between borders.</para>
+      <itemizedlist>
+        <listitem><para>0%: The "dents" and "bulges" look all the same.</para></listitem>
+        <listitem><para>100%: There are very curvy and very straight borders.</para></listitem>
+      </itemizedlist>
+    </sect1>
+    <sect1 id="diversity-position">
+      <title>Diversity of plug position</title>
+      <para>determines how much the plug position varies:</para>
+      <itemizedlist>
+        <listitem><para>0%: Plugs are all in the middle of their border.</para></listitem>
+        <listitem><para>100%: Plugs may be anywhere between the border endpoints.</para></listitem>
+      </itemizedlist>
+    </sect1>
+    <sect1 id="diversity-plugs">
+      <title>Diversity of plugs</title>
+      <para>determines how individual the plugs look like.</para>
+      <itemizedlist>
+        <listitem><para>0%: Plugs look all the same.</para></listitem>
+        <listitem><para>100%: Each plug will be a unique piece of art crafted especially for you.</para></listitem>
+      </itemizedlist>
+    </sect1>
+    <sect1 id="diversity-size">
+      <title>Irr.: Diversity of piece size</title>
+      <para>applies only to irregular tesselation, and determines how much the piece size varies.</para>
+      <itemizedlist>
+        <listitem><para>100%: very small and large pieces.</para></listitem>
+        <listitem><para>50%: (default) pieces are all roughly of same size.</para></listitem>
+        <listitem><para>0%: pieces are roughly of same size, crystallite-like structures arise.</para></listitem>
+      </itemizedlist>
+    </sect1>
+    <sect1 id="piece-outlines">
+      <title>Piece outlines</title>
+      <para>Draw a fine black outline around each piece, so that the individual pieces remain discernible in the assembled puzzle.</para>
+    </sect1>
+    <sect1 id="dump-grid">
+      <title>Dump grid image</title>
+      <para>Save an image of the grid (black edges on white background). It is saved as <filename>~/goldber-slicer-dump.png</filename>. If a previous dump exists, it is overwritten.</para>
+    </sect1>
+  </chapter>
+</book>
