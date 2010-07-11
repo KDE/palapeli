@@ -16,7 +16,7 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#include "grid-cairo.h"
+#include "grid.h"
 
 #include <cmath>
 #include <QPainterPath>
@@ -37,7 +37,7 @@ struct CairoCell {
     int id_left;
 };
 
-void generateCairoGrid(GoldbergEngine *e, int piece_count) {
+void CairoMode::generateGrid(GoldbergEngine *e, int piece_count) const {
     int next_piece_id=0;
 
     int collision_tries = 10 * e->m_plug_size * e->m_plug_size;

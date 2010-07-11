@@ -15,7 +15,8 @@
  *   along with this program; if not, write to the Free Software
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
-#include "grid-voronoi.h"
+
+#include "grid.h"
 
 #include <cmath>
 #include <QPainterPath>
@@ -192,7 +193,7 @@ void add_frame_segment(QPainterPath &path, QPointF from, QPointF to, int width, 
 
 // end auxiliary functions
 
-void generateIrregularGrid(GoldbergEngine *e, int piece_count) {
+void IrregularMode::generateGrid(GoldbergEngine *e, int piece_count) const {
     PointFinder *pfinder, *new_pfinder;
     int width = e->get_image_width();
     int height = e->get_image_height();
@@ -265,7 +266,7 @@ void generateIrregularGrid(GoldbergEngine *e, int piece_count) {
 }
 
 
-bool checkForQVoronoi() {
+bool IrregularMode::checkForQVoronoi() {
     QProcess process;
 
     process.start("qvoronoi");
@@ -291,7 +292,7 @@ struct VoronoiCell {
     QList<int> border_to;
 };
 
-void generateVoronoiGrid(GoldbergEngine *e, QList<QPointF> cell_centers) {
+void IrregularMode::generateVoronoiGrid(GoldbergEngine *e, QList<QPointF> cell_centers) const {
     QList<VoronoiVertex> cell_corners;
     QList<VoronoiCell> cells;
     QList<GBClassicPlugParams*> borders;

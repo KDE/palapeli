@@ -20,18 +20,13 @@
 
 #include "slicer-goldberg.h"
 
-#include <QDebug>
 #include <QMessageBox>
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KPluginLoader>
 
 #include "goldberg-engine.h"
-#include "grid-rect.h"
-#include "grid-hex.h"
-#include "grid-cairo.h"
-#include "grid-rotrex.h"
-#include "grid-voronoi.h"
+#include "grid.h"
 #include "utilities.h"
 
 K_PLUGIN_FACTORY(SvgSlicerFactory, registerPlugin<GoldbergSlicer>();)
@@ -41,27 +36,19 @@ GoldbergSlicer::GoldbergSlicer(QObject* parent, const QVariantList& args)
             : Pala::Slicer(parent, args) {
 
     Pala::IntegerProperty* prop;
-    Pala::StringProperty* sprop;
     Pala::BooleanProperty* bprop;
 
-    m_qvoronoi_available = checkForQVoronoi();
+    m_qvoronoi_available = IrregularMode::checkForQVoronoi();
 
-    m_tesselations.clear();
-    m_tesselations.append(i18n("Rectangular grid"));
-    m_tesselations.append(i18nc("Puzzle grid type", "Cairo Pentagonal"));
-    m_tesselations.append(i18nc("Puzzle grid type", "Hexagonal"));
-    m_tesselations.append(i18nc("Puzzle grid type", "Rotrex (rhombi-trihexagonal)"));
-    if (m_qvoronoi_available) {
-        m_tesselations.append(i18nc("Puzzle grid type", "Irregular"));
-    }
-    else {
-        m_tesselations.append(i18nc("Puzzle grid type", "(QHull missing): Irregular"));
-    }
-    sprop = new Pala::StringProperty(i18n("Tesselation type"));
-    sprop->setChoices(m_tesselations);
-    addProperty("010_Tesselation", sprop);
+    addMode(new RectMode);
+    addMode(new CairoMode);
+    addMode(new HexMode);
+    addMode(new RotrexMode);
+    Pala::SlicerMode* irregularMode = 0;
+    if (m_qvoronoi_available)
+        addMode(irregularMode = new IrregularMode);
 
-    prop = new Pala::IntegerProperty(i18n("Approx. Piece count"));
+    prop = new Pala::IntegerProperty(i18n("Approx. piece count"));
     prop->setRange(2, 2000);
     prop->setDefaultValue(30);
     prop->setRepresentation(Pala::IntegerProperty::SpinBox);
@@ -103,13 +90,16 @@ GoldbergSlicer::GoldbergSlicer(QObject* parent, const QVariantList& args)
     prop->setRepresentation(Pala::IntegerProperty::Slider);
     addProperty("057_SigmaPlugs", prop);
 
-    prop = new Pala::IntegerProperty(i18n("Irr.: diversity of piece size"));
+    prop = new Pala::IntegerProperty(i18n("Diversity of piece size"));
     prop->setRange(0, 30);
     prop->setDefaultValue(15);
     prop->setRepresentation(Pala::IntegerProperty::Slider);
+    prop->setEnabled(false);
+    if (irregularMode)
+        irregularMode->setPropertyEnabled("058_IrrPieceSizeDiversity", true);
     addProperty("058_IrrPieceSizeDiversity", prop);
 
-    bprop = new Pala::BooleanProperty(i18n("Piece outlines"));
+    bprop = new Pala::BooleanProperty(i18n("Draw piece outlines"));
     bprop->setDefaultValue(true);
     addProperty("060_Outlines", bprop);
 
@@ -124,7 +114,6 @@ bool GoldbergSlicer::run(Pala::SlicerJob* job) {
 
     GoldbergEngine engine = GoldbergEngine(job);
 
-    int grid_type = m_tesselations.indexOf(job->argument("010_Tesselation"));
     int piece_count = job->argument("020_PieceCount").toInt();
     engine.m_flip_threshold = job->argument("030_FlipThreshold").toInt();
     engine.m_edge_curviness = job->argument("040_EdgeCurviness").toInt();
@@ -147,31 +136,11 @@ bool GoldbergSlicer::run(Pala::SlicerJob* job) {
     engine.m_unresolved_collisions = 0;
     if (engine.m_alternate_flip) engine.m_flip_threshold = 100-engine.m_flip_threshold;
 
-    switch (grid_type) {
-    case 0:
-        generateRectGrid(&engine, piece_count);
-        break;
-    case 1:
-        generateCairoGrid(&engine, piece_count);
-        break;
-    case 2:
-        generateHexGrid(&engine, piece_count);
-        break;
-    case 3:
-        generateRotrexGrid(&engine, piece_count);
-        break;
-    case 4:
-        if (m_qvoronoi_available) {
-            generateIrregularGrid(&engine, piece_count);
-        }
-        else {
-            QMessageBox msgBox;
-            msgBox.setText(i18n("Please install qvoronoi (part of the package QHull) to generate this tesselation type."));
-            msgBox.setIcon(QMessageBox::Information);
-            msgBox.exec();
-            return false;
-        }
-    }
+    //determine selected mode, and call grid generation algorithm
+    const GoldbergMode* mode = static_cast<const GoldbergMode*>(job->mode());
+    if (!mode)
+        return false;
+    mode->generateGrid(&engine, piece_count);
 
     engine.dump_grid_image();
 

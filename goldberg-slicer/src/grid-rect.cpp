@@ -16,7 +16,7 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#include "grid-rect.h"
+#include "grid.h"
 
 #include <cmath>
 #include <QPainterPath>
@@ -24,7 +24,7 @@
 #include <KLocalizedString>
 #include "utilities.h"
 
-void generateRectGrid(GoldbergEngine *e, int piece_count) {
+void RectMode::generateGrid(GoldbergEngine *e, int piece_count) const {
     // number of tries to resolve collision
     int collision_tries = 10 * e->m_plug_size * e->m_plug_size;
     if (collision_tries < 5) collision_tries = 5;

@@ -16,7 +16,7 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#include "grid-hex.h"
+#include "grid.h"
 
 #include <cmath>
 #include <QPainterPath>
@@ -36,7 +36,8 @@ struct HexCell {
     // id of piece in cell (upper one for odd column)
     int id;
 };
-void generateHexGrid(GoldbergEngine *e, int piece_count) {
+
+void HexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
     const qreal ONE_SIXTH = 1/6.0;
 
     int collision_tries = 10 * e->m_plug_size * e->m_plug_size;

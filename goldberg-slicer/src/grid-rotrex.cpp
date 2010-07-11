@@ -16,7 +16,7 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#include "grid-rotrex.h"
+#include "grid.h"
 
 #include <cmath>
 #include <QPainterPath>
@@ -39,7 +39,8 @@ struct RotrexCell {
     int id_tri;    // of the triangular piece on the top cell corner
     int id_rect;   // of the rect piece fully contained in the cell
 };
-void generateRotrexGrid(GoldbergEngine *e, int piece_count) {
+
+void RotrexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
     // fixed offsets in relative units of cell size. see image.
     // set as constants so we don't have to throw magic numbers around all the time.
     // square root of three - helper number
