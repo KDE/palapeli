@@ -1,5 +1,23 @@
 include_directories(${pala_INCLUDE_DIRS})
 
+### locate qvoronoi executable (only to print a nice warning if it's not there)
+
+find_program(QVORONOI_EXECUTABLE NAMES qvoronoi
+	# search in $PATH only (to match the behavior of the program)
+	NO_CMAKE_PATH
+	NO_CMAKE_ENVIRONMENT_PATH
+	NO_CMAKE_SYSTEM_PATH
+)
+if(QVORONOI_EXECUTABLE)
+	set(QVORONOI_FOUND TRUE)
+else(QVORONOI_EXECUTABLE)
+	set(QVORONOI_FOUND FALSE)
+endif(QVORONOI_EXECUTABLE)
+
+macro_log_feature(QVORONOI_FOUND "qvoronoi" "Part of the qhull package, needed for the irregular grid from the Palapeli Slicer Collection" "http://www.qhull.org/download" FALSE "" "")
+
+### build
+
 set(palapeli_goldbergslicer_SRCS
 	src/slicer-goldberg.cpp
 	src/goldberg-engine.cpp
