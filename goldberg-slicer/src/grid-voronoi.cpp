@@ -22,7 +22,6 @@
 #include <QPainterPath>
 #include <QProcess>
 #include <QDebug>
-#include <KLocalizedString>
 #include "pointfinder.h"
 #include "utilities.h"
 

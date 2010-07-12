@@ -21,7 +21,6 @@
 #include <cmath>
 #include <QPainterPath>
 #include <QDebug>
-#include <KLocalizedString>
 #include "utilities.h"
 
 

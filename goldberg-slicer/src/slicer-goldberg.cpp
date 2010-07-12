@@ -20,8 +20,6 @@
 
 #include "slicer-goldberg.h"
 
-#include <QMessageBox>
-#include <KLocalizedString>
 #include <KPluginFactory>
 #include <KPluginLoader>
 

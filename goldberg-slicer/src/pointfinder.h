@@ -19,7 +19,6 @@
 #ifndef POINTFINDER_H
 #define POINTFINDER_H
 
-#include <QtGlobal>
 #include <QPointF>
 #include <QList>
 
