@@ -3,10 +3,11 @@ include_directories(${pala_INCLUDE_DIRS})
 ### locate qvoronoi executable (only to print a nice warning if it's not there)
 
 find_program(QVORONOI_EXECUTABLE NAMES qvoronoi
-	# search in $PATH only (to match the behavior of the program)
+	# search in $ENV{PATH} only (to match the behavior of the program)
 	NO_CMAKE_PATH
 	NO_CMAKE_ENVIRONMENT_PATH
 	NO_CMAKE_SYSTEM_PATH
+	#NO_SYSTEM_ENVIRONMENT_PATH <- not this one, because we want $ENV{PATH} (see CMake manual for details)
 )
 if(QVORONOI_EXECUTABLE)
 	set(QVORONOI_FOUND TRUE)
