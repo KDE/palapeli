@@ -66,7 +66,7 @@ namespace Palapeli
 			void continueLoading();
 			void loadNextPiece();
 			void loadPiecePositions();
-			void createShadowForNextPiece();
+			void completeVisualsForNextPiece();
 			void finishLoading();
 		private:
 			void loadPuzzleInternal();

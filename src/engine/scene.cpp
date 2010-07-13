@@ -285,19 +285,17 @@ void Palapeli::Scene::loadPiecePositions()
 		}
 	}
 	//continue after eventloop run
-	QTimer::singleShot(0, this, SLOT(createShadowForNextPiece()));
+	QTimer::singleShot(0, this, SLOT(completeVisualsForNextPiece()));
 }
 
-void Palapeli::Scene::createShadowForNextPiece()
+void Palapeli::Scene::completeVisualsForNextPiece()
 {
 	foreach (Palapeli::Piece* piece, m_pieces)
 	{
-		if (!piece->hasShadow())
+		if (piece->completeVisuals())
 		{
-			//found a piece without shadow
-			piece->createShadow();
-			//continue with next piece after eventloop run
-			QTimer::singleShot(0, this, SLOT(createShadowForNextPiece()));
+			//something had to be done -> continue with next piece after eventloop run
+			QTimer::singleShot(0, this, SLOT(completeVisualsForNextPiece()));
 			return;
 		}
 	}

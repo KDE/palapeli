@@ -1,5 +1,6 @@
 /***************************************************************************
  *   Copyright 2010 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2010 Johannes Löhnert <loehnert.kde@gmx.de>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -35,9 +36,13 @@ namespace Palapeli
 		Q_PROPERTY(qreal activeShadowOpacity READ activeShadowOpacity WRITE setActiveShadowOpacity)
 		public:
 			///This constructor creates a piece without a shadow, unless a shadow is provided explicitly.
-			explicit Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals = Palapeli::PieceVisuals());
-			///This method will create a shadow for this piece if there is none ATM.
-			void createShadow();
+			explicit Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals = Palapeli::PieceVisuals(), const Palapeli::BevelMap& bevelMap = Palapeli::BevelMap());
+			///This method will
+			///\li create a shadow for this piece if there is none ATM.
+			///\li apply the bevel map to the piece pixmap.
+			///These operations need not be done until the piece is about to be shown.
+			///\return whether something needed to be done
+			bool completeVisuals();
 
 			///Returns the bounding rect without shadows.
 			QRectF bareBoundingRect() const;
@@ -45,6 +50,7 @@ namespace Palapeli
 			Palapeli::PieceVisuals pieceVisuals() const;
 			bool hasShadow() const;
 			Palapeli::PieceVisuals shadowVisuals() const;
+			Palapeli::BevelMap bevelMap() const;
 
 			bool isSelected() const;
 			void setSelected(bool selected);
@@ -84,6 +90,10 @@ namespace Palapeli
 			QGraphicsPixmapItem* m_inactiveShadowItem;
 			QGraphicsPixmapItem* m_activeShadowItem;
 			QPropertyAnimation* m_animator;
+
+			Palapeli::PieceVisuals m_plainVisuals;
+			Palapeli::BevelMap m_bevelMap;
+			bool m_bevelMapApplied;
 
 			QList<int> m_representedAtomicPieces;
 			QList<Palapeli::Piece*> m_logicalNeighbors;

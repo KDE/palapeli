@@ -1,5 +1,6 @@
 /***************************************************************************
  *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2010 Johannes Löhnert <loehnert.kde@gmx.de>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -25,11 +26,14 @@
 #include <QPalette>
 #include <QPropertyAnimation>
 
-Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals)
+Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals, const Palapeli::BevelMap& bevelMap)
 	: m_pieceItem(0)
 	, m_inactiveShadowItem(0)
 	, m_activeShadowItem(0)
 	, m_animator(0)
+	, m_plainVisuals(pieceVisuals)
+	, m_bevelMap(bevelMap)
+	, m_bevelMapApplied(false)
 {
 	//initialize appearance
 	Palapeli::SelectionAwarePixmapItem* pieceItem = new Palapeli::SelectionAwarePixmapItem(pieceVisuals.pixmap, this);
@@ -38,18 +42,43 @@ Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapel
 	m_pieceItem->setOffset(pieceVisuals.offset);
 	if (!shadowVisuals.isNull())
 		createShadowItems(shadowVisuals);
+	//create bevel map if none is provided (this is the case only during loading
+	//as pieces created during merging will be provided with a merged bevel map)
+	if (m_bevelMap.isEmpty())
+	{
+		const QSize size = m_plainVisuals.pixmap.size();
+		const int radius = 0.04 * (size.width() + size.height());
+		m_bevelMap = Palapeli::calculateBevelMap(m_plainVisuals.pixmap, radius);
+	}
 	//initialize behavior
 	m_pieceItem->setAcceptedMouseButtons(Qt::LeftButton);
 	m_pieceItem->setCursor(Qt::OpenHandCursor);
 	m_pieceItem->setFlag(QGraphicsItem::ItemIsSelectable);
+
+	// replacing m_pieceItems pixmap (in rerenderBevel()) causes weird pixel errors
+	// when using fast transformation. SmoothTransformation looks better anyway...
+	m_pieceItem->setTransformationMode(Qt::SmoothTransformation);
 }
 
 //BEGIN visuals
 
-void Palapeli::Piece::createShadow()
+bool Palapeli::Piece::completeVisuals()
 {
+	bool didSomething = false;
 	if (!m_inactiveShadowItem)
+	{
 		createShadowItems(Palapeli::createShadow(pieceVisuals(), m_atomicSize));
+		didSomething = true;
+	}
+	//render bevel map onto piece image
+	if (!m_bevelMapApplied)
+	{
+		// 0.0 = rotation angle of piece - ATM pieces cannot be rotated
+		const QPixmap pm = Palapeli::applyBevelMap(m_plainVisuals.pixmap, m_bevelMap, 0.0);
+		m_pieceItem->setPixmap(pm);
+		didSomething = m_bevelMapApplied = true;
+	}
+	return didSomething;
 }
 
 bool Palapeli::Piece::hasShadow() const
@@ -85,8 +114,7 @@ QRectF Palapeli::Piece::sceneBareBoundingRect() const
 
 Palapeli::PieceVisuals Palapeli::Piece::pieceVisuals() const
 {
-	Palapeli::PieceVisuals result = { m_pieceItem->pixmap(), m_pieceItem->offset().toPoint() };
-	return result;
+	return m_plainVisuals;
 }
 
 Palapeli::PieceVisuals Palapeli::Piece::shadowVisuals() const
@@ -95,6 +123,11 @@ Palapeli::PieceVisuals Palapeli::Piece::shadowVisuals() const
 		return Palapeli::PieceVisuals();
 	Palapeli::PieceVisuals result = { m_inactiveShadowItem->pixmap(), m_inactiveShadowItem->offset().toPoint() };
 	return result;
+}
+
+Palapeli::BevelMap Palapeli::Piece::bevelMap() const
+{
+	return m_bevelMap;
 }
 
 qreal Palapeli::Piece::activeShadowOpacity() const
