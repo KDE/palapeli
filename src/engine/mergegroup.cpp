@@ -151,6 +151,7 @@ void Palapeli::MergeGroup::createMergedPiece()
 	else
 		combinedBevelMap = Palapeli::BevelMap();
 	m_mergedPiece = new Palapeli::Piece(combinedPieceVisuals, combinedShadowVisuals, combinedBevelMap);
+	m_mergedPiece->completeVisuals();
 	//apply UCS
 	m_scene->addItem(m_mergedPiece);
 	m_mergedPiece->setPos(m_ucsPosition);
