@@ -1,0 +1,29 @@
+= Function =
+
+== More grid types ==
+
+ * "domains" grid (irregular domains containing randomly-oriented rect grids)
+ * Penrose tiling (quasiregular)
+ * "tetrille" tiling (kites)
+
+Explanation of "domains" grid: Divide the image area into a small number (10?) of domains. Fill those with rectangular point arrays, randomly rotated, all with equal spacing. Create Voronoi grid using those points as cell vertices.
+
+== Options ==
+ 
+ * piece outlines: more options (off, decent, brute)
+ * Grid distortion (at least for rect grid)
+
+== other nifty stuff ==
+
+ * special tiles ("whimsies") (how to define them?)
+ * puzzle with non-rect frame (e.g. based on key color)
+ * figure out where i18n strings go
+
+
+= Docs =
+
+in docbook format (usage instructions from README file)
+
+
+= Prepare i18n =
+

@@ -1,0 +1,134 @@
+The Goldberg Slicer: Versatile grid generator for the KDE puzzle game Palapeli
+
+Copyright (C) 2010 Johannes Loehnert (loehnert.kde@gmx.net)
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+
+DESCRIPTION
+===========
+
+The Goldberg slicer is a plugin for the game Palapeli, which comes with the KDE
+distribution from version 4.4 onwards. Slicers in Palapeli are responsible for
+splitting up an image into a number of puzzle pieces.
+
+The Goldberg slicer offers:
+
+ * Authentic-looking jigsaw puzzles just like from the store
+ * Distinctive, individual piece borders
+ * Plenty of nifty knobs and switches to play with.
+
+The project is to be found on http://code.google.com/p/palapeli-goldberg-slicer.
+Mailing list: palapeli-goldberg-slicer@googlegroups.com.
+
+Infos about Palapeli can be found on the author's blog,
+    http://majewsky.wordpress.com/
+
+
+USAGE
+=====
+
+Start Palapeli, click "Create puzzle". "Goldberg" should now be available as puzzle type. The options you can set are:
+
+== Tesselation type ==
+
+determines which grid is used to split up the image, or put another way, what shape the puzzle pieces will have. You have the following choices:
+
+ * *Rectangular Grid*: The ordinary jigsaw puzzle as we all know and love it.
+ * *Cairo pentagonal*: Five-sided pieces with unequal edge angles.
+ * *Hexagonal*: Six-sided pieces.
+ * *Rotrex (rhombi-trihexagonal)*: Hexagons surrounded by rectangles and triangles. Looks like many intersecting circles.
+ * *Irregular*: random pieces. The program `qvoronoi` (part of qhull) is needed to generate irregular puzzles.
+
+The Cairo tesselation is rather hard to puzzle, since the pieces fit together in an unfamiliar manner. The Rotrex tesselation is simpler than the rectangular grid and looks pretty when put together.
+
+
+== Approx. piece count ==
+
+is used to calculate the grid size. In most cases the actual piece count will be somewhat larger or smaller than what you set.
+
+
+== Flipped edge percentage ==
+
+sets the probability for each edge (plug) to be "flipped". A plug is "flipped" if it points in the opposite direction as it would in a fully regular grid. On the rect grid, this results in pieces with 3 or 4 plugs pointing inwards resp. outwards.
+
+ * 0% (slider at the left): no edges are flipped, fully regular grid
+ * 50% (slider in the middle): All edges are random.
+ * 100% (slider at the right): Fully regular grid again, but now with "alternate" rule.
+
+"Alternate" rule does _not_ simply mean reversal of all plugs. In the alternate rectangular grid, each piece has 4 inward or 4 outward-pointing plugs. For the other tesselations, just try it out.
+
+This setting has no effect when using the irregular tesselation.
+
+
+== Edge curviness ==
+
+determines how curvy the edges are, i.e. how strongly the borders "dent in" or "bulge out".
+
+ * 0%: edges are straight lines (except for the plugs)
+ * 100%: edges are very curved.
+
+
+== Plug size ==
+
+determines the size of the "plug" part of each edge. The default (middle) setting is chosen to look like a real puzzle.
+
+ * 0%: plugs are half the default size
+ * 100%: plugs are 1.5x the default size, which already looks obscenely large.
+
+Goldberg slicer tries very hard to avoid collisions between plugs. Colliding edges are reshaped multiple times and shrinked in small steps. However there still remain cases where no solution can be found, especially for large plug sizes.
+
+
+== Diversity of curviness ==
+
+determines how much the "curviness" (see above) varies between borders.
+
+ * 0%: The "dents" and "bulges" look all the same.
+ * 100%: There are very curvy and very straight borders.
+
+
+== Diversity of plug position ==
+
+determines how much the plug position varies:
+
+ * 0%: Plugs are all in the middle of their border
+ * 100%: Plugs may be anywhere between the border endpoints.
+
+
+== Diversity of plugs ==
+
+determines how individual the plugs look like.
+
+ * 0%: Plugs look all the same.
+ * 100%: Each plug will be a unique piece of art crafted especially for you.
+
+
+== Irr.: Diversity of piece size ==
+
+applies only to irregular tesselation, and determines how much the piece size varies.
+
+ * 100%: very small and large pieces
+ * 50%: (default) pieces are all roughly of same size
+ * 0%: pieces are roughly of same size, crystallite-like structures arise
+
+
+== Piece outlines ==
+
+Draw a fine black outline around each piece, so that the individual pieces remain discernible in the assembled puzzle.
+
+
+== Dump grid image ==
+
+Save an image of the grid (black edges on white background). It is saved as `~/goldber-slicer-dump.png`. If a previous dump exists, it is overwritten.

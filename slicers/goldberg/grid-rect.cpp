@@ -1,0 +1,152 @@
+/***************************************************************************
+ *   Copyright  2010 Johannes Loehnert <loehnert.kde@gmx.de>
+ *
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU General Public
+ *   License as published by the Free Software Foundation; either
+ *   version 2 of the License, or (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, write to the Free Software
+ *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ ***************************************************************************/
+
+#include "grid.h"
+
+#include <cmath>
+#include <QPainterPath>
+#include <QDebug>
+#include <KLocalizedString>
+#include "utilities.h"
+
+void RectMode::generateGrid(GoldbergEngine *e, int piece_count) const {
+    // number of tries to resolve collision
+    int collision_tries = 10 * e->m_plug_size * e->m_plug_size;
+    if (collision_tries < 5) collision_tries = 5;
+    const qreal collision_shrink_factor = 0.95;
+    // number of unresolved collision after which we give up
+    int collision_limit = piece_count / 5;
+
+
+    // calculate piece counts
+    const int width = e->get_image_width(), height = e->get_image_height();
+
+    int xCount;
+    int yCount;
+    getBestFit(xCount, yCount, 1.0 * width / height, piece_count);
+
+    const int pieceWidth = width / xCount, pieceHeight = height / yCount;
+    e->m_length_base = (pieceWidth + pieceHeight) * 0.5 * e->m_plug_size;
+
+    GBClassicPlugParams** horizontalPlugParams = new GBClassicPlugParams*[xCount+1];
+    GBClassicPlugParams** verticalPlugParams = new GBClassicPlugParams*[xCount+1];
+
+    for (int x = 0; x < xCount+1; ++x) {
+        horizontalPlugParams[x] = new GBClassicPlugParams[yCount+1];
+        verticalPlugParams[x] = new GBClassicPlugParams[yCount+1];
+        for (int y = 0; y < yCount+1; ++y) {
+            bool odd_tile = (x+y) % 2;
+            //borders along X axis
+            if (y==0 || y==yCount) {
+                horizontalPlugParams[x][y] = e->initEdge(true);
+            }
+            else {
+                horizontalPlugParams[x][y] = e->initEdge(false);
+            }
+            horizontalPlugParams[x][y].flipped ^= odd_tile ^ e->m_alternate_flip;
+            horizontalPlugParams[x][y].unit_x = QLineF(x*pieceWidth, y*pieceHeight, (x+1)*pieceWidth, y*pieceHeight);
+            if (x>0 && x < xCount) e->smooth_join(horizontalPlugParams[x][y], horizontalPlugParams[x-1][y]);
+            
+            //borders along Y axis
+            if (x==0 || x==xCount) {
+                verticalPlugParams[x][y] = e->initEdge(true);
+            }
+            else {
+                verticalPlugParams[x][y] = e->initEdge(false);
+            }
+            verticalPlugParams[x][y].flipped ^= odd_tile;
+            verticalPlugParams[x][y].unit_x = QLineF(x*pieceWidth, y*pieceHeight, x*pieceWidth, (y+1)*pieceHeight);
+            if (y>0 && y < yCount) e->smooth_join(verticalPlugParams[x][y], verticalPlugParams[x][y-1]);
+
+            // collision checking
+            if (e->m_unresolved_collisions < collision_limit || false) {
+                if (x > 0 && x < xCount) {
+                    bool v_intersects = true;
+                    for (int i=0; i<collision_tries && v_intersects; i++) {
+                        if (i>0 && v_intersects) {
+                            qDebug() << "collision: vertical edge, x=" << x << ", y=" << y;
+                            verticalPlugParams[x][y].size_correction *= collision_shrink_factor;
+                            e->reRandomizeEdge(verticalPlugParams[x][y], true);
+                        }
+                        v_intersects = (
+                                    e->plugsIntersect(verticalPlugParams[x][y], horizontalPlugParams[x-1][y])
+                                    || ((y==yCount) ? false : e->plugsIntersect(verticalPlugParams[x][y], horizontalPlugParams[x-1][y+1])));
+                    }
+                    if (v_intersects) {
+                        e->m_unresolved_collisions++;
+                        qDebug() << "collision UNRESOLVED (#" << e->m_unresolved_collisions << ")";
+                    }
+                }
+                if (y>0 && y < yCount) {
+                    bool h_intersects = true;
+                    for (int i=0; i<collision_tries && h_intersects; i++) {
+                        if (i>0 && h_intersects) {
+                            qDebug() << "collision: horizontal edge, x=" << x << " y=" << y;
+                            horizontalPlugParams[x][y].size_correction *= collision_shrink_factor;
+                            e->reRandomizeEdge(horizontalPlugParams[x][y], true);
+                        }
+                        h_intersects = (
+                                    e->plugsIntersect(horizontalPlugParams[x][y], verticalPlugParams[x][y-1])
+                                    || ((y==yCount) ? false : e->plugsIntersect(horizontalPlugParams[x][y], verticalPlugParams[x][y])));
+                    }
+                    if (h_intersects) {
+                        e->m_unresolved_collisions++;
+                        qDebug() << "collision UNRESOLVED (#" << e->m_unresolved_collisions << ")";
+                    }
+                }
+                if (e->m_unresolved_collisions >= collision_limit) {
+                    qDebug() << "limit reached, dropping collision checking.";
+                }
+            } // end collision checking
+        }
+    }
+
+    //create pieces
+    for (int x = 0; x < xCount; ++x) {
+        for (int y = 0; y < yCount; ++y) {
+            //create the mask path
+            QPainterPath path;
+            path.moveTo(horizontalPlugParams[x][y].unit_x.p1());
+
+            // top, right, bottom, left plug
+            e->addPlugToPath(path, false, horizontalPlugParams[x][y]);
+            e->addPlugToPath(path, false, verticalPlugParams[x+1][y]);
+            e->addPlugToPath(path, true, horizontalPlugParams[x][y+1]);
+            e->addPlugToPath(path, true, verticalPlugParams[x][y]);
+
+            e->makePieceFromPath(x + y * xCount, path);
+        }
+    }
+
+    //create relations
+    for (int x = 0; x < xCount; ++x) {
+        for (int y = 0; y < yCount; ++y) {
+            if (x != 0) e->addRelation(x + y * xCount, (x - 1) + y * xCount);
+            if (y != 0) e->addRelation(x + y * xCount, x + (y - 1) * xCount);
+        }
+    }
+
+    //cleanup
+    for (int x = 0; x < xCount + 1; ++x) {
+        delete[] horizontalPlugParams[x];
+        delete[] verticalPlugParams[x];
+    }
+    delete[] horizontalPlugParams;
+    delete[] verticalPlugParams;
+}
+
