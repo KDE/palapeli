@@ -36,7 +36,7 @@ namespace Palapeli
 		Q_PROPERTY(qreal activeShadowOpacity READ activeShadowOpacity WRITE setActiveShadowOpacity)
 		public:
 			///This constructor creates a piece without a shadow, unless a shadow is provided explicitly.
-			explicit Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals = Palapeli::PieceVisuals(), const Palapeli::BevelMap& bevelMap = Palapeli::BevelMap());
+			explicit Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals = Palapeli::PieceVisuals(), const Palapeli::PieceVisuals& beveldPieceVisuals = Palapeli::PieceVisuals(), const Palapeli::BevelMap& bevelMap = Palapeli::BevelMap());
 			///This method will
 			///\li create a shadow for this piece if there is none ATM.
 			///\li apply the bevel map to the piece pixmap.
@@ -50,6 +50,7 @@ namespace Palapeli
 			Palapeli::PieceVisuals pieceVisuals() const;
 			bool hasShadow() const;
 			Palapeli::PieceVisuals shadowVisuals() const;
+			Palapeli::PieceVisuals beveledVisuals() const;
 			Palapeli::BevelMap bevelMap() const;
 
 			bool isSelected() const;
@@ -92,6 +93,7 @@ namespace Palapeli
 			QPropertyAnimation* m_animator;
 
 			Palapeli::PieceVisuals m_plainVisuals;
+			Palapeli::PieceVisuals m_beveledVisuals;
 			Palapeli::BevelMap m_bevelMap;
 			bool m_bevelMapApplied;
 

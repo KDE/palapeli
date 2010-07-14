@@ -26,17 +26,18 @@
 #include <QPalette>
 #include <QPropertyAnimation>
 
-Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals, const Palapeli::BevelMap& bevelMap)
+Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals, const Palapeli::PieceVisuals& beveledVisuals, const Palapeli::BevelMap& bevelMap)
 	: m_pieceItem(0)
 	, m_inactiveShadowItem(0)
 	, m_activeShadowItem(0)
 	, m_animator(0)
 	, m_plainVisuals(pieceVisuals)
+	, m_beveledVisuals(beveledVisuals)
 	, m_bevelMap(bevelMap)
-	, m_bevelMapApplied(false)
 {
 	//initialize appearance
-	Palapeli::SelectionAwarePixmapItem* pieceItem = new Palapeli::SelectionAwarePixmapItem(pieceVisuals.pixmap, this);
+	const QPixmap usePixmap = (m_beveledVisuals.isNull() ? m_plainVisuals : m_beveledVisuals).pixmap;
+	Palapeli::SelectionAwarePixmapItem* pieceItem = new Palapeli::SelectionAwarePixmapItem(usePixmap, this);
 	connect(pieceItem, SIGNAL(selectedChanged(bool)), this, SLOT(pieceItemSelectedChanged(bool)));
 	m_pieceItem = pieceItem;
 	m_pieceItem->setOffset(pieceVisuals.offset);
@@ -71,12 +72,13 @@ bool Palapeli::Piece::completeVisuals()
 		didSomething = true;
 	}
 	//render bevel map onto piece image
-	if (!m_bevelMapApplied)
+	if (m_beveledVisuals.isNull())
 	{
 		// 0.0 = rotation angle of piece - ATM pieces cannot be rotated
-		const QPixmap pm = Palapeli::applyBevelMap(m_plainVisuals.pixmap, m_bevelMap, 0.0);
-		m_pieceItem->setPixmap(pm);
-		didSomething = m_bevelMapApplied = true;
+		m_beveledVisuals = m_plainVisuals;
+		m_beveledVisuals.pixmap = Palapeli::applyBevelMap(m_plainVisuals.pixmap, m_bevelMap, 0.0);
+		m_pieceItem->setPixmap(m_beveledVisuals.pixmap);
+		didSomething = true;
 	}
 	return didSomething;
 }
@@ -123,6 +125,11 @@ Palapeli::PieceVisuals Palapeli::Piece::shadowVisuals() const
 		return Palapeli::PieceVisuals();
 	Palapeli::PieceVisuals result = { m_inactiveShadowItem->pixmap(), m_inactiveShadowItem->offset().toPoint() };
 	return result;
+}
+
+Palapeli::PieceVisuals Palapeli::Piece::beveledVisuals() const
+{
+	return m_beveledVisuals;
 }
 
 Palapeli::BevelMap Palapeli::Piece::bevelMap() const
