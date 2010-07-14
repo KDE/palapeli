@@ -53,7 +53,12 @@ Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)
 	QObject::setParent(scene); //delete myself automatically when the scene is destroyed
 	scene->addItem(this);
 	setZValue(-1);
-	connect(scene, SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(update(const QRectF&)));
+	//NOTE: The QueuedConnection is necessary because setSceneRect() sends out
+	//the sceneRectChanged() signal before it disables automatic growing of the
+	//scene rect. If the connection was direct, we could thus enter an infinite
+	//loop when the constraint visualizer enlarges itself in reaction to the
+	//changed sceneRect, thereby changing the autogrowing sceneRect again.
+	connect(scene, SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(update(const QRectF&)), Qt::QueuedConnection);
 }
 
 bool Palapeli::ConstraintVisualizer::isActive() const
