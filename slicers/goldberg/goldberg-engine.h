@@ -19,7 +19,7 @@
 #ifndef PALAPELISLICERS_GOLDBERG_ENGINE_H
 #define PALAPELISLICERS_GOLDBERG_ENGINE_H
 
-#include <Pala/SlicerJob>
+#include "../../libpala/slicerjob.h"
 
 struct GBClassicPlugParams {
     bool flipped;

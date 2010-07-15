@@ -21,7 +21,7 @@
 #define PALAPELISLICERS_GOLDBERG_GRID_H
 
 #include <KLocalizedString>
-#include <Pala/SlicerMode>
+#include "../../libpala/slicermode.h"
 
 #include "goldberg-engine.h"
 

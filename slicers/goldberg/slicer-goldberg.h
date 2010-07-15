@@ -20,10 +20,9 @@
 #ifndef PALAPELISLICERS_GOLDBERG_SLICER_H //krazy:exclude=includes
 #define PALAPELISLICERS_GOLDBERG_SLICER_H
 
-#include <Pala/Slicer>
-#include <Pala/SlicerJob>
-#include <Pala/SlicerProperty>
-#include <Pala/SlicerPropertySet>
+#include "../../libpala/slicer.h"
+#include "../../libpala/slicerjob.h"
+#include "../../libpala/slicerproperty.h"
 
 class GoldbergSlicer : public Pala::Slicer {
     Q_OBJECT
