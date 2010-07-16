@@ -79,7 +79,7 @@ GoldbergSlicer::GoldbergSlicer(QObject* parent, const QVariantList& args)
 
     prop = new Pala::IntegerProperty(i18n("Edge curviness"));
     prop->setRange(-100, 100);
-    prop->setDefaultValue(-30);
+    prop->setDefaultValue(-50);
     prop->setRepresentation(Pala::IntegerProperty::Slider);
     addProperty("040_EdgeCurviness", prop);
 
@@ -98,8 +98,8 @@ GoldbergSlicer::GoldbergSlicer(QObject* parent, const QVariantList& args)
     addProperty("055_SigmaCurviness", prop);
 
     prop = new Pala::IntegerProperty(i18n("Diversity of plug position"));
-    prop->setRange(25, 100);
-    prop->setDefaultValue(50);
+    prop->setRange(20, 100);
+    prop->setDefaultValue(35);
     prop->setRepresentation(Pala::IntegerProperty::Slider);
     presetMode->setPropertyEnabled("056_SigmaBasepos", false);
     addProperty("056_SigmaBasepos", prop);
