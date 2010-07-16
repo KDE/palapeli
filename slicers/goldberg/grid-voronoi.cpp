@@ -19,9 +19,10 @@
 #include "grid.h"
 
 #include <cmath>
+#include <QtCore/qmath.h>
+#include <QDebug>
 #include <QPainterPath>
 #include <QProcess>
-#include <QDebug>
 #include <KLocalizedString>
 #include "pointfinder.h"
 #include "utilities.h"
@@ -304,7 +305,7 @@ void IrregularMode::generateVoronoiGrid(GoldbergEngine *e, QList<QPointF> cell_c
     const qreal collision_shrink_factor = 0.95;
     int collision_limit = cell_centers.size() / 5;
 
-    e->m_length_base = sqrt(width * height / cell_centers.size());
+    e->m_length_base = qSqrt(width * height / cell_centers.size());
 
     QList<int> int_line;
 
