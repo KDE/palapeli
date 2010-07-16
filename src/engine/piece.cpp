@@ -20,6 +20,7 @@
 #include "piece.h"
 #include "piece_p.h"
 #include "scene.h"
+#include "settings.h"
 
 #include <QApplication>
 #include <QGraphicsSceneMouseEvent>
@@ -45,7 +46,7 @@ Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapel
 		createShadowItems(shadowVisuals);
 	//create bevel map if none is provided (this is the case only during loading
 	//as pieces created during merging will be provided with a merged bevel map)
-	if (m_bevelMap.isEmpty())
+	if (Settings::viewPieceVisualsEnabled() && m_bevelMap.isEmpty())
 	{
 		const QSize size = m_plainVisuals.pixmap.size();
 		const int radius = 0.04 * (size.width() + size.height());
@@ -66,7 +67,7 @@ Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapel
 bool Palapeli::Piece::completeVisuals()
 {
 	bool didSomething = false;
-	if (!m_inactiveShadowItem)
+	if (Settings::viewPieceVisualsEnabled() && !m_inactiveShadowItem)
 	{
 		createShadowItems(Palapeli::createShadow(pieceVisuals(), m_atomicSize));
 		didSomething = true;
@@ -74,11 +75,14 @@ bool Palapeli::Piece::completeVisuals()
 	//render bevel map onto piece image
 	if (m_beveledVisuals.isNull())
 	{
-		// 0.0 = rotation angle of piece - ATM pieces cannot be rotated
-		m_beveledVisuals = m_plainVisuals;
-		m_beveledVisuals.pixmap = Palapeli::applyBevelMap(m_plainVisuals.pixmap, m_bevelMap, 0.0);
-		m_pieceItem->setPixmap(m_beveledVisuals.pixmap);
-		didSomething = true;
+		if (!m_bevelMap.isEmpty())
+		{
+			// 0.0 = rotation angle of piece - ATM pieces cannot be rotated
+			m_beveledVisuals = m_plainVisuals;
+			m_beveledVisuals.pixmap = Palapeli::applyBevelMap(m_plainVisuals.pixmap, m_bevelMap, 0.0);
+			m_pieceItem->setPixmap(m_beveledVisuals.pixmap);
+			didSomething = true;
+		}
 	}
 	return didSomething;
 }
@@ -153,7 +157,7 @@ void Palapeli::Piece::pieceItemSelectedChanged(bool selected)
 	//change visibility of active shadow
 	const qreal targetOpacity = selected ? 1.0 : 0.0;
 	const qreal opacityDiff = qAbs(targetOpacity - activeShadowOpacity());
-	if (opacityDiff != 0)
+	if (m_animator && opacityDiff != 0)
 	{
 		m_animator->setDuration(150 * opacityDiff);
 		m_animator->setStartValue(activeShadowOpacity());

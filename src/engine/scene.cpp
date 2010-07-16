@@ -299,7 +299,7 @@ void Palapeli::Scene::completeVisualsForNextPiece()
 			return;
 		}
 	}
-	//no pieces without shadow left
+	//no pieces without shadow left, or piece visuals completely disabled
 	finishLoading();
 }
 
