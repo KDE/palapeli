@@ -94,6 +94,7 @@ void Palapeli::PuzzleCreatorDialog::checkData()
 void Palapeli::PuzzleCreatorDialog::updateSlicerSelection(const Palapeli::SlicerSelection& selection)
 {
 	setValid(m_slicerPage, (bool) selection.slicer);
+	if (!selection.slicer) return;
 	//update slicer configuration widget
 	Palapeli::SlicerConfigWidget* scWidget = m_slicerConfigWidgets.value(selection.slicer);
 	scWidget->setMode(selection.mode);
