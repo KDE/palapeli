@@ -30,6 +30,7 @@ target_link_libraries(palapeli_jigsawslicer ${SLICER_LINK_LIBS})
 set(palapeli_goldbergslicer_SRCS
 	goldberg/slicer-goldberg.cpp
 	goldberg/goldberg-engine.cpp
+	goldberg/grid-preset.cpp
 	goldberg/grid-cairo.cpp
 	goldberg/grid-hex.cpp
 	goldberg/grid-rect.cpp

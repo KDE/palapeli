@@ -47,6 +47,7 @@ struct GBClassicPlugParams {
 
 class GoldbergEngine {
     public:
+        int m_quickpreset;
         int m_flip_threshold;
         bool m_alternate_flip;
         int m_edge_curviness;

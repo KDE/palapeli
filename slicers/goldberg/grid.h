@@ -33,6 +33,13 @@ class GoldbergMode : public Pala::SlicerMode
 		virtual void generateGrid(GoldbergEngine *e, int piece_count) const = 0;
 };
 
+class PresetMode : public GoldbergMode
+{
+	public:
+		PresetMode() : GoldbergMode("preset", i18nc("Puzzle grid type", "Predefined settings")) {}
+		virtual void generateGrid(GoldbergEngine *e, int piece_count) const;
+};
+
 class CairoMode : public GoldbergMode
 {
 	public:
