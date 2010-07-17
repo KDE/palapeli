@@ -21,7 +21,7 @@
 			<default>true</default>
 		</entry>
 		<entry name="ViewPieceVisualsEnabled" type="Bool">
-			<label>Whether to render effects (shadows and beveled edges) on the puzzle pieces. Turning it of might help if palapeli has performance problems.</label>
+			<label>Whether to render effects (shadows and beveled edges) on the puzzle pieces. Turning it off might help if Palapeli has performance problems.</label>
 			<default>true</default>
 		</entry>
 	</group>
