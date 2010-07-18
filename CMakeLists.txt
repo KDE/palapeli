@@ -11,6 +11,8 @@ if (NOT KDE4_FOUND)
   include(KDE4Defaults)
 endif (NOT KDE4_FOUND)
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/libpala)
+
 add_subdirectory(libpala)
 add_subdirectory(slicers)
 add_subdirectory(tools)
