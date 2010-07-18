@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>460</width>
+    <width>461</width>
     <height>327</height>
    </rect>
   </property>
@@ -45,12 +45,41 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QCheckBox" name="kcfg_ViewPieceVisualsEnabled">
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Piece appearance</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QCheckBox" name="kcfg_PieceBevelsEnabled">
         <property name="text">
-         <string>Piece shadows and beveled edges</string>
+         <string>Draw bevels to create a 3-dimensional appearance</string>
         </property>
         <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="kcfg_PieceShadowsEnabled">
+        <property name="text">
+         <string>Draw shadows below pieces</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>These options can be disabled when Palapeli is running very slowly. Changes will take effect only when a new puzzle is started.</string>
+        </property>
+        <property name="wordWrap">
          <bool>true</bool>
         </property>
        </widget>

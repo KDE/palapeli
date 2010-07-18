@@ -20,8 +20,12 @@
 			<label>Whether to show the status bar on the puzzle table. (It is not a real status bar, but the position and provided functionality is similar.)</label>
 			<default>true</default>
 		</entry>
-		<entry name="ViewPieceVisualsEnabled" type="Bool">
-			<label>Whether to render effects (shadows and beveled edges) on the puzzle pieces. Turning it off might help if Palapeli has performance problems.</label>
+		<entry name="PieceShadowsEnabled" type="Bool">
+			<label>Whether to render shadows below the puzzle pieces. Turning this off might improve rendering performance.</label>
+			<default>true</default>
+		</entry>
+		<entry name="PieceBevelsEnabled" type="Bool">
+			<label>Whether to render bevels on the puzzle pieces. Turning this off might improve puzzle loading performance.</label>
 			<default>true</default>
 		</entry>
 	</group>

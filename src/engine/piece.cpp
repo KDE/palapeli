@@ -46,7 +46,7 @@ Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapel
 		createShadowItems(shadowVisuals);
 	//create bevel map if none is provided (this is the case only during loading
 	//as pieces created during merging will be provided with a merged bevel map)
-	if (Settings::viewPieceVisualsEnabled() && m_bevelMap.isEmpty())
+	if (Settings::pieceBevelsEnabled() && m_bevelMap.isEmpty())
 	{
 		const QSize size = m_plainVisuals.pixmap.size();
 		const int radius = 0.04 * (size.width() + size.height());
@@ -56,7 +56,6 @@ Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapel
 	m_pieceItem->setAcceptedMouseButtons(Qt::LeftButton);
 	m_pieceItem->setCursor(Qt::OpenHandCursor);
 	m_pieceItem->setFlag(QGraphicsItem::ItemIsSelectable);
-
 	// replacing m_pieceItems pixmap (in rerenderBevel()) causes weird pixel errors
 	// when using fast transformation. SmoothTransformation looks better anyway...
 	m_pieceItem->setTransformationMode(Qt::SmoothTransformation);
@@ -67,7 +66,7 @@ Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapel
 bool Palapeli::Piece::completeVisuals()
 {
 	bool didSomething = false;
-	if (Settings::viewPieceVisualsEnabled() && !m_inactiveShadowItem)
+	if (Settings::pieceShadowsEnabled() && !m_inactiveShadowItem)
 	{
 		createShadowItems(Palapeli::createShadow(pieceVisuals(), m_atomicSize));
 		didSomething = true;
