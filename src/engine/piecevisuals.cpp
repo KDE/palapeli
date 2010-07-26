@@ -116,8 +116,8 @@ Palapeli::BevelMap Palapeli::calculateBevelMap(const QPixmap& source, int radius
 {
 	const qreal strength_scale = 0.2;
 	// in multiples of radius
-	const qreal outline_width = 0.08;
-	const qreal outline_darken_scale = 3;
+	const qreal outline_width = 0.07;
+	const qreal outline_darken_scale = 2;
 
 	QImage sourceimg = source.toImage();
 	// we only really care about the alpha channel here. And we expect ARGB32_Premultiplied anyway.
