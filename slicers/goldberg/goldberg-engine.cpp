@@ -214,7 +214,7 @@ void GoldbergEngine::makePieceFromPath(int piece_id, QPainterPath path) {
     piecePainter.setCompositionMode(QPainter::CompositionMode_SourceIn);
     piecePainter.drawImage(QPoint(), safeQImageCopy(m_image, QRect(offset, mask.size())));
 
-    // Outline
+    // Outline -- code was left in though option was removed (rendering done by palapeli itself now)
     if (m_outlines) {
         piecePainter.translate(-offset);
         piecePainter.setRenderHint(QPainter::Antialiasing);

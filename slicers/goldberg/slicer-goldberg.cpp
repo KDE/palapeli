@@ -120,11 +120,6 @@ GoldbergSlicer::GoldbergSlicer(QObject* parent, const QVariantList& args)
         irregularMode->setPropertyEnabled("058_IrrPieceSizeDiversity", true);
     addProperty("058_IrrPieceSizeDiversity", prop);
 
-    bprop = new Pala::BooleanProperty(i18n("Draw piece outlines"));
-    bprop->setDefaultValue(true);
-    presetMode->setPropertyEnabled("060_Outlines", false);
-    addProperty("060_Outlines", bprop);
-
     bprop = new Pala::BooleanProperty(i18n("Dump grid image"));
     bprop->setDefaultValue(false);
     presetMode->setPropertyEnabled("070_DumpGrid", false);
@@ -159,7 +154,8 @@ bool GoldbergSlicer::run(Pala::SlicerJob* job) {
     engine.m_sigma_basepos *= engine.m_sigma_basepos;
     engine.m_sigma_plugs *= engine.m_sigma_plugs;
 
-    engine.m_outlines = job->argument("060_Outlines").toBool();
+    // outline rendering now done by palapeli itself. Outline option was removed.
+    engine.m_outlines = false;
 
     engine.set_dump_grid(job->argument("070_DumpGrid").toBool());
 
