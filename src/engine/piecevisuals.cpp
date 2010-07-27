@@ -286,7 +286,7 @@ QImage Palapeli::applyBevelMap(const QImage &source, const Palapeli::BevelMap& b
 		if (bevelpoint.strength == 0)
 		{
 			// zero run, skip to next nonzero element
-			idx += int(bevelpoint.orig_argb);
+			idx += int(bevelpoint.orig_argb) - 1;
 			continue;
 		}
 		const int strength = bevelpoint.strength;
