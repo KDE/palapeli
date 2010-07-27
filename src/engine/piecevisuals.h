@@ -82,7 +82,7 @@ namespace Palapeli
 
 	//TODO: Many of these functions operate on QImages internally, and could therefore be more efficient when given a QImage.
 	Palapeli::BevelMap calculateBevelMap(const Palapeli::PieceVisuals& source, int radius);
-	QPixmap applyBevelMap(const QPixmap& source, const Palapeli::BevelMap& bevelmap, qreal angle);
+	QImage applyBevelMap(const QImage& source, const Palapeli::BevelMap& bevelmap, qreal angle);
 	Palapeli::PieceVisuals createShadow(const Palapeli::PieceVisuals& pieceVisuals, const QSize& shadowSizeHint = QSize());
 	Palapeli::PieceVisuals changeShadowColor(const Palapeli::PieceVisuals& shadowVisuals, const QColor& color);
 	Palapeli::PieceVisuals mergeVisuals(const QList<Palapeli::PieceVisuals>& visuals);

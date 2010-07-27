@@ -256,10 +256,10 @@ Palapeli::BevelMap Palapeli::calculateBevelMap(const Palapeli::PieceVisuals& sou
 	return result;
 }
 
-// source: unbeveled pixmap
+// source: unbeveled image
 // bevelmap: must belong to the pixmap
 // angle: rotation angle of source, 0=unrotated, +x = ccw
-QPixmap Palapeli::applyBevelMap(const QPixmap &source, const Palapeli::BevelMap& bevelmap, qreal angle)
+QImage Palapeli::applyBevelMap(const QImage &source, const Palapeli::BevelMap& bevelmap, qreal angle)
 {
 	// first, prevent mem corruption
 	if (source.width() * source.height() != bevelmap.size())
@@ -268,25 +268,32 @@ QPixmap Palapeli::applyBevelMap(const QPixmap &source, const Palapeli::BevelMap&
 		return source;
 	}
 
-	QImage result = source.toImage();
-	result.detach();
-	int width = result.width();
+	QImage result = source.convertToFormat(QImage::Format_ARGB32);
+	const int width = result.width();
+	const int height = result.height();
+	const int size = width * height;
 	// in degrees
 	const qreal lighting_angle = 120;
 
 	// convert into 256-unit circle
 	angle = (lighting_angle - angle) * 256 / 360;
 
-	for (int idx=0; idx < bevelmap.size(); idx++) {
-		if (bevelmap[idx].strength == 0)
+	int scanLineY = -1;
+	QRgb* scanLine = 0;
+	for (int idx = 0; idx < size; ++idx)
+	{
+		const int x = idx % width, y = idx / width;
+		if (scanLineY != y)
+			scanLine = (QRgb*) result.scanLine(y);
+		const Palapeli::BevelPoint bevelpoint = bevelmap[idx];
+		if (bevelpoint.strength == 0)
 		{
 			// zero run, skip to next nonzero element
-			idx += int(bevelmap[idx].orig_argb);
-			if (idx >= bevelmap.size()) 
-				break;
+			idx += int(bevelpoint.orig_argb);
+			continue;
 		}
-		int strength = bevelmap[idx].strength;
-		int adiff = bevelmap[idx].angle - angle;
+		const int strength = bevelpoint.strength;
+		int adiff = bevelpoint.angle - angle;
 		// project adiff into [0, 255]
 		adiff = adiff & 0xff;
 
@@ -302,19 +309,16 @@ QPixmap Palapeli::applyBevelMap(const QPixmap &source, const Palapeli::BevelMap&
 			// adiff<0 will be the signal to signal lighten instead of darken
 			adiff = adiff-128;
 		}
-		qreal effect = strength * (1.0 - (adiff*adiff) / (64.0*64.0));
+		const qreal effect = strength * (1.0 - (adiff*adiff) / (64.0*64.0));
 
-		QColor newcolor = QColor::fromRgba(bevelmap[idx].orig_argb);
+		QColor newcolor = QColor::fromRgba(bevelpoint.orig_argb);
 		if (adiff<0)
-		{
 			newcolor = newcolor.lighter(100 + effect);
-		} else {
+		else
 			newcolor = newcolor.darker(100 + effect);
-		}
-		*(QRgb*)(result.scanLine(idx/width) + 4*(idx%width)) = newcolor.rgba();
+		scanLine[x] = newcolor.rgba();
 	}
-
-	return QPixmap::fromImage(result);
+	return result;
 }
 //END edge beveling algorithms
 

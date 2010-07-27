@@ -87,9 +87,8 @@ bool Palapeli::Piece::completeVisuals()
 	if (m_beveledVisuals.isNull() && !m_bevelMap.isEmpty())
 	{
 		// 0.0 = rotation angle of piece - ATM pieces cannot be rotated
-		m_beveledVisuals = m_plainVisuals;
 		m_beveledVisuals = Palapeli::PieceVisuals(
-			Palapeli::applyBevelMap(m_plainVisuals.pixmap(), m_bevelMap, 0.0),
+			Palapeli::applyBevelMap(m_plainVisuals.image(), m_bevelMap, 0.0),
 			m_plainVisuals.offset()
 		);
 		m_pieceItem->setPixmap(m_beveledVisuals.pixmap());
