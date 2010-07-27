@@ -108,14 +108,14 @@ static QImage createShadow(const QImage& source, int radius)
 //BEGIN edge beveling algorithms
 
 // See piecevisuals.h for some explanations about BevelMap.
-Palapeli::BevelMap Palapeli::calculateBevelMap(const Palapeli::PieceVisuals& source, int radius)
+Palapeli::BevelMap Palapeli::calculateBevelMap(const QImage& source, int radius)
 {
 	const qreal strength_scale = 0.2;
 	// in multiples of radius
 	const qreal outline_width = 0.07;
 	const qreal outline_darken_scale = 2;
 
-	const QImage img = source.image().convertToFormat(QImage::Format_ARGB32);
+	const QImage img = source.convertToFormat(QImage::Format_ARGB32);
 	const int width = img.width();
 	const int height = img.height();
 

@@ -38,7 +38,7 @@ namespace Palapeli
 			///This constructor is used when the piece is loaded only from the puzzle file.
 			explicit Piece(const QImage& pieceImage, const QPoint& offset);
 			///This constructor creates a piece without a shadow, unless a shadow is provided explicitly.
-			explicit Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals = Palapeli::PieceVisuals(), const Palapeli::PieceVisuals& beveldPieceVisuals = Palapeli::PieceVisuals(), const Palapeli::BevelMap& bevelMap = Palapeli::BevelMap());
+			explicit Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals = Palapeli::PieceVisuals());
 			///This method will
 			///\li create a shadow for this piece if there is none ATM.
 			///\li apply the bevel map to the piece pixmap.
@@ -52,8 +52,6 @@ namespace Palapeli
 			Palapeli::PieceVisuals pieceVisuals() const;
 			bool hasShadow() const;
 			Palapeli::PieceVisuals shadowVisuals() const;
-			Palapeli::PieceVisuals beveledVisuals() const;
-			Palapeli::BevelMap bevelMap() const;
 
 			bool isSelected() const;
 			void setSelected(bool selected);
@@ -85,7 +83,7 @@ namespace Palapeli
 		private Q_SLOTS:
 			void pieceItemSelectedChanged(bool selected);
 		private:
-			void commonInit(const Palapeli::PieceVisuals& useVisuals = Palapeli::PieceVisuals());
+			void commonInit(const Palapeli::PieceVisuals& pieceVisuals);
 			void createShadowItems(const Palapeli::PieceVisuals& shadowVisuals);
 			qreal activeShadowOpacity() const;
 			void setActiveShadowOpacity(qreal opacity);
@@ -94,11 +92,6 @@ namespace Palapeli
 			QGraphicsPixmapItem* m_inactiveShadowItem;
 			QGraphicsPixmapItem* m_activeShadowItem;
 			QPropertyAnimation* m_animator;
-
-			Palapeli::PieceVisuals m_plainVisuals;
-			Palapeli::PieceVisuals m_beveledVisuals;
-			Palapeli::BevelMap m_bevelMap;
-			bool m_bevelMapApplied;
 
 			QList<int> m_representedAtomicPieces;
 			QList<Palapeli::Piece*> m_logicalNeighbors;

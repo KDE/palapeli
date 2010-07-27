@@ -118,14 +118,10 @@ void Palapeli::MergeGroup::createMergedPiece()
 	//collect pixmaps for merging (also shadows if possible)
 	QList<Palapeli::PieceVisuals> pieceVisuals;
 	QList<Palapeli::PieceVisuals> shadowVisuals;
-	QList<Palapeli::BevelMap> bevelMaps;
-	QList<Palapeli::PieceVisuals> beveledVisuals;
 	bool allPiecesHaveShadows = true;
-	bool allPiecesHaveBevel = true;
 	foreach (Palapeli::Piece* piece, m_pieces)
 	{
 		pieceVisuals << piece->pieceVisuals();
-		bevelMaps << piece->bevelMap();
 		if (allPiecesHaveShadows) //we stop collecting shadow samples when one piece has no shadow
 		{
 			const Palapeli::PieceVisuals shadowSample = piece->shadowVisuals();
@@ -134,25 +130,13 @@ void Palapeli::MergeGroup::createMergedPiece()
 			else
 				shadowVisuals << shadowSample;
 		}
-		if (allPiecesHaveBevel)
-		{
-			const Palapeli::PieceVisuals bevelSample = piece->beveledVisuals();
-			if (bevelSample.isNull())
-				allPiecesHaveBevel = false;
-			else
-				beveledVisuals << bevelSample;
-		}
 	}
 	//merge pixmap and create piece
 	Palapeli::PieceVisuals combinedPieceVisuals = Palapeli::mergeVisuals(pieceVisuals);
 	Palapeli::PieceVisuals combinedShadowVisuals, combinedBeveledVisuals;
-	Palapeli::BevelMap combinedBevelMap = Palapeli::mergeBevelMaps(pieceVisuals, bevelMaps);
 	if (allPiecesHaveShadows)
 		combinedShadowVisuals = Palapeli::mergeVisuals(shadowVisuals);
-	if (allPiecesHaveBevel)
-		combinedBeveledVisuals = Palapeli::mergeVisuals(beveledVisuals);
-	m_mergedPiece = new Palapeli::Piece(combinedPieceVisuals, combinedShadowVisuals, combinedBeveledVisuals, combinedBevelMap);
-	m_mergedPiece->completeVisuals();
+	m_mergedPiece = new Palapeli::Piece(combinedPieceVisuals, combinedShadowVisuals);
 	//apply UCS
 	m_scene->addItem(m_mergedPiece);
 	m_mergedPiece->setPos(m_ucsPosition);
