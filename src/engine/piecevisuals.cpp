@@ -423,8 +423,7 @@ Palapeli::BevelMap Palapeli::mergeBevelMaps(const QList<Palapeli::PieceVisuals>&
 					// pixel with most opacity wins
 					if (a2 > a1) result[dstidx] = bevelMaps[i][srcidx];
 					QColor color = QColor::fromRgba(result[dstidx].orig_argb);
-					// compensate premultiplication of components
-					color = color.lighter(255 * 100 / color.alpha());
+					// sets alpha channel to 255
 					result[dstidx].orig_argb = color.rgb();
 					
 					// reduce strength if alpha difference is low, to avoid aliasing at the edges.
