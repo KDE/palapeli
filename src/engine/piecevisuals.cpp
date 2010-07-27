@@ -21,7 +21,6 @@
 
 #include <cmath>
 #include <QApplication>
-#include <QDebug>
 #include <QImage>
 #include <QPainter>
 #include <QPalette>
@@ -112,52 +111,42 @@ static QImage createShadow(const QImage& source, int radius)
 // See piecevisuals.h for some explanations about BevelMap.
 Palapeli::BevelMap Palapeli::calculateBevelMap(const Palapeli::PieceVisuals& source, int radius)
 {
+	//TODO: disambiguate sqrt
 	const qreal strength_scale = 0.2;
 	// in multiples of radius
 	const qreal outline_width = 0.07;
 	const qreal outline_darken_scale = 2;
 
-	QImage sourceimg = source.image();
-	// we only really care about the alpha channel here. And we expect ARGB32_Premultiplied anyway.
-	if (sourceimg.format() != QImage::Format_ARGB32 && sourceimg.format() != QImage::Format_ARGB32_Premultiplied)
-		sourceimg = sourceimg.convertToFormat(QImage::Format_ARGB32);
+	const QImage img = source.image().convertToFormat(QImage::Format_ARGB32);
+	const int width = img.width();
+	const int height = img.height();
 
-	// make img const to avoid automatic copying when accessing pixels.
-	const QImage img = sourceimg;
-
-	int width = img.width();
-	int height = img.height();
-
-	// prepare the folding kernels
-	qreal** kernel_bevel = new qreal*[radius];
-	qreal** kernel_outline = new qreal*[radius];
-	for (int n_xf=0; n_xf<radius; n_xf++)
+	// prepare the folding kernels (access order: x * radius + y)
+	QVector<qreal> kernel_bevel(radius * radius, 0.0);
+	QVector<qreal> kernel_outline(radius * radius, 0.0);
+	for (int n_xf = 0, n_fIndex = 0; n_xf < radius; ++n_xf)
 	{
-		kernel_bevel[n_xf] = new qreal[radius];
-		kernel_outline[n_xf] = new qreal[radius];
-		for (int n_yf=0; n_yf<radius; n_yf++)
+		for (int n_yf = 0; n_yf < radius; ++n_yf, ++n_fIndex)
 		{
 			qreal xfold = n_xf + 0.5;
 			qreal yfold = n_yf + 0.5;
 			qreal len = xfold*xfold + yfold*yfold;
-			kernel_bevel[n_xf][n_yf] = 0.0;
-			kernel_outline[n_xf][n_yf] = 0.0;
 			if (len > radius*radius) continue;
 			len = sqrt(len);
 			// 3/pi/radius: normalization so that sum over all elements is (roughly) 1/r
 			// (1 - len/radius)^2 : actual blur falloff function
 			qreal t = (1 - len/radius);
-			kernel_bevel[n_xf][n_yf] = 3.0 / (M_PI*radius) * (t*t);
+			kernel_bevel[n_fIndex] = 3.0 / (M_PI*radius) * (t*t);
 			// outline kernel
 			if (len >= radius*outline_width + 0.5) continue;
 			if (len <= radius*outline_width - 0.5)
 			{
-				kernel_outline[n_xf][n_yf] = 1.0 / (M_PI*radius);
+				kernel_outline[n_fIndex] = 1.0 / (M_PI*radius);
 			}
 			else
 			{
 				// roughly estimate coverage of that pixel
-				kernel_outline[n_xf][n_yf] = (radius*outline_width + 0.5 - len) / (M_PI*radius);
+				kernel_outline[n_fIndex] = (radius*outline_width + 0.5 - len) / (M_PI*radius);
 			}
 		}
 	}
@@ -166,54 +155,55 @@ Palapeli::BevelMap Palapeli::calculateBevelMap(const Palapeli::PieceVisuals& sou
 	QVector<QPointF> vmap(width*height);
 	// stores how much pixel shall be darkened (outline effect)
 	QVector<qreal> darkening(width*height);
+	// cache scanLine pointers (these are used very often from now on)
+	QVector<QRgb*> scanLinePointers(height);
+	for (int ny = 0; ny < height; ++ny)
+		scanLinePointers[ny] = (QRgb*) img.scanLine(ny);
 
 	// iterate over img's pixel, finding the alpha edges
 	// we imagine the image padded into a 1px wide transparent border,
 	// thus iteration starts at -1.
-	QRect rect = img.rect();
-	for (int nx=-1; nx<width; nx++)
+	for (int ny = -1; ny < height; ++ny)
 	{
-		for (int ny=-1; ny<height; ny++)
+		for (int nx = -1; nx < width; ++nx)
 		{
 			// for each edge, we add a blurred vector "blob" (the folding kernel_bevel) into the target vector at the right spot.
-			// the alpha values
-			int a1=0, a2=0, a3=0, a4=0;
-			if (rect.contains(nx, ny))
-				a1 = qAlpha(* (QRgb*)(img.scanLine(ny) + 4*nx));
-			if (rect.contains(nx+1, ny))
-				a2 = qAlpha(* (QRgb*)(img.scanLine(ny) + 4*nx + 4));
-			if (rect.contains(nx, ny+1))
-				a3 = qAlpha(* (QRgb*)(img.scanLine(ny+1) + 4*nx));
-			if (rect.contains(nx+1, ny+1))
-				a4 = qAlpha(* (QRgb*)(img.scanLine(ny+1) + 4*nx + 4));
-
+			// find alpha values
+			// The conditions in here are a condensed version of img.rect().contains(nx(+1),ny(+1)).
+			const int a1 = (nx == -1 || ny == -1) ? 0 : qAlpha(scanLinePointers[ny][nx]);
+			const int a2 = (nx == width-1 || ny == -1) ? 0 : qAlpha(scanLinePointers[ny][nx+1]);
+			const int a3 = (nx == -1 || ny == height-1) ? 0 : qAlpha(scanLinePointers[ny+1][nx]);
+			const int a4 = (nx == width-1 || ny == height-1) ? 0 : qAlpha(scanLinePointers[ny+1][nx+1]);
 			// find difference
-			int dx = (a2 + a4) - (a1 + a3);
-			int dy = (a3 + a4) - (a1 + a2);
-
-			if (dx==0 && dy==0) continue;
+			const int dx = (a2 + a4) - (a1 + a3);
+			const int dy = (a3 + a4) - (a1 + a2);
+			int diff = dx * dx + dy * dy;
+			if (diff == 0)
+				continue;
+			diff = sqrt(diff);
 
 			// iterate over the folding kernel_bevel
-			for (int n_xf = 0; n_xf < radius; n_xf++)
+			for (int n_xf = 0, n_fIndex = 0; n_xf < radius; ++n_xf)
 			{
-				for (int n_yf = 0; n_yf < radius; n_yf++)
+				//break statement in second loop might break n_fIndex
+				n_fIndex = n_xf * radius;
+				for (int n_yf = 0; n_yf < radius; ++n_yf, ++n_fIndex)
 				{
-					qreal bevelfactor = kernel_bevel[n_xf][n_yf];
+					const qreal bevelfactor = kernel_bevel[n_fIndex];
 					if (bevelfactor == 0.0)
 						// only 0 will follow. break n_yf iteration and proceed with next n_xf.
 						break;
-					qreal darkenfactor = kernel_outline[n_xf][n_yf];
-					// only evaluate sqrt if necessary
-					if (darkenfactor>0) darkenfactor *= sqrt(dx*dx + dy*dy);
-					for (int quadrant=0; quadrant<4; quadrant++) {
+					const qreal darkenfactor = diff * kernel_outline[n_fIndex];
+					for (int quadrant=0; quadrant<4; ++quadrant) {
 						// the coordinates of the point we write to
-						int n_xtick = (quadrant%2 == 0) ? nx - n_xf : nx + 1 + n_xf;
-						int n_ytick = (quadrant/2 == 0) ? ny - n_yf : ny + 1 + n_yf;
-						//if (rect.contains(n_xtick, n_ytick))
+						const int n_xtick = (quadrant%2 == 0) ? nx - n_xf : nx + 1 + n_xf;
+						const int n_ytick = (quadrant/2 == 0) ? ny - n_yf : ny + 1 + n_yf;
+						//if (image.rect().contains(n_xtick, n_ytick))
 						if (n_xtick>=0 && n_ytick>=0 && n_xtick < width && n_ytick < height)
 						{
-							vmap[n_xtick + n_ytick * width] += QPointF(bevelfactor*dx, bevelfactor*dy);
-							darkening[n_xtick + n_ytick * width] += darkenfactor;
+							const int n_tickIndex = n_xtick + n_ytick * width;
+							vmap[n_tickIndex] += QPointF(bevelfactor*dx, bevelfactor*dy);
+							darkening[n_tickIndex] += darkenfactor;
 						}
 					}
 				}
@@ -223,51 +213,45 @@ Palapeli::BevelMap Palapeli::calculateBevelMap(const Palapeli::PieceVisuals& sou
 
 	// re-encode the result into polar coordinates / RLE zero runs as described in piecevisuals.h.
 	// While at it, we wipe out all elements where source alpha is zero.
-	Palapeli::BevelMap result = Palapeli::BevelMap(width*height);
+	Palapeli::BevelMap result(width*height);
 	int last_nonzero = -1;
 	int strength;
 
-	for (int idx = 0; idx < width*height; idx++)
+	for (int y = 0, idx = 0; y < height; ++y)
 	{
-		int srcalpha = qAlpha(* (QRgb*)(img.scanLine(idx/width) + 4*(idx%width)));
-		if (srcalpha == 0)
-			vmap[idx] = QPointF(0.0, 0.0);
+		for (int x = 0; x < width; ++x, ++idx)
+		{
+			const QRgb srccolor = scanLinePointers[y][x];
+			if (qAlpha(srccolor) == 0)
+				vmap[idx] = QPointF(0.0, 0.0);
 
-		QLineF l = QLineF(QPointF(0.0, 0.0), vmap[idx]);
-		strength = l.length() * strength_scale;
-		if (strength>255) strength=255;
+			QLineF l(QPointF(0.0, 0.0), vmap[idx]);
+			strength = l.length() * strength_scale;
+			if (strength>255) strength=255;
 
-		if (strength>0) {
-			if (last_nonzero < idx-1)
-			{
-				result[last_nonzero+1].strength = 0;
-				// orig_argb stores run length
-				result[last_nonzero+1].orig_argb = idx - last_nonzero - 1;
+			if (strength>0) {
+				if (last_nonzero < idx-1)
+				{
+					result[last_nonzero+1].strength = 0;
+					// orig_argb stores run length
+					result[last_nonzero+1].orig_argb = idx - last_nonzero - 1;
+				}
+				last_nonzero = idx;
+				result[idx].strength = strength;
+				result[idx].angle = int(l.angle() * 256 / 360 + 256) % 256;
+				QColor color = QColor::fromRgba(srccolor);
+				if (darkening[idx] > 0) color = color.darker(100 + darkening[idx]*outline_darken_scale);
+				result[idx].orig_argb = color.rgba();
 			}
-			last_nonzero = idx;
-			result[idx].strength = strength;
-			result[idx].angle = int(l.angle() * 256 / 360 + 256) % 256;
-			QColor color = QColor::fromRgba(*((QRgb*)(img.scanLine(idx/width) + 4*(idx%width))));
-			if (darkening[idx] > 0) color = color.darker(100 + darkening[idx]*outline_darken_scale);
-			result[idx].orig_argb = color.rgba();
 		}
 	}
 	// encode last zero run if present
 	if (last_nonzero < width*height-1)
 	{
-				result[last_nonzero+1].strength = 0;
-				// orig_argb stores run length
-				result[last_nonzero+1].orig_argb = width*height - last_nonzero - 1;
+		result[last_nonzero+1].strength = 0;
+		// orig_argb stores run length
+		result[last_nonzero+1].orig_argb = width*height - last_nonzero - 1;
 	}
-
-	// cleanup
-	for (int n_xf=0; n_xf < radius; n_xf ++) {
-		delete[] kernel_bevel[n_xf];
-		delete[] kernel_outline[n_xf];
-	}
-	delete[] kernel_bevel;
-	delete[] kernel_outline;
-
 	return result;
 }
 
@@ -407,11 +391,7 @@ Palapeli::BevelMap Palapeli::mergeBevelMaps(const QList<Palapeli::PieceVisuals>&
 	const int combinedWidth = combinedGeometry.width();
 	const int combinedHeight = combinedGeometry.height();
 
-	BevelPoint p;
-	p.strength=0;
-	p.angle=0;
-	p.orig_argb=0;
-	Palapeli::BevelMap result(combinedWidth*combinedHeight, p);
+	Palapeli::BevelMap result(combinedWidth*combinedHeight);
 	for (int i=0; i<visuals.size(); i++)
 	{
 		int srcwidth = visuals[i].size().width();

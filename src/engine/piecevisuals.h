@@ -26,6 +26,7 @@ namespace Palapeli
 {
 	struct BevelPoint
 	{
+		BevelPoint() : strength(0), angle(0), orig_argb(0) {}
 		// gives the strength of the bevel at this point, i.e. the amount of darken/lighten
 		char strength;
 		// full circle is divided into 256 units. The translate into usual degrees like this:
