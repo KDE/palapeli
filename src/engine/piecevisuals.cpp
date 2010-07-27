@@ -21,6 +21,7 @@
 
 #include <cmath>
 #include <QApplication>
+#include <QDebug>
 #include <QImage>
 #include <QPainter>
 #include <QPalette>
