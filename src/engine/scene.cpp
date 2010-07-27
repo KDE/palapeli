@@ -30,6 +30,7 @@
 #include <QPropertyAnimation>
 #include <QTimer>
 #include <QtConcurrentRun>
+#include <QtCore/qmath.h>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KMessageBox>
@@ -260,7 +261,7 @@ void Palapeli::Scene::loadPiecePositions()
 		pieceAreaSize *= 1.3; //more space for each piece
 		//step 2: place pieces in a grid in random order
 		QList<Palapeli::Piece*> piecePool(m_pieces);
-		const int xCount = floor(sqrt((float)piecePool.count()));
+		const int xCount = floor(qSqrt(piecePool.count()));
 		for (int y = 0; !piecePool.isEmpty(); ++y)
 		{
 			for (int x = 0; x < xCount && !piecePool.isEmpty(); ++x)

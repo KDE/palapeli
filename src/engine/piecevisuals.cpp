@@ -20,12 +20,10 @@
 #include "piecevisuals.h"
 
 #include <cmath>
-#include <QApplication>
 #include <QDebug>
 #include <QImage>
 #include <QPainter>
-#include <QPalette>
-#include <QPropertyAnimation>
+#include <QtCore/qmath.h>
 
 //BEGIN shadow blur algorithm
 
@@ -112,7 +110,6 @@ static QImage createShadow(const QImage& source, int radius)
 // See piecevisuals.h for some explanations about BevelMap.
 Palapeli::BevelMap Palapeli::calculateBevelMap(const Palapeli::PieceVisuals& source, int radius)
 {
-	//TODO: disambiguate sqrt
 	const qreal strength_scale = 0.2;
 	// in multiples of radius
 	const qreal outline_width = 0.07;
@@ -133,7 +130,7 @@ Palapeli::BevelMap Palapeli::calculateBevelMap(const Palapeli::PieceVisuals& sou
 			qreal yfold = n_yf + 0.5;
 			qreal len = xfold*xfold + yfold*yfold;
 			if (len > radius*radius) continue;
-			len = sqrt(len);
+			len = qSqrt(len);
 			// 3/pi/radius: normalization so that sum over all elements is (roughly) 1/r
 			// (1 - len/radius)^2 : actual blur falloff function
 			qreal t = (1 - len/radius);
@@ -181,7 +178,7 @@ Palapeli::BevelMap Palapeli::calculateBevelMap(const Palapeli::PieceVisuals& sou
 			int diff = dx * dx + dy * dy;
 			if (diff == 0)
 				continue;
-			diff = sqrt(diff);
+			diff = qSqrt(diff);
 
 			// iterate over the folding kernel_bevel
 			for (int n_xf = 0, n_fIndex = 0; n_xf < radius; ++n_xf)
