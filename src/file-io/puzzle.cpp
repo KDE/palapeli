@@ -269,7 +269,7 @@ void Palapeli::Puzzle::createNewArchiveFile()
 	}
 	else
 	{
-		QMapIterator<int, QPixmap> iterPieces(m_contents->pieces);
+		QMapIterator<int, QImage> iterPieces(m_contents->pieces);
 		while (iterPieces.hasNext())
 		{
 			const QString imagePath = cachePath + QString::fromLatin1("%1.png").arg(iterPieces.next().key());

@@ -198,17 +198,16 @@ void Palapeli::Scene::loadNextPiece()
 		return;
 	//add pieces, but only one at a time
 	const Palapeli::PuzzleContents* contents = m_puzzle->contents();
-	QMap<int, QPixmap>::const_iterator iterPieces = contents->pieces.begin();
-	const QMap<int, QPixmap>::const_iterator iterPiecesEnd = contents->pieces.end();
+	QMap<int, QImage>::const_iterator iterPieces = contents->pieces.begin();
+	const QMap<int, QImage>::const_iterator iterPiecesEnd = contents->pieces.end();
 	for (int pieceID = iterPieces.key(); iterPieces != iterPiecesEnd; pieceID = (++iterPieces).key())
 	{
 		if (m_loadedPieces.contains(pieceID))
 			continue; //already loaded
 		//load piece
-		Palapeli::PieceVisuals pieceVisuals = { iterPieces.value(), contents->pieceOffsets[pieceID] };
-		Palapeli::Piece* piece = new Palapeli::Piece(pieceVisuals);
+		Palapeli::Piece* piece = new Palapeli::Piece(iterPieces.value(), contents->pieceOffsets[pieceID]);
 		piece->addRepresentedAtomicPieces(QList<int>() << pieceID);
-		piece->addAtomicSize(pieceVisuals.pixmap.size());
+		piece->addAtomicSize(iterPieces.value().size());
 		addItem(piece);
 		m_pieces << piece;
 		m_loadedPieces[pieceID] = piece;

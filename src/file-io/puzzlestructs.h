@@ -38,7 +38,7 @@ namespace Palapeli
 	struct PuzzleContents
 	{
 		QSize imageSize;
-		QMap<int, QPixmap> pieces;
+		QMap<int, QImage> pieces;
 		QMap<int, QPoint> pieceOffsets;
 		QList<QPair<int, int> > relations;
 	};

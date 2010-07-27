@@ -142,7 +142,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	while (pieceIter.hasNext())
 	{
 		pieceIter.next();
-		contents->pieces[pieceIter.key()] = QPixmap::fromImage(pieceIter.value());
+		contents->pieces[pieceIter.key()] = pieceIter.value();
 	}
 	contents->pieceOffsets = job.pieceOffsets();
 	contents->relations = job.relations();

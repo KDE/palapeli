@@ -35,6 +35,8 @@ namespace Palapeli
 		Q_OBJECT
 		Q_PROPERTY(qreal activeShadowOpacity READ activeShadowOpacity WRITE setActiveShadowOpacity)
 		public:
+			///This constructor is used when the piece is loaded only from the puzzle file.
+			explicit Piece(const QImage& pieceImage, const QPoint& offset);
 			///This constructor creates a piece without a shadow, unless a shadow is provided explicitly.
 			explicit Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals = Palapeli::PieceVisuals(), const Palapeli::PieceVisuals& beveldPieceVisuals = Palapeli::PieceVisuals(), const Palapeli::BevelMap& bevelMap = Palapeli::BevelMap());
 			///This method will
@@ -83,6 +85,7 @@ namespace Palapeli
 		private Q_SLOTS:
 			void pieceItemSelectedChanged(bool selected);
 		private:
+			void commonInit(const Palapeli::PieceVisuals& useVisuals = Palapeli::PieceVisuals());
 			void createShadowItems(const Palapeli::PieceVisuals& shadowVisuals);
 			qreal activeShadowOpacity() const;
 			void setActiveShadowOpacity(qreal opacity);

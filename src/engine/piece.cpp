@@ -27,6 +27,38 @@
 #include <QPalette>
 #include <QPropertyAnimation>
 
+void Palapeli::Piece::commonInit(const Palapeli::PieceVisuals& useVisuals)
+{
+	Palapeli::SelectionAwarePixmapItem* pieceItem = new Palapeli::SelectionAwarePixmapItem(useVisuals.pixmap(), this);
+	connect(pieceItem, SIGNAL(selectedChanged(bool)), SLOT(pieceItemSelectedChanged(bool)));
+	m_pieceItem = pieceItem;
+	m_pieceItem->setOffset(useVisuals.offset());
+	//initialize behavior
+	m_pieceItem->setAcceptedMouseButtons(Qt::LeftButton);
+	m_pieceItem->setCursor(Qt::OpenHandCursor);
+	m_pieceItem->setFlag(QGraphicsItem::ItemIsSelectable);
+	// replacing m_pieceItems pixmap (in rerenderBevel()) causes weird pixel errors
+	// when using fast transformation. SmoothTransformation looks better anyway...
+	m_pieceItem->setTransformationMode(Qt::SmoothTransformation);
+}
+
+Palapeli::Piece::Piece(const QImage& pieceImage, const QPoint& offset)
+	: m_pieceItem(0)
+	, m_inactiveShadowItem(0)
+	, m_activeShadowItem(0)
+	, m_animator(0)
+	, m_plainVisuals(pieceImage, offset)
+{
+	commonInit(m_plainVisuals);
+	//create bevel map if wanted
+	if (Settings::pieceBevelsEnabled())
+	{
+		const QSize size = m_plainVisuals.size();
+		const int radius = 0.04 * (size.width() + size.height());
+		m_bevelMap = Palapeli::calculateBevelMap(m_plainVisuals, radius);
+	}
+}
+
 Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals, const Palapeli::PieceVisuals& beveledVisuals, const Palapeli::BevelMap& bevelMap)
 	: m_pieceItem(0)
 	, m_inactiveShadowItem(0)
@@ -36,29 +68,9 @@ Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapel
 	, m_beveledVisuals(beveledVisuals)
 	, m_bevelMap(bevelMap)
 {
-	//initialize appearance
-	const QPixmap usePixmap = (m_beveledVisuals.isNull() ? m_plainVisuals : m_beveledVisuals).pixmap;
-	Palapeli::SelectionAwarePixmapItem* pieceItem = new Palapeli::SelectionAwarePixmapItem(usePixmap, this);
-	connect(pieceItem, SIGNAL(selectedChanged(bool)), this, SLOT(pieceItemSelectedChanged(bool)));
-	m_pieceItem = pieceItem;
-	m_pieceItem->setOffset(pieceVisuals.offset);
+	commonInit(m_beveledVisuals.isNull() ? m_plainVisuals : m_beveledVisuals);
 	if (!shadowVisuals.isNull())
 		createShadowItems(shadowVisuals);
-	//create bevel map if none is provided (this is the case only during loading
-	//as pieces created during merging will be provided with a merged bevel map)
-	if (Settings::pieceBevelsEnabled() && m_bevelMap.isEmpty())
-	{
-		const QSize size = m_plainVisuals.pixmap.size();
-		const int radius = 0.04 * (size.width() + size.height());
-		m_bevelMap = Palapeli::calculateBevelMap(m_plainVisuals.pixmap, radius);
-	}
-	//initialize behavior
-	m_pieceItem->setAcceptedMouseButtons(Qt::LeftButton);
-	m_pieceItem->setCursor(Qt::OpenHandCursor);
-	m_pieceItem->setFlag(QGraphicsItem::ItemIsSelectable);
-	// replacing m_pieceItems pixmap (in rerenderBevel()) causes weird pixel errors
-	// when using fast transformation. SmoothTransformation looks better anyway...
-	m_pieceItem->setTransformationMode(Qt::SmoothTransformation);
 }
 
 //BEGIN visuals
@@ -72,16 +84,23 @@ bool Palapeli::Piece::completeVisuals()
 		didSomething = true;
 	}
 	//render bevel map onto piece image
-	if (m_beveledVisuals.isNull())
+	if (m_beveledVisuals.isNull() && !m_bevelMap.isEmpty())
 	{
-		if (!m_bevelMap.isEmpty())
-		{
-			// 0.0 = rotation angle of piece - ATM pieces cannot be rotated
-			m_beveledVisuals = m_plainVisuals;
-			m_beveledVisuals.pixmap = Palapeli::applyBevelMap(m_plainVisuals.pixmap, m_bevelMap, 0.0);
-			m_pieceItem->setPixmap(m_beveledVisuals.pixmap);
+		// 0.0 = rotation angle of piece - ATM pieces cannot be rotated
+		m_beveledVisuals = m_plainVisuals;
+		m_beveledVisuals = Palapeli::PieceVisuals(
+			Palapeli::applyBevelMap(m_plainVisuals.pixmap(), m_bevelMap, 0.0),
+			m_plainVisuals.offset()
+		);
+		m_pieceItem->setPixmap(m_beveledVisuals.pixmap());
+		didSomething = true;
+	}
+	//if bevel is deactivated
+	else if (m_pieceItem->pixmap().isNull())
+	{
+		m_pieceItem->setPixmap(m_plainVisuals.pixmap());
+		if (!m_pieceItem->pixmap().isNull())
 			didSomething = true;
-		}
 	}
 	return didSomething;
 }
@@ -96,12 +115,12 @@ void Palapeli::Piece::createShadowItems(const Palapeli::PieceVisuals& shadowVisu
 	const QColor activeShadowColor = QApplication::palette().color(QPalette::Highlight);
 	const Palapeli::PieceVisuals activeShadowVisuals = Palapeli::changeShadowColor(shadowVisuals, activeShadowColor);
 	//create inactive shadow item
-	m_inactiveShadowItem = new QGraphicsPixmapItem(shadowVisuals.pixmap, this);
-	m_inactiveShadowItem->setOffset(shadowVisuals.offset);
+	m_inactiveShadowItem = new QGraphicsPixmapItem(shadowVisuals.pixmap(), this);
+	m_inactiveShadowItem->setOffset(shadowVisuals.offset());
 	m_inactiveShadowItem->setZValue(-2);
 	//create active shadow item and animator for its opacity
-	m_activeShadowItem = new QGraphicsPixmapItem(activeShadowVisuals.pixmap, this);
-	m_activeShadowItem->setOffset(activeShadowVisuals.offset);
+	m_activeShadowItem = new QGraphicsPixmapItem(activeShadowVisuals.pixmap(), this);
+	m_activeShadowItem->setOffset(activeShadowVisuals.offset());
 	m_activeShadowItem->setZValue(-1);
 	m_activeShadowItem->setOpacity(isSelected() ? 1.0 : 0.0);
 	m_animator = new QPropertyAnimation(this, "activeShadowOpacity", this);
@@ -126,8 +145,7 @@ Palapeli::PieceVisuals Palapeli::Piece::shadowVisuals() const
 {
 	if (!m_inactiveShadowItem)
 		return Palapeli::PieceVisuals();
-	Palapeli::PieceVisuals result = { m_inactiveShadowItem->pixmap(), m_inactiveShadowItem->offset().toPoint() };
-	return result;
+	return Palapeli::PieceVisuals(m_inactiveShadowItem->pixmap(), m_inactiveShadowItem->offset().toPoint());
 }
 
 Palapeli::PieceVisuals Palapeli::Piece::beveledVisuals() const

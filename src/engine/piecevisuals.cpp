@@ -31,13 +31,13 @@
 
 static void blur(QImage& image, const QRect& rect, int radius)
 {
-	int tab[] = { 14, 10, 8, 6, 5, 5, 4, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2 };
-	int alpha = (radius < 1)  ? 16 : (radius > 17) ? 1 : tab[radius - 1];
+	const int tab[] = { 14, 10, 8, 6, 5, 5, 4, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2 };
+	const int alpha = (radius < 1)  ? 16 : (radius > 17) ? 1 : tab[radius - 1];
 
-	int r1 = rect.top();
-	int r2 = rect.bottom();
-	int c1 = rect.left();
-	int c2 = rect.right();
+	const int r1 = rect.top();
+	const int r2 = rect.bottom();
+	const int c1 = rect.left();
+	const int c2 = rect.right();
 
 	int bpl = image.bytesPerLine();
 	int alphaChannel;
@@ -80,31 +80,29 @@ static void blur(QImage& image, const QRect& rect, int radius)
 	}
 }
 
-static QPixmap makePixmapMonochrome(const QPixmap& pixmap, const QColor& color)
+static QImage makePixmapMonochrome(const QImage& image, const QColor& color)
 {
-	QPixmap basePixmap(pixmap.size());
-	basePixmap.fill(color);
+	QImage baseImage(image.size(), QImage::Format_ARGB32_Premultiplied);
+	baseImage.fill(color.rgba());
 
-	QPixmap monoPixmap(pixmap);
-	QPainter px(&monoPixmap);
+	QImage monoImage(image);
+	QPainter px(&monoImage);
 	px.setCompositionMode(QPainter::CompositionMode_SourceAtop);
-	px.drawPixmap(0, 0, basePixmap);
+	px.drawImage(0, 0, baseImage);
 	px.end();
-	return monoPixmap;
+	return monoImage;
 }
 
-static QPixmap createShadow(const QPixmap& source, int radius)
+static QImage createShadow(const QImage& source, int radius)
 {
-	QPixmap shadowPixmap = makePixmapMonochrome(source, Qt::black);
-
 	QImage shadowImage(QSize(source.width() + 2 * radius, source.height() + 2 * radius), QImage::Format_ARGB32_Premultiplied);
 	shadowImage.fill(0x00000000); //transparent
 	QPainter px(&shadowImage);
-	px.drawPixmap(QPoint(radius, radius), shadowPixmap);
+	px.drawImage(QPoint(radius, radius), makePixmapMonochrome(source, Qt::black));
 	px.end();
 
 	blur(shadowImage, QRect(QPoint(), shadowImage.size()), radius / 3);
-	return QPixmap::fromImage(shadowImage);
+	return shadowImage;
 }
 
 //END shadow blur algorithm
@@ -112,14 +110,14 @@ static QPixmap createShadow(const QPixmap& source, int radius)
 //BEGIN edge beveling algorithms
 
 // See piecevisuals.h for some explanations about BevelMap.
-Palapeli::BevelMap Palapeli::calculateBevelMap(const QPixmap& source, int radius)
+Palapeli::BevelMap Palapeli::calculateBevelMap(const Palapeli::PieceVisuals& source, int radius)
 {
 	const qreal strength_scale = 0.2;
 	// in multiples of radius
 	const qreal outline_width = 0.07;
 	const qreal outline_darken_scale = 2;
 
-	QImage sourceimg = source.toImage();
+	QImage sourceimg = source.image();
 	// we only really care about the alpha channel here. And we expect ARGB32_Premultiplied anyway.
 	if (sourceimg.format() != QImage::Format_ARGB32 && sourceimg.format() != QImage::Format_ARGB32_Premultiplied)
 		sourceimg = sourceimg.convertToFormat(QImage::Format_ARGB32);
@@ -337,44 +335,60 @@ QPixmap Palapeli::applyBevelMap(const QPixmap &source, const Palapeli::BevelMap&
 
 Palapeli::PieceVisuals Palapeli::createShadow(const Palapeli::PieceVisuals& pieceVisuals, const QSize& shadowSizeHint)
 {
-	const QSize shadowSizeHintUse = shadowSizeHint.isEmpty() ? pieceVisuals.pixmap.size() : shadowSizeHint;
+	const QSize shadowSizeHintUse = shadowSizeHint.isEmpty() ? pieceVisuals.size() : shadowSizeHint;
 	const int shadowRadius = 0.15 * (shadowSizeHintUse.width() + shadowSizeHintUse.height());
-	Palapeli::PieceVisuals result;
-	result.pixmap = createShadow(pieceVisuals.pixmap, shadowRadius);
-	result.offset = pieceVisuals.offset - QPoint(shadowRadius, shadowRadius);
-	return result;
+	return Palapeli::PieceVisuals(
+		createShadow(pieceVisuals.image(), shadowRadius),
+		pieceVisuals.offset() - QPoint(shadowRadius, shadowRadius)
+	);
 }
 
 Palapeli::PieceVisuals Palapeli::changeShadowColor(const Palapeli::PieceVisuals& shadowVisuals, const QColor& color)
 {
-	Palapeli::PieceVisuals result = shadowVisuals;
-	result.pixmap = makePixmapMonochrome(result.pixmap, color);
-	return result;
+	return Palapeli::PieceVisuals(
+		makePixmapMonochrome(shadowVisuals.image(), color),
+		shadowVisuals.offset()
+	);
 }
 
 Palapeli::PieceVisuals Palapeli::mergeVisuals(const QList<Palapeli::PieceVisuals>& visuals)
 {
-	//determine geometry of combined pixmap
+	//determine geometry of combined pixmap, and hold a vote on which representation to use
+	int imageCount = 0, pixmapCount = 0;
 	QRect combinedGeometry;
 	foreach (const Palapeli::PieceVisuals& sample, visuals)
 	{
-		QRect sampleGeometry(sample.offset, sample.pixmap.size());
+		QRect sampleGeometry(sample.offset(), sample.size());
 		if (combinedGeometry.isNull())
 			combinedGeometry = sampleGeometry;
 		else
 			combinedGeometry |= sampleGeometry;
+		//NOTE: bool-int cast always returns 0 or 1.
+		imageCount += (int) sample.hasImage();
+		pixmapCount += (int) sample.hasPixmap();
 	}
-	//combine pixmaps
 	const QPoint combinedOffset = combinedGeometry.topLeft();
-	QPixmap combinedPixmap(combinedGeometry.size());
-	combinedPixmap.fill(Qt::transparent);
-	QPainter painter(&combinedPixmap);
-	foreach (const Palapeli::PieceVisuals& sample, visuals)
-		painter.drawPixmap(sample.offset - combinedOffset, sample.pixmap);
-	painter.end();
-	//create result
-	Palapeli::PieceVisuals result = { combinedPixmap, combinedOffset };
-	return result;
+	//combine pixmaps
+	if (pixmapCount > imageCount)
+	{
+		QPixmap combinedPixmap(combinedGeometry.size());
+		combinedPixmap.fill(Qt::transparent);
+		QPainter painter(&combinedPixmap);
+		foreach (const Palapeli::PieceVisuals& sample, visuals)
+			painter.drawPixmap(sample.offset() - combinedOffset, sample.pixmap());
+		painter.end();
+		return Palapeli::PieceVisuals(combinedPixmap, combinedOffset);
+	}
+	else
+	{
+		QImage combinedImage(combinedGeometry.size(), QImage::Format_ARGB32_Premultiplied);
+		combinedImage.fill(0x00000000); // == Qt::transparent
+		QPainter painter(&combinedImage);
+		foreach (const Palapeli::PieceVisuals& sample, visuals)
+			painter.drawImage(sample.offset() - combinedOffset, sample.image());
+		painter.end();
+		return Palapeli::PieceVisuals(combinedImage, combinedOffset);
+	}
 }
 
 Palapeli::BevelMap Palapeli::mergeBevelMaps(const QList<Palapeli::PieceVisuals>& visuals, const QList<Palapeli::BevelMap>& bevelMaps)
@@ -383,7 +397,7 @@ Palapeli::BevelMap Palapeli::mergeBevelMaps(const QList<Palapeli::PieceVisuals>&
 	QRect combinedGeometry;
 	foreach (const Palapeli::PieceVisuals& sample, visuals)
 	{
-		QRect sampleGeometry(sample.offset, sample.pixmap.size());
+		QRect sampleGeometry(sample.offset(), sample.size());
 		if (combinedGeometry.isNull())
 			combinedGeometry = sampleGeometry;
 		else
@@ -400,8 +414,8 @@ Palapeli::BevelMap Palapeli::mergeBevelMaps(const QList<Palapeli::PieceVisuals>&
 	Palapeli::BevelMap result(combinedWidth*combinedHeight, p);
 	for (int i=0; i<visuals.size(); i++)
 	{
-		int srcwidth = visuals[i].pixmap.width();
-		QPoint offset = visuals[i].offset - combinedOffset;
+		int srcwidth = visuals[i].size().width();
+		QPoint offset = visuals[i].offset() - combinedOffset;
 		for (int srcidx=0; srcidx<bevelMaps[i].size(); srcidx++)
 		{
 			if (bevelMaps[i][srcidx].strength==0)

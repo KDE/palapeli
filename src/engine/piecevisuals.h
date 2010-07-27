@@ -43,16 +43,44 @@ namespace Palapeli
 	// where the BevelMap belongs to.
 	typedef QVector<BevelPoint> BevelMap;
 
-	struct PieceVisuals
+	class PieceVisuals
 	{
-		QPixmap pixmap;
-		QPoint offset;
+		public:
+			PieceVisuals() {}
+			PieceVisuals(const QImage& image, const QPoint& offset) : m_image(image), m_offset(offset) {}
+			PieceVisuals(const QPixmap& pixmap, const QPoint& offset) : m_pixmap(pixmap), m_offset(offset) {}
 
-		bool isNull() const { return pixmap.isNull(); }
+			inline bool hasImage() const { return !m_image.isNull(); }
+			inline bool hasPixmap() const { return !m_pixmap.isNull(); }
+			inline bool isNull() const { return m_image.isNull() && m_pixmap.isNull(); }
+			inline QPoint offset() const { return m_offset; }
+
+			inline QImage image() const
+			{
+				if (m_image.isNull())
+					m_image = m_pixmap.toImage();
+				return m_image;
+			}
+			inline QPixmap pixmap() const
+			{
+				if (m_pixmap.isNull())
+					m_pixmap = QPixmap::fromImage(m_image);
+				return m_pixmap;
+			}
+			inline QSize size() const
+			{
+				//One of them might be (0,0) if no conversion has happened yet.
+				return m_pixmap.size().expandedTo(m_image.size());
+			}
+		private:
+			mutable QImage m_image;
+			mutable QPixmap m_pixmap;
+			QPoint m_offset;
+
 	};
 
 	//TODO: Many of these functions operate on QImages internally, and could therefore be more efficient when given a QImage.
-	Palapeli::BevelMap calculateBevelMap(const QPixmap& source, int radius);
+	Palapeli::BevelMap calculateBevelMap(const Palapeli::PieceVisuals& source, int radius);
 	QPixmap applyBevelMap(const QPixmap& source, const Palapeli::BevelMap& bevelmap, qreal angle);
 	Palapeli::PieceVisuals createShadow(const Palapeli::PieceVisuals& pieceVisuals, const QSize& shadowSizeHint = QSize());
 	Palapeli::PieceVisuals changeShadowColor(const Palapeli::PieceVisuals& shadowVisuals, const QColor& color);
