@@ -43,7 +43,6 @@ void CairoMode::generateGrid(GoldbergEngine *e, int piece_count) const {
     int collision_tries = 10 * e->m_plug_size * e->m_plug_size;
     if (collision_tries < 5) collision_tries = 5;
     const qreal collision_shrink_factor = 0.95;
-    int collision_limit = piece_count / 3;
 
 
     // calculate piece counts
@@ -151,7 +150,6 @@ void CairoMode::generateGrid(GoldbergEngine *e, int piece_count) const {
             }
 
             // collision checking
-            if (e->m_unresolved_collisions < collision_limit) {
                 bool intersects;
                 QList<GBClassicPlugParams*> offenders;
 
@@ -271,11 +269,7 @@ void CairoMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                     for (int i=0; i<offenders.size(); i++) e->makePlugless(*(offenders.at(i)));
                 }
 
-                if (e->m_unresolved_collisions >= collision_limit) {
-                    qDebug() << "limit reached, dropping collision checking.";
-                }
             } // end collision checking
-        }
     }
 
     qDebug() << "now creating pieces";
