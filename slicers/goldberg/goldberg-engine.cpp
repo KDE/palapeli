@@ -76,6 +76,7 @@ GBClassicPlugParams GoldbergEngine::initEdge(bool is_straight) {
     r.size_correction = 1.0;
     r.flipped = (qrand() % 100 < m_flip_threshold);
     r.is_straight = is_straight;
+    r.is_plugless = false;
     r.path_is_rendered = false;
     r.path = QPainterPath();
 
@@ -165,15 +166,19 @@ void GoldbergEngine::smooth_join(GBClassicPlugParams &border1, GBClassicPlugPara
 }
 
 
-bool GoldbergEngine::plugsIntersect(GBClassicPlugParams &p1, GBClassicPlugParams &p2) {
-    if (!p1.path_is_rendered) renderClassicPlug(p1);
-    if (!p2.path_is_rendered) renderClassicPlug(p2);
+bool GoldbergEngine::plugsIntersect(GBClassicPlugParams &candidate, GBClassicPlugParams &other, QList<GBClassicPlugParams*> *offenders) {
+    if (!candidate.path_is_rendered) renderClassicPlug(candidate);
+    if (!other.path_is_rendered) renderClassicPlug(other);
 
-    return p1.path.intersects(p2.path);
+    bool result = candidate.path.intersects(other.path);
+    if (result && offenders!=NULL) {
+        offenders->append(&other);
+    }
+    return result;
 }
 
-bool GoldbergEngine::plugOutOfBounds(GBClassicPlugParams &p1) {
-    if (!p1.path_is_rendered) renderClassicPlug(p1);
+bool GoldbergEngine::plugOutOfBounds(GBClassicPlugParams &candidate) {
+    if (!candidate.path_is_rendered) renderClassicPlug(candidate);
 
     QPainterPath imagerect = QPainterPath(QPointF(0.0, 0.0));
     imagerect.lineTo(QPointF(m_image.width(), 0.0));
@@ -181,7 +186,13 @@ bool GoldbergEngine::plugOutOfBounds(GBClassicPlugParams &p1) {
     imagerect.lineTo(QPointF(0.0, m_image.height()));
     imagerect.closeSubpath();
 
-    return (!imagerect.contains(p1.path));
+    return (!imagerect.contains(candidate.path));
+}
+
+void GoldbergEngine::makePlugless(GBClassicPlugParams &parameters){
+    parameters.is_plugless = true;
+    parameters.path_is_rendered = false;
+    parameters.path = QPainterPath();
 }
 
 void GoldbergEngine::makePieceFromPath(int piece_id, QPainterPath path) {
@@ -305,6 +316,11 @@ void GoldbergEngine::renderClassicPlug(GBClassicPlugParams &params) {
     u_y.translate(-u_y.p1());
 
     qreal scaling = m_length_base / u_x.length() * params.size_correction;
+    if (params.basewidth * scaling > 0.8) {
+        // Plug is too large for the edge length. Make it smaller.
+        scaling = 0.8 / params.basewidth;
+        qDebug() << "shrinking a plug";
+    }
 
     // some magic numbers here... carefully fine-tuned, better leave them as they are.
     qreal ends_ctldist = 0.4;
@@ -328,18 +344,7 @@ void GoldbergEngine::renderClassicPlug(GBClassicPlugParams &params) {
     QPointF q6 = u_x.pointAt(1. - ends_ctldist * (1.-params.basepos) * dcos(params.endangle)) +
                  u_y.pointAt(q6y);
 
-    // -- base points
-    qreal p2x = params.basepos - 0.5 * params.basewidth * scaling;
-    qreal p5x = params.basepos + 0.5 * params.basewidth * scaling;
-
-    if (p2x < 0.1 || p5x > 0.9) {
-        //knob to large. try to center knob on the edge.
-        p2x = 0.5 - 0.5 * params.basewidth * scaling;
-        p5x = 0.5 + 0.5 * params.basewidth * scaling;
-    }
-    if (p2x < 0.1 || p5x > 0.9) {
-        // edge is too short to allow a normal knob. Take the easy way out 
-        // by just connecting p1 and p6 with a bezier segment.
+    if (params.is_plugless) {
         if (!params.flipped) {
             params.path.cubicTo(r1, q6, p6);
         }
@@ -347,6 +352,16 @@ void GoldbergEngine::renderClassicPlug(GBClassicPlugParams &params) {
             params.path.cubicTo(q6, r1, p1);
         }
         return;
+    }
+
+    // -- base points
+    qreal p2x = params.basepos - 0.5 * params.basewidth * scaling;
+    qreal p5x = params.basepos + 0.5 * params.basewidth * scaling;
+
+    if (p2x < 0.1 || p5x > 0.9) {
+        // knob to large. center knob on the edge. (params.basewidth * scaling < 0.8 -- see above)
+        p2x = 0.5 - 0.5 * params.basewidth * scaling;
+        p5x = 0.5 + 0.5 * params.basewidth * scaling;
     }
 
     //qreal base_y = r1y > q6y ? r1y : q6y;
@@ -385,17 +400,6 @@ void GoldbergEngine::renderClassicPlug(GBClassicPlugParams &params) {
     qreal p3y = params.knobsize * scaling * dcos(params.knobangle + params.knobtilt) + base_y;
     qreal p4y = params.knobsize * scaling * dcos(params.knobangle - params.knobtilt) + base_y;
 
-    if (p3x < 0.03 || p4x > 0.97) {
-        // knob too large! Take the easy way out 
-        // by just connecting p1 and p6 with a bezier segment.
-        if (!params.flipped) {
-            params.path.cubicTo(r1, q6, p6);
-        }
-        else {
-            params.path.cubicTo(q6, r1, p1);
-        }
-        return;
-    }
     QPointF q3 = u_x.pointAt(p3x) +
                  u_y.pointAt(p3y - knob_lcdist);
     QPointF r4 = u_x.pointAt(p4x) +

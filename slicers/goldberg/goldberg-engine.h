@@ -23,6 +23,7 @@
 
 struct GBClassicPlugParams {
     bool flipped;
+    bool is_plugless;
     bool is_straight;
     QLineF unit_x;
     qreal size_correction;
@@ -81,8 +82,14 @@ class GoldbergEngine {
 
         void makePieceFromPath(int piece_id, QPainterPath path);
         void addRelation(int piece1, int piece2);
-        bool plugsIntersect(GBClassicPlugParams &p1, GBClassicPlugParams &p2);
-        bool plugOutOfBounds(GBClassicPlugParams &p1);
+        // checks if candidate intersects with an already set border.
+        // If *offenders is given and the plugs intersect, a reference to the "other" border is added to the list.
+        // If any plug is not rendered yet, this is done beforehands.
+        bool plugsIntersect(GBClassicPlugParams &candidate, GBClassicPlugParams &other, QList<GBClassicPlugParams*>* offenders=NULL);
+        // checks if candidate is out of bounds (image frame).
+        // If candidate is not rendered yet, this is done beforehands.
+        bool plugOutOfBounds(GBClassicPlugParams &candidate);
+        void makePlugless(GBClassicPlugParams &parameters);
 
         void addPlugToPath(QPainterPath& path, bool reverse, GBClassicPlugParams &parameters);
         void renderClassicPlug(GBClassicPlugParams &parameters);
