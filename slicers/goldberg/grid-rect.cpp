@@ -29,8 +29,6 @@ void RectMode::generateGrid(GoldbergEngine *e, int piece_count) const {
     int collision_tries = 10 * e->m_plug_size * e->m_plug_size;
     if (collision_tries < 5) collision_tries = 5;
     const qreal collision_shrink_factor = 0.95;
-    // number of unresolved collision after which we give up
-    int collision_limit = piece_count / 5;
 
 
     // calculate piece counts
@@ -74,45 +72,44 @@ void RectMode::generateGrid(GoldbergEngine *e, int piece_count) const {
             if (y>0 && y < yCount) e->smooth_join(verticalPlugParams[x][y], verticalPlugParams[x][y-1]);
 
             // collision checking
-            if (e->m_unresolved_collisions < collision_limit || false) {
                 if (x > 0 && x < xCount) {
                     bool v_intersects = true;
+                    QList<GBClassicPlugParams*> offenders;
                     for (int i=0; i<collision_tries && v_intersects; i++) {
+                        offenders.clear();
                         if (i>0 && v_intersects) {
                             qDebug() << "collision: vertical edge, x=" << x << ", y=" << y;
                             verticalPlugParams[x][y].size_correction *= collision_shrink_factor;
                             e->reRandomizeEdge(verticalPlugParams[x][y], true);
                         }
                         v_intersects = (
-                                    e->plugsIntersect(verticalPlugParams[x][y], horizontalPlugParams[x-1][y])
-                                    || ((y==yCount) ? false : e->plugsIntersect(verticalPlugParams[x][y], horizontalPlugParams[x-1][y+1])));
+                                    e->plugsIntersect(verticalPlugParams[x][y], horizontalPlugParams[x-1][y], &offenders)
+                                    || ((y==yCount) ? false : e->plugsIntersect(verticalPlugParams[x][y], horizontalPlugParams[x-1][y+1], &offenders)));
                     }
                     if (v_intersects) {
-                        e->m_unresolved_collisions++;
-                        qDebug() << "collision UNRESOLVED (#" << e->m_unresolved_collisions << ")";
+                        e->makePlugless(verticalPlugParams[x][y]);
+                        for (int i=0; i<offenders.size(); i++) e->makePlugless(*(offenders.at(i)));
                     }
                 }
                 if (y>0 && y < yCount) {
                     bool h_intersects = true;
+                    QList<GBClassicPlugParams*> offenders;
                     for (int i=0; i<collision_tries && h_intersects; i++) {
+                        offenders.clear();
                         if (i>0 && h_intersects) {
                             qDebug() << "collision: horizontal edge, x=" << x << " y=" << y;
                             horizontalPlugParams[x][y].size_correction *= collision_shrink_factor;
                             e->reRandomizeEdge(horizontalPlugParams[x][y], true);
                         }
                         h_intersects = (
-                                    e->plugsIntersect(horizontalPlugParams[x][y], verticalPlugParams[x][y-1])
-                                    || ((y==yCount) ? false : e->plugsIntersect(horizontalPlugParams[x][y], verticalPlugParams[x][y])));
+                                    e->plugsIntersect(horizontalPlugParams[x][y], verticalPlugParams[x][y-1], &offenders)
+                                    || ((y==yCount) ? false : e->plugsIntersect(horizontalPlugParams[x][y], verticalPlugParams[x][y], &offenders)));
                     }
                     if (h_intersects) {
-                        e->m_unresolved_collisions++;
-                        qDebug() << "collision UNRESOLVED (#" << e->m_unresolved_collisions << ")";
+                        e->makePlugless(horizontalPlugParams[x][y]);
+                        for (int i=0; i<offenders.size(); i++) e->makePlugless(*(offenders.at(i)));
                     }
                 }
-                if (e->m_unresolved_collisions >= collision_limit) {
-                    qDebug() << "limit reached, dropping collision checking.";
-                }
-            } // end collision checking
         }
     }
 
