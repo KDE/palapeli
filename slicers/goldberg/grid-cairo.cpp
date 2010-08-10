@@ -158,7 +158,7 @@ void CairoMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                 intersects = !cells[x][y].corner.is_straight;
                 for (int i=0; i<collision_tries && intersects; i++) {
                     if (i>0 && intersects) {
-                        qDebug() << "collision: corner edge, x=" << x << ", y=" << y;
+                        //qDebug() << "collision: corner edge, x=" << x << ", y=" << y;
                         cells[x][y].corner.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].corner);
                     }
@@ -166,6 +166,7 @@ void CairoMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                                 ((x==0 || y==0) ? false : e->plugsIntersect(cells[x][y].corner, cells[x-1][y-1].br))
                                 || ((x==0) ? e->plugOutOfBounds(cells[x][y].corner) : e->plugsIntersect(cells[x][y].corner, cells[x-1][y].tr))
                                 || ((y==0) ? e->plugOutOfBounds(cells[x][y].corner) : e->plugsIntersect(cells[x][y].corner, cells[x][y-1].bl))
+                                || ((x==xCount || y==yCount) ? e->plugOutOfBounds(cells[x][y].corner) : false)
                                 );
                 }
                 if (intersects) {
@@ -178,7 +179,7 @@ void CairoMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                 intersects = (x<xCount && y < yCount);
                 for (int i=0; i<collision_tries && intersects; i++) {
                     if (i>0 && intersects) {
-                        qDebug() << "collision: top left edge, x=" << x << ", y=" << y;
+                        //qDebug() << "collision: top left edge, x=" << x << ", y=" << y;
                         cells[x][y].tl.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].tl, true);
                     }
@@ -199,7 +200,7 @@ void CairoMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                 intersects = (x<xCount && y < yCount);
                 for (int i=0; i<collision_tries && intersects; i++) {
                     if (i>0 && intersects) {
-                        qDebug() << "collision: top right edge, x=" << x << ", y=" << y;
+                        //qDebug() << "collision: top right edge, x=" << x << ", y=" << y;
                         cells[x][y].tr.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].tr, true);
                     }
@@ -220,7 +221,7 @@ void CairoMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                 intersects = (x<xCount && y < yCount);
                 for (int i=0; i<collision_tries && intersects; i++) {
                     if (i>0 && intersects) {
-                        qDebug() << "collision: bottom left edge, x=" << x << ", y=" << y;
+                        //qDebug() << "collision: bottom left edge, x=" << x << ", y=" << y;
                         cells[x][y].bl.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].bl, true);
                     }
@@ -241,7 +242,7 @@ void CairoMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                 intersects = (x<xCount && y < yCount);
                 for (int i=0; i<collision_tries && intersects; i++) {
                     if (i>0 && intersects) {
-                        qDebug() << "collision: bottom right edge, x=" << x << ", y=" << y;
+                        //qDebug() << "collision: bottom right edge, x=" << x << ", y=" << y;
                         cells[x][y].br.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].br, true);
                     }
