@@ -303,7 +303,6 @@ void IrregularMode::generateVoronoiGrid(GoldbergEngine *e, QList<QPointF> cell_c
     int collision_tries = 10 * e->m_plug_size * e->m_plug_size;
     if (collision_tries < 5) collision_tries = 5;
     const qreal collision_shrink_factor = 0.95;
-    int collision_limit = cell_centers.size() / 5;
 
     e->m_length_base = qSqrt(width * height / cell_centers.size());
 
@@ -408,12 +407,19 @@ void IrregularMode::generateVoronoiGrid(GoldbergEngine *e, QList<QPointF> cell_c
             // create a border for the ridge
             GBClassicPlugParams plug = e->initEdge(false);
             plug.unit_x = QLineF(p1, p2);
+            // if border is short, make it plugless...
+            if (plug.unit_x.length() < e->m_length_base * 0.3) e->makePlugless(plug);
+            // and if it is *very* short, make it straight.
+            if (plug.unit_x.length() < e->m_length_base * 0.15) plug.is_straight = true;
 
             // collision-check that border against all borders already connected to both endpoints
             // but only if it is visible
-            if (e->m_unresolved_collisions < collision_limit && (!ridge_oob)) {
+            if (!ridge_oob) {
                 bool intersects = true;
+                QList<GBClassicPlugParams*> offenders;
+
                 for (int i=0; i<collision_tries && intersects; i++) {
+                    offenders.clear();
                     if (i>0 && intersects) {
                         plug.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(plug, false);
@@ -425,7 +431,7 @@ void IrregularMode::generateVoronoiGrid(GoldbergEngine *e, QList<QPointF> cell_c
                                 intersects |= e->plugOutOfBounds(plug);
                             }
                             else {
-                                intersects |= e->plugsIntersect(plug, *(cells[cell1].borders[j]));
+                                intersects |= e->plugsIntersect(plug, *(cells[cell1].borders[j]), &offenders);
                             }
                         }
                     }
@@ -435,12 +441,16 @@ void IrregularMode::generateVoronoiGrid(GoldbergEngine *e, QList<QPointF> cell_c
                                 intersects |= e->plugOutOfBounds(plug);
                             }
                             else {
-                                intersects |= e->plugsIntersect(plug, *(cells[cell2].borders[j]));
+                                intersects |= e->plugsIntersect(plug, *(cells[cell2].borders[j]), &offenders);
                             }
                         }
                     }
                 }
-                if (intersects) e->m_unresolved_collisions++;
+                if (intersects) {
+                    // make the colliding borders plugless
+                    e->makePlugless(plug);
+                    for (int i=0; i<offenders.size(); i++) e->makePlugless(*(offenders.at(i)));
+                }
             }
 
             p_plug = new GBClassicPlugParams();
@@ -469,8 +479,6 @@ void IrregularMode::generateVoronoiGrid(GoldbergEngine *e, QList<QPointF> cell_c
             cells[cell2].border_to.append(vert2);
         }
     }
-
-    qDebug() << "number of unresolved collisions:" << e->m_unresolved_collisions;
 
     // CREATE PIECES
 
