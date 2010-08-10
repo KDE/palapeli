@@ -43,7 +43,6 @@ void HexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
     int collision_tries = 10 * e->m_plug_size * e->m_plug_size;
     if (collision_tries < 5) collision_tries = 5;
     const qreal collision_shrink_factor = 0.95;
-    int collision_limit = piece_count / 2;
 
     int next_piece_id = 0;
 
@@ -117,71 +116,75 @@ void HexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
 
             // collision checking
             // don't bother with the "outer" cells, they do not matter.
-            if (e->m_unresolved_collisions < collision_limit && x < xCount && y < yCount) {
+            if (x < xCount && y < yCount) {
                 bool intersects = true;
+                QList<GBClassicPlugParams*> offenders;
                 // ULEFT
                 for (int i=0; i<collision_tries && intersects; i++) {
+                    offenders.clear();
                     if (i>0 && intersects) {
                         qDebug() << "collision: uleft edge, x=" << x << ", y=" << y;
                         cells[x][y].uleft.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].uleft);
                     }
                     intersects = (
-                                ((x==0) ? false : e->plugsIntersect(cells[x][y].uleft, cells[x-1][y].horiz))
-                                || ((y==0) ? false : e->plugsIntersect(cells[x][y].uleft, cells[x][y-1].lleft))
+                                ((x==0) ? false : e->plugsIntersect(cells[x][y].uleft, cells[x-1][y].horiz, &offenders))
+                                || ((y==0) ? false : e->plugsIntersect(cells[x][y].uleft, cells[x][y-1].lleft, &offenders))
                                 || ((y!=0) ? false : e->plugOutOfBounds(cells[x][y].uleft)));
                 }
                 if (intersects) {
-                    e->m_unresolved_collisions++;
-                    qDebug() << "collision UNRESOLVED (#" << e->m_unresolved_collisions << ")";
+                    // give up and make the colliding borders plugless.
+                    e->makePlugless(cells[x][y].uleft);
+                    for (int i=0; i<offenders.size(); i++) e->makePlugless(*(offenders.at(i)));
                 }
 
                 // LLEFT
                 intersects = true;
                 for (int i=0; i<collision_tries && intersects; i++) {
+                    offenders.clear();
                     if (i>0 && intersects) {
                         qDebug() << "collision: lleft edge, x=" << x << ", y=" << y;
                         cells[x][y].lleft.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].lleft);
                     }
                     intersects = (
-                                e->plugsIntersect(cells[x][y].lleft, cells[x][y].uleft)
+                                e->plugsIntersect(cells[x][y].lleft, cells[x][y].uleft, &offenders)
                                 || ((x==0) ? 
                                     false : 
                                     (odd_column ? 
-                                        e->plugsIntersect(cells[x][y].lleft, cells[x-1][y+1].horiz) :
-                                        e->plugsIntersect(cells[x][y].lleft, cells[x-1][y].horiz)
+                                        e->plugsIntersect(cells[x][y].lleft, cells[x-1][y+1].horiz, &offenders) :
+                                        e->plugsIntersect(cells[x][y].lleft, cells[x-1][y].horiz, &offenders)
                                     ))
                                 || ((y!=yCount-1) ? false : e->plugOutOfBounds(cells[x][y].lleft)));
                 }
                 if (intersects) {
-                    e->m_unresolved_collisions++;
-                    qDebug() << "collision UNRESOLVED (#" << e->m_unresolved_collisions << ")";
+                    // give up and make the colliding borders plugless.
+                    e->makePlugless(cells[x][y].lleft);
+                    for (int i=0; i<offenders.size(); i++) e->makePlugless(*(offenders.at(i)));
                 }
 
                 // HORIZ
                 intersects = true;
                 for (int i=0; i<collision_tries && intersects; i++) {
+                    offenders.clear();
                     if (i>0 && intersects) {
                         qDebug() << "collision: horiz edge, x=" << x << ", y=" << y;
                         cells[x][y].horiz.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].horiz);
                     }
                     intersects = (
-                                e->plugsIntersect(cells[x][y].horiz, cells[x][y].uleft)
+                                e->plugsIntersect(cells[x][y].horiz, cells[x][y].uleft, &offenders)
                                 || (odd_column ?
-                                    e->plugsIntersect(cells[x][y].horiz, cells[x][y].lleft) : 
+                                    e->plugsIntersect(cells[x][y].horiz, cells[x][y].lleft, &offenders) : 
                                     ((y==0) ? 
                                         false :
-                                        e->plugsIntersect(cells[x][y].horiz, cells[x][y-1].lleft)
+                                        e->plugsIntersect(cells[x][y].horiz, cells[x][y-1].lleft, &offenders)
                                     )));
                 }
                 if (intersects) {
-                    e->m_unresolved_collisions++;
-                    qDebug() << "collision UNRESOLVED (#" << e->m_unresolved_collisions << ")";
-                }
-                if (e->m_unresolved_collisions >= collision_limit) {
-                    qDebug() << "limit reached, dropping collision checking.";
+                    // give up and make the colliding borders plugless.
+                    e->makePlugless(cells[x][y].horiz);
+                    for (int i=0; i<offenders.size(); i++) e->makePlugless(*(offenders.at(i)));
                 }
             } // end collision checking
         }
