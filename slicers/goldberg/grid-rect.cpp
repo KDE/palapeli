@@ -78,7 +78,7 @@ void RectMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                 for (int i=0; i<collision_tries && v_intersects; i++) {
                     offenders.clear();
                     if (i>0 && v_intersects) {
-                        qDebug() << "collision: vertical edge, x=" << x << ", y=" << y;
+                        //qDebug() << "collision: vertical edge, x=" << x << ", y=" << y;
                         verticalPlugParams[x][y].size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(verticalPlugParams[x][y], true);
                     }
@@ -97,7 +97,7 @@ void RectMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                 for (int i=0; i<collision_tries && h_intersects; i++) {
                     offenders.clear();
                     if (i>0 && h_intersects) {
-                        qDebug() << "collision: horizontal edge, x=" << x << " y=" << y;
+                        //qDebug() << "collision: horizontal edge, x=" << x << " y=" << y;
                         horizontalPlugParams[x][y].size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(horizontalPlugParams[x][y], true);
                     }

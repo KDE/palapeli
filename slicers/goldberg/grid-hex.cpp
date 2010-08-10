@@ -123,7 +123,7 @@ void HexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                 for (int i=0; i<collision_tries && intersects; i++) {
                     offenders.clear();
                     if (i>0 && intersects) {
-                        qDebug() << "collision: uleft edge, x=" << x << ", y=" << y;
+                        //qDebug() << "collision: uleft edge, x=" << x << ", y=" << y;
                         cells[x][y].uleft.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].uleft);
                     }
@@ -143,7 +143,7 @@ void HexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                 for (int i=0; i<collision_tries && intersects; i++) {
                     offenders.clear();
                     if (i>0 && intersects) {
-                        qDebug() << "collision: lleft edge, x=" << x << ", y=" << y;
+                        // qDebug() << "collision: lleft edge, x=" << x << ", y=" << y;
                         cells[x][y].lleft.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].lleft);
                     }
@@ -168,7 +168,7 @@ void HexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                 for (int i=0; i<collision_tries && intersects; i++) {
                     offenders.clear();
                     if (i>0 && intersects) {
-                        qDebug() << "collision: horiz edge, x=" << x << ", y=" << y;
+                        //qDebug() << "collision: horiz edge, x=" << x << ", y=" << y;
                         cells[x][y].horiz.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].horiz);
                     }
