@@ -344,16 +344,6 @@ void GoldbergEngine::renderClassicPlug(GBClassicPlugParams &params) {
     QPointF q6 = u_x.pointAt(1. - ends_ctldist * (1.-params.basepos) * dcos(params.endangle)) +
                  u_y.pointAt(q6y);
 
-    if (params.is_plugless) {
-        if (!params.flipped) {
-            params.path.cubicTo(r1, q6, p6);
-        }
-        else {
-            params.path.cubicTo(q6, r1, p1);
-        }
-        return;
-    }
-
     // -- base points
     qreal p2x = params.basepos - 0.5 * params.basewidth * scaling;
     qreal p5x = params.basepos + 0.5 * params.basewidth * scaling;
@@ -391,6 +381,20 @@ void GoldbergEngine::renderClassicPlug(GBClassicPlugParams &params) {
                  u_y.pointAt(base_y + base_ucdist);
     QPointF q5 = u_x.pointAt(p5x) +
                  u_y.pointAt(base_y + base_ucdist);
+
+    if (params.is_plugless) {
+        if (!params.flipped) {
+            params.path.cubicTo(r1, q2, p2);
+            params.path.cubicTo(r2, q5, p5);
+            params.path.cubicTo(r5, q6, p6);
+        }
+        else {
+            params.path.cubicTo(q6, r5, p5);
+            params.path.cubicTo(q5, r2, p2);
+            params.path.cubicTo(q2, r1, p1);
+        }
+        return;
+    }
 
     // -- knob points
     qreal p3x = p2x - params.knobsize * scaling * dsin(params.knobangle - params.knobtilt);
