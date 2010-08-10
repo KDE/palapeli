@@ -61,10 +61,6 @@ class GoldbergEngine {
         // length of a "normal" border. 
         // determines the actual size of the knob.
         qreal m_length_base;
-        // counts the plug intersections that could not be resolved.
-        // The idea is that we don't check anymore once it gets clear
-        // that usually intersections cannot be resolved. (on large plugs)
-        int m_unresolved_collisions;
 
         GoldbergEngine(Pala::SlicerJob *job);
 

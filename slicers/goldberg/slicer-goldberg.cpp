@@ -160,7 +160,6 @@ bool GoldbergSlicer::run(Pala::SlicerJob* job) {
     engine.set_dump_grid(job->argument("070_DumpGrid").toBool());
 
     engine.m_alternate_flip = (engine.m_flip_threshold > 50);
-    engine.m_unresolved_collisions = 0;
     if (engine.m_alternate_flip) engine.m_flip_threshold = 100-engine.m_flip_threshold;
 
     //determine selected mode, and call grid generation algorithm
