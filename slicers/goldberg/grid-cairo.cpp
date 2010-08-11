@@ -162,12 +162,11 @@ void CairoMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                     cells[x][y].corner.size_correction *= collision_shrink_factor;
                     e->reRandomizeEdge(cells[x][y].corner);
                 }
-                intersects = (
-                            ((x==0 || y==0) ? false : e->plugsIntersect(cells[x][y].corner, cells[x-1][y-1].br, &offenders))
-                            || ((x==0) ? e->plugOutOfBounds(cells[x][y].corner) : e->plugsIntersect(cells[x][y].corner, cells[x-1][y].tr, &offenders))
-                            || ((y==0) ? e->plugOutOfBounds(cells[x][y].corner) : e->plugsIntersect(cells[x][y].corner, cells[x][y-1].bl, &offenders))
-                            || ((x==xCount || y==yCount) ? e->plugOutOfBounds(cells[x][y].corner) : false)
-                            );
+                intersects = false;
+                if (x>0 && y>0) intersects |= e->plugsIntersect(cells[x][y].corner, cells[x-1][y-1].br, &offenders);
+                intersects |= (x==0) ? e->plugOutOfBounds(cells[x][y].corner) : e->plugsIntersect(cells[x][y].corner, cells[x-1][y].tr, &offenders);
+                intersects |= (y==0) ? e->plugOutOfBounds(cells[x][y].corner) : e->plugsIntersect(cells[x][y].corner, cells[x][y-1].bl, &offenders);
+                if (x==xCount || y==yCount) intersects |= e->plugOutOfBounds(cells[x][y].corner);
             }
             if (intersects) {
                 // give up and just make the colliding borders plugless.
@@ -186,12 +185,11 @@ void CairoMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                     cells[x][y].tl.size_correction *= collision_shrink_factor;
                     e->reRandomizeEdge(cells[x][y].tl, true);
                 }
-                intersects = (
-                            e->plugsIntersect(cells[x][y].tl, cells[x][y].corner, &offenders)
-                            || (odd_cell ?
-                                ((y==0) ? e->plugOutOfBounds(cells[x][y].tl) : e->plugsIntersect(cells[x][y].tl, cells[x][y-1].bl)) :
-                                ((x==0) ? e->plugOutOfBounds(cells[x][y].tl) : e->plugsIntersect(cells[x][y].tl, cells[x-1][y].tr))
-                            ));
+                intersects = e->plugsIntersect(cells[x][y].tl, cells[x][y].corner, &offenders);
+                intersects |= (odd_cell ?
+                                ((y==0) ? e->plugOutOfBounds(cells[x][y].tl) : e->plugsIntersect(cells[x][y].tl, cells[x][y-1].bl, &offenders)) :
+                                ((x==0) ? e->plugOutOfBounds(cells[x][y].tl) : e->plugsIntersect(cells[x][y].tl, cells[x-1][y].tr, &offenders))
+                            );
             }
             if (intersects) {
                 // give up and just make the colliding borders plugless.
@@ -209,12 +207,11 @@ void CairoMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                     cells[x][y].tr.size_correction *= collision_shrink_factor;
                     e->reRandomizeEdge(cells[x][y].tr, true);
                 }
-                intersects = (
-                            e->plugsIntersect(cells[x][y].tr, cells[x][y].tl, &offenders)
-                            || (odd_cell ?
+                intersects = e->plugsIntersect(cells[x][y].tr, cells[x][y].tl, &offenders);
+                intersects |= (odd_cell ?
                                 ((x==xCount-1) ? e->plugOutOfBounds(cells[x][y].tr) : false) :
                                 ((y==0) ? e->plugOutOfBounds(cells[x][y].tr) : e->plugsIntersect(cells[x][y].tr, cells[x][y-1].br, &offenders))
-                            ));
+                            );
             }
             if (intersects) {
                 // give up and just make the colliding borders plugless.
@@ -232,12 +229,11 @@ void CairoMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                     cells[x][y].bl.size_correction *= collision_shrink_factor;
                     e->reRandomizeEdge(cells[x][y].bl, true);
                 }
-                intersects = (
-                            e->plugsIntersect(cells[x][y].bl, cells[x][y].tl, &offenders)
-                            || (odd_cell ?
+                intersects = e->plugsIntersect(cells[x][y].bl, cells[x][y].tl, &offenders);
+                intersects |= (odd_cell ?
                                 ((x==0) ? e->plugOutOfBounds(cells[x][y].bl) : e->plugsIntersect(cells[x][y].tr, cells[x-1][y].bl, &offenders)) :
                                 ((y==yCount-1) ? e->plugOutOfBounds(cells[x][y].bl) : false)
-                            ));
+                            );
             }
             if (intersects) {
                 // give up and just make the colliding borders plugless.
@@ -255,13 +251,12 @@ void CairoMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                     cells[x][y].br.size_correction *= collision_shrink_factor;
                     e->reRandomizeEdge(cells[x][y].br, true);
                 }
-                intersects = (
-                            e->plugsIntersect(cells[x][y].br, cells[x][y].tr, &offenders)
-                            || e->plugsIntersect(cells[x][y].br, cells[x][y].bl, &offenders)
-                            || (odd_cell ?
+                intersects = e->plugsIntersect(cells[x][y].br, cells[x][y].tr, &offenders);
+                intersects |= e->plugsIntersect(cells[x][y].br, cells[x][y].bl, &offenders);
+                intersects |= (odd_cell ?
                                 ((y==yCount-1) ? e->plugOutOfBounds(cells[x][y].br) : false) :
                                 ((x==xCount-1) ? e->plugOutOfBounds(cells[x][y].br) : false)
-                            ));
+                            );
             }
             if (intersects) {
                 // give up and just make the colliding borders plugless.

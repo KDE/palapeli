@@ -82,9 +82,8 @@ void RectMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                         verticalPlugParams[x][y].size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(verticalPlugParams[x][y], true);
                     }
-                    v_intersects = (
-                                e->plugsIntersect(verticalPlugParams[x][y], horizontalPlugParams[x-1][y], &offenders)
-                                || ((y==yCount) ? false : e->plugsIntersect(verticalPlugParams[x][y], horizontalPlugParams[x-1][y+1], &offenders)));
+                    v_intersects = e->plugsIntersect(verticalPlugParams[x][y], horizontalPlugParams[x-1][y], &offenders);
+                    if (y<yCount) v_intersects |= e->plugsIntersect(verticalPlugParams[x][y], horizontalPlugParams[x-1][y+1], &offenders);
                 }
                 if (v_intersects) {
                     e->makePlugless(verticalPlugParams[x][y]);
@@ -101,9 +100,8 @@ void RectMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                         horizontalPlugParams[x][y].size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(horizontalPlugParams[x][y], true);
                     }
-                    h_intersects = (
-                                e->plugsIntersect(horizontalPlugParams[x][y], verticalPlugParams[x][y-1], &offenders)
-                                || ((y==yCount) ? false : e->plugsIntersect(horizontalPlugParams[x][y], verticalPlugParams[x][y], &offenders)));
+                    h_intersects = e->plugsIntersect(horizontalPlugParams[x][y], verticalPlugParams[x][y-1], &offenders);
+                    if (x<xCount) h_intersects |= e->plugsIntersect(horizontalPlugParams[x][y], verticalPlugParams[x][y], &offenders);
                 }
                 if (h_intersects) {
                     e->makePlugless(horizontalPlugParams[x][y]);

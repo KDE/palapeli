@@ -127,10 +127,10 @@ void HexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                         cells[x][y].uleft.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].uleft);
                     }
-                    intersects = (
-                                ((x==0) ? false : e->plugsIntersect(cells[x][y].uleft, cells[x-1][y].horiz, &offenders))
-                                || ((y==0) ? false : e->plugsIntersect(cells[x][y].uleft, cells[x][y-1].lleft, &offenders))
-                                || ((y!=0) ? false : e->plugOutOfBounds(cells[x][y].uleft)));
+                    intersects = false;
+                    if (x>0) intersects |= e->plugsIntersect(cells[x][y].uleft, cells[x-1][y].horiz, &offenders);
+                    if (y>0) intersects |= e->plugsIntersect(cells[x][y].uleft, cells[x][y-1].lleft, &offenders);
+                    if (y==0) intersects |= e->plugOutOfBounds(cells[x][y].uleft);
                 }
                 if (intersects) {
                     // give up and make the colliding borders plugless.
@@ -147,15 +147,14 @@ void HexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                         cells[x][y].lleft.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].lleft);
                     }
-                    intersects = (
-                                e->plugsIntersect(cells[x][y].lleft, cells[x][y].uleft, &offenders)
-                                || ((x==0) ? 
-                                    false : 
-                                    (odd_column ? 
-                                        e->plugsIntersect(cells[x][y].lleft, cells[x-1][y+1].horiz, &offenders) :
-                                        e->plugsIntersect(cells[x][y].lleft, cells[x-1][y].horiz, &offenders)
-                                    ))
-                                || ((y!=yCount-1) ? false : e->plugOutOfBounds(cells[x][y].lleft)));
+                    intersects = e->plugsIntersect(cells[x][y].lleft, cells[x][y].uleft, &offenders);
+                    if (x!=0) { 
+                        intersects |= (odd_column ? 
+                                    e->plugsIntersect(cells[x][y].lleft, cells[x-1][y+1].horiz, &offenders) :
+                                    e->plugsIntersect(cells[x][y].lleft, cells[x-1][y].horiz, &offenders)
+                                );
+                    }
+                    if (y==yCount-1) intersects |= e->plugOutOfBounds(cells[x][y].lleft);
                 }
                 if (intersects) {
                     // give up and make the colliding borders plugless.
@@ -172,14 +171,13 @@ void HexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                         cells[x][y].horiz.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].horiz);
                     }
-                    intersects = (
-                                e->plugsIntersect(cells[x][y].horiz, cells[x][y].uleft, &offenders)
-                                || (odd_column ?
-                                    e->plugsIntersect(cells[x][y].horiz, cells[x][y].lleft, &offenders) : 
-                                    ((y==0) ? 
-                                        false :
-                                        e->plugsIntersect(cells[x][y].horiz, cells[x][y-1].lleft, &offenders)
-                                    )));
+                    intersects = e->plugsIntersect(cells[x][y].horiz, cells[x][y].uleft, &offenders);
+                    if (odd_column) {
+                        intersects |= e->plugsIntersect(cells[x][y].horiz, cells[x][y].lleft, &offenders);
+                    }
+                    else {
+                        if (y!=0) intersects |= e->plugsIntersect(cells[x][y].horiz, cells[x][y-1].lleft, &offenders);
+                    }
                 }
                 if (intersects) {
                     // give up and make the colliding borders plugless.
