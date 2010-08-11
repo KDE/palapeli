@@ -196,19 +196,21 @@ void RotrexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                     cells[x][y].vert.size_correction *= collision_shrink_factor;
                     e->reRandomizeEdge(cells[x][y].vert);
                 }
+                intersects = false;
                 if (y==0) {
-                    intersects = e->plugOutOfBounds(cells[x][y].vert);
+                    intersects |= e->plugOutOfBounds(cells[x][y].vert);
                 }
                 else {
                     if (!odd_cell) {
-                        intersects = e->plugsIntersect(cells[x][y].vert, cells[x][y-1].br, &offenders);
+                        intersects |= e->plugsIntersect(cells[x][y].vert, cells[x][y-1].br, &offenders);
                     }
                     else {
-                        intersects = e->plugsIntersect(cells[x][y].vert, cells[x][y-1].bl, &offenders)
-                                    || e->plugsIntersect(cells[x][y].vert, cells[x][y-1].horiz, &offenders);
+                        intersects |= e->plugsIntersect(cells[x][y].vert, cells[x][y-1].bl, &offenders);
+                        intersects |= e->plugsIntersect(cells[x][y].vert, cells[x][y-1].horiz, &offenders);
                     }
-                    if (y==yCount) intersects |= e->plugOutOfBounds(cells[x][y].vert);
                 }
+                if (odd_cell) intersects |= e->plugsIntersect(cells[x][y].vert, cells[x][y].horiz, &offenders);
+                if (y==yCount) intersects |= e->plugOutOfBounds(cells[x][y].vert);
             }
             if (intersects) {
                 // give up and make colliding borders plugless.
@@ -225,13 +227,12 @@ void RotrexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                         cells[x][y].tl.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].tl);
                     }
-                    intersects = (
-                        (y>0 ? 
+                    intersects = (y>0 ? 
                             e->plugsIntersect(cells[x][y].tl, cells[x][y-1].bl, &offenders) :
-                            e->plugOutOfBounds(cells[x][y].tl))
-                        || (odd_cell ?
+                            e->plugOutOfBounds(cells[x][y].tl));
+                    intersects |= (odd_cell ?
                             e->plugsIntersect(cells[x][y].tl, cells[x][y].vert, &offenders) :
-                            e->plugsIntersect(cells[x][y].tl, cells[x][y].horiz, &offenders)));
+                            e->plugsIntersect(cells[x][y].tl, cells[x][y].horiz, &offenders));
                 }
                 if (intersects) {
                     // give up and make colliding borders plugless.
@@ -247,13 +248,11 @@ void RotrexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                         cells[x][y].tr.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].tr);
                     }
-                    intersects = (
-                        (y>0 ?
+                    intersects = (y>0 ?
                             e->plugsIntersect(cells[x][y].tr, cells[x][y-1].br, &offenders) :
-                            e->plugOutOfBounds(cells[x][y].tr))
-                        || (odd_cell ?
-                            false :
-                            e->plugsIntersect(cells[x][y].tr, cells[x][y].vert, &offenders)));
+                            e->plugOutOfBounds(cells[x][y].tr));
+                    intersects |= e->plugsIntersect(cells[x][y].tr, cells[x][y].tl, &offenders);
+                    if (!odd_cell) intersects |= e->plugsIntersect(cells[x][y].tr, cells[x][y].vert, &offenders);
                 }
                 if (intersects) {
                     // give up and make colliding borders plugless.
@@ -269,11 +268,8 @@ void RotrexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                         cells[x][y].bl.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].bl);
                     }
-                    intersects = (
-                        e->plugsIntersect(cells[x][y].bl, cells[x][y].tl, &offenders)
-                        || (odd_cell ?
-                            e->plugsIntersect(cells[x][y].bl, cells[x][y].horiz, &offenders) :
-                            false));
+                    intersects = e->plugsIntersect(cells[x][y].bl, cells[x][y].tl, &offenders);
+                    if (odd_cell) intersects |= e->plugsIntersect(cells[x][y].bl, cells[x][y].horiz, &offenders);
                     if (y==yCount-1) intersects |= e->plugOutOfBounds(cells[x][y].bl);
                 }
                 if (intersects) {
@@ -290,9 +286,8 @@ void RotrexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
                         cells[x][y].br.size_correction *= collision_shrink_factor;
                         e->reRandomizeEdge(cells[x][y].br);
                     }
-                    intersects = (
-                        e->plugsIntersect(cells[x][y].br, cells[x][y].bl, &offenders)
-                        || e->plugsIntersect(cells[x][y].br, cells[x][y].tl, &offenders));
+                    intersects = e->plugsIntersect(cells[x][y].br, cells[x][y].bl, &offenders);
+                    intersects |= e->plugsIntersect(cells[x][y].br, cells[x][y].tr, &offenders);
                     if (y==yCount-1) intersects |= e->plugOutOfBounds(cells[x][y].br);
                 }
                 if (intersects) {
