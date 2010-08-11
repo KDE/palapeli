@@ -191,6 +191,7 @@ bool GoldbergEngine::plugOutOfBounds(GBClassicPlugParams &candidate) {
 
 void GoldbergEngine::makePlugless(GBClassicPlugParams &parameters){
     parameters.is_plugless = true;
+    parameters.size_correction = 1.0;
     parameters.path_is_rendered = false;
     parameters.path = QPainterPath();
 }
