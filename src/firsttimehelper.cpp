@@ -94,7 +94,7 @@ void Palapeli::FirstTimeHelper::execute()
 	QGridLayout* layout = new QGridLayout;
 	widget->setLayout(layout);
 	QLabel* icon = new QLabel;
-	QLabel* label = new QLabel(i18nc("content of first-run wizard (which behaves more like a splashscreen in fact, i.e. no user interaction)", "<title>Palapeli first-run and update wizard</title><para>Creating default puzzles...</para><para>This needs to be done only once.</para>"), widget);
+	QLabel* label = new QLabel(i18nc("content of first-run wizard (which behaves more like a splashscreen in fact, i.e. no user interaction)", "<title>Palapeli first-run and update wizard</title><para>Creating default puzzles...</para><para>This only needs to be done once.</para>"), widget);
 // 	label2->setWordWrap(true);
 	m_bar = new QProgressBar(widget);
 	layout->addWidget(icon, 0, 0, 2, 1);
