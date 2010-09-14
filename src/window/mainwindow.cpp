@@ -77,10 +77,12 @@ Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 	setupGUI(QSize(500, 500), guiOptions);
 	//move the menubar inside the tabbar (to make the tabs feel like menus) - Unfortunately, we can't use QTabWidget::setCornerWidget because this would move the menubar to the right end of the window, while I want the menubar right next to the tabs. We therefore have to do our own layouting (and remove the menubar from the window's layout with reparenting)
 	m_menuBar = menuBar();
-	m_menuBar->QWidget::setParent(0);
-	m_menuBar->QWidget::setParent(this);
-	m_menuBar->raise();
-	doMenuLayout();
+	if (!m_menuBar->isNativeMenuBar()) {
+		m_menuBar->QWidget::setParent(0);
+		m_menuBar->QWidget::setParent(this);
+		m_menuBar->raise();
+		doMenuLayout();
+	}
 	//start a puzzle if a puzzle URL has been given
 	if (args->count() > 0)
 	{
@@ -94,6 +96,9 @@ Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 
 void Palapeli::MainWindow::doMenuLayout()
 {
+	if (m_menuBar->isNativeMenuBar()) {
+		return;
+	}
 	//determine geometry of menubar...
 	QRect rect = this->rect();
 	const QSize tabBarSize = m_centralWidget->tabBar()->sizeHint();
