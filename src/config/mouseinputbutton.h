@@ -64,8 +64,6 @@ namespace Palapeli
 			void applyTrigger(const Palapeli::Trigger& newTrigger);
 			void showModifiers(Qt::KeyboardModifiers modifiers);
 
-			static const QString DefaultToolTip;
-
 			QLabel* m_iconLabel;
 			QLabel* m_mainLabel;
 			QLabel* m_clearButton;

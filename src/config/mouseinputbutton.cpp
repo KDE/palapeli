@@ -26,8 +26,6 @@
 #include <KIcon>
 #include <KLocalizedString>
 
-const QString Palapeli::MouseInputButton::DefaultToolTip = i18n("Click to change how an action is triggered");
-
 static QIcon clearIcon()
 {
 	if (QApplication::isLeftToRight())
@@ -235,7 +233,7 @@ void Palapeli::MouseInputButton::updateAppearance()
 		text = text.arg(noTriggerString);
 	//apply properties
 	setChecked(false);
-	setToolTip(DefaultToolTip);
+	setToolTip(i18n("Click to change how an action is triggered"));
 	m_mainLabel->setText(text);
 	m_clearButton->setVisible(m_trigger.isValid());
 }
