@@ -64,9 +64,9 @@ Palapeli::ConfigDialog::ConfigDialog(QWidget* parent)
 	QWidget* generalPage = new QWidget;
 	m_generalUi.setupUi(generalPage);
 	m_generalUi.kcfg_ViewBackground->setModel(Palapeli::TextureHelper::instance());
-	addPage(generalPage, i18n("General settings"))->setIcon(KIcon("configure"));
+	addPage(generalPage, i18n("General settings"))->setIcon(KIcon( QLatin1String( "configure" )));
 	//setup page "Mouse interaction"
-	addPage(m_triggerPage, i18n("Mouse interaction"))->setIcon(KIcon("input-mouse"));
+	addPage(m_triggerPage, i18n("Mouse interaction"))->setIcon(KIcon( QLatin1String( "input-mouse" )));
 	connect(m_triggerPage, SIGNAL(associationsChanged()), SLOT(updateButtons()));
 }
 

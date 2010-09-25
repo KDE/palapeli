@@ -101,7 +101,7 @@ void Palapeli::FirstTimeHelper::execute()
 	layout->addWidget(label, 0, 1);
 	layout->addWidget(m_bar, 1, 1);
 	const int iconSize = layout->sizeHint().height() - layout->contentsMargins().top() - layout->contentsMargins().bottom();
-	icon->setPixmap(KIcon("palapeli").pixmap(iconSize));
+	icon->setPixmap(KIcon( QLatin1String( "palapeli" )).pixmap(iconSize));
 	icon->setFixedSize(QSize(iconSize, iconSize));
 	m_bar->setMinimum(0);
 	m_bar->setMaximum(m_tasks.count() + 1); //do not let the bar reach 100% while it is visible
