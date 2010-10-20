@@ -51,5 +51,5 @@ install(TARGETS palapeli ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeli.kcfg palapeli.notifyrc
               palapeliui.rc palapeli-collectionui.rc palapeli-puzzletableui.rc
         DESTINATION ${DATA_INSTALL_DIR}/palapeli)
-install(FILES palapeli.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(PROGRAMS palapeli.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 add_subdirectory(pics)
