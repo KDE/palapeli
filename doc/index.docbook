@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
 <!ENTITY palapeli "<application>Palapeli</application>">
+<!ENTITY psc "<application>Palapeli Slicer Collection</application>">
 <!ENTITY kappname "&palapeli;">
 <!ENTITY package "kdegames">
 <!ENTITY % English "INCLUDE">
@@ -12,6 +13,11 @@
 		<title>The &palapeli; Handbook</title>
 		<authorgroup>
 			<author>
+				<firstname>Johannes</firstname>
+				<surname>L&#xF6;hnert</surname>
+				<affiliation><address><email>loehnert_kde@gmx.de</email></address></affiliation>
+			</author>
+			<author>
 				<firstname>Stefan</firstname>
 				<surname>Majewsky</surname>
 				<affiliation><address><email>majewsky@gmx.net</email></address></affiliation>
@@ -21,11 +27,11 @@
 
 		<copyright>
 			<year>2009, 2010</year>
-			<holder>Stefan Majewsky</holder>
+			<holder>Johannes L&#xF6;hnert, Stefan Majewsky</holder>
 		</copyright>
 		<legalnotice>&FDLNotice;</legalnotice>
-		<date>2010-05-24</date>
-		<releaseinfo>1.1</releaseinfo>
+		<date>2010-11-29</date>
+		<releaseinfo>1.2</releaseinfo>
 
 		<abstract>
 			<para>This is the manual for &palapeli;, a jigsaw puzzle game based on &kde; technology.</para>
@@ -48,7 +54,7 @@
 
 	<chapter id="collection">
 		<title>Browsing the puzzle collection</title>
-		<para>When you launch &palapeli; for the first time, your puzzle collection is preloaded with some default puzzles that come with &palapeli;. Click on one of the puzzles to immediately start playing. Playing takes place on the puzzle table; see <link linkend="puzzletable">the next section</link> for how to use the puzzle table.</para>
+		<para>When you launch &palapeli; for the first time, your puzzle collection is preloaded with some default puzzles that come with &palapeli;. Click on one of the puzzles to immediately start playing. Playing takes place on the puzzle table; see <link linkend="puzzletable">the section after next</link> for how to use the puzzle table.</para>
 		<para>Apart from selecting a puzzle, the puzzle collection can be used for the following actions:</para>
 		<itemizedlist>
 			<listitem><para><emphasis>create</emphasis> new puzzles from images on your disk</para></listitem>
@@ -64,8 +70,7 @@
 				<varlistentry>
 					<term><guiicon>Create new puzzle</guiicon></term>
 					<listitem>
-						<para><action>Opens a dialog which allows you to create a puzzle from an image on your disk.</action> Be sure to enter the correct metadata for the image: You should give attribution to the author of the image (&eg; the photographer or the painter); please respect the copyright of the image author.</para>
-						<para>Also, you will have to select the puzzle type. &palapeli; does not restrict you to classic puzzle pieces, other puzzle types can be easily added by third-party developers. Each puzzle type may offer a set of further properties, such as the piece count.</para>
+						<para><action>Opens a dialog which allows you to create a puzzle from an image on your disk.</action> See <link linkend="create-puzzles">the next section</link> for details.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -81,6 +86,87 @@
 					<listitem><para><action>This will export the currently selected puzzles to files, in order to enable you to give them to your friends, publish them on the web, or make backup copies of your collection.</action></para></listitem>
 				</varlistentry>
 			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="create-puzzles">
+		<title>Creating new puzzles</title>
+		<para>As described in <link linkend="collection">the previous section</link>, you can create new puzzles by clicking on the <guiicon>Create new puzzle</guiicon> button on the puzzle collection.</para>
+		<para>Clicking this button opens the puzzle creation dialog, which consists of three pages:</para>
+		<procedure>
+			<step><para>On the first page, select an image file which shall be sliced into pieces. Be sure to enter the correct metadata for the image: You should give attribution to the author of the image (&eg; the photographer or the painter); please respect the copyright of the image author.</para></step>
+			<step><para>On the second page, you can select the type of pieces into which the image shall be sliced. &palapeli; comes with a collection of slicers preinstalled, but third-party slicers may also be available.</para></step>
+			<step><para>On the final page of the dialog, the selected slicer can be customized &eg; by choosing a different piece count or by adjusting parameters of the piece shape. The available set of options depends which slicer has been selected.</para></step>
+		</procedure>
+		<para>This manual will continue to discuss the slicers which come with &palapeli;. If you have downloaded a third-party slicer plugin for &palapeli;, please refer to the documentation of this plugin if you have trouble installing or using it on your system.</para>
+		<sect1 id="psc">
+			<title>&psc;</title>
+			<para>The &psc; produces realistical jigsaw pieces with various basic patterns:</para>
+			<variablelist>
+				<varlistentry>
+					<term>Rectangular grid</term>
+					<listitem><para>Contains the well-known rectangular pieces.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Cairo grid</term>
+					<listitem><para>With its pentagonal pieces and unequal edge angles, it's rather hard to puzzle because the pieces fit together in an unfamiliar manner.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Hexagonal grid</term>
+					<listitem><para>Produces hexagonal pieces, arranged like honeycomb cells.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Rotrex grid</term>
+					<listitem><para>Through a special composition of triangular, hexagonal and rectangular pieces, the pieces form a pattern resembling to many intersecting circles.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Irregular grid</term>
+					<listitem><para>This grid is available only if you have installed <application>qvoronoi</application> from the <ulink url="http://www.qhull.org"><application>qhull</application> package</ulink>. <application>qvoronoi</application> is used to calculate irregular piece shapes from randomly placed points.</para></listitem>
+				</varlistentry>
+			</variablelist>
+			<para>The &psc; has various parameters which control the appearance of the piece edges, especially the plugs on them. Default settings are provided for all of these parameters. An additional preset mode is available which reduces the amount of parameters to a bare minimum. The following parameters are avialable usually:</para>
+			<variablelist>
+				<varlistentry>
+					<term>Approx. piece count</term>
+					<listitem><para></para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Flipped edge percentage</term>
+					<listitem><para>The probability for each plug to be flipped. A plug is considered flipped if it points in the opposite direction as it would in a fully regular grid. On the rectangular grid, this results in pieces with 3 or 4 plugs pointing inwards resp. outwards. Position the slider at the very left to obtain the normal fully regular grid. In the middle, plug orientation is random. At the right, the grid is fully regular again, but with an "alternate" rule. This does <emphasis>not</emphasis> mean reversal of all plugs: In the alternate regular grid, for instance, each piece has four inward-pointing or four outward-pointing plugs. This setting has no effect in the irregular grid.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Edge curviness</term>
+					<listitem><para>Determines how curvy the edges are, &ie; how strongly the borders dent in or bulge out. Move the slider to the very left to obtain straight edge lines (except for the plugs).</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Plug size</term>
+					<listitem><para>Determines the size of the plug part of each edge. The default setting (middle position of the slider) is chosen to look like a real puzzle. The slider ranges from 50% to 150% this size, which already looks obscenely large. The program tries very hard to avoid collisions between plugs. Colliding edges are reshaped multiple times and shrinked in small steps. However there still remain cases where no solution can be found, especially for large plug sizes.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Diversity of curviness</term>
+					<listitem><para>Determines how much the curviness (see above) varies between edges. Move the slider to the left to make the dents and bulges look all the same. At the right, there may occur very curvy and very straight borders.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Diversity of plug position</term>
+					<listitem><para>Determines how much the position of the plug on the edge varies. At the very left, plugs are affixed to the middle of their edge.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Diversity of plugs</term>
+					<listitem><para>Determines how individual the plugs look like. At the very left, plugs look all the same. At the very right, each plug will be a unique piece of art crafted especially for you.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Irr.: Diversity of piece size</term>
+					<listitem><para>Only for irregular grid: Determines how the piece size varies. A very small setting means nearly no variation; crystallite-like structure arise. Higher settings produce very small and very large pieces.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Dump grid image</term>
+					<listitem><para>Save an image of the grid (black edges on white background) at <filename>~/goldberg-slicer-dump.png</filename>. If a previous dump exists, it is overwritten.</para></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="legacy-slicers">
+			<title>Legacy slicers</title>
+			<para>For historical reasons, &palapeli; also includes the slicers &quot;Classic jigsaw pieces&quot; and &quot;Rectangular pieces&quot;. These slicers create simple rectangular pieces either with or without connecting plugs. Both slicers allow the piece count and the aspect ratio to be adjusted. Dragging the aspect ratio slider to the left results in tall pieces, adjusting it to the right produces wide pieces. The default selection produces approximately square pieces.</para>
 		</sect1>
 	</chapter>
 
@@ -184,6 +270,10 @@
 					<listitem><para><action>Lets you choose another background texture for the puzzle table.</action> If you choose a single color instead of a texture, the button besides the selection box can be used to define this single color.</para></listitem>
 				</varlistentry>
 				<varlistentry>
+					<term><guilabel>Piece appearance</guilabel></term>
+					<listitem><para><action>Controls the appearance of pieces on the puzzle table.</action> If &palapeli; is running slowly, or when puzzles take very long to open, you can disable the graphical effects in this category to speed up everything.</para></listitem>
+				</varlistentry>
+				<varlistentry>
 					<term><guilabel>Snapping precision</guilabel></term>
 					<listitem><para><action>Lets you choose how near neighbor pieces must be positioned to each other to snap together.</action> If you move the slider more to the right, pieces will snap together even if they are not so close. This makes the game a bit simpler to handle.</para></listitem>
 				</varlistentry>
@@ -208,8 +298,8 @@
 	<chapter id="credits">
 		<title>Credits and License</title>
 		<para>&palapeli; aims to bring the unagitated fun and challenge of jigsaw puzzles to your desktop.</para>
-		<para>The idea was first developed by Bernhard Schiffner, together with Stefan Majewsky, who is the current lead developer of &palapeli;.</para>
-		<para>Documentation Copyright 2009, 2010 Stefan Majewsky.</para>
+		<para>The idea was first developed by Bernhard Schiffner, together with Stefan Majewsky, who is the current lead developer of &palapeli;. The &psc; was contributed by Johannes L&#xF6;hnert.</para>
+		<para>Documentation Copyright 2009, 2010 Johannes L&#xF6;hnert, Stefan Majewsky.</para>
 		<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 		&underFDL;
 		&underGPL;
