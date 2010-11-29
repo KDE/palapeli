@@ -124,7 +124,7 @@
 					<listitem><para>This grid is available only if you have installed <application>qvoronoi</application> from the <ulink url="http://www.qhull.org"><application>qhull</application> package</ulink>. <application>qvoronoi</application> is used to calculate irregular piece shapes from randomly placed points.</para></listitem>
 				</varlistentry>
 			</variablelist>
-			<para>The &psc; has various parameters which control the appearance of the piece edges, especially the plugs on them. Default settings are provided for all of these parameters. An additional preset mode is available which reduces the amount of parameters to a bare minimum. The following parameters are avialable usually:</para>
+			<para>The &psc; has various parameters which control the appearance of the piece edges, especially the plugs on them. Default settings are provided for all of these parameters. An additional preset mode is available which reduces the amount of parameters to a bare minimum. The following parameters are available usually:</para>
 			<variablelist>
 				<varlistentry>
 					<term>Approx. piece count</term>
