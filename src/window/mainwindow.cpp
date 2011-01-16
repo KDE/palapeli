@@ -151,8 +151,10 @@ void Palapeli::MainWindow::createPuzzle()
 		if (!creatorDialog)
 			return;
 		Palapeli::Puzzle* puzzle = creatorDialog->result();
-		if (!puzzle)
+		if (!puzzle) {
+			delete creatorDialog;
 			return;
+		}
 		QModelIndex index = m_collectionWidget->storeGeneratedPuzzle(puzzle);
 		if (index.isValid())
 			loadPuzzle(index);
