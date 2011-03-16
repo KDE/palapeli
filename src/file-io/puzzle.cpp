@@ -21,6 +21,7 @@
 #include <QtConcurrentRun>
 #include <KConfigGroup>
 #include <KDesktopFile>
+#include <KIO/JobUiDelegate>
 #include <KIO/FileCopyJob>
 #include <KIO/Job>
 #include <KIO/NetAccess>
@@ -214,7 +215,7 @@ bool Palapeli::Puzzle::write()
 void Palapeli::Puzzle::writeFinished(KJob* job)
 {
 	if (job->error())
-		static_cast<KIO::Job*>(job)->showErrorDialog();
+		static_cast<KIO::Job*>(job)->ui()->showErrorMessage();
 	else
 	{
 		if (m_location.isLocalFile())

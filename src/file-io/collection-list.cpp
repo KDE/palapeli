@@ -24,6 +24,7 @@
 #include <QUuid>
 #include <KConfig>
 #include <KConfigGroup>
+#include <KIO/JobUiDelegate>
 #include <KIO/FileCopyJob>
 #include <KIO/Job>
 #include <KLocalizedString>
@@ -59,7 +60,7 @@ Palapeli::ListCollection::~ListCollection()
 void Palapeli::ListCollection::collectionDataCopyFinished(KJob* job)
 {
 	if (job->error())
-		static_cast<KIO::Job*>(job)->showErrorDialog();
+		static_cast<KIO::Job*>(job)->ui()->showErrorMessage();
 	else
 		setConfig(new KConfig(static_cast<KIO::FileCopyJob*>(job)->destUrl().toLocalFile(), KConfig::SimpleConfig));
 }
