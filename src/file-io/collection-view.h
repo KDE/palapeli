@@ -20,22 +20,28 @@
 #define PALAPELI_COLLECTIONVIEW_H
 
 #include <QListView>
+class QSortFilterProxyModel;
 
 namespace Palapeli
 {
 	class CollectionDelegate;
 
-	class CollectionView : public QListView
+	class CollectionView : public QWidget
 	{
 		Q_OBJECT
 		public:
-			CollectionView();
+			CollectionView(QWidget* parent = 0);
+
+			void setModel(QAbstractItemModel* model);
+			QItemSelectionModel* selectionModel() const;
 		Q_SIGNALS:
 			void playRequest(const QModelIndex&);
 		private Q_SLOTS:
 			void handleActivated(const QModelIndex& index);
 		private:
+			QListView* m_view;
 			Palapeli::CollectionDelegate* m_delegate;
+			QSortFilterProxyModel* m_proxyModel;
 	};
 }
 

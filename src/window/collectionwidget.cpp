@@ -37,8 +37,6 @@ Palapeli::CollectionWidget::CollectionWidget()
 {
 	//setup view
 	m_view->setModel(m_localCollection);
-
-	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	connect(m_view, SIGNAL(playRequest(const QModelIndex&)), this, SIGNAL(playRequest(const QModelIndex&)));
 	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(handleSelectionChanged()));
 	//setup actions
