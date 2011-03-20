@@ -245,9 +245,9 @@ void Palapeli::Puzzle::createNewArchiveFile()
 	if (m_creationContext)
 	{
 		jobGroup.writeEntry("Image", KUrl("kfiledialog:///palapeli/pseudopath")); //just a placeholder, to make sure that an "Image" key is available
-		jobGroup.writeEntry("Slicer", m_creationContext->usedSlicer);
-		jobGroup.writeEntry("SlicerMode", m_creationContext->usedSlicerMode);
-		QMapIterator<QByteArray, QVariant> iterSlicerArgs(m_creationContext->usedSlicerArgs);
+		jobGroup.writeEntry("Slicer", m_creationContext->slicer);
+		jobGroup.writeEntry("SlicerMode", m_creationContext->slicerMode);
+		QMapIterator<QByteArray, QVariant> iterSlicerArgs(m_creationContext->slicerArgs);
 		while (iterSlicerArgs.hasNext())
 		{
 			iterSlicerArgs.next();
@@ -255,30 +255,14 @@ void Palapeli::Puzzle::createNewArchiveFile()
 		}
 	}
 	//write pieces to cache
-	if (m_creationContext)
+	QMapIterator<int, QImage> iterPieces(m_contents->pieces);
+	while (iterPieces.hasNext())
 	{
-		QMapIterator<int, QImage> iterPieces(m_creationContext->pieces);
-		while (iterPieces.hasNext())
+		const QString imagePath = cachePath + QString::fromLatin1("%1.png").arg(iterPieces.next().key());
+		if (!iterPieces.value().save(imagePath))
 		{
-			const QString imagePath = cachePath + QString::fromLatin1("%1.png").arg(iterPieces.next().key());
-			if (!iterPieces.value().save(imagePath))
-			{
-				delete m_cache;
-				return;
-			}
-		}
-	}
-	else
-	{
-		QMapIterator<int, QImage> iterPieces(m_contents->pieces);
-		while (iterPieces.hasNext())
-		{
-			const QString imagePath = cachePath + QString::fromLatin1("%1.png").arg(iterPieces.next().key());
-			if (!iterPieces.value().save(imagePath))
-			{
-				delete m_cache;
-				return;
-			}
+			delete m_cache;
+			return;
 		}
 	}
 	//write thumbnail into tempdir

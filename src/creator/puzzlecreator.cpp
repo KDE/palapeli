@@ -138,19 +138,13 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	metadata->modifyProtection = false; //only enabled for puzzles in the default collection (see ListCollection::canDeletePuzzle)
 	Palapeli::PuzzleContents* contents = new Palapeli::PuzzleContents;
 	contents->imageSize = image.size();
-	QMapIterator<int, QImage> pieceIter(job.pieces());
-	while (pieceIter.hasNext())
-	{
-		pieceIter.next();
-		contents->pieces[pieceIter.key()] = pieceIter.value();
-	}
+	contents->pieces = job.pieces();
 	contents->pieceOffsets = job.pieceOffsets();
 	contents->relations = job.relations();
 	Palapeli::PuzzleCreationContext* creationContext = new Palapeli::PuzzleCreationContext;
-	creationContext->usedSlicer = selection.slicerPluginName;
-	creationContext->usedSlicerMode = selection.mode ? selection.mode->key() : QByteArray();
-	creationContext->usedSlicerArgs = slicerArgs;
-	creationContext->pieces = job.pieces();
+	creationContext->slicer = selection.slicerPluginName;
+	creationContext->slicerMode = selection.mode ? selection.mode->key() : QByteArray();
+	creationContext->slicerArgs = slicerArgs;
 	//create puzzle
 	m_result = new Palapeli::Puzzle(metadata, contents, creationContext);
 }
