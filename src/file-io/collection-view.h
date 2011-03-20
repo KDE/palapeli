@@ -21,6 +21,7 @@
 
 #include <QListView>
 class QSortFilterProxyModel;
+class QAction;
 
 namespace Palapeli
 {
@@ -38,10 +39,13 @@ namespace Palapeli
 			void playRequest(const QModelIndex&);
 		private Q_SLOTS:
 			void handleActivated(const QModelIndex& index);
+			void sortMenuTriggered(QAction* action);
 		private:
 			QListView* m_view;
 			Palapeli::CollectionDelegate* m_delegate;
 			QSortFilterProxyModel* m_proxyModel;
+			QAction* m_sortByTitle;
+			QAction* m_sortByPieceCount;
 	};
 }
 

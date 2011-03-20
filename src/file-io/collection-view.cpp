@@ -21,9 +21,13 @@
 #include "collection-delegate.h"
 
 #include <QApplication>
+#include <QGridLayout>
+#include <QMenu>
+#include <QPushButton>
 #include <QSortFilterProxyModel>
-#include <QVBoxLayout>
+#include <KAction>
 #include <KFilterProxySearchLine>
+#include <KLocale>
 
 Palapeli::CollectionView::CollectionView(QWidget* parent)
 	: QWidget(parent)
@@ -40,13 +44,26 @@ Palapeli::CollectionView::CollectionView(QWidget* parent)
 	m_view->setModel(m_proxyModel);
 	m_proxyModel->setDynamicSortFilter(true);
 	m_proxyModel->sort(Qt::DisplayRole, Qt::AscendingOrder);
+	//TODO: save sorting role between sessions
 	//setup filter search line
 	KFilterProxySearchLine* searchLine = new KFilterProxySearchLine(this);
 	searchLine->setProxy(m_proxyModel);
+	//setup sort button
+	QPushButton* sortButton = new QPushButton(i18nc("@action:button that pops up sorting strategy selection menu", "Sort list..."), this);
+	QMenu* sortMenu = new QMenu(sortButton);
+	sortButton->setMenu(sortMenu);
+	m_sortByTitle = sortMenu->addAction(i18nc("@action:inmenu selects sorting strategy for collection list", "By title"));
+	m_sortByPieceCount = sortMenu->addAction(i18nc("@action:inmenu selects sorting strategy for collection list", "By piece count"));
+	m_sortByTitle->setCheckable(true);
+	m_sortByPieceCount->setCheckable(true);
+	m_sortByTitle->setChecked(true);
+	m_sortByPieceCount->setChecked(false);
+	connect(sortMenu, SIGNAL(triggered(QAction*)), SLOT(sortMenuTriggered(QAction*)));
 	//construct layout
-	QVBoxLayout* layout = new QVBoxLayout(this);
-	layout->addWidget(searchLine);
-	layout->addWidget(m_view);
+	QGridLayout* layout = new QGridLayout(this);
+	layout->addWidget(sortButton, 0, 0);
+	layout->addWidget(searchLine, 0, 1);
+	layout->addWidget(m_view, 1, 0, 1, 2);
 }
 
 void Palapeli::CollectionView::setModel(QAbstractItemModel* model)
@@ -68,6 +85,18 @@ void Palapeli::CollectionView::handleActivated(const QModelIndex& index)
 	//change selection to indicate that the given puzzle has been chosen
 	m_view->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
 	emit playRequest(index);
+}
+
+void Palapeli::CollectionView::sortMenuTriggered(QAction* action)
+{
+	//find out what was requested
+	int sortRole = Qt::DisplayRole; //corresponds to action == m_sortByTitle
+	if (action == m_sortByPieceCount)
+		sortRole = Palapeli::Collection::PieceCountRole;
+	//update sorting and menu
+	m_proxyModel->sort(sortRole, Qt::AscendingOrder);
+	m_sortByTitle->setChecked(sortRole == Qt::DisplayRole);
+	m_sortByPieceCount->setChecked(sortRole == Palapeli::Collection::PieceCountRole);
 }
 
 #include "collection-view.moc"
