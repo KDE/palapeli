@@ -24,7 +24,6 @@
 
 class KConfigGroup;
 class KTempDir;
-#include <KDE/KUrl>
 
 #define COMPONENT_SUBCLASS(mytype) \
 	public: \

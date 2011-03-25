@@ -34,19 +34,21 @@
 #include <KIcon>
 #include <KStandardDirs>
 
-//NOTE: A local copy of Palapeli::ListCollection::readUrl, with an extension to resolve local URLs.
-static KUrl resolveUrl(const KUrl& url, bool local)
+//A local copy of readPseudoUrl() from file-io/collection.cpp, with
+//an extension to resolve local URLs.
+static QString readPseudoUrl(const QString& path_, bool local)
 {
-	if (url.protocol() == "palapeli")
+	if (path_.startsWith(QLatin1String("palapeli:/")))
 	{
-		//resolve special URLs with KStandardDirs
-		QString path = url.path(KUrl::RemoveTrailingSlash);
-		if (path.startsWith('/'))
-			path.remove(0, 1);
-		return KUrl(local ? KStandardDirs::locateLocal("appdata", path) : KStandardDirs::locate("appdata", path));
+		QString path(path_);
+		path.remove(QRegExp("^palapeli:/*"));
+		if (local)
+			return KStandardDirs::locateLocal("appdata", path);
+		else
+			return KStandardDirs::locate("appdata", path);
 	}
 	else
-		return url;
+		return path_;
 }
 
 Palapeli::FirstTimeHelper::FirstTimeHelper()
@@ -59,22 +61,20 @@ Palapeli::FirstTimeHelper::FirstTimeHelper()
 	foreach (const QString& puzzleId, puzzleIds)
 	{
 		KConfigGroup puzzleGroup(&mainGroup, puzzleId);
-		const KUrl barePuzzleUrl = puzzleGroup.readEntry("Location", KUrl());
+		const QString barePuzzlePath = puzzleGroup.readEntry("Location", QString());
 		//generate name of corresponding .desktop file
-		QString desktopFileName = barePuzzleUrl.fileName();
-		desktopFileName.replace(QRegExp("\\.puzzle$"), QLatin1String(".desktop"));
-		KUrl bareDesktopUrl(barePuzzleUrl);
-		bareDesktopUrl.setFileName(desktopFileName);
+		QString bareDesktopPath(barePuzzlePath);
+		bareDesktopPath.replace(QRegExp("\\.puzzle$"), QLatin1String(".desktop"));
 		//if desktop file does not exist, we cannot do anything
-		const KUrl puzzleUrl = resolveUrl(barePuzzleUrl, false);
-		const KUrl desktopUrl = resolveUrl(bareDesktopUrl, false);
-		if (desktopUrl.isEmpty())
+		const QString puzzlePath = readPseudoUrl(barePuzzlePath, false);
+		const QString desktopPath = readPseudoUrl(bareDesktopPath, false);
+		if (desktopPath.isEmpty())
 			continue;
 		//if puzzle file does not exist or is older than desktop file (e.g. because of translation update), schedule update
-		if (puzzleUrl.isEmpty() || (QFileInfo(puzzleUrl.path()).lastModified() < QFileInfo(desktopUrl.path()).lastModified()))
+		if (puzzlePath.isEmpty() || (QFileInfo(puzzlePath).lastModified() < QFileInfo(desktopPath).lastModified()))
 		{
-			const KUrl localPuzzleUrl = resolveUrl(barePuzzleUrl, true);
-			Task task = { desktopUrl, localPuzzleUrl };
+			const QString localPuzzlePath = readPseudoUrl(barePuzzlePath, true);
+			Task task = { desktopPath, localPuzzlePath };
 			m_tasks << task;
 		}
 	}
@@ -124,10 +124,10 @@ void Palapeli::FirstTimeHelper::next()
 	//create next puzzle
 	Task task = m_tasks.takeFirst();
 	QProcess* process = new QProcess;
-	QFileInfo desktopFile(task.desktopUrl.path());
+	QFileInfo desktopFile(task.desktopPath);
 	process->setWorkingDirectory(desktopFile.dir().absolutePath());
 	QStringList args;
-	args << desktopFile.fileName() << task.puzzleUrl.path();
+	args << desktopFile.fileName() << task.puzzlePath;
 	process->start("libpala-puzzlebuilder", args);
 	connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), SLOT(next()));
 }

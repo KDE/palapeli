@@ -34,7 +34,7 @@ Palapeli::CollectionStorageComponent::~CollectionStorageComponent()
 
 Palapeli::PuzzleComponent* Palapeli::CollectionStorageComponent::cast(Type type) const
 {
-	const QString file = puzzle()->location().toLocalFile();
+	const QString file = puzzle()->location();
 	//everything except for metadata must always be read from archive
 	if (type == ArchiveStorage)
 		return new Palapeli::ArchiveStorageComponent;

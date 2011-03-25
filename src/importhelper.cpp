@@ -42,7 +42,7 @@ void Palapeli::ImportHelper::doWork()
 		qApp->quit();
 	}
 	//import puzzle
-	Palapeli::Puzzle* puzzle = Palapeli::Collection::instance()->importPuzzle(m_args->url(0));
+	Palapeli::Puzzle* puzzle = Palapeli::Collection::instance()->importPuzzle(m_args->arg(0));
 	//show notification
 	puzzle->get(Palapeli::PuzzleComponent::Metadata).waitForFinished();
 	const Palapeli::MetadataComponent* cmp = puzzle->component<Palapeli::MetadataComponent>();

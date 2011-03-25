@@ -73,9 +73,9 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	m_slicerConfigPage->setHeader(i18nc("@title:tab (page header in an assistant dialog)", "Tweak the parameters of the chosen slicing method"));
 	//wire up stuff
 	connect(this, SIGNAL(accepted()), this, SLOT(createPuzzle()));
-	connect(m_imageSelector, SIGNAL(urlSelected(const KUrl&)), this, SLOT(checkData()));
-	connect(m_nameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(checkData()));
-	connect(m_authorEdit, SIGNAL(textChanged(const QString&)), this, SLOT(checkData()));
+	connect(m_imageSelector, SIGNAL(urlSelected(KUrl)), this, SLOT(checkData()));
+	connect(m_nameEdit, SIGNAL(textChanged(QString)), this, SLOT(checkData()));
+	connect(m_authorEdit, SIGNAL(textChanged(QString)), this, SLOT(checkData()));
 	checkData(); //to invalidate first page
 	connect(m_slicerSelector, SIGNAL(currentSelectionChanged(Palapeli::SlicerSelection)), this, SLOT(updateSlicerSelection(Palapeli::SlicerSelection)));
 }
@@ -117,7 +117,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	}
 	QMap<QByteArray, QVariant> slicerArgs = m_slicerConfigWidgets[selection.slicer]->arguments();
 	QImage image;
-	if (!image.load(m_imageSelector->url().toLocalFile())) //TODO: allow to load remote images
+	if (!image.load(m_imageSelector->url().toLocalFile()))
 	{
 		KMessageBox::sorry(this, i18n("Puzzle cannot be created: The file you selected is not an image."));
 		return;
@@ -142,7 +142,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	creationContext.slicerMode = selection.mode ? selection.mode->key() : QByteArray();
 	creationContext.slicerArgs = slicerArgs;
 	//create puzzle
-	m_result = new Palapeli::Puzzle(new Palapeli::CreationContextComponent(creationContext), KUrl(), QUuid::createUuid().toString());
+	m_result = new Palapeli::Puzzle(new Palapeli::CreationContextComponent(creationContext), QString(), QUuid::createUuid().toString());
 }
 
 #include "puzzlecreator.moc"

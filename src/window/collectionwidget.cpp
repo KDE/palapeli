@@ -63,11 +63,11 @@ Palapeli::CollectionWidget::CollectionWidget()
 	setCentralWidget(m_view);
 }
 
-void Palapeli::CollectionWidget::startPuzzle(const KUrl& url)
+void Palapeli::CollectionWidget::startPuzzle(const QString& path)
 {
 	//create puzzle instance
-	const QString id = Palapeli::Puzzle::fsIdentifier(url);
-	emit playRequest(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent, url, id));
+	const QString id = Palapeli::Puzzle::fsIdentifier(path);
+	emit playRequest(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent, path, id));
 }
 
 void Palapeli::CollectionWidget::handleDeleteRequest()
@@ -92,9 +92,9 @@ void Palapeli::CollectionWidget::handleExportRequest()
 		if (!cmp)
 			continue;
 		//ask user for target file name
-		const KUrl startLoc = QString::fromLatin1("kfiledialog:///palapeli-export/%1.puzzle").arg(cmp->metadata.name);
+		const QString startLoc = QString::fromLatin1("kfiledialog:///palapeli-export/%1.puzzle").arg(cmp->metadata.name);
 		const QString filter = i18nc("Filter for a file dialog", "*.puzzle|Palapeli puzzles (*.puzzle)");
-		const KUrl location = KFileDialog::getSaveFileName(startLoc, filter);
+		const QString location = KFileDialog::getSaveFileName(KUrl(startLoc), filter);
 		if (location.isEmpty())
 			continue; //process aborted by user
 		//do export
@@ -108,7 +108,7 @@ void Palapeli::CollectionWidget::handleImportRequest()
 	const QStringList paths = KFileDialog::getOpenFileNames(KUrl("kfiledialog:///palapeli-import"), filter);
 	Palapeli::Collection* coll = Palapeli::Collection::instance();
 	foreach (const QString& path, paths)
-		coll->importPuzzle(KUrl::fromPath(path));
+		coll->importPuzzle(path);
 }
 
 void Palapeli::CollectionWidget::handleSelectionChanged()

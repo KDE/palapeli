@@ -89,7 +89,7 @@ Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 	//start a puzzle if a puzzle URL has been given
 	if (args->count() > 0)
 	{
-		m_collectionWidget->startPuzzle(args->url(0));
+		m_collectionWidget->startPuzzle(args->arg(0));
 		m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_collectionWidget), false);
 		m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_puzzleTable), true);
 		m_centralWidget->setCurrentWidget(m_puzzleTable);

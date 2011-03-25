@@ -22,7 +22,6 @@
 #include <QtGui/QStandardItemModel>
 class KConfig;
 class KConfigGroup;
-#include <KDE/KUrl>
 
 namespace Palapeli
 {
@@ -46,8 +45,8 @@ namespace Palapeli
 			Palapeli::Puzzle* puzzleFromIndex(const QModelIndex& index) const;
 
 			void importPuzzle(Palapeli::Puzzle* puzzle); ///< without copying!
-			Palapeli::Puzzle* importPuzzle(const KUrl& location);
-			void exportPuzzle(const QModelIndex& index, const KUrl& location);
+			Palapeli::Puzzle* importPuzzle(const QString& path);
+			void exportPuzzle(const QModelIndex& index, const QString& path);
 			bool deletePuzzle(const QModelIndex& index);
 		protected:
 			Collection();

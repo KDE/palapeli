@@ -162,7 +162,7 @@ Palapeli::DirectoryStorageComponent* Palapeli::DirectoryStorageComponent::fromDa
 	if (cCreationContext)
 	{
 		const Palapeli::PuzzleCreationContext creationContext = cCreationContext->creationContext;
-		jobGroup.writeEntry("Image", KUrl("kfiledialog:///palapeli/pseudopath")); //just a placeholder, to make sure that an "Image" key is available
+		jobGroup.writeEntry("Image", "kfiledialog:///palapeli/pseudopath"); //just a placeholder, to make sure that an "Image" key is available
 		jobGroup.writeEntry("Slicer", creationContext.slicer);
 		jobGroup.writeEntry("SlicerMode", creationContext.slicerMode);
 		QMapIterator<QByteArray, QVariant> iterSlicerArgs(creationContext.slicerArgs);

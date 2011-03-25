@@ -19,6 +19,7 @@
 #include "components.h"
 
 #include <QtCore/QFile>
+#include <QtCore/QVariant>
 
 Palapeli::CopyComponent::CopyComponent(Palapeli::Puzzle* puzzle)
 	: m_puzzle(puzzle)
@@ -56,8 +57,8 @@ Palapeli::PuzzleComponent* Palapeli::CopyComponent::cast(Type type) const
 		//optimization: if the other puzzle has an archive or collection
 		//storage available, copy that instead of recreating everything
 		m_puzzle->get(ArchiveStorage).waitForFinished();
-		QFile otherFile(m_puzzle->location().toLocalFile());
-		if (otherFile.copy(puzzle()->location().toLocalFile()))
+		QFile otherFile(m_puzzle->location());
+		if (otherFile.copy(puzzle()->location()))
 			return new Palapeli::ArchiveStorageComponent;
 		else
 			return 0;

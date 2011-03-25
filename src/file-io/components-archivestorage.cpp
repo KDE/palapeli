@@ -18,9 +18,7 @@
 
 #include "components.h"
 
-#include <QtCore/QScopedPointer>
-#include <KDE/KIO/NetAccess>
-#include <KDE/KMessageBox>
+#include <QtCore/QVariant>
 #include <KDE/KTar>
 
 Palapeli::ArchiveStorageComponent::ArchiveStorageComponent()
@@ -33,30 +31,14 @@ Palapeli::PuzzleComponent* Palapeli::ArchiveStorageComponent::cast(Palapeli::Puz
 	if (type == DirectoryStorage)
 	{
 		//make archive available locally
-		QString archiveFile;
-		const KUrl location = puzzle()->location();
-		if (!location.isLocalFile())
-		{
-			if (!KIO::NetAccess::download(location, archiveFile, 0))
-			{
-				KMessageBox::error(0, KIO::NetAccess::lastErrorString());
-				return 0;
-			}
-		}
-		else
-			archiveFile = location.toLocalFile();
 		//open archive and extract into temporary directory
-		KTar tar(archiveFile, "application/x-gzip");
+		KTar tar(puzzle()->location(), "application/x-gzip");
 		if (!tar.open(QIODevice::ReadOnly))
-		{
-			KIO::NetAccess::removeTempFile(archiveFile);
 			return 0;
-		}
 		Palapeli::DirectoryStorageComponent* storage = new Palapeli::DirectoryStorageComponent;
 		tar.directory()->copyTo(storage->directory());
 		//cleanup
 		tar.close();
-		KIO::NetAccess::removeTempFile(archiveFile);
 		return storage;
 	}
 	else
@@ -71,7 +53,7 @@ Palapeli::ArchiveStorageComponent* Palapeli::ArchiveStorageComponent::fromData(P
 	puzzle->get(DirectoryStorage).waitForFinished();
 	const Palapeli::DirectoryStorageComponent* dirStorage = puzzle->component<Palapeli::DirectoryStorageComponent>();
 	//compress archive to location
-	KTar tar(puzzle->location().toLocalFile(), "application/x-gzip");
+	KTar tar(puzzle->location(), "application/x-gzip");
 	if (!tar.open(QIODevice::WriteOnly))
 		return 0;
 	if (!tar.addLocalDirectory(dirStorage->directory(), QLatin1String(".")))

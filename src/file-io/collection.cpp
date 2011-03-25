@@ -71,18 +71,16 @@ Palapeli::Collection* Palapeli::Collection::instance()
 	return &instance;
 }
 
-static KUrl readUrl(const KUrl& url)
+static QString readPseudoUrl(const QString& path_)
 {
-	if (url.protocol() == "palapeli")
+	if (path_.startsWith(QLatin1String("palapeli:/")))
 	{
-		//resolve special URLs with KStandardDirs
-		QString path = url.path(KUrl::RemoveTrailingSlash);
-		if (path.startsWith('/'))
-			path.remove(0, 1);
-		return KUrl(KStandardDirs::locate("appdata", path));
+		QString path(path_);
+		path.remove(QRegExp("^palapeli:/*"));
+		return KStandardDirs::locate("appdata", path);
 	}
 	else
-		return url;
+		return path_;
 }
 
 Palapeli::Collection::Collection()
@@ -95,10 +93,10 @@ Palapeli::Collection::Collection()
 	{
 		KConfigGroup* puzzleGroup = new KConfigGroup(m_group, puzzleId);
 		//construct puzzle
-		KUrl url = readUrl(puzzleGroup->readEntry("Location", KUrl()));
-		if (url.isEmpty())
+		const QString path = readPseudoUrl(puzzleGroup->readEntry("Location", QString()));
+		if (path.isEmpty())
 			continue;
-		Palapeli::Puzzle* puzzle = new Palapeli::Puzzle(new Palapeli::CollectionStorageComponent(puzzleGroup), url, puzzleId);
+		Palapeli::Puzzle* puzzle = new Palapeli::Puzzle(new Palapeli::CollectionStorageComponent(puzzleGroup), path, puzzleId);
 		appendRow(new Item(puzzle));
 	}
 }
@@ -129,7 +127,7 @@ void Palapeli::Collection::importPuzzle(Palapeli::Puzzle* puzzle)
 	//determine new location
 	const QString id = puzzle->identifier();
 	const QString fileName = QString::fromLatin1("collection/%1.puzzle").arg(id);
-	puzzle->setLocation(KUrl(KStandardDirs::locateLocal("appdata", fileName)));
+	puzzle->setLocation(KStandardDirs::locateLocal("appdata", fileName));
 	//store puzzle
 	puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage).waitForFinished();
 	//create the config group for this puzzle (use pseudo-URL to avoid problems
@@ -141,28 +139,28 @@ void Palapeli::Collection::importPuzzle(Palapeli::Puzzle* puzzle)
 	appendRow(new Item(puzzle));
 }
 
-Palapeli::Puzzle* Palapeli::Collection::importPuzzle(const KUrl& location)
+Palapeli::Puzzle* Palapeli::Collection::importPuzzle(const QString& path)
 {
-	const QString id = Palapeli::Puzzle::fsIdentifier(location);
-	Palapeli::Puzzle* puzzle = new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent, location, id);
+	const QString id = Palapeli::Puzzle::fsIdentifier(path);
+	Palapeli::Puzzle* puzzle = new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent, path, id);
 	//insert a copy of this puzzle into the collection
 	const QString newId = QUuid::createUuid().toString();
-	Palapeli::Puzzle* newPuzzle = new Palapeli::Puzzle(new Palapeli::CopyComponent(puzzle), location, newId);
+	Palapeli::Puzzle* newPuzzle = new Palapeli::Puzzle(new Palapeli::CopyComponent(puzzle), path, newId);
 	importPuzzle(newPuzzle);
 	//cleanup
 	puzzle->QObject::setParent(newPuzzle);
 	return newPuzzle;
 }
 
-void Palapeli::Collection::exportPuzzle(const QModelIndex& index, const KUrl& location)
+void Palapeli::Collection::exportPuzzle(const QModelIndex& index, const QString& path)
 {
 	//find existing puzzle
 	Palapeli::Puzzle* puzzle = puzzleFromIndex(index);
 	if (!puzzle)
 		return;
 	//create a copy of the given puzzle, and relocate it to the new location
-	const QString identifier = Palapeli::Puzzle::fsIdentifier(location);
-	Palapeli::Puzzle* newPuzzle = new Palapeli::Puzzle(new Palapeli::CopyComponent(puzzle), location, identifier);
+	const QString identifier = Palapeli::Puzzle::fsIdentifier(path);
+	Palapeli::Puzzle* newPuzzle = new Palapeli::Puzzle(new Palapeli::CopyComponent(puzzle), path, identifier);
 	newPuzzle->get(Palapeli::PuzzleComponent::ArchiveStorage).waitForFinished();
 }
 
@@ -172,8 +170,7 @@ bool Palapeli::Collection::deletePuzzle(const QModelIndex& index)
 	if (!puzzle)
 		return false;
 	//check whether that particular file can be removed
-	QString file = puzzle->location().toLocalFile();
-	if (!QFile(file).remove())
+	if (!QFile(puzzle->location()).remove())
 		return false;
 	//remove puzzle from config
 	KConfigGroup(m_group, puzzle->identifier()).deleteGroup();

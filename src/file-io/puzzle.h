@@ -21,7 +21,6 @@
 
 #include <QtCore/QFuture>
 #include <QtCore/QMetaType>
-#include <KDE/KUrl>
 
 #include <iostream>
 #define CAST_ERROR(x) std::cerr << qPrintable(x) << std::endl; //TODO: these errors should be reported to Puzzle
@@ -73,14 +72,14 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			///Takes ownership of @a mainComponent.
-			Puzzle(Palapeli::PuzzleComponent* mainComponent, const KUrl& location, const QString& identifier);
+			Puzzle(Palapeli::PuzzleComponent* mainComponent, const QString& location, const QString& identifier);
 			virtual ~Puzzle();
 
 			///Returns an identifier for use with puzzles loaded from the file
 			///system. Rationale: The identifier must be unique during the
 			///session, but should also be the same for the same puzzle over
 			///the course of multiple sessions (in order to store savegames).
-			static QString fsIdentifier(const KUrl& location);
+			static QString fsIdentifier(const QString& location);
 
 			///Returns the component for the given @a type, or 0 if this
 			///component is not available. Access to the component storage is
@@ -99,8 +98,8 @@ namespace Palapeli
 			Palapeli::Future get(Palapeli::PuzzleComponent::Type type);
 
 			QString identifier() const;
-			KUrl location() const;
-			void setLocation(const KUrl& location);
+			QString location() const;
+			void setLocation(const QString& location);
 			///Resets the main component, which is used for casting. Components
 			///which were created before the setMainComponent() call are not
 			///affected. Other components of the same type will be overwritten

@@ -20,6 +20,7 @@
 
 #include <QtCore/QAtomicInt>
 #include <QtCore/QAtomicPointer>
+#include <QtCore/QFileInfo>
 #include <QtCore/QFutureSynchronizer>
 #include <QtCore/QHash>
 #include <QtCore/QMutexLocker>
@@ -71,20 +72,20 @@ struct Palapeli::Puzzle::Private
 	QHash<Palapeli::PuzzleComponent::Type, Component*> m_components;
 	QAtomicPointer<Palapeli::PuzzleComponent> m_mainComponent;
 	QMutex m_locationMutex; //controls access to m_location
-	KUrl m_location;
+	QString m_location;
 	QString m_identifier;
 
-	Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponent* mainComponent, const KUrl& location, const QString& identifier);
+	Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponent* mainComponent, const QString& location, const QString& identifier);
 	const Palapeli::PuzzleComponent* get(Palapeli::PuzzleComponent::Type type);
 };
 
-Palapeli::Puzzle::Puzzle(Palapeli::PuzzleComponent* mainComponent, const KUrl& location, const QString& identifier)
+Palapeli::Puzzle::Puzzle(Palapeli::PuzzleComponent* mainComponent, const QString& location, const QString& identifier)
 	: d(new Private(this, mainComponent, location, identifier))
 {
 	qRegisterMetaType<Palapeli::Puzzle*>();
 }
 
-Palapeli::Puzzle::Private::Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponent* mainComponent, const KUrl& location, const QString& identifier)
+Palapeli::Puzzle::Private::Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponent* mainComponent, const QString& location, const QString& identifier)
 	: q(q)
 	, m_mainComponent(mainComponent)
 	, m_location(location)
@@ -172,13 +173,13 @@ QString Palapeli::Puzzle::identifier() const
 	return d->m_identifier;
 }
 
-KUrl Palapeli::Puzzle::location() const
+QString Palapeli::Puzzle::location() const
 {
 	QMutexLocker l(&d->m_locationMutex);
 	return d->m_location;
 }
 
-void Palapeli::Puzzle::setLocation(const KUrl& location)
+void Palapeli::Puzzle::setLocation(const QString& location)
 {
 	QMutexLocker l(&d->m_locationMutex);
 	d->m_location = location;
@@ -200,9 +201,9 @@ void Palapeli::Puzzle::setMainComponent(Palapeli::PuzzleComponent* component)
 
 K_GLOBAL_STATIC(QList<QString>, g_usedIdentifiers)
 
-/*static*/ QString Palapeli::Puzzle::fsIdentifier(const KUrl& location)
+/*static*/ QString Palapeli::Puzzle::fsIdentifier(const QString& location)
 {
-	QString puzzleName = location.fileName();
+	QString puzzleName = QFileInfo(location).fileName();
 	const char* disallowedChars = "\\:*?\"<>|"; //Windows forbids using these chars in filenames, so we'll strip them
 	for (const char* c = disallowedChars; *c; ++c)
 		puzzleName.remove(*c);

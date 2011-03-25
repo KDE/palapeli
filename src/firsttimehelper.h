@@ -21,7 +21,6 @@
 
 #include <QObject>
 class QProgressBar;
-#include <KUrl>
 
 namespace Palapeli
 {
@@ -43,7 +42,7 @@ namespace Palapeli
 		private:
 			struct Task
 			{
-				KUrl desktopUrl, puzzleUrl;
+				QString desktopPath, puzzlePath;
 			};
 			QList<Task> m_tasks;
 			QProgressBar* m_bar;

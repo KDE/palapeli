@@ -23,7 +23,6 @@
 
 class QModelIndex;
 class KAction;
-class KUrl;
 
 namespace Palapeli
 {
@@ -36,7 +35,7 @@ namespace Palapeli
 		public:
 			CollectionWidget();
 
-			void startPuzzle(const KUrl& url);
+			void startPuzzle(const QString& path);
 		Q_SIGNALS:
 			void createRequest();
 			void playRequest(Palapeli::Puzzle* puzzle);
