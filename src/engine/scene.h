@@ -21,7 +21,6 @@
 
 #include "basics.h"
 
-#include <QFutureWatcher>
 #include <QGraphicsScene>
 #include <QMap>
 class QModelIndex;
@@ -32,6 +31,7 @@ namespace Palapeli
 	class ConstraintVisualizer;
 	class Piece;
 	class OldPuzzle;
+	class Puzzle;
 
 	class Scene : public QGraphicsScene
 	{
@@ -62,8 +62,6 @@ namespace Palapeli
 			void playVictoryAnimation2();
 			void playVictoryAnimation3();
 			//loading steps
-			void startLoading();
-			void continueLoading();
 			void loadNextPiece();
 			void loadPiecePositions();
 			void completeVisualsForNextPiece();
@@ -76,13 +74,13 @@ namespace Palapeli
 			Palapeli::ConstraintVisualizer* m_constraintVisualizer;
 			//game parameters
 			QString m_identifier;
-			QPointer<Palapeli::OldPuzzle> m_puzzle;
+			QPointer<Palapeli::OldPuzzle> m_oldPuzzle;
+			Palapeli::Puzzle* m_puzzle;
 			QList<Palapeli::Piece*> m_pieces;
 			QTimer* m_savegameTimer;
 			int m_atomicPieceCount;
 			//some stuff needed for loading puzzles
 			bool m_loadingPuzzle;
-			QFutureWatcher<bool> m_metadataLoader;
 			QMap<int, Palapeli::Piece*> m_loadedPieces;
 	};
 }

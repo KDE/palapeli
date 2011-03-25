@@ -22,7 +22,9 @@
 #include "piece.h"
 #include "settings.h"
 #include "../file-io/collection.h"
+#include "../file-io/components.h"
 #include "../file-io/puzzle-old.h"
+#include "../file-io/puzzle.h"
 
 #include <cmath>
 #include <QFile>
@@ -43,13 +45,13 @@ Palapeli::Scene::Scene(QObject* parent)
 	: QGraphicsScene(parent)
 	, m_constrained(false)
 	, m_constraintVisualizer(new Palapeli::ConstraintVisualizer(this))
+	, m_puzzle(0)
 	, m_savegameTimer(new QTimer(this))
 	, m_loadingPuzzle(false)
 {
 	m_savegameTimer->setInterval(500); //write savegame twice per second at most
 	m_savegameTimer->setSingleShot(true);
 	connect(m_savegameTimer, SIGNAL(timeout()), this, SLOT(updateSavegame()));
-	connect(&m_metadataLoader, SIGNAL(finished()), this, SLOT(continueLoading()));
 }
 
 QRectF Palapeli::Scene::piecesBoundingRect() const
@@ -145,10 +147,12 @@ void Palapeli::Scene::loadPuzzle(const QModelIndex& index)
 		return;
 	//load puzzle
 	QObject* puzzlePayload = index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
-	Palapeli::OldPuzzle* puzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
-	if (puzzle && m_puzzle != puzzle)
+	Palapeli::OldPuzzle* oldPuzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
+	if (oldPuzzle && m_oldPuzzle != oldPuzzle)
 	{
-		m_puzzle = puzzle;
+		m_oldPuzzle = oldPuzzle;
+		delete m_puzzle;
+		m_puzzle = new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent(oldPuzzle->location()));
 		m_identifier = index.data(Palapeli::Collection::IdentifierRole).toString();
 		loadPuzzleInternal();
 	}
@@ -164,49 +168,32 @@ void Palapeli::Scene::loadPuzzleInternal()
 	emit reportProgress(0, 0);
 	//begin to load puzzle
 	m_loadedPieces.clear();
-	startLoading();
-}
-
-void Palapeli::Scene::startLoading()
-{
 	if (m_puzzle)
 	{
-		if (m_puzzle->metadata())
-			continueLoading();
-		else
-			m_metadataLoader.setFuture(QtConcurrent::run(m_puzzle.data(), &Palapeli::OldPuzzle::readMetadata, false));
-			//will call continueLoading() when done reading metadata
+		Palapeli::FutureWatcher* watcher = new Palapeli::FutureWatcher;
+		connect(watcher, SIGNAL(finished()), SLOT(loadNextPiece()));
+		connect(watcher, SIGNAL(finished()), watcher, SLOT(deleteLater()));
+		watcher->setFuture(m_puzzle->get(Palapeli::PuzzleComponent::Contents));
 	}
-}
-
-void Palapeli::Scene::continueLoading()
-{
-	if (!m_puzzle)
-		return;
-	//continue to read puzzle
-	if (!m_puzzle->metadata()) //reading the archive has failed
-		return;
-	if (!m_puzzle->readContents()) //this cannot be done in a separate thread
-		return;
-	//delay piece loading for UI responsibility
-	if (!m_puzzle->contents()->pieces.isEmpty())
-		QTimer::singleShot(0, this, SLOT(loadNextPiece()));
 }
 
 void Palapeli::Scene::loadNextPiece()
 {
 	if (!m_puzzle)
 		return;
+	const Palapeli::ContentsComponent* component = m_puzzle->component<Palapeli::ContentsComponent>();
+	if (!component)
+		return;
 	//add pieces, but only one at a time
-	const Palapeli::PuzzleContents* contents = m_puzzle->contents();
-	QMap<int, QImage>::const_iterator iterPieces = contents->pieces.begin();
-	const QMap<int, QImage>::const_iterator iterPiecesEnd = contents->pieces.end();
+	const Palapeli::PuzzleContents contents = component->contents;
+	QMap<int, QImage>::const_iterator iterPieces = contents.pieces.begin();
+	const QMap<int, QImage>::const_iterator iterPiecesEnd = contents.pieces.end();
 	for (int pieceID = iterPieces.key(); iterPieces != iterPiecesEnd; pieceID = (++iterPieces).key())
 	{
 		if (m_loadedPieces.contains(pieceID))
 			continue; //already loaded
 		//load piece
-		Palapeli::Piece* piece = new Palapeli::Piece(iterPieces.value(), contents->pieceOffsets[pieceID]);
+		Palapeli::Piece* piece = new Palapeli::Piece(iterPieces.value(), contents.pieceOffsets[pieceID]);
 		piece->addRepresentedAtomicPieces(QList<int>() << pieceID);
 		piece->addAtomicSize(iterPieces.value().size());
 		addItem(piece);
@@ -214,7 +201,7 @@ void Palapeli::Scene::loadNextPiece()
 		m_loadedPieces[pieceID] = piece;
 		connect(piece, SIGNAL(moved()), this, SLOT(pieceMoved()));
 		//continue with next piece after eventloop run
-		if (contents->pieces.size() > m_pieces.size())
+		if (contents.pieces.size() > m_pieces.size())
 			QTimer::singleShot(0, this, SLOT(loadNextPiece()));
 		else
 			QTimer::singleShot(0, this, SLOT(loadPiecePositions()));
@@ -226,9 +213,9 @@ void Palapeli::Scene::loadPiecePositions()
 {
 	if (!m_puzzle)
 		return;
-	const Palapeli::PuzzleContents* contents = m_puzzle->contents();
+	const Palapeli::PuzzleContents contents = m_puzzle->component<Palapeli::ContentsComponent>()->contents;
 	//add piece relations
-	foreach (const DoubleIntPair& relation, contents->relations)
+	foreach (const DoubleIntPair& relation, contents.relations)
 	{
 		Palapeli::Piece* firstPiece = m_pieces[relation.first];
 		Palapeli::Piece* secondPiece = m_pieces[relation.second];
