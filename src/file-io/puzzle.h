@@ -40,8 +40,10 @@ namespace Palapeli
 				Contents,            ///< Palapeli::ContentsComponent
 				CreationContext,     ///< Palapeli::CreationContextComponent
 				//storage components
+				Copy,                ///< Palapeli::CopyComponent
 				DirectoryStorage,    ///< Palapeli::DirectoryStorageComponent
-				ArchiveStorage       ///< Palapeli::ArchiveStorageComponent
+				ArchiveStorage,      ///< Palapeli::ArchiveStorageComponent
+				CollectionStorage    ///< Palapeli::CollectionStorageComponent
 			};
 
 			PuzzleComponent();
@@ -52,7 +54,7 @@ namespace Palapeli
 			///This method will be called in worker threads to create a new
 			///component of the given @a type from the information in this
 			///component. 0 is a useful result if the cast is not possible
-			///for semantical reasons (e.g. cannot infer contents from 
+			///for semantical reasons (e.g. cannot infer contents from
 			///metadata) or technical reasons (e.g. puzzle file corrupted).
 			///
 			///The default implementation represents a non-castable

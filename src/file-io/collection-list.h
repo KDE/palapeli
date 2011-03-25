@@ -23,41 +23,30 @@
 
 #include <QStringList>
 class KConfig;
+class KConfigGroup;
 class KJob;
 #include <KUrl>
 
 namespace Palapeli
 {
-	class ListCollection : public Palapeli::Collection
+	class LocalCollection : public Palapeli::Collection
 	{
 		Q_OBJECT
 		public:
-			ListCollection(const KUrl& url);
-			virtual ~ListCollection();
+			LocalCollection();
+			virtual ~LocalCollection();
 
 			virtual bool canImportPuzzles() const;
 			virtual QModelIndex importPuzzle(const Palapeli::OldPuzzle* const puzzle);
 			virtual bool canDeletePuzzle(const QModelIndex& index) const;
 			virtual bool deletePuzzle(const QModelIndex& index);
 			QModelIndex storeGeneratedPuzzle(Palapeli::OldPuzzle* puzzle);
-		protected:
-			ListCollection(); //interface to subclasses
-			void setConfig(KConfig* config);
-		private Q_SLOTS:
-			void collectionDataCopyFinished(KJob* job);
 		private:
-			KUrl readUrl(const KUrl& url) const;
 			QModelIndex addPuzzleInternal(Palapeli::OldPuzzle* puzzle);
 			QModelIndex importPuzzleInternal(Palapeli::OldPuzzle* puzzle);
 
-			QStringList m_features;
 			KConfig* m_config;
-	};
-
-	class LocalCollection : public Palapeli::ListCollection
-	{
-		public:
-			LocalCollection();
+			KConfigGroup* m_group;
 	};
 }
 

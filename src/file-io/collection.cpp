@@ -36,6 +36,7 @@ QModelIndex Palapeli::Collection::addPuzzle(Palapeli::OldPuzzle* puzzle)
 	int newPos = m_puzzles.count();
 	beginInsertRows(QModelIndex(), newPos, newPos);
 	m_puzzles << puzzle;
+	puzzle->readMetadata();
 	endInsertRows();
 	return index(newPos);
 }

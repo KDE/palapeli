@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009-2011 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -33,11 +33,15 @@
 
 const QSize Palapeli::PuzzleMetadata::ThumbnailBaseSize(64, 64);
 
+Palapeli::OldPuzzle::OldPuzzle(Palapeli::PuzzleComponent* mainComponent, const KUrl& location, const QString& identifier)
+	: m_puzzle(new Palapeli::Puzzle(mainComponent, location, identifier))
+	, m_cache(0)
+{
+	connect(&m_createArchiveWatcher, SIGNAL(finished()), this, SLOT(finishWritingArchive()));
+}
+
 Palapeli::OldPuzzle::OldPuzzle(const KUrl& location, const QString& identifier)
 	: m_puzzle(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent, location, identifier))
-	, m_metadata(0)
-	, m_contents(0)
-	, m_creationContext(0)
 	, m_cache(0)
 {
 	connect(&m_createArchiveWatcher, SIGNAL(finished()), this, SLOT(finishWritingArchive()));
@@ -45,24 +49,14 @@ Palapeli::OldPuzzle::OldPuzzle(const KUrl& location, const QString& identifier)
 
 Palapeli::OldPuzzle::OldPuzzle(const Palapeli::OldPuzzle& other, const QString& identifier)
 	: QObject()
-	, m_puzzle(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent, other.m_puzzle->location(), identifier))
-	, m_metadata(0)
-	, m_contents(0)
-	, m_creationContext(0)
+	, m_puzzle(new Palapeli::Puzzle(new Palapeli::CopyComponent(other.m_puzzle), other.m_puzzle->location(), identifier))
 	, m_cache(0)
 {
 	connect(&m_createArchiveWatcher, SIGNAL(finished()), this, SLOT(finishWritingArchive()));
-	if (other.m_metadata)
-		m_metadata = new Palapeli::PuzzleMetadata(*other.m_metadata);
-	if (other.m_contents)
-		m_contents = new Palapeli::PuzzleContents(*other.m_contents);
 }
 
 Palapeli::OldPuzzle::OldPuzzle(const Palapeli::PuzzleCreationContext& creationContext, const QString& identifier)
 	: m_puzzle(new Palapeli::Puzzle(new Palapeli::CreationContextComponent(creationContext), KUrl(), identifier))
-	, m_metadata(0)
-	, m_contents(0)
-	, m_creationContext(new Palapeli::PuzzleCreationContext(creationContext))
 	, m_cache(0)
 {
 	connect(&m_createArchiveWatcher, SIGNAL(finished()), this, SLOT(finishWritingArchive()));
@@ -73,8 +67,6 @@ Palapeli::OldPuzzle::OldPuzzle(const Palapeli::PuzzleCreationContext& creationCo
 Palapeli::OldPuzzle::~OldPuzzle()
 {
 	delete m_puzzle;
-	delete m_metadata;
-	delete m_contents;
 }
 
 KUrl Palapeli::OldPuzzle::location() const
@@ -94,82 +86,68 @@ Palapeli::Puzzle* Palapeli::OldPuzzle::newPuzzle() const
 
 const Palapeli::PuzzleMetadata* Palapeli::OldPuzzle::metadata() const
 {
-	return m_metadata;
+	const Palapeli::MetadataComponent* c = m_puzzle->component<Palapeli::MetadataComponent>();
+	return c ? &c->metadata : 0;
 }
 
 const Palapeli::PuzzleContents* Palapeli::OldPuzzle::contents() const
 {
-	return m_contents;
-}
-
-void Palapeli::OldPuzzle::injectMetadata(Palapeli::PuzzleMetadata* metadata)
-{
-	delete m_metadata;
-	m_metadata = metadata;
+	const Palapeli::ContentsComponent* c = m_puzzle->component<Palapeli::ContentsComponent>();
+	return c ? &c->contents : 0;
 }
 
 bool Palapeli::OldPuzzle::readMetadata()
 {
-	if (m_metadata)
-		return true;
 	const Palapeli::PuzzleComponent* component = m_puzzle->get(Palapeli::PuzzleComponent::Metadata);
-	if (!component)
-		return false;
-	m_metadata = new Palapeli::PuzzleMetadata(dynamic_cast<const Palapeli::MetadataComponent*>(component)->metadata);
-	return true;
+	return (bool) component;
 }
 
 bool Palapeli::OldPuzzle::readContents()
 {
 	if (!readMetadata()) //legacy code might rely on metadata being available after readContents()
 		return false;
-	if (m_contents)
-		return true;
 	const Palapeli::PuzzleComponent* component = m_puzzle->get(Palapeli::PuzzleComponent::Contents);
-	if (!component)
-		return false;
-	m_contents = new Palapeli::PuzzleContents(dynamic_cast<const Palapeli::ContentsComponent*>(component)->contents);
-	return true;
+	return (bool) component;
 }
 
 bool Palapeli::OldPuzzle::write()
 {
 	//the complex write operation (the one that creates and fills a new cache, and writes a new manifest) is being run in a separate thread
-	if (!m_metadata || !m_contents)
+	const Palapeli::PuzzleComponent* cMetadata = m_puzzle->get(Palapeli::PuzzleComponent::Metadata);
+	const Palapeli::PuzzleComponent* cContents = m_puzzle->get(Palapeli::PuzzleComponent::Contents);
+	m_puzzle->get(Palapeli::PuzzleComponent::CreationContext).waitForFinished();
+	if (!cMetadata || !cContents)
 		return false; //not enough data available for this operation
-	//createNewArchiveFile can only be called in separate thread if creation context is available (otherwise, we have to use the piece pixmaps from PuzzleContents, which cannot be used in a non-GUI thread)
-	if (m_creationContext)
-		m_createArchiveWatcher.setFuture(QtConcurrent::run(this, &Palapeli::OldPuzzle::createNewArchiveFile));
-	else
-	{
-		createNewArchiveFile();
-		finishWritingArchive();
-	}
+	m_createArchiveWatcher.setFuture(QtConcurrent::run(this, &Palapeli::OldPuzzle::createNewArchiveFile));
 	//in general, we don't know better and have to assume that Palapeli::OldPuzzle::createNewArchiveFile does not fail
 	return true;
 }
 
 void Palapeli::OldPuzzle::createNewArchiveFile()
 {
+	const Palapeli::PuzzleMetadata metadata = m_puzzle->component<Palapeli::MetadataComponent>()->metadata;
+	const Palapeli::PuzzleContents contents = m_puzzle->component<Palapeli::ContentsComponent>()->contents;
+	//create cache
 	delete m_cache; m_cache = new KTempDir;
 	const QString cachePath = m_cache->name();
 	//write manifest
 	KConfig manifest(cachePath + "pala.desktop");
 	KConfigGroup mainGroup(&manifest, "Desktop Entry");
-	mainGroup.writeEntry("Name", m_metadata->name);
-	mainGroup.writeEntry("Comment", m_metadata->comment);
-	mainGroup.writeEntry("X-KDE-PluginInfo-Author", m_metadata->author);
+	mainGroup.writeEntry("Name", metadata.name);
+	mainGroup.writeEntry("Comment", metadata.comment);
+	mainGroup.writeEntry("X-KDE-PluginInfo-Author", metadata.author);
 	mainGroup.writeEntry("Type", "X-Palapeli-Puzzle");
 	KConfigGroup collectionGroup(&manifest, "Collection");
-	collectionGroup.writeEntry("ModifyProtection", m_metadata->modifyProtection);
+	collectionGroup.writeEntry("ModifyProtection", metadata.modifyProtection);
 	KConfigGroup jobGroup(&manifest, "Job");
-	jobGroup.writeEntry("ImageSize", m_contents->imageSize);
-	if (m_creationContext)
+	jobGroup.writeEntry("ImageSize", contents.imageSize);
+	if (m_puzzle->component<Palapeli::CreationContextComponent>())
 	{
+		const Palapeli::PuzzleCreationContext creationContext = m_puzzle->component<Palapeli::CreationContextComponent>()->creationContext;
 		jobGroup.writeEntry("Image", KUrl("kfiledialog:///palapeli/pseudopath")); //just a placeholder, to make sure that an "Image" key is available
-		jobGroup.writeEntry("Slicer", m_creationContext->slicer);
-		jobGroup.writeEntry("SlicerMode", m_creationContext->slicerMode);
-		QMapIterator<QByteArray, QVariant> iterSlicerArgs(m_creationContext->slicerArgs);
+		jobGroup.writeEntry("Slicer", creationContext.slicer);
+		jobGroup.writeEntry("SlicerMode", creationContext.slicerMode);
+		QMapIterator<QByteArray, QVariant> iterSlicerArgs(creationContext.slicerArgs);
 		while (iterSlicerArgs.hasNext())
 		{
 			iterSlicerArgs.next();
@@ -177,7 +155,7 @@ void Palapeli::OldPuzzle::createNewArchiveFile()
 		}
 	}
 	//write pieces to cache
-	QMapIterator<int, QImage> iterPieces(m_contents->pieces);
+	QMapIterator<int, QImage> iterPieces(contents.pieces);
 	while (iterPieces.hasNext())
 	{
 		const QString imagePath = cachePath + QString::fromLatin1("%1.png").arg(iterPieces.next().key());
@@ -189,11 +167,11 @@ void Palapeli::OldPuzzle::createNewArchiveFile()
 	}
 	//write thumbnail into tempdir
 	const QString imagePath = cachePath + QString::fromLatin1("image.jpg");
-	if (!m_metadata->image.save(imagePath))
+	if (!metadata.image.save(imagePath))
 		return;
 	//write piece offsets into target manifest
 	KConfigGroup offsetGroup(&manifest, "PieceOffsets");
-	QMapIterator<int, QPoint> iterOffsets(m_contents->pieceOffsets);
+	QMapIterator<int, QPoint> iterOffsets(contents.pieceOffsets);
 	while (iterOffsets.hasNext())
 	{
 		iterOffsets.next();
@@ -201,9 +179,9 @@ void Palapeli::OldPuzzle::createNewArchiveFile()
 	}
 	//write piece relations into target manifest
 	KConfigGroup relationsGroup(&manifest, "Relations");
-	for (int index = 0; index < m_contents->relations.count(); ++index)
+	for (int index = 0; index < contents.relations.count(); ++index)
 	{
-		const QPair<int, int> relation = m_contents->relations[index];
+		const QPair<int, int> relation = contents.relations[index];
 		relationsGroup.writeEntry(QString::number(index), QList<int>() << relation.first << relation.second);
 	}
 	//save manifest

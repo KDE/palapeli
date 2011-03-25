@@ -22,6 +22,7 @@
 #include "puzzle.h"
 #include "puzzlestructs.h"
 
+class KConfigGroup;
 class KTempDir;
 #include <KDE/KUrl>
 
@@ -60,6 +61,19 @@ namespace Palapeli
 			virtual Palapeli::PuzzleComponent* cast(Type type) const;
 	};
 
+	//This component copies the data (i.e. everything in puzzlestructs.h) from
+	//an existing puzzle.
+	class CopyComponent : public Palapeli::PuzzleComponent
+	{
+		COMPONENT_SUBCLASS(Copy)
+		public:
+			CopyComponent(Palapeli::Puzzle* puzzle);
+
+			virtual Palapeli::PuzzleComponent* cast(Type type) const;
+		private:
+			Palapeli::Puzzle* m_puzzle;
+	};
+
 	class DirectoryStorageComponent : public Palapeli::PuzzleComponent
 	{
 		COMPONENT_SUBCLASS(DirectoryStorage)
@@ -80,6 +94,19 @@ namespace Palapeli
 			ArchiveStorageComponent();
 
 			virtual Palapeli::PuzzleComponent* cast(Type type) const;
+	};
+
+	class CollectionStorageComponent : public Palapeli::PuzzleComponent
+	{
+		COMPONENT_SUBCLASS(CollectionStorage)
+		public:
+			///Takes ownership of @a group.
+			CollectionStorageComponent(KConfigGroup* group);
+			virtual ~CollectionStorageComponent();
+
+			virtual Palapeli::PuzzleComponent* cast(Type type) const;
+		private:
+			KConfigGroup* m_group;
 	};
 }
 

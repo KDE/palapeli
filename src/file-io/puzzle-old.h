@@ -29,11 +29,13 @@ class KTempDir;
 namespace Palapeli
 {
 	class Puzzle;
+	class PuzzleComponent;
 
 	class OldPuzzle : public QObject
 	{
 		Q_OBJECT
 		public:
+			OldPuzzle(Palapeli::PuzzleComponent* mainComponent, const KUrl& location, const QString& identifier);
 			OldPuzzle(const KUrl& location, const QString& identifier);
 			OldPuzzle(const Palapeli::OldPuzzle& other, const QString& identifier);
 			OldPuzzle(const Palapeli::PuzzleCreationContext& context, const QString& identifier);
@@ -62,9 +64,6 @@ namespace Palapeli
 			void createNewArchiveFile();
 
 			Palapeli::Puzzle* m_puzzle;
-			Palapeli::PuzzleMetadata* m_metadata;
-			Palapeli::PuzzleContents* m_contents;
-			Palapeli::PuzzleCreationContext* m_creationContext; //NOTE: This is NOT copied in copy-constructors.
 			KTempDir* m_cache;
 			QFutureWatcher<void> m_createArchiveWatcher;
 	};

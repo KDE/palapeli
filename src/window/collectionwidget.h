@@ -27,7 +27,7 @@ class KUrl;
 
 namespace Palapeli
 {
-	class ListCollection;
+	class LocalCollection;
 	class CollectionView;
 	class FileSystemCollection;
 	class OldPuzzle;
@@ -50,7 +50,7 @@ namespace Palapeli
 			void handleSelectionChanged();
 		private:
 			Palapeli::CollectionView* m_view;
-			Palapeli::ListCollection* m_localCollection;
+			Palapeli::LocalCollection* m_localCollection;
 			Palapeli::FileSystemCollection* m_fsCollection;
 			KAction* m_exportAct;
 			KAction* m_deleteAct;

@@ -104,7 +104,8 @@ Palapeli::Puzzle::~Puzzle()
 
 const Palapeli::PuzzleComponent* Palapeli::Puzzle::component(Palapeli::PuzzleComponent::Type type) const
 {
-	return d->m_components.value(type)->component;
+	const Component* c = d->m_components.value(type);
+	return c ? c->component : 0;
 }
 
 QFuture<const Palapeli::PuzzleComponent*> Palapeli::Puzzle::get(Palapeli::PuzzleComponent::Type type)
