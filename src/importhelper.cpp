@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009-2011 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -17,22 +17,19 @@
 ***************************************************************************/
 
 #include "importhelper.h"
-#include "file-io/collection-filesystem.h"
-#include "file-io/collection-list.h"
-#include "file-io/puzzle-old.h"
+#include "file-io/collection.h"
+#include "file-io/components.h"
+#include "file-io/puzzle.h"
 
-#include <QApplication>
-#include <QTimer>
-#include <KCmdLineArgs>
-#include <KDebug> //we use kError
-#include <KLocalizedString>
-#include <KMessageBox>
-#include <KNotification>
+#include <QtCore/QFutureWatcher>
+#include <QtCore/QTimer>
+#include <QtGui/QApplication>
+#include <KDE/KCmdLineArgs>
+#include <KDE/KDebug> //we use kError
+#include <KDE/KNotification>
 
 Palapeli::ImportHelper::ImportHelper(KCmdLineArgs* args)
 	: m_args(args)
-	, m_fileSystemCollection(new Palapeli::FileSystemCollection)
-	, m_localCollection(new Palapeli::LocalCollection)
 {
 	QTimer::singleShot(0, this, SLOT(doWork()));
 }
@@ -44,34 +41,21 @@ void Palapeli::ImportHelper::doWork()
 		kError() << i18nc("command line message", "Error: No puzzle file given.");
 		qApp->quit();
 	}
-	//try to load puzzle
-	QModelIndex index = m_fileSystemCollection->providePuzzle(m_args->url(0));
-	QObject* puzzlePayload = index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
-	Palapeli::OldPuzzle* puzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
-	if (!puzzle)
-	{
-		KMessageBox::sorry(0, i18n("The given puzzle file is corrupted."));
-		qApp->quit();
-	}
-	//do import
-	const QModelIndex newIndex = m_localCollection->importPuzzle(puzzle);
-	if (!newIndex.isValid())
-	{
-		KMessageBox::sorry(0, i18n("The puzzle file could not be imported into the local collection."));
-		qApp->quit();
-	}
+	//import puzzle
+	Palapeli::Puzzle* puzzle = Palapeli::Collection::instance()->importPuzzle(m_args->url(0));
 	//show notification
-	KNotification::event(QLatin1String("importingPuzzle"),
-		i18n("Importing puzzle \"%1\" into your collection", puzzle->metadata()->name),
-		QPixmap::fromImage(puzzle->metadata()->thumbnail)
-	);
+	puzzle->get(Palapeli::PuzzleComponent::Metadata).waitForFinished();
+	const Palapeli::MetadataComponent* cmp = puzzle->component<Palapeli::MetadataComponent>();
+	if (cmp)
+	{
+		KNotification::event(QLatin1String("importingPuzzle"),
+			i18n("Importing puzzle \"%1\" into your collection", cmp->metadata.name),
+			QPixmap::fromImage(cmp->metadata.thumbnail)
+		);
+	}
 	//keep program running until the puzzle has been written
-	QObject* newPuzzlePayload = newIndex.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
-	connect(newPuzzlePayload, SIGNAL(writeFinished()), qApp, SLOT(quit()));
-}
-
-Palapeli::ImportHelper::~ImportHelper()
-{
-	delete m_fileSystemCollection;
-	delete m_localCollection;
+	Palapeli::FutureWatcher* watcher = new Palapeli::FutureWatcher;
+	connect(watcher, SIGNAL(finished()), watcher, SLOT(deleteLater()));
+	connect(watcher, SIGNAL(finished()), qApp, SLOT(quit()));
+	watcher->setFuture(puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage));
 }

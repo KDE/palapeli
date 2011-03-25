@@ -20,10 +20,12 @@
 
 #include <QtCore/QAtomicInt>
 #include <QtCore/QAtomicPointer>
+#include <QtCore/QFutureSynchronizer>
 #include <QtCore/QHash>
 #include <QtCore/QMutexLocker>
 #include <QtCore/QWaitCondition>
 #include <QtCore/QtConcurrentRun>
+#include <KDE/KGlobal>
 
 //BEGIN Palapeli::PuzzleComponent
 
@@ -64,6 +66,7 @@ struct Component
 struct Palapeli::Puzzle::Private
 {
 	Palapeli::Puzzle* q;
+	QFutureSynchronizer<void> m_allFutures;
 	QMutex m_hashMutex; //controls access to m_components
 	QHash<Palapeli::PuzzleComponent::Type, Component*> m_components;
 	QAtomicPointer<Palapeli::PuzzleComponent> m_mainComponent;
@@ -94,6 +97,7 @@ Palapeli::Puzzle::Private::Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponen
 
 Palapeli::Puzzle::~Puzzle()
 {
+	d->m_allFutures.waitForFinished();
 	d->m_hashMutex.lock();
 	QHashIterator<Palapeli::PuzzleComponent::Type, Component*> iter(d->m_components);
 	while (iter.hasNext())
@@ -110,7 +114,12 @@ const Palapeli::PuzzleComponent* Palapeli::Puzzle::component(Palapeli::PuzzleCom
 
 QFuture<const Palapeli::PuzzleComponent*> Palapeli::Puzzle::get(Palapeli::PuzzleComponent::Type type)
 {
-	return QtConcurrent::run(d, &Palapeli::Puzzle::Private::get, type);
+	QFuture<const Palapeli::PuzzleComponent*> future;
+	future = QtConcurrent::run(d, &Palapeli::Puzzle::Private::get, type);
+	//m_allFutures is used to wait for all running casts to be finished
+	//in the dtor
+	d->m_allFutures.waitForFinished();
+	return future;
 }
 
 const Palapeli::PuzzleComponent* Palapeli::Puzzle::Private::get(Palapeli::PuzzleComponent::Type type)
@@ -187,6 +196,23 @@ void Palapeli::Puzzle::setMainComponent(Palapeli::PuzzleComponent* component)
 	delete c;
 	c = new Component(component);
 	d->m_mainComponent.fetchAndStoreOrdered(component);
+}
+
+K_GLOBAL_STATIC(QList<QString>, g_usedIdentifiers)
+
+/*static*/ QString Palapeli::Puzzle::fsIdentifier(const KUrl& location)
+{
+	QString puzzleName = location.fileName();
+	const char* disallowedChars = "\\:*?\"<>|"; //Windows forbids using these chars in filenames, so we'll strip them
+	for (const char* c = disallowedChars; *c; ++c)
+		puzzleName.remove(*c);
+	const QString identifierPattern = QString::fromLatin1("__FSC_%1_%2_").arg(puzzleName);
+	int uniquifier = 0;
+	while (g_usedIdentifiers->contains(identifierPattern.arg(uniquifier)))
+		++uniquifier;
+	const QString identifier = identifierPattern.arg(uniquifier);
+	*g_usedIdentifiers << identifier;
+	return identifier;
 }
 
 //END Palapeli::Puzzle

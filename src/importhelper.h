@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009-2011 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -24,21 +24,15 @@ class KCmdLineArgs;
 
 namespace Palapeli
 {
-	class FileSystemCollection;
-	class LocalCollection;
-
 	class ImportHelper : public QObject
 	{
 		Q_OBJECT
 		public:
 			ImportHelper(KCmdLineArgs* args);
-			virtual ~ImportHelper();
 		public Q_SLOTS:
 			void doWork();
 		private:
 			KCmdLineArgs* m_args;
-			Palapeli::FileSystemCollection* m_fileSystemCollection;
-			Palapeli::LocalCollection* m_localCollection;
 	};
 }
 

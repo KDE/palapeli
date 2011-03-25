@@ -18,7 +18,7 @@
 
 #include "collection-delegate.h"
 #include "collection.h"
-#include "puzzle-old.h"
+#include "puzzlestructs.h"
 
 #include <QAbstractItemView>
 #include <QApplication>
@@ -26,6 +26,8 @@
 #include <QFontMetrics>
 #include <QPainter>
 #include <KLocalizedString>
+
+const QSize Palapeli::PuzzleMetadata::ThumbnailBaseSize(64, 64);
 
 namespace Metrics
 {

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009-2011 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -19,45 +19,44 @@
 #ifndef PALAPELI_COLLECTION_H
 #define PALAPELI_COLLECTION_H
 
-#include <QAbstractListModel>
+#include <QtGui/QStandardItemModel>
+class KConfig;
+class KConfigGroup;
+#include <KDE/KUrl>
 
 namespace Palapeli
 {
-	class OldPuzzle;
+	class Puzzle;
 
-	class Collection : public QAbstractListModel
+	class Collection : public QStandardItemModel
 	{
-		Q_OBJECT //allow qobject_casts
+		Q_OBJECT
 		public:
 			enum Roles {
-				//invisible metadata
-				IsDeleteableRole = Qt::UserRole + 1,
-				//object references
-				PuzzleObjectRole = Qt::UserRole + 11, //contains a QObject* which can be casted to Palapeli::OldPuzzle*
-				//visible metadata
-				NameRole = Qt::UserRole + 21,
-				CommentRole,
+				NameRole = Qt::DisplayRole,
+				ThumbnailRole = Qt::DecorationRole,
+				CommentRole = Qt::UserRole + 1,
 				AuthorRole,
 				PieceCountRole,
-				ThumbnailRole
+				IsDeleteableRole,
+				IdentifierRole
 			};
 
-			virtual ~Collection();
+			static Palapeli::Collection* instance();
+			Palapeli::Puzzle* puzzleFromIndex(const QModelIndex& index) const;
 
-			virtual bool canImportPuzzles() const;
-			virtual QModelIndex importPuzzle(const Palapeli::OldPuzzle* const puzzle);
-			virtual bool canDeletePuzzle(const QModelIndex& index) const;
-			virtual bool deletePuzzle(const QModelIndex& index);
-
-			virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
-			virtual QVariant data(const QModelIndex& index, int role) const;
+			void importPuzzle(Palapeli::Puzzle* puzzle); ///< without copying!
+			Palapeli::Puzzle* importPuzzle(const KUrl& location);
+			void exportPuzzle(const QModelIndex& index, const KUrl& location);
+			bool deletePuzzle(const QModelIndex& index);
 		protected:
-			Collection(); //"abstract base class"
-
-			QModelIndex addPuzzle(Palapeli::OldPuzzle* puzzle); ///< @return the model index of the new item
-			void removePuzzle(const QModelIndex& index);
+			Collection();
+			virtual ~Collection();
 		private:
-			QList<Palapeli::OldPuzzle*> m_puzzles;
+			class Item;
+
+			KConfig* m_config;
+			KConfigGroup* m_group;
 	};
 }
 

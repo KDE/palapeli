@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009-2011 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -17,27 +17,26 @@
 ***************************************************************************/
 
 #include "collectionwidget.h"
+#include "../file-io/collection.h"
 #include "../file-io/collection-delegate.h"
-#include "../file-io/collection-filesystem.h"
-#include "../file-io/collection-list.h"
 #include "../file-io/collection-view.h"
-#include "../file-io/puzzle-old.h"
+#include "../file-io/components.h"
+#include "../file-io/puzzle.h"
 
-#include <KAction>
-#include <KActionCollection>
-#include <KLocalizedString>
-#include <KStandardDirs>
-#include <KStandardShortcut>
+#include <KDE/KAction>
+#include <KDE/KActionCollection>
+#include <KDE/KFileDialog>
+#include <KDE/KLocalizedString>
+#include <KDE/KStandardDirs>
+#include <KDE/KStandardShortcut>
 
 Palapeli::CollectionWidget::CollectionWidget()
 	: Palapeli::TabWindow(QLatin1String("palapeli-collection"))
 	, m_view(new Palapeli::CollectionView)
-	, m_localCollection(new Palapeli::LocalCollection)
-	, m_fsCollection(new Palapeli::FileSystemCollection)
 {
 	//setup view
-	m_view->setModel(m_localCollection);
-	connect(m_view, SIGNAL(playRequest(const QModelIndex&)), this, SIGNAL(playRequest(const QModelIndex&)));
+	m_view->setModel(Palapeli::Collection::instance());
+	connect(m_view, SIGNAL(playRequest(Palapeli::Puzzle*)), this, SIGNAL(playRequest(Palapeli::Puzzle*)));
 	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(handleSelectionChanged()));
 	//setup actions
 	KAction* createAct = new KAction(KIcon("tools-wizard"), i18n("Create &new puzzle..."), 0); //FIXME: This should be a custom "actions/puzzle-new" icon.
@@ -66,46 +65,50 @@ Palapeli::CollectionWidget::CollectionWidget()
 
 void Palapeli::CollectionWidget::startPuzzle(const KUrl& url)
 {
-	QModelIndex index = m_fsCollection->providePuzzle(url);
-	emit playRequest(index);
-}
-
-QModelIndex Palapeli::CollectionWidget::storeGeneratedPuzzle(Palapeli::OldPuzzle* puzzle)
-{
-	return m_localCollection->storeGeneratedPuzzle(puzzle);
+	//create puzzle instance
+	const QString id = Palapeli::Puzzle::fsIdentifier(url);
+	emit playRequest(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent, url, id));
 }
 
 void Palapeli::CollectionWidget::handleDeleteRequest()
 {
 	QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
 	foreach (const QModelIndex& index, indexes)
-		m_localCollection->deletePuzzle(index);
+		Palapeli::Collection::instance()->deletePuzzle(index);
 }
 
 void Palapeli::CollectionWidget::handleExportRequest()
 {
 	QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
+	Palapeli::Collection* coll = Palapeli::Collection::instance();
 	foreach (const QModelIndex& index, indexes)
 	{
-		QObject* puzzlePayload = index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
-		Palapeli::OldPuzzle* puzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
+		Palapeli::Puzzle* puzzle = coll->puzzleFromIndex(index);
 		if (!puzzle)
 			continue;
-		m_fsCollection->importPuzzle(puzzle);
+		//get puzzle name (as an initial guess for the file name)
+		puzzle->get(Palapeli::PuzzleComponent::Metadata).waitForFinished();
+		const Palapeli::MetadataComponent* cmp = puzzle->component<Palapeli::MetadataComponent>();
+		if (!cmp)
+			continue;
+		//ask user for target file name
+		const KUrl startLoc = QString::fromLatin1("kfiledialog:///palapeli-export/%1.puzzle").arg(cmp->metadata.name);
+		const QString filter = i18nc("Filter for a file dialog", "*.puzzle|Palapeli puzzles (*.puzzle)");
+		const KUrl location = KFileDialog::getSaveFileName(startLoc, filter);
+		if (location.isEmpty())
+			continue; //process aborted by user
+		//do export
+		coll->exportPuzzle(index, location);
 	}
 }
 
 void Palapeli::CollectionWidget::handleImportRequest()
 {
-	QModelIndexList selectedPuzzles = m_fsCollection->selectPuzzles();
-	foreach (const QModelIndex& index, selectedPuzzles)
-	{
-		QObject* puzzlePayload = index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
-		Palapeli::OldPuzzle* puzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
-		if (!puzzle)
-			continue;
-		m_localCollection->importPuzzle(puzzle);
-	}
+	const QString filter = i18nc("Filter for a file dialog", "*.puzzle|Palapeli puzzles (*.puzzle)");
+	const QStringList paths = KFileDialog::getOpenFileNames(KUrl("kfiledialog:///palapeli-import"), filter);
+	Palapeli::Collection* coll = Palapeli::Collection::instance();
+	foreach (const QString& path, paths)
+		coll->importPuzzle(KUrl::fromPath(path));
 }
 
 void Palapeli::CollectionWidget::handleSelectionChanged()

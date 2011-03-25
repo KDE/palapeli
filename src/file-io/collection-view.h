@@ -26,6 +26,7 @@ class QAction;
 namespace Palapeli
 {
 	class CollectionDelegate;
+	class Puzzle;
 
 	class CollectionView : public QWidget
 	{
@@ -36,7 +37,7 @@ namespace Palapeli
 			void setModel(QAbstractItemModel* model);
 			QItemSelectionModel* selectionModel() const;
 		Q_SIGNALS:
-			void playRequest(const QModelIndex&);
+			void playRequest(Palapeli::Puzzle* puzzle);
 		private Q_SLOTS:
 			void handleActivated(const QModelIndex& index);
 			void sortMenuTriggered(QAction* action);

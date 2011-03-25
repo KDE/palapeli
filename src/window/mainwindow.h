@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009-2011 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -28,6 +28,7 @@ namespace Palapeli
 	class KTabWidget; //needs to be subclasses for public access to QTabBar
 	class CollectionWidget;
 	class PuzzleTableWidget;
+	class Puzzle;
 
 	class MainWindow : public KXmlGuiWindow
 	{
@@ -36,7 +37,7 @@ namespace Palapeli
 			MainWindow(KCmdLineArgs* args);
 		public Q_SLOTS:
 			void createPuzzle();
-			void loadPuzzle(const QModelIndex& index);
+			void loadPuzzle(Palapeli::Puzzle* puzzle);
 			void configureShortcuts();
 			void configurePalapeli();
 		Q_SIGNALS:

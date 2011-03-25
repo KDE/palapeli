@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009-2011 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -22,7 +22,8 @@
 #include "../engine/scene.h"
 #include "../engine/view.h"
 #include "../file-io/collection.h"
-#include "../file-io/puzzle-old.h"
+#include "../file-io/components.h"
+#include "../file-io/puzzle.h"
 #include "collectionwidget.h"
 #include "puzzletablewidget.h"
 #include "settings.h"
@@ -69,7 +70,7 @@ Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 	m_centralWidget->setCurrentWidget(m_collectionWidget);
 	m_centralWidget->setDocumentMode(true);
 	connect(m_collectionWidget, SIGNAL(createRequest()), this, SLOT(createPuzzle()));
-	connect(m_collectionWidget, SIGNAL(playRequest(const QModelIndex&)), this, SLOT(loadPuzzle(const QModelIndex&)));
+	connect(m_collectionWidget, SIGNAL(playRequest(Palapeli::Puzzle*)), this, SLOT(loadPuzzle(Palapeli::Puzzle*)));
 	//setup main window
 	setCentralWidget(m_centralWidget);
 	KXmlGuiWindow::StandardWindowOptions guiOptions = KXmlGuiWindow::Default;
@@ -152,28 +153,28 @@ void Palapeli::MainWindow::createPuzzle()
 	{
 		if (!creatorDialog)
 			return;
-		Palapeli::OldPuzzle* puzzle = creatorDialog->result();
+		Palapeli::Puzzle* puzzle = creatorDialog->result();
 		if (!puzzle) {
 			delete creatorDialog;
 			return;
 		}
-		QModelIndex index = m_collectionWidget->storeGeneratedPuzzle(puzzle);
-		if (index.isValid())
-			loadPuzzle(index);
+		Palapeli::Collection::instance()->importPuzzle(puzzle);
+		loadPuzzle(puzzle);
 	}
 	delete creatorDialog;
 }
 
-void Palapeli::MainWindow::loadPuzzle(const QModelIndex& index)
+void Palapeli::MainWindow::loadPuzzle(Palapeli::Puzzle* puzzle)
 {
-	QObject* puzzlePayload = index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
-	Palapeli::OldPuzzle* puzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
 	if (!puzzle)
 		return;
-	m_puzzleTable->view()->scene()->loadPuzzle(puzzle->newPuzzle());
+	m_puzzleTable->view()->scene()->loadPuzzle(puzzle);
 	m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_puzzleTable), true);
 	m_centralWidget->setCurrentWidget(m_puzzleTable);
-	setCaption(index.data(Qt::DisplayRole).toString());
+	//load caption from metadata
+	puzzle->get(Palapeli::PuzzleComponent::Metadata).waitForFinished();
+	const Palapeli::MetadataComponent* cmp = puzzle->component<Palapeli::MetadataComponent>();
+	setCaption(cmp ? cmp->metadata.name : QString());
 }
 
 void Palapeli::MainWindow::configureShortcuts()

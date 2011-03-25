@@ -35,7 +35,7 @@ namespace Pala
 
 namespace Palapeli
 {
-	class OldPuzzle;
+	class Puzzle;
 	class SlicerConfigWidget;
 
 	class PuzzleCreatorDialog : public KAssistantDialog
@@ -44,13 +44,13 @@ namespace Palapeli
 		public:
 			PuzzleCreatorDialog();
 
-			Palapeli::OldPuzzle* result() const;
+			Palapeli::Puzzle* result() const;
 		private Q_SLOTS:
 			void checkData();
 			void updateSlicerSelection(const Palapeli::SlicerSelection& selection);
 			void createPuzzle();
 		private:
-			Palapeli::OldPuzzle* m_result;
+			Palapeli::Puzzle* m_result;
 			//page items
 			KPageWidgetItem* m_sourcePage;
 			KPageWidgetItem* m_slicerPage;

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009-2011 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -27,10 +27,8 @@ class KUrl;
 
 namespace Palapeli
 {
-	class LocalCollection;
 	class CollectionView;
-	class FileSystemCollection;
-	class OldPuzzle;
+	class Puzzle;
 
 	class CollectionWidget : public Palapeli::TabWindow
 	{
@@ -39,10 +37,9 @@ namespace Palapeli
 			CollectionWidget();
 
 			void startPuzzle(const KUrl& url);
-			QModelIndex storeGeneratedPuzzle(Palapeli::OldPuzzle* puzzle);
 		Q_SIGNALS:
 			void createRequest();
-			void playRequest(const QModelIndex& index);
+			void playRequest(Palapeli::Puzzle* puzzle);
 		private Q_SLOTS:
 			void handleDeleteRequest();
 			void handleExportRequest();
@@ -50,8 +47,6 @@ namespace Palapeli
 			void handleSelectionChanged();
 		private:
 			Palapeli::CollectionView* m_view;
-			Palapeli::LocalCollection* m_localCollection;
-			Palapeli::FileSystemCollection* m_fsCollection;
 			KAction* m_exportAct;
 			KAction* m_deleteAct;
 	};

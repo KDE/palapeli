@@ -19,6 +19,7 @@
 #include "collection-view.h"
 #include "collection.h"
 #include "collection-delegate.h"
+#include "puzzle.h"
 
 #include <QApplication>
 #include <QGridLayout>
@@ -84,7 +85,7 @@ void Palapeli::CollectionView::handleActivated(const QModelIndex& index)
 		return;
 	//change selection to indicate that the given puzzle has been chosen
 	m_view->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
-	emit playRequest(index);
+	emit playRequest(Palapeli::Collection::instance()->puzzleFromIndex(index));
 }
 
 void Palapeli::CollectionView::sortMenuTriggered(QAction* action)

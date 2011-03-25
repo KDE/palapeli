@@ -19,7 +19,8 @@
 #include "puzzlecreator.h"
 #include "slicerconfwidget.h"
 #include "slicerselector.h"
-#include "file-io/puzzle-old.h"
+#include "file-io/components.h"
+#include "file-io/puzzle.h"
 #include "file-io/puzzlestructs.h"
 #include "../libpala/slicer.h"
 #include "../libpala/slicerjob.h"
@@ -79,7 +80,7 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	connect(m_slicerSelector, SIGNAL(currentSelectionChanged(Palapeli::SlicerSelection)), this, SLOT(updateSlicerSelection(Palapeli::SlicerSelection)));
 }
 
-Palapeli::OldPuzzle* Palapeli::PuzzleCreatorDialog::result() const
+Palapeli::Puzzle* Palapeli::PuzzleCreatorDialog::result() const
 {
 	return m_result;
 }
@@ -141,7 +142,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	creationContext.slicerMode = selection.mode ? selection.mode->key() : QByteArray();
 	creationContext.slicerArgs = slicerArgs;
 	//create puzzle
-	m_result = new Palapeli::OldPuzzle(creationContext, QUuid::createUuid().toString());
+	m_result = new Palapeli::Puzzle(new Palapeli::CreationContextComponent(creationContext), KUrl(), QUuid::createUuid().toString());
 }
 
 #include "puzzlecreator.moc"

@@ -76,6 +76,12 @@ namespace Palapeli
 			Puzzle(Palapeli::PuzzleComponent* mainComponent, const KUrl& location, const QString& identifier);
 			virtual ~Puzzle();
 
+			///Returns an identifier for use with puzzles loaded from the file
+			///system. Rationale: The identifier must be unique during the
+			///session, but should also be the same for the same puzzle over
+			///the course of multiple sessions (in order to store savegames).
+			static QString fsIdentifier(const KUrl& location);
+
 			///Returns the component for the given @a type, or 0 if this
 			///component is not available. Access to the component storage is
 			///not memory-ordered or anything. If you need a thread-safe

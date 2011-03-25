@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2011 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009-2011 Stefan Majewsky <majewsky@gmx.net>
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU General Public
@@ -16,36 +16,22 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_PUZZLE_P_H
-#define PALAPELI_PUZZLE_P_H
+#ifndef PALAPELI_COLLECTION_P_H
+#define PALAPELI_COLLECTION_P_H
 
-#include "puzzle.h"
+#include "collection.h"
 
-#include <QtCore/QHash>
-#include <QtCore/QMutexLocker>
-#include <QtCore/QtConcurrentRun>
-
-enum ComponentState
+class Palapeli::Collection::Item : public QObject, public QStandardItem
 {
-	Unavailable,
-	Requested,
-	Available
-};
-struct Component
-{
-	ComponentState state;
-	Palapeli::PuzzleComponent* component;
+	Q_OBJECT
+	public:
+		Item(Palapeli::Puzzle* puzzle);
 
-	Component() : state(Unavailable), component(0) {}
+		Palapeli::Puzzle* puzzle() const { return m_puzzle; }
+	public Q_SLOTS:
+		void populate();
+	private:
+		Palapeli::Puzzle* m_puzzle;
 };
 
-struct Palapeli::Puzzle::Private
-{
-	//A single mutex for everything is awfully inefficient like the Big Kernel
-	//Lock, but I hope to get away with that.
-	QMutex m_mutex;
-	QHash<Palapeli::PuzzleComponent::Type, Component> m_components;
-	Palapeli::PuzzleComponent* m_mainComponent;
-};
-
-#endif // PALAPELI_PUZZLE_P_H
+#endif // PALAPELI_COLLECTION_P_H
