@@ -21,6 +21,7 @@
 
 #include <QtCore/QFuture>
 #include <QtCore/QMetaType>
+#include <KDE/KUrl>
 
 #include <iostream>
 #define CAST_ERROR(x) std::cerr << qPrintable(x) << std::endl; //TODO: these errors should be reported to Puzzle
@@ -70,7 +71,7 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			///Takes ownership of @a mainComponent.
-			Puzzle(Palapeli::PuzzleComponent* mainComponent);
+			Puzzle(Palapeli::PuzzleComponent* mainComponent, const KUrl& location);
 			virtual ~Puzzle();
 
 			///Returns the component for the given @a type, or 0 if this
@@ -88,6 +89,14 @@ namespace Palapeli
 			///has finished. The future's waitForFinished() method can be used
 			///for synchronized access.
 			Palapeli::Future get(Palapeli::PuzzleComponent::Type type);
+
+			KUrl location() const;
+			void setLocation(const KUrl& location);
+			///Resets the main component, which is used for casting. Components
+			///which were created before the setMainComponent() call are not
+			///affected. Other components of the same type will be overwritten
+			///by the given @a component.
+			void setMainComponent(Palapeli::PuzzleComponent* component);
 		private:
 			class Private;
 			Private* const d;

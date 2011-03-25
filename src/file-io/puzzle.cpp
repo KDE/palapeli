@@ -66,21 +66,24 @@ struct Palapeli::Puzzle::Private
 	Palapeli::Puzzle* q;
 	QMutex m_hashMutex; //controls access to m_components
 	QHash<Palapeli::PuzzleComponent::Type, Component*> m_components;
-	Palapeli::PuzzleComponent* m_mainComponent;
+	QAtomicPointer<Palapeli::PuzzleComponent> m_mainComponent;
+	QMutex m_locationMutex; //controls access to m_location
+	KUrl m_location;
 
-	Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponent* mainComponent);
+	Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponent* mainComponent, const KUrl& location);
 	const Palapeli::PuzzleComponent* get(Palapeli::PuzzleComponent::Type type);
 };
 
-Palapeli::Puzzle::Puzzle(Palapeli::PuzzleComponent* mainComponent)
-	: d(new Private(this, mainComponent))
+Palapeli::Puzzle::Puzzle(Palapeli::PuzzleComponent* mainComponent, const KUrl& location)
+	: d(new Private(this, mainComponent, location))
 {
 	qRegisterMetaType<Palapeli::Puzzle*>();
 }
 
-Palapeli::Puzzle::Private::Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponent* mainComponent)
+Palapeli::Puzzle::Private::Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponent* mainComponent, const KUrl& location)
 	: q(q)
 	, m_mainComponent(mainComponent)
+	, m_location(location)
 {
 	m_mainComponent->m_puzzle = q;
 	m_components.insert(mainComponent->type(), new Component(mainComponent));
@@ -132,7 +135,7 @@ const Palapeli::PuzzleComponent* Palapeli::Puzzle::Private::get(Palapeli::Puzzle
 		Palapeli::PuzzleComponent* cmp = m_mainComponent->cast(type);
 		if (cmp)
 			cmp->m_puzzle = q;
-		//write access to c->component need not be mutex-secured because there
+		//write access to c need not be mutex-secured because there
 		//is only one write access ever per component
 		c->component.fetchAndStoreOrdered(cmp);
 		c->available.fetchAndStoreOrdered(true);
@@ -150,6 +153,32 @@ const Palapeli::PuzzleComponent* Palapeli::Puzzle::Private::get(Palapeli::Puzzle
 		c->wait.wait(&mutex, 1000);
 	mutex.unlock();
 	return c->component;
+}
+
+KUrl Palapeli::Puzzle::location() const
+{
+	QMutexLocker l(&d->m_locationMutex);
+	return d->m_location;
+}
+
+void Palapeli::Puzzle::setLocation(const KUrl& location)
+{
+	QMutexLocker l(&d->m_locationMutex);
+	d->m_location = location;
+}
+
+void Palapeli::Puzzle::setMainComponent(Palapeli::PuzzleComponent* component)
+{
+	if (!component)
+		return;
+	//add component
+	QMutexLocker locker(&d->m_hashMutex);
+	Component*& c = d->m_components[component->type()];
+	if (c && c->component)
+		delete c->component;
+	delete c;
+	c = new Component(component);
+	d->m_mainComponent.fetchAndStoreOrdered(component);
 }
 
 //END Palapeli::Puzzle

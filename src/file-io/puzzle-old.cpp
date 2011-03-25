@@ -34,9 +34,7 @@
 const QSize Palapeli::PuzzleMetadata::ThumbnailBaseSize(64, 64);
 
 Palapeli::OldPuzzle::OldPuzzle(const KUrl& location)
-	: m_location(location)
-	, m_loadLocation(location)
-	, m_puzzle(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent(location)))
+	: m_puzzle(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent, location))
 	, m_metadata(0)
 	, m_contents(0)
 	, m_creationContext(0)
@@ -47,9 +45,7 @@ Palapeli::OldPuzzle::OldPuzzle(const KUrl& location)
 
 Palapeli::OldPuzzle::OldPuzzle(const Palapeli::OldPuzzle& other)
 	: QObject()
-	, m_location(other.m_location)
-	, m_loadLocation(other.m_loadLocation)
-	, m_puzzle(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent(m_location)))
+	, m_puzzle(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent, other.m_puzzle->location()))
 	, m_metadata(0)
 	, m_contents(0)
 	, m_creationContext(0)
@@ -63,7 +59,7 @@ Palapeli::OldPuzzle::OldPuzzle(const Palapeli::OldPuzzle& other)
 }
 
 Palapeli::OldPuzzle::OldPuzzle(const Palapeli::PuzzleCreationContext& creationContext)
-	: m_puzzle(new Palapeli::Puzzle(new Palapeli::CreationContextComponent(creationContext)))
+	: m_puzzle(new Palapeli::Puzzle(new Palapeli::CreationContextComponent(creationContext), KUrl()))
 	, m_metadata(0)
 	, m_contents(0)
 	, m_creationContext(new Palapeli::PuzzleCreationContext(creationContext))
@@ -83,12 +79,12 @@ Palapeli::OldPuzzle::~OldPuzzle()
 
 KUrl Palapeli::OldPuzzle::location() const
 {
-	return m_location;
+	return m_puzzle->location();
 }
 
 void Palapeli::OldPuzzle::setLocation(const KUrl& location)
 {
-	m_location = location;
+	m_puzzle->setLocation(location);
 }
 
 Palapeli::Puzzle* Palapeli::OldPuzzle::newPuzzle() const
@@ -138,13 +134,6 @@ bool Palapeli::OldPuzzle::readContents()
 
 bool Palapeli::OldPuzzle::write()
 {
-	//optimization: if nothing has changed since the puzzle has been loaded, just copy the original puzzle file to the new location
-	if (!m_loadLocation.isEmpty())
-	{
-		KIO::FileCopyJob* job = KIO::file_copy(m_loadLocation, m_location);
-		connect(job, SIGNAL(result(KJob*)), this, SLOT(writeFinished(KJob*)));
-		return true;
-	}
 	//the complex write operation (the one that creates and fills a new cache, and writes a new manifest) is being run in a separate thread
 	if (!m_metadata || !m_contents)
 		return false; //not enough data available for this operation
@@ -158,21 +147,6 @@ bool Palapeli::OldPuzzle::write()
 	}
 	//in general, we don't know better and have to assume that Palapeli::OldPuzzle::createNewArchiveFile does not fail
 	return true;
-}
-
-void Palapeli::OldPuzzle::writeFinished(KJob* job)
-{
-	if (job->error())
-		static_cast<KIO::Job*>(job)->ui()->showErrorMessage();
-	else
-	{
-		if (m_location.isLocalFile())
-		{
-			QFile file(m_location.toLocalFile());
-			file.setPermissions(file.permissions() | QFile::WriteOwner | QFile::WriteGroup); //make file deleteable
-		}
-		emit writeFinished();
-	}
 }
 
 void Palapeli::OldPuzzle::createNewArchiveFile()
@@ -250,12 +224,26 @@ void Palapeli::OldPuzzle::finishWritingArchive()
 	else if (!tar.close())
 		return;
 	//upload puzzle file to m_location
-	KIO::FileCopyJob* job = KIO::file_copy(KUrl(tempFile->fileName()), m_location);
+	KIO::FileCopyJob* job = KIO::file_copy(KUrl(tempFile->fileName()), m_puzzle->location());
 	connect(job, SIGNAL(result(KJob*)), this, SLOT(writeFinished(KJob*)));
 	tempFile->QObject::setParent(job); //tempfile can safely be deleted after copy job is finished
 	//NOTE: Above code is written in such a way that a boolean return value can be added to this method later without big efforts.
-	//puzzle is now available at m_location
-	m_loadLocation = m_location;
+}
+
+void Palapeli::OldPuzzle::writeFinished(KJob* job)
+{
+	if (job->error())
+		static_cast<KIO::Job*>(job)->ui()->showErrorMessage();
+	else
+	{
+		const KUrl location = m_puzzle->location();
+		if (location.isLocalFile())
+		{
+			QFile file(location.toLocalFile());
+			file.setPermissions(file.permissions() | QFile::WriteOwner | QFile::WriteGroup); //make file deleteable
+		}
+		emit writeFinished();
+	}
 }
 
 #include "puzzle-old.moc"

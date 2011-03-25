@@ -77,11 +77,9 @@ namespace Palapeli
 	{
 		COMPONENT_SUBCLASS(ArchiveStorage)
 		public:
-			ArchiveStorageComponent(const KUrl& location);
+			ArchiveStorageComponent();
 
 			virtual Palapeli::PuzzleComponent* cast(Type type) const;
-		private:
-			KUrl m_location;
 	};
 }
 
