@@ -33,8 +33,8 @@ set(palapeli_SRCS
 	file-io/components-copy.cpp
 	file-io/components-creationcontext.cpp
 	file-io/components-directorystorage.cpp
+	file-io/components-retailstorage.cpp
 	file-io/puzzle.cpp
-	firsttimehelper.cpp
 	importhelper.cpp
 	main.cpp
 	window/collectionwidget.cpp

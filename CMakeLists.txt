@@ -15,7 +15,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/libp
 
 add_subdirectory(libpala)
 add_subdirectory(slicers)
-add_subdirectory(tools)
 add_subdirectory(pics)
 add_subdirectory(src)
 add_subdirectory(mime)

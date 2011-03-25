@@ -42,7 +42,8 @@ namespace Palapeli
 				Copy,                ///< Palapeli::CopyComponent
 				DirectoryStorage,    ///< Palapeli::DirectoryStorageComponent
 				ArchiveStorage,      ///< Palapeli::ArchiveStorageComponent
-				CollectionStorage    ///< Palapeli::CollectionStorageComponent
+				CollectionStorage,   ///< Palapeli::CollectionStorageComponent
+				RetailStorage        ///< Palapeli::RetailStorageComponent
 			};
 
 			PuzzleComponent();

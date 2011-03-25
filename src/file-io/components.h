@@ -113,6 +113,20 @@ namespace Palapeli
 		private:
 			KConfigGroup* m_group;
 	};
+
+	///This is used by the collection if, instead of an actual puzzle archive,
+	///only a desktop file and an image is available (like for the puzzles from
+	///the default collection).
+	class RetailStorageComponent : public Palapeli::PuzzleComponent
+	{
+		COMPONENT_SUBCLASS(RetailStorage)
+		public:
+			RetailStorageComponent(const QString& desktopFile);
+
+			virtual Palapeli::PuzzleComponent* cast(Type type) const;
+		private:
+			QString m_desktopFile;
+	};
 }
 
 #undef COMPONENT_SUBCLASS

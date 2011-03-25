@@ -16,7 +16,6 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#include "firsttimehelper.h"
 #include "importhelper.h"
 #include "window/mainwindow.h"
 
@@ -34,7 +33,7 @@ int main(int argc, char** argv)
 	KCmdLineArgs::init(argc, argv, &about);
 
 	KCmdLineOptions options;
-	options.add("+puzzlefile", ki18n("URL of puzzle file (will be opened if -i is not given)"));
+	options.add("+puzzlefile", ki18n("Path to puzzle file (will be opened if -i is not given)"));
 	options.add("i").add("import", ki18n("Import the given puzzle file into the local collection (does nothing if no puzzle file is given)"));
 	options.add("", ki18n("If the -i/--import option is specified, the main window will not be shown after importing the given puzzle."));
 	KCmdLineArgs::addCmdLineOptions(options);
@@ -50,16 +49,7 @@ int main(int argc, char** argv)
 		//perform import request
 		new Palapeli::ImportHelper(args);
 	else
-	{
 		//no import request, show main window
-		Palapeli::FirstTimeHelper* helper = new Palapeli::FirstTimeHelper;
-		if (helper->isNecessary())
-			QTimer::singleShot(0, helper, SLOT(execute()));
-		else
-		{
-			delete helper;
-			(new Palapeli::MainWindow(args))->show();
-		}
-	}
+		(new Palapeli::MainWindow(args))->show();
 	return app.exec();
 }

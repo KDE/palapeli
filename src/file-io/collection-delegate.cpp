@@ -78,7 +78,8 @@ void Palapeli::CollectionDelegate::paintItem(QPainter* painter, const QStyleOpti
 		const int pieceCount = index.data(Palapeli::Collection::PieceCountRole).toInt();
 		if (name.isEmpty())
 			name = i18n("[No name]");
-		name = ki18ncp("Puzzle description, %2 = name string, %1 = piece count", "%2 (%1 piece)", "%2 (%1 pieces)")
+		if (pieceCount > 0)
+			name = ki18ncp("Puzzle description, %2 = name string, %1 = piece count", "%2 (%1 piece)", "%2 (%1 pieces)")
 		       .subs(pieceCount).subs(name).toString();
 		texts << name;
 		QFont theFont(painter->font()); theFont.setBold(true); fonts << theFont;

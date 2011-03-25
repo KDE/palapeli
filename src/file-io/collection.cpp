@@ -22,10 +22,12 @@
 #include "puzzle.h"
 
 #include <QtCore/QFile>
+#include <QtCore/QFileInfo>
 #include <QtCore/QFutureWatcher>
 #include <QtCore/QUuid>
 #include <KDE/KConfig>
 #include <KDE/KConfigGroup>
+#include <KDE/KLocale>
 #include <KDE/KStandardDirs>
 
 //BEGIN Palapeli::Collection::Item
@@ -41,6 +43,7 @@ Palapeli::Collection::Item::Item(Palapeli::Puzzle* puzzle)
 	const QString id = puzzle->identifier();
 	setData(id, Palapeli::Collection::IdentifierRole);
 	setData(id.startsWith(QChar('{')), Palapeli::Collection::IsDeleteableRole);
+	setData(i18n("Loading puzzle..."), Qt::DisplayRole);
 	//request metadata
 	Palapeli::FutureWatcher* watcher = new Palapeli::FutureWatcher;
 	connect(watcher, SIGNAL(finished()), SLOT(populate()));
@@ -58,9 +61,9 @@ void Palapeli::Collection::Item::populate()
 	const Palapeli::PuzzleMetadata metadata = cmp->metadata;
 	setData(metadata.name, Palapeli::Collection::NameRole);
 	setData(metadata.comment, Palapeli::Collection::CommentRole);
-	setData(metadata.author , Palapeli::Collection::AuthorRole);
-	setData(metadata.pieceCount , Palapeli::Collection::PieceCountRole);
-	setData(metadata.thumbnail , Palapeli::Collection::ThumbnailRole);
+	setData(metadata.author, Palapeli::Collection::AuthorRole);
+	setData(metadata.pieceCount, Palapeli::Collection::PieceCountRole);
+	setData(metadata.thumbnail, Palapeli::Collection::ThumbnailRole);
 }
 
 //END Palapeli::Collection::Item
@@ -71,13 +74,16 @@ Palapeli::Collection* Palapeli::Collection::instance()
 	return &instance;
 }
 
-static QString readPseudoUrl(const QString& path_)
+static QString readPseudoUrl(const QString& path_, bool local = false)
 {
 	if (path_.startsWith(QLatin1String("palapeli:/")))
 	{
 		QString path(path_);
 		path.remove(QRegExp("^palapeli:/*"));
-		return KStandardDirs::locate("appdata", path);
+		if (local)
+			return KStandardDirs::locateLocal("appdata", path);
+		else
+			return KStandardDirs::locate("appdata", path);
 	}
 	else
 		return path_;
@@ -92,12 +98,28 @@ Palapeli::Collection::Collection()
 	foreach (const QString& puzzleId, puzzleIds)
 	{
 		KConfigGroup* puzzleGroup = new KConfigGroup(m_group, puzzleId);
-		//construct puzzle
-		const QString path = readPseudoUrl(puzzleGroup->readEntry("Location", QString()));
-		if (path.isEmpty())
+		//find involved files
+		const QString basePath = puzzleGroup->readEntry("Location", QString());
+		const QString path = readPseudoUrl(basePath);
+		QString baseDesktopPath(basePath);
+		baseDesktopPath.replace(QRegExp("\\.puzzle$"), ".desktop");
+		const QString desktopPath = readPseudoUrl(baseDesktopPath);
+		//construct puzzle with CollectionStorageComponent
+		if (!path.isEmpty() && (desktopPath.isEmpty() || QFileInfo(path).lastModified() >= QFileInfo(desktopPath).lastModified()))
+		{
+			Palapeli::Puzzle* puzzle = new Palapeli::Puzzle(new Palapeli::CollectionStorageComponent(puzzleGroup), path, puzzleId);
+			appendRow(new Item(puzzle));
 			continue;
-		Palapeli::Puzzle* puzzle = new Palapeli::Puzzle(new Palapeli::CollectionStorageComponent(puzzleGroup), path, puzzleId);
+		}
+		//no success - try to construct with RetailStorageComponent
+		if (desktopPath.isEmpty())
+			continue;
+		const QString puzzlePath = readPseudoUrl(basePath, true);
+		Palapeli::Puzzle* puzzle = new Palapeli::Puzzle(new Palapeli::RetailStorageComponent(desktopPath), puzzlePath, puzzleId);
 		appendRow(new Item(puzzle));
+		delete puzzleGroup;
+		//make sure puzzle gets converted to archive format
+		puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage);
 	}
 }
 

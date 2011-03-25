@@ -27,9 +27,16 @@ Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) c
 {
 	//just a short-hand
 	const Palapeli::PuzzleCreationContext& cc = creationContext;
-	//metadata is in creationContext
+	//metadata is in creationContext (except for piece count which needs to be
+	//inferred from contents)
 	if (type == Palapeli::PuzzleComponent::Metadata)
-		return new Palapeli::MetadataComponent(cc);
+	{
+		Palapeli::PuzzleMetadata metadata(cc);
+		const Palapeli::PuzzleComponent* cmp = puzzle()->get(Contents);
+		const Palapeli::ContentsComponent* cmp2 = dynamic_cast<const Palapeli::ContentsComponent*>(cmp);
+		metadata.pieceCount = cmp2 ? cmp2->contents.pieces.count() : -1;
+		return new Palapeli::MetadataComponent(metadata);
+	}
 	//contents can be built
 	else if (type == Palapeli::PuzzleComponent::Contents)
 	{
