@@ -51,6 +51,7 @@ namespace Palapeli
 			Palapeli::PuzzleContents contents;
 	};
 
+	///This is a valid mainComponent.
 	class CreationContextComponent : public Palapeli::PuzzleComponent
 	{
 		COMPONENT_SUBCLASS(CreationContext)
@@ -61,8 +62,8 @@ namespace Palapeli
 			virtual Palapeli::PuzzleComponent* cast(Type type) const;
 	};
 
-	//This component copies the data (i.e. everything in puzzlestructs.h) from
-	//an existing puzzle.
+	///This component copies the data (i.e. everything in puzzlestructs.h) from
+	///an existing puzzle. This is a valid mainComponent.
 	class CopyComponent : public Palapeli::PuzzleComponent
 	{
 		COMPONENT_SUBCLASS(Copy)
@@ -74,11 +75,13 @@ namespace Palapeli
 			Palapeli::Puzzle* m_puzzle;
 	};
 
+	///This is a valid mainComponent.
 	class DirectoryStorageComponent : public Palapeli::PuzzleComponent
 	{
 		COMPONENT_SUBCLASS(DirectoryStorage)
 		public:
 			DirectoryStorageComponent();
+			static Palapeli::DirectoryStorageComponent* fromData(Palapeli::Puzzle* puzzle);
 			virtual ~DirectoryStorageComponent();
 
 			QString directory() const;
@@ -87,15 +90,18 @@ namespace Palapeli
 			KTempDir* m_dir;
 	};
 
+	///This is a valid mainComponent.
 	class ArchiveStorageComponent : public Palapeli::PuzzleComponent
 	{
 		COMPONENT_SUBCLASS(ArchiveStorage)
 		public:
 			ArchiveStorageComponent();
+			static Palapeli::ArchiveStorageComponent* fromData(Palapeli::Puzzle* puzzle);
 
 			virtual Palapeli::PuzzleComponent* cast(Type type) const;
 	};
 
+	///This is a valid mainComponent.
 	class CollectionStorageComponent : public Palapeli::PuzzleComponent
 	{
 		COMPONENT_SUBCLASS(CollectionStorage)

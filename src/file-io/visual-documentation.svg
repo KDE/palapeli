@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="227.34341"
+   height="167.1331"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.1 r9760"
+   sodipodi:docname="visual-documentation.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mstart"
+       style="overflow:visible">
+      <path
+         id="path4038"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.4,0,0,0.4,4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Send"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Send"
+       style="overflow:visible">
+      <path
+         id="path4047"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.2,0,0,-0.2,-1.2,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible">
+      <path
+         id="path4041"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.0734375"
+     inkscape:cx="176.98289"
+     inkscape:cy="48.361841"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="5"
+     fit-margin-left="5"
+     fit-margin-bottom="5"
+     fit-margin-right="5"
+     inkscape:window-width="1280"
+     inkscape:window-height="769"
+     inkscape:window-x="0"
+     inkscape:window-y="31"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-206.37448,-195.10424)">
+    <g
+       id="g3962"
+       transform="translate(70.279617,98.912049)"
+       inkscape:connector-avoid="true">
+      <rect
+         ry="0"
+         rx="0"
+         y="246.63997"
+         x="210.22929"
+         height="11.535325"
+         width="28.765306"
+         id="rect2985"
+         style="fill:#cdcdcd;fill-opacity:1;stroke:#000000;stroke-width:0.30000001;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text2987"
+         y="253.44417"
+         x="224.56079"
+         style="font-size:3.88084292px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="253.44417"
+           x="224.56079"
+           id="tspan2989"
+           sodipodi:role="line">Copy</tspan></text>
+    </g>
+    <g
+       id="g3956"
+       inkscape:connector-avoid="true"
+       transform="translate(117.45806,-40.345704)">
+      <rect
+         ry="0"
+         rx="0"
+         y="273.3038"
+         x="180.74675"
+         height="11.535325"
+         width="28.765306"
+         id="rect2985-8"
+         style="fill:#cdcdcd;fill-opacity:1;stroke:#000000;stroke-width:0.30000001;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text2987-1"
+         y="277.71658"
+         x="194.99675"
+         style="font-size:3.88084292px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="277.71658"
+           x="194.99675"
+           id="tspan2989-2"
+           sodipodi:role="line">Directory</tspan><tspan
+           id="tspan3954"
+           y="282.56763"
+           x="194.99675"
+           sodipodi:role="line">Storage</tspan></text>
+    </g>
+    <g
+       id="g3967"
+       inkscape:connector-avoid="true"
+       transform="translate(-13.665481,55.638027)">
+      <rect
+         ry="0"
+         rx="0"
+         y="274.45416"
+         x="225.18996"
+         height="11.535325"
+         width="28.765306"
+         id="rect2985-9"
+         style="fill:#cdcdcd;fill-opacity:1;stroke:#000000;stroke-width:0.30000001;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text2987-3"
+         y="278.86694"
+         x="239.6304"
+         style="font-size:3.88084292px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="278.86694"
+           x="239.6304"
+           id="tspan2989-6"
+           sodipodi:role="line">Collection</tspan><tspan
+           id="tspan3952"
+           y="283.71799"
+           x="239.6304"
+           sodipodi:role="line">Storage</tspan></text>
+    </g>
+    <g
+       id="g3973"
+       transform="translate(-11.3879,-24.728013)"
+       inkscape:connector-avoid="true">
+      <rect
+         ry="0"
+         rx="0"
+         y="261.80029"
+         x="250.58012"
+         height="11.535325"
+         width="28.765306"
+         id="rect2985-2"
+         style="fill:#cdcdcd;fill-opacity:1;stroke:#000000;stroke-width:0.30000001;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text2987-10"
+         y="266.21307"
+         x="264.93814"
+         style="font-size:3.88084292px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="266.21307"
+           x="264.93814"
+           id="tspan2989-5"
+           sodipodi:role="line">Archive</tspan><tspan
+           id="tspan3950"
+           y="271.06412"
+           x="264.93814"
+           sodipodi:role="line">Storage</tspan></text>
+    </g>
+    <g
+       id="g3979"
+       transform="translate(-44.900865,37.417385)"
+       inkscape:connector-avoid="true">
+      <rect
+         ry="0"
+         rx="0"
+         y="236.99261"
+         x="351.29288"
+         height="11.535325"
+         width="28.765306"
+         id="rect2985-1"
+         style="fill:#cdcdcd;fill-opacity:1;stroke:#000000;stroke-width:0.30000001;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text2987-0"
+         y="244.20706"
+         x="365.66226"
+         style="font-size:3.88084292px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="244.20706"
+           x="365.66226"
+           id="tspan2989-8"
+           sodipodi:role="line">Metadata</tspan></text>
+    </g>
+    <g
+       id="g3989"
+       transform="translate(47.829182,28.957803)"
+       inkscape:connector-avoid="true">
+      <rect
+         ry="0"
+         rx="0"
+         y="297.9845"
+         x="350.98666"
+         height="11.535325"
+         width="28.765306"
+         id="rect2985-0"
+         style="fill:#cdcdcd;fill-opacity:1;stroke:#000000;stroke-width:0.30000001;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text2987-6"
+         y="302.77341"
+         x="365.42712"
+         style="font-size:3.88084292px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="302.77341"
+           x="365.42712"
+           id="tspan2989-4"
+           sodipodi:role="line">Creation</tspan><tspan
+           id="tspan3948"
+           y="307.62445"
+           x="365.42712"
+           sodipodi:role="line">Context</tspan></text>
+    </g>
+    <g
+       id="g3984"
+       transform="translate(44.575496,-42.297917)"
+       inkscape:connector-avoid="true">
+      <rect
+         ry="0"
+         rx="0"
+         y="266.96063"
+         x="355.22708"
+         height="11.535325"
+         width="28.765306"
+         id="rect2985-25"
+         style="fill:#cdcdcd;fill-opacity:1;stroke:#000000;stroke-width:0.30000001;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text2987-8"
+         y="274.14096"
+         x="369.59647"
+         style="font-size:3.88084292px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="274.14096"
+           x="369.59647"
+           id="tspan2989-62"
+           sodipodi:role="line">Contents</tspan></text>
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend);display:inline"
+       d="m 413.25414,326.9423 0.87545,-90.74426"
+       id="path4003"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-end="#g3984"
+       inkscape:connection-end-point="d4"
+       inkscape:connection-start="#g3989"
+       inkscape:connection-start-point="d4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="M 403.05104,326.9423 330.92213,285.94532"
+       id="path4007"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#g3989"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#g3979"
+       inkscape:connection-end-point="d4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="m 235.73368,330.09219 75.21443,-44.14687"
+       id="path4009"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#g3967"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#g3979"
+       inkscape:connection-end-point="d4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="m 227.62266,330.09219 24.23669,-81.48458"
+       id="path4011"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#g3967"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#g3973"
+       inkscape:connection-end-point="d4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow1Mend)"
+       d="m 267.95753,241.83723 30.24728,-2.10875"
+       id="path4013"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#g3973"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#g3956"
+       inkscape:connection-end-point="d4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="m 326.97012,237.55143 72.83246,-5.94672"
+       id="path4015"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#g3956"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#g3984"
+       inkscape:connection-end-point="d4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="M 313.72664,244.49342 319.63549,274.41"
+       id="path4017"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#g3956"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#g3979"
+       inkscape:connection-end-point="d4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow1Mend)"
+       d="m 318.7618,244.49342 88.26236,82.44888"
+       id="path4019"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#g3956"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#g3989"
+       inkscape:connection-end-point="d4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="M 300.5831,345.55202 408.4937,236.19804"
+       id="path4021"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#g3962"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#g3984"
+       inkscape:connection-end-point="d4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="m 296.98997,345.55202 21.68629,-59.6067"
+       id="path4023"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-end-point="d4"
+       inkscape:connection-end="#g3979"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-start="#g3962" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="M 292.69483,345.55202 255.77161,248.60761"
+       id="path4025"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#g3962"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#g3973"
+       inkscape:connection-end-point="d4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="m 309.27422,349.05728 89.54163,-14.08492"
+       id="path4027"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#g3962"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#g3989"
+       inkscape:connection-end-point="d4" />
+    <text
+       xml:space="preserve"
+       style="font-size:10.62074757px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="213.69609"
+       y="208.17352"
+       id="text5769"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5771"
+         x="213.69609"
+         y="208.17352">Visualization of supported casting paths</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.64311934px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="217.92209"
+       y="218.39651"
+       id="text5863"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5865"
+         x="217.92209"
+         y="218.39651">between different Palapeli::PuzzleComponent classes</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:13.31037426px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#ff0000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="226.9213"
+       y="378.73987"
+       id="text5886"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5888"
+         x="226.9213"
+         y="378.73987">Edit this with Inkscape only!</tspan></text>
+  </g>
+</svg>

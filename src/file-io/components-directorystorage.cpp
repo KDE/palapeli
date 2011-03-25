@@ -19,6 +19,7 @@
 #include "components.h"
 
 #include <QtCore/QDir>
+#include <QtCore/QFutureSynchronizer>
 #include <KDE/KConfigGroup>
 #include <KDE/KDesktopFile>
 #include <KDE/KTempDir>
@@ -43,7 +44,7 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 {
 	QDir dir(m_dir->name());
 	//load metadata from directory
-	if (type == Palapeli::PuzzleComponent::Metadata)
+	if (type == Metadata)
 	{
 		Palapeli::PuzzleMetadata metadata;
 		KDesktopFile manifest(dir.absoluteFilePath("pala.desktop"));
@@ -64,7 +65,7 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 		return new Palapeli::MetadataComponent(metadata);
 	}
 	//load contents from directory
-	else if (type == Palapeli::PuzzleComponent::Contents)
+	else if (type == Contents)
 	{
 		Palapeli::PuzzleContents contents;
 		KDesktopFile manifest(dir.absoluteFilePath("pala.desktop"));
@@ -94,7 +95,109 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 		//done
 		return new Palapeli::ContentsComponent(contents);
 	}
-	//TODO: load creation context from directory
-	//TODO: compress directory into file (after making sure that metadata && (contents || creationContext) are available)
-	return 0;
+	//load creation context from directory
+	else if (type == CreationContext)
+	{
+		puzzle()->get(Metadata).waitForFinished();
+		const Palapeli::PuzzleMetadata metadata = puzzle()->component<Palapeli::MetadataComponent>()->metadata;
+		//initialize creation context from existing metadata
+		Palapeli::PuzzleCreationContext creationContext;
+		*((Palapeli::PuzzleMetadata*)&creationContext) = metadata;
+		//load slicer configuration
+		KDesktopFile manifest(dir.absoluteFilePath("pala.desktop"));
+		KConfigGroup jobGroup(&manifest, "Job");
+		creationContext.slicer = jobGroup.readEntry("Slicer", QString());
+		creationContext.slicerMode = jobGroup.readEntry("SlicerMode", QByteArray());
+		//all the other entries in jobGroup belong into slicerArgs
+		QMap<QString, QString> args = jobGroup.entryMap();
+		args.remove(QLatin1String("Image"));
+		args.remove(QLatin1String("ImageSize"));
+		args.remove(QLatin1String("Slicer"));
+		args.remove(QLatin1String("SlicerMode"));
+		QMapIterator<QString, QString> iter(args);
+		while (iter.hasNext())
+		{
+			iter.next();
+			creationContext.slicerArgs.insert(iter.key().toUtf8(), iter.value());
+		}
+		return new Palapeli::CreationContextComponent(creationContext);
+	}
+	//compress directory into file
+	else if (type == DirectoryStorage)
+		return Palapeli::DirectoryStorageComponent::fromData(puzzle());
+	else
+		return 0;
+}
+
+Palapeli::DirectoryStorageComponent* Palapeli::DirectoryStorageComponent::fromData(Palapeli::Puzzle* puzzle)
+{
+	//make sure that everything's available
+	QFutureSynchronizer<void> sync;
+	sync.addFuture(puzzle->get(Metadata));
+	sync.addFuture(puzzle->get(Contents));
+	sync.addFuture(puzzle->get(CreationContext));
+	sync.waitForFinished();
+	//retrieve data (only metadata and contents are totally necessary)
+	const Palapeli::MetadataComponent* cMetadata = puzzle->component<Palapeli::MetadataComponent>();
+	const Palapeli::ContentsComponent* cContents = puzzle->component<Palapeli::ContentsComponent>();
+	if (!cMetadata || !cContents)
+		return 0;
+	const Palapeli::CreationContextComponent* cCreationContext = puzzle->component<Palapeli::CreationContextComponent>();
+	const Palapeli::PuzzleMetadata metadata = cMetadata->metadata;
+	const Palapeli::PuzzleContents contents = cContents->contents;
+	//create cache
+	Palapeli::DirectoryStorageComponent* cmp = new Palapeli::DirectoryStorageComponent;
+	QDir dir(cmp->directory());
+	//write manifest
+	KConfig manifest(dir.absoluteFilePath("pala.desktop"));
+	KConfigGroup mainGroup(&manifest, "Desktop Entry");
+	mainGroup.writeEntry("Name", metadata.name);
+	mainGroup.writeEntry("Comment", metadata.comment);
+	mainGroup.writeEntry("X-KDE-PluginInfo-Author", metadata.author);
+	mainGroup.writeEntry("Type", "X-Palapeli-Puzzle");
+	KConfigGroup collectionGroup(&manifest, "Collection");
+	collectionGroup.writeEntry("ModifyProtection", metadata.modifyProtection);
+	KConfigGroup jobGroup(&manifest, "Job");
+	jobGroup.writeEntry("ImageSize", contents.imageSize);
+	if (cCreationContext)
+	{
+		const Palapeli::PuzzleCreationContext creationContext = cCreationContext->creationContext;
+		jobGroup.writeEntry("Image", KUrl("kfiledialog:///palapeli/pseudopath")); //just a placeholder, to make sure that an "Image" key is available
+		jobGroup.writeEntry("Slicer", creationContext.slicer);
+		jobGroup.writeEntry("SlicerMode", creationContext.slicerMode);
+		QMapIterator<QByteArray, QVariant> iterSlicerArgs(creationContext.slicerArgs);
+		while (iterSlicerArgs.hasNext())
+		{
+			iterSlicerArgs.next();
+			jobGroup.writeEntry(QString::fromUtf8(iterSlicerArgs.key()), iterSlicerArgs.value());
+		}
+	}
+	//write pieces to cache
+	QMapIterator<int, QImage> iterPieces(contents.pieces);
+	while (iterPieces.hasNext())
+	{
+		const QString imagePath = dir.absoluteFilePath(QString::fromLatin1("%1.png").arg(iterPieces.next().key()));
+		iterPieces.value().save(imagePath);
+	}
+	//write thumbnail into tempdir
+	const QString imagePath = dir.absoluteFilePath(QLatin1String("image.jpg"));
+	metadata.image.save(imagePath);
+	//write piece offsets into target manifest
+	KConfigGroup offsetGroup(&manifest, "PieceOffsets");
+	QMapIterator<int, QPoint> iterOffsets(contents.pieceOffsets);
+	while (iterOffsets.hasNext())
+	{
+		iterOffsets.next();
+		offsetGroup.writeEntry(QString::number(iterOffsets.key()), iterOffsets.value());
+	}
+	//write piece relations into target manifest
+	KConfigGroup relationsGroup(&manifest, "Relations");
+	for (int index = 0; index < contents.relations.count(); ++index)
+	{
+		const QPair<int, int> relation = contents.relations[index];
+		relationsGroup.writeEntry(QString::number(index), QList<int>() << relation.first << relation.second);
+	}
+	//save manifest; done
+	manifest.sync();
+	return cmp;
 }

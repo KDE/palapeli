@@ -87,6 +87,11 @@ Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) c
 		contents.relations = job.relations();
 		return new Palapeli::ContentsComponent(contents);
 	}
+	//casts for writing an archive
+	else if (type == DirectoryStorage)
+		return Palapeli::DirectoryStorageComponent::fromData(puzzle());
+	else if (type == ArchiveStorage)
+		return Palapeli::ArchiveStorageComponent::fromData(puzzle());
 	//unknown type requested
 	else
 		return 0;

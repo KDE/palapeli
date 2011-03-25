@@ -21,9 +21,6 @@
 
 #include "puzzlestructs.h"
 
-#include <QFutureWatcher>
-class KJob;
-class KTempDir;
 #include <KUrl>
 
 namespace Palapeli
@@ -48,8 +45,6 @@ namespace Palapeli
 			const Palapeli::PuzzleMetadata* metadata() const;
 			const Palapeli::PuzzleContents* contents() const;
 
-			///This can be used by a collection that provides metadata caching. Use only if you know what you're doing!
-			void injectMetadata(Palapeli::PuzzleMetadata* metadata);
 			///If metadata has already being read, this function will do nothing.
 			bool readMetadata();
 			///If metadata has already being read, this function will do nothing.
@@ -57,15 +52,8 @@ namespace Palapeli
 			bool write();
 		Q_SIGNALS:
 			void writeFinished();
-		private Q_SLOTS:
-			void writeFinished(KJob* job);
-			void finishWritingArchive();
 		private:
-			void createNewArchiveFile();
-
 			Palapeli::Puzzle* m_puzzle;
-			KTempDir* m_cache;
-			QFutureWatcher<void> m_createArchiveWatcher;
 	};
 }
 

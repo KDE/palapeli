@@ -65,3 +65,19 @@ Palapeli::PuzzleComponent* Palapeli::ArchiveStorageComponent::cast(Palapeli::Puz
 		return dirStorage ? dirStorage->cast(type) : 0;
 	}
 }
+
+Palapeli::ArchiveStorageComponent* Palapeli::ArchiveStorageComponent::fromData(Palapeli::Puzzle* puzzle)
+{
+	puzzle->get(DirectoryStorage).waitForFinished();
+	const Palapeli::DirectoryStorageComponent* dirStorage = puzzle->component<Palapeli::DirectoryStorageComponent>();
+	//compress archive to location
+	KTar tar(puzzle->location().toLocalFile(), "application/x-gzip");
+	if (!tar.open(QIODevice::WriteOnly))
+		return 0;
+	if (!tar.addLocalDirectory(dirStorage->directory(), QLatin1String(".")))
+		return 0;
+	if (!tar.close())
+		return 0;
+	//done
+	return new Palapeli::ArchiveStorageComponent;
+}

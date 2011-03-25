@@ -18,6 +18,8 @@
 
 #include "components.h"
 
+#include <QtCore/QFile>
+
 Palapeli::CopyComponent::CopyComponent(Palapeli::Puzzle* puzzle)
 	: m_puzzle(puzzle)
 {
@@ -25,21 +27,42 @@ Palapeli::CopyComponent::CopyComponent(Palapeli::Puzzle* puzzle)
 
 Palapeli::PuzzleComponent* Palapeli::CopyComponent::cast(Type type) const
 {
-	//this casts only data
-	if (type != Metadata && type != Contents && type != CreationContext)
-		return 0;
 	//get component from other puzzle
-	const Palapeli::PuzzleComponent* cmp = m_puzzle->get(type);
-	switch (type)
+	if (type == Metadata)
 	{
-		case Metadata:
-			return new Palapeli::MetadataComponent(dynamic_cast<const Palapeli::MetadataComponent*>(cmp)->metadata);
-		case Contents:
-			return new Palapeli::ContentsComponent(dynamic_cast<const Palapeli::ContentsComponent*>(cmp)->contents);
-		case CreationContext:
-			return new Palapeli::CreationContextComponent(dynamic_cast<const Palapeli::CreationContextComponent*>(cmp)->creationContext);
-		//the following just to suppress warnings
-		default:
+		const Palapeli::PuzzleComponent* c = m_puzzle->get(Metadata);
+		const Palapeli::MetadataComponent* cmp = dynamic_cast<const Palapeli::MetadataComponent*>(c);
+		return cmp ? new Palapeli::MetadataComponent(cmp->metadata) : 0;
+	}
+	else if (type == Contents)
+	{
+		const Palapeli::PuzzleComponent* c = m_puzzle->get(Contents);
+		const Palapeli::ContentsComponent* cmp = dynamic_cast<const Palapeli::ContentsComponent*>(c);
+		return cmp ? new Palapeli::ContentsComponent(cmp->contents) : 0;
+	}
+	else if (type == CreationContext)
+	{
+		const Palapeli::PuzzleComponent* c = m_puzzle->get(CreationContext);
+		const Palapeli::CreationContextComponent* cmp = dynamic_cast<const Palapeli::CreationContextComponent*>(c);
+		return cmp ? new Palapeli::CreationContextComponent(cmp->creationContext) : 0;
+	}
+	//casts for writing an archive
+	else if (type == DirectoryStorage)
+		return Palapeli::DirectoryStorageComponent::fromData(puzzle());
+	else if (type == ArchiveStorage)
+	{
+		if (!m_puzzle->component(ArchiveStorage) && !m_puzzle->component(CollectionStorage))
+			return Palapeli::ArchiveStorageComponent::fromData(puzzle());
+		//optimization: if the other puzzle has an archive or collection
+		//storage available, copy that instead of recreating everything
+		m_puzzle->get(ArchiveStorage).waitForFinished();
+		QFile otherFile(m_puzzle->location().toLocalFile());
+		if (otherFile.copy(puzzle()->location().toLocalFile()))
+			return new Palapeli::ArchiveStorageComponent;
+		else
 			return 0;
 	}
+	//unknown type requested
+	else
+		return 0;
 }
