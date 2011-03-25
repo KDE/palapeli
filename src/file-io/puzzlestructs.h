@@ -45,7 +45,7 @@ namespace Palapeli
 		QList<QPair<int, int> > relations;
 	};
 
-	struct PuzzleCreationContext
+	struct PuzzleCreationContext : public Palapeli::PuzzleMetadata
 	{
 		QString slicer;
 		QByteArray slicerMode;

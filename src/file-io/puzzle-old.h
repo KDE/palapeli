@@ -28,6 +28,7 @@ class KTempDir;
 
 namespace Palapeli
 {
+	class Puzzle;
 
 	class OldPuzzle : public QObject
 	{
@@ -35,21 +36,22 @@ namespace Palapeli
 		public:
 			OldPuzzle(const KUrl& location);
 			OldPuzzle(const Palapeli::OldPuzzle& other);
-			OldPuzzle(Palapeli::PuzzleMetadata* metadata, Palapeli::PuzzleContents* contents, Palapeli::PuzzleCreationContext* creationContext = 0);
+			OldPuzzle(const Palapeli::PuzzleCreationContext& context);
 			~OldPuzzle();
 
 			KUrl location() const;
 			void setLocation(const KUrl& location);
 
+			Palapeli::Puzzle* newPuzzle() const;
 			const Palapeli::PuzzleMetadata* metadata() const;
 			const Palapeli::PuzzleContents* contents() const;
 
 			///This can be used by a collection that provides metadata caching. Use only if you know what you're doing!
 			void injectMetadata(Palapeli::PuzzleMetadata* metadata);
-			///If metadata has already being read, this function will do nothing unless \a force is true.
-			bool readMetadata(bool force = false);
-			///If metadata has already being read, this function will do nothing unless \a force is true.
-			bool readContents(bool force = false);
+			///If metadata has already being read, this function will do nothing.
+			bool readMetadata();
+			///If metadata has already being read, this function will do nothing.
+			bool readContents();
 			bool write();
 		Q_SIGNALS:
 			void writeFinished();
@@ -61,6 +63,7 @@ namespace Palapeli
 
 			KUrl m_location;
 			KUrl m_loadLocation; //This is an optimization flag: If nothing has been changed after the puzzle has been loaded, then the write() method will only copy the original puzzle file from this location to the current location. When something is changed, m_loadLocation will be cleared.
+			Palapeli::Puzzle* m_puzzle;
 			Palapeli::PuzzleMetadata* m_metadata;
 			Palapeli::PuzzleContents* m_contents;
 			Palapeli::PuzzleCreationContext* m_creationContext; //NOTE: This is NOT copied in copy-constructors.

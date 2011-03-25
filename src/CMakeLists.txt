@@ -31,6 +31,7 @@ set(palapeli_SRCS
 	file-io/collection-list.cpp
 	file-io/collection-view.cpp
 	file-io/components-archivestorage.cpp
+	file-io/components-creationcontext.cpp
 	file-io/components-directorystorage.cpp
 	file-io/puzzle.cpp
 	file-io/puzzle-old.cpp

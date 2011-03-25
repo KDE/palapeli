@@ -17,6 +17,8 @@
 ***************************************************************************/
 
 #include "puzzle-old.h"
+#include "puzzle.h"
+#include "components.h"
 
 #include <QtConcurrentRun>
 #include <KConfigGroup>
@@ -34,6 +36,7 @@ const QSize Palapeli::PuzzleMetadata::ThumbnailBaseSize(64, 64);
 Palapeli::OldPuzzle::OldPuzzle(const KUrl& location)
 	: m_location(location)
 	, m_loadLocation(location)
+	, m_puzzle(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent(location)))
 	, m_metadata(0)
 	, m_contents(0)
 	, m_creationContext(0)
@@ -46,6 +49,7 @@ Palapeli::OldPuzzle::OldPuzzle(const Palapeli::OldPuzzle& other)
 	: QObject()
 	, m_location(other.m_location)
 	, m_loadLocation(other.m_loadLocation)
+	, m_puzzle(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent(m_location)))
 	, m_metadata(0)
 	, m_contents(0)
 	, m_creationContext(0)
@@ -58,17 +62,21 @@ Palapeli::OldPuzzle::OldPuzzle(const Palapeli::OldPuzzle& other)
 		m_contents = new Palapeli::PuzzleContents(*other.m_contents);
 }
 
-Palapeli::OldPuzzle::OldPuzzle(Palapeli::PuzzleMetadata* metadata, Palapeli::PuzzleContents* contents, Palapeli::PuzzleCreationContext* creationContext)
-	: m_metadata(metadata)
-	, m_contents(contents)
-	, m_creationContext(creationContext)
+Palapeli::OldPuzzle::OldPuzzle(const Palapeli::PuzzleCreationContext& creationContext)
+	: m_puzzle(new Palapeli::Puzzle(new Palapeli::CreationContextComponent(creationContext)))
+	, m_metadata(0)
+	, m_contents(0)
+	, m_creationContext(new Palapeli::PuzzleCreationContext(creationContext))
 	, m_cache(0)
 {
 	connect(&m_createArchiveWatcher, SIGNAL(finished()), this, SLOT(finishWritingArchive()));
+	readMetadata();
+	readContents();
 }
 
 Palapeli::OldPuzzle::~OldPuzzle()
 {
+	delete m_puzzle;
 	delete m_metadata;
 	delete m_contents;
 }
@@ -81,6 +89,11 @@ KUrl Palapeli::OldPuzzle::location() const
 void Palapeli::OldPuzzle::setLocation(const KUrl& location)
 {
 	m_location = location;
+}
+
+Palapeli::Puzzle* Palapeli::OldPuzzle::newPuzzle() const
+{
+	return m_puzzle;
 }
 
 const Palapeli::PuzzleMetadata* Palapeli::OldPuzzle::metadata() const
@@ -99,93 +112,28 @@ void Palapeli::OldPuzzle::injectMetadata(Palapeli::PuzzleMetadata* metadata)
 	m_metadata = metadata;
 }
 
-bool Palapeli::OldPuzzle::readMetadata(bool force)
+bool Palapeli::OldPuzzle::readMetadata()
 {
-	if (m_metadata && m_cache && !force)
-		return true; //nothing to do (puzzle has been loaded from URL, and cache is already filled)
-	if (m_metadata && m_contents && m_loadLocation.isEmpty())
-		return true; //nothing to do (puzzle has just been created, and filling the cache could be harmful)
-	delete m_metadata; m_metadata = 0;
-	delete m_cache; m_cache = 0;
-	//make archive available locally
-	QString archiveFile;
-	if (!m_loadLocation.isLocalFile())
-	{
-		if (!KIO::NetAccess::download(m_loadLocation, archiveFile, 0))
-			return false;
-	}
-	else
-		archiveFile = m_loadLocation.toLocalFile();
-	//open archive and extract into temporary directory
-	KTar tar(archiveFile, "application/x-gzip");
-	if (!tar.open(QIODevice::ReadOnly))
-	{
-		KIO::NetAccess::removeTempFile(archiveFile);
+	if (m_metadata)
+		return true;
+	const Palapeli::PuzzleComponent* component = m_puzzle->get(Palapeli::PuzzleComponent::Metadata);
+	if (!component)
 		return false;
-	}
-	const KArchiveDirectory* archiveDir = tar.directory();
-	m_cache = new KTempDir;
-	const QString cachePath = m_cache->name(); //note: includes trailing slash
-	archiveDir->copyTo(cachePath);
-	tar.close();
-	//cleanup
-	KIO::NetAccess::removeTempFile(archiveFile);
-	//read metadata
-	KDesktopFile manifest(m_cache->name() + "pala.desktop");
-	m_metadata = new Palapeli::PuzzleMetadata;
-	m_metadata->name = manifest.readName();
-	m_metadata->author = manifest.desktopGroup().readEntry("X-KDE-PluginInfo-Author", QString());
-	m_metadata->comment = manifest.readComment();
-	m_metadata->image.load(m_cache->name() + "image.jpg");
-	m_metadata->thumbnail = m_metadata->image.scaled(Palapeli::PuzzleMetadata::ThumbnailBaseSize, Qt::KeepAspectRatio);
-	KConfigGroup collectionGroup(&manifest, "Collection");
-	m_metadata->modifyProtection = collectionGroup.readEntry("ModifyProtection", false);
-	//find piece count
-	KConfigGroup offsetGroup(&manifest, "PieceOffsets");
-	const QMap<QString, QString> offsetGroupMap = offsetGroup.entryMap();
-	m_metadata->pieceCount = 0;
-	while (offsetGroupMap.contains(QString::number(m_metadata->pieceCount)))
-		++m_metadata->pieceCount;
+	m_metadata = new Palapeli::PuzzleMetadata(dynamic_cast<const Palapeli::MetadataComponent*>(component)->metadata);
 	return true;
 }
 
-bool Palapeli::OldPuzzle::readContents(bool force)
+bool Palapeli::OldPuzzle::readContents()
 {
-	if (m_contents && !force)
-		return true; //nothing to do
-	if (!readMetadata(true)) //try to load puzzle file
+	if (!readMetadata()) //legacy code might rely on metadata being available after readContents()
 		return false;
-	delete m_contents; m_contents = new Palapeli::PuzzleContents;
-	//load more metadata
-	KDesktopFile manifest(m_cache->name() + "pala.desktop");
-	m_contents->imageSize = KConfigGroup(&manifest, "Job").readEntry("ImageSize", QSize());
-	//load piece offsets
-	KConfigGroup offsetGroup(&manifest, "PieceOffsets");
-	const QMap<QString, QString> offsetGroupMap = offsetGroup.entryMap();
-	QMap<QString, QString>::const_iterator offsetGroupIterator = offsetGroupMap.begin();
-	const QMap<QString, QString>::const_iterator offsetGroupIteratorEnd = offsetGroupMap.end();
-	for (; offsetGroupIterator != offsetGroupIteratorEnd; ++offsetGroupIterator)
-	{
-		bool ok = true;
-		const int pieceIndex = offsetGroupIterator.key().toInt(&ok);
-		if (ok)
-			m_contents->pieceOffsets[pieceIndex] = offsetGroup.readEntry(offsetGroupIterator.key(), QPoint());
-	}
-	//load pieces
-	QMap<int, QPoint>::const_iterator iterOffsets = m_contents->pieceOffsets.constBegin();
-	const QMap<int, QPoint>::const_iterator iterOffsetsEnd = m_contents->pieceOffsets.constEnd();
-	for (int pieceID = iterOffsets.key(); iterOffsets != iterOffsetsEnd; pieceID = (++iterOffsets).key())
-		m_contents->pieces[pieceID].load(m_cache->name() + QString("%1.png").arg(pieceID));
-	//load relations
-	KConfigGroup relationsGroup(&manifest, "Relations");
-	for (int index = 0;; ++index)
-	{
-		QList<int> value = relationsGroup.readEntry(QString::number(index), QList<int>());
-		if (value.isEmpty()) //end of relations list
-			break;
-		m_contents->relations << QPair<int, int>(value[0], value[1]);
-	}
-	return !m_contents->pieces.isEmpty();
+	if (m_contents)
+		return true;
+	const Palapeli::PuzzleComponent* component = m_puzzle->get(Palapeli::PuzzleComponent::Contents);
+	if (!component)
+		return false;
+	m_contents = new Palapeli::PuzzleContents(dynamic_cast<const Palapeli::ContentsComponent*>(component)->contents);
+	return true;
 }
 
 bool Palapeli::OldPuzzle::write()

@@ -57,6 +57,7 @@ namespace Palapeli
 			CreationContextComponent(const Palapeli::PuzzleCreationContext& creationContext) : creationContext(creationContext) {}
 
 			Palapeli::PuzzleCreationContext creationContext;
+			virtual Palapeli::PuzzleComponent* cast(Type type) const;
 	};
 
 	class DirectoryStorageComponent : public Palapeli::PuzzleComponent

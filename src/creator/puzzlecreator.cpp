@@ -105,7 +105,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 {
 	if (m_result)
 		return; //We won't create the puzzle if there is one already.
-	//assemble data for slicer run
+	//assemble data for creation context
 	const Palapeli::SlicerSelection selection = m_slicerSelector->currentSelection();
 	const Pala::Slicer* slicer = selection.slicer;
 	if (!slicer)
@@ -127,26 +127,20 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 		KMessageBox::sorry(this, i18n("Puzzle cannot be created: Slicing failed because of undetermined problems."));
 		return;
 	}
-	//create puzzle structs
-	Palapeli::PuzzleMetadata* metadata = new Palapeli::PuzzleMetadata;
-	metadata->name = m_nameEdit->text();
-	metadata->comment = m_commentEdit->text();
-	metadata->author = m_authorEdit->text();
-	metadata->pieceCount = job.pieces().count();
-	metadata->image = image;
-	metadata->thumbnail = image.scaled(Palapeli::PuzzleMetadata::ThumbnailBaseSize, Qt::KeepAspectRatio);
-	metadata->modifyProtection = false; //only enabled for puzzles in the default collection (see ListCollection::canDeletePuzzle)
-	Palapeli::PuzzleContents* contents = new Palapeli::PuzzleContents;
-	contents->imageSize = image.size();
-	contents->pieces = job.pieces();
-	contents->pieceOffsets = job.pieceOffsets();
-	contents->relations = job.relations();
-	Palapeli::PuzzleCreationContext* creationContext = new Palapeli::PuzzleCreationContext;
-	creationContext->slicer = selection.slicerPluginName;
-	creationContext->slicerMode = selection.mode ? selection.mode->key() : QByteArray();
-	creationContext->slicerArgs = slicerArgs;
+	//create puzzle creation context
+	Palapeli::PuzzleCreationContext creationContext;
+	creationContext.name = m_nameEdit->text();
+	creationContext.comment = m_commentEdit->text();
+	creationContext.author = m_authorEdit->text();
+	creationContext.pieceCount = job.pieces().count();
+	creationContext.image = image;
+	creationContext.thumbnail = image.scaled(Palapeli::PuzzleMetadata::ThumbnailBaseSize, Qt::KeepAspectRatio);
+	creationContext.modifyProtection = false; //only enabled for default puzzles
+	creationContext.slicer = selection.slicerPluginName;
+	creationContext.slicerMode = selection.mode ? selection.mode->key() : QByteArray();
+	creationContext.slicerArgs = slicerArgs;
 	//create puzzle
-	m_result = new Palapeli::OldPuzzle(metadata, contents, creationContext);
+	m_result = new Palapeli::OldPuzzle(creationContext);
 }
 
 #include "puzzlecreator.moc"

@@ -151,8 +151,7 @@ void Palapeli::Scene::loadPuzzle(const QModelIndex& index)
 	if (oldPuzzle && m_oldPuzzle != oldPuzzle)
 	{
 		m_oldPuzzle = oldPuzzle;
-		delete m_puzzle;
-		m_puzzle = new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent(oldPuzzle->location()));
+		m_puzzle = m_oldPuzzle->newPuzzle();
 		m_identifier = index.data(Palapeli::Collection::IdentifierRole).toString();
 		loadPuzzleInternal();
 	}

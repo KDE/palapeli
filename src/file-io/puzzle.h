@@ -22,6 +22,9 @@
 #include <QtCore/QFuture>
 #include <QtCore/QMetaType>
 
+#include <iostream>
+#define CAST_ERROR(x) std::cerr << qPrintable(x) << std::endl; //TODO: these errors should be reported to Puzzle
+
 namespace Palapeli
 {
 	class Puzzle;

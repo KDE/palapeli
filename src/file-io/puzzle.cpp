@@ -130,7 +130,8 @@ const Palapeli::PuzzleComponent* Palapeli::Puzzle::Private::get(Palapeli::Puzzle
 	if (doRequest)
 	{
 		Palapeli::PuzzleComponent* cmp = m_mainComponent->cast(type);
-		cmp->m_puzzle = q;
+		if (cmp)
+			cmp->m_puzzle = q;
 		//write access to c->component need not be mutex-secured because there
 		//is only one write access ever per component
 		c->component.fetchAndStoreOrdered(cmp);
