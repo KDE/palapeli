@@ -30,7 +30,7 @@ namespace Palapeli
 	class ListCollection;
 	class CollectionView;
 	class FileSystemCollection;
-	class Puzzle;
+	class OldPuzzle;
 
 	class CollectionWidget : public Palapeli::TabWindow
 	{
@@ -39,7 +39,7 @@ namespace Palapeli
 			CollectionWidget();
 
 			void startPuzzle(const KUrl& url);
-			QModelIndex storeGeneratedPuzzle(Palapeli::Puzzle* puzzle);
+			QModelIndex storeGeneratedPuzzle(Palapeli::OldPuzzle* puzzle);
 		Q_SIGNALS:
 			void createRequest();
 			void playRequest(const QModelIndex& index);

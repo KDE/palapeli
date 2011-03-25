@@ -18,7 +18,7 @@
 
 #include "collection-delegate.h"
 #include "collection.h"
-#include "puzzle.h"
+#include "puzzle-old.h"
 
 #include <QAbstractItemView>
 #include <QApplication>
@@ -42,7 +42,7 @@ Palapeli::CollectionDelegate::CollectionDelegate(QObject* parent)
 
 QRect Palapeli::CollectionDelegate::thumbnailRect(const QRect& baseRect) const
 {
-	QRect thumbnailBaseRect(QPoint(Metrics::Padding + baseRect.left(), 0), Palapeli::Puzzle::ThumbnailBaseSize);
+	QRect thumbnailBaseRect(QPoint(Metrics::Padding + baseRect.left(), 0), Palapeli::PuzzleMetadata::ThumbnailBaseSize);
 	thumbnailBaseRect.moveCenter(QPoint(thumbnailBaseRect.center().x(), baseRect.center().y()));
 	if (QApplication::isRightToLeft())
 		thumbnailBaseRect.moveRight(baseRect.right() - Metrics::Padding);
@@ -140,5 +140,5 @@ QSize Palapeli::CollectionDelegate::sizeHint(const QStyleOptionViewItem& option,
 {
 	Q_UNUSED(option) Q_UNUSED(index)
 	//TODO: take text size into account
-	return QSize(400, Palapeli::Puzzle::ThumbnailBaseSize.height() + 2 * Metrics::Padding);
+	return QSize(400, Palapeli::PuzzleMetadata::ThumbnailBaseSize.height() + 2 * Metrics::Padding);
 }

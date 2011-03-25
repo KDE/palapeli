@@ -16,8 +16,8 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#ifndef PALAPELI_PUZZLE_H
-#define PALAPELI_PUZZLE_H
+#ifndef PALAPELI_OLDPUZZLE_H
+#define PALAPELI_OLDPUZZLE_H
 
 #include "puzzlestructs.h"
 
@@ -29,19 +29,18 @@ class KTempDir;
 namespace Palapeli
 {
 
-	class Puzzle : public QObject
+	class OldPuzzle : public QObject
 	{
 		Q_OBJECT
 		public:
-			Puzzle(const KUrl& location);
-			Puzzle(const Palapeli::Puzzle& other);
-			Puzzle(Palapeli::PuzzleMetadata* metadata, Palapeli::PuzzleContents* contents, Palapeli::PuzzleCreationContext* creationContext = 0);
-			~Puzzle();
+			OldPuzzle(const KUrl& location);
+			OldPuzzle(const Palapeli::OldPuzzle& other);
+			OldPuzzle(Palapeli::PuzzleMetadata* metadata, Palapeli::PuzzleContents* contents, Palapeli::PuzzleCreationContext* creationContext = 0);
+			~OldPuzzle();
 
 			KUrl location() const;
 			void setLocation(const KUrl& location);
 
-			static const QSize ThumbnailBaseSize;
 			const Palapeli::PuzzleMetadata* metadata() const;
 			const Palapeli::PuzzleContents* contents() const;
 
@@ -70,4 +69,4 @@ namespace Palapeli
 	};
 }
 
-#endif // PALAPELI_PUZZLE_H
+#endif // PALAPELI_OLDPUZZLE_H

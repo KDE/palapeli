@@ -17,7 +17,7 @@
 ***************************************************************************/
 
 #include "collection.h"
-#include "puzzle.h"
+#include "puzzle-old.h"
 
 #include <QUuid>
 
@@ -30,7 +30,7 @@ Palapeli::Collection::~Collection()
 	qDeleteAll(m_puzzles);
 }
 
-QModelIndex Palapeli::Collection::addPuzzle(Palapeli::Puzzle* puzzle, const QString& identifier)
+QModelIndex Palapeli::Collection::addPuzzle(Palapeli::OldPuzzle* puzzle, const QString& identifier)
 {
 	//NOTE: the subclass implementation has to make sure that the puzzle's metadata is available
 	//generate an identifier if necessary
@@ -48,7 +48,7 @@ void Palapeli::Collection::removePuzzle(const QModelIndex& index)
 {
 	//load puzzle from index
 	QObject* puzzlePayload = index.data(PuzzleObjectRole).value<QObject*>();
-	Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
+	Palapeli::OldPuzzle* puzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
 	if (!puzzle)
 		return;
 	//locate puzzle in collection
@@ -78,7 +78,7 @@ bool Palapeli::Collection::canImportPuzzles() const
 	return false;
 }
 
-QModelIndex Palapeli::Collection::importPuzzle(const Palapeli::Puzzle* const puzzle)
+QModelIndex Palapeli::Collection::importPuzzle(const Palapeli::OldPuzzle* const puzzle)
 {
 	Q_UNUSED(puzzle)
 	return QModelIndex();
@@ -105,7 +105,7 @@ QVariant Palapeli::Collection::data(const QModelIndex& index, int role) const
 {
 	if (!index.isValid() || index.parent().isValid())
 		return QVariant();
-	Palapeli::Puzzle* puzzle = m_puzzles.value(index.row());
+	Palapeli::OldPuzzle* puzzle = m_puzzles.value(index.row());
 	if (!puzzle || !puzzle->metadata())
 		return QVariant();
 	switch (role)

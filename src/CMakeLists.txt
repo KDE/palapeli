@@ -30,7 +30,7 @@ set(palapeli_SRCS
 	file-io/collection-filesystem.cpp
 	file-io/collection-list.cpp
 	file-io/collection-view.cpp
-	file-io/puzzle.cpp
+	file-io/puzzle-old.cpp
 	firsttimehelper.cpp
 	importhelper.cpp
 	main.cpp

@@ -19,7 +19,7 @@
 #include "puzzlecreator.h"
 #include "slicerconfwidget.h"
 #include "slicerselector.h"
-#include "file-io/puzzle.h"
+#include "file-io/puzzle-old.h"
 #include "file-io/puzzlestructs.h"
 #include "../libpala/slicer.h"
 #include "../libpala/slicerjob.h"
@@ -78,7 +78,7 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	connect(m_slicerSelector, SIGNAL(currentSelectionChanged(Palapeli::SlicerSelection)), this, SLOT(updateSlicerSelection(Palapeli::SlicerSelection)));
 }
 
-Palapeli::Puzzle* Palapeli::PuzzleCreatorDialog::result() const
+Palapeli::OldPuzzle* Palapeli::PuzzleCreatorDialog::result() const
 {
 	return m_result;
 }
@@ -134,7 +134,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	metadata->author = m_authorEdit->text();
 	metadata->pieceCount = job.pieces().count();
 	metadata->image = image;
-	metadata->thumbnail = image.scaled(Palapeli::Puzzle::ThumbnailBaseSize, Qt::KeepAspectRatio);
+	metadata->thumbnail = image.scaled(Palapeli::PuzzleMetadata::ThumbnailBaseSize, Qt::KeepAspectRatio);
 	metadata->modifyProtection = false; //only enabled for puzzles in the default collection (see ListCollection::canDeletePuzzle)
 	Palapeli::PuzzleContents* contents = new Palapeli::PuzzleContents;
 	contents->imageSize = image.size();
@@ -146,7 +146,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	creationContext->slicerMode = selection.mode ? selection.mode->key() : QByteArray();
 	creationContext->slicerArgs = slicerArgs;
 	//create puzzle
-	m_result = new Palapeli::Puzzle(metadata, contents, creationContext);
+	m_result = new Palapeli::OldPuzzle(metadata, contents, creationContext);
 }
 
 #include "puzzlecreator.moc"

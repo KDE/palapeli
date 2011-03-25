@@ -22,7 +22,7 @@
 #include "piece.h"
 #include "settings.h"
 #include "../file-io/collection.h"
-#include "../file-io/puzzle.h"
+#include "../file-io/puzzle-old.h"
 
 #include <cmath>
 #include <QFile>
@@ -145,7 +145,7 @@ void Palapeli::Scene::loadPuzzle(const QModelIndex& index)
 		return;
 	//load puzzle
 	QObject* puzzlePayload = index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
-	Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
+	Palapeli::OldPuzzle* puzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
 	if (puzzle && m_puzzle != puzzle)
 	{
 		m_puzzle = puzzle;
@@ -174,7 +174,7 @@ void Palapeli::Scene::startLoading()
 		if (m_puzzle->metadata())
 			continueLoading();
 		else
-			m_metadataLoader.setFuture(QtConcurrent::run(m_puzzle.data(), &Palapeli::Puzzle::readMetadata, false));
+			m_metadataLoader.setFuture(QtConcurrent::run(m_puzzle.data(), &Palapeli::OldPuzzle::readMetadata, false));
 			//will call continueLoading() when done reading metadata
 	}
 }

@@ -19,7 +19,7 @@
 #include "importhelper.h"
 #include "file-io/collection-filesystem.h"
 #include "file-io/collection-list.h"
-#include "file-io/puzzle.h"
+#include "file-io/puzzle-old.h"
 
 #include <QApplication>
 #include <QTimer>
@@ -47,7 +47,7 @@ void Palapeli::ImportHelper::doWork()
 	//try to load puzzle
 	QModelIndex index = m_fileSystemCollection->providePuzzle(m_args->url(0));
 	QObject* puzzlePayload = index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
-	Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
+	Palapeli::OldPuzzle* puzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
 	if (!puzzle)
 	{
 		KMessageBox::sorry(0, i18n("The given puzzle file is corrupted."));

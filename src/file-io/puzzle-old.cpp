@@ -16,7 +16,7 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#include "puzzle.h"
+#include "puzzle-old.h"
 
 #include <QtConcurrentRun>
 #include <KConfigGroup>
@@ -29,9 +29,9 @@
 #include <KTempDir>
 #include <KTemporaryFile>
 
-const QSize Palapeli::Puzzle::ThumbnailBaseSize(64, 64);
+const QSize Palapeli::PuzzleMetadata::ThumbnailBaseSize(64, 64);
 
-Palapeli::Puzzle::Puzzle(const KUrl& location)
+Palapeli::OldPuzzle::OldPuzzle(const KUrl& location)
 	: m_location(location)
 	, m_loadLocation(location)
 	, m_metadata(0)
@@ -42,7 +42,7 @@ Palapeli::Puzzle::Puzzle(const KUrl& location)
 	connect(&m_createArchiveWatcher, SIGNAL(finished()), this, SLOT(finishWritingArchive()));
 }
 
-Palapeli::Puzzle::Puzzle(const Palapeli::Puzzle& other)
+Palapeli::OldPuzzle::OldPuzzle(const Palapeli::OldPuzzle& other)
 	: QObject()
 	, m_location(other.m_location)
 	, m_loadLocation(other.m_loadLocation)
@@ -58,7 +58,7 @@ Palapeli::Puzzle::Puzzle(const Palapeli::Puzzle& other)
 		m_contents = new Palapeli::PuzzleContents(*other.m_contents);
 }
 
-Palapeli::Puzzle::Puzzle(Palapeli::PuzzleMetadata* metadata, Palapeli::PuzzleContents* contents, Palapeli::PuzzleCreationContext* creationContext)
+Palapeli::OldPuzzle::OldPuzzle(Palapeli::PuzzleMetadata* metadata, Palapeli::PuzzleContents* contents, Palapeli::PuzzleCreationContext* creationContext)
 	: m_metadata(metadata)
 	, m_contents(contents)
 	, m_creationContext(creationContext)
@@ -67,39 +67,39 @@ Palapeli::Puzzle::Puzzle(Palapeli::PuzzleMetadata* metadata, Palapeli::PuzzleCon
 	connect(&m_createArchiveWatcher, SIGNAL(finished()), this, SLOT(finishWritingArchive()));
 }
 
-Palapeli::Puzzle::~Puzzle()
+Palapeli::OldPuzzle::~OldPuzzle()
 {
 	delete m_metadata;
 	delete m_contents;
 }
 
-KUrl Palapeli::Puzzle::location() const
+KUrl Palapeli::OldPuzzle::location() const
 {
 	return m_location;
 }
 
-void Palapeli::Puzzle::setLocation(const KUrl& location)
+void Palapeli::OldPuzzle::setLocation(const KUrl& location)
 {
 	m_location = location;
 }
 
-const Palapeli::PuzzleMetadata* Palapeli::Puzzle::metadata() const
+const Palapeli::PuzzleMetadata* Palapeli::OldPuzzle::metadata() const
 {
 	return m_metadata;
 }
 
-const Palapeli::PuzzleContents* Palapeli::Puzzle::contents() const
+const Palapeli::PuzzleContents* Palapeli::OldPuzzle::contents() const
 {
 	return m_contents;
 }
 
-void Palapeli::Puzzle::injectMetadata(Palapeli::PuzzleMetadata* metadata)
+void Palapeli::OldPuzzle::injectMetadata(Palapeli::PuzzleMetadata* metadata)
 {
 	delete m_metadata;
 	m_metadata = metadata;
 }
 
-bool Palapeli::Puzzle::readMetadata(bool force)
+bool Palapeli::OldPuzzle::readMetadata(bool force)
 {
 	if (m_metadata && m_cache && !force)
 		return true; //nothing to do (puzzle has been loaded from URL, and cache is already filled)
@@ -137,7 +137,7 @@ bool Palapeli::Puzzle::readMetadata(bool force)
 	m_metadata->author = manifest.desktopGroup().readEntry("X-KDE-PluginInfo-Author", QString());
 	m_metadata->comment = manifest.readComment();
 	m_metadata->image.load(m_cache->name() + "image.jpg");
-	m_metadata->thumbnail = m_metadata->image.scaled(ThumbnailBaseSize, Qt::KeepAspectRatio);
+	m_metadata->thumbnail = m_metadata->image.scaled(Palapeli::PuzzleMetadata::ThumbnailBaseSize, Qt::KeepAspectRatio);
 	KConfigGroup collectionGroup(&manifest, "Collection");
 	m_metadata->modifyProtection = collectionGroup.readEntry("ModifyProtection", false);
 	//find piece count
@@ -149,7 +149,7 @@ bool Palapeli::Puzzle::readMetadata(bool force)
 	return true;
 }
 
-bool Palapeli::Puzzle::readContents(bool force)
+bool Palapeli::OldPuzzle::readContents(bool force)
 {
 	if (m_contents && !force)
 		return true; //nothing to do
@@ -188,7 +188,7 @@ bool Palapeli::Puzzle::readContents(bool force)
 	return !m_contents->pieces.isEmpty();
 }
 
-bool Palapeli::Puzzle::write()
+bool Palapeli::OldPuzzle::write()
 {
 	//optimization: if nothing has changed since the puzzle has been loaded, just copy the original puzzle file to the new location
 	if (!m_loadLocation.isEmpty())
@@ -202,17 +202,17 @@ bool Palapeli::Puzzle::write()
 		return false; //not enough data available for this operation
 	//createNewArchiveFile can only be called in separate thread if creation context is available (otherwise, we have to use the piece pixmaps from PuzzleContents, which cannot be used in a non-GUI thread)
 	if (m_creationContext)
-		m_createArchiveWatcher.setFuture(QtConcurrent::run(this, &Palapeli::Puzzle::createNewArchiveFile));
+		m_createArchiveWatcher.setFuture(QtConcurrent::run(this, &Palapeli::OldPuzzle::createNewArchiveFile));
 	else
 	{
 		createNewArchiveFile();
 		finishWritingArchive();
 	}
-	//in general, we don't know better and have to assume that Palapeli::Puzzle::createNewArchiveFile does not fail
+	//in general, we don't know better and have to assume that Palapeli::OldPuzzle::createNewArchiveFile does not fail
 	return true;
 }
 
-void Palapeli::Puzzle::writeFinished(KJob* job)
+void Palapeli::OldPuzzle::writeFinished(KJob* job)
 {
 	if (job->error())
 		static_cast<KIO::Job*>(job)->ui()->showErrorMessage();
@@ -227,7 +227,7 @@ void Palapeli::Puzzle::writeFinished(KJob* job)
 	}
 }
 
-void Palapeli::Puzzle::createNewArchiveFile()
+void Palapeli::OldPuzzle::createNewArchiveFile()
 {
 	delete m_cache; m_cache = new KTempDir;
 	const QString cachePath = m_cache->name();
@@ -288,7 +288,7 @@ void Palapeli::Puzzle::createNewArchiveFile()
 	manifest.sync();
 }
 
-void Palapeli::Puzzle::finishWritingArchive()
+void Palapeli::OldPuzzle::finishWritingArchive()
 {
 	//compress archive to temporary file
 	KTemporaryFile* tempFile = new KTemporaryFile;
@@ -310,4 +310,4 @@ void Palapeli::Puzzle::finishWritingArchive()
 	m_loadLocation = m_location;
 }
 
-#include "puzzle.moc"
+#include "puzzle-old.moc"

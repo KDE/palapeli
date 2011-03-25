@@ -23,7 +23,7 @@
 
 namespace Palapeli
 {
-	class Puzzle;
+	class OldPuzzle;
 
 	class Collection : public QAbstractListModel
 	{
@@ -34,7 +34,7 @@ namespace Palapeli
 				IdentifierRole = Qt::UserRole + 1,
 				IsDeleteableRole,
 				//object references
-				PuzzleObjectRole = Qt::UserRole + 11, //contains a QObject* which can be casted to Palapeli::Puzzle*
+				PuzzleObjectRole = Qt::UserRole + 11, //contains a QObject* which can be casted to Palapeli::OldPuzzle*
 				//visible metadata
 				NameRole = Qt::UserRole + 21,
 				CommentRole,
@@ -47,7 +47,7 @@ namespace Palapeli
 
 			QString name() const;
 			virtual bool canImportPuzzles() const;
-			virtual QModelIndex importPuzzle(const Palapeli::Puzzle* const puzzle);
+			virtual QModelIndex importPuzzle(const Palapeli::OldPuzzle* const puzzle);
 			virtual bool canDeletePuzzle(const QModelIndex& index) const;
 			virtual bool deletePuzzle(const QModelIndex& index);
 
@@ -56,13 +56,13 @@ namespace Palapeli
 		protected:
 			Collection(); //"abstract base class"
 
-			QModelIndex addPuzzle(Palapeli::Puzzle* puzzle, const QString& identifier = QString()); ///< If no identifier is given, one will be generated. Returns the model index of the new item.
+			QModelIndex addPuzzle(Palapeli::OldPuzzle* puzzle, const QString& identifier = QString()); ///< If no identifier is given, one will be generated. Returns the model index of the new item.
 			void removePuzzle(const QModelIndex& index);
 			void setName(const QString& name);
 		private:
 			QString m_name;
 			QList<QString> m_identifiers;
-			QList<Palapeli::Puzzle*> m_puzzles;
+			QList<Palapeli::OldPuzzle*> m_puzzles;
 	};
 }
 

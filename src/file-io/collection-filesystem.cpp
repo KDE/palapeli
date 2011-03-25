@@ -17,7 +17,7 @@
 ***************************************************************************/
 
 #include "collection-filesystem.h"
-#include "puzzle.h"
+#include "puzzle-old.h"
 
 #include <KFileDialog>
 #include <KLocalizedString>
@@ -31,7 +31,7 @@ int Palapeli::FileSystemCollection::indexOfPuzzle(const KUrl& location) const
 	for (int pos = 0; pos < rowCount(); ++pos)
 	{
 		QObject* puzzlePayload = index(pos).data(PuzzleObjectRole).value<QObject*>();
-		Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
+		Palapeli::OldPuzzle* puzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
 		if (puzzle && puzzle->location() == location)
 			return pos;
 	}
@@ -45,14 +45,14 @@ QModelIndex Palapeli::FileSystemCollection::providePuzzle(const KUrl& location)
 	if (pos >= 0)
 		return index(pos);
 	//read and validate puzzle
-	Palapeli::Puzzle* puzzle = new Palapeli::Puzzle(location);
+	Palapeli::OldPuzzle* puzzle = new Palapeli::OldPuzzle(location);
 	if (!puzzle->readMetadata())
 		return QModelIndex();
 	//add puzzle
 	return addPuzzleInternal(location, puzzle);
 }
 
-QModelIndex Palapeli::FileSystemCollection::addPuzzleInternal(const KUrl& location, Palapeli::Puzzle* puzzle)
+QModelIndex Palapeli::FileSystemCollection::addPuzzleInternal(const KUrl& location, Palapeli::OldPuzzle* puzzle)
 {
 	//find a sane identifier for this puzzle (must be unique during the session, but should also be the same for the same puzzle over the course of multiple sessions, in order to find savegames correctly)
 	QString puzzleName = location.fileName();
@@ -76,7 +76,7 @@ bool Palapeli::FileSystemCollection::canImportPuzzles() const
 	return true;
 }
 
-QModelIndex Palapeli::FileSystemCollection::importPuzzle(const Palapeli::Puzzle* const puzzle)
+QModelIndex Palapeli::FileSystemCollection::importPuzzle(const Palapeli::OldPuzzle* const puzzle)
 {
 	if (!puzzle->metadata())
 		return QModelIndex();
@@ -87,7 +87,7 @@ QModelIndex Palapeli::FileSystemCollection::importPuzzle(const Palapeli::Puzzle*
 	if (location.isEmpty())
 		return QModelIndex(); //process aborted by user
 	//create a copy of the given puzzle, and relocate it to the new location
-	Palapeli::Puzzle* newPuzzle = new Palapeli::Puzzle(*puzzle);
+	Palapeli::OldPuzzle* newPuzzle = new Palapeli::OldPuzzle(*puzzle);
 	newPuzzle->setLocation(location);
 	newPuzzle->write();
 	//add to the internal storage for future use, and return model index

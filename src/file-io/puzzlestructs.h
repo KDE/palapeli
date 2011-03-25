@@ -33,6 +33,8 @@ namespace Palapeli
 		int pieceCount;
 		QImage image, thumbnail;
 		bool modifyProtection;
+
+		static const QSize ThumbnailBaseSize;
 	};
 
 	struct PuzzleContents

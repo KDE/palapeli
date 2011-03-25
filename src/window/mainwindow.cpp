@@ -150,7 +150,7 @@ void Palapeli::MainWindow::createPuzzle()
 	{
 		if (!creatorDialog)
 			return;
-		Palapeli::Puzzle* puzzle = creatorDialog->result();
+		Palapeli::OldPuzzle* puzzle = creatorDialog->result();
 		if (!puzzle) {
 			delete creatorDialog;
 			return;

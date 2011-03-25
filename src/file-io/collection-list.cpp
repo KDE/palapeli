@@ -17,7 +17,7 @@
 ***************************************************************************/
 
 #include "collection-list.h"
-#include "puzzle.h"
+#include "puzzle-old.h"
 
 #include <QBuffer>
 #include <QFileInfo>
@@ -98,12 +98,12 @@ void Palapeli::ListCollection::setConfig(KConfig* config)
 		KUrl url = readUrl(puzzleGroup.readEntry("Location", KUrl()));
 		if (url.isEmpty())
 			continue;
-		Palapeli::Puzzle* puzzle = new Palapeli::Puzzle(url);
+		Palapeli::OldPuzzle* puzzle = new Palapeli::OldPuzzle(url);
 		addPuzzleInternal(puzzle, puzzleId);
 	}
 }
 
-QModelIndex Palapeli::ListCollection::addPuzzleInternal(Palapeli::Puzzle* puzzle, const QString& identifier)
+QModelIndex Palapeli::ListCollection::addPuzzleInternal(Palapeli::OldPuzzle* puzzle, const QString& identifier)
 {
 	KConfigGroup mainGroup(m_config, "Palapeli Collection");
 	KConfigGroup puzzleGroup(&mainGroup, identifier);
@@ -159,7 +159,7 @@ QModelIndex Palapeli::ListCollection::addPuzzleInternal(Palapeli::Puzzle* puzzle
 	return addPuzzle(puzzle, identifier);
 }
 
-QModelIndex Palapeli::ListCollection::storeGeneratedPuzzle(Palapeli::Puzzle* puzzle)
+QModelIndex Palapeli::ListCollection::storeGeneratedPuzzle(Palapeli::OldPuzzle* puzzle)
 {
 	if (!puzzle)
 		return QModelIndex();
@@ -173,16 +173,16 @@ bool Palapeli::ListCollection::canImportPuzzles() const
 	return m_features.contains("importpuzzle");
 }
 
-QModelIndex Palapeli::ListCollection::importPuzzle(const Palapeli::Puzzle* const puzzle)
+QModelIndex Palapeli::ListCollection::importPuzzle(const Palapeli::OldPuzzle* const puzzle)
 {
 	if (!puzzle->metadata())
 		return QModelIndex();
 	//create a writable copy of the given puzzle, and import this into the collection
-	Palapeli::Puzzle* newPuzzle = new Palapeli::Puzzle(*puzzle);
+	Palapeli::OldPuzzle* newPuzzle = new Palapeli::OldPuzzle(*puzzle);
 	return importPuzzleInternal(newPuzzle);
 }
 
-QModelIndex Palapeli::ListCollection::importPuzzleInternal(Palapeli::Puzzle* puzzle)
+QModelIndex Palapeli::ListCollection::importPuzzleInternal(Palapeli::OldPuzzle* puzzle)
 {
 	//determine location of new puzzle
 	const QString identifier = QUuid::createUuid().toString();
@@ -206,7 +206,7 @@ bool Palapeli::ListCollection::canDeletePuzzle(const QModelIndex& index) const
 		return false;
 	//get puzzle object
 	QObject* puzzlePayload = index.data(PuzzleObjectRole).value<QObject*>();
-	Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
+	Palapeli::OldPuzzle* puzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
 	if (!puzzle || !puzzle->metadata())
 		return false;
 	//check whether that particular puzzle can be removed
@@ -220,7 +220,7 @@ bool Palapeli::ListCollection::deletePuzzle(const QModelIndex& index)
 		return false;
 	//get puzzle object
 	QObject* puzzlePayload = index.data(PuzzleObjectRole).value<QObject*>();
-	Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
+	Palapeli::OldPuzzle* puzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
 	if (!puzzle)
 		return false;
 	//check whether that particular file can be removed

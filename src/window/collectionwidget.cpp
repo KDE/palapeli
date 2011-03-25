@@ -21,7 +21,7 @@
 #include "../file-io/collection-filesystem.h"
 #include "../file-io/collection-list.h"
 #include "../file-io/collection-view.h"
-#include "../file-io/puzzle.h"
+#include "../file-io/puzzle-old.h"
 
 #include <KAction>
 #include <KActionCollection>
@@ -70,7 +70,7 @@ void Palapeli::CollectionWidget::startPuzzle(const KUrl& url)
 	emit playRequest(index);
 }
 
-QModelIndex Palapeli::CollectionWidget::storeGeneratedPuzzle(Palapeli::Puzzle* puzzle)
+QModelIndex Palapeli::CollectionWidget::storeGeneratedPuzzle(Palapeli::OldPuzzle* puzzle)
 {
 	return m_localCollection->storeGeneratedPuzzle(puzzle);
 }
@@ -88,7 +88,7 @@ void Palapeli::CollectionWidget::handleExportRequest()
 	foreach (const QModelIndex& index, indexes)
 	{
 		QObject* puzzlePayload = index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
-		Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
+		Palapeli::OldPuzzle* puzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
 		if (!puzzle)
 			continue;
 		m_fsCollection->importPuzzle(puzzle);
@@ -101,7 +101,7 @@ void Palapeli::CollectionWidget::handleImportRequest()
 	foreach (const QModelIndex& index, selectedPuzzles)
 	{
 		QObject* puzzlePayload = index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
-		Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
+		Palapeli::OldPuzzle* puzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
 		if (!puzzle)
 			continue;
 		m_localCollection->importPuzzle(puzzle);

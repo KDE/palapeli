@@ -31,7 +31,7 @@ namespace Palapeli
 {
 	class ConstraintVisualizer;
 	class Piece;
-	class Puzzle;
+	class OldPuzzle;
 
 	class Scene : public QGraphicsScene
 	{
@@ -76,7 +76,7 @@ namespace Palapeli
 			Palapeli::ConstraintVisualizer* m_constraintVisualizer;
 			//game parameters
 			QString m_identifier;
-			QPointer<Palapeli::Puzzle> m_puzzle;
+			QPointer<Palapeli::OldPuzzle> m_puzzle;
 			QList<Palapeli::Piece*> m_pieces;
 			QTimer* m_savegameTimer;
 			int m_atomicPieceCount;
