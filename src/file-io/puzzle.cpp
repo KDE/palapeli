@@ -69,25 +69,27 @@ struct Palapeli::Puzzle::Private
 	QAtomicPointer<Palapeli::PuzzleComponent> m_mainComponent;
 	QMutex m_locationMutex; //controls access to m_location
 	KUrl m_location;
+	QString m_identifier;
 
-	Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponent* mainComponent, const KUrl& location);
+	Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponent* mainComponent, const KUrl& location, const QString& identifier);
 	const Palapeli::PuzzleComponent* get(Palapeli::PuzzleComponent::Type type);
 };
 
-Palapeli::Puzzle::Puzzle(Palapeli::PuzzleComponent* mainComponent, const KUrl& location)
-	: d(new Private(this, mainComponent, location))
+Palapeli::Puzzle::Puzzle(Palapeli::PuzzleComponent* mainComponent, const KUrl& location, const QString& identifier)
+	: d(new Private(this, mainComponent, location, identifier))
 {
 	qRegisterMetaType<Palapeli::Puzzle*>();
 }
 
-Palapeli::Puzzle::Private::Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponent* mainComponent, const KUrl& location)
+Palapeli::Puzzle::Private::Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponent* mainComponent, const KUrl& location, const QString& identifier)
 	: q(q)
 	, m_mainComponent(mainComponent)
 	, m_location(location)
+	, m_identifier(identifier)
 {
 	m_mainComponent->m_puzzle = q;
 	m_components.insert(mainComponent->type(), new Component(mainComponent));
-	//m_hashMutex not necessary here because concurrent access is impossible in the ctor
+	//mutexes not necessary here because concurrent access is impossible in the ctor
 }
 
 Palapeli::Puzzle::~Puzzle()
@@ -153,6 +155,11 @@ const Palapeli::PuzzleComponent* Palapeli::Puzzle::Private::get(Palapeli::Puzzle
 		c->wait.wait(&mutex, 1000);
 	mutex.unlock();
 	return c->component;
+}
+
+QString Palapeli::Puzzle::identifier() const
+{
+	return d->m_identifier;
 }
 
 KUrl Palapeli::Puzzle::location() const

@@ -34,9 +34,9 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			OldPuzzle(const KUrl& location);
-			OldPuzzle(const Palapeli::OldPuzzle& other);
-			OldPuzzle(const Palapeli::PuzzleCreationContext& context);
+			OldPuzzle(const KUrl& location, const QString& identifier);
+			OldPuzzle(const Palapeli::OldPuzzle& other, const QString& identifier);
+			OldPuzzle(const Palapeli::PuzzleCreationContext& context, const QString& identifier);
 			~OldPuzzle();
 
 			KUrl location() const;

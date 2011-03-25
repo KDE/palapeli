@@ -23,14 +23,11 @@
 
 #include <QGraphicsScene>
 #include <QMap>
-class QModelIndex;
-#include <QPointer>
 
 namespace Palapeli
 {
 	class ConstraintVisualizer;
 	class Piece;
-	class OldPuzzle;
 	class Puzzle;
 
 	class Scene : public QGraphicsScene
@@ -45,7 +42,7 @@ namespace Palapeli
 			void validatePiecePosition(Palapeli::Piece* piece);
 			void searchConnections(const QList<Palapeli::Piece*>& pieces);
 		public Q_SLOTS:
-			void loadPuzzle(const QModelIndex& index);
+			void loadPuzzle(Palapeli::Puzzle* puzzle);
 			void restartPuzzle();
 			void setConstrained(bool constrained);
 			void invalidateSavegame();
@@ -73,8 +70,6 @@ namespace Palapeli
 			bool m_constrained;
 			Palapeli::ConstraintVisualizer* m_constraintVisualizer;
 			//game parameters
-			QString m_identifier;
-			QPointer<Palapeli::OldPuzzle> m_oldPuzzle;
 			Palapeli::Puzzle* m_puzzle;
 			QList<Palapeli::Piece*> m_pieces;
 			QTimer* m_savegameTimer;

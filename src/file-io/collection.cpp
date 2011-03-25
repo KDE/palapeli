@@ -30,15 +30,11 @@ Palapeli::Collection::~Collection()
 	qDeleteAll(m_puzzles);
 }
 
-QModelIndex Palapeli::Collection::addPuzzle(Palapeli::OldPuzzle* puzzle, const QString& identifier)
+QModelIndex Palapeli::Collection::addPuzzle(Palapeli::OldPuzzle* puzzle)
 {
 	//NOTE: the subclass implementation has to make sure that the puzzle's metadata is available
-	//generate an identifier if necessary
-	QString theIdentifier = identifier.isEmpty() ? QUuid::createUuid().toString() : identifier;
-	//add puzzle to list
 	int newPos = m_puzzles.count();
 	beginInsertRows(QModelIndex(), newPos, newPos);
-	m_identifiers << theIdentifier;
 	m_puzzles << puzzle;
 	endInsertRows();
 	return index(newPos);
@@ -57,20 +53,9 @@ void Palapeli::Collection::removePuzzle(const QModelIndex& index)
 		return;
 	//remove puzzle
 	beginRemoveRows(QModelIndex(), pos, pos);
-	m_identifiers.removeAt(pos);
 	m_puzzles.removeAt(pos);
 	delete puzzle;
 	endRemoveRows();
-}
-
-QString Palapeli::Collection::name() const
-{
-	return m_name;
-}
-
-void Palapeli::Collection::setName(const QString& name)
-{
-	m_name = name;
 }
 
 bool Palapeli::Collection::canImportPuzzles() const
@@ -111,8 +96,6 @@ QVariant Palapeli::Collection::data(const QModelIndex& index, int role) const
 	switch (role)
 	{
 		//invisible metadata
-		case IdentifierRole:
-			return m_identifiers.value(index.row());
 		case IsDeleteableRole:
 			return canDeletePuzzle(index);
 		//object references

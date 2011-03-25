@@ -41,7 +41,7 @@ namespace Palapeli
 			virtual QModelIndex importPuzzle(const Palapeli::OldPuzzle* const puzzle);
 		private:
 			int indexOfPuzzle(const KUrl& location) const;
-			QModelIndex addPuzzleInternal(const KUrl& location, Palapeli::OldPuzzle* puzzle);
+			QString generateIdentifier(const KUrl& location);
 
 			QStringList m_usedIdentifiers;
 	};

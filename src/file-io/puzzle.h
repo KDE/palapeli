@@ -71,7 +71,7 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			///Takes ownership of @a mainComponent.
-			Puzzle(Palapeli::PuzzleComponent* mainComponent, const KUrl& location);
+			Puzzle(Palapeli::PuzzleComponent* mainComponent, const KUrl& location, const QString& identifier);
 			virtual ~Puzzle();
 
 			///Returns the component for the given @a type, or 0 if this
@@ -90,6 +90,7 @@ namespace Palapeli
 			///for synchronized access.
 			Palapeli::Future get(Palapeli::PuzzleComponent::Type type);
 
+			QString identifier() const;
 			KUrl location() const;
 			void setLocation(const KUrl& location);
 			///Resets the main component, which is used for casting. Components

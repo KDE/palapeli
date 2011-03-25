@@ -29,6 +29,7 @@
 #include <QFormLayout>
 #include <QLabel>
 #include <QStackedWidget>
+#include <QUuid>
 #include <KComboBox>
 #include <KLineEdit>
 #include <KLocalizedString>
@@ -140,7 +141,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	creationContext.slicerMode = selection.mode ? selection.mode->key() : QByteArray();
 	creationContext.slicerArgs = slicerArgs;
 	//create puzzle
-	m_result = new Palapeli::OldPuzzle(creationContext);
+	m_result = new Palapeli::OldPuzzle(creationContext, QUuid::createUuid().toString());
 }
 
 #include "puzzlecreator.moc"

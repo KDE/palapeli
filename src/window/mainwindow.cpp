@@ -21,6 +21,8 @@
 #include "../creator/puzzlecreator.h"
 #include "../engine/scene.h"
 #include "../engine/view.h"
+#include "../file-io/collection.h"
+#include "../file-io/puzzle-old.h"
 #include "collectionwidget.h"
 #include "puzzletablewidget.h"
 #include "settings.h"
@@ -164,7 +166,11 @@ void Palapeli::MainWindow::createPuzzle()
 
 void Palapeli::MainWindow::loadPuzzle(const QModelIndex& index)
 {
-	m_puzzleTable->view()->scene()->loadPuzzle(index);
+	QObject* puzzlePayload = index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
+	Palapeli::OldPuzzle* puzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
+	if (!puzzle)
+		return;
+	m_puzzleTable->view()->scene()->loadPuzzle(puzzle->newPuzzle());
 	m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_puzzleTable), true);
 	m_centralWidget->setCurrentWidget(m_puzzleTable);
 	setCaption(index.data(Qt::DisplayRole).toString());

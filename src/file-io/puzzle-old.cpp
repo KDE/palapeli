@@ -33,8 +33,8 @@
 
 const QSize Palapeli::PuzzleMetadata::ThumbnailBaseSize(64, 64);
 
-Palapeli::OldPuzzle::OldPuzzle(const KUrl& location)
-	: m_puzzle(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent, location))
+Palapeli::OldPuzzle::OldPuzzle(const KUrl& location, const QString& identifier)
+	: m_puzzle(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent, location, identifier))
 	, m_metadata(0)
 	, m_contents(0)
 	, m_creationContext(0)
@@ -43,9 +43,9 @@ Palapeli::OldPuzzle::OldPuzzle(const KUrl& location)
 	connect(&m_createArchiveWatcher, SIGNAL(finished()), this, SLOT(finishWritingArchive()));
 }
 
-Palapeli::OldPuzzle::OldPuzzle(const Palapeli::OldPuzzle& other)
+Palapeli::OldPuzzle::OldPuzzle(const Palapeli::OldPuzzle& other, const QString& identifier)
 	: QObject()
-	, m_puzzle(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent, other.m_puzzle->location()))
+	, m_puzzle(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent, other.m_puzzle->location(), identifier))
 	, m_metadata(0)
 	, m_contents(0)
 	, m_creationContext(0)
@@ -58,8 +58,8 @@ Palapeli::OldPuzzle::OldPuzzle(const Palapeli::OldPuzzle& other)
 		m_contents = new Palapeli::PuzzleContents(*other.m_contents);
 }
 
-Palapeli::OldPuzzle::OldPuzzle(const Palapeli::PuzzleCreationContext& creationContext)
-	: m_puzzle(new Palapeli::Puzzle(new Palapeli::CreationContextComponent(creationContext), KUrl()))
+Palapeli::OldPuzzle::OldPuzzle(const Palapeli::PuzzleCreationContext& creationContext, const QString& identifier)
+	: m_puzzle(new Palapeli::Puzzle(new Palapeli::CreationContextComponent(creationContext), KUrl(), identifier))
 	, m_metadata(0)
 	, m_contents(0)
 	, m_creationContext(new Palapeli::PuzzleCreationContext(creationContext))

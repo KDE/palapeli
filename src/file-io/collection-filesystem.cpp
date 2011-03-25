@@ -38,26 +38,12 @@ int Palapeli::FileSystemCollection::indexOfPuzzle(const KUrl& location) const
 	return -1;
 }
 
-QModelIndex Palapeli::FileSystemCollection::providePuzzle(const KUrl& location)
+QString Palapeli::FileSystemCollection::generateIdentifier(const KUrl& location)
 {
-	//has this puzzle already been read into this collection?
-	int pos = indexOfPuzzle(location);
-	if (pos >= 0)
-		return index(pos);
-	//read and validate puzzle
-	Palapeli::OldPuzzle* puzzle = new Palapeli::OldPuzzle(location);
-	if (!puzzle->readMetadata())
-		return QModelIndex();
-	//add puzzle
-	return addPuzzleInternal(location, puzzle);
-}
-
-QModelIndex Palapeli::FileSystemCollection::addPuzzleInternal(const KUrl& location, Palapeli::OldPuzzle* puzzle)
-{
-	//find a sane identifier for this puzzle (must be unique during the session, but should also be the same for the same puzzle over the course of multiple sessions, in order to find savegames correctly)
+	//identifier must be unique during the session, but should also be the same
+	//for the same puzzle over the course of multiple sessions, in order to find
+	//savegames correctly
 	QString puzzleName = location.fileName();
-	if (puzzle->readMetadata())
-		puzzleName = puzzle->metadata()->name; //file name is only a fallback if puzzle could not be read
 	const char* disallowedChars = "\\:*?\"<>|"; //Windows forbids using these chars in filenames, so we'll strip them
 	for (const char* c = disallowedChars; *c; ++c)
 		puzzleName.remove(*c);
@@ -67,8 +53,21 @@ QModelIndex Palapeli::FileSystemCollection::addPuzzleInternal(const KUrl& locati
 		++uniquifier;
 	const QString identifier = identifierPattern.arg(uniquifier);
 	m_usedIdentifiers << identifier;
-	//add to internal list
-	return Palapeli::Collection::addPuzzle(puzzle, identifier);
+	return identifier;
+}
+
+QModelIndex Palapeli::FileSystemCollection::providePuzzle(const KUrl& location)
+{
+	//has this puzzle already been read into this collection?
+	int pos = indexOfPuzzle(location);
+	if (pos >= 0)
+		return index(pos);
+	//read and validate puzzle
+	Palapeli::OldPuzzle* puzzle = new Palapeli::OldPuzzle(location, generateIdentifier(location));
+	if (!puzzle->readMetadata())
+		return QModelIndex();
+	//add puzzle
+	return Palapeli::Collection::addPuzzle(puzzle);
 }
 
 bool Palapeli::FileSystemCollection::canImportPuzzles() const
@@ -87,11 +86,11 @@ QModelIndex Palapeli::FileSystemCollection::importPuzzle(const Palapeli::OldPuzz
 	if (location.isEmpty())
 		return QModelIndex(); //process aborted by user
 	//create a copy of the given puzzle, and relocate it to the new location
-	Palapeli::OldPuzzle* newPuzzle = new Palapeli::OldPuzzle(*puzzle);
+	Palapeli::OldPuzzle* newPuzzle = new Palapeli::OldPuzzle(*puzzle, generateIdentifier(location));
 	newPuzzle->setLocation(location);
 	newPuzzle->write();
 	//add to the internal storage for future use, and return model index
-	return addPuzzleInternal(location, newPuzzle);
+	return Palapeli::Collection::addPuzzle(newPuzzle);
 }
 
 QModelIndexList Palapeli::FileSystemCollection::selectPuzzles()

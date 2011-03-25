@@ -17,6 +17,7 @@
 ***************************************************************************/
 
 #include "collection-list.h"
+#include "puzzle.h"
 #include "puzzle-old.h"
 
 #include <QBuffer>
@@ -86,8 +87,6 @@ void Palapeli::ListCollection::setConfig(KConfig* config)
 	m_config = config;
 	//start to read config
 	KConfigGroup mainGroup(m_config, "Palapeli Collection");
-	const QString name = mainGroup.readEntry("Name", QString());
-	setName(name == "__my__" ? i18n("My collection") : name);
 	m_features = mainGroup.readEntry("Features", QStringList());
 	//read the puzzles
 	const QStringList puzzleIds = mainGroup.groupList();
@@ -98,15 +97,15 @@ void Palapeli::ListCollection::setConfig(KConfig* config)
 		KUrl url = readUrl(puzzleGroup.readEntry("Location", KUrl()));
 		if (url.isEmpty())
 			continue;
-		Palapeli::OldPuzzle* puzzle = new Palapeli::OldPuzzle(url);
-		addPuzzleInternal(puzzle, puzzleId);
+		Palapeli::OldPuzzle* puzzle = new Palapeli::OldPuzzle(url, puzzleId);
+		addPuzzleInternal(puzzle);
 	}
 }
 
-QModelIndex Palapeli::ListCollection::addPuzzleInternal(Palapeli::OldPuzzle* puzzle, const QString& identifier)
+QModelIndex Palapeli::ListCollection::addPuzzleInternal(Palapeli::OldPuzzle* puzzle)
 {
 	KConfigGroup mainGroup(m_config, "Palapeli Collection");
-	KConfigGroup puzzleGroup(&mainGroup, identifier);
+	KConfigGroup puzzleGroup(&mainGroup, puzzle->newPuzzle()->identifier());
 	//if it is relevant for any of the operations, find modification time
 	//TODO: use KIO
 	QDateTime modificationTime;
@@ -156,7 +155,7 @@ QModelIndex Palapeli::ListCollection::addPuzzleInternal(Palapeli::OldPuzzle* puz
 			}
 		}
 	}
-	return addPuzzle(puzzle, identifier);
+	return addPuzzle(puzzle);
 }
 
 QModelIndex Palapeli::ListCollection::storeGeneratedPuzzle(Palapeli::OldPuzzle* puzzle)
@@ -178,14 +177,14 @@ QModelIndex Palapeli::ListCollection::importPuzzle(const Palapeli::OldPuzzle* co
 	if (!puzzle->metadata())
 		return QModelIndex();
 	//create a writable copy of the given puzzle, and import this into the collection
-	Palapeli::OldPuzzle* newPuzzle = new Palapeli::OldPuzzle(*puzzle);
+	Palapeli::OldPuzzle* newPuzzle = new Palapeli::OldPuzzle(*puzzle, QUuid::createUuid().toString());
 	return importPuzzleInternal(newPuzzle);
 }
 
 QModelIndex Palapeli::ListCollection::importPuzzleInternal(Palapeli::OldPuzzle* puzzle)
 {
 	//determine location of new puzzle
-	const QString identifier = QUuid::createUuid().toString();
+	const QString identifier = puzzle->newPuzzle()->identifier();
 	const QString fileName = QString("collection/%1.puzzle").arg(identifier);
 	const KUrl location(KStandardDirs::locateLocal("appdata", fileName));
 	//create a copy of the given puzzle, and relocate it to the new location
@@ -197,7 +196,7 @@ QModelIndex Palapeli::ListCollection::importPuzzleInternal(Palapeli::OldPuzzle* 
 	puzzleGroup.writeEntry("Location", QString("palapeli:///%1").arg(fileName)); //we use a pseudo-URL here, to avoid problems when the configuration directory is relocated
 	m_config->sync();
 	//add to the internal storage
-	return addPuzzleInternal(puzzle, identifier);
+	return addPuzzleInternal(puzzle);
 }
 
 bool Palapeli::ListCollection::canDeletePuzzle(const QModelIndex& index) const
@@ -229,8 +228,7 @@ bool Palapeli::ListCollection::deletePuzzle(const QModelIndex& index)
 		return false;
 	//remove file from config
 	KConfigGroup mainGroup(m_config, "Palapeli Collection");
-	const QString identifier = index.data(IdentifierRole).toString();
-	KConfigGroup(&mainGroup, identifier).deleteGroup();
+	KConfigGroup(&mainGroup, puzzle->newPuzzle()->identifier()).deleteGroup();
 	m_config->sync();
 	//update internal storage
 	removePuzzle(index);

@@ -21,17 +21,15 @@
 #include "mergegroup.h"
 #include "piece.h"
 #include "settings.h"
-#include "../file-io/collection.h"
 #include "../file-io/components.h"
-#include "../file-io/puzzle-old.h"
 #include "../file-io/puzzle.h"
 
 #include <cmath>
 #include <QFile>
+#include <QFutureWatcher>
 #include <QGraphicsView>
 #include <QPropertyAnimation>
 #include <QTimer>
-#include <QtConcurrentRun>
 #include <QtCore/qmath.h>
 #include <KConfig>
 #include <KConfigGroup>
@@ -141,18 +139,14 @@ void Palapeli::Scene::pieceInstanceTransaction(const QList<Palapeli::Piece*>& de
 	}
 }
 
-void Palapeli::Scene::loadPuzzle(const QModelIndex& index)
+void Palapeli::Scene::loadPuzzle(Palapeli::Puzzle* puzzle)
 {
 	if (m_loadingPuzzle)
 		return;
 	//load puzzle
-	QObject* puzzlePayload = index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
-	Palapeli::OldPuzzle* oldPuzzle = qobject_cast<Palapeli::OldPuzzle*>(puzzlePayload);
-	if (oldPuzzle && m_oldPuzzle != oldPuzzle)
+	if (puzzle && m_puzzle != puzzle)
 	{
-		m_oldPuzzle = oldPuzzle;
-		m_puzzle = m_oldPuzzle->newPuzzle();
-		m_identifier = index.data(Palapeli::Collection::IdentifierRole).toString();
+		m_puzzle = puzzle;
 		loadPuzzleInternal();
 	}
 }
@@ -223,7 +217,7 @@ void Palapeli::Scene::loadPiecePositions()
 	}
 	//Is "savegame" available?
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
-	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier)));
+	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_puzzle->identifier())));
 	if (saveConfig.hasGroup("SaveGame"))
 	{
 		//read piece positions from savegame
@@ -331,7 +325,7 @@ void Palapeli::Scene::updateSavegame()
 {
 	//save piece positions
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
-	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier)));
+	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_puzzle->identifier())));
 	KConfigGroup saveGroup(&saveConfig, "SaveGame");
 	foreach (Palapeli::Piece* piece, m_pieces)
 	{
@@ -367,7 +361,7 @@ void Palapeli::Scene::playVictoryAnimation3()
 void Palapeli::Scene::restartPuzzle()
 {
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
-	QFile(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_identifier))).remove();
+	QFile(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_puzzle->identifier()))).remove();
 	//reload puzzle
 	loadPuzzleInternal();
 }

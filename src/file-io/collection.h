@@ -31,8 +31,7 @@ namespace Palapeli
 		public:
 			enum Roles {
 				//invisible metadata
-				IdentifierRole = Qt::UserRole + 1,
-				IsDeleteableRole,
+				IsDeleteableRole = Qt::UserRole + 1,
 				//object references
 				PuzzleObjectRole = Qt::UserRole + 11, //contains a QObject* which can be casted to Palapeli::OldPuzzle*
 				//visible metadata
@@ -45,7 +44,6 @@ namespace Palapeli
 
 			virtual ~Collection();
 
-			QString name() const;
 			virtual bool canImportPuzzles() const;
 			virtual QModelIndex importPuzzle(const Palapeli::OldPuzzle* const puzzle);
 			virtual bool canDeletePuzzle(const QModelIndex& index) const;
@@ -56,12 +54,9 @@ namespace Palapeli
 		protected:
 			Collection(); //"abstract base class"
 
-			QModelIndex addPuzzle(Palapeli::OldPuzzle* puzzle, const QString& identifier = QString()); ///< If no identifier is given, one will be generated. Returns the model index of the new item.
+			QModelIndex addPuzzle(Palapeli::OldPuzzle* puzzle); ///< @return the model index of the new item
 			void removePuzzle(const QModelIndex& index);
-			void setName(const QString& name);
 		private:
-			QString m_name;
-			QList<QString> m_identifiers;
 			QList<Palapeli::OldPuzzle*> m_puzzles;
 	};
 }

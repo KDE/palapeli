@@ -47,7 +47,7 @@ namespace Palapeli
 			void collectionDataCopyFinished(KJob* job);
 		private:
 			KUrl readUrl(const KUrl& url) const;
-			QModelIndex addPuzzleInternal(Palapeli::OldPuzzle* puzzle, const QString& identifier);
+			QModelIndex addPuzzleInternal(Palapeli::OldPuzzle* puzzle);
 			QModelIndex importPuzzleInternal(Palapeli::OldPuzzle* puzzle);
 
 			QStringList m_features;
