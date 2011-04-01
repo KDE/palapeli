@@ -285,6 +285,7 @@ void Palapeli::Scene::completeVisualsForNextPiece()
 
 void Palapeli::Scene::finishLoading()
 {
+	m_puzzle->dropComponent(Palapeli::PuzzleComponent::Contents);
 	//determine scene rect
 	setSceneRect(piecesBoundingRect());
 	//initialize external progress display

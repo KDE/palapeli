@@ -106,6 +106,13 @@ namespace Palapeli
 			///affected. Other components of the same type will be overwritten
 			///by the given @a component.
 			void setMainComponent(Palapeli::PuzzleComponent* component);
+
+			///Deletes the component with the given @a type from this puzzle.
+			///Because the component might be in use elsewhere in the program,
+			///this operation is highly dangerous, but it's nonetheless required
+			///for the ContentsComponent because that one keeps very much data
+			///in memory.
+			void dropComponent(Palapeli::PuzzleComponent::Type type);
 		private:
 			class Private;
 			Private* const d;

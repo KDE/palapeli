@@ -322,7 +322,7 @@ QImage Palapeli::applyBevelMap(const QImage &source, const Palapeli::BevelMap& b
 Palapeli::PieceVisuals Palapeli::createShadow(const Palapeli::PieceVisuals& pieceVisuals, const QSize& shadowSizeHint)
 {
 	const QSize shadowSizeHintUse = shadowSizeHint.isEmpty() ? pieceVisuals.size() : shadowSizeHint;
-	const int shadowRadius = 0.15 * (shadowSizeHintUse.width() + shadowSizeHintUse.height());
+	const int shadowRadius = qMin<qreal>(0.15 * (shadowSizeHintUse.width() + shadowSizeHintUse.height()), 50);
 	return Palapeli::PieceVisuals(
 		createShadow(pieceVisuals.image(), shadowRadius),
 		pieceVisuals.offset() - QPoint(shadowRadius, shadowRadius)

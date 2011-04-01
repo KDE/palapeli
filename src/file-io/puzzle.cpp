@@ -192,11 +192,18 @@ void Palapeli::Puzzle::setMainComponent(Palapeli::PuzzleComponent* component)
 	//add component
 	QMutexLocker locker(&d->m_hashMutex);
 	Component*& c = d->m_components[component->type()];
-	if (c && c->component)
-		delete c->component;
 	delete c;
 	c = new Component(component);
 	d->m_mainComponent.fetchAndStoreOrdered(component);
+}
+
+void Palapeli::Puzzle::dropComponent(Palapeli::PuzzleComponent::Type type)
+{
+	//DO NEVER EVER USE THIS FUNCTION! THIS FUNCTION IS PURELY DANGEROUS. STUFF WILL BREAK.
+	QMutexLocker locker(&d->m_hashMutex);
+	Component*& c = d->m_components[type];
+	delete c;
+	c = 0;
 }
 
 K_GLOBAL_STATIC(QList<QString>, g_usedIdentifiers)
