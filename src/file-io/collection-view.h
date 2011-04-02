@@ -35,11 +35,14 @@ namespace Palapeli
 			CollectionView(QWidget* parent = 0);
 
 			void setModel(QAbstractItemModel* model);
-			QItemSelectionModel* selectionModel() const;
+			QModelIndexList selectedIndexes() const;
 		Q_SIGNALS:
+			void canDeleteChanged(bool canDelete);
+			void canExportChanged(bool canExport);
 			void playRequest(Palapeli::Puzzle* puzzle);
 		private Q_SLOTS:
 			void handleActivated(const QModelIndex& index);
+			void handleSelectionChanged();
 			void sortMenuTriggered(QAction* action);
 		private:
 			QListView* m_view;

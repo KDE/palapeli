@@ -43,6 +43,7 @@ Palapeli::CollectionView::CollectionView(QWidget* parent)
 	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	//setup proxy model
 	m_view->setModel(m_proxyModel);
+	connect(m_view->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), SLOT(handleSelectionChanged()));
 	m_proxyModel->setDynamicSortFilter(true);
 	m_proxyModel->sort(Qt::DisplayRole, Qt::AscendingOrder);
 	//TODO: save sorting role between sessions
@@ -72,9 +73,9 @@ void Palapeli::CollectionView::setModel(QAbstractItemModel* model)
 	m_proxyModel->setSourceModel(model);
 }
 
-QItemSelectionModel* Palapeli::CollectionView::selectionModel() const
+QModelIndexList Palapeli::CollectionView::selectedIndexes() const
 {
-	return m_view->selectionModel();
+	return m_view->selectionModel()->selectedIndexes();
 }
 
 //NOTE The QAbstractItemView::activated signal honors the mouseclick selection behavior defined by the user (e.g. one-click is default on Linux, while two-click is default on Windows).
@@ -86,6 +87,20 @@ void Palapeli::CollectionView::handleActivated(const QModelIndex& index)
 	//change selection to indicate that the given puzzle has been chosen
 	m_view->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
 	emit playRequest(Palapeli::Collection::instance()->puzzleFromIndex(index));
+}
+
+void Palapeli::CollectionView::handleSelectionChanged()
+{
+	const QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
+	const bool someSelection = !indexes.isEmpty();
+	emit canExportChanged(someSelection);
+	foreach (const QModelIndex& index, indexes)
+		if (!index.data(Palapeli::Collection::IsDeleteableRole).toBool())
+		{
+			emit canDeleteChanged(false);
+			return;
+		}
+	emit canDeleteChanged(someSelection);
 }
 
 void Palapeli::CollectionView::sortMenuTriggered(QAction* action)

@@ -21,9 +21,6 @@
 
 #include "tabwindow.h"
 
-class QModelIndex;
-class KAction;
-
 namespace Palapeli
 {
 	class CollectionView;
@@ -43,11 +40,8 @@ namespace Palapeli
 			void handleDeleteRequest();
 			void handleExportRequest();
 			void handleImportRequest();
-			void handleSelectionChanged();
 		private:
 			Palapeli::CollectionView* m_view;
-			KAction* m_exportAct;
-			KAction* m_deleteAct;
 	};
 }
 

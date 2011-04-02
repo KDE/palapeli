@@ -37,7 +37,6 @@ Palapeli::CollectionWidget::CollectionWidget()
 	//setup view
 	m_view->setModel(Palapeli::Collection::instance());
 	connect(m_view, SIGNAL(playRequest(Palapeli::Puzzle*)), this, SIGNAL(playRequest(Palapeli::Puzzle*)));
-	connect(m_view->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(handleSelectionChanged()));
 	//setup actions
 	KAction* createAct = new KAction(KIcon("tools-wizard"), i18n("Create &new puzzle..."), 0); //FIXME: This should be a custom "actions/puzzle-new" icon.
 	createAct->setShortcut(KStandardShortcut::openNew());
@@ -48,16 +47,18 @@ Palapeli::CollectionWidget::CollectionWidget()
 	importAct->setToolTip(i18n("Import a new puzzle from a file into your collection"));
 	actionCollection()->addAction("file_import", importAct);
 	connect(importAct, SIGNAL(triggered()), this, SLOT(handleImportRequest()));
-	m_exportAct = new KAction(KIcon("document-export"), i18n("&Export to file..."), 0);
-	m_exportAct->setEnabled(false); //will be enabled when something is selected
-	m_exportAct->setToolTip(i18n("Export the selected puzzle from your collection into a file"));
-	actionCollection()->addAction("file_export", m_exportAct);
-	connect(m_exportAct, SIGNAL(triggered()), this, SLOT(handleExportRequest()));
-	m_deleteAct = new KAction(KIcon("archive-remove"), i18n("&Delete"), 0);
-	m_deleteAct->setEnabled(false); //will be enabled when something is selected
-	m_deleteAct->setToolTip(i18n("Delete the selected puzzle from your collection"));
-	actionCollection()->addAction("file_delete", m_deleteAct);
-	connect(m_deleteAct, SIGNAL(triggered()), this, SLOT(handleDeleteRequest()));
+	KAction* exportAct = new KAction(KIcon("document-export"), i18n("&Export to file..."), 0);
+	exportAct->setEnabled(false); //will be enabled when something is selected
+	exportAct->setToolTip(i18n("Export the selected puzzle from your collection into a file"));
+	actionCollection()->addAction("file_export", exportAct);
+	connect(m_view, SIGNAL(canExportChanged(bool)), exportAct, SLOT(setEnabled(bool)));
+	connect(exportAct, SIGNAL(triggered()), this, SLOT(handleExportRequest()));
+	KAction* deleteAct = new KAction(KIcon("archive-remove"), i18n("&Delete"), 0);
+	deleteAct->setEnabled(false); //will be enabled when something is selected
+	deleteAct->setToolTip(i18n("Delete the selected puzzle from your collection"));
+	actionCollection()->addAction("file_delete", deleteAct);
+	connect(m_view, SIGNAL(canDeleteChanged(bool)), deleteAct, SLOT(setEnabled(bool)));
+	connect(deleteAct, SIGNAL(triggered()), this, SLOT(handleDeleteRequest()));
 	//setup GUI
 	setupGUI();
 	setCentralWidget(m_view);
@@ -72,14 +73,14 @@ void Palapeli::CollectionWidget::startPuzzle(const QString& path)
 
 void Palapeli::CollectionWidget::handleDeleteRequest()
 {
-	QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
+	QModelIndexList indexes = m_view->selectedIndexes();
 	foreach (const QModelIndex& index, indexes)
 		Palapeli::Collection::instance()->deletePuzzle(index);
 }
 
 void Palapeli::CollectionWidget::handleExportRequest()
 {
-	QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
+	QModelIndexList indexes = m_view->selectedIndexes();
 	Palapeli::Collection* coll = Palapeli::Collection::instance();
 	foreach (const QModelIndex& index, indexes)
 	{
@@ -109,20 +110,6 @@ void Palapeli::CollectionWidget::handleImportRequest()
 	Palapeli::Collection* coll = Palapeli::Collection::instance();
 	foreach (const QString& path, paths)
 		coll->importPuzzle(path);
-}
-
-void Palapeli::CollectionWidget::handleSelectionChanged()
-{
-	const QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
-	bool enableDeleteAct = !indexes.isEmpty();
-	foreach (const QModelIndex& index, indexes)
-		if (index.data(Palapeli::Collection::IsDeleteableRole) == QVariant(false))
-		{
-			enableDeleteAct = false;
-			break;
-		}
-	m_exportAct->setEnabled(!indexes.isEmpty());
-	m_deleteAct->setEnabled(enableDeleteAct);
 }
 
 #include "collectionwidget.moc"
