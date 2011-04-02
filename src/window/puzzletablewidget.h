@@ -19,7 +19,7 @@
 #ifndef PALAPELI_PUZZLETABLEWIDGET_H
 #define PALAPELI_PUZZLETABLEWIDGET_H
 
-#include "tabwindow.h"
+#include <QtGui/QWidget>
 
 class QStackedWidget;
 
@@ -30,7 +30,7 @@ namespace Palapeli
 	class View;
 	class ZoomWidget;
 
-	class PuzzleTableWidget : public Palapeli::TabWindow
+	class PuzzleTableWidget : public QWidget
 	{
 		Q_OBJECT
 		public:

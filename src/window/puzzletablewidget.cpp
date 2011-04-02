@@ -26,8 +26,6 @@
 #include <QGridLayout>
 #include <QProgressBar>
 #include <QStackedWidget>
-#include <KAction>
-#include <KActionCollection>
 #include <KLocalizedString>
 
 //BEGIN Palapeli::TextProgressBar
@@ -49,20 +47,13 @@ namespace Palapeli
 //END Palapeli::TextProgressBar
 
 Palapeli::PuzzleTableWidget::PuzzleTableWidget()
-	: Palapeli::TabWindow(QLatin1String("palapeli-puzzletable"))
-	, m_zoomAdjustable(true)
+	: m_zoomAdjustable(true)
 	, m_stack(new QStackedWidget)
 	, m_loadingWidget(new Palapeli::LoadingWidget)
 	, m_view(new Palapeli::View)
 	, m_progressBar(new Palapeli::TextProgressBar(this))
 	, m_zoomWidget(new Palapeli::ZoomWidget(this))
 {
-	//setup actions
-	KAction* restartPuzzleAct = new KAction(KIcon( QLatin1String( "view-refresh") ), i18n("&Restart puzzle..."), 0);
-	restartPuzzleAct->setToolTip(i18n("Delete the saved progress"));
-	actionCollection()->addAction("game_restart", restartPuzzleAct);
-	connect(restartPuzzleAct, SIGNAL(triggered()), m_view->scene(), SLOT(restartPuzzle()));
-	setupGUI();
 	//setup progress bar
 	m_progressBar->setText(i18n("No puzzle loaded"));
 	connect(m_view->scene(), SIGNAL(reportProgress(int, int)), this, SLOT(reportProgress(int, int)));
@@ -79,15 +70,12 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	m_stack->addWidget(m_view);
 	m_stack->setCurrentWidget(m_loadingWidget);
 	//setup layout
-	QWidget* container = new QWidget;
-	QGridLayout* layout = new QGridLayout;
+	QGridLayout* layout = new QGridLayout(this);
 	layout->addWidget(m_stack, 0, 0, 1, 2);
 	layout->addWidget(m_progressBar, 1, 0);
 	layout->addWidget(m_zoomWidget, 1, 1);
 	layout->setColumnStretch(0, 10);
 	layout->setMargin(0);
-	container->setLayout(layout);
-	setCentralWidget(container);
 }
 
 Palapeli::View* Palapeli::PuzzleTableWidget::view() const

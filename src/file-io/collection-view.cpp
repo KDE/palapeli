@@ -66,6 +66,7 @@ Palapeli::CollectionView::CollectionView(QWidget* parent)
 	layout->addWidget(sortButton, 0, 0);
 	layout->addWidget(searchLine, 0, 1);
 	layout->addWidget(m_view, 1, 0, 1, 2);
+	layout->setMargin(0);
 }
 
 void Palapeli::CollectionView::setModel(QAbstractItemModel* model)

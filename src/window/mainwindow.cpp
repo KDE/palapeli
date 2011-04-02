@@ -17,136 +17,132 @@
 ***************************************************************************/
 
 #include "mainwindow.h"
+#include "puzzletablewidget.h"
 #include "../config/configdialog.h"
 #include "../creator/puzzlecreator.h"
 #include "../engine/scene.h"
 #include "../engine/view.h"
 #include "../file-io/collection.h"
+#include "../file-io/collection-view.h"
 #include "../file-io/components.h"
 #include "../file-io/puzzle.h"
-#include "collectionwidget.h"
-#include "puzzletablewidget.h"
 #include "settings.h"
-#include "tabwindow.h"
 
-#include <QPointer>
-#include <QTabBar> //krazy:exclude=qclasses
-#include <KActionCollection>
-#include <KCmdLineArgs>
-#include <KLocalizedString>
-#include <KMenuBar>
-#include <KShortcutsDialog>
-#include <KStandardAction>
-#include <KTabWidget>
-#include <KToggleAction>
+#include <QtGui/QStackedWidget>
+#include <KDE/KAction>
+#include <KDE/KActionCollection>
+#include <KDE/KCmdLineArgs>
+#include <KDE/KFileDialog>
+#include <KDE/KLocalizedString>
+#include <KDE/KMessageBox>
+#include <KDE/KStandardAction>
+#include <KDE/KToggleAction>
 
-namespace Palapeli
-{
-	class KTabWidget : public ::KTabWidget
-	{
-		public:
-			QTabBar* tabBar() const { return ::KTabWidget::tabBar(); } //krazy:exclude=qclasses
-	};
-}
+//TODO: move LoadingWidget into here (stack into m_centralWidget)
 
 Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
-	: m_centralWidget(new Palapeli::KTabWidget)
-	, m_collectionWidget(new Palapeli::CollectionWidget)
+	: m_centralWidget(new QStackedWidget)
+	, m_collectionView(new Palapeli::CollectionView)
 	, m_puzzleTable(new Palapeli::PuzzleTableWidget)
 {
-	//create MainWindow-wide actions
-	KStandardAction::keyBindings(this, SLOT(configureShortcuts()), actionCollection());
-	KStandardAction::preferences(this, SLOT(configurePalapeli()), actionCollection());
-	KAction* statusBarAct = KStandardAction::showStatusbar(m_puzzleTable, SLOT(showStatusBar(bool)), actionCollection());
-	statusBarAct->setText(i18n("Show statusbar of puzzle table"));
-	//read settings
-	bool showStatusBar = Settings::showStatusBar();
-	statusBarAct->setChecked(showStatusBar);
-	m_puzzleTable->showStatusBar(showStatusBar);
-	//setup widgets
-	m_centralWidget->addTab(m_collectionWidget, i18n("My collection"));
-	m_centralWidget->addTab(m_puzzleTable, i18nc("General note to translators: There is an important distinction to make between \"puzzle table\" and \"puzzle table area\". The first one is the complete widget with zooming controls, progress bar and all, while the latter is that part of it where pieces can be moved.", "Puzzle table"));
-	m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_puzzleTable), false); //... until a puzzle has been loaded
-	m_centralWidget->setCurrentWidget(m_collectionWidget);
-	m_centralWidget->setDocumentMode(true);
-	connect(m_collectionWidget, SIGNAL(createRequest()), this, SLOT(createPuzzle()));
-	connect(m_collectionWidget, SIGNAL(playRequest(Palapeli::Puzzle*)), this, SLOT(loadPuzzle(Palapeli::Puzzle*)));
-	//setup main window
-	setCentralWidget(m_centralWidget);
+	setupActions();
+	//setup GUI
 	KXmlGuiWindow::StandardWindowOptions guiOptions = KXmlGuiWindow::Default;
-	guiOptions &= ~KXmlGuiWindow::StatusBar; //do not create a statusbar for the mainwindow
-	guiOptions &= ~KXmlGuiWindow::Keys;      //Palapeli has its own shortcuts dialog
-	guiOptions &= ~KXmlGuiWindow::ToolBar;   //I haven't yet found a way for KEditToolBar dialogs to work
+	guiOptions &= ~KXmlGuiWindow::StatusBar; //no statusbar
 	setupGUI(QSize(500, 500), guiOptions);
-	//move the menubar inside the tabbar (to make the tabs feel like menus) - Unfortunately, we can't use QTabWidget::setCornerWidget because this would move the menubar to the right end of the window, while I want the menubar right next to the tabs. We therefore have to do our own layouting (and remove the menubar from the window's layout with reparenting)
-	m_menuBar = menuBar();
-	if (!m_menuBar->isNativeMenuBar()) {
-		m_menuBar->QWidget::setParent(0);
-		m_menuBar->QWidget::setParent(this);
-		m_menuBar->raise();
-		doMenuLayout();
-	}
+	//setup collection view
+	m_collectionView->setModel(Palapeli::Collection::instance());
+	connect(m_collectionView, SIGNAL(playRequest(Palapeli::Puzzle*)), SLOT(playPuzzle(Palapeli::Puzzle*)));
+	//setup puzzle table
+	m_puzzleTable->showStatusBar(Settings::showStatusBar());
+	//setup central widget
+	m_centralWidget->addWidget(m_collectionView);
+	m_centralWidget->addWidget(m_puzzleTable);
+	m_centralWidget->setCurrentWidget(m_collectionView);
+	setCentralWidget(m_centralWidget);
 	//start a puzzle if a puzzle URL has been given
-	if (args->count() > 0)
+	if (args->count() != 0)
 	{
-		m_collectionWidget->startPuzzle(args->arg(0));
-		m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_collectionWidget), false);
-		m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_puzzleTable), true);
-		m_centralWidget->setCurrentWidget(m_puzzleTable);
+		const QString path = args->arg(0);
+		const QString id = Palapeli::Puzzle::fsIdentifier(path);
+		playPuzzle(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent, path, id));
 	}
 	args->clear();
 }
 
-void Palapeli::MainWindow::doMenuLayout()
+void Palapeli::MainWindow::setupActions()
 {
-	if (m_menuBar->isNativeMenuBar()) {
+	//standard stuff
+	KStandardAction::preferences(this, SLOT(configure()), actionCollection());
+	KAction* statusBarAct = KStandardAction::showStatusbar(m_puzzleTable, SLOT(showStatusBar(bool)), actionCollection());
+	statusBarAct->setChecked(Settings::showStatusBar());
+	statusBarAct->setText(i18n("Show statusbar of puzzle table"));
+	//Back to collection
+	KAction* goCollAct = new KAction(KIcon("go-previous"), i18n("Back to &collection"), 0);
+	goCollAct->setToolTip(i18n("Go back to the collection to choose another puzzle"));
+	goCollAct->setEnabled(false); //because the collection is initially shown
+	actionCollection()->addAction("go_collection", goCollAct);
+	connect(goCollAct, SIGNAL(triggered()), SLOT(actionGoCollection()));
+	//Create new puzzle (FIXME: action should have a custom icon)
+	KAction* createAct = new KAction(KIcon("tools-wizard"), i18n("Create &new puzzle..."), 0);
+	createAct->setShortcut(KStandardShortcut::openNew());
+	createAct->setToolTip(i18n("Create a new puzzle using an image file from your disk"));
+	actionCollection()->addAction("file_new", createAct);
+	connect(createAct, SIGNAL(triggered()), SLOT(actionCreate()));
+	//Delete
+	KAction* deleteAct = new KAction(KIcon("archive-remove"), i18n("&Delete"), 0);
+	deleteAct->setEnabled(false); //will be enabled when something is selected
+	deleteAct->setToolTip(i18n("Delete the selected puzzle from your collection"));
+	actionCollection()->addAction("file_delete", deleteAct);
+	connect(m_collectionView, SIGNAL(canDeleteChanged(bool)), deleteAct, SLOT(setEnabled(bool)));
+	connect(deleteAct, SIGNAL(triggered()), SLOT(actionDelete()));
+	//Import from file...
+	KAction* importAct = new KAction(KIcon("document-import"), i18n("&Import from file..."), 0);
+	importAct->setToolTip(i18n("Import a new puzzle from a file into your collection"));
+	actionCollection()->addAction("file_import", importAct);
+	connect(importAct, SIGNAL(triggered()), this, SLOT(actionImport()));
+	//Export to file...
+	KAction* exportAct = new KAction(KIcon("document-export"), i18n("&Export to file..."), 0);
+	exportAct->setEnabled(false); //will be enabled when something is selected
+	exportAct->setToolTip(i18n("Export the selected puzzle from your collection into a file"));
+	actionCollection()->addAction("file_export", exportAct);
+	connect(m_collectionView, SIGNAL(canExportChanged(bool)), exportAct, SLOT(setEnabled(bool)));
+	connect(exportAct, SIGNAL(triggered()), this, SLOT(actionExport()));
+	//Restart puzzle (TODO: placed here only temporarily)
+	KAction* restartPuzzleAct = new KAction(KIcon("view-refresh"), i18n("&Restart puzzle..."), 0);
+	restartPuzzleAct->setToolTip(i18n("Delete the saved progress"));
+	actionCollection()->addAction("game_restart", restartPuzzleAct);
+	connect(restartPuzzleAct, SIGNAL(triggered()), m_puzzleTable->view()->scene(), SLOT(restartPuzzle()));
+}
+
+//BEGIN action handlers
+
+void Palapeli::MainWindow::configure()
+{
+	Palapeli::ConfigDialog().exec();
+}
+
+void Palapeli::MainWindow::playPuzzle(Palapeli::Puzzle* puzzle)
+{
+	if (!puzzle)
 		return;
-	}
-	//determine geometry of menubar...
-	QRect rect = this->rect();
-	const QSize tabBarSize = m_centralWidget->tabBar()->sizeHint();
-	const QSize menuBarSize = m_menuBar->sizeHint();
-	setMinimumWidth(tabBarSize.width());
-	//...in X direction
-	if (QApplication::isLeftToRight())
-		rect.setLeft(tabBarSize.width());
-	else
-		rect.setRight(rect.width() - tabBarSize.width());
-	//...in Y direction
-	const int height = menuBarSize.height();
-	const int maxHeight = tabBarSize.height() - style()->pixelMetric(QStyle::PM_TabBarBaseHeight, 0, this);
-	const int yPos = (maxHeight - height) / 2; //vertical alignment on tab bar
-	rect.setHeight(height);
-	rect.moveTop(qMax(yPos, 0)); //do not allow yPos < 0!
-	//done
-	m_menuBar->setGeometry(rect);
+	m_puzzleTable->view()->scene()->loadPuzzle(puzzle);
+	m_centralWidget->setCurrentWidget(m_puzzleTable);
+	actionCollection()->action("go_collection")->setEnabled(true);
+	//load caption from metadata
+	puzzle->get(Palapeli::PuzzleComponent::Metadata).waitForFinished();
+	const Palapeli::MetadataComponent* cmp = puzzle->component<Palapeli::MetadataComponent>();
+	setCaption(cmp ? cmp->metadata.name : QString());
 }
 
-void Palapeli::MainWindow::changeEvent(QEvent* event)
+void Palapeli::MainWindow::actionGoCollection()
 {
-	KXmlGuiWindow::changeEvent(event);
-	switch (event->type())
-	{
-		case QEvent::FontChange:
-		case QEvent::LanguageChange:
-		case QEvent::LayoutDirectionChange:
-		case QEvent::LocaleChange:
-		case QEvent::StyleChange:
-			//relayout the menu whenever the tabbar size may have changed
-			doMenuLayout();
-			break;
-		default:
-			break;
-	}
+	m_centralWidget->setCurrentWidget(m_collectionView);
+	actionCollection()->action("go_collection")->setEnabled(false);
+	setCaption(QString());
 }
 
-void Palapeli::MainWindow::resizeEvent(QResizeEvent* event)
-{
-	KXmlGuiWindow::resizeEvent(event);
-	doMenuLayout();
-}
-
-void Palapeli::MainWindow::createPuzzle()
+void Palapeli::MainWindow::actionCreate()
 {
 	QPointer<Palapeli::PuzzleCreatorDialog> creatorDialog(new Palapeli::PuzzleCreatorDialog);
 	if (creatorDialog->exec())
@@ -159,37 +155,61 @@ void Palapeli::MainWindow::createPuzzle()
 			return;
 		}
 		Palapeli::Collection::instance()->importPuzzle(puzzle);
-		loadPuzzle(puzzle);
+		playPuzzle(puzzle);
 	}
 	delete creatorDialog;
 }
 
-void Palapeli::MainWindow::loadPuzzle(Palapeli::Puzzle* puzzle)
+void Palapeli::MainWindow::actionDelete()
 {
-	if (!puzzle)
+	QModelIndexList indexes = m_collectionView->selectedIndexes();
+	//ask user for confirmation
+	QStringList puzzleNames;
+	foreach (const QModelIndex& index, indexes)
+		puzzleNames << index.data(Qt::DisplayRole).toString();
+	const int result = KMessageBox::warningContinueCancelList(this, i18n("The following puzzles will be deleted. This action cannot be undone."), puzzleNames);
+	if (result != KMessageBox::Continue)
 		return;
-	m_puzzleTable->view()->scene()->loadPuzzle(puzzle);
-	m_centralWidget->setTabEnabled(m_centralWidget->indexOf(m_puzzleTable), true);
-	m_centralWidget->setCurrentWidget(m_puzzleTable);
-	//load caption from metadata
-	puzzle->get(Palapeli::PuzzleComponent::Metadata).waitForFinished();
-	const Palapeli::MetadataComponent* cmp = puzzle->component<Palapeli::MetadataComponent>();
-	setCaption(cmp ? cmp->metadata.name : QString());
+	//do deletion
+	Palapeli::Collection* coll = Palapeli::Collection::instance();
+	foreach (const QModelIndex& index, indexes)
+		coll->deletePuzzle(index);
 }
 
-void Palapeli::MainWindow::configureShortcuts()
+void Palapeli::MainWindow::actionImport()
 {
-	KShortcutsDialog dlg(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, this);
-	dlg.addCollection(m_collectionWidget->actionCollection());
-	dlg.addCollection(m_puzzleTable->actionCollection());
-	dlg.configure(true);
+	const QString filter = i18nc("Filter for a file dialog", "*.puzzle|Palapeli puzzles (*.puzzle)");
+	const QStringList paths = KFileDialog::getOpenFileNames(KUrl("kfiledialog:///palapeli-import"), filter);
+	Palapeli::Collection* coll = Palapeli::Collection::instance();
+	foreach (const QString& path, paths)
+		coll->importPuzzle(path);
 }
 
-//TODO: Palapeli::MainWindow::configureToolbars
-
-void Palapeli::MainWindow::configurePalapeli()
+void Palapeli::MainWindow::actionExport()
 {
-	Palapeli::ConfigDialog().exec();
+	QModelIndexList indexes = m_collectionView->selectedIndexes();
+	Palapeli::Collection* coll = Palapeli::Collection::instance();
+	foreach (const QModelIndex& index, indexes)
+	{
+		Palapeli::Puzzle* puzzle = coll->puzzleFromIndex(index);
+		if (!puzzle)
+			continue;
+		//get puzzle name (as an initial guess for the file name)
+		puzzle->get(Palapeli::PuzzleComponent::Metadata).waitForFinished();
+		const Palapeli::MetadataComponent* cmp = puzzle->component<Palapeli::MetadataComponent>();
+		if (!cmp)
+			continue;
+		//ask user for target file name
+		const QString startLoc = QString::fromLatin1("kfiledialog:///palapeli-export/%1.puzzle").arg(cmp->metadata.name);
+		const QString filter = i18nc("Filter for a file dialog", "*.puzzle|Palapeli puzzles (*.puzzle)");
+		const QString location = KFileDialog::getSaveFileName(KUrl(startLoc), filter);
+		if (location.isEmpty())
+			continue; //process aborted by user
+		//do export
+		coll->exportPuzzle(index, location);
+	}
 }
+
+//END action handlers
 
 #include "mainwindow.moc"

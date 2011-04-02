@@ -44,6 +44,7 @@ Palapeli::Collection::Item::Item(Palapeli::Puzzle* puzzle)
 	setData(id, Palapeli::Collection::IdentifierRole);
 	setData(id.startsWith(QChar('{')), Palapeli::Collection::IsDeleteableRole);
 	setData(i18n("Loading puzzle..."), Qt::DisplayRole);
+	setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 	//request metadata
 	Palapeli::FutureWatcher* watcher = new Palapeli::FutureWatcher;
 	connect(watcher, SIGNAL(finished()), SLOT(populate()));

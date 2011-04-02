@@ -19,16 +19,15 @@
 #ifndef PALAPELI_MAINWINDOW_H
 #define PALAPELI_MAINWINDOW_H
 
-class QModelIndex;
+class QStackedWidget;
 class KCmdLineArgs;
-#include <KXmlGuiWindow>
+#include <KDE/KXmlGuiWindow>
 
 namespace Palapeli
 {
-	class KTabWidget; //needs to be subclasses for public access to QTabBar
-	class CollectionWidget;
-	class PuzzleTableWidget;
+	class CollectionView;
 	class Puzzle;
+	class PuzzleTableWidget;
 
 	class MainWindow : public KXmlGuiWindow
 	{
@@ -36,20 +35,18 @@ namespace Palapeli
 		public:
 			MainWindow(KCmdLineArgs* args);
 		public Q_SLOTS:
-			void createPuzzle();
-			void loadPuzzle(Palapeli::Puzzle* puzzle);
-			void configureShortcuts();
-			void configurePalapeli();
-		Q_SIGNALS:
-			void configure_ColorEnabledChanged(bool enabled);
-		protected:
-			virtual void changeEvent(QEvent* event);
-			virtual void resizeEvent(QResizeEvent* event);
-			void doMenuLayout();
+			void configure();
+			void playPuzzle(Palapeli::Puzzle* puzzle);
+			void actionGoCollection();
+			void actionCreate();
+			void actionDelete();
+			void actionImport();
+			void actionExport();
 		private:
-			KMenuBar* m_menuBar;
-			Palapeli::KTabWidget* m_centralWidget;
-			Palapeli::CollectionWidget* m_collectionWidget;
+			void setupActions();
+
+			QStackedWidget* m_centralWidget;
+			Palapeli::CollectionView* m_collectionView;
 			Palapeli::PuzzleTableWidget* m_puzzleTable;
 	};
 }

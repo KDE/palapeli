@@ -37,11 +37,9 @@ set(palapeli_SRCS
 	file-io/puzzle.cpp
 	importhelper.cpp
 	main.cpp
-	window/collectionwidget.cpp
 	window/loadingwidget.cpp
 	window/mainwindow.cpp
 	window/puzzletablewidget.cpp
-	window/tabwindow.cpp
 )
 kde4_add_kcfg_files(palapeli_SRCS settings.kcfgc)
 kde4_add_ui_files(palapeli_SRCS settings.ui)
@@ -51,8 +49,7 @@ kde4_add_executable(palapeli ${palapeli_SRCS})
 target_link_libraries(palapeli pala ${KDE4_KFILE_LIBS})
 
 install(TARGETS palapeli ${INSTALL_TARGETS_DEFAULT_ARGS})
-install(FILES palapeli.kcfg palapeli.notifyrc
-              palapeliui.rc palapeli-collectionui.rc palapeli-puzzletableui.rc
+install(FILES palapeli.kcfg palapeli.notifyrc palapeliui.rc
         DESTINATION ${DATA_INSTALL_DIR}/palapeli)
 install(PROGRAMS palapeli.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 add_subdirectory(pics)

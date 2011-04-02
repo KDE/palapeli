@@ -3,5 +3,28 @@
 	xmlns="http://www.kde.org/standards/kxmlgui/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0 http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd">
-	<MenuBar/>
+	<MenuBar>
+		<Menu name="file">
+			<Action name="file_new"/>
+			<Action name="file_import"/>
+			<Separator/>
+			<Action name="file_export"/>
+			<Action name="file_delete"/>
+		</Menu>
+		<Menu name="game">
+			<Action name="go_collection"/>
+			<Separator/>
+			<Action name="game_restart"/>
+		</Menu>
+	</MenuBar>
+	<ToolBar name="mainToolBar">
+		<text>Main toolbar</text>
+		<Action name="file_new"/>
+		<Action name="file_delete"/>
+		<Separator/>
+		<Action name="file_import"/>
+		<Action name="file_export"/>
+		<Separator/>
+		<Action name="go_collection"/>
+	</ToolBar>
 </gui>
