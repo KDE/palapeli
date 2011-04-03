@@ -44,9 +44,18 @@ X-KDE-PluginInfo-License=Public Domain
 
 [Job]
 Image=citrus-fruits.jpg
-Slicer=palapeli_jigsawslicer
-PieceCount=42
-PieceAspect=6
+Slicer=palapeli_goldbergslicer
+SlicerMode=preset
+020_PieceCount=42
+025_QuickPreset=Ordinary
+030_FlipThreshold=10
+040_EdgeCurviness=-50
+050_PlugSize=0
+055_SigmaCurviness=50
+056_SigmaBasepos=35
+057_SigmaPlugs=50
+058_IrrPieceSizeDiversity=15
+070_DumpGrid=false
 
 [Collection]
 ModifyProtection=true
