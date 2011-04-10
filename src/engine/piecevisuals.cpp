@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright 2009, 2010 Stefan Majewsky <majewsky@gmx.net>
+ *   Copyright 2009, 2010, 2011 Stefan Majewsky <majewsky@gmx.net>
  *   Copyright 2010 Johannes Löhnert <loehnert.kde@gmx.de>
  *
  *   This program is free software; you can redistribute it and/or
@@ -18,6 +18,7 @@
 ***************************************************************************/
 
 #include "piecevisuals.h"
+#include "mathtricks.h"
 
 #include <cmath>
 #include <QDebug>
@@ -126,11 +127,10 @@ Palapeli::BevelMap Palapeli::calculateBevelMap(const QImage& source, int radius)
 	{
 		for (int n_yf = 0; n_yf < radius; ++n_yf, ++n_fIndex)
 		{
-			qreal xfold = n_xf + 0.5;
-			qreal yfold = n_yf + 0.5;
-			qreal len = xfold*xfold + yfold*yfold;
-			if (len > radius*radius) continue;
-			len = qSqrt(len);
+			const qreal xfold = n_xf + 0.5;
+			const qreal yfold = n_yf + 0.5;
+			const qreal len = Palapeli::fastnorm(xfold, yfold);
+			if (len > radius) continue;
 			// 3/pi/radius: normalization so that sum over all elements is (roughly) 1/r
 			// (1 - len/radius)^2 : actual blur falloff function
 			qreal t = (1 - len/radius);
@@ -175,10 +175,9 @@ Palapeli::BevelMap Palapeli::calculateBevelMap(const QImage& source, int radius)
 			// find difference
 			const int dx = (a2 + a4) - (a1 + a3);
 			const int dy = (a3 + a4) - (a1 + a2);
-			int diff = dx * dx + dy * dy;
-			if (diff == 0)
+			if (dx == 0 && dy == 0)
 				continue;
-			diff = qSqrt(diff);
+			const int diff = Palapeli::fastnorm(dx, dy);
 
 			// iterate over the folding kernel_bevel
 			for (int n_xf = 0, n_fIndex = 0; n_xf < radius; ++n_xf)
@@ -221,12 +220,15 @@ Palapeli::BevelMap Palapeli::calculateBevelMap(const QImage& source, int radius)
 		{
 			const QRgb srccolor = scanLinePointers[y][x];
 			if (qAlpha(srccolor) == 0)
+			{
 				vmap[idx] = QPointF(0.0, 0.0);
-
-			QLineF l(QPointF(0.0, 0.0), vmap[idx]);
-			strength = l.length() * strength_scale;
-			if (strength>255) strength=255;
-
+				strength = 0;
+			}
+			else
+			{
+				strength = Palapeli::fastnorm(vmap[idx]) * strength_scale;
+				if (strength>255) strength=255;
+			}
 			if (strength>0) {
 				if (last_nonzero < idx-1)
 				{
@@ -236,7 +238,8 @@ Palapeli::BevelMap Palapeli::calculateBevelMap(const QImage& source, int radius)
 				}
 				last_nonzero = idx;
 				result[idx].strength = strength;
-				result[idx].angle = int(l.angle() * 256 / 360 + 256) % 256;
+				const qreal angle = qAtan2(-vmap[idx].y(), vmap[idx].x());
+				result[idx].angle = int(angle * 256 / (2 * M_PI) + 512) % 256;
 				QColor color = QColor::fromRgba(srccolor);
 				if (darkening[idx] > 0) color = color.darker(100 + darkening[idx]*outline_darken_scale);
 				result[idx].orig_argb = color.rgba();
@@ -275,13 +278,9 @@ QImage Palapeli::applyBevelMap(const QImage &source, const Palapeli::BevelMap& b
 	// convert into 256-unit circle
 	angle = (lighting_angle - angle) * 256 / 360;
 
-	int scanLineY = -1;
-	QRgb* scanLine = 0;
+	QRgb* data = (QRgb*) result.bits();
 	for (int idx = 0; idx < size; ++idx)
 	{
-		const int x = idx % width, y = idx / width;
-		if (scanLineY != y)
-			scanLine = (QRgb*) result.scanLine(y);
 		const Palapeli::BevelPoint bevelpoint = bevelmap[idx];
 		if (bevelpoint.strength == 0)
 		{
@@ -289,31 +288,14 @@ QImage Palapeli::applyBevelMap(const QImage &source, const Palapeli::BevelMap& b
 			idx += int(bevelpoint.orig_argb) - 1;
 			continue;
 		}
-		const int strength = bevelpoint.strength;
-		int adiff = bevelpoint.angle - angle;
-		// project adiff into [0, 255]
-		adiff = adiff & 0xff;
-
-		// cosine-like function: concatenation of
-		// parabolas, which looks almost the same
-		// and is faster to calculate
-		// 128 = 180°, 255 = 359°, 90 = 64°
-		// project adiff into [-64, 63]
-		if (adiff >= 128)
-			adiff = 255 - adiff;
-		if (adiff >= 64)
-		{
-			// adiff<0 will be the signal to signal lighten instead of darken
-			adiff = adiff-128;
-		}
-		const qreal effect = strength * (1.0 - (adiff*adiff) / (64.0*64.0));
 
 		QColor newcolor = QColor::fromRgba(bevelpoint.orig_argb);
-		if (adiff<0)
-			newcolor = newcolor.lighter(100 + effect);
+		const int effect = bevelpoint.strength * Palapeli::hexcos(bevelpoint.angle - angle);
+		if (effect < 0)
+			newcolor = newcolor.lighter(100 - effect);
 		else
 			newcolor = newcolor.darker(100 + effect);
-		scanLine[x] = newcolor.rgba();
+		data[idx] = newcolor.rgba();
 	}
 	return result;
 }
