@@ -3,6 +3,7 @@ Type=ServiceType
 X-KDE-ServiceType=Libpala/SlicerPlugin
 X-KDE-Derived=
 Comment=Slicer plugin for libpala, the base library of Palapeli
+Comment[bs]=Dodatak pločica za libpala, baza biblioteke Palapeli
 Comment[ca]=Connector tallador per libpala, la biblioteca base del Palapeli
 Comment[ca@valencia]=Connector tallador per libpala, la biblioteca base del Palapeli
 Comment[da]=Slicer-plugin til libpala, Palapelis basisbibliotek

@@ -2,6 +2,7 @@
 Encoding=UTF-8
 Type=Service
 Name=Palapeli puzzles
+Name[bs]=Palapeli slagalice
 Name[ca]=Trencaclosques Palapeli
 Name[ca@valencia]=Trencaclosques Palapeli
 Name[da]=Palapeli-puslespil
