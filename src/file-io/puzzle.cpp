@@ -117,9 +117,8 @@ QFuture<const Palapeli::PuzzleComponent*> Palapeli::Puzzle::get(Palapeli::Puzzle
 {
 	QFuture<const Palapeli::PuzzleComponent*> future;
 	future = QtConcurrent::run(d, &Palapeli::Puzzle::Private::get, type);
-	//m_allFutures is used to wait for all running casts to be finished
-	//in the dtor
-	d->m_allFutures.waitForFinished();
+	//m_allFutures is used to wait for all running casts to be finished in dtor
+	d->m_allFutures.addFuture(future);
 	return future;
 }
 
