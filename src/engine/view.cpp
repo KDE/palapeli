@@ -36,6 +36,7 @@ Palapeli::View::View()
 	, m_scene(0)
 	, m_zoomLevel(100)
 {
+	setFrameStyle(QFrame::NoFrame);
 	setMouseTracking(true);
 	setResizeAnchor(QGraphicsView::AnchorUnderMouse);
 	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
