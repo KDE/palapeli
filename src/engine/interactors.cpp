@@ -108,7 +108,9 @@ void Palapeli::MovePieceInteractor::pieceReplacedBy(Palapeli::Piece* replacement
 {
 	//This slot is triggered when a MergeGroup replaces one of the m_currentPieces by a new piece.
 	//remove old piece from data structures
-	int index = m_currentPieces.indexOf(reinterpret_cast<Palapeli::Piece*>(sender()));
+	int index = m_currentPieces.indexOf(qobject_cast<Palapeli::Piece*>(sender()));
+	if (index == -1) //do nothing if sender is not a current piece
+		return;
 	m_currentPieces.removeAt(index);
 	m_basePositions.removeAt(index);
 	//add new piece (might not always be necessary, if the new piece replaces more than one of the selected pieces)

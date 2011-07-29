@@ -200,7 +200,7 @@ void Palapeli::Piece::rewriteLogicalNeighbors(const QList<Palapeli::Piece*>& old
 void Palapeli::Piece::announceReplaced(Palapeli::Piece* replacement)
 {
 	emit replacedBy(replacement);
-	delete this;
+	deleteLater();
 }
 
 void Palapeli::Piece::addAtomicSize(const QSize& size)

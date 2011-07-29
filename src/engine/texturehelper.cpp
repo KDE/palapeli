@@ -121,7 +121,8 @@ void Palapeli::TextureHelper::addScene(QGraphicsScene* scene)
 
 void Palapeli::TextureHelper::removeScene(QObject* scene)
 {
-	m_scenes.removeAll(reinterpret_cast<QGraphicsScene*>(scene));
+	//called by scene->QObject::destroyed signal, so qobject_cast won't work anymore
+	m_scenes.removeAll(static_cast<QGraphicsScene*>(scene));
 }
 
 #include "texturehelper.moc"
