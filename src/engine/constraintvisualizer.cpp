@@ -58,7 +58,7 @@ Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)
 	//scene rect. If the connection was direct, we could thus enter an infinite
 	//loop when the constraint visualizer enlarges itself in reaction to the
 	//changed sceneRect, thereby changing the autogrowing sceneRect again.
-	connect(scene, SIGNAL(sceneRectChanged(const QRectF&)), this, SLOT(update(const QRectF&)), Qt::QueuedConnection);
+	connect(scene, SIGNAL(sceneRectChanged(QRectF)), this, SLOT(update(QRectF)), Qt::QueuedConnection);
 }
 
 bool Palapeli::ConstraintVisualizer::isActive() const

@@ -37,13 +37,13 @@ Palapeli::CollectionView::CollectionView(QWidget* parent)
 	, m_proxyModel(new QSortFilterProxyModel(this))
 {
 	//setup view
-	connect(m_view, SIGNAL(activated(const QModelIndex&)), this, SLOT(handleActivated(const QModelIndex&)));
+	connect(m_view, SIGNAL(activated(QModelIndex)), this, SLOT(handleActivated(QModelIndex)));
 	m_view->setAlternatingRowColors(true);
 	m_view->setMouseTracking(true);
 	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	//setup proxy model
 	m_view->setModel(m_proxyModel);
-	connect(m_view->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), SLOT(handleSelectionChanged()));
+	connect(m_view->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), SLOT(handleSelectionChanged()));
 	m_proxyModel->setDynamicSortFilter(true);
 	m_proxyModel->sort(Qt::DisplayRole, Qt::AscendingOrder);
 	//TODO: save sorting role between sessions
