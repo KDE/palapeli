@@ -38,9 +38,6 @@ int main(int argc, char** argv)
 	options.add("", ki18n("If the -i/--import option is specified, the main window will not be shown after importing the given puzzle."));
 	KCmdLineArgs::addCmdLineOptions(options);
 
-#ifdef Q_WS_X11
-	QApplication::setGraphicsSystem("raster");
-#endif
 	KApplication app;
 
 	KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
