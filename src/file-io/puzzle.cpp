@@ -67,6 +67,7 @@ struct Component
 struct Palapeli::Puzzle::Private
 {
 	Palapeli::Puzzle* q;
+	QMutex m_allFuturesMutex; //controls access to m_allFutures
 	QFutureSynchronizer<void> m_allFutures;
 	QMutex m_hashMutex; //controls access to m_components
 	QHash<Palapeli::PuzzleComponent::Type, Component*> m_components;
@@ -118,7 +119,9 @@ QFuture<const Palapeli::PuzzleComponent*> Palapeli::Puzzle::get(Palapeli::Puzzle
 	QFuture<const Palapeli::PuzzleComponent*> future;
 	future = QtConcurrent::run(d, &Palapeli::Puzzle::Private::get, type);
 	//m_allFutures is used to wait for all running casts to be finished in dtor
+	d->m_allFuturesMutex.lock();
 	d->m_allFutures.addFuture(future);
+	d->m_allFuturesMutex.unlock();
 	return future;
 }
 
