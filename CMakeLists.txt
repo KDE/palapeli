@@ -1,15 +1,15 @@
 project(palapeli)
-cmake_minimum_required(VERSION 2.6)
 
-# allow standalone build of Palapeli (outside kdegames, e.g. in work branches)
-if (NOT KDE4_FOUND)
-  find_package(Qt4 4.6.0 REQUIRED)
-  find_package(KDE4 REQUIRED)
+if(NOT COMPILING_KDEGAMES)
+	find_package(KDE4 REQUIRED)
+	include(KDE4Defaults)
+	include(MacroLibrary)
+	find_package(KDEGames REQUIRED)
 
-  include_directories(${KDE4_INCLUDES})
-
-  include(KDE4Defaults)
-endif (NOT KDE4_FOUND)
+	add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
+	add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+	include_directories(${QDBUS_INCLUDE_DIRS} ${KDE4_INCLUDES} ${KDEGAMES_INCLUDE_DIRS})
+endif(NOT COMPILING_KDEGAMES)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/libpala)
 
