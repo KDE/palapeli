@@ -1,6 +1,10 @@
 [Desktop Entry]
 Name=Roebling Suspension Bridge
+Name[uk]=Підвісний міст Реблінґа
+Name[x-test]=xxRoebling Suspension Bridgexx
 Comment=in Cincinnati
+Comment[uk]=у Цинциннаті
+Comment[x-test]=xxin Cincinnatixx
 Icon=cincinnati-bridge.jpg
 Type=X-Palapeli-Puzzle
 

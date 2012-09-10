@@ -1,6 +1,10 @@
 [Desktop Entry]
 Name=Furcifer pardalis
+Name[uk]=Самиця барса
+Name[x-test]=xxFurcifer pardalisxx
 Comment=Female panther chameleon
+Comment[uk]=Самиця п’ятнистого хамелеона
+Comment[x-test]=xxFemale panther chameleonxx
 Type=X-Palapeli-Puzzle
 
 X-KDE-PluginInfo-Author=B. Navez and others

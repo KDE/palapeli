@@ -2,7 +2,11 @@
 Type=Application
 Exec=palapeli
 Name=Palapeli
+Name[uk]=Palapeli
+Name[x-test]=xxPalapelixx
 GenericName=Jigsaw puzzle game
+GenericName[uk]=Гра у складанку
+GenericName[x-test]=xxJigsaw puzzle gamexx
 Terminal=false
 Icon=palapeli
 X-KDE-StartupNotify=true

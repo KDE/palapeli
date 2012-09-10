@@ -13,4 +13,6 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 Name=Classic jigsaw pieces
+Name[uk]=Шматочки класичної форми
+Name[x-test]=xxClassic jigsaw piecesxx
 Comment=

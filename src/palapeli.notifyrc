@@ -1,12 +1,20 @@
 [Global]
 Comment=Palapeli Jigsaw Puzzle
+Comment[uk]=Гра у складанку Palapeli
+Comment[x-test]=xxPalapeli Jigsaw Puzzlexx
 IconName=palapeli
 
 [Context/filemanagement]
 Name=File management operations
+Name[uk]=Дії з керування файлами
+Name[x-test]=xxFile management operationsxx
 
 [Event/importingPuzzle]
 Name=Importing puzzle
+Name[uk]=Імпортування складанки
+Name[x-test]=xxImporting puzzlexx
 Comment=A puzzle is being imported into the local puzzle collection
+Comment[uk]=Імпортування складанки до локальної збірки складанок
+Comment[x-test]=xxA puzzle is being imported into the local puzzle collectionxx
 Action=Popup
 Contexts=filemanagement
