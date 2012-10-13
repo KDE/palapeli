@@ -9,7 +9,7 @@
 ]>
 
 <book id="palapeli" lang="&language;">
-	<book id="palapeli"info>
+	<bookinfo>
 		<title>The &palapeli; Handbook</title>
 		<authorgroup>
 			<author>
