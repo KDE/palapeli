@@ -135,7 +135,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	creationContext.comment = m_commentEdit->text();
 	creationContext.author = m_authorEdit->text();
 	creationContext.pieceCount = job.pieces().count();
-	creationContext.image = image;
+	creationContext.image = image.convertToFormat(image.hasAlphaChannel() ? QImage::Format_ARGB32 : QImage::Format_RGB32);
 	creationContext.thumbnail = image.scaled(Palapeli::PuzzleMetadata::ThumbnailBaseSize, Qt::KeepAspectRatio);
 	creationContext.modifyProtection = false; //only enabled for default puzzles
 	creationContext.slicer = selection.slicerPluginName;
