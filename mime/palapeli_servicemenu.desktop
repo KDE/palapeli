@@ -9,7 +9,6 @@ X-KDE-ServiceTypes=KonqPopupMenu/Plugin,application/x-palapeli-puzzle
 Exec=palapeli --import %U
 Icon=palapeli
 Name=Import into your Palapeli puzzle collection
-Name[bs]=Unesi u svoju Palapeli kolekciju slagalica
 Name[ca]=Importació en la vostra col·lecció de trencaclosques del Palapeli
 Name[ca@valencia]=Importació en la vostra col·lecció de trencaclosques del Palapeli
 Name[da]=Importér til din samling af Palapeli-puslespil
