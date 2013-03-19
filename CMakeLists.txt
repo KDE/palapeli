@@ -20,3 +20,5 @@ add_subdirectory(src)
 add_subdirectory(mime)
 add_subdirectory(puzzles)
 add_subdirectory(doc)
+
+macro_display_feature_log()
