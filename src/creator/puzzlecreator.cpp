@@ -122,6 +122,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 		KMessageBox::sorry(this, i18n("Puzzle cannot be created: The file you selected is not an image."));
 		return;
 	}
+	image = image.convertToFormat(image.hasAlphaChannel() ? QImage::Format_ARGB32 : QImage::Format_RGB32);
 	Pala::SlicerJob job(image, slicerArgs);
 	job.setMode(selection.mode);
 	if (!const_cast<Pala::Slicer*>(slicer)->process(&job)) //BIC: make Pala::Slicer::process() and run() const
@@ -135,7 +136,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	creationContext.comment = m_commentEdit->text();
 	creationContext.author = m_authorEdit->text();
 	creationContext.pieceCount = job.pieces().count();
-	creationContext.image = image.convertToFormat(image.hasAlphaChannel() ? QImage::Format_ARGB32 : QImage::Format_RGB32);
+	creationContext.image = image;
 	creationContext.thumbnail = image.scaled(Palapeli::PuzzleMetadata::ThumbnailBaseSize, Qt::KeepAspectRatio);
 	creationContext.modifyProtection = false; //only enabled for default puzzles
 	creationContext.slicer = selection.slicerPluginName;
