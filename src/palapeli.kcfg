@@ -29,4 +29,14 @@
 			<default>true</default>
 		</entry>
 	</group>
+	<group name="PuzzlePreview">
+		<entry name="PuzzlePreviewVisible" type="Bool">
+			<label>Whether the preview window was switched on last time Palapeli was run.</label>
+			<default>true</default>
+		</entry>
+		<entry name="PuzzlePreviewGeometry" type="Rect">
+			<label>Last position and size of puzzle preview.</label>
+			<default>QRect(-1, -1, 320, 240)</default>
+		</entry>
+	</group>
 </kcfg>

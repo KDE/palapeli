@@ -28,16 +28,19 @@ namespace Palapeli
 	class CollectionView;
 	class Puzzle;
 	class PuzzleTableWidget;
+	class PuzzlePreview;
 
 	class MainWindow : public KXmlGuiWindow
 	{
 		Q_OBJECT
 		public:
 			MainWindow(KCmdLineArgs* args);
+			virtual ~MainWindow();
 		public Q_SLOTS:
 			void configure();
 			void playPuzzle(Palapeli::Puzzle* puzzle);
 			void actionGoCollection();
+			void actionTogglePreview();
 			void actionCreate();
 			void actionDelete();
 			void actionImport();
@@ -48,6 +51,8 @@ namespace Palapeli
 			QStackedWidget* m_centralWidget;
 			Palapeli::CollectionView* m_collectionView;
 			Palapeli::PuzzleTableWidget* m_puzzleTable;
+
+			Palapeli::PuzzlePreview* m_puzzlePreview;
 	};
 }
 

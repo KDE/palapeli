@@ -20,14 +20,12 @@
 #define PALAPELI_PUZZLEPREVIEW_H
 
 #include <QGraphicsView>
-#include <QModelIndex>
-#include <QPointer>
 #include <QTimer>
-
 
 namespace Palapeli
 {
-	class Puzzle;
+	class PuzzleMetadata;
+
 	class PuzzlePreview : public QGraphicsView
 	{
 		Q_OBJECT
@@ -35,8 +33,8 @@ namespace Palapeli
 			PuzzlePreview();
 			
 			void setImage(const QImage &image);
-			void loadImageFrom(const QModelIndex &index);
-			
+			void loadImageFrom(const Palapeli::PuzzleMetadata& md);
+
 		public Q_SLOTS:
 			// toggles visibility state AND updates config with the new state.
 			void toggleVisible();
@@ -48,14 +46,11 @@ namespace Palapeli
 			virtual void resizeEvent(QResizeEvent* event);
 			virtual void moveEvent(QMoveEvent *event);
 			void updateViewport();
-			void loadImageFromInternal(Palapeli::Puzzle *puzzle);
 			
 		private Q_SLOTS:
 			void writeConfigIfGeometryChanged();
 			
 		private:
-			
-			QPointer<Palapeli::Puzzle> m_puzzle;
 			// used to save geometry after move/resize, to avoid writing config file each time the cursor moves a pixel.
 			QTimer* m_settingsSaveTimer;
 			bool m_geometryChanged;

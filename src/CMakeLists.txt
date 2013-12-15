@@ -19,6 +19,7 @@ set(palapeli_SRCS
 	engine/mergegroup.cpp
 	engine/piece.cpp
 	engine/piecevisuals.cpp
+	engine/puzzlepreview.cpp
 	engine/scene.cpp
 	engine/texturehelper.cpp
 	engine/trigger.cpp

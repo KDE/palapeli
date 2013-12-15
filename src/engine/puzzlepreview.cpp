@@ -17,14 +17,13 @@
 ***************************************************************************/
 
 #include "puzzlepreview.h"
-#include "../file-io/collection.h"
-#include "../file-io/puzzle.h"
+
+#include "../file-io/puzzlestructs.h"
 #include "settings.h"
 
 #include <cmath>
 #include <QMouseEvent>
 #include <QPainter>
-#include <QDebug>
 #include <KLocalizedString>
 
 Palapeli::PuzzlePreview::PuzzlePreview()
@@ -38,12 +37,13 @@ Palapeli::PuzzlePreview::PuzzlePreview()
 	m_mousePos = QPoint();
 	
 	setScene(new QGraphicsScene());
-	setWindowTitle(i18nc("tool window title", "Preview of assembled puzzle"));
-	setWindowFlags(Qt::Tool | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
+	setWindowTitle(i18nc("Window title", "Preview of completed puzzle"));
+	setWindowFlags(Qt::Tool | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	setRenderHint(QPainter::SmoothPixmapTransform);
-	scene()->addText(i18nc("text in preview window", "No puzzle is loaded."));
+	scene()->addText(i18nc("text in preview window",
+		"Image is not available."));	// If we cannot find image-data.
 	setSceneRect(scene()->itemsBoundingRect());
 	
 	// read size and position settings
@@ -67,36 +67,15 @@ void Palapeli::PuzzlePreview::setImage(const QImage &image)
 	updateViewport();
 }
 
-void Palapeli::PuzzlePreview::loadImageFrom(const QModelIndex &index)
+void Palapeli::PuzzlePreview::loadImageFrom(const Palapeli::PuzzleMetadata& md)
 {
-	QObject* puzzlePayload = index.data(Palapeli::Collection::PuzzleObjectRole).value<QObject*>();
-	Palapeli::Puzzle* puzzle = qobject_cast<Palapeli::Puzzle*>(puzzlePayload);
-	if (puzzle && m_puzzle != puzzle)
-	{
-		m_puzzle = puzzle;
-		loadImageFromInternal(puzzle);
-	}
-}
-
-void Palapeli::PuzzlePreview::loadImageFromInternal(Palapeli::Puzzle *puzzle)
-{
-	// metadata was assumedly loaded by Palapeli::Scene.
-	// FIXME: possible race condition? in case of doubt, how to wait for metadata?
-	// (would have to catch Scene::m_metadataLoader finished() --> bad design!)
-	// (or, use a timer and look every x ms if we can proceed)
-	if (puzzle->metadata())
-	{
-		setImage(puzzle->metadata()->image);
-		
-		// set hover zoom so that 3x3 pieces would be visible on a square grid.
-		m_hoverZoom = sqrt(puzzle->metadata()->pieceCount)/3.0;
-		if (m_hoverZoom < 1)
-			m_hoverZoom = 1;
-	}
-	else
-	{
-		qWarning() << "cannot set image: metadata not loaded";
-	}
+	// Metadata is assumed to have been loaded by the caller.
+	setImage(md.image);
+	setWindowTitle(i18n("%1 - Preview").arg(md.name));
+	// Set hover-zoom so that 3x3 pieces would be visible on a square grid.
+	m_hoverZoom = sqrt(md.pieceCount)/3.0;
+	if (m_hoverZoom < 1)
+		m_hoverZoom = 1;
 }
 
 void Palapeli::PuzzlePreview::toggleVisible()
@@ -146,9 +125,7 @@ void Palapeli::PuzzlePreview::moveEvent(QMoveEvent* event)
 void Palapeli::PuzzlePreview::writeConfigIfGeometryChanged()
 {
 	if (!m_geometryChanged) return;
-	
-	qDebug() << "puzzle preview: saving changed geometry";
-	
+
 	// move() includes window frame, resize() doesn't :-/
 	Settings::setPuzzlePreviewGeometry(QRect(frameGeometry().topLeft(), size()));
 	Settings::self()->writeConfig();

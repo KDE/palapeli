@@ -20,6 +20,7 @@
 #include "puzzletablewidget.h"
 #include "../config/configdialog.h"
 #include "../creator/puzzlecreator.h"
+#include "../engine/puzzlepreview.h"
 #include "../engine/scene.h"
 #include "../engine/view.h"
 #include "../file-io/collection.h"
@@ -44,6 +45,7 @@ Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 	: m_centralWidget(new QStackedWidget)
 	, m_collectionView(new Palapeli::CollectionView)
 	, m_puzzleTable(new Palapeli::PuzzleTableWidget)
+	, m_puzzlePreview(0)
 {
 	setupActions();
 	//setup GUI
@@ -68,6 +70,11 @@ Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 		playPuzzle(new Palapeli::Puzzle(new Palapeli::ArchiveStorageComponent, path, id));
 	}
 	args->clear();
+}
+
+Palapeli::MainWindow::~MainWindow()
+{
+	delete m_puzzlePreview;
 }
 
 void Palapeli::MainWindow::setupActions()
@@ -113,6 +120,14 @@ void Palapeli::MainWindow::setupActions()
 	restartPuzzleAct->setToolTip(i18n("Delete the saved progress"));
 	actionCollection()->addAction("game_restart", restartPuzzleAct);
 	connect(restartPuzzleAct, SIGNAL(triggered()), m_puzzleTable->view()->scene(), SLOT(restartPuzzle()));
+	// Set up the puzzle-preview action.
+	const QString text = Settings::puzzlePreviewVisible() ?
+		i18n("Hide Preview") : i18n("Show Preview");
+	KAction* togglePreviewAct = new KAction(KIcon("view-preview"), text, 0);
+	togglePreviewAct->setToolTip(i18n("Shows or hides the image of the completed puzzle"));
+	actionCollection()->addAction("toggle_preview", togglePreviewAct);
+	togglePreviewAct->setEnabled(false);
+	connect(togglePreviewAct, SIGNAL(triggered()), SLOT(actionTogglePreview()));
 }
 
 //BEGIN action handlers
@@ -127,19 +142,49 @@ void Palapeli::MainWindow::playPuzzle(Palapeli::Puzzle* puzzle)
 	if (!puzzle)
 		return;
 	m_puzzleTable->view()->scene()->loadPuzzle(puzzle);
+
 	m_centralWidget->setCurrentWidget(m_puzzleTable);
 	actionCollection()->action("go_collection")->setEnabled(true);
-	//load caption from metadata
-	puzzle->get(Palapeli::PuzzleComponent::Metadata).waitForFinished();
-	const Palapeli::MetadataComponent* cmp = puzzle->component<Palapeli::MetadataComponent>();
-	setCaption(cmp ? cmp->metadata.name : QString());
+	m_puzzlePreview = new Palapeli::PuzzlePreview();
+	actionCollection()->action("toggle_preview")->setEnabled(true);
+
+	// Get metadata from archive (tar), to be sure of getting image data.
+	// The config/palapeli-collectionrc file lacks image metadata (because
+	// Palapeli must load of the collection-list quickly at startup time).
+	const Palapeli::PuzzleComponent* as =
+		puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage);
+	const Palapeli::PuzzleComponent* cmd = (as == 0) ? 0 :
+		as->cast(Palapeli::PuzzleComponent::Metadata);
+	if (cmd) {
+		// Load puzzle preview image from metadata.
+		const Palapeli::PuzzleMetadata md =
+			dynamic_cast<const Palapeli::MetadataComponent*>(cmd)->
+			metadata;
+		m_puzzlePreview->loadImageFrom(md);
+		setCaption(md.name);		// Set main-window title.
+	}
+
+	m_puzzlePreview->setVisible(Settings::puzzlePreviewVisible());
 }
 
 void Palapeli::MainWindow::actionGoCollection()
 {
 	m_centralWidget->setCurrentWidget(m_collectionView);
 	actionCollection()->action("go_collection")->setEnabled(false);
+	actionCollection()->action("toggle_preview")->setEnabled(false);
+	delete m_puzzlePreview;
+	m_puzzlePreview = 0;
 	setCaption(QString());
+}
+
+void Palapeli::MainWindow::actionTogglePreview()
+{
+	if (m_puzzlePreview) {
+		m_puzzlePreview->toggleVisible();
+		actionCollection()->action("toggle_preview")->setText(
+			Settings::puzzlePreviewVisible() ?
+			i18n("Hide Preview") : i18n("Show Preview"));
+	}
 }
 
 void Palapeli::MainWindow::actionCreate()

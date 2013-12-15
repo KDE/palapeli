@@ -30,6 +30,9 @@ int main(int argc, char** argv)
 	qsrand(time(0));
 	KAboutData about("palapeli", 0, ki18nc("The application's name", "Palapeli"), "1.2", ki18n("KDE Jigsaw Puzzle Game"), KAboutData::License_GPL, ki18n("Copyright 2009, 2010, Stefan Majewsky"));
 	about.addAuthor(ki18n("Stefan Majewsky"), KLocalizedString(), "majewsky@gmx.net", "http://majewsky.wordpress.com");
+	about.addCredit (ki18n ("Johannes Loehnert"),
+			 ki18n ("The option to preview the completed puzzle"),
+			 "loehnert.kde@gmx.de");
 	KCmdLineArgs::init(argc, argv, &about);
 
 	KCmdLineOptions options;
