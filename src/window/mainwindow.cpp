@@ -150,7 +150,7 @@ void Palapeli::MainWindow::playPuzzle(Palapeli::Puzzle* puzzle)
 
 	// Get metadata from archive (tar), to be sure of getting image data.
 	// The config/palapeli-collectionrc file lacks image metadata (because
-	// Palapeli must load of the collection-list quickly at startup time).
+	// Palapeli must load the collection-list quickly at startup time).
 	const Palapeli::PuzzleComponent* as =
 		puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage);
 	const Palapeli::PuzzleComponent* cmd = (as == 0) ? 0 :
