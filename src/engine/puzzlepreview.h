@@ -39,12 +39,16 @@ namespace Palapeli
 			// toggles visibility state AND updates config with the new state.
 			void toggleVisible();
 
+		Q_SIGNALS:
+			void closing();
+
 		protected:
 			virtual void mouseMoveEvent(QMouseEvent* event);
 			virtual void enterEvent(QEvent* event);
 			virtual void leaveEvent(QEvent* event);
 			virtual void resizeEvent(QResizeEvent* event);
 			virtual void moveEvent(QMoveEvent *event);
+			virtual void closeEvent(QCloseEvent* event);
 			void updateViewport();
 			
 		private Q_SLOTS:

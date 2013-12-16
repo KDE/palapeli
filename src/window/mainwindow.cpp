@@ -165,6 +165,8 @@ void Palapeli::MainWindow::playPuzzle(Palapeli::Puzzle* puzzle)
 	}
 
 	m_puzzlePreview->setVisible(Settings::puzzlePreviewVisible());
+	connect (m_puzzlePreview, SIGNAL(closing()),
+		SLOT(actionTogglePreview()));	// Hide preview: do not delete.
 }
 
 void Palapeli::MainWindow::actionGoCollection()

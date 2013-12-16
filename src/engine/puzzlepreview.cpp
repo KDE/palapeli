@@ -39,11 +39,12 @@ Palapeli::PuzzlePreview::PuzzlePreview()
 	setScene(new QGraphicsScene());
 	setWindowTitle(i18nc("Window title", "Preview of completed puzzle"));
 	setWindowFlags(Qt::Tool | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
+	setAttribute (Qt::WA_NoMousePropagation); // Accept all mouse events.
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	setRenderHint(QPainter::SmoothPixmapTransform);
 	scene()->addText(i18nc("text in preview window",
-		"Image is not available."));	// If we cannot find image-data.
+		"Image is not available."));	// Seen if image-data not found.
 	setSceneRect(scene()->itemsBoundingRect());
 	
 	// read size and position settings
@@ -122,6 +123,13 @@ void Palapeli::PuzzlePreview::moveEvent(QMoveEvent* event)
 	QGraphicsView::moveEvent(event);
 }
 
+void Palapeli::PuzzlePreview::closeEvent(QCloseEvent* event)
+{
+	// Triggered by the preview window's Close button.
+	event->accept();
+	emit closing();
+}
+
 void Palapeli::PuzzlePreview::writeConfigIfGeometryChanged()
 {
 	if (!m_geometryChanged) return;
@@ -160,3 +168,5 @@ void Palapeli::PuzzlePreview::updateViewport()
 		centerOn(pos);
 	}
 }
+
+#include "puzzlepreview.moc"
