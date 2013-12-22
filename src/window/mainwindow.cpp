@@ -113,6 +113,10 @@ void Palapeli::MainWindow::setupActions()
 	restartPuzzleAct->setToolTip(i18n("Delete the saved progress"));
 	actionCollection()->addAction("game_restart", restartPuzzleAct);
 	connect(restartPuzzleAct, SIGNAL(triggered()), m_puzzleTable->view()->scene(), SLOT(restartPuzzle()));
+	KAction* toggleCloseUpAct = new KAction(i18nc("As in a movie close-up scene", "Close-up View"), 0);
+	toggleCloseUpAct->setShortcut(QKeySequence(Qt::Key_Space));
+	actionCollection()->addAction("toggle_closeup", toggleCloseUpAct);
+	connect(toggleCloseUpAct, SIGNAL(triggered()), m_puzzleTable->view(), SLOT(toggleCloseUp()));
 }
 
 //BEGIN action handlers

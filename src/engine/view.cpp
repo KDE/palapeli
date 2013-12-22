@@ -28,6 +28,8 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
+#include <QDebug> // IDW test.
+
 const int Palapeli::View::MinimumZoomLevel = 0;
 const int Palapeli::View::MaximumZoomLevel = 200;
 
@@ -35,6 +37,8 @@ Palapeli::View::View()
 	: m_interactorManager(new Palapeli::InteractorManager(this))
 	, m_scene(0)
 	, m_zoomLevel(100)
+	, m_closeUpLevel(0)
+	, m_previousLevel(0)
 {
 	setFrameStyle(QFrame::NoFrame);
 	setMouseTracking(true);
@@ -160,9 +164,38 @@ void Palapeli::View::zoomOut()
 	zoomBy(-120);
 }
 
+void Palapeli::View::toggleCloseUp()
+{
+	if (! m_closeUpLevel) {
+		m_closeUpLevel = calculateCloseUpLevel();
+	}
+	if (m_zoomLevel != m_closeUpLevel) {
+		m_previousLevel = m_zoomLevel;
+		zoomTo(m_closeUpLevel);
+	}
+	else if (m_previousLevel) {
+		zoomTo(m_previousLevel);
+	}
+}
+
+int Palapeli::View::calculateCloseUpLevel()
+{
+    // IDW TODO - Make this a Setting with a default of 0.75" or 2cm.
+    //            The dpi and MM values are inaccurate (on Apple at least).
+	// const  qreal InchesPerPiece = 0.75;
+	const  qreal InchesPerPiece = 1.00;
+	const  int   pixelsPerPiece = InchesPerPiece * logicalDpiX() + 0.5;
+	QSizeF size  = scene()->pieceAreaSize();
+	qreal  zoom  = pixelsPerPiece/qMax(size.rwidth(),size.rheight());
+	qDebug() << InchesPerPiece << "dpi" << logicalDpiX() << "pix" << pixelsPerPiece << size << "zoom" << zoom << "level" << (100 + (int)(30.0 * (log(zoom) / log(2.0)))) << "MM" << widthMM() << heightMM();
+	return (100 + (int)(30.0 * (log(zoom) / log(2.0))));
+}
+
 void Palapeli::View::puzzleStarted()
 {
 	resetTransform();
+	m_closeUpLevel = 0;
+	m_previousLevel = 0;
 	//scale viewport to show the whole puzzle table
 	const QRectF sr = sceneRect();
 	const QRectF vr = mapToScene(viewport()->rect()).boundingRect();

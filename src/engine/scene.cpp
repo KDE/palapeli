@@ -46,6 +46,7 @@ Palapeli::Scene::Scene(QObject* parent)
 	, m_puzzle(0)
 	, m_savegameTimer(new QTimer(this))
 	, m_loadingPuzzle(false)
+	, m_pieceAreaSize(QSizeF())
 {
 	m_savegameTimer->setInterval(500); //write savegame twice per second at most
 	m_savegameTimer->setSingleShot(true);
@@ -215,6 +216,7 @@ void Palapeli::Scene::loadPiecePositions()
 		firstPiece->addLogicalNeighbors(QList<Palapeli::Piece*>() << secondPiece);
 		secondPiece->addLogicalNeighbors(QList<Palapeli::Piece*>() << firstPiece);
 	}
+	calculatePieceAreaSize();
 	//Is "savegame" available?
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
 	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_puzzle->identifier())));
@@ -266,6 +268,19 @@ void Palapeli::Scene::loadPiecePositions()
 	}
 	//continue after eventloop run
 	QTimer::singleShot(0, this, SLOT(completeVisualsForNextPiece()));
+}
+
+void Palapeli::Scene::calculatePieceAreaSize()
+{
+	m_pieceAreaSize = QSizeF(0.0, 0.0);
+	foreach (Palapeli::Piece* piece, m_pieces) {
+		//atomicSize() gets the largest piece in a composite piece.
+		// IDW m_pieceAreaSize = m_pieceAreaSize.expandedTo(piece->atomicSize());
+		m_pieceAreaSize = m_pieceAreaSize.expandedTo
+				(piece->sceneBareBoundingRect().size());
+	}
+	qDebug() << "m_pieceAreaSize =" << m_pieceAreaSize;
+	return;
 }
 
 void Palapeli::Scene::completeVisualsForNextPiece()

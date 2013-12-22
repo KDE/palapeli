@@ -41,6 +41,12 @@ namespace Palapeli
 
 			void validatePiecePosition(Palapeli::Piece* piece);
 			void searchConnections(const QList<Palapeli::Piece*>& pieces);
+			const QSizeF& pieceAreaSize() {
+				if (! m_pieceAreaSize.isValid()) {
+					calculatePieceAreaSize();
+				}
+				return m_pieceAreaSize;
+			}
 		public Q_SLOTS:
 			void loadPuzzle(Palapeli::Puzzle* puzzle);
 			void restartPuzzle();
@@ -65,6 +71,7 @@ namespace Palapeli
 			void finishLoading();
 		private:
 			void loadPuzzleInternal();
+			void calculatePieceAreaSize();
 
 			//behavior parameters
 			bool m_constrained;
@@ -77,6 +84,7 @@ namespace Palapeli
 			//some stuff needed for loading puzzles
 			bool m_loadingPuzzle;
 			QMap<int, Palapeli::Piece*> m_loadedPieces;
+			QSizeF m_pieceAreaSize;
 	};
 }
 
