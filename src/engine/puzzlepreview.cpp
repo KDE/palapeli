@@ -72,7 +72,7 @@ void Palapeli::PuzzlePreview::loadImageFrom(const Palapeli::PuzzleMetadata& md)
 {
 	// Metadata is assumed to have been loaded by the caller.
 	setImage(md.image);
-	setWindowTitle(i18n("%1 - Preview").arg(md.name));
+	setWindowTitle(i18n("%1 - Preview", md.name));
 	// Set hover-zoom so that 3x3 pieces would be visible on a square grid.
 	m_hoverZoom = sqrt(md.pieceCount)/3.0;
 	if (m_hoverZoom < 1)
