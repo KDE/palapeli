@@ -122,12 +122,13 @@ void Palapeli::MainWindow::setupActions()
 	actionCollection()->addAction("game_restart", restartPuzzleAct);
 	connect(restartPuzzleAct, SIGNAL(triggered()), m_puzzleTable->view()->scene(), SLOT(restartPuzzle()));
 	// Set up the puzzle-preview action.
-	const QString text = Settings::puzzlePreviewVisible() ?
-		i18n("Hide Preview") : i18n("Show Preview");
-	KAction* togglePreviewAct = new KAction(KIcon("view-preview"), text, 0);
+	bool  isVisible = Settings::puzzlePreviewVisible();
+	const QString text = i18nc("Preview is a noun here", "Preview");
+	KToggleAction* togglePreviewAct = new KToggleAction(KIcon("view-preview"), text, 0);
 	togglePreviewAct->setToolTip(i18n("Shows or hides the image of the completed puzzle"));
 	actionCollection()->addAction("toggle_preview", togglePreviewAct);
 	togglePreviewAct->setEnabled(false);
+	togglePreviewAct->setChecked(isVisible);
 	connect(togglePreviewAct, SIGNAL(triggered()), SLOT(actionTogglePreview()));
 }
 
@@ -186,9 +187,8 @@ void Palapeli::MainWindow::actionTogglePreview()
 {
 	if (m_puzzlePreview) {
 		m_puzzlePreview->toggleVisible();
-		actionCollection()->action("toggle_preview")->setText(
-			Settings::puzzlePreviewVisible() ?
-			i18n("Hide Preview") : i18n("Show Preview"));
+		actionCollection()->action("toggle_preview")->
+			setChecked(Settings::puzzlePreviewVisible());
 	}
 }
 
