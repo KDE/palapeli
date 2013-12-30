@@ -118,6 +118,7 @@ void Palapeli::MainWindow::setupActions()
 	//Restart puzzle (TODO: placed here only temporarily)
 	KAction* restartPuzzleAct = new KAction(KIcon("view-refresh"), i18n("&Restart puzzle..."), 0);
 	restartPuzzleAct->setToolTip(i18n("Delete the saved progress"));
+	restartPuzzleAct->setEnabled(false); //no puzzle in progress initially
 	actionCollection()->addAction("game_restart", restartPuzzleAct);
 	connect(restartPuzzleAct, SIGNAL(triggered()), m_puzzleTable->view()->scene(), SLOT(restartPuzzle()));
 	// Set up the puzzle-preview action.
@@ -145,6 +146,7 @@ void Palapeli::MainWindow::playPuzzle(Palapeli::Puzzle* puzzle)
 
 	m_centralWidget->setCurrentWidget(m_puzzleTable);
 	actionCollection()->action("go_collection")->setEnabled(true);
+	actionCollection()->action("game_restart")->setEnabled(true);
 	m_puzzlePreview = new Palapeli::PuzzlePreview();
 	actionCollection()->action("toggle_preview")->setEnabled(true);
 
@@ -173,6 +175,7 @@ void Palapeli::MainWindow::actionGoCollection()
 {
 	m_centralWidget->setCurrentWidget(m_collectionView);
 	actionCollection()->action("go_collection")->setEnabled(false);
+	actionCollection()->action("game_restart")->setEnabled(false);
 	actionCollection()->action("toggle_preview")->setEnabled(false);
 	delete m_puzzlePreview;
 	m_puzzlePreview = 0;

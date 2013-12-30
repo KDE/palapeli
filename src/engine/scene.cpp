@@ -361,6 +361,9 @@ void Palapeli::Scene::playVictoryAnimation3()
 
 void Palapeli::Scene::restartPuzzle()
 {
+	if (!m_puzzle) {
+		return;	// If no puzzle was successfully loaded and started.
+	}
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
 	QFile(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_puzzle->identifier()))).remove();
 	//reload puzzle
