@@ -123,8 +123,9 @@ void Palapeli::MainWindow::setupActions()
 	connect(restartPuzzleAct, SIGNAL(triggered()), m_puzzleTable->view()->scene(), SLOT(restartPuzzle()));
 	// Set up the puzzle-preview action.
 	bool  isVisible = Settings::puzzlePreviewVisible();
-	const QString text = i18nc("Preview is a noun here", "Preview");
+	const QString text = i18nc("Preview is a noun here", "&Preview");
 	KToggleAction* togglePreviewAct = new KToggleAction(KIcon("view-preview"), text, 0);
+	togglePreviewAct->setIconText(i18nc("Preview is a noun here", "Preview"));
 	togglePreviewAct->setToolTip(i18n("Shows or hides the image of the completed puzzle"));
 	actionCollection()->addAction("toggle_preview", togglePreviewAct);
 	togglePreviewAct->setEnabled(false);
