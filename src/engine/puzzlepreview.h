@@ -31,7 +31,7 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			PuzzlePreview();
-			
+
 			void setImage(const QImage &image);
 			void loadImageFrom(const Palapeli::PuzzleMetadata& md);
 
@@ -50,10 +50,10 @@ namespace Palapeli
 			virtual void moveEvent(QMoveEvent *event);
 			virtual void closeEvent(QCloseEvent* event);
 			void updateViewport();
-			
+
 		private Q_SLOTS:
 			void writeConfigIfGeometryChanged();
-			
+
 		private:
 			// used to save geometry after move/resize, to avoid writing config file each time the cursor moves a pixel.
 			QTimer* m_settingsSaveTimer;

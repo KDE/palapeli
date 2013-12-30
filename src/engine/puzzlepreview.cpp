@@ -31,11 +31,11 @@ Palapeli::PuzzlePreview::PuzzlePreview()
 	m_settingsSaveTimer = new QTimer(this);
 	connect(m_settingsSaveTimer, SIGNAL(timeout()), this, SLOT(writeConfigIfGeometryChanged()));
 	m_geometryChanged = false;
-	
+
 	m_hoverZoom = 1.0;
 	m_isZoomed = false;
 	m_mousePos = QPoint();
-	
+
 	setScene(new QGraphicsScene());
 	setWindowTitle(i18nc("Window title", "Preview of completed puzzle"));
 	setWindowFlags(Qt::Tool | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
@@ -46,15 +46,15 @@ Palapeli::PuzzlePreview::PuzzlePreview()
 	scene()->addText(i18nc("text in preview window",
 		"Image is not available."));	// Seen if image-data not found.
 	setSceneRect(scene()->itemsBoundingRect());
-	
+
 	// read size and position settings
 	QRect geometry = Settings::puzzlePreviewGeometry();
 	resize(geometry.size());
-	
+
 	// default (-1/-1) toprect: don't change position
 	if (geometry.left() >= 0 && geometry.top() >= 0)
 		move(geometry.topLeft());
-	
+
 	m_settingsSaveTimer->start(500);
 	hide();
 	updateViewport();
@@ -139,7 +139,6 @@ void Palapeli::PuzzlePreview::writeConfigIfGeometryChanged()
 	Settings::self()->writeConfig();
 	m_geometryChanged = false;
 }
-	
 
 void Palapeli::PuzzlePreview::updateViewport()
 {
@@ -148,17 +147,17 @@ void Palapeli::PuzzlePreview::updateViewport()
 	zoom = width() / sceneRect().width();
 	if (zoom > height() / sceneRect().height())
 		zoom = height() / sceneRect().height();
-	
+
 	if (m_isZoomed)
 		zoom *= m_hoverZoom;
-	
+
 	// do not enlarge
 	if (zoom>1)
 		zoom = 1;
-	
+
 	resetTransform();
 	scale(zoom, zoom);
-	
+
 	if (m_isZoomed)
 	{
 		// focus moves with cursor position
