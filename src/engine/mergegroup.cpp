@@ -118,6 +118,7 @@ void Palapeli::MergeGroup::createMergedPiece()
 	//collect pixmaps for merging (also shadows if possible)
 	QList<Palapeli::PieceVisuals> pieceVisuals;
 	QList<Palapeli::PieceVisuals> shadowVisuals;
+	QList<Palapeli::PieceVisuals> highlightVisuals;
 	bool allPiecesHaveShadows = true;
 	foreach (Palapeli::Piece* piece, m_pieces)
 	{
@@ -130,13 +131,22 @@ void Palapeli::MergeGroup::createMergedPiece()
 			else
 				shadowVisuals << shadowSample;
 		}
+		// Single pieces are assigned highlight items lazily (i.e. if
+		// they happen to get selected), but when they are merged, each
+		// one must have a highlight pixmap that can be merged into a
+		// combined highlight pixmap for the new multi-part piece.
+		if (!piece->hasHighlight())
+			piece->createHighlight();
+		highlightVisuals << piece->highlightVisuals();
 	}
 	//merge pixmap and create piece
 	Palapeli::PieceVisuals combinedPieceVisuals = Palapeli::mergeVisuals(pieceVisuals);
-	Palapeli::PieceVisuals combinedShadowVisuals, combinedBeveledVisuals;
+	Palapeli::PieceVisuals combinedShadowVisuals, combinedHighlightVisuals;
 	if (allPiecesHaveShadows)
 		combinedShadowVisuals = Palapeli::mergeVisuals(shadowVisuals);
-	m_mergedPiece = new Palapeli::Piece(combinedPieceVisuals, combinedShadowVisuals);
+	combinedHighlightVisuals = Palapeli::mergeVisuals(highlightVisuals);
+	m_mergedPiece = new Palapeli::Piece(combinedPieceVisuals,
+			combinedShadowVisuals, combinedHighlightVisuals);
 	//apply UCS
 	m_scene->addItem(m_mergedPiece);
 	m_mergedPiece->setPos(m_ucsPosition);

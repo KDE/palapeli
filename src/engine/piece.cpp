@@ -26,6 +26,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QPalette>
 #include <QPropertyAnimation>
+#include <QPainter> // IDW test.
 
 void Palapeli::Piece::commonInit(const Palapeli::PieceVisuals& pieceVisuals)
 {
@@ -46,7 +47,9 @@ Palapeli::Piece::Piece(const QImage& pieceImage, const QPoint& offset)
 	: m_pieceItem(0)
 	, m_inactiveShadowItem(0)
 	, m_activeShadowItem(0)
+	, m_highlightItem(0)
 	, m_animator(0)
+	, m_offset(offset)
 {
 	//create bevel map if wanted
 	if (Settings::pieceBevelsEnabled())
@@ -63,15 +66,23 @@ Palapeli::Piece::Piece(const QImage& pieceImage, const QPoint& offset)
 		commonInit(Palapeli::PieceVisuals(pieceImage, offset));
 }
 
-Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals)
+Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals, const Palapeli::PieceVisuals& highlightVisuals)
 	: m_pieceItem(0)
 	, m_inactiveShadowItem(0)
 	, m_activeShadowItem(0)
+	, m_highlightItem(0)
 	, m_animator(0)
 {
 	commonInit(pieceVisuals);
 	if (!shadowVisuals.isNull())
 		createShadowItems(shadowVisuals);
+	if (!highlightVisuals.isNull()) {
+		m_highlightItem = new QGraphicsPixmapItem
+					(highlightVisuals.pixmap(), this);
+		m_highlightItem->setOffset(highlightVisuals.offset());
+		m_highlightItem->setZValue(-1);
+		m_highlightItem->setVisible(isSelected());
+	}
 }
 
 //BEGIN visuals
@@ -91,8 +102,17 @@ bool Palapeli::Piece::hasShadow() const
 	return (bool) m_inactiveShadowItem;
 }
 
+bool Palapeli::Piece::hasHighlight() const
+{
+	return (bool) m_highlightItem;
+}
+
 void Palapeli::Piece::createShadowItems(const Palapeli::PieceVisuals& shadowVisuals)
 {
+	// IDW TODO - On Apple Mac the QApplication::palette() highlight color
+	// is dimmed down and is hardly visible when selecting Palapeli pieces.
+
+	// IDW test. const QColor activeShadowColor(Qt::cyan); // IDW test.
 	const QColor activeShadowColor = QApplication::palette().color(QPalette::Highlight);
 	const Palapeli::PieceVisuals activeShadowVisuals = Palapeli::changeShadowColor(shadowVisuals, activeShadowColor);
 	//create inactive shadow item
@@ -105,6 +125,35 @@ void Palapeli::Piece::createShadowItems(const Palapeli::PieceVisuals& shadowVisu
 	m_activeShadowItem->setZValue(-1);
 	m_activeShadowItem->setOpacity(isSelected() ? 1.0 : 0.0);
 	m_animator = new QPropertyAnimation(this, "activeShadowOpacity", this);
+}
+
+void Palapeli::Piece::createHighlight()
+{
+	QRectF rect = sceneBareBoundingRect();
+	// IDW TODO - Make the factor an adjustable setting (1.2-2.0).
+	QSizeF area = 1.5*(qobject_cast<Palapeli::Scene*>(scene())->
+				pieceAreaSize());
+	int w = area.width();
+	int h = area.height();
+	// IDW TODO - Paint pixmap just once (in Scene?) and shallow-copy it.
+	QRadialGradient g(QPoint(w/2, h/2), qMax(w/2, h/2));
+	// IDW TODO - Make this color an adjustable setting.
+	g.setColorAt(0,Qt::green);
+	g.setColorAt(1,Qt::transparent);
+
+	QPixmap p(w, h);
+	p.fill(Qt::transparent);
+	QPainter pa;
+	pa.begin(&p);
+	pa.setPen(Qt::NoPen);
+	pa.setBrush(QBrush(g));
+	pa.drawEllipse(0, 0, w, h);
+	pa.end();
+
+	m_highlightItem = new QGraphicsPixmapItem(p, this);
+	m_highlightItem->setOffset(m_offset.x() - w/2 + rect.width()/2,
+				   m_offset.y() - h/2 + rect.height()/2);
+	m_highlightItem->setZValue(-1);
 }
 
 QRectF Palapeli::Piece::bareBoundingRect() const
@@ -129,6 +178,13 @@ Palapeli::PieceVisuals Palapeli::Piece::shadowVisuals() const
 	return Palapeli::PieceVisuals(m_inactiveShadowItem->pixmap(), m_inactiveShadowItem->offset().toPoint());
 }
 
+Palapeli::PieceVisuals Palapeli::Piece::highlightVisuals() const
+{
+	if (!m_highlightItem)
+		return Palapeli::PieceVisuals();
+	return Palapeli::PieceVisuals(m_highlightItem->pixmap(), m_highlightItem->offset().toPoint());
+}
+
 qreal Palapeli::Piece::activeShadowOpacity() const
 {
 	return m_activeShadowItem ? m_activeShadowItem->opacity() : 0.0;
@@ -142,6 +198,15 @@ void Palapeli::Piece::setActiveShadowOpacity(qreal opacity)
 
 void Palapeli::Piece::pieceItemSelectedChanged(bool selected)
 {
+	if (!m_activeShadowItem) {
+		// No shadows: use a highlighter.
+		if (!m_highlightItem) {
+			createHighlight();
+		}
+		// IDW TODO - Use an animator to change the visibility?
+		m_highlightItem->setVisible(selected);
+		return;
+	}
 	//change visibility of active shadow
 	const qreal targetOpacity = selected ? 1.0 : 0.0;
 	const qreal opacityDiff = qAbs(targetOpacity - activeShadowOpacity());
