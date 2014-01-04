@@ -30,8 +30,8 @@
 			<holder>Johannes L&#xF6;hnert, Stefan Majewsky</holder>
 		</copyright>
 		<legalnotice>&FDLNotice;</legalnotice>
-		<date>2010-11-29</date>
-		<releaseinfo>1.2</releaseinfo>
+		<date>2014-01-02</date>
+		<releaseinfo>1.2 (&kde; 4.13)</releaseinfo>
 
 		<abstract>
 			<para>This is the manual for &palapeli;, a jigsaw puzzle game based on &kde; technology.</para>
@@ -228,6 +228,10 @@
 					<term><guiicon>Restart puzzle</guiicon></term>
 					<listitem><para><action>Discards the saved progress for this puzzle.</action></para></listitem>
 				</varlistentry>
+				<varlistentry>
+					<term><guiicon>Preview</guiicon></term>
+					<listitem><para><action>Toggle the display of the preview window with the completed puzzle.</action></para></listitem>
+				</varlistentry>
 			</variablelist>
 		</sect1>
 	</chapter>
@@ -236,6 +240,10 @@
 		<title>Interface Overview</title>
 		<para>&palapeli;'s two areas, the puzzle collection and the puzzle table, are embedded into the menubar as tabs. There are also menus with standard actions which are described below.</para>
 		<variablelist>
+			<varlistentry>
+				<term><menuchoice><guimenu>View</guimenu><guimenuitem>Preview</guimenuitem></menuchoice></term>
+				<listitem><para><action>Toggle the display of the completed puzzle preview image.</action> Hover it with the mouse pointer to zoom in the image.</para></listitem>
+			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><guimenu>Settings</guimenu><guimenuitem>Show statusbar of puzzle table</guimenuitem></menuchoice></term>
 				<listitem><para><action>Toggle the display of the progress bar and buttons below the puzzle table.</action> This action will change nothing in the puzzle collection.</para></listitem>
