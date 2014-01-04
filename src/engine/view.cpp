@@ -28,6 +28,10 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
+#include <QApplication> // IDW test.
+#include <QDesktopWidget> // IDW test.
+#include <QDebug> // IDW test.
+
 const int Palapeli::View::MinimumZoomLevel = 0;
 const int Palapeli::View::MaximumZoomLevel = 200;
 
@@ -35,6 +39,8 @@ Palapeli::View::View()
 	: m_interactorManager(new Palapeli::InteractorManager(this))
 	, m_scene(0)
 	, m_zoomLevel(100)
+	, m_closeUpLevel(0)
+	, m_previousLevel(0)
 {
 	setFrameStyle(QFrame::NoFrame);
 	setMouseTracking(true);
@@ -160,9 +166,51 @@ void Palapeli::View::zoomOut()
 	zoomBy(-120);
 }
 
+// IDW TODO - Keyboard shortcuts for moving the view left, right, up or down by
+//            one "frame" or "page".  Map to Arrow keys, PageUp and PageDown.
+//            Use QAbstractScrollArea (inherited by QGraphicsView) to get the
+//            QScrollBar objects (horizontal and vertical).  QAbstractSlider,
+//            an ancestor of QScrollBar, contains position info, signals and
+//            triggers for scroll bar moves (i.e. triggerAction(action type)).
+
+void Palapeli::View::toggleCloseUp()
+{
+	// IDW TODO - Make sure the mouse pointer stays at the same point in the
+	//            scene as we change views.  It tends to drift off if we are
+	//            near the edge of the scene as we go to close-up or if we
+	//            move the mouse-pointer or the view during close-up.
+	if (! m_closeUpLevel) {
+		m_closeUpLevel = calculateCloseUpLevel();
+	}
+	if (m_zoomLevel != m_closeUpLevel) {
+		m_previousLevel = m_zoomLevel;
+		zoomTo(m_closeUpLevel);
+	}
+	else if (m_previousLevel) {
+		zoomTo(m_previousLevel);
+	}
+}
+
+int Palapeli::View::calculateCloseUpLevel()
+{
+	// IDW TODO - Make this a Setting with default based on monitor pixels.
+	// Get the size of the monitor on which this view resides (in pixels).
+	const QRect monitor = QApplication::desktop()->screenGeometry(this);
+	const int pixelsPerPiece = qMin(monitor.width(), monitor.height())/12;
+	QSizeF size = scene()->pieceAreaSize();
+	qreal  zoom  = pixelsPerPiece/qMin(size.rwidth(),size.rheight());
+	// IDW TODO - zoom = zoom * setting;	// Default 1.0.
+	qDebug() << "Screen" << QApplication::desktop()->screenGeometry(this);
+	qDebug() << "pix" << pixelsPerPiece << size << "zoom" << zoom << "level"
+		 << (100 + (int)(30.0 * (log(zoom) / log(2.0))));
+	return (100 + (int)(30.0 * (log(zoom) / log(2.0))));
+}
+
 void Palapeli::View::puzzleStarted()
 {
 	resetTransform();
+	m_closeUpLevel = 0;
+	m_previousLevel = 0;
 	//scale viewport to show the whole puzzle table
 	const QRectF sr = sceneRect();
 	const QRectF vr = mapToScene(viewport()->rect()).boundingRect();

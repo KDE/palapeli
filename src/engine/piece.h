@@ -35,10 +35,16 @@ namespace Palapeli
 		Q_OBJECT
 		Q_PROPERTY(qreal activeShadowOpacity READ activeShadowOpacity WRITE setActiveShadowOpacity)
 		public:
-			///This constructor is used when the piece is loaded only from the puzzle file.
+			/// This constructor is used when the piece is loaded
+			/// from the puzzle file as a single unjoined piece.
 			explicit Piece(const QImage& pieceImage, const QPoint& offset);
-			///This constructor creates a piece without a shadow, unless a shadow is provided explicitly.
-			explicit Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals = Palapeli::PieceVisuals());
+			/// This constructor is used when several pieces are
+			/// joined to create a new piece, either after a user's
+			/// move or when such a piece is re-created at puzzle
+			/// load time (without animation). The joined piece will
+			/// be without a shadow, unless shadows are provided
+			/// explicitly.
+			explicit Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals = Palapeli::PieceVisuals(), const Palapeli::PieceVisuals& highlightVisuals = Palapeli::PieceVisuals());
 			///This method will
 			///\li create a shadow for this piece if there is none ATM.
 			///\li apply the bevel map to the piece pixmap.
@@ -51,7 +57,10 @@ namespace Palapeli
 			QRectF sceneBareBoundingRect() const;
 			Palapeli::PieceVisuals pieceVisuals() const;
 			bool hasShadow() const;
+			bool hasHighlight() const;
 			Palapeli::PieceVisuals shadowVisuals() const;
+			Palapeli::PieceVisuals highlightVisuals() const;
+			void createHighlight();
 
 			bool isSelected() const;
 			void setSelected(bool selected);
@@ -91,7 +100,9 @@ namespace Palapeli
 			QGraphicsPixmapItem* m_pieceItem;
 			QGraphicsPixmapItem* m_inactiveShadowItem;
 			QGraphicsPixmapItem* m_activeShadowItem;
+			QGraphicsPixmapItem* m_highlightItem; // IDW test.
 			QPropertyAnimation* m_animator;
+			QPoint m_offset; // IDW test.
 
 			QList<int> m_representedAtomicPieces;
 			QList<Palapeli::Piece*> m_logicalNeighbors;

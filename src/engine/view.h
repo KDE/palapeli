@@ -50,6 +50,7 @@ namespace Palapeli
 			void zoomOut();
 			void zoomBy(int delta); //delta = 0 -> no change, delta < 0 -> zoom out, delta > 0 -> zoom in
 			void zoomTo(int level); //level = 100 -> actual size
+			void toggleCloseUp();
 		protected:
 			virtual void keyPressEvent(QKeyEvent* event);
 			virtual void keyReleaseEvent(QKeyEvent* event);
@@ -68,6 +69,9 @@ namespace Palapeli
 			Palapeli::Scene* m_scene;
 			QPointF m_dragPrevPos;
 			int m_zoomLevel;
+			int m_closeUpLevel;
+			int m_previousLevel;
+			int calculateCloseUpLevel();
 	};
 }
 

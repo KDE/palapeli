@@ -131,6 +131,10 @@ void Palapeli::MainWindow::setupActions()
 	togglePreviewAct->setEnabled(false);
 	togglePreviewAct->setChecked(isVisible);
 	connect(togglePreviewAct, SIGNAL(triggered()), SLOT(actionTogglePreview()));
+	KAction* toggleCloseUpAct = new KAction(i18nc("As in a movie close-up scene", "Close-up View"), 0);
+	toggleCloseUpAct->setShortcut(QKeySequence(Qt::Key_Space));
+	actionCollection()->addAction("toggle_closeup", toggleCloseUpAct);
+	connect(toggleCloseUpAct, SIGNAL(triggered()), m_puzzleTable->view(), SLOT(toggleCloseUp()));
 }
 
 //BEGIN action handlers
