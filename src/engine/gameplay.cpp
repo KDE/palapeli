@@ -35,6 +35,7 @@
 
 #include <QtGui/QStackedWidget>
 #include <QPointer>
+#include <QPropertyAnimation>
 #include <KDE/KAction>
 #include <KDE/KActionCollection>
 #include <KDE/KLocalizedString>
@@ -51,6 +52,11 @@ Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	, m_puzzleTable(new Palapeli::PuzzleTableWidget)
 	, m_puzzlePreview(0)
 {
+	m_puzzleTableScene = m_puzzleTable->view()->scene();
+	connect(m_puzzleTableScene, SIGNAL(victory()),
+		this, SLOT(playVictoryAnimation()));
+	connect(this, SIGNAL(victoryAnimationFinished()),
+		m_puzzleTable->view(), SLOT(startVictoryAnimation()));
 }
 
 Palapeli::GamePlay::~GamePlay()
@@ -215,5 +221,29 @@ void Palapeli::GamePlay::configure()
 }
 
 //END action handlers
+
+void Palapeli::GamePlay::playVictoryAnimation()
+{
+	m_puzzleTableScene->setConstrained(true);
+	QPropertyAnimation* animation = new QPropertyAnimation
+					(m_puzzleTableScene, "sceneRect", this);
+	animation->setStartValue(m_puzzleTableScene->sceneRect());
+	animation->setEndValue(m_puzzleTableScene->piecesBoundingRect());
+	animation->setDuration(1000);
+	connect(animation, SIGNAL(finished()), this, SLOT(playVictoryAnimation2()));
+	animation->start(QAbstractAnimation::DeleteWhenStopped);
+}
+
+void Palapeli::GamePlay::playVictoryAnimation2()
+{
+	m_puzzleTableScene->setSceneRect(m_puzzleTableScene->piecesBoundingRect());
+	QTimer::singleShot(100, this, SIGNAL(victoryAnimationFinished()));
+	QTimer::singleShot(1500, this, SLOT(playVictoryAnimation3())); //give the View some time to play its part of the victory animation
+}
+
+void Palapeli::GamePlay::playVictoryAnimation3()
+{
+	KMessageBox::information(m_mainWindow, i18n("Great! You have finished the puzzle."));
+}
 
 #include "gameplay.moc"

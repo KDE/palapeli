@@ -136,7 +136,9 @@ void Palapeli::Scene::pieceInstanceTransaction(const QList<Palapeli::Piece*>& de
 		emit reportProgress(m_atomicPieceCount, m_pieces.count());
 		//victory animation
 		if (m_pieces.count() == 1 && oldPieceCount > 1)
-			QTimer::singleShot(0, this, SLOT(playVictoryAnimation()));
+			// QTimer::singleShot(0, this, SLOT(playVictoryAnimation()));
+			// IDW TODO - Scene has one piece and holders are empty.
+			emit victory();
 	}
 }
 
@@ -349,29 +351,6 @@ void Palapeli::Scene::updateSavegame()
 		foreach (int atomicPieceID, piece->representedAtomicPieces())
 			saveGroup.writeEntry(QString::number(atomicPieceID), pos);
 	}
-}
-
-void Palapeli::Scene::playVictoryAnimation()
-{
-	setConstrained(true);
-	QPropertyAnimation* animation = new QPropertyAnimation(this, "sceneRect", this);
-	animation->setStartValue(sceneRect());
-	animation->setEndValue(piecesBoundingRect());
-	animation->setDuration(1000);
-	connect(animation, SIGNAL(finished()), this, SLOT(playVictoryAnimation2()));
-	animation->start(QAbstractAnimation::DeleteWhenStopped);
-}
-
-void Palapeli::Scene::playVictoryAnimation2()
-{
-	setSceneRect(piecesBoundingRect());
-	QTimer::singleShot(100, this, SIGNAL(victoryAnimationFinished()));
-	QTimer::singleShot(1500, this, SLOT(playVictoryAnimation3())); //give the View some time to play its part of the victory animation
-}
-
-void Palapeli::Scene::playVictoryAnimation3()
-{
-	KMessageBox::information(views()[0], i18n("Great! You have finished the puzzle."));
 }
 
 void Palapeli::Scene::restartPuzzle()

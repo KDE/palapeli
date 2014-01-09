@@ -36,6 +36,7 @@ namespace Palapeli
 	class Puzzle;
 	class PuzzleTableWidget;
 	class PuzzlePreview;
+	class Scene;
 
 	class GamePlay : public QObject
 	{
@@ -60,16 +61,22 @@ namespace Palapeli
 			void toggleCloseUp();
 			void configure();
 		Q_SIGNALS:
+			void victoryAnimationFinished();
 			// void constrainedChanged(bool constrained);
 			// void levelChanged(int level);
 			// void zoomInRequest();
 			// void zoomOutRequest();
+		private Q_SLOTS:
+			void playVictoryAnimation();
+			void playVictoryAnimation2();
+			void playVictoryAnimation3();
 		private:
 			QStackedWidget*    m_centralWidget;
 			CollectionView*    m_collectionView;
 			PuzzleTableWidget* m_puzzleTable;
 			PuzzlePreview*     m_puzzlePreview;
 			MainWindow*        m_mainWindow;
+			Scene*             m_puzzleTableScene;
 	};
 }
 

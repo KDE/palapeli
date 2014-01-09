@@ -56,14 +56,11 @@ namespace Palapeli
 			void constrainedChanged(bool constrained);
 			void puzzleStarted();
 			void reportProgress(int pieceCount, int atomicPieceCount);
-			void victoryAnimationFinished();
+			void victory();	// IDW TODO - Remove this signal.
 		private Q_SLOTS:
 			void pieceMoved();
 			void pieceInstanceTransaction(const QList<Palapeli::Piece*>& deletedPieces, const QList<Palapeli::Piece*>& createdPieces);
 			void updateSavegame();
-			void playVictoryAnimation();
-			void playVictoryAnimation2();
-			void playVictoryAnimation3();
 			//loading steps
 			void loadNextPiece();
 			void loadPiecePositions();

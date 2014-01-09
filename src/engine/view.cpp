@@ -48,7 +48,6 @@ Palapeli::View::View()
 	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 	setScene(new Palapeli::Scene(this));
 	connect(m_scene, SIGNAL(puzzleStarted()), this, SLOT(puzzleStarted()));
-	connect(m_scene, SIGNAL(victoryAnimationFinished()), this, SLOT(startVictoryAnimation()));
 }
 
 Palapeli::InteractorManager* Palapeli::View::interactorManager() const
