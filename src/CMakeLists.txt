@@ -11,6 +11,7 @@ set(palapeli_SRCS
 	creator/puzzlecreator.cpp
 	creator/slicerconfwidget.cpp
 	creator/slicerselector.cpp
+	engine/gameplay.cpp
 	engine/constraintinteractor.cpp
 	engine/constraintvisualizer.cpp
 	engine/interactor.cpp

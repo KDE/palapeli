@@ -25,6 +25,7 @@ class KCmdLineArgs;
 
 namespace Palapeli
 {
+	class GamePlay;
 	class CollectionView;
 	class Puzzle;
 	class PuzzleTableWidget;
@@ -35,24 +36,10 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			MainWindow(KCmdLineArgs* args);
-			virtual ~MainWindow();
-		public Q_SLOTS:
-			void configure();
-			void playPuzzle(Palapeli::Puzzle* puzzle);
-			void actionGoCollection();
-			void actionTogglePreview();
-			void actionCreate();
-			void actionDelete();
-			void actionImport();
-			void actionExport();
 		private:
 			void setupActions();
 
-			QStackedWidget* m_centralWidget;
-			Palapeli::CollectionView* m_collectionView;
-			Palapeli::PuzzleTableWidget* m_puzzleTable;
-
-			Palapeli::PuzzlePreview* m_puzzlePreview;
+			Palapeli::GamePlay* m_game;
 	};
 }
 
