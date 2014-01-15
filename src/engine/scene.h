@@ -40,23 +40,20 @@ namespace Palapeli
 			void validatePiecePosition(Palapeli::Piece* piece);
 			void mergeLoadedPieces();
 			const QSizeF& pieceAreaSize() {
-				if (! m_pieceAreaSize.isValid()) {
-					calculatePieceAreaSize();
-				}
 				return m_pieceAreaSize;
 			}
+			void setPieceAreaSize(const QSizeF& pieceAreaSize)
+					{ m_pieceAreaSize = pieceAreaSize; }
 			QList<Palapeli::Piece*> pieces() { return m_pieces; }
+
 			void clearPieces();
 
-			// IDW TODO - Making this public is a temporary fix?
-			void calculatePieceAreaSize();
 			// IDW TODO - DELETE?
 			void startPuzzle() { emit puzzleStarted(); }
 
 		public Q_SLOTS:
 			void setConstrained(bool constrained);
 		Q_SIGNALS:
-			// IDW TODO - What is constrainedChanged() used for?
 			void constrainedChanged(bool constrained);
 			void puzzleStarted(); // IDW DELETE.
 			void saveMove(int reduction);

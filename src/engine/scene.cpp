@@ -145,18 +145,6 @@ void Palapeli::Scene::pieceInstanceTransaction(const QList<Palapeli::Piece*>& de
 	emit saveMove(oldPieceCount - m_pieces.count());
 }
 
-void Palapeli::Scene::calculatePieceAreaSize()
-{
-	m_pieceAreaSize = QSizeF(0.0, 0.0);
-	foreach (Palapeli::Piece* piece, m_pieces) {
-		//atomicSize() gets the largest piece in a composite piece.
-		// IDW m_pieceAreaSize = m_pieceAreaSize.expandedTo(piece->atomicSize());
-		m_pieceAreaSize = m_pieceAreaSize.expandedTo
-				(piece->sceneBareBoundingRect().size());
-	}
-	qDebug() << "m_pieceAreaSize =" << m_pieceAreaSize;
-}
-
 void Palapeli::Scene::pieceMoved(bool finished)
 {
 	if (!finished) {

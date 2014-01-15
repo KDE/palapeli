@@ -67,27 +67,21 @@ namespace Palapeli
 		Q_SIGNALS:
 			void puzzleStarted();
 			void reportProgress(int pieceCount, int originalCount);
-			// IDW TODO - Each scene signals progress to GamePlay.
 			void victoryAnimationFinished();
-			// IDW TODO - What is constrainedChanged() used for?
-			// void constrainedChanged(bool constrained);
-			// IDW TODO - These 3 signals are not used in scene.cpp.
-			// void levelChanged(int level);
-			// void zoomInRequest();
-			// void zoomOutRequest();
 		private Q_SLOTS:
-			// Loading steps.
 			void loadNextPiece();
 			void loadPiecePositions();
 			void completeVisualsForNextPiece();
 			void finishLoading();
-			// IDW TODO - The first of these is probably not a slot.
-			void playVictoryAnimation();
+
 			void playVictoryAnimation2();
 			void playVictoryAnimation3();
+
 			void updateSavedGame();
 		private:
 			void loadPuzzle();
+			void playVictoryAnimation();
+			void calculatePieceAreaSize();
 
 			QStackedWidget*    m_centralWidget;
 			CollectionView*    m_collectionView;
@@ -97,10 +91,8 @@ namespace Palapeli
 			Puzzle*            m_puzzle;
 			Scene*             m_puzzleTableScene;
 			QList<Scene*>      m_sceneList;
-			// IDW TODO - This is a temporary list of all pieces,
-			//            regardless of which Scenes they are in.
-			QList<Palapeli::Piece*> m_pieces;
-			QTimer* m_savegameTimer;
+			QSizeF             m_pieceAreaSize;
+			QTimer*            m_savegameTimer;
 
 			// Some stuff needed for loading puzzles.
 			bool m_loadingPuzzle;

@@ -301,7 +301,6 @@ void Palapeli::GamePlay::loadPuzzle()
 
 	// Begin to load puzzle.
 	m_loadedPieces.clear();
-	m_pieces.clear();
 	if (m_puzzle) {
 		Palapeli::FutureWatcher* watcher = new Palapeli::FutureWatcher;
 		connect(watcher, SIGNAL(finished()), SLOT(loadNextPiece()));
@@ -339,13 +338,6 @@ void Palapeli::GamePlay::loadNextPiece()
 		piece->addRepresentedAtomicPieces(QList<int>() << pieceID);
 		piece->addAtomicSize(iterPieces.value().size());
 
-		// IDW TODO - Do we really need a "master" list in GamePlay?
-		//
-		//            NOTE: Each piece in m_loadedPieces has its ID as
-		//            the first and only item in QList<int>
-		//            representedAtomicPieces().
-		// IDW TODO - Maybe we could have a QList of pieceID's.
-		m_pieces << piece;
 		m_loadedPieces[pieceID] = piece;
 
 		// Continue with next piece or next stage, after event loop run.
@@ -366,62 +358,58 @@ void Palapeli::GamePlay::loadPiecePositions()
 	const Palapeli::PuzzleContents contents = m_puzzle->component<Palapeli::ContentsComponent>()->contents;
 	//add piece relations
 	foreach (const DoubleIntPair& relation, contents.relations) {
-		// IDW TODO - Can use m_loadedPieces.value(relation.first, 0).
-		//            If using list, use m_pieces.at(relation.first).
-		Palapeli::Piece* firstPiece = m_pieces[relation.first];
-		Palapeli::Piece* secondPiece = m_pieces[relation.second];
+		Palapeli::Piece* firstPiece =
+				m_loadedPieces.value(relation.first, 0);
+		Palapeli::Piece* secondPiece =
+				m_loadedPieces.value(relation.second, 0);
 		firstPiece->addLogicalNeighbors(QList<Palapeli::Piece*>()
 				<< secondPiece);
 		secondPiece->addLogicalNeighbors(QList<Palapeli::Piece*>()
 				<< firstPiece);
 	}
-	// IDW TODO - Can use foreach (Palapeli::Piece* piece, m_loadedPieces)
-	foreach (Palapeli::Piece* piece, m_pieces) {
-		// IDW TODO - Palapeli::Scene::addPiece(), but which scene?
-		//            We cannot know that yet. Maybe add all pieces to
-		//            main scene at first and move them when/if a
-		//            save file is processed.
+	foreach (Palapeli::Piece* piece, m_loadedPieces) {
+		// Add all pieces to the main scene at first and move them
+		// later, when or if a save file is found and processed.
 		m_puzzleTableScene->addPiece(piece);
 	}
-	// IDW TODO - Assess all atomic pieces, not nec. in m_puzzleTableScene.
-	m_puzzleTableScene->calculatePieceAreaSize();
+	calculatePieceAreaSize();
+	// IDW TODO - Need to tell every scene about this - as they are created.
+	m_puzzleTableScene->setPieceAreaSize(m_pieceAreaSize);
+
 	//Is "savegame" available?
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
 	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_puzzle->identifier())));
 	if (saveConfig.hasGroup("SaveGame"))
 	{
 		// IDW TODO - Here pieces can get put in multiple scenes ...
-		//read piece positions from savegame
+		// Read piece positions from SaveGame group.
 		KConfigGroup saveGroup(&saveConfig, "SaveGame");
-		QMap<int, Palapeli::Piece*>::const_iterator iterPieces = m_loadedPieces.constBegin();
-		const QMap<int, Palapeli::Piece*>::const_iterator iterPiecesEnd = m_loadedPieces.constEnd();
-		for (int pieceID = iterPieces.key(); iterPieces != iterPiecesEnd; pieceID = (++iterPieces).key())
+		QMap<int, Palapeli::Piece*>::const_iterator i =
+						m_loadedPieces.constBegin();
+		const QMap<int, Palapeli::Piece*>::const_iterator end =
+						m_loadedPieces.constEnd();
+		for (int pieceID = i.key(); i != end; pieceID = (++i).key())
 		{
-			Palapeli::Piece* piece = iterPieces.value();
+			Palapeli::Piece* piece = i.value();
 			// qDebug() << "Saved:" << pieceID << "pos"
 				 // << saveGroup.readEntry(
 				 // QString::number(pieceID), QPointF());
-			piece->setPos(saveGroup.readEntry(QString::number(pieceID), QPointF()));
+			piece->setPos(saveGroup.readEntry(
+					QString::number(pieceID), QPointF()));
 		}
 		// IDW TODO - This needs to be done for each Scene.
-		// IDW TODO - The scene should use its OWN m_pieces, but here
-		//            we can specify NO ANIMATION.
+		// Each scene re-merges pieces, as required, with no animation.
 		m_puzzleTableScene->mergeLoadedPieces();
 	}
 	else
 	{
-		// IDW TODO - This applies ONLY to m_puzzleTableScene ...
-		//place pieces at nice positions
-		//step 1: determine maximum piece size
-		QSizeF pieceAreaSize;
-		// IDW TODO - Can use foreach (Palapeli::Piece* piece,
-		//            m_loadedPieces) or calculatePieceAreaSize();
-		foreach (Palapeli::Piece* piece, m_pieces)
-			pieceAreaSize = pieceAreaSize.expandedTo(piece->sceneBareBoundingRect().size());
-		pieceAreaSize *= 1.3; //more space for each piece
-		//step 2: place pieces in a grid in random order
-		// IDW TODO - Can use piecePool(m_loadedPieces.values()).
-		QList<Palapeli::Piece*> piecePool(m_pieces);
+		// Place pieces at nice positions.
+		// Step 1: determine maximum piece size.
+		QSizeF pieceAreaSize = m_pieceAreaSize;
+		pieceAreaSize *= 1.3;	// Allow more space for each piece.
+
+		// Step 2: place pieces in a grid in random order.
+		QList<Palapeli::Piece*> piecePool(m_loadedPieces.values());
 		const int xCount = floor(qSqrt(piecePool.count()));
 		for (int y = 0; !piecePool.isEmpty(); ++y)
 		{
@@ -451,16 +439,17 @@ void Palapeli::GamePlay::loadPiecePositions()
 
 void Palapeli::GamePlay::completeVisualsForNextPiece()
 {
-	foreach (Palapeli::Piece* piece, m_pieces)
-	{
-		if (piece->completeVisuals())
-		{
-			//something had to be done -> continue with next piece after eventloop run
-			QTimer::singleShot(0, this, SLOT(completeVisualsForNextPiece()));
+	QList<Palapeli::Piece*> pieces = m_puzzleTableScene->pieces();
+	foreach (Palapeli::Piece* piece, pieces) {
+		if (piece->completeVisuals()) {
+			// Something had to be done -> continue with
+			// next piece after eventloop run.
+			QTimer::singleShot(0, this,
+					SLOT(completeVisualsForNextPiece()));
 			return;
 		}
 	}
-	//no pieces without shadow left, or piece visuals completely disabled
+	// No pieces left, or shadows are disabled.
 	finishLoading();
 }
 
@@ -496,6 +485,16 @@ void Palapeli::GamePlay::finishLoading()
 	connect(m_puzzleTableScene, SIGNAL(saveMove(int)),
 		this, SLOT(positionChanged(int))); // , Qt::UniqueConnection);
 	qDebug() << "finishLoading(): Exiting";
+}
+
+void Palapeli::GamePlay::calculatePieceAreaSize()
+{
+	m_pieceAreaSize = QSizeF(0.0, 0.0);
+	foreach (Palapeli::Piece* piece, m_loadedPieces) {
+		m_pieceAreaSize = m_pieceAreaSize.expandedTo
+				(piece->sceneBareBoundingRect().size());
+	}
+	qDebug() << "m_pieceAreaSize =" << m_pieceAreaSize;
 }
 
 void Palapeli::GamePlay::playVictoryAnimation()

@@ -242,6 +242,9 @@ QList<int> Palapeli::Piece::representedAtomicPieces() const
 void Palapeli::Piece::addLogicalNeighbors(const QList<Palapeli::Piece*>& logicalNeighbors)
 {
 	foreach (Palapeli::Piece* piece, logicalNeighbors)
+		// IDW TODO - if (!m_logicalNeighbors.contains(piece) && piece)
+		//            If piece == 0, pieceID was not in m_loadedPieces.
+		//            This would be an integrity error in .puzzle file.
 		if (!m_logicalNeighbors.contains(piece))
 			m_logicalNeighbors << piece;
 }
