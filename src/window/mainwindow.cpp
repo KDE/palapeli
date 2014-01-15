@@ -102,7 +102,7 @@ void Palapeli::MainWindow::setupActions()
 	restartPuzzleAct->setToolTip(i18n("Delete the saved progress"));
 	restartPuzzleAct->setEnabled(false); //no puzzle in progress initially
 	actionCollection()->addAction("game_restart", restartPuzzleAct);
-	connect(restartPuzzleAct, SIGNAL(triggered()), m_game->puzzleTable()->view()->scene(), SLOT(restartPuzzle()));
+	connect(restartPuzzleAct, SIGNAL(triggered()), m_game, SLOT(restartPuzzle()));
 
 	// Toggle puzzle-preview.
 	bool  isVisible = Settings::puzzlePreviewVisible();

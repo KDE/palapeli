@@ -307,17 +307,16 @@ void Palapeli::Piece::beginMove()
 void Palapeli::Piece::doMove()
 {
 	Palapeli::Scene* scene = qobject_cast<Palapeli::Scene*>(this->scene());
-	if (scene)
-	{
+	if (scene) {
 		scene->validatePiecePosition(this);
-		scene->invalidateSavegame();
+		emit moved(false);	// Still moving.
 	}
 }
 
 void Palapeli::Piece::endMove()
 {
 	m_pieceItem->setCursor(Qt::OpenHandCursor);
-	emit moved();
+	emit moved(true);		// Finishd moving.
 }
 
 //END mouse interaction

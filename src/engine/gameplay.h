@@ -37,6 +37,7 @@ namespace Palapeli
 	class PuzzleTableWidget;
 	class PuzzlePreview;
 	class Scene;
+	class Piece;
 
 	class GamePlay : public QObject
 	{
@@ -59,24 +60,53 @@ namespace Palapeli
 			void actionImport();
 			void actionExport();
 			void toggleCloseUp();
+			void restartPuzzle();
 			void configure();
+
+			void positionChanged(int reduction);
 		Q_SIGNALS:
+			void puzzleStarted();
+			void reportProgress(int pieceCount, int originalCount);
+			// IDW TODO - Each scene signals progress to GamePlay.
 			void victoryAnimationFinished();
+			// IDW TODO - What is constrainedChanged() used for?
 			// void constrainedChanged(bool constrained);
+			// IDW TODO - These 3 signals are not used in scene.cpp.
 			// void levelChanged(int level);
 			// void zoomInRequest();
 			// void zoomOutRequest();
 		private Q_SLOTS:
+			// Loading steps.
+			void loadNextPiece();
+			void loadPiecePositions();
+			void completeVisualsForNextPiece();
+			void finishLoading();
+			// IDW TODO - The first of these is probably not a slot.
 			void playVictoryAnimation();
 			void playVictoryAnimation2();
 			void playVictoryAnimation3();
+			void updateSavedGame();
 		private:
+			void loadPuzzle();
+
 			QStackedWidget*    m_centralWidget;
 			CollectionView*    m_collectionView;
 			PuzzleTableWidget* m_puzzleTable;
 			PuzzlePreview*     m_puzzlePreview;
 			MainWindow*        m_mainWindow;
+			Puzzle*            m_puzzle;
 			Scene*             m_puzzleTableScene;
+			QList<Scene*>      m_sceneList;
+			// IDW TODO - This is a temporary list of all pieces,
+			//            regardless of which Scenes they are in.
+			QList<Palapeli::Piece*> m_pieces;
+			QTimer* m_savegameTimer;
+
+			// Some stuff needed for loading puzzles.
+			bool m_loadingPuzzle;
+			QMap<int, Palapeli::Piece*> m_loadedPieces;
+			int m_originalPieceCount;
+			int m_currentPieceCount;
 	};
 }
 

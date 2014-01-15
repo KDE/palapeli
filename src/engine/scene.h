@@ -19,10 +19,7 @@
 #ifndef PALAPELI_SCENE_H
 #define PALAPELI_SCENE_H
 
-#include "basics.h"
-
 #include <QGraphicsScene>
-#include <QMap>
 
 namespace Palapeli
 {
@@ -36,51 +33,47 @@ namespace Palapeli
 		public:
 			Scene(QObject* parent = 0);
 
+			void addPiece(Palapeli::Piece* piece);
 			bool isConstrained() const;
 			QRectF piecesBoundingRect() const;
 
 			void validatePiecePosition(Palapeli::Piece* piece);
-			void searchConnections(const QList<Palapeli::Piece*>& pieces);
+			void mergeLoadedPieces();
 			const QSizeF& pieceAreaSize() {
 				if (! m_pieceAreaSize.isValid()) {
 					calculatePieceAreaSize();
 				}
 				return m_pieceAreaSize;
 			}
-		public Q_SLOTS:
-			void loadPuzzle(Palapeli::Puzzle* puzzle);
-			void restartPuzzle();
-			void setConstrained(bool constrained);
-			void invalidateSavegame();
-		Q_SIGNALS:
-			void constrainedChanged(bool constrained);
-			void puzzleStarted();
-			void reportProgress(int pieceCount, int atomicPieceCount);
-			void victory();	// IDW TODO - Remove this signal.
-		private Q_SLOTS:
-			void pieceMoved();
-			void pieceInstanceTransaction(const QList<Palapeli::Piece*>& deletedPieces, const QList<Palapeli::Piece*>& createdPieces);
-			void updateSavegame();
-			//loading steps
-			void loadNextPiece();
-			void loadPiecePositions();
-			void completeVisualsForNextPiece();
-			void finishLoading();
-		private:
-			void loadPuzzleInternal();
-			void calculatePieceAreaSize();
+			QList<Palapeli::Piece*> pieces() { return m_pieces; }
+			void clearPieces();
 
+			// IDW TODO - Making this public is a temporary fix?
+			void calculatePieceAreaSize();
+			// IDW TODO - DELETE?
+			void startPuzzle() { emit puzzleStarted(); }
+
+		public Q_SLOTS:
+			void setConstrained(bool constrained);
+		Q_SIGNALS:
+			// IDW TODO - What is constrainedChanged() used for?
+			void constrainedChanged(bool constrained);
+			void puzzleStarted(); // IDW DELETE.
+			void saveMove(int reduction);
+		private Q_SLOTS:
+			void pieceMoved(bool finished);
+			void pieceInstanceTransaction(const QList<Palapeli::Piece*>& deletedPieces, const QList<Palapeli::Piece*>& createdPieces);
+		private:
+			void searchConnections(
+					const QList<Palapeli::Piece*>& pieces,
+					const bool animatedMerging = true);
 			//behavior parameters
 			bool m_constrained;
 			Palapeli::ConstraintVisualizer* m_constraintVisualizer;
 			//game parameters
 			Palapeli::Puzzle* m_puzzle;
 			QList<Palapeli::Piece*> m_pieces;
-			QTimer* m_savegameTimer;
 			int m_atomicPieceCount;
-			//some stuff needed for loading puzzles
-			bool m_loadingPuzzle;
-			QMap<int, Palapeli::Piece*> m_loadedPieces;
 			QSizeF m_pieceAreaSize;
 	};
 }

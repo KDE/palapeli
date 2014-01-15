@@ -56,7 +56,6 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 {
 	//setup progress bar
 	m_progressBar->setText(i18n("No puzzle loaded"));
-	connect(m_view->scene(), SIGNAL(reportProgress(int,int)), this, SLOT(reportProgress(int,int)));
 	//setup zoom widget
 	connect(m_zoomWidget, SIGNAL(levelChanged(int)), m_view, SLOT(zoomTo(int)));
 	connect(m_zoomWidget, SIGNAL(zoomInRequest()), m_view, SLOT(zoomIn()));
@@ -95,6 +94,7 @@ void Palapeli::PuzzleTableWidget::showStatusBar(bool visible)
 
 void Palapeli::PuzzleTableWidget::reportProgress(int pieceCount, int partCount)
 {
+	qDebug() << "PuzzleTableWidget::reportProgress(" << pieceCount << partCount;
 	m_zoomWidget->setEnabled(pieceCount > 0); //zoom does not work reliably when no puzzle is loaded
 	if (m_progressBar->minimum() != 0)
 		m_progressBar->setMinimum(0);

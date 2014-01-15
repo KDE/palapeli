@@ -82,7 +82,7 @@ namespace Palapeli
 			///Call this when this piece instance has been replaced by another piece instance. This will also delete this instance.
 			void announceReplaced(Palapeli::Piece* replacement);
 		Q_SIGNALS:
-			void moved();
+			void moved(bool finished);
 			void replacedBy(Palapeli::Piece* newPiece);
 		protected:
 			friend class MovePieceInteractor;
