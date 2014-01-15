@@ -109,17 +109,22 @@ bool Palapeli::Piece::hasHighlight() const
 
 void Palapeli::Piece::createShadowItems(const Palapeli::PieceVisuals& shadowVisuals)
 {
-	// IDW TODO - On Apple Mac the QApplication::palette() highlight color
-	// is dimmed down and is hardly visible when selecting Palapeli pieces.
-
-	// IDW test. const QColor activeShadowColor(Qt::cyan); // IDW test.
-	const QColor activeShadowColor = QApplication::palette().color(QPalette::Highlight);
-	const Palapeli::PieceVisuals activeShadowVisuals = Palapeli::changeShadowColor(shadowVisuals, activeShadowColor);
-	//create inactive shadow item
+#ifdef Q_OS_MAC
+	// On Apple OS X the QPalette::Highlight color is blue, but is
+	// dimmed down, for highlighting black-on-white text presumably.
+	const QColor activeShadowColor(Qt::cyan);
+	// Note: Q_WS_MAC is deprecated and does not exist in Qt 5.
+#else
+	const QColor activeShadowColor =
+		QApplication::palette().color(QPalette::Highlight);
+#endif
+	const Palapeli::PieceVisuals activeShadowVisuals =
+		Palapeli::changeShadowColor(shadowVisuals, activeShadowColor);
+	// Create inactive (unhighlighted) shadow item.
 	m_inactiveShadowItem = new QGraphicsPixmapItem(shadowVisuals.pixmap(), this);
 	m_inactiveShadowItem->setOffset(shadowVisuals.offset());
 	m_inactiveShadowItem->setZValue(-2);
-	//create active shadow item and animator for its opacity
+	// Create active shadow item (highlighted) and animator for its opacity.
 	m_activeShadowItem = new QGraphicsPixmapItem(activeShadowVisuals.pixmap(), this);
 	m_activeShadowItem->setOffset(activeShadowVisuals.offset());
 	m_activeShadowItem->setZValue(-1);
