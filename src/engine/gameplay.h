@@ -26,18 +26,20 @@ class QStackedWidget;
 
 namespace Palapeli
 {
-	/**
-	 * This is the main class for Palapeli gameplay. It implements menu and
-	 * toolbar actions and provides methods such as loading and starting a
-	 * puzzle, managing piece-holders and showing a victory animation.
-	 */
-
 	class CollectionView;
 	class Puzzle;
 	class PuzzleTableWidget;
 	class PuzzlePreview;
 	class Scene;
 	class Piece;
+
+	/**
+	 * This is the main class for Palapeli gameplay. It implements menu and
+	 * toolbar actions and provides methods such as loading and shuffling
+	 * a puzzle, starting a puzzle, saving and restoring the state of the
+	 * solution, managing piece-holders, reporting progress and showing
+	 * a victory animation.
+	 */
 
 	class GamePlay : public QObject
 	{

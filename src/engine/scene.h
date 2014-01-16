@@ -27,6 +27,14 @@ namespace Palapeli
 	class Piece;
 	class Puzzle;
 
+	/**
+	 * This class holds the puzzle pieces and boundary (constraint) of a
+	 * Palapeli scene, which can be either a piece-holder or the main
+	 * puzzle table. The scene also handles adding and removing pieces,
+	 * moving pieces, merging (or joining) pieces and signalling changes
+	 * in the state of the puzzle and its pieces, wherever they may be.
+	 */
+
 	class Scene : public QGraphicsScene
 	{
 		Q_OBJECT
@@ -59,7 +67,9 @@ namespace Palapeli
 			void saveMove(int reduction);
 		private Q_SLOTS:
 			void pieceMoved(bool finished);
-			void pieceInstanceTransaction(const QList<Palapeli::Piece*>& deletedPieces, const QList<Palapeli::Piece*>& createdPieces);
+			void pieceInstanceTransaction(
+				const QList<Palapeli::Piece*>& deletedPieces,
+				const QList<Palapeli::Piece*>& createdPieces);
 		private:
 			void searchConnections(
 					const QList<Palapeli::Piece*>& pieces,
