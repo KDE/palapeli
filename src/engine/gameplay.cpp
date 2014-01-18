@@ -410,30 +410,97 @@ void Palapeli::GamePlay::loadPiecePositions()
 
 		// Step 2: place pieces in a grid in random order.
 		QList<Palapeli::Piece*> piecePool(m_loadedPieces.values());
-		const int xCount = floor(qSqrt(piecePool.count()));
-		for (int y = 0; !piecePool.isEmpty(); ++y)
-		{
-			for (int x = 0; x < xCount && !piecePool.isEmpty(); ++x)
-			{
-				//select random piece
-				Palapeli::Piece* piece = piecePool.takeAt(qrand() % piecePool.count());
-				//determine piece offset
+		int nPieces = piecePool.count();
+		Palapeli::ConfigDialog::SolutionSpace space =
+			(nPieces < 20) ?  Palapeli::ConfigDialog::None :
+				(Palapeli::ConfigDialog::SolutionSpace)
+				Settings::solutionArea();
+
+		// Find the size of the area required for the solution.
+		const QRectF r = m_puzzleTableScene->piecesBoundingRect();
+		int xResv = 0;
+		int yResv = 0;
+		if (space != Palapeli::ConfigDialog::None) {
+			xResv = r.width()/pieceAreaSize.width() + 1.0;
+			yResv = r.height()/pieceAreaSize.height() + 1.0;
+		}
+
+		// To get "a" pieces around the solution, both horizontally and
+		// vertically, we need to solve for "a" in:
+		//     (a+xResv) * (a+yResv) = piecePool.count() + xResv*yResv
+		// or  a^2 + (xResv+yResv)*a - piecePool.count() = 0
+		// Let q = qSqrt(((xResv+yResv)^2 + 4.piecePool.count())), then
+		//     a = (-xResv-yResv +- q)/2, the solution of the quadratic.
+		//
+		// The positive root is a = (-xResv - yResv + q)/2. If there is
+		// no solution area, xResv == yResv == 0 and the above equation
+		// degenerates to "a" = sqrt(number of pieces), as in earlier
+		// versions of Palapeli.
+
+		qreal q  = qSqrt((xResv + yResv)*(xResv + yResv) + 4*nPieces);
+		int a    = qRound((-xResv-yResv+q)/2.0);
+		int xMax = xResv + a;
+
+		// Set solution space for None or TopLeft: modify as required.
+		int x1 = 0;
+		int y1 = 0;
+		if (space == Palapeli::ConfigDialog::TopRight) {
+			x1 = a;
+		}
+		else if (space == Palapeli::ConfigDialog::Center) {
+			x1 = a/2;
+			y1 = a/2;
+		}
+		else if (space == Palapeli::ConfigDialog::BottomLeft) {
+			y1 = a;
+			// If the rows are uneven, push the partial row right.
+			if ((nPieces + xResv*yResv) % xMax) {
+				yResv++;
+			}
+		}
+		else if (space == Palapeli::ConfigDialog::BottomRight) {
+			x1 = a;
+			y1 = a;
+		}
+		int x2 = x1 + xResv;
+		int y2 = y1 + yResv;
+		qDebug() << "Reserve:" << xResv << yResv << "position" << space;
+		qDebug() << "Pieces" << piecePool.count() << "rect" << r
+			 << "pieceAreaSize" << pieceAreaSize;
+		qDebug() << "q" << q << "a" << a << "a/2" << a/2;
+		qDebug() << "xMax" << xMax << "x1 y1" << x1 << y1
+					   << "x2 y2" << x2 << y2;
+
+		for (int y = 0; !piecePool.isEmpty(); ++y) {
+			for (int x = 0; x < xMax && !piecePool.isEmpty(); ++x) {
+				if ((x >= x1) && (x < x2) &&
+				    (y >= y1) && (y < y2)) {
+					continue;	// This space reserved.
+				}
+				// Select a random piece.
+				Palapeli::Piece* piece = piecePool.takeAt(
+						qrand() % piecePool.count());
+				// Determine the piece's offset.
 				piece->setPos(QPointF());
-				const QRectF br = piece->sceneBareBoundingRect();
-				const QPointF pieceOffset = br.topLeft();
-				const QSizeF pieceSize = br.size();
-				//determine random position inside piece area
+				const QRectF b = piece->sceneBareBoundingRect();
+				const QPointF pieceOffset = b.topLeft();
+				const QSizeF pieceSize = b.size();
+				// Determine random position inside piece area.
 				const QPointF areaOffset(
-					qrand() % (int)(pieceAreaSize.width() - pieceSize.width()),
-					qrand() % (int)(pieceAreaSize.height() - pieceSize.height())
-				);
-				//move to desired position in (x,y) grid
-				const QPointF gridBasePosition(x * pieceAreaSize.width(), y * pieceAreaSize.height());
-				piece->setPos(gridBasePosition + areaOffset - pieceOffset);
+					qrand() % (int)(pieceAreaSize.width() -
+							pieceSize.width()),
+					qrand() % (int)(pieceAreaSize.height() -
+							pieceSize.height()));
+				// Move to desired position in (x,y) grid.
+				const QPointF gridBasePosition(
+						x * pieceAreaSize.width(),
+						y * pieceAreaSize.height());
+				piece->setPos(gridBasePosition +
+						areaOffset - pieceOffset);
 			}
 		}
 	}
-	//continue after eventloop run
+	// Continue after eventloop run.
 	QTimer::singleShot(0, this, SLOT(completeVisualsForNextPiece()));
 }
 

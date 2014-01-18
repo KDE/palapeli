@@ -63,11 +63,20 @@ Palapeli::ConfigDialog::ConfigDialog(QWidget* parent)
 	//setup page "General settings"
 	QWidget* generalPage = new QWidget;
 	m_generalUi.setupUi(generalPage);
-	m_generalUi.kcfg_ViewBackground->setModel(Palapeli::TextureHelper::instance());
-	addPage(generalPage, i18n("General settings"))->setIcon(KIcon( QLatin1String( "configure" )));
+
+	// Construction of the TextureHelper singleton also loads all Palapeli
+	// settings or defaults and the combobox contents for ViewBackground.
+	m_generalUi.kcfg_ViewBackground->setModel(
+					Palapeli::TextureHelper::instance());
+	setupSolutionAreaComboBox();
+
+	addPage(generalPage, i18n("General settings"))->
+				setIcon(KIcon( QLatin1String( "configure" )));
 	//setup page "Mouse interaction"
-	addPage(m_triggerPage, i18n("Mouse interaction"))->setIcon(KIcon( QLatin1String( "input-mouse" )));
-	connect(m_triggerPage, SIGNAL(associationsChanged()), SLOT(updateButtons()));
+	addPage(m_triggerPage, i18n("Mouse interaction"))->
+				setIcon(KIcon( QLatin1String( "input-mouse" )));
+	connect(m_triggerPage, SIGNAL(associationsChanged()),
+			       SLOT(updateButtons()));
 }
 
 bool Palapeli::ConfigDialog::hasChanged()
@@ -106,6 +115,29 @@ void Palapeli::ConfigDialog::showEvent(QShowEvent* event)
 		resize(minimumSize().expandedTo(geometry().size()) + QSize(50, 100));
 		m_shownForFirstTime = true;
 	}
+}
+
+void Palapeli::ConfigDialog::setupSolutionAreaComboBox()
+{
+	QComboBox* b = m_generalUi.kcfg_SolutionArea;
+	b->insertItem(Center,      i18n("Center"),       Center);
+	b->insertItem(None,        i18n("None"),         None);
+	b->insertItem(TopLeft,     i18n("Top Left"),     TopLeft);
+	b->insertItem(TopRight,    i18n("Top Right"),    TopRight);
+	b->insertItem(BottomLeft,  i18n("Bottom Left"),  BottomLeft);
+	b->insertItem(BottomRight, i18n("Bottom Right"), BottomRight);
+	b->setCurrentIndex(Settings::solutionArea());
+	connect(b,    SIGNAL(currentIndexChanged(int)),
+		this, SLOT(solutionAreaChange(int)));
+}
+
+void Palapeli::ConfigDialog::solutionAreaChange(int index)
+{
+	// Play safe by providing this slot. KConfigSkeleton seems to save the
+	// index setting if .kcfg says "Int", but it does not officially support
+	// the QComboBox type.
+	Settings::setSolutionArea(index);
+	Settings::self()->writeConfig();
 }
 
 //END Palapeli::ConfigDialog

@@ -16,6 +16,10 @@
 			<label>The background color to use for the View (if the key "ViewBackground" is set to "__color__").</label>
 			<default>white</default>
 		</entry>
+		<entry name="SolutionArea" type="Int">
+			<label>Where to reserve space on the puzzle table for the solution, when shuffling or re-shuffling the pieces.</label>
+			<default>0</default>
+		</entry>
 		<entry name="ShowStatusBar" type="Bool">
 			<label>Whether to show the status bar on the puzzle table. (It is not a real status bar, but the position and provided functionality is similar.)</label>
 			<default>true</default>

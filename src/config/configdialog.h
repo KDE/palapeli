@@ -32,6 +32,9 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			ConfigDialog(QWidget* parent = 0);
+
+			enum SolutionSpace { Center, None, TopLeft, TopRight,
+					     BottomLeft, BottomRight };
 		protected:
 			virtual bool hasChanged();
 			virtual bool isDefault();
@@ -39,7 +42,10 @@ namespace Palapeli
 			virtual void updateWidgets();
 			virtual void updateWidgetsDefault();
 			virtual void showEvent(QShowEvent* event);
+		private Q_SLOTS:
+			void solutionAreaChange(int index);
 		private:
+			void setupSolutionAreaComboBox();
 			Ui::Settings m_generalUi;
 			Palapeli::TriggerConfigWidget* m_triggerPage;
 			bool m_shownForFirstTime;
