@@ -70,8 +70,6 @@ Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	connect(m_savegameTimer, SIGNAL(timeout()), this, SLOT(updateSavedGame()));
 	connect(this, SIGNAL(reportProgress(int,int)),
 		m_puzzleTable, SLOT(reportProgress(int,int)));
-	connect(m_puzzleTableScene, SIGNAL(victory()),
-		this, SLOT(playVictoryAnimation()));
 	connect(this, SIGNAL(victoryAnimationFinished()),
 		m_puzzleTable->view(), SLOT(startVictoryAnimation()));
 }
