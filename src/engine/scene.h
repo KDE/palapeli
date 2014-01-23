@@ -44,6 +44,7 @@ namespace Palapeli
 			void addPiece(Palapeli::Piece* piece);
 			bool isConstrained() const;
 			QRectF piecesBoundingRect() const;
+			qreal margin() { return m_margin; }
 			void addMargin(const qreal handleWidth,
 				       const qreal spacer);
 

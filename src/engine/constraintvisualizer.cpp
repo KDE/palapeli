@@ -91,65 +91,74 @@ void Palapeli::ConstraintVisualizer::update(const QRectF& sceneRect)
 {
 	if (m_sceneRect == sceneRect)
 		return;
+	QRectF minimumRect = m_scene->piecesBoundingRect();
+	qreal m = m_scene->margin();
+	minimumRect.adjust(-m, -m, m, m);
 	m_sceneRect = sceneRect;
-	// IDW test. const QSizeF handleSize = sceneRect.size() / 20;
-	// qDebug() << "ConstraintVisualizer::update" << sceneRect << "thickness" << m_thickness;;
+	if(!sceneRect.contains(minimumRect)) {
+		// IDW TODO - Works and seems safe,
+		//            but it may be better for interactor to check.
+		m_sceneRect = minimumRect;
+		m_scene->setSceneRect(minimumRect);
+	}
+	// IDW test. const QSizeF handleSize = m_sceneRect.size() / 20;
+	// qDebug() << "ConstraintVisualizer::update" << m_sceneRect << "thickness" << m_thickness;
 	//find a fictional viewport rect which we want to cover (except for the contained scene rect)
 	const qreal viewportRectSizeFactor = 10;
-	QRectF viewportRect = sceneRect;
-	viewportRect.setSize(viewportRectSizeFactor * sceneRect.size());
-	viewportRect.moveCenter(sceneRect.center());
+	QRectF viewportRect = m_sceneRect;
+	viewportRect.setSize(viewportRectSizeFactor * m_sceneRect.size());
+	viewportRect.moveCenter(m_sceneRect.center());
 	// The shadow areas are the areas outside the puzzle table.
 	//adjust left shadow area
 	QRectF itemRect = viewportRect;
-	itemRect.setRight(sceneRect.left());
+	itemRect.setRight(m_sceneRect.left());
 	m_shadowItems[LeftSide]->setRect(itemRect);
 	//adjust right shadow area
 	itemRect = viewportRect;
-	itemRect.setLeft(sceneRect.right());
+	itemRect.setLeft(m_sceneRect.right());
 	m_shadowItems[RightSide]->setRect(itemRect);
 	//adjust top shadow area
 	itemRect = viewportRect;
-	itemRect.setBottom(sceneRect.top());
-	itemRect.setLeft(sceneRect.left()); //do not overlap left area...
-	itemRect.setRight(sceneRect.right()); //..and right area
+	itemRect.setBottom(m_sceneRect.top());
+	itemRect.setLeft(m_sceneRect.left()); //do not overlap left area...
+	itemRect.setRight(m_sceneRect.right()); //..and right area
 	m_shadowItems[TopSide]->setRect(itemRect);
 	//adjust bottom shadow area
 	itemRect = viewportRect;
-	itemRect.setTop(sceneRect.bottom());
-	itemRect.setLeft(sceneRect.left()); //same as above
-	itemRect.setRight(sceneRect.right());
+	itemRect.setTop(m_sceneRect.bottom());
+	itemRect.setLeft(m_sceneRect.left()); //same as above
+	itemRect.setRight(m_sceneRect.right());
 	m_shadowItems[BottomSide]->setRect(itemRect);
 	//
 	// The handles are the draggable borders of the puzzle table.
 	//adjust edge handles
 	// IDW test.QRectF handleRect(QPointF(), handleSize);
 	QRectF handleRect(QPointF(), QSizeF(m_thickness, m_thickness));
-	handleRect.moveTopLeft(sceneRect.topLeft());
+	handleRect.moveTopLeft(m_sceneRect.topLeft());
 	m_handleItems[TopLeftHandle]->setRect(handleRect);
-	handleRect.moveTopRight(sceneRect.topRight());
+	handleRect.moveTopRight(m_sceneRect.topRight());
 	m_handleItems[TopRightHandle]->setRect(handleRect);
-	handleRect.moveBottomLeft(sceneRect.bottomLeft());
+	handleRect.moveBottomLeft(m_sceneRect.bottomLeft());
 	m_handleItems[BottomLeftHandle]->setRect(handleRect);
-	handleRect.moveBottomRight(sceneRect.bottomRight());
+	handleRect.moveBottomRight(m_sceneRect.bottomRight());
 	m_handleItems[BottomRightHandle]->setRect(handleRect);
 	//adjust top/bottom handles
-	// IDW test. handleRect.setSize(QSizeF(sceneRect.width() - 2 * handleSize.width(), handleSize.height()));
-	handleRect.setSize(QSizeF(sceneRect.width() - 2 * m_thickness,
+	// IDW test. handleRect.setSize(QSizeF(m_sceneRect.width() - 2 * handleSize.width(), handleSize.height()));
+	handleRect.setSize(QSizeF(m_sceneRect.width() - 2 * m_thickness,
 				m_thickness));
-	handleRect.moveCenter(sceneRect.center());
-	handleRect.moveTop(sceneRect.top());
+	handleRect.moveCenter(m_sceneRect.center());
+	handleRect.moveTop(m_sceneRect.top());
 	m_handleItems[TopHandle]->setRect(handleRect);
-	handleRect.moveBottom(sceneRect.bottom());
+	handleRect.moveBottom(m_sceneRect.bottom());
 	m_handleItems[BottomHandle]->setRect(handleRect);
 	//adjust left/right handles
-	// IDW test. handleRect.setSize(QSizeF(handleSize.width(), sceneRect.height() - 2 * handleSize.height()));
+	// IDW test. handleRect.setSize(QSizeF(handleSize.width(), m_sceneRect.height() - 2 * handleSize.height()));
 	handleRect.setSize(QSizeF(m_thickness,
-				sceneRect.height() - 2 * m_thickness));
-	handleRect.moveCenter(sceneRect.center());
-	handleRect.moveLeft(sceneRect.left());
+				m_sceneRect.height() - 2 * m_thickness));
+	handleRect.moveCenter(m_sceneRect.center());
+	handleRect.moveLeft(m_sceneRect.left());
 	m_handleItems[LeftHandle]->setRect(handleRect);
-	handleRect.moveRight(sceneRect.right());
+	handleRect.moveRight(m_sceneRect.right());
 	m_handleItems[RightHandle]->setRect(handleRect);
 }
 

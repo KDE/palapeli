@@ -27,6 +27,8 @@
 Palapeli::Scene::Scene(QObject* parent)
 	: QGraphicsScene(parent)
 	, m_constrained(false)
+	// IDW TODO - Maybe set it to zero and create it and addItem() later?
+	//            See also the TODO in the ConstraintVisualizer constructor.
 	, m_constraintVisualizer(new Palapeli::ConstraintVisualizer(this))
 	, m_puzzle(0)
 	, m_pieceAreaSize(QSizeF())
@@ -84,16 +86,18 @@ void Palapeli::Scene::setConstrained(bool constrained)
 
 void Palapeli::Scene::validatePiecePosition(Palapeli::Piece* piece)
 {
-	//get system geometry
+	// Get current scene rectangle.
 	const QRectF sr = sceneRect();
-	const QRectF br = piece->sceneBareBoundingRect(); //br = bounding rect
+	// Get bounding rectangle of all pieces and add margin.
+	QRectF br = piece->sceneBareBoundingRect(); //br = bounding rect
+	br.adjust(-m_margin, -m_margin, m_margin, m_margin);
 	if (sr.contains(br))
 		return;
-	//check constraint
-	if (m_constrained)
-	{
+
+	// Check for constraint (ie. pieces must not "push" puzzle table edges).
+	if (m_constrained) {
+		// Constraint active -> make sure piece stays inside scene rect.
 		QPointF pos = piece->pos();
-		//scene rect constraint is active -> ensure that piece stays inside scene rect
 		if (br.left() < sr.left())
 			pos.rx() += sr.left() - br.left();
 		if (br.right() > sr.right())
@@ -104,9 +108,10 @@ void Palapeli::Scene::validatePiecePosition(Palapeli::Piece* piece)
 			pos.ry() += sr.bottom() - br.bottom();
 		piece->setPos(pos);
 	}
-	else
-		//scene rect constraint is not active -> enlarge scene rect as necessary
+	else {
+		// Constraint not active -> enlarge scene rect as necessary.
 		setSceneRect(sr | br);
+	}
 }
 
 void Palapeli::Scene::mergeLoadedPieces()
