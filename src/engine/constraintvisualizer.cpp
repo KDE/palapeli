@@ -57,6 +57,8 @@ Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)
 	}
 	//more initialization
 	QObject::setParent(scene); //delete myself automatically when the scene is destroyed
+	// IDW TODO - This should probably be done as a "first-time" thing in
+	//            the update() method. The item has NULL contents here.
 	scene->addItem(this);
 	setZValue(-1);
 	//NOTE: The QueuedConnection is necessary because setSceneRect() sends out

@@ -48,6 +48,14 @@ Palapeli::View::View()
 	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 	setScene(new Palapeli::Scene(this));
 	connect(m_scene, SIGNAL(puzzleStarted()), this, SLOT(puzzleStarted()));
+	connect(m_scene, SIGNAL(sceneRectChanged(QRectF)), this, SLOT(logSceneChange(QRectF))); // IDW test.
+	qDebug() << "Initial size of Palapeli::View" << size();
+}
+
+// IDW test.
+void Palapeli::View::logSceneChange(QRectF r)
+{
+	qDebug() << "View::logSceneChange" << r << "View size" << this->size();
 }
 
 Palapeli::InteractorManager* Palapeli::View::interactorManager() const
@@ -207,17 +215,30 @@ int Palapeli::View::calculateCloseUpLevel()
 
 void Palapeli::View::puzzleStarted()
 {
+	// IDW TODO - An event-loop has to be allowed by GamePlay before this
+	//            is called and we get ugly flashes on some puzzles. Should
+	//            we hide the View during loading and re-show it here? Or
+	//            should we keep the dancing balls going for longer?
+	//
+	//            NOTE: Scene::startPuzzle() is signalling puzzleStarted()
+	//            after a break for an event-loop requested by GamePlay,
+	//            but it is GamePlay invoking m_puzzleTable->reportProgress
+	//            immediately that turns off the dancing balls.
 	resetTransform();
 	m_closeUpLevel = 0;
 	m_previousLevel = 0;
+	// IDW TODO - fitInView(viewport()->rect(), Qt::KeepAspectRatio);
+	qDebug() << "scene" << sceneRect() << "viewport" << viewport()->rect() << "mapToScene" << mapToScene(viewport()->rect()) << "bound" << mapToScene(viewport()->rect()).boundingRect();
 	//scale viewport to show the whole puzzle table
 	const QRectF sr = sceneRect();
 	const QRectF vr = mapToScene(viewport()->rect()).boundingRect();
-	const qreal scalingFactor = 0.9 * qMin(vr.width() / sr.width(), vr.height() / sr.height()); //factor 0.9 avoids that scene rect touches viewport bounds (which does not look nice)
+	const qreal scalingFactor = /* IDW test. 0.9 * */ qMin(vr.width() / sr.width(), vr.height() / sr.height()); //factor 0.9 avoids that scene rect touches viewport bounds (which does not look nice)
+	qDebug() << "width ratio" << vr.width() / sr.width() << "height ratio" << vr.height() / sr.height() << "scalingFactor" << scalingFactor;
 	const int level = 100 + (int)(30.0 * (log(scalingFactor) / log(2.0)));
 	zoomTo(level);
 	centerOn(sr.center());
 	emit zoomAdjustable(true);
+	qDebug() << "puzzleStarted(): size of Palapeli::View -" << size();
 	//explain autosaving
 	KMessageBox::information(window(), i18n("Your progress is saved automatically while you play."), i18nc("used as caption for a dialog that explains the autosave feature", "Automatic saving"), QLatin1String("autosave-introduction"));
 }

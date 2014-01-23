@@ -43,6 +43,7 @@ namespace Palapeli
 			static const int MinimumZoomLevel;
 			static const int MaximumZoomLevel;
 		public Q_SLOTS:
+			void logSceneChange(QRectF r); // IDW test.
 			void setScene(Palapeli::Scene* scene);
 
 			void moveViewportBy(const QPointF& sceneDelta);
