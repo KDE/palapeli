@@ -21,6 +21,7 @@
 
 #include <QCursor>
 #include <QPropertyAnimation>
+#include <QDebug> // IDW test.
 
 Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)
 	: m_scene(scene)
@@ -28,20 +29,25 @@ Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)
 	, m_shadowItems(SideCount)
 	, m_handleItems(HandleCount)
 	, m_animator(new QPropertyAnimation(this, "opacity", this))
+	, m_thickness(5.0)
 {
+	// All QGraphicsRectItems have null size until the first update().
 	setOpacity(0.3);
-	//create shadow items (with null size until first update())
+	// Create shadow items. These are outside the puzzle table.
 	QColor rectColor(Qt::black);
-	rectColor.setAlpha(80);
+	// IDW test. rectColor.setAlpha(80);
+	rectColor.setAlpha(40);				// Outer area is paler.
 	for (int i = 0; i < SideCount; ++i)
 	{
 		m_shadowItems[i] = new QGraphicsRectItem(this);
 		m_shadowItems[i]->setPen(Qt::NoPen);
 		m_shadowItems[i]->setBrush(rectColor);
 	}
-	//create handle items (also with null size)
-	rectColor.setAlpha(rectColor.alpha() / 2);
-	Qt::CursorShape shapes[] = { Qt::SizeHorCursor, Qt::SizeFDiagCursor, Qt::SizeVerCursor, Qt::SizeBDiagCursor };
+	// Create handle items. These are the edges and corners of the table.
+	// IDW test. rectColor.setAlpha(rectColor.alpha() / 2);
+	rectColor.setAlpha(rectColor.alpha() * 2);	// Table edge is darker.
+	Qt::CursorShape shapes[] = { Qt::SizeHorCursor, Qt::SizeFDiagCursor,
+				     Qt::SizeVerCursor, Qt::SizeBDiagCursor };
 	for (int i = 0; i < HandleCount; ++i)
 	{
 		m_handleItems[i] = new QGraphicsRectItem(this);
@@ -58,7 +64,8 @@ Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)
 	//scene rect. If the connection was direct, we could thus enter an infinite
 	//loop when the constraint visualizer enlarges itself in reaction to the
 	//changed sceneRect, thereby changing the autogrowing sceneRect again.
-	connect(scene, SIGNAL(sceneRectChanged(QRectF)), this, SLOT(update(QRectF)), Qt::QueuedConnection);
+	connect(scene, SIGNAL(sceneRectChanged(QRectF)),
+		this, SLOT(update(QRectF)), Qt::QueuedConnection);
 }
 
 bool Palapeli::ConstraintVisualizer::isActive() const
@@ -83,12 +90,14 @@ void Palapeli::ConstraintVisualizer::update(const QRectF& sceneRect)
 	if (m_sceneRect == sceneRect)
 		return;
 	m_sceneRect = sceneRect;
-	const QSizeF handleSize = sceneRect.size() / 20;
+	// IDW test. const QSizeF handleSize = sceneRect.size() / 20;
+	// qDebug() << "ConstraintVisualizer::update" << sceneRect << "thickness" << m_thickness;;
 	//find a fictional viewport rect which we want to cover (except for the contained scene rect)
 	const qreal viewportRectSizeFactor = 10;
 	QRectF viewportRect = sceneRect;
 	viewportRect.setSize(viewportRectSizeFactor * sceneRect.size());
 	viewportRect.moveCenter(sceneRect.center());
+	// The shadow areas are the areas outside the puzzle table.
 	//adjust left shadow area
 	QRectF itemRect = viewportRect;
 	itemRect.setRight(sceneRect.left());
@@ -109,8 +118,11 @@ void Palapeli::ConstraintVisualizer::update(const QRectF& sceneRect)
 	itemRect.setLeft(sceneRect.left()); //same as above
 	itemRect.setRight(sceneRect.right());
 	m_shadowItems[BottomSide]->setRect(itemRect);
+	//
+	// The handles are the draggable borders of the puzzle table.
 	//adjust edge handles
-	QRectF handleRect(QPointF(), handleSize);
+	// IDW test.QRectF handleRect(QPointF(), handleSize);
+	QRectF handleRect(QPointF(), QSizeF(m_thickness, m_thickness));
 	handleRect.moveTopLeft(sceneRect.topLeft());
 	m_handleItems[TopLeftHandle]->setRect(handleRect);
 	handleRect.moveTopRight(sceneRect.topRight());
@@ -120,14 +132,18 @@ void Palapeli::ConstraintVisualizer::update(const QRectF& sceneRect)
 	handleRect.moveBottomRight(sceneRect.bottomRight());
 	m_handleItems[BottomRightHandle]->setRect(handleRect);
 	//adjust top/bottom handles
-	handleRect.setSize(QSizeF(sceneRect.width() - 2 * handleSize.width(), handleSize.height()));
+	// IDW test. handleRect.setSize(QSizeF(sceneRect.width() - 2 * handleSize.width(), handleSize.height()));
+	handleRect.setSize(QSizeF(sceneRect.width() - 2 * m_thickness,
+				m_thickness));
 	handleRect.moveCenter(sceneRect.center());
 	handleRect.moveTop(sceneRect.top());
 	m_handleItems[TopHandle]->setRect(handleRect);
 	handleRect.moveBottom(sceneRect.bottom());
 	m_handleItems[BottomHandle]->setRect(handleRect);
 	//adjust left/right handles
-	handleRect.setSize(QSizeF(handleSize.width(), sceneRect.height() - 2 * handleSize.height()));
+	// IDW test. handleRect.setSize(QSizeF(handleSize.width(), sceneRect.height() - 2 * handleSize.height()));
+	handleRect.setSize(QSizeF(m_thickness,
+				sceneRect.height() - 2 * m_thickness));
 	handleRect.moveCenter(sceneRect.center());
 	handleRect.moveLeft(sceneRect.left());
 	m_handleItems[LeftHandle]->setRect(handleRect);

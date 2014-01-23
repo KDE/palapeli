@@ -44,6 +44,8 @@ namespace Palapeli
 			void addPiece(Palapeli::Piece* piece);
 			bool isConstrained() const;
 			QRectF piecesBoundingRect() const;
+			void addMargin(const qreal handleWidth,
+				       const qreal spacer);
 
 			void validatePiecePosition(Palapeli::Piece* piece);
 			void mergeLoadedPieces();
@@ -56,14 +58,12 @@ namespace Palapeli
 
 			void clearPieces();
 
-			// IDW TODO - DELETE?
-			void startPuzzle() { emit puzzleStarted(); }
-
 		public Q_SLOTS:
+			void startPuzzle();
 			void setConstrained(bool constrained);
 		Q_SIGNALS:
 			void constrainedChanged(bool constrained);
-			void puzzleStarted(); // IDW DELETE.
+			void puzzleStarted();
 			void saveMove(int reduction);
 		private Q_SLOTS:
 			void pieceMoved(bool finished);
@@ -82,6 +82,8 @@ namespace Palapeli
 			QList<Palapeli::Piece*> m_pieces;
 			int m_atomicPieceCount;
 			QSizeF m_pieceAreaSize;
+			// Width of ConstraintVisualizer and space around pieces.
+			qreal m_margin;
 	};
 }
 

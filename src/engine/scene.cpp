@@ -30,6 +30,7 @@ Palapeli::Scene::Scene(QObject* parent)
 	, m_constraintVisualizer(new Palapeli::ConstraintVisualizer(this))
 	, m_puzzle(0)
 	, m_pieceAreaSize(QSizeF())
+	, m_margin(10.0)
 {
 }
 
@@ -44,6 +45,19 @@ void Palapeli::Scene::clearPieces()
 {
 	qDeleteAll(m_pieces);
 	m_pieces.clear();
+}
+
+void Palapeli::Scene::addMargin(const qreal handleWidth, const qreal spacer) {
+	m_margin = handleWidth + spacer;
+	m_constraintVisualizer->setThickness(handleWidth);
+	QRectF r = piecesBoundingRect();
+	r.adjust(-m_margin, -m_margin, m_margin, m_margin);
+	setSceneRect(r);
+}
+
+void Palapeli::Scene::startPuzzle()
+{
+	emit puzzleStarted();
 }
 
 QRectF Palapeli::Scene::piecesBoundingRect() const
