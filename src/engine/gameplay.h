@@ -24,6 +24,8 @@ class QStackedWidget;
 
 #include "../window/mainwindow.h"
 
+#include <QTime>	// IDW test.
+
 namespace Palapeli
 {
 	class CollectionView;
@@ -67,10 +69,11 @@ namespace Palapeli
 
 			void positionChanged(int reduction);
 		Q_SIGNALS:
-			void puzzleStarted();
 			void reportProgress(int pieceCount, int originalCount);
 			void victoryAnimationFinished();
 		private Q_SLOTS:
+			void loadPreview();
+			void loadPuzzleFile();
 			void loadNextPiece();
 			void loadPiecePositions();
 			void completeVisualsForNextPiece();
@@ -101,6 +104,7 @@ namespace Palapeli
 			QMap<int, Palapeli::Piece*> m_loadedPieces;
 			int m_originalPieceCount;
 			int m_currentPieceCount;
+			QTime t;	// IDW test.
 	};
 }
 

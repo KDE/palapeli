@@ -53,13 +53,15 @@ typedef QPair<int, int> DoubleIntPair;
 
 Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	: QObject(mainWindow)
-	, m_mainWindow(mainWindow)
 	, m_centralWidget(new QStackedWidget)
 	, m_collectionView(new Palapeli::CollectionView)
 	, m_puzzleTable(new Palapeli::PuzzleTableWidget)
 	, m_puzzlePreview(0)
+	, m_mainWindow(mainWindow)
 	, m_puzzle(0)
+	, m_pieceAreaSize(QSizeF(1.0, 1.0))
 	, m_savegameTimer(new QTimer(this))
+	, m_loadingPuzzle(false)
 	, m_originalPieceCount(0)
 	, m_currentPieceCount(0)
 {
@@ -99,7 +101,8 @@ void Palapeli::GamePlay::init()
 
 void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 {
-	qDebug() << "START playPuzzle()";
+	t.start();	// IDW test. START the clock.
+	qDebug() << "START playPuzzle(): elapsed 0";
 	m_centralWidget->setCurrentWidget(m_puzzleTable);
 	m_mainWindow->actionCollection()->
 				action("go_collection")->setEnabled(true);
@@ -111,13 +114,30 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 	m_puzzlePreview = new Palapeli::PuzzlePreview();
 
 	if (m_loadingPuzzle || (!puzzle) || (m_puzzle == puzzle)) {
-		// IDW TODO - If puzzle is already solved, we get no message.
+		if (m_puzzle == puzzle) {
+			qDebug() << "RESUMING A PUZZLE.";
+			// Check if puzzle has been completed.
+			if (m_currentPieceCount == 1) {
+				int result = KMessageBox::questionYesNo(
+					m_mainWindow,
+					i18n("You have finished the puzzle. Do you want to restart it now?"));
+				if (result == KMessageBox::Yes) {
+					restartPuzzle();
+					return;
+				}
+			}
+		}
 		qDebug() << "NO LOAD: (m_puzzle == puzzle)"
 			 << (m_puzzle == puzzle);
+		qDebug() << "m_loadingPuzzle" << m_loadingPuzzle
+			 << (puzzle ? "puzzle != 0" : "puzzle == 0");
 		return;		// Already loaded, loading or failed to start.
 	}
 	m_puzzle = puzzle;
+	qDebug() << "RESTART the clock: elapsed" << t.restart(); // IDW test.
+	// emit reportProgress(0, 0); // IDW test. Didn't work.
 	loadPuzzle();
+	qDebug() << "Returned from loadPuzzle(): elapsed" << t.elapsed();
 
 	// IDW TODO - There is no way to stop loading a puzzle and start loading
 	//            another, although it is possible to do "go_collection"
@@ -126,11 +146,19 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 	//            title (the title of the second with the contents of the
 	//            first). Maybe it will also get the wrong Preview.
 
+	QTimer::singleShot(0, this, SLOT(loadPreview()));
+}
+
+void Palapeli::GamePlay::loadPreview()
+{
+	// IDW TODO - This WAS delaying the showing of the LoadingWidget. Now
+	//            it is preventing the balls from moving for a few seconds.
+
 	// Get metadata from archive (tar), to be sure of getting image data.
 	// The config/palapeli-collectionrc file lacks image metadata (because
 	// Palapeli must load the collection-list quickly at startup time).
 	const Palapeli::PuzzleComponent* as =
-		puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage);
+		m_puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage);
 	const Palapeli::PuzzleComponent* cmd = (as == 0) ? 0 :
 		as->cast(Palapeli::PuzzleComponent::Metadata);
 	if (cmd) {
@@ -284,20 +312,30 @@ void Palapeli::GamePlay::configure()
 void Palapeli::GamePlay::loadPuzzle()
 {
 	qDebug() << "START loadPuzzle()";
-	m_savegameTimer->stop(); // Just in case it is running ...
 	m_loadingPuzzle = true;
-	m_puzzleTableScene->setConstrained(false);
-	// Turn off autosaving and progress-reporting during loading.
+	// m_puzzleTableScene->setConstrained(false); // IDW DELETE. Unnecessary?
+	// Stop autosaving and progress-reporting and start the loading-widget.
+	m_savegameTimer->stop(); // Just in case it is running ...
+	emit reportProgress(0, 0);
+	// Return to the event queue to start the loading-widget graphics ASAP.
+	QTimer::singleShot(0, this, SLOT(loadPuzzleFile()));
+	qDebug() << "END loadPuzzle()";
+}
+
+void Palapeli::GamePlay::loadPuzzleFile()
+{
 	// Clear all scenes, including any piece holders that exist.
-	qDebug() << "DISCONNECT SLOT(positionChanged(int)";
+	qDebug() << "Start clearing all scenes: elapsed" << t.elapsed();
+	qDebug() << "DISCONNECT SLOT(positionChanged(int))";
 	foreach (Palapeli::Scene* scene, m_sceneList) {
 		disconnect(scene, SIGNAL(saveMove(int)),
 			   this, SLOT(positionChanged(int)));
 		scene->clearPieces();
 	}
-	emit reportProgress(0, 0);
-
-	// Begin to load puzzle.
+	qDebug() << "Finish clearing all scenes: elapsed" << t.elapsed();
+	qDebug() << "Start loadPuzzleFile(): elapsed" << t.restart();
+	// Begin loading the puzzle.
+	// It is loaded asynchronously and processed one piece at a time.
 	m_loadedPieces.clear();
 	if (m_puzzle) {
 		Palapeli::FutureWatcher* watcher = new Palapeli::FutureWatcher;
@@ -307,6 +345,7 @@ void Palapeli::GamePlay::loadPuzzle()
 		watcher->setFuture(
 			m_puzzle->get(Palapeli::PuzzleComponent::Contents));
 	}
+	qDebug() << "Finish loadPuzzleFile(): time" << t.restart();
 }
 
 void Palapeli::GamePlay::loadNextPiece()
@@ -331,12 +370,16 @@ void Palapeli::GamePlay::loadNextPiece()
 			continue;	// Already loaded.
 
 		// Create a Palapeli::Piece from its image, offsets and ID.
+		// This also adds bevels, if required.
 		Palapeli::Piece* piece = new Palapeli::Piece(
 			iterPieces.value(), contents.pieceOffsets[pieceID]);
 		piece->addRepresentedAtomicPieces(QList<int>() << pieceID);
 		piece->addAtomicSize(iterPieces.value().size());
-
+		// IDW test. qDebug() << "PIECE" << pieceID
+		//                << "offset" << contents.pieceOffsets[pieceID]
+		//                << "size" << iterPieces.value().size();
 		m_loadedPieces[pieceID] = piece;
+		piece->completeVisuals();	// Add a shadow, if required.
 
 		// Continue with next piece or next stage, after event loop run.
 		if (contents.pieces.size() > m_loadedPieces.size())
@@ -349,6 +392,7 @@ void Palapeli::GamePlay::loadNextPiece()
 
 void Palapeli::GamePlay::loadPiecePositions()
 {
+	qDebug() << "Finish loadNextPiece() calls: time" << t.restart();
 	if (!m_puzzle)
 		return;
 	qDebug() << "loadPiecePositions():";
@@ -381,6 +425,7 @@ void Palapeli::GamePlay::loadPiecePositions()
 	{
 		// IDW TODO - Here pieces can get put in multiple scenes ...
 		// Read piece positions from SaveGame group.
+		qDebug() << "RESTORING SAVED PUZZLE.";
 		KConfigGroup saveGroup(&saveConfig, "SaveGame");
 		QMap<int, Palapeli::Piece*>::const_iterator i =
 						m_loadedPieces.constBegin();
@@ -402,9 +447,11 @@ void Palapeli::GamePlay::loadPiecePositions()
 	else
 	{
 		// Place pieces at nice positions.
+		qDebug() << "GENERATING A NEW PUZZLE BY SHUFFLING.";
 		// Step 1: determine maximum piece size.
 		QSizeF pieceAreaSize = m_pieceAreaSize;
 		pieceAreaSize *= 1.3;	// Allow more space for each piece.
+		// IDW TODO. pieceAreaSize *= 1.1;	// Allow more space for each piece.
 
 		// Step 2: place pieces in a grid in random order.
 		QList<Palapeli::Piece*> piecePool(m_loadedPieces.values());
@@ -497,13 +544,26 @@ void Palapeli::GamePlay::loadPiecePositions()
 						areaOffset - pieceOffset);
 			}
 		}
+		// Save the generated puzzle.
+		//
+		// If the user goes back to the collection, without making any
+		// moves, and looks at another puzzle, the generated puzzle
+		// should not be shuffled again when he/she reloads: only when
+		// he/she hits Restart Puzzle or chooses to resart a previously
+		// solved puzzle.
+		updateSavedGame();
 	}
-	// Continue after eventloop run.
+	qDebug() << "Finish loadPiecePositions(): time" << t.restart();
+	finishLoading();
+	/* IDW DELETE? // Continue after eventloop run.
 	QTimer::singleShot(0, this, SLOT(completeVisualsForNextPiece()));
+	*/
 }
 
 void Palapeli::GamePlay::completeVisualsForNextPiece()
 {
+	/* IDW DELETE? This seems to work OK if done during loadNextPiece().
+	//            Do we need this method at all?
 	QList<Palapeli::Piece*> pieces = m_puzzleTableScene->pieces();
 	foreach (Palapeli::Piece* piece, pieces) {
 		if (piece->completeVisuals()) {
@@ -516,6 +576,7 @@ void Palapeli::GamePlay::completeVisualsForNextPiece()
 	}
 	// No pieces left, or shadows are disabled.
 	finishLoading();
+	*/
 }
 
 void Palapeli::GamePlay::finishLoading()
@@ -525,30 +586,33 @@ void Palapeli::GamePlay::finishLoading()
 	// Start each scene and view.
 	m_currentPieceCount = 0;
 	foreach (Palapeli::Scene* scene, m_sceneList) {
-		// qDebug() << "Start a scene and view";
-		scene->setSceneRect(scene->piecesBoundingRect());
-		m_currentPieceCount = m_currentPieceCount + scene->pieces().size();
-		qDebug() << "LOADED" << m_loadedPieces.count() << "atomic" << m_currentPieceCount << "current";
+		QRectF s = scene->piecesBoundingRect();
+		qreal handleWidth = qMin(s.width(), s.height())/100.0;
+		// Add margin for constraint_handles+spacer and setSceneRect().
+		scene->addMargin(handleWidth, 0.5*handleWidth);
+		m_currentPieceCount = m_currentPieceCount +
+					scene->pieces().size();
 		// IDW TODO - Do this better. It's the VIEWS that need to know.
-		emit scene->startPuzzle();
+		// Need to let View catch up with Scene changes and resize.
+		qDebug() << "EMIT puzzleStarted()";
+		QTimer::singleShot(0, scene, SLOT(startPuzzle()));
 	}
 	// Initialize external progress display.
 	emit reportProgress(m_originalPieceCount, m_currentPieceCount);
-	emit puzzleStarted();	// IDW TODO - Who receives this signal?
 	m_loadingPuzzle = false;
 	// Check if puzzle has been completed.
 	if (m_currentPieceCount == 1) {
 		int result = KMessageBox::questionYesNo(m_mainWindow,
-			i18n("You have finished the puzzle the last time. Do you want to restart it now?"));
+			i18n("You have finished the puzzle. Do you want to restart it now?"));
 		if (result == KMessageBox::Yes) {
 			restartPuzzle();
 			return;
 		}
 	}
 	// Connect moves and merges of pieces to autosaving and progress-report.
-	qDebug() << "CONNECT SLOT(positionChanged(int)";
+	// IDW TODO - Needs to be done for each scene.
 	connect(m_puzzleTableScene, SIGNAL(saveMove(int)),
-		this, SLOT(positionChanged(int))); // , Qt::UniqueConnection);
+		this, SLOT(positionChanged(int)));
 	qDebug() << "finishLoading(): Exiting";
 }
 
