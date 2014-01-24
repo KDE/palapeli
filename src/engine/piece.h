@@ -64,6 +64,8 @@ namespace Palapeli
 
 			bool isSelected() const;
 			void setSelected(bool selected);
+			void startClick();
+			void endClick();
 			///Returns the corresponding piece for an \a item found e.g. in QGraphicsScene::selectedItems(). This is different from a simple qgraphicsitem_cast because, internally, when you call setSelected(true) on a piece, a child item of this Piece is selected.
 			///\return 0 if the given \a item does not belong to a Piece
 			static Palapeli::Piece* fromSelectedItem(QGraphicsItem* item);

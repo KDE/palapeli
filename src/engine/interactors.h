@@ -47,6 +47,7 @@ namespace Palapeli
 
 			QList<Palapeli::Piece*> m_currentPieces;
 			QPointF m_baseScenePosition, m_currentOffset;
+			QPoint m_baseViewPosition;
 			QList<QPointF> m_basePositions;
 	};
 
@@ -58,6 +59,9 @@ namespace Palapeli
 			SelectPieceInteractor(QGraphicsView* view);
 		protected:
 			virtual bool startInteraction(const Palapeli::MouseEvent& event);
+			virtual void stopInteraction(const Palapeli::MouseEvent& event);
+		private:
+			Palapeli::Piece* m_currentPiece;
 	};
 
 	//This interactor is assigned to RightButton;NoModifier by default.

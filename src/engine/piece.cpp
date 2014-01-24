@@ -299,6 +299,16 @@ void Palapeli::Piece::setSelected(bool selected)
 	m_pieceItem->setSelected(selected);
 }
 
+void Palapeli::Piece::startClick()
+{
+	m_pieceItem->setCursor(Qt::ClosedHandCursor);	// Button pressed.
+}
+
+void Palapeli::Piece::endClick()
+{
+	m_pieceItem->setCursor(Qt::OpenHandCursor);	// Button released.
+}
+
 Palapeli::Piece* Palapeli::Piece::fromSelectedItem(QGraphicsItem* item)
 {
 	//We expect: item == piece->m_pieceItem && item->parentItem() == piece

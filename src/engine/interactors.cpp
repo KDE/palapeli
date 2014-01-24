@@ -21,6 +21,7 @@
 #include "scene.h"
 #include "view.h"
 
+#include <QApplication>
 #include <QStyle>
 #include <QStyleOptionRubberBand>
 #include <KIcon>
@@ -82,6 +83,7 @@ bool Palapeli::MovePieceInteractor::startInteraction(const Palapeli::MouseEvent&
 		return false;
 	//start moving this piece
 	determineSelectedItems(selectableItemUnderMouse, piece);
+	m_baseViewPosition = event.pos;
 	m_baseScenePosition = event.scenePos;
 	m_currentOffset = QPointF();
 	m_basePositions.clear();
@@ -96,6 +98,11 @@ bool Palapeli::MovePieceInteractor::startInteraction(const Palapeli::MouseEvent&
 
 void Palapeli::MovePieceInteractor::continueInteraction(const Palapeli::MouseEvent& event)
 {
+	// Ignore tiny drags. They are probably meant to be a select.
+	if ((event.pos - m_baseViewPosition).manhattanLength() <
+		QApplication::startDragDistance()) {
+		return;
+	}
 	m_currentOffset = event.scenePos - m_baseScenePosition;
 	for (int i = 0; i < m_currentPieces.count(); ++i)
 	{
@@ -148,12 +155,19 @@ bool Palapeli::SelectPieceInteractor::startInteraction(const Palapeli::MouseEven
 	if (!selectableItemUnderMouse)
 		return false;
 	//we will only move pieces -> find the piece which we are moving
-	Palapeli::Piece* currentPiece = Palapeli::Piece::fromSelectedItem(selectableItemUnderMouse);
-	if (!currentPiece)
+	m_currentPiece = Palapeli::Piece::fromSelectedItem(selectableItemUnderMouse);
+	if (!m_currentPiece)
 		return false;
 	//toggle selection state for piece under mouse
-	currentPiece->setSelected(!currentPiece->isSelected());
+	m_currentPiece->setSelected(!m_currentPiece->isSelected());
+	m_currentPiece->startClick();
 	return true;
+}
+
+void Palapeli::SelectPieceInteractor::stopInteraction(const Palapeli::MouseEvent& event)
+{
+	Q_UNUSED(event)
+	m_currentPiece->endClick();
 }
 
 //END Palapeli::SelectPieceInteractor
