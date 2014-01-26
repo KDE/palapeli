@@ -71,7 +71,8 @@ namespace Palapeli
 			QPointF m_dragPrevPos;
 			int m_zoomLevel;
 			int m_closeUpLevel;
-			int m_previousLevel;
+			int m_distantLevel;
+			bool m_isCloseUp;
 			int calculateCloseUpLevel();
 	};
 }

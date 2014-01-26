@@ -40,7 +40,8 @@ Palapeli::View::View()
 	, m_scene(0)
 	, m_zoomLevel(100)
 	, m_closeUpLevel(0)
-	, m_previousLevel(0)
+	, m_distantLevel(0)
+	, m_isCloseUp(false)
 {
 	setFrameStyle(QFrame::NoFrame);
 	setMouseTracking(true);
@@ -146,6 +147,13 @@ void Palapeli::View::zoomBy(int delta)
 
 void Palapeli::View::zoomTo(int level)
 {
+	// IDW TODO - BUG: If you zoom out as far as Palapeli will go, using the
+	//            scroll-wheel, then go on scrolling, the view will zoom in
+	//            and back out again momentarily.
+	//
+	//            This used to disable the spacebar's zoom toggle, but does
+	//            not seem to do that now.
+	//
 	//validate/normalize input
 	level = qBound(MinimumZoomLevel, level, MaximumZoomLevel);
 	//skip unimportant requests
@@ -186,27 +194,33 @@ void Palapeli::View::toggleCloseUp()
 	//            scene as we change views.  It tends to drift off if we are
 	//            near the edge of the scene as we go to close-up or if we
 	//            move the mouse-pointer or the view during close-up.
-	if (! m_closeUpLevel) {
-		m_closeUpLevel = calculateCloseUpLevel();
-	}
-	if (m_zoomLevel != m_closeUpLevel) {
-		m_previousLevel = m_zoomLevel;
+
+	qDebug() << "View::toggleCloseUp()" << m_closeUpLevel << m_distantLevel << "current" << m_zoomLevel << m_isCloseUp;
+	// Note: We must have m_closeUpLevel >= m_distantLevel at all times.
+	m_isCloseUp = !m_isCloseUp;	// Switch to the other view.
+	if (m_isCloseUp) {
+		if (m_zoomLevel <= m_closeUpLevel) {
+			// Save distant level as we leave: in case it changed.
+			m_distantLevel = m_zoomLevel;
+		}
 		zoomTo(m_closeUpLevel);
 	}
-	else if (m_previousLevel) {
-		zoomTo(m_previousLevel);
+	else {
+		if (m_zoomLevel >= m_distantLevel) {
+			// Save close-up level as we leave: in case it changed.
+			m_closeUpLevel = m_zoomLevel;
+		}
+		zoomTo(m_distantLevel);
 	}
 }
 
 int Palapeli::View::calculateCloseUpLevel()
 {
-	// IDW TODO - Make this a Setting with default based on monitor pixels.
 	// Get the size of the monitor on which this view resides (in pixels).
 	const QRect monitor = QApplication::desktop()->screenGeometry(this);
 	const int pixelsPerPiece = qMin(monitor.width(), monitor.height())/12;
 	QSizeF size = scene()->pieceAreaSize();
 	qreal  zoom  = pixelsPerPiece/qMin(size.rwidth(),size.rheight());
-	// IDW TODO - zoom = zoom * setting;	// Default 1.0.
 	qDebug() << "Screen" << QApplication::desktop()->screenGeometry(this);
 	qDebug() << "pix" << pixelsPerPiece << size << "zoom" << zoom << "level"
 		 << (100 + (int)(30.0 * (log(zoom) / log(2.0))));
@@ -225,8 +239,7 @@ void Palapeli::View::puzzleStarted()
 	//            but it is GamePlay invoking m_puzzleTable->reportProgress
 	//            immediately that turns off the dancing balls.
 	resetTransform();
-	m_closeUpLevel = 0;
-	m_previousLevel = 0;
+
 	// IDW TODO - fitInView(viewport()->rect(), Qt::KeepAspectRatio);
 	qDebug() << "scene" << sceneRect() << "viewport" << viewport()->rect() << "mapToScene" << mapToScene(viewport()->rect()) << "bound" << mapToScene(viewport()->rect()).boundingRect();
 	//scale viewport to show the whole puzzle table
@@ -235,10 +248,21 @@ void Palapeli::View::puzzleStarted()
 	const qreal scalingFactor = /* IDW test. 0.9 * */ qMin(vr.width() / sr.width(), vr.height() / sr.height()); //factor 0.9 avoids that scene rect touches viewport bounds (which does not look nice)
 	qDebug() << "width ratio" << vr.width() / sr.width() << "height ratio" << vr.height() / sr.height() << "scalingFactor" << scalingFactor;
 	const int level = 100 + (int)(30.0 * (log(scalingFactor) / log(2.0)));
+
+	// Set the toggling levels. If close-up is smaller, set both the same.
+	m_closeUpLevel = calculateCloseUpLevel();
+	m_distantLevel = level;
+	m_closeUpLevel = (m_closeUpLevel < m_distantLevel) ?
+				m_distantLevel : m_closeUpLevel;
+	m_isCloseUp = false;	// We are starting with the view zoomed out.
+	qDebug() << "View::puzzleStarted: close" << m_closeUpLevel << "distant" << m_distantLevel << "m_isCloseUp" << m_isCloseUp;
+
 	zoomTo(level);
 	centerOn(sr.center());
 	emit zoomAdjustable(true);
-	qDebug() << "puzzleStarted(): size of Palapeli::View -" << size();
+
+	qDebug() << "View::puzzleStarted(): size of Palapeli::View -" << size();
+
 	//explain autosaving
 	KMessageBox::information(window(), i18n("Your progress is saved automatically while you play."), i18nc("used as caption for a dialog that explains the autosave feature", "Automatic saving"), QLatin1String("autosave-introduction"));
 }
