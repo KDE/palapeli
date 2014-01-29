@@ -68,13 +68,19 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	m_stack->addWidget(m_loadingWidget);
 	m_stack->addWidget(m_view);
 	m_stack->setCurrentWidget(m_loadingWidget);
+
 	//setup layout
-	QGridLayout* layout = new QGridLayout(this);
-	layout->addWidget(m_stack, 0, 0, 1, 2);
-	layout->addWidget(m_progressBar, 1, 0);
-	layout->addWidget(m_zoomWidget, 1, 1);
-	layout->setColumnStretch(0, 10);
-	layout->setMargin(0);
+	QWidget* pseudoStatusBar = new QWidget(this);
+	QHBoxLayout* barLayout = new QHBoxLayout(pseudoStatusBar);
+	barLayout->addWidget(m_progressBar, 3);		// Need not be long.
+	barLayout->addWidget(m_zoomWidget, 2);		// Must hold 200 steps.
+	barLayout->setContentsMargins(10, 0, 10, 0);	// Margins at ends.
+
+	QVBoxLayout* mainLayout = new QVBoxLayout(this);
+	mainLayout->setContentsMargins(0, 0, 0, 0);	// No margins.
+	mainLayout->setSpacing(0);			// No wasted gray space.
+	mainLayout->addWidget(m_stack, 30);		// Max puzzle height.
+	mainLayout->addWidget(pseudoStatusBar, 1);	// Min bar height.
 }
 
 Palapeli::View* Palapeli::PuzzleTableWidget::view() const

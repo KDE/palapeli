@@ -54,7 +54,7 @@ Palapeli::ZoomWidget::ZoomWidget(QWidget* parent)
 	layout->addWidget(m_zoomOutButton);
 	layout->addWidget(m_slider);
 	layout->addWidget(m_zoomInButton);
-	layout->setMargin(0);
+	layout->setContentsMargins(0, 0, 0, 0);
 	setLayout(layout);
 }
 
