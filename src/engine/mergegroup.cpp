@@ -150,7 +150,9 @@ void Palapeli::MergeGroup::createMergedPiece()
 	m_mergedPiece = new Palapeli::Piece(combinedPieceVisuals,
 			combinedShadowVisuals, combinedHighlightVisuals);
 	//apply UCS
-	m_scene->addItem(m_mergedPiece);
+	if (m_animated) {	// If loading the scene, we add the piece later.
+		m_scene->addItem(m_mergedPiece);
+	}
 	m_mergedPiece->setPos(m_ucsPosition);
 	//transfer information from old pieces to new piece, then destroy old pieces
 	foreach (Palapeli::Piece* piece, m_pieces)
