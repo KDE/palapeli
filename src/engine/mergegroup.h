@@ -22,6 +22,7 @@
 class QGraphicsScene;
 #include <QObject>
 #include <QPointF>
+#include <QSizeF>
 
 namespace Palapeli
 {
@@ -36,7 +37,7 @@ namespace Palapeli
 
 			///If \a animated is set, the transaction will wait for the animation to finish and then fire the pieceInstanceTransaction() signal. After this emission, the MergeGroup will delete itself.
 			///If \a animated is not set, you have to obtain the generated piece manually from the mergedPiece() method.
-			MergeGroup(const QList<Palapeli::Piece*>& pieces, QGraphicsScene* scene, bool animated = true);
+			MergeGroup(const QList<Palapeli::Piece*>& pieces, QGraphicsScene* scene, const QSizeF& pieceAreaSize, bool animated = true);
 
 			void start();
 
@@ -53,6 +54,7 @@ namespace Palapeli
 			QGraphicsScene* m_scene;
 			//parameters of united coordinate system (UCS)
 			QPointF m_ucsPosition;
+			QSizeF m_pieceAreaSize;
 	};
 }
 

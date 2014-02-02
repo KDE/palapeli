@@ -23,6 +23,7 @@
 #include "../engine/zoomwidget.h"
 #include "settings.h"
 
+#include <QToolBar>
 #include <QGridLayout>
 #include <QProgressBar>
 #include <QStackedWidget>
@@ -57,6 +58,7 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	//setup progress bar
 	m_progressBar->setText(i18n("No puzzle loaded"));
 	//setup zoom widget
+	m_zoomWidget->setLevel((View::MaximumZoomLevel+View::MinimumZoomLevel)/2);
 	connect(m_zoomWidget, SIGNAL(levelChanged(int)), m_view, SLOT(zoomTo(int)));
 	connect(m_zoomWidget, SIGNAL(zoomInRequest()), m_view, SLOT(zoomIn()));
 	connect(m_zoomWidget, SIGNAL(zoomOutRequest()), m_view, SLOT(zoomOut()));
@@ -65,11 +67,19 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	connect(m_zoomWidget, SIGNAL(constrainedChanged(bool)), m_view->scene(), SLOT(setConstrained(bool)));
 	connect(m_view->scene(), SIGNAL(constrainedChanged(bool)), m_zoomWidget, SLOT(setConstrained(bool)));
 	//setup widget stack
+	// /* IDW test. Disable LOADING WIDGET.
 	m_stack->addWidget(m_loadingWidget);
+	// */
 	m_stack->addWidget(m_view);
+	// /* IDW test. Disable LOADING WIDGET.
 	m_stack->setCurrentWidget(m_loadingWidget);
+	// */
+	m_stack->setCurrentWidget(m_view);
 
 	//setup layout
+	// IDW TODO - Make the background look like a toolbar? Below succeeds,
+	//            but nothing gets painted on it. Try QToolBar::addWidget().
+	// QToolBar* pseudoStatusBar = new QToolBar(this);
 	QWidget* pseudoStatusBar = new QWidget(this);
 	QHBoxLayout* barLayout = new QHBoxLayout(pseudoStatusBar);
 	barLayout->addWidget(m_progressBar, 3);		// Need not be long.
@@ -126,7 +136,9 @@ void Palapeli::PuzzleTableWidget::reportProgress(int pieceCount, int partCount)
 	if (pieceCount > 0)
 		m_stack->setCurrentWidget(m_view);
 	else
+		// ; /* // IDW test. Disable LOADING WIDGET.
 		m_stack->setCurrentWidget(m_loadingWidget);
+		// */
 }
 
 void Palapeli::PuzzleTableWidget::setZoomAdjustable(bool adjustable)

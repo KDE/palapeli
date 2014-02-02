@@ -73,7 +73,9 @@ namespace Palapeli
 			int m_closeUpLevel;
 			int m_distantLevel;
 			bool m_isCloseUp;
-			int calculateCloseUpLevel();
+			qreal calculateCloseUpScale();
+			qreal m_dZoom;
+			qreal m_minScale;
 	};
 }
 

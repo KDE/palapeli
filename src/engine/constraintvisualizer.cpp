@@ -29,7 +29,9 @@ Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)
 	, m_shadowItems(SideCount)
 	, m_handleItems(HandleCount)
 	, m_animator(new QPropertyAnimation(this, "opacity", this))
+	, m_sceneRect(QRectF())
 	, m_thickness(5.0)
+	, m_isStopped(true)
 {
 	// All QGraphicsRectItems have null size until the first update().
 	setOpacity(0.3);
@@ -57,17 +59,40 @@ Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)
 	}
 	//more initialization
 	QObject::setParent(scene); //delete myself automatically when the scene is destroyed
-	// IDW TODO - This should probably be done as a "first-time" thing in
-	//            the update() method. The item has NULL contents here.
-	scene->addItem(this);
+}
+
+void Palapeli::ConstraintVisualizer::start (const QRectF& sceneRect,
+					    const int thickness)
+{
+	// Puzzle loading nearly finished: add resize handles and shadow areas.
+	if (!m_isStopped) {
+		return;		// Duplicate call.
+	}
+	m_thickness = thickness;
+	this->update(sceneRect);
+	m_scene->addItem(this);
 	setZValue(-1);
-	//NOTE: The QueuedConnection is necessary because setSceneRect() sends out
-	//the sceneRectChanged() signal before it disables automatic growing of the
-	//scene rect. If the connection was direct, we could thus enter an infinite
-	//loop when the constraint visualizer enlarges itself in reaction to the
-	//changed sceneRect, thereby changing the autogrowing sceneRect again.
-	connect(scene, SIGNAL(sceneRectChanged(QRectF)),
+
+	// NOTE: The QueuedConnection is necessary because setSceneRect() sends
+	// out the sceneRectChanged() signal before it disables automatic
+	// growing of the scene rect. If the connection was direct, we could
+	// thus enter an infinite loop when the constraint visualizer enlarges
+	// itself in reaction to the changed sceneRect, thereby changing the
+	// autogrowing sceneRect again.
+	connect(m_scene, SIGNAL(sceneRectChanged(QRectF)),
 		this, SLOT(update(QRectF)), Qt::QueuedConnection);
+	m_isStopped = false;
+}
+
+void Palapeli::ConstraintVisualizer::stop()
+{
+	if (m_isStopped) {
+		return;		// Starting first loadPuzzle(): nothing to do.
+	}
+	m_scene->removeItem(this);
+	disconnect(m_scene, SIGNAL(sceneRectChanged(QRectF)));
+	m_sceneRect = QRectF();
+	m_isStopped = true;
 }
 
 bool Palapeli::ConstraintVisualizer::isActive() const
@@ -91,6 +116,7 @@ void Palapeli::ConstraintVisualizer::update(const QRectF& sceneRect)
 {
 	if (m_sceneRect == sceneRect)
 		return;
+	// Make sure the ConstraintVisualizer stays outside the pieces' area.
 	QRectF minimumRect = m_scene->piecesBoundingRect();
 	qreal m = m_scene->margin();
 	minimumRect.adjust(-m, -m, m, m);
@@ -101,9 +127,7 @@ void Palapeli::ConstraintVisualizer::update(const QRectF& sceneRect)
 		m_sceneRect = minimumRect;
 		m_scene->setSceneRect(minimumRect);
 	}
-	// IDW test. const QSizeF handleSize = m_sceneRect.size() / 20;
-	// qDebug() << "ConstraintVisualizer::update" << m_sceneRect << "thickness" << m_thickness;
-	//find a fictional viewport rect which we want to cover (except for the contained scene rect)
+	// Find a fictional viewport we want to cover (except for scene rect).
 	const qreal viewportRectSizeFactor = 10;
 	QRectF viewportRect = m_sceneRect;
 	viewportRect.setSize(viewportRectSizeFactor * m_sceneRect.size());

@@ -41,7 +41,8 @@ namespace Palapeli
 		public:
 			Scene(QObject* parent = 0);
 
-			void addPiece(Palapeli::Piece* piece);
+			void addPieceToList(Palapeli::Piece* piece);
+			void addPieceItemsToScene();
 			bool isConstrained() const;
 			QRectF piecesBoundingRect() const;
 			qreal margin() { return m_margin; }

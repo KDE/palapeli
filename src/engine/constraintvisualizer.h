@@ -51,7 +51,9 @@ namespace Palapeli
 			ConstraintVisualizer(Palapeli::Scene* scene);
 
 			bool isActive() const;
-			void setThickness(qreal t) { m_thickness = t; }
+			void start (const QRectF& sceneRect,
+				    const int thickness);
+			void stop();
 		public Q_SLOTS:
 			void setActive(bool active);
 			void update(const QRectF& sceneRect);
@@ -70,6 +72,7 @@ namespace Palapeli
 			QGraphicsPathItem* m_indicatorItem;
 			QRectF m_sceneRect;
 			QPropertyAnimation* m_animator;
+			bool m_isStopped;
 			qreal m_thickness;
 	};
 }

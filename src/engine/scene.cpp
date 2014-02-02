@@ -27,8 +27,6 @@
 Palapeli::Scene::Scene(QObject* parent)
 	: QGraphicsScene(parent)
 	, m_constrained(false)
-	// IDW TODO - Maybe set it to zero and create it and addItem() later?
-	//            See also the TODO in the ConstraintVisualizer constructor.
 	, m_constraintVisualizer(new Palapeli::ConstraintVisualizer(this))
 	, m_puzzle(0)
 	, m_pieceAreaSize(QSizeF())
@@ -36,25 +34,34 @@ Palapeli::Scene::Scene(QObject* parent)
 {
 }
 
-void Palapeli::Scene::addPiece(Palapeli::Piece* piece)
+void Palapeli::Scene::addPieceToList(Palapeli::Piece* piece)
 {
-	addItem(piece);
 	m_pieces << piece;
-	connect(piece, SIGNAL(moved(bool)), this, SLOT(pieceMoved(bool)));
+}
+
+void Palapeli::Scene::addPieceItemsToScene()
+{
+	foreach (Palapeli::Piece * piece, m_pieces) {
+		addItem(piece);
+		connect(piece, SIGNAL(moved(bool)), this, SLOT(pieceMoved(bool)));
+	}
 }
 
 void Palapeli::Scene::clearPieces()
 {
 	qDeleteAll(m_pieces);
 	m_pieces.clear();
+	m_constraintVisualizer->stop();
 }
 
 void Palapeli::Scene::addMargin(const qreal handleWidth, const qreal spacer) {
 	m_margin = handleWidth + spacer;
-	m_constraintVisualizer->setThickness(handleWidth);
 	QRectF r = piecesBoundingRect();
 	r.adjust(-m_margin, -m_margin, m_margin, m_margin);
 	setSceneRect(r);
+	m_constraintVisualizer->start(r, handleWidth);
+	views()[0]->fitInView(r, Qt::KeepAspectRatio);
+	qDebug() << "SCENE RECT" << r << "VIEW SIZE" << views()[0]->size();
 }
 
 void Palapeli::Scene::startPuzzle()
@@ -65,6 +72,9 @@ void Palapeli::Scene::startPuzzle()
 QRectF Palapeli::Scene::piecesBoundingRect() const
 {
 	QRectF result;
+	if (m_pieces.isEmpty())	{	// If no pieces in the scene.
+		return QRectF(0.0, 0.0, 2000.0, 2000.0);
+	}
 	foreach (Palapeli::Piece* piece, m_pieces)
 		result |= piece->sceneBareBoundingRect();
 	return result;
@@ -138,7 +148,7 @@ void Palapeli::Scene::searchConnections(const QList<Palapeli::Piece*>& pieces,
 		{
 			Palapeli::MergeGroup* mergeGroup =
 				new Palapeli::MergeGroup(pieceGroup, this,
-							 animatedMerging);
+					m_pieceAreaSize, animatedMerging);
 			connect(mergeGroup, SIGNAL(pieceInstanceTransaction(
 			    QList<Palapeli::Piece*>,QList<Palapeli::Piece*>)),
 			    this, SLOT(pieceInstanceTransaction(
@@ -150,7 +160,7 @@ void Palapeli::Scene::searchConnections(const QList<Palapeli::Piece*>& pieces,
 
 void Palapeli::Scene::pieceInstanceTransaction(const QList<Palapeli::Piece*>& deletedPieces, const QList<Palapeli::Piece*>& createdPieces)
 {
-	qDebug() << "Scene::pieceInstanceTransaction(delete" << deletedPieces.count() << "add" << createdPieces.count();
+	// qDebug() << "Scene::pieceInstanceTransaction(delete" << deletedPieces.count() << "add" << createdPieces.count();
 	const int oldPieceCount = m_pieces.count();
 	foreach (Palapeli::Piece* oldPiece, deletedPieces)
 		m_pieces.removeAll(oldPiece); //these pieces have been deleted by the caller
@@ -160,7 +170,7 @@ void Palapeli::Scene::pieceInstanceTransaction(const QList<Palapeli::Piece*>& de
 		connect(newPiece, SIGNAL(moved(bool)),
 			this, SLOT(pieceMoved(bool)));
 	}
-	qDebug() << "emit saveMove(" << oldPieceCount - m_pieces.count();
+	// qDebug() << "emit saveMove(" << oldPieceCount - m_pieces.count();
 	emit saveMove(oldPieceCount - m_pieces.count());
 }
 

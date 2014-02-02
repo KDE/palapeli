@@ -76,7 +76,6 @@ namespace Palapeli
 			void loadPuzzleFile();
 			void loadNextPiece();
 			void loadPiecePositions();
-			void completeVisualsForNextPiece();
 			void finishLoading();
 
 			void playVictoryAnimation2();

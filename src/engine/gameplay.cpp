@@ -135,7 +135,6 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 	}
 	m_puzzle = puzzle;
 	qDebug() << "RESTART the clock: elapsed" << t.restart(); // IDW test.
-	// emit reportProgress(0, 0); // IDW test. Didn't work.
 	loadPuzzle();
 	qDebug() << "Returned from loadPuzzle(): elapsed" << t.elapsed();
 
@@ -313,7 +312,6 @@ void Palapeli::GamePlay::loadPuzzle()
 {
 	qDebug() << "START loadPuzzle()";
 	m_loadingPuzzle = true;
-	// m_puzzleTableScene->setConstrained(false); // IDW DELETE. Unnecessary?
 	// Stop autosaving and progress-reporting and start the loading-widget.
 	m_savegameTimer->stop(); // Just in case it is running ...
 	emit reportProgress(0, 0);
@@ -412,7 +410,7 @@ void Palapeli::GamePlay::loadPiecePositions()
 	foreach (Palapeli::Piece* piece, m_loadedPieces) {
 		// Add all pieces to the main scene at first and move them
 		// later, when or if a save file is found and processed.
-		m_puzzleTableScene->addPiece(piece);
+		m_puzzleTableScene->addPieceToList(piece);
 	}
 	calculatePieceAreaSize();
 	// IDW TODO - Need to tell every scene about this - as they are created.
@@ -553,30 +551,15 @@ void Palapeli::GamePlay::loadPiecePositions()
 		// solved puzzle.
 		updateSavedGame();
 	}
+	foreach (Palapeli::Scene* scene, m_sceneList) {
+		QRectF s = scene->piecesBoundingRect();
+		qreal handleWidth = qMin(s.width(), s.height())/100.0;
+		// Add margin for constraint_handles+spacer and setSceneRect().
+		scene->addMargin(handleWidth, 0.5*handleWidth);
+	}
+	m_puzzleTableScene->addPieceItemsToScene();
 	qDebug() << "Finish loadPiecePositions(): time" << t.restart();
 	finishLoading();
-	/* IDW DELETE? // Continue after eventloop run.
-	QTimer::singleShot(0, this, SLOT(completeVisualsForNextPiece()));
-	*/
-}
-
-void Palapeli::GamePlay::completeVisualsForNextPiece()
-{
-	/* IDW DELETE? This seems to work OK if done during loadNextPiece().
-	//            Do we need this method at all?
-	QList<Palapeli::Piece*> pieces = m_puzzleTableScene->pieces();
-	foreach (Palapeli::Piece* piece, pieces) {
-		if (piece->completeVisuals()) {
-			// Something had to be done -> continue with
-			// next piece after eventloop run.
-			QTimer::singleShot(0, this,
-					SLOT(completeVisualsForNextPiece()));
-			return;
-		}
-	}
-	// No pieces left, or shadows are disabled.
-	finishLoading();
-	*/
 }
 
 void Palapeli::GamePlay::finishLoading()
@@ -586,16 +569,10 @@ void Palapeli::GamePlay::finishLoading()
 	// Start each scene and view.
 	m_currentPieceCount = 0;
 	foreach (Palapeli::Scene* scene, m_sceneList) {
-		QRectF s = scene->piecesBoundingRect();
-		qreal handleWidth = qMin(s.width(), s.height())/100.0;
-		// Add margin for constraint_handles+spacer and setSceneRect().
-		scene->addMargin(handleWidth, 0.5*handleWidth);
 		m_currentPieceCount = m_currentPieceCount +
 					scene->pieces().size();
 		// IDW TODO - Do this better. It's the VIEWS that need to know.
-		// Need to let View catch up with Scene changes and resize.
-		qDebug() << "EMIT puzzleStarted()";
-		QTimer::singleShot(0, scene, SLOT(startPuzzle()));
+		scene->startPuzzle();
 	}
 	// Initialize external progress display.
 	emit reportProgress(m_originalPieceCount, m_currentPieceCount);
@@ -613,7 +590,7 @@ void Palapeli::GamePlay::finishLoading()
 	// IDW TODO - Needs to be done for each scene.
 	connect(m_puzzleTableScene, SIGNAL(saveMove(int)),
 		this, SLOT(positionChanged(int)));
-	qDebug() << "finishLoading(): Exiting";
+	qDebug() << "finishLoading(): time" << t.restart();
 }
 
 void Palapeli::GamePlay::calculatePieceAreaSize()
@@ -673,15 +650,10 @@ void Palapeli::GamePlay::updateSavedGame()
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
 	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_puzzle->identifier())));
 	KConfigGroup saveGroup(&saveConfig, "SaveGame");
-	// qDebug() << "updateSavegame(): KConfigGroup found";
 	// IDW TODO - Needs to be done for EACH scene, with unique string-IDs.
 	foreach (Palapeli::Piece* piece, m_puzzleTableScene->pieces()) {
-		// qDebug() << "updateSavedGame(): Get piece->pos()";
 		const QPointF pos = piece->pos();
-		// qDebug() << "updateSavedGame(): atomicPieces" << piece->representedAtomicPieces() << "pos" << pos;
 		foreach (int atomicPieceID, piece->representedAtomicPieces()) {
-			// qDebug() << "updateSavedGame(): Write" << atomicPieceID
-				 // << "pos" << pos;
 			saveGroup.writeEntry(QString::number(atomicPieceID), pos);
 		}
 	}

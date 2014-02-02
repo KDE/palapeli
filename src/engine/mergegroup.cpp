@@ -68,11 +68,12 @@ QList<Palapeli::Piece*> Palapeli::MergeGroup::tryGrowMergeGroup(Palapeli::Piece*
 	return resultList;
 }
 
-Palapeli::MergeGroup::MergeGroup(const QList<Palapeli::Piece*>& pieces, QGraphicsScene* scene, bool animated)
+Palapeli::MergeGroup::MergeGroup(const QList<Palapeli::Piece*>& pieces, QGraphicsScene* scene, const QSizeF& pieceAreaSize, bool animated)
 	: m_animated(animated)
 	, m_pieces(pieces)
 	, m_mergedPiece(0)
 	, m_scene(scene)
+	, m_pieceAreaSize(pieceAreaSize)
 {
 	//find united coordinate system (UCS) -> large pieces contribute more than smaller pieces
 	int totalWeight = 0;
@@ -135,8 +136,9 @@ void Palapeli::MergeGroup::createMergedPiece()
 		// they happen to get selected), but when they are merged, each
 		// one must have a highlight pixmap that can be merged into a
 		// combined highlight pixmap for the new multi-part piece.
-		if (!piece->hasHighlight())
-			piece->createHighlight();
+		if (!piece->hasHighlight()) {
+			piece->createHighlight(m_pieceAreaSize);
+		}
 		highlightVisuals << piece->highlightVisuals();
 	}
 	//merge pixmap and create piece

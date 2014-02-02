@@ -132,12 +132,11 @@ void Palapeli::Piece::createShadowItems(const Palapeli::PieceVisuals& shadowVisu
 	m_animator = new QPropertyAnimation(this, "activeShadowOpacity", this);
 }
 
-void Palapeli::Piece::createHighlight()
+void Palapeli::Piece::createHighlight(const QSizeF& pieceAreaSize)
 {
 	QRectF rect = sceneBareBoundingRect();
 	// IDW TODO - Make the factor an adjustable setting (1.2-2.0).
-	QSizeF area = 1.5*(qobject_cast<Palapeli::Scene*>(scene())->
-				pieceAreaSize());
+	QSizeF area = 1.5 * pieceAreaSize;
 	int w = area.width();
 	int h = area.height();
 	// IDW TODO - Paint pixmap just once (in Scene?) and shallow-copy it.
@@ -206,7 +205,8 @@ void Palapeli::Piece::pieceItemSelectedChanged(bool selected)
 	if (!m_activeShadowItem) {
 		// No shadows: use a highlighter.
 		if (!m_highlightItem) {
-			createHighlight();
+			createHighlight((qobject_cast<Palapeli::Scene*>
+				    (scene()))->pieceAreaSize());
 		}
 		// IDW TODO - Use an animator to change the visibility?
 		m_highlightItem->setVisible(selected);

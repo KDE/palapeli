@@ -60,7 +60,7 @@ namespace Palapeli
 			bool hasHighlight() const;
 			Palapeli::PieceVisuals shadowVisuals() const;
 			Palapeli::PieceVisuals highlightVisuals() const;
-			void createHighlight();
+			void createHighlight(const QSizeF& pieceAreaSize);
 
 			bool isSelected() const;
 			void setSelected(bool selected);
