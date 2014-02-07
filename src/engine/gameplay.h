@@ -31,7 +31,9 @@ namespace Palapeli
 	class CollectionView;
 	class Puzzle;
 	class PuzzleTableWidget;
+	class PieceHolder;
 	class PuzzlePreview;
+	class View;
 	class Scene;
 	class Piece;
 
@@ -54,6 +56,7 @@ namespace Palapeli
 					{ return m_collectionView; };
 			PuzzleTableWidget* puzzleTable()
 					{ return m_puzzleTable; };
+			static const int LargePuzzle;
 		public Q_SLOTS:
 			void playPuzzle(Palapeli::Puzzle* puzzle);
 			void playPuzzleFile(const QString& path);
@@ -83,6 +86,7 @@ namespace Palapeli
 
 			void updateSavedGame();
 		private:
+			void deletePuzzleViews();
 			void loadPuzzle();
 			void playVictoryAnimation();
 			void calculatePieceAreaSize();
@@ -94,7 +98,7 @@ namespace Palapeli
 			MainWindow*        m_mainWindow;
 			Puzzle*            m_puzzle;
 			Scene*             m_puzzleTableScene;
-			QList<Scene*>      m_sceneList;
+			QList<View*>       m_viewList;
 			QSizeF             m_pieceAreaSize;
 			QTimer*            m_savegameTimer;
 
@@ -103,6 +107,7 @@ namespace Palapeli
 			QMap<int, Palapeli::Piece*> m_loadedPieces;
 			int m_originalPieceCount;
 			int m_currentPieceCount;
+			qreal m_sizeFactor;
 			QTime t;	// IDW test.
 	};
 }

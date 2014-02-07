@@ -42,6 +42,7 @@ set(palapeli_SRCS
 	window/loadingwidget.cpp
 	window/mainwindow.cpp
 	window/puzzletablewidget.cpp
+	window/pieceholder.cpp
 )
 kde4_add_kcfg_files(palapeli_SRCS settings.kcfgc)
 kde4_add_ui_files(palapeli_SRCS settings.ui)

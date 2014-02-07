@@ -21,6 +21,7 @@
 
 #include "../file-io/collection-view.h"
 #include "../window/puzzletablewidget.h"
+#include "../window/pieceholder.h"
 #include "puzzlepreview.h"
 
 #include "scene.h"
@@ -51,6 +52,8 @@ typedef QPair<int, int> DoubleIntPair;
 
 //TODO: move LoadingWidget into here (stack into m_centralWidget)
 
+const int Palapeli::GamePlay::LargePuzzle = 300;
+
 Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	: QObject(mainWindow)
 	, m_centralWidget(new QStackedWidget)
@@ -64,9 +67,10 @@ Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	, m_loadingPuzzle(false)
 	, m_originalPieceCount(0)
 	, m_currentPieceCount(0)
+	, m_sizeFactor(1.3)
 {
 	m_puzzleTableScene = m_puzzleTable->view()->scene();
-	m_sceneList << m_puzzleTableScene;
+	m_viewList << m_puzzleTable->view();
 	m_savegameTimer->setInterval(500); //write savegame twice per second at most
 	m_savegameTimer->setSingleShot(true);
 	connect(m_savegameTimer, SIGNAL(timeout()), this, SLOT(updateSavedGame()));
@@ -78,7 +82,24 @@ Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 
 Palapeli::GamePlay::~GamePlay()
 {
+	deletePuzzleViews();
 	delete m_puzzlePreview;
+}
+
+void Palapeli::GamePlay::deletePuzzleViews()
+{
+	while (! m_viewList.isEmpty()) {
+		Palapeli::View* view = m_viewList.takeLast();
+		Palapeli::Scene* scene = view->scene();
+		qDebug() << "DISCONNECT SLOT(positionChanged(int))";
+		disconnect(scene, SIGNAL(saveMove(int)),
+			   this, SLOT(positionChanged(int)));
+		scene->clearPieces();
+		if (scene != m_puzzleTableScene) {
+			qDebug() << "DELETING holder" << view->windowTitle();
+			delete view;
+		}
+	}
 }
 
 void Palapeli::GamePlay::init()
@@ -116,6 +137,7 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 	if (m_loadingPuzzle || (!puzzle) || (m_puzzle == puzzle)) {
 		if (m_puzzle == puzzle) {
 			qDebug() << "RESUMING A PUZZLE.";
+			// IDW TODO - Show piece-holders.
 			// Check if puzzle has been completed.
 			if (m_currentPieceCount == 1) {
 				int result = KMessageBox::questionYesNo(
@@ -192,6 +214,12 @@ void Palapeli::GamePlay::actionGoCollection()
 	delete m_puzzlePreview;
 	m_puzzlePreview = 0;
 	m_mainWindow->setCaption(QString());
+	// IDW TODO - Disable piece-holder actions.
+	foreach (Palapeli::View* view, m_viewList) {
+		if (view != m_puzzleTable->view()) {
+			view->hide();
+		}
+	}
 }
 
 void Palapeli::GamePlay::actionTogglePreview()
@@ -322,15 +350,12 @@ void Palapeli::GamePlay::loadPuzzle()
 
 void Palapeli::GamePlay::loadPuzzleFile()
 {
-	// Clear all scenes, including any piece holders that exist.
+	// Clear all scenes, and delete any piece holders that exist.
 	qDebug() << "Start clearing all scenes: elapsed" << t.elapsed();
-	qDebug() << "DISCONNECT SLOT(positionChanged(int))";
-	foreach (Palapeli::Scene* scene, m_sceneList) {
-		disconnect(scene, SIGNAL(saveMove(int)),
-			   this, SLOT(positionChanged(int)));
-		scene->clearPieces();
-	}
+	deletePuzzleViews();
+	m_viewList << m_puzzleTable->view();	// Re-list the puzzle-table.
 	qDebug() << "Finish clearing all scenes: elapsed" << t.elapsed();
+
 	qDebug() << "Start loadPuzzleFile(): elapsed" << t.restart();
 	// Begin loading the puzzle.
 	// It is loaded asynchronously and processed one piece at a time.
@@ -421,8 +446,15 @@ void Palapeli::GamePlay::loadPiecePositions()
 	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_puzzle->identifier())));
 	if (saveConfig.hasGroup("SaveGame"))
 	{
+		// IDW TODO - Show piece-holders. Enable piece-holder actions.
+
 		// IDW TODO - Here pieces can get put in multiple scenes ...
-		// Read piece positions from SaveGame group.
+		// Read piece positions from the SaveGame group.
+		// The current positions of atomic pieces are listed. If
+		// neighbouring pieces are joined, their position values are
+		// identical and searchConnections(m_pieces) handles that by
+		// calling on a MergeGroup object to join the pieces.
+
 		qDebug() << "RESTORING SAVED PUZZLE.";
 		KConfigGroup saveGroup(&saveConfig, "SaveGame");
 		QMap<int, Palapeli::Piece*>::const_iterator i =
@@ -448,12 +480,14 @@ void Palapeli::GamePlay::loadPiecePositions()
 		qDebug() << "GENERATING A NEW PUZZLE BY SHUFFLING.";
 		// Step 1: determine maximum piece size.
 		QSizeF pieceAreaSize = m_pieceAreaSize;
-		pieceAreaSize *= 1.3;	// Allow more space for each piece.
-		// IDW TODO. pieceAreaSize *= 1.1;	// Allow more space for each piece.
+		pieceAreaSize *= m_sizeFactor;	// Allow more space for pieces.
 
 		// Step 2: place pieces in a grid in random order.
 		QList<Palapeli::Piece*> piecePool(m_loadedPieces.values());
 		int nPieces = piecePool.count();
+		if (nPieces >= LargePuzzle) {
+			m_viewList << new PieceHolder(pieceAreaSize, "Hand");
+		}
 		Palapeli::ConfigDialog::SolutionSpace space =
 			(nPieces < 20) ?  Palapeli::ConfigDialog::None :
 				(Palapeli::ConfigDialog::SolutionSpace)
@@ -523,6 +557,7 @@ void Palapeli::GamePlay::loadPiecePositions()
 				// Select a random piece.
 				Palapeli::Piece* piece = piecePool.takeAt(
 						qrand() % piecePool.count());
+				// IDW TODO - piece->setPlace(x, y, pieceAreaSize, Palapeli::Piece::Random);
 				// Determine the piece's offset.
 				piece->setPos(QPointF());
 				const QRectF b = piece->sceneBareBoundingRect();
@@ -551,7 +586,8 @@ void Palapeli::GamePlay::loadPiecePositions()
 		// solved puzzle.
 		updateSavedGame();
 	}
-	foreach (Palapeli::Scene* scene, m_sceneList) {
+	foreach (Palapeli::View* view, m_viewList) {
+		Palapeli::Scene* scene = view->scene();
 		QRectF s = scene->piecesBoundingRect();
 		qreal handleWidth = qMin(s.width(), s.height())/100.0;
 		// Add margin for constraint_handles+spacer and setSceneRect().
@@ -568,7 +604,8 @@ void Palapeli::GamePlay::finishLoading()
 	m_puzzle->dropComponent(Palapeli::PuzzleComponent::Contents);
 	// Start each scene and view.
 	m_currentPieceCount = 0;
-	foreach (Palapeli::Scene* scene, m_sceneList) {
+	foreach (Palapeli::View* view, m_viewList) {
+		Palapeli::Scene* scene = view->scene();
 		m_currentPieceCount = m_currentPieceCount +
 					scene->pieces().size();
 		// IDW TODO - Do this better. It's the VIEWS that need to know.
