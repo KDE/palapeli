@@ -65,44 +65,66 @@ void Palapeli::MainWindow::setupActions()
 	KAction* goCollAct = new KAction(KIcon("go-previous"), i18n("Back to &collection"), 0);
 	goCollAct->setToolTip(i18n("Go back to the collection to choose another puzzle"));
 	goCollAct->setEnabled(false); //because the collection is initially shown
-	actionCollection()->addAction("go_collection", goCollAct);
+	actionCollection()->addAction("view_collection", goCollAct);
 	connect(goCollAct, SIGNAL(triggered()), m_game, SLOT(actionGoCollection()));
 
 	// Create new puzzle (FIXME: action should have a custom icon).
 	KAction* createAct = new KAction(KIcon("tools-wizard"), i18n("Create &new puzzle..."), 0);
 	createAct->setShortcut(KStandardShortcut::openNew());
 	createAct->setToolTip(i18n("Create a new puzzle using an image file from your disk"));
-	actionCollection()->addAction("file_new", createAct);
+	actionCollection()->addAction("game_new", createAct);
 	connect(createAct, SIGNAL(triggered()), m_game, SLOT(actionCreate()));
 
 	// Delete a puzzle.
-	KAction* deleteAct = new KAction(KIcon("archive-remove"), i18n("&Delete"), 0);
+	KAction* deleteAct = new KAction(KIcon("archive-remove"), i18n("&Delete puzzle"), 0);
 	deleteAct->setEnabled(false); //will be enabled when something is selected
 	deleteAct->setToolTip(i18n("Delete the selected puzzle from your collection"));
-	actionCollection()->addAction("file_delete", deleteAct);
+	actionCollection()->addAction("game_delete", deleteAct);
 	connect(m_game->collectionView(), SIGNAL(canDeleteChanged(bool)), deleteAct, SLOT(setEnabled(bool)));
 	connect(deleteAct, SIGNAL(triggered()), m_game, SLOT(actionDelete()));
 
 	// Import from file...
 	KAction* importAct = new KAction(KIcon("document-import"), i18n("&Import from file..."), 0);
 	importAct->setToolTip(i18n("Import a new puzzle from a file into your collection"));
-	actionCollection()->addAction("file_import", importAct);
+	actionCollection()->addAction("game_import", importAct);
 	connect(importAct, SIGNAL(triggered()), m_game, SLOT(actionImport()));
 
 	// Export to file...
 	KAction* exportAct = new KAction(KIcon("document-export"), i18n("&Export to file..."), 0);
 	exportAct->setEnabled(false); //will be enabled when something is selected
 	exportAct->setToolTip(i18n("Export the selected puzzle from your collection into a file"));
-	actionCollection()->addAction("file_export", exportAct);
+	actionCollection()->addAction("game_export", exportAct);
 	connect(m_game->collectionView(), SIGNAL(canExportChanged(bool)), exportAct, SLOT(setEnabled(bool)));
 	connect(exportAct, SIGNAL(triggered()), m_game, SLOT(actionExport()));
 
-	//Restart puzzle (TODO: placed here only temporarily)
+	//Reshuffle and restart puzzle
 	KAction* restartPuzzleAct = new KAction(KIcon("view-refresh"), i18n("&Restart puzzle..."), 0);
-	restartPuzzleAct->setToolTip(i18n("Delete the saved progress"));
+	restartPuzzleAct->setToolTip(i18n("Delete the saved progress and reshuffle the pieces"));
 	restartPuzzleAct->setEnabled(false); //no puzzle in progress initially
 	actionCollection()->addAction("game_restart", restartPuzzleAct);
 	connect(restartPuzzleAct, SIGNAL(triggered()), m_game, SLOT(restartPuzzle()));
+	// Create piece-holder.
+	KAction* createHolderAct = new KAction(i18n("&Create piece holder..."), 0);
+	createHolderAct->setToolTip(i18n("Create a temporary holder for sorting pieces"));
+	actionCollection()->addAction("move_create_holder", createHolderAct);
+	connect(createHolderAct, SIGNAL(triggered()), m_game, SLOT(createHolder()));
+
+	// Delete piece-holder.
+	KAction* deleteHolderAct = new KAction(i18n("&Delete piece holder"), 0);
+	createHolderAct->setToolTip(i18n("Delete a selected temporary holder when it is empty"));
+	actionCollection()->addAction("move_delete_holder", deleteHolderAct);
+	connect(deleteHolderAct, SIGNAL(triggered()), m_game, SLOT(deleteHolder()));
+
+	// Select all pieces in a piece-holder.
+	KAction* selectAllAct = KStandardAction::selectAll(m_game, SLOT(selectAll()), 0);
+	selectAllAct->setToolTip(i18n("Select all pieces in a selected piece holder"));
+	actionCollection()->addAction("move_select_all", selectAllAct);
+
+	// Rearrange a selected piece-holder or selected pieces in any view.
+	KAction* rearrangeAct = new KAction(i18n("&Rearrange pieces"), 0);
+	rearrangeAct->setToolTip(i18n("Rearrange all pieces in a selected piece holder or selected pieces in any window"));
+	actionCollection()->addAction("move_rearrange", rearrangeAct);
+	connect(rearrangeAct, SIGNAL(triggered()), m_game, SLOT(rearrangePieces()));
 
 	// Toggle puzzle-preview.
 	bool  isVisible = Settings::puzzlePreviewVisible();
@@ -110,16 +132,24 @@ void Palapeli::MainWindow::setupActions()
 	KToggleAction* togglePreviewAct = new KToggleAction(KIcon("view-preview"), text, 0);
 	togglePreviewAct->setIconText(i18nc("Preview is a noun here", "Preview"));
 	togglePreviewAct->setToolTip(i18n("Shows or hides the image of the completed puzzle"));
-	actionCollection()->addAction("toggle_preview", togglePreviewAct);
+	actionCollection()->addAction("view_preview", togglePreviewAct);
 	togglePreviewAct->setEnabled(false);
 	togglePreviewAct->setChecked(isVisible);
 	connect(togglePreviewAct, SIGNAL(triggered()), m_game, SLOT(actionTogglePreview()));
 
 	// Toggle close-up view.
-	KAction* toggleCloseUpAct = new KAction(i18nc("As in a movie close-up scene", "Close-up View"), 0);
+	KToggleAction* toggleCloseUpAct = new KToggleAction(i18nc("As in a movie close-up scene", "Close-up View"), 0);
 	toggleCloseUpAct->setShortcut(QKeySequence(Qt::Key_Space));
-	actionCollection()->addAction("toggle_closeup", toggleCloseUpAct);
+	actionCollection()->addAction("view_closeup", toggleCloseUpAct);
 	connect(toggleCloseUpAct, SIGNAL(triggered()), m_game, SLOT(toggleCloseUp()));
+
+	// View zoom in.
+	KStandardAction::zoomIn(m_game, SLOT(actionZoomIn()),
+						actionCollection());
+
+	// View zoom out.
+	KStandardAction::zoomOut(m_game, SLOT(actionZoomOut()),
+						actionCollection());
 }
 
 #include "mainwindow.moc"

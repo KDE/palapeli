@@ -126,12 +126,12 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 	qDebug() << "START playPuzzle(): elapsed 0";
 	m_centralWidget->setCurrentWidget(m_puzzleTable);
 	m_mainWindow->actionCollection()->
-				action("go_collection")->setEnabled(true);
+				action("view_collection")->setEnabled(true);
 	m_mainWindow->actionCollection()->
 				action("game_restart")->setEnabled(true);
 	m_mainWindow->actionCollection()->
-				action("toggle_preview")->setEnabled(true);
-	// IDW TODO - Could be empty if we use "go_collection" and come back.
+				action("view_preview")->setEnabled(true);
+	// IDW TODO - Could be empty if we use "view_collection" and come back.
 	m_puzzlePreview = new Palapeli::PuzzlePreview();
 
 	if (m_loadingPuzzle || (!puzzle) || (m_puzzle == puzzle)) {
@@ -161,7 +161,7 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 	qDebug() << "Returned from loadPuzzle(): elapsed" << t.elapsed();
 
 	// IDW TODO - There is no way to stop loading a puzzle and start loading
-	//            another, although it is possible to do "go_collection"
+	//            another, although it is possible to do "view_collection"
 	//            during loading, pick another puzzle and continue loading
 	//            the first puzzle. That puzzle eventually gets the wrong
 	//            title (the title of the second with the contents of the
@@ -208,9 +208,9 @@ void Palapeli::GamePlay::actionGoCollection()
 	// IDW TODO - Should this terminate puzzle loading? Should it be enabled
 	//            when a puzzle is loading?
 	m_centralWidget->setCurrentWidget(m_collectionView);
-	m_mainWindow->actionCollection()->action("go_collection")->setEnabled(false);
+	m_mainWindow->actionCollection()->action("view_collection")->setEnabled(false);
 	m_mainWindow->actionCollection()->action("game_restart")->setEnabled(false);
-	m_mainWindow->actionCollection()->action("toggle_preview")->setEnabled(false);
+	m_mainWindow->actionCollection()->action("view_preview")->setEnabled(false);
 	delete m_puzzlePreview;
 	m_puzzlePreview = 0;
 	m_mainWindow->setCaption(QString());
@@ -227,7 +227,7 @@ void Palapeli::GamePlay::actionTogglePreview()
 	// This action is OK during puzzle loading.
 	if (m_puzzlePreview) {
 		m_puzzlePreview->toggleVisible();
-		m_mainWindow->actionCollection()->action("toggle_preview")->
+		m_mainWindow->actionCollection()->action("view_preview")->
 			setChecked(Settings::puzzlePreviewVisible());
 	}
 }
@@ -306,6 +306,38 @@ void Palapeli::GamePlay::actionExport()
 		//do export
 		coll->exportPuzzle(index, location);
 	}
+}
+
+void Palapeli::GamePlay::createHolder()
+{
+	qDebug() << "GamePlay::createHolder() entered";
+}
+
+void Palapeli::GamePlay::deleteHolder()
+{
+	qDebug() << "GamePlay::deleteHolder() entered";
+}
+
+void Palapeli::GamePlay::selectAll()
+{
+	qDebug() << "GamePlay::selectAll() entered";
+}
+
+void Palapeli::GamePlay::rearrangePieces()
+{
+	qDebug() << "GamePlay::rearrangePieces() entered";
+}
+
+void Palapeli::GamePlay::actionZoomIn()
+{
+	// IDW TODO - Make ZoomIn work for whichever view is active.
+    	m_puzzleTable->view()->zoomIn();
+}
+
+void Palapeli::GamePlay::actionZoomOut()
+{
+	// IDW TODO - Make ZoomOut work for whichever view is active.
+    	m_puzzleTable->view()->zoomOut();
 }
 
 void Palapeli::GamePlay::restartPuzzle()

@@ -66,6 +66,12 @@ namespace Palapeli
 			void actionDelete();
 			void actionImport();
 			void actionExport();
+			void createHolder();
+			void deleteHolder();
+			void selectAll();
+			void rearrangePieces();
+			void actionZoomIn();
+			void actionZoomOut();
 			void toggleCloseUp();
 			void restartPuzzle();
 			void configure();

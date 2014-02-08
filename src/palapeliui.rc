@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gui name="palapeli" version="3"
+<gui name="palapeli" version="4"
 	xmlns="http://www.kde.org/standards/kxmlgui/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0 http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd">
 	<MenuBar>
-		<Menu name="file">
-			<Action name="file_new"/>
-			<Action name="file_import"/>
-			<Separator/>
-			<Action name="file_export"/>
-			<Action name="file_delete"/>
-		</Menu>
 		<Menu name="game">
-			<Action name="go_collection"/>
+			<Action name="game_new"/>
+			<Action name="game_import"/>
+			<Separator/>
+			<Action name="game_export"/>
+			<Action name="game_delete"/>
 			<Separator/>
 			<Action name="game_restart"/>
 		</Menu>
+		<Menu name="move">
+			<Action name="move_create_holder"/>
+			<Action name="move_delete_holder"/>
+			<Action name="move_select_all"/>
+			<Action name="move_rearrange"/>
+		</Menu>
 		<Menu name="view">
-			<Action name="toggle_preview"/>
+			<Action name="view_collection"/>
+			<Separator/>
+			<Action name="view_preview"/>
+			<Action name="view_closeup"/>
+			<Separator/>
+			<Action name="view_zoom_in"/>
+			<Action name="view_zoom_out"/>
 		</Menu>
 	</MenuBar>
 	<ToolBar name="mainToolBar">
 		<text>Main toolbar</text>
-		<Action name="file_new"/>
-		<Action name="file_delete"/>
+		<Action name="game_new"/>
+		<Action name="game_delete"/>
 		<Separator/>
-		<Action name="file_import"/>
-		<Action name="file_export"/>
+		<Action name="game_import"/>
+		<Action name="game_export"/>
 		<Separator/>
-		<Action name="go_collection"/>
-		<Action name="toggle_preview"/>
+		<Action name="view_collection"/>
+		<Action name="view_preview"/>
 	</ToolBar>
 </gui>
