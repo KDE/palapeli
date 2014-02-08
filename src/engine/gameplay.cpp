@@ -40,6 +40,7 @@
 #include <QPropertyAnimation>
 #include <QFutureWatcher>
 #include <QtCore/qmath.h>
+#include <QInputDialog>
 #include <KDE/KAction>
 #include <KDE/KActionCollection>
 #include <KDE/KLocalizedString>
@@ -68,6 +69,7 @@ Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	, m_originalPieceCount(0)
 	, m_currentPieceCount(0)
 	, m_sizeFactor(1.3)
+	, m_currentHolder(0)
 {
 	m_puzzleTableScene = m_puzzleTable->view()->scene();
 	m_viewList << m_puzzleTable->view();
@@ -311,11 +313,45 @@ void Palapeli::GamePlay::actionExport()
 void Palapeli::GamePlay::createHolder()
 {
 	qDebug() << "GamePlay::createHolder() entered";
+	bool OK;
+	QString name = QInputDialog::getText(m_mainWindow,
+		i18n("Create a piece holder"),
+		i18n("Enter a short name (optional):"),
+		QLineEdit::Normal, QString(""), &OK);
+	if (! OK) {
+		return;		// If CANCELLED, do not create a piece holder.
+	}
+	PieceHolder* h = new PieceHolder(m_pieceAreaSize, name);
+	m_viewList << h;
+	connect(h, SIGNAL(selected(PieceHolder*)),
+		this, SLOT(changeSelectedHolder(PieceHolder*)));
+	changeSelectedHolder(h);
+	m_puzzleTable->view()->setFocus(Qt::OtherFocusReason);
+	m_puzzleTable->activateWindow();	// Return focus to main window.
 }
 
 void Palapeli::GamePlay::deleteHolder()
 {
 	qDebug() << "GamePlay::deleteHolder() entered";
+	if (m_currentHolder) {
+		if (m_currentHolder->scene()->pieces().isEmpty()) {
+			int count = m_viewList.count();
+			m_viewList.removeOne(m_currentHolder);
+			qDebug() << "m_viewList WAS" << count << "NOW" << m_viewList.count();
+			delete m_currentHolder;
+			m_currentHolder = 0;
+		}
+		else {
+			KMessageBox::information(m_mainWindow,
+				i18n("The selected piece holder must be empty "
+				     "before you can delete it."));
+		}
+	}
+	else {
+		KMessageBox::information(m_mainWindow,
+			i18n("You need to click on a piece holder to "
+			     "select it before you can delete it."));
+	}
 }
 
 void Palapeli::GamePlay::selectAll()
@@ -331,13 +367,13 @@ void Palapeli::GamePlay::rearrangePieces()
 void Palapeli::GamePlay::actionZoomIn()
 {
 	// IDW TODO - Make ZoomIn work for whichever view is active.
-    	m_puzzleTable->view()->zoomIn();
+	m_puzzleTable->view()->zoomIn();
 }
 
 void Palapeli::GamePlay::actionZoomOut()
 {
 	// IDW TODO - Make ZoomOut work for whichever view is active.
-    	m_puzzleTable->view()->zoomOut();
+	m_puzzleTable->view()->zoomOut();
 }
 
 void Palapeli::GamePlay::restartPuzzle()
@@ -589,24 +625,8 @@ void Palapeli::GamePlay::loadPiecePositions()
 				// Select a random piece.
 				Palapeli::Piece* piece = piecePool.takeAt(
 						qrand() % piecePool.count());
-				// IDW TODO - piece->setPlace(x, y, pieceAreaSize, Palapeli::Piece::Random);
-				// Determine the piece's offset.
-				piece->setPos(QPointF());
-				const QRectF b = piece->sceneBareBoundingRect();
-				const QPointF pieceOffset = b.topLeft();
-				const QSizeF pieceSize = b.size();
-				// Determine random position inside piece area.
-				const QPointF areaOffset(
-					qrand() % (int)(pieceAreaSize.width() -
-							pieceSize.width()),
-					qrand() % (int)(pieceAreaSize.height() -
-							pieceSize.height()));
-				// Move to desired position in (x,y) grid.
-				const QPointF gridBasePosition(
-						x * pieceAreaSize.width(),
-						y * pieceAreaSize.height());
-				piece->setPos(gridBasePosition +
-						areaOffset - pieceOffset);
+				// Place it randomly in grid-cell (x, y).
+				piece->setPlace(x, y, pieceAreaSize, true);
 			}
 		}
 		// Save the generated puzzle.
@@ -726,6 +746,14 @@ void Palapeli::GamePlay::updateSavedGame()
 			saveGroup.writeEntry(QString::number(atomicPieceID), pos);
 		}
 	}
+}
+
+void Palapeli::GamePlay::changeSelectedHolder(PieceHolder* h)
+{
+	if (m_currentHolder && (m_currentHolder != h)) {
+		m_currentHolder->setSelected(false);
+	}
+	m_currentHolder = h;
 }
 
 #include "gameplay.moc"

@@ -287,6 +287,26 @@ QSize Palapeli::Piece::atomicSize() const
 }
 
 //END internal datastructures
+
+void Palapeli::Piece::setPlace(int x, int y, const QSizeF& area, bool random)
+{
+	const QRectF b = sceneBareBoundingRect();
+	const QSizeF pieceSize = b.size();
+	QPointF areaOffset;
+	if (random) {
+		areaOffset = QPointF(	// Place the piece randomly in the cell.
+			qrand() % (int)(area.width() - pieceSize.width()),
+			qrand() % (int)(area.height() - pieceSize.height()));
+	}
+	else {
+		areaOffset = QPointF(	// Center the piece in the cell.
+			(area.width() - pieceSize.width())/2.0,
+			(area.height() - pieceSize.height())/2.0);
+	}
+	const QPointF gridPos(x * area.width(), y * area.height());
+	setPos(gridPos + areaOffset - m_offset);	// Move the piece.
+}
+
 //BEGIN mouse interaction
 
 bool Palapeli::Piece::isSelected() const

@@ -46,6 +46,11 @@ namespace Palapeli
 			void receivePieces(QList<Piece*> pieces);
 			void releasePieces(QList<Piece*> pieces);
 			void repackPieces(QRectF& rect); // Belongs in scene()?
+			void setSelected(bool onOff);
+		protected:
+			virtual void focusInEvent(QFocusEvent* e);
+		Q_SIGNALS:
+			void selected(PieceHolder* h);
 	};
 }
 

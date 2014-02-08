@@ -91,6 +91,9 @@ namespace Palapeli
 			void playVictoryAnimation3();
 
 			void updateSavedGame();
+
+			void changeSelectedHolder(PieceHolder* h);
+
 		private:
 			void deletePuzzleViews();
 			void loadPuzzle();
@@ -107,6 +110,7 @@ namespace Palapeli
 			QList<View*>       m_viewList;
 			QSizeF             m_pieceAreaSize;
 			QTimer*            m_savegameTimer;
+			PieceHolder*       m_currentHolder;
 
 			// Some stuff needed for loading puzzles.
 			bool m_loadingPuzzle;

@@ -19,6 +19,8 @@
 #include "pieceholder.h"
 #include "../engine/scene.h"
 
+#include <QDebug>
+
 Palapeli::PieceHolder::PieceHolder(const QSizeF& pieceArea, const QString& title)
 	: View()		// A parentless QWidget == a window.
 {
@@ -28,7 +30,24 @@ Palapeli::PieceHolder::PieceHolder(const QSizeF& pieceArea, const QString& title
 	setWindowTitle(title);
 	setMinimumSize(pieceArea.width()+1.0, pieceArea.height()+1.0);
 	resize(minimumSize());
+	setSelected(true);
 	show();
+}
+
+void Palapeli::PieceHolder::focusInEvent(QFocusEvent* e)
+{
+	// The user selected this piece holder.
+	Q_UNUSED(e)
+	qDebug() << "PieceHolder::focusInEvent()" << windowTitle();
+	setSelected(true);
+	emit selected(this);	// De-select the previously selected holder.
+}
+
+void Palapeli::PieceHolder::setSelected(bool onOff)
+{
+	qDebug() << "PieceHolder::setSelected()" << windowTitle() << onOff;
+	setStyleSheet(QString("QFrame { border: 3px solid %1; }").arg
+				(onOff ? "blue" : "lightGray"));
 }
 
 #include "pieceholder.moc"
