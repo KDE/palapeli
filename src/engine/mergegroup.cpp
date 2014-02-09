@@ -170,6 +170,9 @@ void Palapeli::MergeGroup::createMergedPiece()
 		logicalNeighbor->rewriteLogicalNeighbors(m_pieces, m_mergedPiece); //these neighbors are now represented by m_mergedPiece
 	//transaction done
 	emit pieceInstanceTransaction(m_pieces, QList<Palapeli::Piece*>() << m_mergedPiece);
+
+	// Do not highlight the merged piece, esp. not the solution-in-progress.
+	m_mergedPiece->setSelected(false);
 	deleteLater();
 }
 
