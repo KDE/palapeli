@@ -126,6 +126,20 @@ void Palapeli::MainWindow::setupActions()
 	actionCollection()->addAction("move_rearrange", rearrangeAct);
 	connect(rearrangeAct, SIGNAL(triggered()), m_game, SLOT(rearrangePieces()));
 
+	// Auto-collect selected pieces into currently-selected piece holder.
+	KAction* autoCollectAct = new KAction(i18n("&Autocollect pieces"), 0);
+	autoCollectAct->setToolTip(i18n("Automatically collect selected pieces from the puzzle table into the currently-selected piece holder"));
+	autoCollectAct->setShortcut(QKeySequence(Qt::Key_Z));
+	actionCollection()->addAction("move_autocollect",  autoCollectAct);
+	connect(autoCollectAct, SIGNAL(triggered()), m_game, SLOT(autoCollectPieces()));
+
+	// Dump all pieces from a holder (testing aid).
+	KAction* emptyOutAct = new KAction(i18n("&Empty out holder"), 0);
+	emptyOutAct->setToolTip(i18n("Empty out all pieces from the selected holder onto the center of the puzzle table."));
+	emptyOutAct->setShortcut(QKeySequence(Qt::Key_D));
+	actionCollection()->addAction("move_emptyholder",  emptyOutAct);
+	connect(emptyOutAct, SIGNAL(triggered()), m_game, SLOT(emptyOutHolder()));
+
 	// Toggle puzzle-preview.
 	bool  isVisible = Settings::puzzlePreviewVisible();
 	const QString text = i18nc("Preview is a noun here", "&Preview");

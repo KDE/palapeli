@@ -47,6 +47,15 @@ void Palapeli::Scene::addPieceItemsToScene()
 	}
 }
 
+void Palapeli::Scene::dispatchPieces(const QList<Palapeli::Piece*> pieces)
+{
+	foreach (Palapeli::Piece * piece, pieces) {
+		removeItem(piece);
+		m_pieces.removeAll(piece);
+		disconnect(piece, SIGNAL(moved(bool)));
+	}
+}
+
 void Palapeli::Scene::clearPieces()
 {
 	qDeleteAll(m_pieces);

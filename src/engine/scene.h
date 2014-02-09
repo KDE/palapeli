@@ -58,6 +58,7 @@ namespace Palapeli
 					{ m_pieceAreaSize = pieceAreaSize; }
 			QList<Palapeli::Piece*> pieces() { return m_pieces; }
 
+			void dispatchPieces(const QList<Palapeli::Piece*> pcs);
 			void clearPieces();
 
 		public Q_SLOTS:

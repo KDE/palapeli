@@ -397,6 +397,46 @@ void Palapeli::GamePlay::toggleCloseUp()
 	m_puzzleTable->view()->toggleCloseUp();
 }
 
+void Palapeli::GamePlay::autoCollectPieces()
+{
+	qDebug() << "ENTERED GamePlay::autoCollectPieces()";
+	if (! m_currentHolder) {
+		KMessageBox::information(m_mainWindow,
+			i18n("You need to click on a piece holder to select "
+			     "it before you can collect pieces in it."));
+		return;
+	}
+	const QList<QGraphicsItem*> sel = m_puzzleTableScene->selectedItems();
+	QList<Palapeli::Piece*> pieces;
+	foreach (QGraphicsItem* item, sel) {
+		Palapeli::Piece* p = Palapeli::Piece::fromSelectedItem(item);
+		if (p) {
+			p->setSelected(false);
+			pieces << p;
+		}
+	}
+	if (pieces.count() == 0) {
+		KMessageBox::information(m_mainWindow,
+			i18n("You need to select one or more pieces to "
+			     "be transferred to the selected holder."));
+		return;
+	}
+	m_puzzleTableScene->dispatchPieces(pieces);
+	m_currentHolder->receivePieces(pieces);
+}
+
+void Palapeli::GamePlay::emptyOutHolder()
+{
+	qDebug() << "ENTERED GamePlay::emptyOutHolder()";
+	if (! m_currentHolder) {
+		KMessageBox::information(m_mainWindow,
+			i18n("You need to click on a piece holder to "
+			     "select it before you can empty it."));
+		return;
+	}
+	m_currentHolder->unloadAllPieces(m_puzzleTableScene);
+}
+
 void Palapeli::GamePlay::configure()
 {
 	Palapeli::ConfigDialog().exec();

@@ -70,6 +70,8 @@ namespace Palapeli
 			void deleteHolder();
 			void selectAll();
 			void rearrangePieces();
+			void autoCollectPieces();
+			void emptyOutHolder();
 			void actionZoomIn();
 			void actionZoomOut();
 			void toggleCloseUp();
