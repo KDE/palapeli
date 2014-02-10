@@ -64,6 +64,7 @@ void Palapeli::Scene::clearPieces()
 }
 
 void Palapeli::Scene::addMargin(const qreal handleWidth, const qreal spacer) {
+	m_handleWidth = handleWidth;
 	m_margin = handleWidth + spacer;
 	QRectF r = piecesBoundingRect();
 	r.adjust(-m_margin, -m_margin, m_margin, m_margin);

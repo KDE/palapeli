@@ -46,6 +46,7 @@ namespace Palapeli
 			bool isConstrained() const;
 			QRectF piecesBoundingRect() const;
 			qreal margin() { return m_margin; }
+			qreal handleWidth() { return m_handleWidth; }
 			void addMargin(const qreal handleWidth,
 				       const qreal spacer);
 
@@ -87,6 +88,7 @@ namespace Palapeli
 			QSizeF m_pieceAreaSize;
 			// Width of ConstraintVisualizer and space around pieces.
 			qreal m_margin;
+			qreal m_handleWidth;
 	};
 }
 

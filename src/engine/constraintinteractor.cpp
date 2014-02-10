@@ -29,9 +29,14 @@ Palapeli::ConstraintInteractor::ConstraintInteractor(QGraphicsView* view)
 
 QList<Palapeli::ConstraintInteractor::Side> Palapeli::ConstraintInteractor::touchingSides(const QPointF& scenePos) const
 {
-	const QRectF sceneRect = scene()->sceneRect();
-	const QSizeF handleSize = sceneRect.size() / 20;
 	QList<Side> result;
+	// The scene must be Palapeli::Scene type, to get handleWidth().
+	Palapeli::Scene* scene = qobject_cast<Palapeli::Scene*>(this->scene());
+	if (!scene)
+		return result;		// No scene, so no sides touching.
+	const QRectF sceneRect = scene->sceneRect();
+	const qreal w = scene->handleWidth();
+	const QSizeF handleSize = QSizeF(w, w);
 	if ((scenePos.x() > sceneRect.left()) && (scenePos.x() < sceneRect.left() + handleSize.width()))
 		result << LeftSide;
 	else if ((scenePos.x() < sceneRect.right()) && (scenePos.x() > sceneRect.right() - handleSize.width()))
