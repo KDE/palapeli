@@ -31,6 +31,7 @@ Palapeli::Scene::Scene(QObject* parent)
 	, m_puzzle(0)
 	, m_pieceAreaSize(QSizeF())
 	, m_margin(10.0)
+	, m_handleWidth(7.0)
 {
 }
 
@@ -52,7 +53,7 @@ void Palapeli::Scene::dispatchPieces(const QList<Palapeli::Piece*> pieces)
 	foreach (Palapeli::Piece * piece, pieces) {
 		removeItem(piece);
 		m_pieces.removeAll(piece);
-		disconnect(piece, SIGNAL(moved(bool)));
+		disconnect(piece, SIGNAL(moved(bool)), this, SLOT(pieceMoved(bool)));
 	}
 }
 

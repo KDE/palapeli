@@ -62,6 +62,8 @@ namespace Palapeli
 		Q_SIGNALS:
 			void zoomLevelChanged(int level);
 			void zoomAdjustable(bool adjustable);
+		protected:
+			virtual qreal calculateCloseUpScale();
 		private Q_SLOTS:
 			void puzzleStarted();
 			void startVictoryAnimation();
@@ -73,7 +75,6 @@ namespace Palapeli
 			int m_closeUpLevel;
 			int m_distantLevel;
 			bool m_isCloseUp;
-			qreal calculateCloseUpScale();
 			qreal m_dZoom;
 			qreal m_minScale;
 	};

@@ -29,12 +29,20 @@ Palapeli::PieceHolder::PieceHolder(const QSizeF& pieceArea, const QString& title
 	, m_x(0)
 	, m_y(0)
 {
-	scene()->setPieceAreaSize(pieceArea);
+	QRectF r(QPointF(0.0, 0.0), pieceArea);
+	m_scene->setPieceAreaSize(pieceArea);
+	m_scene->setSceneRect(r);
 	setWindowFlags(Qt::Tool | Qt::WindowTitleHint
 				| Qt::WindowStaysOnTopHint);
 	setWindowTitle(title);
-	setMinimumSize(pieceArea.width()+1.0, pieceArea.height()+1.0);
+	qreal s = calculateCloseUpScale();
+	qreal f = 1.5;
+	setMinimumSize(s*f*pieceArea.width()+1.0, s*f*pieceArea.height()+1.0);
 	resize(minimumSize());
+	QTransform t;
+	t.scale(s, s);
+	setTransform(t);
+	centerOn(r.center());
 	setSelected(true);
 	show();
 }
@@ -61,6 +69,9 @@ void Palapeli::PieceHolder::receivePieces(const QList<Palapeli::Piece*> pieces)
 		m_scene->addPieceToList(piece);
 		m_scene->addItem(piece);
 		piece->setPlace(m_x, m_y, m_scene->pieceAreaSize(), false);
+		// Allow pieces to be merged and joined within the piece holder.
+		connect(piece, SIGNAL(moved(bool)),
+			m_scene, SLOT(pieceMoved(bool)));
 
 		// Calculate the next spot on the square grid.
 		if (m_y == (m_rank - 1)) {
@@ -79,6 +90,7 @@ void Palapeli::PieceHolder::receivePieces(const QList<Palapeli::Piece*> pieces)
 		}
 	}
 	m_scene->setSceneRect(m_scene->piecesBoundingRect());
+	centerOn(pieces.last()->sceneBareBoundingRect().center());
 }
 
 void Palapeli::PieceHolder::unloadAllPieces(Palapeli::Scene* dest)

@@ -101,6 +101,7 @@ namespace Palapeli
 			void loadPuzzle();
 			void playVictoryAnimation();
 			void calculatePieceAreaSize();
+			void createHolder(const QString& name);
 
 			QStackedWidget*    m_centralWidget;
 			CollectionView*    m_collectionView;
@@ -116,6 +117,7 @@ namespace Palapeli
 
 			// Some stuff needed for loading puzzles.
 			bool m_loadingPuzzle;
+			bool m_restoredGame;
 			QMap<int, Palapeli::Piece*> m_loadedPieces;
 			int m_originalPieceCount;
 			int m_currentPieceCount;

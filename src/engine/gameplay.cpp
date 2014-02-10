@@ -66,6 +66,7 @@ Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	, m_pieceAreaSize(QSizeF(1.0, 1.0))
 	, m_savegameTimer(new QTimer(this))
 	, m_loadingPuzzle(false)
+	, m_restoredGame(false)
 	, m_originalPieceCount(0)
 	, m_currentPieceCount(0)
 	, m_sizeFactor(1.3)
@@ -321,6 +322,11 @@ void Palapeli::GamePlay::createHolder()
 	if (! OK) {
 		return;		// If CANCELLED, do not create a piece holder.
 	}
+	createHolder(name);
+}
+
+void Palapeli::GamePlay::createHolder(const QString& name)
+{
 	PieceHolder* h = new PieceHolder(m_pieceAreaSize, name);
 	m_viewList << h;
 	connect(h, SIGNAL(selected(PieceHolder*)),
@@ -448,6 +454,7 @@ void Palapeli::GamePlay::loadPuzzle()
 {
 	qDebug() << "START loadPuzzle()";
 	m_loadingPuzzle = true;
+	m_restoredGame = false;
 	// Stop autosaving and progress-reporting and start the loading-widget.
 	m_savegameTimer->stop(); // Just in case it is running ...
 	emit reportProgress(0, 0);
@@ -552,7 +559,8 @@ void Palapeli::GamePlay::loadPiecePositions()
 	//Is "savegame" available?
 	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
 	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_puzzle->identifier())));
-	if (saveConfig.hasGroup("SaveGame"))
+	m_restoredGame = saveConfig.hasGroup("SaveGame");
+	if (m_restoredGame)
 	{
 		// IDW TODO - Show piece-holders. Enable piece-holder actions.
 
@@ -593,9 +601,6 @@ void Palapeli::GamePlay::loadPiecePositions()
 		// Step 2: place pieces in a grid in random order.
 		QList<Palapeli::Piece*> piecePool(m_loadedPieces.values());
 		int nPieces = piecePool.count();
-		if (nPieces >= LargePuzzle) {
-			m_viewList << new PieceHolder(pieceAreaSize, "Hand");
-		}
 		Palapeli::ConfigDialog::SolutionSpace space =
 			(nPieces < 20) ?  Palapeli::ConfigDialog::None :
 				(Palapeli::ConfigDialog::SolutionSpace)
@@ -705,6 +710,10 @@ void Palapeli::GamePlay::finishLoading()
 	}
 	// Initialize external progress display.
 	emit reportProgress(m_originalPieceCount, m_currentPieceCount);
+	if (!m_restoredGame && (m_originalPieceCount >= LargePuzzle)) {
+		// New puzzle and a large one: create a default PieceHolder.
+		createHolder(i18nc("For holding pieces", "Hand"));
+	}
 	m_loadingPuzzle = false;
 	// Check if puzzle has been completed.
 	if (m_currentPieceCount == 1) {
