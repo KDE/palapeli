@@ -44,19 +44,16 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			PieceHolder(const QSizeF& pieceArea, const QString& title);
-			void receivePieces(QList<Piece*> pieces);
 			// IDW TODO - void releasePieces(QList<Piece*> pieces);
 			// IDW TODO - void repackPieces(QRectF& rect); // Belongs in scene()?
 			void setSelected(bool onOff);
-			void unloadAllPieces(Scene* dest);
+			QString name() { return windowTitle(); }
 		protected:
 			virtual void focusInEvent(QFocusEvent* e);
 		Q_SIGNALS:
 			void selected(PieceHolder* h);
 		private:
 			Scene* m_scene;
-			int m_rank;		// Size of square grid.
-			int m_x, m_y;		// Place for next piece.
 	};
 }
 
