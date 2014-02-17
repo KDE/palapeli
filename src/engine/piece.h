@@ -84,7 +84,8 @@ namespace Palapeli
 			///Call this when this piece instance has been replaced by another piece instance. This will also delete this instance.
 			void announceReplaced(Palapeli::Piece* replacement);
 			/// Place piece in a grid-cell, randomly or centered.
-			void setPlace(int x, int y, const QSizeF& area, bool random);
+			void setPlace(const QPointF& topLeft, int x, int y,
+					const QSizeF& area, bool random);
 		Q_SIGNALS:
 			void moved(bool finished);
 			void replacedBy(Palapeli::Piece* newPiece);

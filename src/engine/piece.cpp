@@ -288,7 +288,8 @@ QSize Palapeli::Piece::atomicSize() const
 
 //END internal datastructures
 
-void Palapeli::Piece::setPlace(int x, int y, const QSizeF& area, bool random)
+void Palapeli::Piece::setPlace(const QPointF& topLeft, int x, int y,
+				const QSizeF& area, bool random)
 {
 	const QRectF b = sceneBareBoundingRect();
 	const QSizeF pieceSize = b.size();
@@ -304,7 +305,7 @@ void Palapeli::Piece::setPlace(int x, int y, const QSizeF& area, bool random)
 			(area.height() - pieceSize.height())/2.0);
 	}
 	const QPointF gridPos(x * area.width(), y * area.height());
-	setPos(gridPos + areaOffset - m_offset);	// Move the piece.
+	setPos(topLeft + gridPos + areaOffset - m_offset);	// Move it.
 }
 
 //BEGIN mouse interaction

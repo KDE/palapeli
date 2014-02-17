@@ -55,6 +55,11 @@ typedef QPair<int, int> DoubleIntPair;
 
 const int Palapeli::GamePlay::LargePuzzle = 300;
 
+const QString HeaderSaveGroup    ("-PalapeliSavedPuzzle");
+const QString HolderSaveGroup    ("Holders");
+const QString LocationSaveGroup  ("XYCo-ordinates");
+const QString FormerSaveGroup    ("SaveGame");
+
 Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	: QObject(mainWindow)
 	, m_centralWidget(new QStackedWidget)
@@ -71,6 +76,7 @@ Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	, m_currentPieceCount(0)
 	, m_sizeFactor(1.3)
 	, m_currentHolder(0)
+	, m_previousHolder(0)
 {
 	m_puzzleTableScene = m_puzzleTable->view()->scene();
 	m_viewList << m_puzzleTable->view();
@@ -81,6 +87,10 @@ Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 		m_puzzleTable, SLOT(reportProgress(int,int)));
 	connect(this, SIGNAL(victoryAnimationFinished()),
 		m_puzzleTable->view(), SLOT(startVictoryAnimation()));
+	connect(m_puzzleTable->view(),
+		SIGNAL(teleport(Piece*,const QPointF&,View*)),
+		this,
+		SLOT(teleport(Piece*,const QPointF&,View*)));
 }
 
 Palapeli::GamePlay::~GamePlay()
@@ -91,13 +101,16 @@ Palapeli::GamePlay::~GamePlay()
 
 void Palapeli::GamePlay::deletePuzzleViews()
 {
+	qDebug() << "ENTERED GamePlay::deletePuzzleViews() ...";
 	while (! m_viewList.isEmpty()) {
 		Palapeli::View* view = m_viewList.takeLast();
 		Palapeli::Scene* scene = view->scene();
 		qDebug() << "DISCONNECT SLOT(positionChanged(int))";
 		disconnect(scene, SIGNAL(saveMove(int)),
 			   this, SLOT(positionChanged(int)));
+		qDebug() << "scene->clearPieces();";
 		scene->clearPieces();
+		qDebug() << "if (scene != m_puzzleTableScene) {";
 		if (scene != m_puzzleTableScene) {
 			qDebug() << "DELETING holder" << view->windowTitle();
 			delete view;
@@ -323,15 +336,29 @@ void Palapeli::GamePlay::createHolder()
 		return;		// If CANCELLED, do not create a piece holder.
 	}
 	createHolder(name);
+	// Merges/moves in new holders add to the progress bar and are saved.
+	Palapeli::View* view = m_viewList.last();
+	connect(view->scene(), SIGNAL(saveMove(int)),
+		this, SLOT(positionChanged(int)));
+	connect(view,
+		SIGNAL(teleport(Piece*,const QPointF&,View*)),
+		this,
+		SLOT(teleport(Piece*,const QPointF&,View*)));
+	positionChanged(0);	// Save the holder - a little later.
 }
 
-void Palapeli::GamePlay::createHolder(const QString& name)
+void Palapeli::GamePlay::createHolder(const QString& name, bool sel)
 {
 	PieceHolder* h = new PieceHolder(m_pieceAreaSize, name);
 	m_viewList << h;
 	connect(h, SIGNAL(selected(PieceHolder*)),
 		this, SLOT(changeSelectedHolder(PieceHolder*)));
-	changeSelectedHolder(h);
+	if (sel) {
+		changeSelectedHolder(h);
+	}
+	else {
+		h->setSelected(false);
+	}
 	m_puzzleTable->view()->setFocus(Qt::OtherFocusReason);
 	m_puzzleTable->activateWindow();	// Return focus to main window.
 }
@@ -346,6 +373,8 @@ void Palapeli::GamePlay::deleteHolder()
 			qDebug() << "m_viewList WAS" << count << "NOW" << m_viewList.count();
 			delete m_currentHolder;
 			m_currentHolder = 0;
+			m_previousHolder = 0;
+			positionChanged(0);	// Save change - a little later.
 		}
 		else {
 			KMessageBox::information(m_mainWindow,
@@ -400,47 +429,124 @@ void Palapeli::GamePlay::restartPuzzle()
 
 void Palapeli::GamePlay::toggleCloseUp()
 {
+	// IDW TODO - Keep this? It is triggered by spacebar.
 	m_puzzleTable->view()->toggleCloseUp();
 }
 
-void Palapeli::GamePlay::autoCollectPieces()
+void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
+				  const QPointF& scenePos, Palapeli::View* view)
 {
-	qDebug() << "ENTERED GamePlay::autoCollectPieces()";
+	qDebug() << "GamePlay::teleport: pieceUnder" << (pieceUnderMouse != 0)
+		 << "scPos" << scenePos
+		 << "PuzzleTable?" << (view == m_puzzleTable->view())
+		 << "CurrentHolder?" << (view == m_currentHolder);
 	if (! m_currentHolder) {
 		KMessageBox::information(m_mainWindow,
 			i18n("You need to click on a piece holder to select "
-			     "it before you can collect pieces in it."));
+			     "it before you can transfer pieces into or "
+			     "out of it."));
 		return;
 	}
-	const QList<QGraphicsItem*> sel = m_puzzleTableScene->selectedItems();
+	bool puzzleTableClick = (view == m_puzzleTable->view());
+	QList<Palapeli::Piece*> selectedPieces;
+	if (puzzleTableClick) {
+		if (pieceUnderMouse && (!pieceUnderMouse->isSelected())) {
+			pieceUnderMouse->setSelected(true);
+		}
+		selectedPieces = getSelectedPieces(view);
+		if (selectedPieces.count() > 0) {
+			// Transfer from the puzzle table to a piece-holder.
+			transferPieces(selectedPieces, view, m_currentHolder);
+		}
+		else {
+			selectedPieces = getSelectedPieces(m_currentHolder);
+			qDebug() << "Transfer from holder" << selectedPieces.count() << m_currentHolder->name();
+			// Transfer from a piece-holder to the puzzle table.
+			if (selectedPieces.count() > 0) {
+				transferPieces(selectedPieces, m_currentHolder,
+						view, scenePos);
+			}
+			else {
+				KMessageBox::information(m_mainWindow,
+					i18n("You need to select one or more "
+					     "pieces to be transferred out of "
+					     "the selected holder or select "
+					     "pieces from the puzzle table "
+					     "to be transferred into it."));
+			}
+		}
+	}
+	else {
+		if (m_previousHolder) {
+			selectedPieces = getSelectedPieces(m_previousHolder);
+			// Transfer from one piece-holder to another.
+			if (selectedPieces.count() > 0) {
+				transferPieces(selectedPieces, m_previousHolder,
+						view, scenePos);
+			}
+			else {
+				KMessageBox::information(m_mainWindow,
+					i18n("You need to select one or more "
+					     "pieces to be transferred from "
+					     "the previous holder into the "
+					     "newly selected holder."));
+			}
+		}
+		else {
+			KMessageBox::information(m_mainWindow,
+				i18n("You need to have at least two holders, "
+				     "one of them selected and with selected "
+				     "pieces inside it, before you can "
+				     "transfer pieces from one holder to "
+				     "another."));
+		}
+	}
+	positionChanged(0);		// Save the transfer - a little later.
+}
+
+void Palapeli::GamePlay::transferPieces(const QList<Palapeli::Piece*> pieces,
+					Palapeli::View* source,
+					Palapeli::View* dest,
+					const QPointF& scenePos)
+{
+	qDebug() << "ENTERED GamePlay::transferPieces(): pieces" << pieces.count() << "SourceIsTable" << (source == m_puzzleTable->view()) << "DestIsTable" << (dest == m_puzzleTable->view()) << "scenePos" << scenePos;
+	source->scene()->dispatchPieces(pieces);
+	if ((source != m_puzzleTable->view()) &&	// If empty holder.
+		(source->scene()->pieces().isEmpty())) {
+		source->scene()->initializeGrid(QPointF(0.0, 0.0));
+	}
+
+	bool destIsPuzzleTable = (dest == m_puzzleTable->view());
+	if (destIsPuzzleTable) {
+		m_puzzleTableScene->initializeGrid(scenePos);
+	}
+	Palapeli::Scene* scene = dest->scene();
+	foreach (Palapeli::Piece* piece, pieces) {
+		scene->addPieceToList(piece);
+		scene->addItem(piece);
+		scene->addToGrid(piece);
+		piece->setSelected(true);
+		connect(piece, SIGNAL(moved(bool)),
+			scene, SLOT(pieceMoved(bool)));
+	}
+	scene->setSceneRect(scene->piecesBoundingRect());
+	if (! destIsPuzzleTable) {
+		dest->centerOn(pieces.last()->sceneBareBoundingRect().center());
+	}
+}
+
+QList<Palapeli::Piece*> Palapeli::GamePlay::getSelectedPieces(Palapeli::View* v)
+{
+	qDebug() << "ENTERED GamePlay::getSelectedPieces(): PuzzleTable" << (v == m_puzzleTable->view());
+	const QList<QGraphicsItem*> sel = v->scene()->selectedItems();
 	QList<Palapeli::Piece*> pieces;
 	foreach (QGraphicsItem* item, sel) {
 		Palapeli::Piece* p = Palapeli::Piece::fromSelectedItem(item);
 		if (p) {
-			p->setSelected(false);
 			pieces << p;
 		}
 	}
-	if (pieces.count() == 0) {
-		KMessageBox::information(m_mainWindow,
-			i18n("You need to select one or more pieces to "
-			     "be transferred to the selected holder."));
-		return;
-	}
-	m_puzzleTableScene->dispatchPieces(pieces);
-	m_currentHolder->receivePieces(pieces);
-}
-
-void Palapeli::GamePlay::emptyOutHolder()
-{
-	qDebug() << "ENTERED GamePlay::emptyOutHolder()";
-	if (! m_currentHolder) {
-		KMessageBox::information(m_mainWindow,
-			i18n("You need to click on a piece holder to "
-			     "select it before you can empty it."));
-		return;
-	}
-	m_currentHolder->unloadAllPieces(m_puzzleTableScene);
+	return pieces;
 }
 
 void Palapeli::GamePlay::configure()
@@ -547,32 +653,65 @@ void Palapeli::GamePlay::loadPiecePositions()
 		secondPiece->addLogicalNeighbors(QList<Palapeli::Piece*>()
 				<< firstPiece);
 	}
-	foreach (Palapeli::Piece* piece, m_loadedPieces) {
-		// Add all pieces to the main scene at first and move them
-		// later, when or if a save file is found and processed.
-		m_puzzleTableScene->addPieceToList(piece);
-	}
 	calculatePieceAreaSize();
-	// IDW TODO - Need to tell every scene about this - as they are created.
 	m_puzzleTableScene->setPieceAreaSize(m_pieceAreaSize);
 
-	//Is "savegame" available?
-	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
-	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_puzzle->identifier())));
-	m_restoredGame = saveConfig.hasGroup("SaveGame");
+	// Is there a saved game?
+	static const QString pathTemplate =
+				QString::fromLatin1("collection/%1.save");
+	KConfig saveConfig(KStandardDirs::locateLocal("appdata",
+				pathTemplate.arg(m_puzzle->identifier())));
+	bool oldFormat = false;
+	m_restoredGame = false;
+	int nHolders = 0;
+	if (saveConfig.hasGroup(HeaderSaveGroup)) {
+		KConfigGroup headerGroup(&saveConfig, HeaderSaveGroup);
+		nHolders = headerGroup.readEntry("N_Holders", 0);
+		m_restoredGame = true;
+	}
+	else if (saveConfig.hasGroup(FormerSaveGroup)) {
+		m_restoredGame = true;
+		oldFormat = true;
+	}
 	if (m_restoredGame)
 	{
-		// IDW TODO - Show piece-holders. Enable piece-holder actions.
+		// IDW TODO - Enable piece-holder actions.
 
-		// IDW TODO - Here pieces can get put in multiple scenes ...
-		// Read piece positions from the SaveGame group.
+		// Read piece positions from the LocationSaveGroup.
 		// The current positions of atomic pieces are listed. If
 		// neighbouring pieces are joined, their position values are
 		// identical and searchConnections(m_pieces) handles that by
 		// calling on a MergeGroup object to join the pieces.
 
 		qDebug() << "RESTORING SAVED PUZZLE.";
-		KConfigGroup saveGroup(&saveConfig, "SaveGame");
+		KConfigGroup holderGroup   (&saveConfig, HolderSaveGroup);
+		KConfigGroup locationGroup (&saveConfig, oldFormat ?
+			FormerSaveGroup : LocationSaveGroup);
+
+		// Re-create the saved piece-holders, if any.
+		m_currentHolder = 0;
+		for (int groupID = 1; groupID <= nHolders; groupID++) {
+			KConfigGroup holder (&saveConfig,
+					QString("Holder_%1").arg(groupID));
+			// Re-create a piece-holder and add it to m_viewList.
+			qDebug() << "RE-CREATE HOLDER"
+				 << QString("Holder_%1").arg(groupID) << "name"
+				 << holder.readEntry("Name", QString(""));
+			createHolder(holder.readEntry("Name", QString("")),
+				     holder.readEntry("Selected", false));
+			// Restore the piece-holder's size and position.
+			QRect r = holder.readEntry("Geometry", QRect());
+			qDebug() << "GEOMETRY" << r;
+			Palapeli::View* v = m_viewList.at(groupID);
+			v->resize(r.size());
+			int x = (r.left() < 0) ? 0 : r.left();
+			int y = (r.top() < 0)  ? 0 : r.top();
+			v->move(x, y);
+		}
+
+		// Move pieces to saved positions, in holders or puzzle table.
+		qDebug() << "START POSITIONING PIECES";
+		qDebug() << "Old format" << oldFormat << HolderSaveGroup << (oldFormat ? FormerSaveGroup : LocationSaveGroup);
 		QMap<int, Palapeli::Piece*>::const_iterator i =
 						m_loadedPieces.constBegin();
 		const QMap<int, Palapeli::Piece*>::const_iterator end =
@@ -580,15 +719,26 @@ void Palapeli::GamePlay::loadPiecePositions()
 		for (int pieceID = i.key(); i != end; pieceID = (++i).key())
 		{
 			Palapeli::Piece* piece = i.value();
-			// qDebug() << "Saved:" << pieceID << "pos"
-				 // << saveGroup.readEntry(
-				 // QString::number(pieceID), QPointF());
-			piece->setPos(saveGroup.readEntry(
-					QString::number(pieceID), QPointF()));
+			const QString ID = QString::number(pieceID);
+			const int group = oldFormat ? 0 :
+					holderGroup.readEntry(ID, 0);
+			const QPointF p = locationGroup.readEntry(ID, QPointF());
+			qDebug() << "Piece ID" << ID << "group" << group << "pos" << p;
+			Palapeli::View* view = m_viewList.at(group);
+			qDebug() << "View" << (view != 0) << "Scene" << (view->scene() != 0);
+			view->scene()->addPieceToList(piece);
+			qDebug() << "PIECE HAS BEEN ADDED TO SCENE's LIST";
+			piece->setPos(p);
+			qDebug() << "PIECE HAS BEEN POSITIONED";
+			// IDW TODO - Selecting/unselecting did not trigger a
+			//            save. Needed to bring back a "dirty" flag.
+			// IDW TODO - Same for all other saveable actions?
 		}
-		// IDW TODO - This needs to be done for each Scene.
+		qDebug() << "FINISHED POSITIONING PIECES";
 		// Each scene re-merges pieces, as required, with no animation.
-		m_puzzleTableScene->mergeLoadedPieces();
+		foreach (Palapeli::View* view, m_viewList) {
+			view->scene()->mergeLoadedPieces();
+		}
 	}
 	else
 	{
@@ -671,7 +821,10 @@ void Palapeli::GamePlay::loadPiecePositions()
 				Palapeli::Piece* piece = piecePool.takeAt(
 						qrand() % piecePool.count());
 				// Place it randomly in grid-cell (x, y).
-				piece->setPlace(x, y, pieceAreaSize, true);
+				const QPointF p0(0.0, 0.0);
+				piece->setPlace(p0, x, y, pieceAreaSize, true);
+				// Add piece to the puzzle table list (only).
+				m_puzzleTableScene->addPieceToList(piece);
 			}
 		}
 		// Save the generated puzzle.
@@ -689,8 +842,8 @@ void Palapeli::GamePlay::loadPiecePositions()
 		qreal handleWidth = qMin(s.width(), s.height())/100.0;
 		// Add margin for constraint_handles+spacer and setSceneRect().
 		scene->addMargin(handleWidth, 0.5*handleWidth);
+		scene->addPieceItemsToScene();
 	}
-	m_puzzleTableScene->addPieceItemsToScene();
 	qDebug() << "Finish loadPiecePositions(): time" << t.restart();
 	finishLoading();
 }
@@ -725,9 +878,16 @@ void Palapeli::GamePlay::finishLoading()
 		}
 	}
 	// Connect moves and merges of pieces to autosaving and progress-report.
-	// IDW TODO - Needs to be done for each scene.
-	connect(m_puzzleTableScene, SIGNAL(saveMove(int)),
-		this, SLOT(positionChanged(int)));
+	foreach (Palapeli::View* view, m_viewList) {
+		connect(view->scene(), SIGNAL(saveMove(int)),
+			this, SLOT(positionChanged(int)));
+		if (view != m_puzzleTable->view()) {
+			connect(view,
+				SIGNAL(teleport(Piece*,const QPointF&,View*)),
+				this,
+				SLOT(teleport(Piece*,const QPointF&,View*)));
+		}
+	}
 	qDebug() << "finishLoading(): time" << t.restart();
 }
 
@@ -785,21 +945,52 @@ void Palapeli::GamePlay::positionChanged(int reduction)
 
 void Palapeli::GamePlay::updateSavedGame()
 {
-	static const QString pathTemplate = QString::fromLatin1("collection/%1.save");
-	KConfig saveConfig(KStandardDirs::locateLocal("appdata", pathTemplate.arg(m_puzzle->identifier())));
-	KConfigGroup saveGroup(&saveConfig, "SaveGame");
-	// IDW TODO - Needs to be done for EACH scene, with unique string-IDs.
-	foreach (Palapeli::Piece* piece, m_puzzleTableScene->pieces()) {
-		const QPointF pos = piece->pos();
+	static const QString pathTemplate =
+				QString::fromLatin1("collection/%1.save");
+	KConfig saveConfig(KStandardDirs::locateLocal("appdata",
+				pathTemplate.arg(m_puzzle->identifier())));
+	KConfigGroup headerGroup   (&saveConfig, HeaderSaveGroup);
+	KConfigGroup holderGroup   (&saveConfig, HolderSaveGroup);
+	KConfigGroup locationGroup (&saveConfig, LocationSaveGroup);
+
+	headerGroup.writeEntry("N_Holders", m_viewList.count() - 1);
+
+	int groupID = 0;
+	foreach (Palapeli::View* view, m_viewList) {
+	    bool isHolder = (view != m_puzzleTable->view());
+	    if (isHolder) {
+		KConfigGroup holderDetails(&saveConfig,
+			QString("Holder_%1").arg(groupID));
+		Palapeli::PieceHolder* holder =
+			qobject_cast<Palapeli::PieceHolder*>(view);
+		bool selected = (view == m_currentHolder);
+		holderDetails.writeEntry("Name", holder->name());
+		holderDetails.writeEntry("Selected", selected);
+		holderDetails.writeEntry("Geometry",
+			QRect(view->frameGeometry().topLeft(), view->size()));
+	    }
+	    const QList<Palapeli::Piece*> pieces = view->scene()->pieces();
+	    foreach (Palapeli::Piece* piece, pieces) {
+		const QPointF position = piece->pos();
 		foreach (int atomicPieceID, piece->representedAtomicPieces()) {
-			saveGroup.writeEntry(QString::number(atomicPieceID), pos);
+		    const QString ID = QString::number(atomicPieceID);
+		    locationGroup.writeEntry(ID, position);
+		    if (isHolder) {
+			holderGroup.writeEntry(ID, groupID);
+		    }
+		    else {
+			holderGroup.deleteEntry(ID);
+		    }
 		}
+	    }
+	    groupID++;
 	}
 }
 
 void Palapeli::GamePlay::changeSelectedHolder(PieceHolder* h)
 {
 	if (m_currentHolder && (m_currentHolder != h)) {
+		m_previousHolder = m_currentHolder;
 		m_currentHolder->setSelected(false);
 	}
 	m_currentHolder = h;

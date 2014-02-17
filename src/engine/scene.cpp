@@ -33,6 +33,7 @@ Palapeli::Scene::Scene(QObject* parent)
 	, m_margin(10.0)
 	, m_handleWidth(7.0)
 {
+	initializeGrid(QPointF(0.0, 0.0));
 }
 
 void Palapeli::Scene::addPieceToList(Palapeli::Piece* piece)
@@ -51,6 +52,7 @@ void Palapeli::Scene::addPieceItemsToScene()
 void Palapeli::Scene::dispatchPieces(const QList<Palapeli::Piece*> pieces)
 {
 	foreach (Palapeli::Piece * piece, pieces) {
+		piece->setSelected(false);
 		removeItem(piece);
 		m_pieces.removeAll(piece);
 		disconnect(piece, SIGNAL(moved(bool)), this, SLOT(pieceMoved(bool)));
@@ -59,8 +61,11 @@ void Palapeli::Scene::dispatchPieces(const QList<Palapeli::Piece*> pieces)
 
 void Palapeli::Scene::clearPieces()
 {
+	qDebug() << "Palapeli::Scene Delete" << m_pieces.count() << "pieces in  m_pieces list.";
 	qDeleteAll(m_pieces);
+	qDebug() << "Palapeli::Scene Clear m_pieces list.";
 	m_pieces.clear();
+	qDebug() << "Palapeli::Scene Stop m_constraintVisualizer.";
 	m_constraintVisualizer->stop();
 }
 
@@ -200,6 +205,35 @@ void Palapeli::Scene::pieceMoved(bool finished)
 			mergeCandidates << piece;
 	}
 	searchConnections(mergeCandidates, true);	// With animation.
+}
+
+void Palapeli::Scene::initializeGrid(const QPointF& gridTopLeft)
+{
+	m_gridTopLeft = gridTopLeft;
+	m_gridRank = 1;
+	m_gridX = 0;
+	m_gridY = 0;
+}
+
+void Palapeli::Scene::addToGrid(Palapeli::Piece* piece)
+{
+	piece->setPlace(m_gridTopLeft, m_gridX, m_gridY,
+				pieceAreaSize(), false);
+	// Calculate the next spot on the square grid.
+	if (m_gridY == (m_gridRank - 1)) {
+		m_gridX++;		// Add to bottom row.
+		if (m_gridX > (m_gridRank - 1)) {
+			m_gridRank++;	// Expand the square grid.
+			m_gridX = m_gridRank - 1;
+			m_gridY = 0;	// Start right-hand column.
+		}
+	}
+	else {
+		m_gridY++;		// Add to right-hand column.
+		if (m_gridY == (m_gridRank - 1)) {
+			m_gridX = 0;	// Start bottom row.
+		}
+	}
 }
 
 #include "scene.moc"

@@ -26,6 +26,7 @@ namespace Palapeli
 	class ConstraintVisualizer;
 	class InteractorManager;
 	class Scene;
+	class Piece;
 
 	class View : public QGraphicsView
 	{
@@ -39,6 +40,7 @@ namespace Palapeli
 
 			QRectF viewportRect() const;
 			void setViewportRect(const QRectF& viewportRect);
+			void teleportPieces(Piece* piece, const QPointF& scPos);
 
 			static const int MinimumZoomLevel;
 			static const int MaximumZoomLevel;
@@ -62,6 +64,7 @@ namespace Palapeli
 		Q_SIGNALS:
 			void zoomLevelChanged(int level);
 			void zoomAdjustable(bool adjustable);
+			void teleport(Piece* p, const QPointF& scPos, View* v);
 		protected:
 			virtual qreal calculateCloseUpScale();
 		private Q_SLOTS:

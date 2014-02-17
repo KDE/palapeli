@@ -19,6 +19,7 @@
 #include "view.h"
 #include "interactormanager.h"
 #include "scene.h"
+#include "piece.h"
 #include "texturehelper.h"
 
 #include <cmath>
@@ -142,6 +143,13 @@ void Palapeli::View::moveViewportBy(const QPointF& sceneDelta)
 {
 	horizontalScrollBar()->setValue(horizontalScrollBar()->value() + (isRightToLeft() ? sceneDelta.x() : -sceneDelta.x()));
 	verticalScrollBar()->setValue(verticalScrollBar()->value() - sceneDelta.y());
+}
+
+void Palapeli::View::teleportPieces(Piece* pieceUnder, const QPointF& scenePos)
+{
+	qDebug() << "TELEPORT: pieceUnder" << (pieceUnder != 0)
+		 << "scenePos" << scenePos;
+	emit teleport(pieceUnder, scenePos, this);
 }
 
 void Palapeli::View::zoomBy(int delta)

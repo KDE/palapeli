@@ -70,8 +70,6 @@ namespace Palapeli
 			void deleteHolder();
 			void selectAll();
 			void rearrangePieces();
-			void autoCollectPieces();
-			void emptyOutHolder();
 			void actionZoomIn();
 			void actionZoomOut();
 			void toggleCloseUp();
@@ -95,13 +93,19 @@ namespace Palapeli
 			void updateSavedGame();
 
 			void changeSelectedHolder(PieceHolder* h);
+			void teleport(Piece* piece, const QPointF& scenePos,
+							View* view);
 
 		private:
 			void deletePuzzleViews();
 			void loadPuzzle();
 			void playVictoryAnimation();
 			void calculatePieceAreaSize();
-			void createHolder(const QString& name);
+			void createHolder(const QString& name, bool sel = true);
+			void transferPieces(const QList<Piece*> pieces,
+					View* source, View* dest,
+					const QPointF& scenePos = QPointF());
+			QList<Piece*> getSelectedPieces(View* v);
 
 			QStackedWidget*    m_centralWidget;
 			CollectionView*    m_collectionView;
@@ -114,6 +118,7 @@ namespace Palapeli
 			QSizeF             m_pieceAreaSize;
 			QTimer*            m_savegameTimer;
 			PieceHolder*       m_currentHolder;
+			PieceHolder*       m_previousHolder;
 
 			// Some stuff needed for loading puzzles.
 			bool m_loadingPuzzle;

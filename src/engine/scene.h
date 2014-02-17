@@ -31,8 +31,9 @@ namespace Palapeli
 	 * This class holds the puzzle pieces and boundary (constraint) of a
 	 * Palapeli scene, which can be either a piece-holder or the main
 	 * puzzle table. The scene also handles adding and removing pieces,
-	 * moving pieces, merging (or joining) pieces and signalling changes
-	 * in the state of the puzzle and its pieces, wherever they may be.
+	 * moving pieces, merging (or joining) pieces, arranging pieces into
+	 * a grid and signalling changes in the state of the puzzle and its
+	 * pieces, wherever they may be.
 	 */
 
 	class Scene : public QGraphicsScene
@@ -52,15 +53,17 @@ namespace Palapeli
 
 			void validatePiecePosition(Palapeli::Piece* piece);
 			void mergeLoadedPieces();
-			const QSizeF& pieceAreaSize() {
-				return m_pieceAreaSize;
-			}
+			const QSizeF& pieceAreaSize()
+					{ return m_pieceAreaSize; }
 			void setPieceAreaSize(const QSizeF& pieceAreaSize)
 					{ m_pieceAreaSize = pieceAreaSize; }
 			QList<Palapeli::Piece*> pieces() { return m_pieces; }
 
 			void dispatchPieces(const QList<Palapeli::Piece*> pcs);
 			void clearPieces();
+
+			void initializeGrid(const QPointF& gridTopLeft);
+			void addToGrid(Piece* piece);
 
 		public Q_SLOTS:
 			void startPuzzle();
@@ -86,9 +89,14 @@ namespace Palapeli
 			QList<Palapeli::Piece*> m_pieces;
 			int m_atomicPieceCount;
 			QSizeF m_pieceAreaSize;
-			// Width of ConstraintVisualizer and space around pieces.
+			// Width of ConstraintVisualizer and space at edges.
 			qreal m_margin;
 			qreal m_handleWidth;
+
+			QPointF m_gridTopLeft;
+			int m_gridRank;
+			int m_gridX;
+			int m_gridY;
 	};
 }
 
