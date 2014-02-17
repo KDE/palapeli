@@ -21,6 +21,8 @@
 #include "scene.h"
 #include "view.h"
 
+#include <QDebug>	// IDW test.
+
 #include <QApplication>
 #include <QStyle>
 #include <QStyleOptionRubberBand>
@@ -171,6 +173,31 @@ void Palapeli::SelectPieceInteractor::stopInteraction(const Palapeli::MouseEvent
 }
 
 //END Palapeli::SelectPieceInteractor
+//BEGIN Palapeli::TeleportPieceInteractor
+
+Palapeli::TeleportPieceInteractor::TeleportPieceInteractor(QGraphicsView* view)
+	: Palapeli::Interactor(25, Palapeli::MouseInteractor, view)
+{
+	setMetadata(PieceInteraction, i18nc("Works instantly, without dragging", "Teleport pieces to or from a holder"), QIcon());
+	qDebug() << "CONSTRUCTED TeleportPieceInteractor";
+}
+
+bool Palapeli::TeleportPieceInteractor::startInteraction(const Palapeli::MouseEvent& event)
+{
+	qDebug() << "ENTERED TeleportPieceInteractor::startInteraction";
+	Palapeli::View* view = qobject_cast<Palapeli::View*>(this->view());
+	if (!view)
+		return false;
+	QGraphicsItem* item = findSelectableItemAt(event.scenePos, scene());
+	Palapeli::Piece* piece = 0;
+	if (item) {
+		piece = Palapeli::Piece::fromSelectedItem(item);
+	}
+	view->teleportPieces(piece, event.scenePos);
+	return true;
+}
+
+//END Palapeli::TeleportPieceInteractor
 //BEGIN Palapeli::MoveViewportInteractor
 
 Palapeli::MoveViewportInteractor::MoveViewportInteractor(QGraphicsView* view)
@@ -194,6 +221,29 @@ void Palapeli::MoveViewportInteractor::continueInteraction(const Palapeli::Mouse
 }
 
 //END Palapeli::MoveViewportInteractor
+//BEGIN Palapeli::ToggleCloseUpInteractor
+
+Palapeli::ToggleCloseUpInteractor::ToggleCloseUpInteractor(QGraphicsView* view)
+	: Palapeli::Interactor(2, Palapeli::MouseInteractor, view)
+{
+	// IDW TODO - Check the priority against other priorities.
+	//
+	// IDW TODO - What about Palapeli::MouseEvent flags?
+	setMetadata(ViewportInteraction, i18nc("As in a movie scene", "Switch to close-up or distant view"), KIcon(QLatin1String("zoom-in")));
+	qDebug() << "CONSTRUCTED ToggleCloseUpInteractor";
+}
+
+bool Palapeli::ToggleCloseUpInteractor::startInteraction(const Palapeli::MouseEvent& event)
+{
+	qDebug() << "ENTERED ToggleCloseUpInteractor::startInteraction";
+	Palapeli::View* view = qobject_cast<Palapeli::View*>(this->view());
+	if (view)
+		view->toggleCloseUp();
+	// IDW TODO - Need to get scene-position from MouseEvent, for precision.
+	return true;
+}
+
+//END Palapeli::ToggleCloseUpInteractor
 //BEGIN Palapeli::ZoomViewportInteractor
 
 Palapeli::ZoomViewportInteractor::ZoomViewportInteractor(QGraphicsView* view)

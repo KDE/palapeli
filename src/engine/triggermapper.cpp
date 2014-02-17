@@ -38,7 +38,9 @@ QMap<QByteArray, Palapeli::Interactor*> Palapeli::TriggerMapper::createInteracto
 	QMap<QByteArray, Palapeli::Interactor*> result;
 	result["MovePiece"] = new Palapeli::MovePieceInteractor(view);
 	result["SelectPiece"] = new Palapeli::SelectPieceInteractor(view);
+	result["TeleportPiece"] = new Palapeli::TeleportPieceInteractor(view);
 	result["MoveViewport"] = new Palapeli::MoveViewportInteractor(view);
+	result["ToggleCloseUp"] = new Palapeli::ToggleCloseUpInteractor(view);
 	result["ZoomViewport"] = new Palapeli::ZoomViewportInteractor(view);
 	result["ScrollViewportHoriz"] = new Palapeli::ScrollViewportInteractor(Qt::Horizontal, view);
 	result["ScrollViewportVert"] = new Palapeli::ScrollViewportInteractor(Qt::Vertical, view);
@@ -53,7 +55,9 @@ QMap<QByteArray, Palapeli::Trigger> Palapeli::TriggerMapper::defaultAssociations
 	QMap<QByteArray, Palapeli::Trigger> result;
 	result.insert("MovePiece", Palapeli::Trigger("LeftButton;NoModifier"));
 	result.insert("SelectPiece", Palapeli::Trigger("LeftButton;ControlModifier"));
+	result.insert("TeleportPiece", Palapeli::Trigger("LeftButton;ShiftModifier"));
 	result.insert("MoveViewport", Palapeli::Trigger("RightButton;NoModifier"));
+	result.insert("ToggleCloseUp", Palapeli::Trigger("MidButton;NoModifier"));
 	result.insert("ZoomViewport", Palapeli::Trigger("wheel:Vertical;NoModifier"));
 	result.insert("RubberBand", Palapeli::Trigger("LeftButton;NoModifier"));
 	result.insert("Constraints", Palapeli::Trigger("LeftButton;NoModifier"));

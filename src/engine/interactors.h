@@ -64,6 +64,28 @@ namespace Palapeli
 			Palapeli::Piece* m_currentPiece;
 	};
 
+	//This interactor is assigned to LeftButton;ShiftModifier by default.
+	// 1. When you click on a piece in the puzzle table it is transferred
+	//    immediately to the currently selected piece-holder.
+	// 2. When you select one or more pieces on the puzzle table and click
+	//    anywhere on the puzzle table, all the selected pieces are
+	//    transferred immediately to the currently selected piece-holder.
+	// 3. When you select one or more pieces in the currently selected
+	//    piece-holder and then click anywhere on the puzzle table or in
+	//    another piece-holder, all the selected pieces are transferred
+	//    immediately to the place where you clicked.
+	//
+	//The transferred pieces are set selected when they arrive and are
+	//arranged tidily in a grid pattern. In case 3, the top-left of the
+	//grid is where you clicked.
+	class TeleportPieceInteractor : public Palapeli::Interactor
+	{
+		public:
+			TeleportPieceInteractor(QGraphicsView* view);
+		protected:
+			virtual bool startInteraction(const Palapeli::MouseEvent& event);
+	};
+
 	//This interactor is assigned to RightButton;NoModifier by default.
 	//Dragging will drag the viewport (only translations, no rotation or zooming).
 	class MoveViewportInteractor : public Palapeli::Interactor
@@ -75,6 +97,16 @@ namespace Palapeli
 			virtual void continueInteraction(const Palapeli::MouseEvent& event);
 		private:
 			QPoint m_lastPos;
+	};
+
+	//This interactor is assigned to MidButton;NoModifier by default.
+	//Clicking on a view will toggle it between close-up and distant views.
+	class ToggleCloseUpInteractor : public Palapeli::Interactor
+	{
+		public:
+			ToggleCloseUpInteractor(QGraphicsView* view);
+		protected:
+			virtual bool startInteraction(const Palapeli::MouseEvent& event);
 	};
 
 	//This interactor is assigned to wheel:Vertical;NoModifier by default.
