@@ -103,23 +103,28 @@ void Palapeli::MainWindow::setupActions()
 	// Create piece-holder.
 	KAction* createHolderAct = new KAction(i18n("&Create piece holder..."), 0);
 	createHolderAct->setToolTip(i18n("Create a temporary holder for sorting pieces"));
+	createHolderAct->setShortcut(QKeySequence(Qt::Key_C));
 	actionCollection()->addAction("move_create_holder", createHolderAct);
 	connect(createHolderAct, SIGNAL(triggered()), m_game, SLOT(createHolder()));
 
 	// Delete piece-holder.
 	KAction* deleteHolderAct = new KAction(i18n("&Delete piece holder"), 0);
-	createHolderAct->setToolTip(i18n("Delete a selected temporary holder when it is empty"));
+	deleteHolderAct->setToolTip(i18n("Delete a selected temporary holder when it is empty"));
+	deleteHolderAct->setShortcut(QKeySequence(Qt::Key_D));
 	actionCollection()->addAction("move_delete_holder", deleteHolderAct);
 	connect(deleteHolderAct, SIGNAL(triggered()), m_game, SLOT(deleteHolder()));
 
 	// Select all pieces in a piece-holder.
-	KAction* selectAllAct = KStandardAction::selectAll(m_game, SLOT(selectAll()), 0);
+	KAction* selectAllAct = new KAction(i18n("&Select all in holder"), 0);
 	selectAllAct->setToolTip(i18n("Select all pieces in a selected piece holder"));
+	selectAllAct->setShortcut(QKeySequence(Qt::Key_A));
 	actionCollection()->addAction("move_select_all", selectAllAct);
+	connect(selectAllAct, SIGNAL(triggered()), m_game, SLOT(selectAll()));
 
 	// Rearrange a selected piece-holder or selected pieces in any view.
 	KAction* rearrangeAct = new KAction(i18n("&Rearrange pieces"), 0);
 	rearrangeAct->setToolTip(i18n("Rearrange all pieces in a selected piece holder or selected pieces in any window"));
+	rearrangeAct->setShortcut(QKeySequence(Qt::Key_R));
 	actionCollection()->addAction("move_rearrange", rearrangeAct);
 	connect(rearrangeAct, SIGNAL(triggered()), m_game, SLOT(rearrangePieces()));
 
@@ -134,11 +139,13 @@ void Palapeli::MainWindow::setupActions()
 	togglePreviewAct->setChecked(isVisible);
 	connect(togglePreviewAct, SIGNAL(triggered()), m_game, SLOT(actionTogglePreview()));
 
+	/* REMOVED: Now triggered by mouse button, default Middle-Click.
 	// Toggle close-up view.
 	KToggleAction* toggleCloseUpAct = new KToggleAction(i18nc("As in a movie close-up scene", "Close-up View"), 0);
 	toggleCloseUpAct->setShortcut(QKeySequence(Qt::Key_Space));
 	actionCollection()->addAction("view_closeup", toggleCloseUpAct);
 	connect(toggleCloseUpAct, SIGNAL(triggered()), m_game, SLOT(toggleCloseUp()));
+	*/
 
 	// View zoom in.
 	KStandardAction::zoomIn(m_game, SLOT(actionZoomIn()),

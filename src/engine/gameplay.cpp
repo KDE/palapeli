@@ -392,11 +392,58 @@ void Palapeli::GamePlay::deleteHolder()
 void Palapeli::GamePlay::selectAll()
 {
 	qDebug() << "GamePlay::selectAll() entered";
+	if (m_currentHolder) {
+		QList<Palapeli::Piece*> pieces =
+					m_currentHolder->scene()->pieces();
+		if (! pieces.isEmpty()) {
+			foreach (Palapeli::Piece* piece, pieces) {
+				piece->setSelected(true);
+			}
+		}
+		else {
+			KMessageBox::information(m_mainWindow,
+				i18n("The selected piece holder must contain "
+				     "some pieces for 'Select all' to use."));
+		}
+	}
+	else {
+		KMessageBox::information(m_mainWindow,
+			i18n("You need to click on a piece holder to "
+			     "select it before you can select all the "
+			     "pieces in it."));
+	}
 }
 
 void Palapeli::GamePlay::rearrangePieces()
 {
 	qDebug() << "GamePlay::rearrangePieces() entered";
+	QList<Palapeli::Piece*> selectedPieces;
+	Palapeli::View* view = m_puzzleTable->view();
+	selectedPieces = getSelectedPieces(view);
+	if (selectedPieces.isEmpty()) {
+		if (m_currentHolder) {
+			view = m_currentHolder;
+			selectedPieces = getSelectedPieces(view);
+		}
+	}
+	if (selectedPieces.isEmpty()) {
+		KMessageBox::information(m_mainWindow,
+			i18n("To rearrange pieces, either the puzzle table "
+			     "must have some selected pieces or there "
+			     "must be a selected holder with some selected "
+			     "pieces in it."));
+		return;
+	}
+	QRectF bRect;
+	foreach (Palapeli::Piece* piece, selectedPieces) {
+		bRect |= piece->sceneBareBoundingRect();
+	}
+	Palapeli::Scene* scene = view->scene();
+	scene->initializeGrid(bRect.topLeft());
+	foreach (Palapeli::Piece* piece, selectedPieces) {
+		scene->addToGrid(piece);
+	}
+	positionChanged(0);	// There is no attempt to merge pieces here.
 }
 
 void Palapeli::GamePlay::actionZoomIn()

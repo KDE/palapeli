@@ -23,7 +23,6 @@
 			<Action name="view_collection"/>
 			<Separator/>
 			<Action name="view_preview"/>
-			<Action name="view_closeup"/>
 			<Separator/>
 			<Action name="view_zoom_in"/>
 			<Action name="view_zoom_out"/>
