@@ -226,7 +226,7 @@
 			<variablelist>
 				<varlistentry>
 					<term><guiicon>Back to collection</guiicon></term>
-					<listitem><para><action>Go back to the collection to choose another puzzle.</action> Can be used only when you solving a puzzle.</para></listitem>
+					<listitem><para><action>Go back to the collection to choose another puzzle.</action> Can be used only when you are solving a puzzle.</para></listitem>
 				</varlistentry>
 				<varlistentry>
 					<term><guiicon>Preview</guiicon></term>
