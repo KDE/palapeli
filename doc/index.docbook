@@ -30,7 +30,7 @@
 			<holder>Johannes L&#xF6;hnert, Stefan Majewsky</holder>
 		</copyright>
 		<legalnotice>&FDLNotice;</legalnotice>
-		<date>2014-01-02</date>
+		<date>2014-02-18</date>
 		<releaseinfo>1.2 (&kde; 4.13)</releaseinfo>
 
 		<abstract>
@@ -74,7 +74,7 @@
 					</listitem>
 				</varlistentry>
 				<varlistentry>
-					<term><guiicon>Delete</guiicon></term>
+					<term><guiicon>Delete puzzle</guiicon></term>
 					<listitem><para><action>Any puzzles that you have selected in the puzzle list, will be permanently deleted from your library. </action></para><warning><para>This action cannot be undone.</para></warning></listitem>
 				</varlistentry>
 				<varlistentry>
@@ -225,8 +225,8 @@
 			<title>Toolbar overview</title>
 			<variablelist>
 				<varlistentry>
-					<term><guiicon>Restart puzzle</guiicon></term>
-					<listitem><para><action>Discards the saved progress for this puzzle.</action></para></listitem>
+					<term><guiicon>Back to collection</guiicon></term>
+					<listitem><para><action>Go back to the collection to choose another puzzle.</action> Can be used only when you solving a puzzle.</para></listitem>
 				</varlistentry>
 				<varlistentry>
 					<term><guiicon>Preview</guiicon></term>
@@ -240,9 +240,63 @@
 		<title>Interface Overview</title>
 		<para>&palapeli;'s two areas, the puzzle collection and the puzzle table, are embedded into the menubar as tabs. There are also menus with standard actions which are described below.</para>
 		<variablelist>
+		        <varlistentry>
+			  <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo></shortcut><guimenu>Game</guimenu><guimenuitem>Create new puzzle...</guimenuitem></menuchoice></term>
+				<listitem><para><action>Opens a dialog which allows you to create a puzzle from an image on your disk.</action> See <link linkend="create-puzzles">the corresponding section</link> for details.</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><menuchoice><guimenu>Game</guimenu><guimenuitem>Import from file...</guimenuitem></menuchoice></term>
+				<listitem><para><action>When you have received a &palapeli; puzzle file (which can usually be recognized by the file extension <literal role="extension">*.puzzle</literal>), you can use this action to import it into your local collection.</action> Puzzle files can also be played by simply clicking on them in the file manager of your choice, but after the import, the puzzle will appear in your local collection, and you can safely delete the downloaded puzzle file.</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><menuchoice><guimenu>Game</guimenu><guimenuitem>Export to file...</guimenuitem></menuchoice></term>
+				<listitem><para><action>This will export the currently selected puzzles to files, in order to enable you to give them to your friends, publish them on the web, or make backup copies of your collection.</action></para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><menuchoice><guimenu>Game</guimenu><guimenuitem>Delete puzzle</guimenuitem></menuchoice></term>
+				<listitem><para><action>Any puzzles that you have selected in the puzzle list, will be permanently deleted from your library.</action></para><warning><para>This action cannot be undone.</para></warning></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><menuchoice><guimenu>Game</guimenu><guimenuitem>Restart puzzle</guimenuitem></menuchoice></term>
+				<listitem><para><action>Discards the saved progress for the current puzzle.</action></para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><menuchoice><guimenu>Move</guimenu><guimenuitem>Create piece holder...</guimenuitem></menuchoice></term>
+				<listitem><para><action>Create a temporary holder for sorting pieces.</action></para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><menuchoice><guimenu>Move</guimenu><guimenuitem>Delete piece holder</guimenuitem></menuchoice></term>
+				<listitem><para><action>Delete a selected temporary holder when it is empty.</action></para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></shortcut><guimenu>Move</guimenu><guimenuitem>Select all</guimenuitem></menuchoice></term>
+				<listitem><para><action>Select all pieces in a selected piece holder.</action></para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><menuchoice><guimenu>Move</guimenu><guimenuitem>Rearrange pieces</guimenuitem></menuchoice></term>
+				<listitem><para><action>Rearrange all pieces in a selected piece holder or selected pieces in any 
+window.</action></para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><menuchoice><guimenu>View</guimenu><guimenuitem>Back to collection</guimenuitem></menuchoice></term>
+				<listitem><para><action>Go back to the collection to choose another puzzle.</action> Can be used only when you solving a puzzle.</para></listitem>
+			</varlistentry>
+
 			<varlistentry>
 				<term><menuchoice><guimenu>View</guimenu><guimenuitem>Preview</guimenuitem></menuchoice></term>
 				<listitem><para><action>Toggle the display of the completed puzzle preview image.</action> Hover it with the mouse pointer to zoom in the image.</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><menuchoice><shortcut><keycap>Space</keycap></shortcut><guimenu>View</guimenu><guimenuitem>Close-up View</guimenuitem></menuchoice></term>
+				<listitem><para><action>Toggle between close-up and distant view.</action></para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>+</keycap></keycombo></shortcut><guimenu>View</guimenu><guimenuitem>Zoom In</guimenuitem></menuchoice></term>
+				<listitem><para><action>Increase the scale by 20%.</action></para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>-</keycap></keycombo></shortcut><guimenu>View</guimenu><guimenuitem>Zoom Out</guimenuitem></menuchoice></term>
+				<listitem><para><action>Decrease the scale by 20%.</action></para></listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><guimenu>Settings</guimenu><guimenuitem>Show statusbar of puzzle table</guimenuitem></menuchoice></term>
