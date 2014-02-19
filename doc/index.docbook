@@ -279,7 +279,7 @@ window.</action></para></listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><guimenu>View</guimenu><guimenuitem>Back to collection</guimenuitem></menuchoice></term>
-				<listitem><para><action>Go back to the collection to choose another puzzle.</action> Can be used only when you solving a puzzle.</para></listitem>
+				<listitem><para><action>Go back to the collection to choose another puzzle.</action> Can be used only when you are solving a puzzle.</para></listitem>
 			</varlistentry>
 
 			<varlistentry>
