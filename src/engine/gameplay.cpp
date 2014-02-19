@@ -806,7 +806,10 @@ void Palapeli::GamePlay::loadPiecePositions()
 				Settings::solutionArea();
 
 		// Find the size of the area required for the solution.
-		const QRectF r = m_puzzleTableScene->piecesBoundingRect();
+		QRectF r;
+		foreach (Palapeli::Piece* piece, piecePool) {
+			r |= piece->sceneBareBoundingRect();
+		}
 		int xResv = 0;
 		int yResv = 0;
 		if (space != Palapeli::ConfigDialog::None) {
