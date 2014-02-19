@@ -94,6 +94,7 @@ namespace Palapeli
 			qreal m_handleWidth;
 
 			QPointF m_gridTopLeft;
+			QSizeF m_gridSpacing;
 			int m_gridRank;
 			int m_gridX;
 			int m_gridY;

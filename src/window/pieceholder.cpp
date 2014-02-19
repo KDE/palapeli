@@ -28,6 +28,7 @@ Palapeli::PieceHolder::PieceHolder(const QSizeF& pieceArea, const QString& title
 {
 	QRectF r(QPointF(0.0, 0.0), pieceArea);
 	m_scene->setPieceAreaSize(pieceArea);
+	m_scene->initializeGrid(QPointF(0.0, 0.0));
 	m_scene->setSceneRect(r);
 	setWindowFlags(Qt::Tool | Qt::WindowTitleHint
 				| Qt::WindowStaysOnTopHint);

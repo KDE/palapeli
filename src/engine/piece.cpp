@@ -109,6 +109,7 @@ bool Palapeli::Piece::hasHighlight() const
 
 void Palapeli::Piece::createShadowItems(const Palapeli::PieceVisuals& shadowVisuals)
 {
+/* IDW TODO - DELETE this.
 #ifdef Q_OS_MAC
 	// On Apple OS X the QPalette::Highlight color is blue, but is
 	// dimmed down, for highlighting black-on-white text presumably.
@@ -118,6 +119,8 @@ void Palapeli::Piece::createShadowItems(const Palapeli::PieceVisuals& shadowVisu
 	const QColor activeShadowColor =
 		QApplication::palette().color(QPalette::Highlight);
 #endif
+*/
+	const QColor activeShadowColor = Settings::viewHighlightColor();
 	const Palapeli::PieceVisuals activeShadowVisuals =
 		Palapeli::changeShadowColor(shadowVisuals, activeShadowColor);
 	// Create inactive (unhighlighted) shadow item.
@@ -140,9 +143,8 @@ void Palapeli::Piece::createHighlight(const QSizeF& pieceAreaSize)
 	int w = area.width();
 	int h = area.height();
 	// IDW TODO - Paint pixmap just once (in Scene?) and shallow-copy it.
-	QRadialGradient g(QPoint(w/2, h/2), qMax(w/2, h/2));
-	// IDW TODO - Make this color an adjustable setting.
-	g.setColorAt(0,Qt::green);
+	QRadialGradient g(QPoint(w/2, h/2), qMin(w/2, h/2));
+	g.setColorAt(0, Settings::viewHighlightColor());
 	g.setColorAt(1,Qt::transparent);
 
 	QPixmap p(w, h);
@@ -295,9 +297,11 @@ void Palapeli::Piece::setPlace(const QPointF& topLeft, int x, int y,
 	const QSizeF pieceSize = b.size();
 	QPointF areaOffset;
 	if (random) {
+		int dx = area.width() - pieceSize.width();
+		int dy = area.height() - pieceSize.height();
 		areaOffset = QPointF(	// Place the piece randomly in the cell.
-			qrand() % (int)(area.width() - pieceSize.width()),
-			qrand() % (int)(area.height() - pieceSize.height()));
+			(dx > 0) ? (qrand() % dx) : 0,	// Avoid division by 0.
+			(dy > 0) ? (qrand() % dy) : 0);
 	}
 	else {
 		areaOffset = QPointF(	// Center the piece in the cell.

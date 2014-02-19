@@ -6,11 +6,11 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>552</width>
-    <height>487</height>
+    <width>551</width>
+    <height>519</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
@@ -26,7 +26,7 @@
           </property>
          </widget>
         </item>
-        <item alignment="Qt::AlignVCenter">
+        <item>
          <widget class="Palapeli::TriggerComboBox" name="kcfg_ViewBackground">
           <property name="sizePolicy">
            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
@@ -50,14 +50,29 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetDefaultConstraint</enum>
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>Color for highlighting selected pieces:</string>
         </property>
-        <item alignment="Qt::AlignLeft">
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="KColorButton" name="kcfg_ViewHighlightColor">
+        <property name="defaultColor" stdset="0">
+         <color>
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
          <widget class="QLabel" name="label_5">
           <property name="text">
-           <string>Space for Solution:</string>
+           <string>Space for solution:</string>
           </property>
          </widget>
         </item>
@@ -73,7 +88,7 @@
         </item>
        </layout>
       </item>
-      <item row="2" column="0" colspan="2">
+      <item row="3" column="0" colspan="2">
        <widget class="QLabel" name="label_6">
         <property name="text">
          <string>No space is provided with puzzles of less than 20 pieces. Changes will take effect when a puzzle is created or re-started.</string>
@@ -83,6 +98,55 @@
         </property>
        </widget>
       </item>
+      <item row="4" column="0" colspan="2">
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QLabel" name="label_8">
+          <property name="text">
+           <string>Spacing of pieces in puzzle grids (1.0-1.5):</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QSlider" name="kcfg_PieceSpacing">
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>10</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="value">
+           <number>6</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
+          </property>
+          <property name="tickInterval">
+           <number>2</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
      </layout>
     </widget>
    </item>
@@ -91,18 +155,8 @@
      <property name="title">
       <string>Piece appearance</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>These options can be disabled when Palapeli is running very slowly. Changes will take effect only when a new puzzle is started.</string>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
        <widget class="QCheckBox" name="kcfg_PieceBevelsEnabled">
         <property name="text">
          <string>Draw bevels to create a 3-dimensional appearance</string>
@@ -112,12 +166,22 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
+      <item>
        <widget class="QCheckBox" name="kcfg_PieceShadowsEnabled">
         <property name="text">
          <string>Draw shadows below pieces</string>
         </property>
         <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>These options can be disabled when Palapeli is running very slowly. Changes will take effect only when a new puzzle is started.</string>
+        </property>
+        <property name="wordWrap">
          <bool>true</bool>
         </property>
        </widget>
@@ -220,7 +284,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>40</height>
+       <height>34</height>
       </size>
      </property>
     </spacer>

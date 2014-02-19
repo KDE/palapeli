@@ -20,6 +20,7 @@
 #include "constraintvisualizer.h"
 #include "mergegroup.h"
 #include "piece.h"
+#include "settings.h"
 
 #include <QGraphicsView>
 #include <QDebug>
@@ -210,6 +211,7 @@ void Palapeli::Scene::pieceMoved(bool finished)
 void Palapeli::Scene::initializeGrid(const QPointF& gridTopLeft)
 {
 	m_gridTopLeft = gridTopLeft;
+	m_gridSpacing = pieceAreaSize()*(1.0 + 0.05 * Settings::pieceSpacing());
 	m_gridRank = 1;
 	m_gridX = 0;
 	m_gridY = 0;
@@ -217,8 +219,7 @@ void Palapeli::Scene::initializeGrid(const QPointF& gridTopLeft)
 
 void Palapeli::Scene::addToGrid(Palapeli::Piece* piece)
 {
-	piece->setPlace(m_gridTopLeft, m_gridX, m_gridY,
-				pieceAreaSize(), false);
+	piece->setPlace(m_gridTopLeft, m_gridX, m_gridY, m_gridSpacing, false);
 	// Calculate the next spot on the square grid.
 	if (m_gridY == (m_gridRank - 1)) {
 		m_gridX++;		// Add to bottom row.

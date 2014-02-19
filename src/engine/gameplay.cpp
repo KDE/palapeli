@@ -793,6 +793,8 @@ void Palapeli::GamePlay::loadPiecePositions()
 		qDebug() << "GENERATING A NEW PUZZLE BY SHUFFLING.";
 		// Step 1: determine maximum piece size.
 		QSizeF pieceAreaSize = m_pieceAreaSize;
+		m_sizeFactor = 1.0 + 0.05 * Settings::pieceSpacing();
+		qDebug() << "PIECE SPACING FACTOR" << m_sizeFactor;
 		pieceAreaSize *= m_sizeFactor;	// Allow more space for pieces.
 
 		// Step 2: place pieces in a grid in random order.
