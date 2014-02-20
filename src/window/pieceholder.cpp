@@ -20,6 +20,7 @@
 #include "../engine/scene.h"
 #include "../engine/piece.h"
 
+#include <QCloseEvent>
 #include <QDebug>
 
 Palapeli::PieceHolder::PieceHolder(const QSizeF& pieceArea, const QString& title)
@@ -59,6 +60,18 @@ void Palapeli::PieceHolder::setSelected(bool onOff)
 	qDebug() << "PieceHolder::setSelected()" << windowTitle() << onOff;
 	setStyleSheet(QString("QFrame { border: 3px solid %1; }").arg
 				(onOff ? "blue" : "lightGray"));
+}
+
+void Palapeli::PieceHolder::closeEvent(QCloseEvent* event)
+{
+	// Triggered by the piece-holder window's Close button.
+	if(m_scene->pieces().isEmpty()) {
+		event->accept();	// The window can be closed.
+	}
+	else {
+		event->ignore();	// The window cannot be closed.
+	}
+	emit closing(this);		// GamePlay handles the details.
 }
 
 #include "pieceholder.moc"

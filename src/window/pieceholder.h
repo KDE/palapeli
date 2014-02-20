@@ -21,6 +21,8 @@
 
 #include "../engine/view.h"
 
+class QCloseEvent;
+
 namespace Palapeli
 {
 	class Scene;
@@ -50,8 +52,10 @@ namespace Palapeli
 			QString name() { return windowTitle(); }
 		protected:
 			virtual void focusInEvent(QFocusEvent* e);
+			virtual void closeEvent(QCloseEvent* event);
 		Q_SIGNALS:
 			void selected(PieceHolder* h);
+			void closing(PieceHolder* h);
 		private:
 			Scene* m_scene;
 	};

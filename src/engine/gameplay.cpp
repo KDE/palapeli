@@ -344,12 +344,15 @@ void Palapeli::GamePlay::createHolder()
 		SIGNAL(teleport(Piece*,const QPointF&,View*)),
 		this,
 		SLOT(teleport(Piece*,const QPointF&,View*)));
+	connect (view, SIGNAL(closing(PieceHolder*)),
+		SLOT(closeHolder(PieceHolder*)));
 	positionChanged(0);	// Save the holder - a little later.
 }
 
 void Palapeli::GamePlay::createHolder(const QString& name, bool sel)
 {
-	PieceHolder* h = new PieceHolder(m_pieceAreaSize, name);
+	Palapeli::PieceHolder* h =
+			new Palapeli::PieceHolder(m_pieceAreaSize, name);
 	m_viewList << h;
 	connect(h, SIGNAL(selected(PieceHolder*)),
 		this, SLOT(changeSelectedHolder(PieceHolder*)));
@@ -367,25 +370,31 @@ void Palapeli::GamePlay::deleteHolder()
 {
 	qDebug() << "GamePlay::deleteHolder() entered";
 	if (m_currentHolder) {
-		if (m_currentHolder->scene()->pieces().isEmpty()) {
-			int count = m_viewList.count();
-			m_viewList.removeOne(m_currentHolder);
-			qDebug() << "m_viewList WAS" << count << "NOW" << m_viewList.count();
-			delete m_currentHolder;
-			m_currentHolder = 0;
-			m_previousHolder = 0;
-			positionChanged(0);	// Save change - a little later.
-		}
-		else {
-			KMessageBox::information(m_mainWindow,
-				i18n("The selected piece holder must be empty "
-				     "before you can delete it."));
-		}
+		closeHolder(m_currentHolder);
 	}
 	else {
 		KMessageBox::information(m_mainWindow,
 			i18n("You need to click on a piece holder to "
-			     "select it before you can delete it."));
+			     "select it before you can delete it, or "
+			     "you can just click on its Close button."));
+	}
+}
+
+void Palapeli::GamePlay::closeHolder(Palapeli::PieceHolder* h)
+{
+	if (h->scene()->pieces().isEmpty()) {
+		int count = m_viewList.count();
+		m_viewList.removeOne(h);
+		qDebug() << "m_viewList WAS" << count << "NOW" << m_viewList.count();
+		m_currentHolder = 0;
+		m_previousHolder = 0;
+		h->deleteLater();
+		positionChanged(0);	// Save change - a little later.
+	}
+	else {
+		KMessageBox::information(m_mainWindow,
+			i18n("The selected piece holder must be empty "
+			     "before you can delete it."));
 	}
 }
 
@@ -706,17 +715,17 @@ void Palapeli::GamePlay::loadPiecePositions()
 	// Is there a saved game?
 	static const QString pathTemplate =
 				QString::fromLatin1("collection/%1.save");
-	KConfig saveConfig(KStandardDirs::locateLocal("appdata",
+	KConfig savedConfig(KStandardDirs::locateLocal("appdata",
 				pathTemplate.arg(m_puzzle->identifier())));
 	bool oldFormat = false;
 	m_restoredGame = false;
 	int nHolders = 0;
-	if (saveConfig.hasGroup(HeaderSaveGroup)) {
-		KConfigGroup headerGroup(&saveConfig, HeaderSaveGroup);
+	if (savedConfig.hasGroup(HeaderSaveGroup)) {
+		KConfigGroup headerGroup(&savedConfig, HeaderSaveGroup);
 		nHolders = headerGroup.readEntry("N_Holders", 0);
 		m_restoredGame = true;
 	}
-	else if (saveConfig.hasGroup(FormerSaveGroup)) {
+	else if (savedConfig.hasGroup(FormerSaveGroup)) {
 		m_restoredGame = true;
 		oldFormat = true;
 	}
@@ -731,14 +740,14 @@ void Palapeli::GamePlay::loadPiecePositions()
 		// calling on a MergeGroup object to join the pieces.
 
 		qDebug() << "RESTORING SAVED PUZZLE.";
-		KConfigGroup holderGroup   (&saveConfig, HolderSaveGroup);
-		KConfigGroup locationGroup (&saveConfig, oldFormat ?
+		KConfigGroup holderGroup   (&savedConfig, HolderSaveGroup);
+		KConfigGroup locationGroup (&savedConfig, oldFormat ?
 			FormerSaveGroup : LocationSaveGroup);
 
 		// Re-create the saved piece-holders, if any.
 		m_currentHolder = 0;
 		for (int groupID = 1; groupID <= nHolders; groupID++) {
-			KConfigGroup holder (&saveConfig,
+			KConfigGroup holder (&savedConfig,
 					QString("Holder_%1").arg(groupID));
 			// Re-create a piece-holder and add it to m_viewList.
 			qDebug() << "RE-CREATE HOLDER"
@@ -999,11 +1008,13 @@ void Palapeli::GamePlay::updateSavedGame()
 {
 	static const QString pathTemplate =
 				QString::fromLatin1("collection/%1.save");
-	KConfig saveConfig(KStandardDirs::locateLocal("appdata",
+	KConfig savedConfig(KStandardDirs::locateLocal("appdata",
 				pathTemplate.arg(m_puzzle->identifier())));
-	KConfigGroup headerGroup   (&saveConfig, HeaderSaveGroup);
-	KConfigGroup holderGroup   (&saveConfig, HolderSaveGroup);
-	KConfigGroup locationGroup (&saveConfig, LocationSaveGroup);
+
+	// Save the positions of pieces and attributes of piece-holders.
+	KConfigGroup headerGroup   (&savedConfig, HeaderSaveGroup);
+	KConfigGroup holderGroup   (&savedConfig, HolderSaveGroup);
+	KConfigGroup locationGroup (&savedConfig, LocationSaveGroup);
 
 	headerGroup.writeEntry("N_Holders", m_viewList.count() - 1);
 
@@ -1011,7 +1022,7 @@ void Palapeli::GamePlay::updateSavedGame()
 	foreach (Palapeli::View* view, m_viewList) {
 	    bool isHolder = (view != m_puzzleTable->view());
 	    if (isHolder) {
-		KConfigGroup holderDetails(&saveConfig,
+		KConfigGroup holderDetails(&savedConfig,
 			QString("Holder_%1").arg(groupID));
 		Palapeli::PieceHolder* holder =
 			qobject_cast<Palapeli::PieceHolder*>(view);
@@ -1039,7 +1050,7 @@ void Palapeli::GamePlay::updateSavedGame()
 	}
 }
 
-void Palapeli::GamePlay::changeSelectedHolder(PieceHolder* h)
+void Palapeli::GamePlay::changeSelectedHolder(Palapeli::PieceHolder* h)
 {
 	if (m_currentHolder && (m_currentHolder != h)) {
 		m_previousHolder = m_currentHolder;
