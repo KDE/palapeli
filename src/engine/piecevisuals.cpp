@@ -101,6 +101,9 @@ static QImage createShadow(const QImage& source, int radius)
 	px.end();
 
 	blur(shadowImage, QRect(QPoint(), shadowImage.size()), radius / 3);
+	// IDW TODO - Shadow and highlight are hard to see on Apple. Can they
+	//            be made more conspicuous? How are they on Linux?
+	// IDW test. NO divisor ==> "tablets", / 2); ==> a bit bigger than / 3);
 	return shadowImage;
 }
 

@@ -215,6 +215,8 @@ void Palapeli::Piece::pieceItemSelectedChanged(bool selected)
 		return;
 	}
 	//change visibility of active shadow
+	// IDW TODO - On select, hide black shadow and brighten highlight.
+	// m_inactiveShadowItem->setVisible(! selected);	// IDW test.
 	const qreal targetOpacity = selected ? 1.0 : 0.0;
 	const qreal opacityDiff = qAbs(targetOpacity - activeShadowOpacity());
 	if (m_animator && opacityDiff != 0)
