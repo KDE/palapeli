@@ -34,11 +34,11 @@
 		</entry>
 		<entry name="PieceShadowsEnabled" type="Bool">
 			<label>Whether to render shadows below the puzzle pieces. Turning this off might improve rendering performance.</label>
-			<default>true</default>
+			<default>false</default>
 		</entry>
 		<entry name="PieceBevelsEnabled" type="Bool">
 			<label>Whether to render bevels on the puzzle pieces. Turning this off might improve puzzle loading performance.</label>
-			<default>true</default>
+			<default>false</default>
 		</entry>
 	</group>
 	<group name="PuzzlePreview">
