@@ -333,7 +333,7 @@ window.</action></para></listitem>
 				      </varlistentry>
 				      <varlistentry>
 					<term><guilabel>Color for highlighting selected pieces</guilabel></term>
-					<listitem><para><action>Let you choose highlighting color of the selected pieces.</action> Click on the button to the right of the label to open the <ulink url="help:/kde-runtime/fundamentals/colors.html">Color Selector</ulink> window.</para></listitem>
+					<listitem><para><action>Let you choose highlighting color of the selected pieces.</action> Click on the button to the right of the label to open the <ulink url="help:/fundamentals/colors.html">Color Selector</ulink> window.</para></listitem>
 				      </varlistentry>
 				      <varlistentry>
 					<term><guilabel>Spacing of pieces in puzzle grids (1.0-1.5)</guilabel></term>
