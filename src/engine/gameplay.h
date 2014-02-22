@@ -20,6 +20,8 @@
 #ifndef PALAPELI_GAMEPLAY_H
 #define PALAPELI_GAMEPLAY_H
 
+class KConfig;
+
 class QStackedWidget;
 
 #include "../window/mainwindow.h"
@@ -108,6 +110,9 @@ namespace Palapeli
 					const QPointF& scenePos = QPointF());
 			QList<Piece*> getSelectedPieces(View* v);
 
+			void savePuzzleSettings(KConfig* savedConfig);
+			void restorePuzzleSettings(KConfig* savedConfig);
+
 			QStackedWidget*    m_centralWidget;
 			CollectionView*    m_collectionView;
 			PuzzleTableWidget* m_puzzleTable;
@@ -128,6 +133,7 @@ namespace Palapeli
 			int m_originalPieceCount;
 			int m_currentPieceCount;
 			qreal m_sizeFactor;
+			bool m_playing;
 			QTime t;	// IDW test.
 	};
 }

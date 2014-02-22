@@ -27,6 +27,7 @@
 #include "scene.h"
 #include "view.h"
 #include "piece.h"
+#include "texturehelper.h"
 #include "../file-io/puzzle.h"
 #include "../file-io/components.h"
 #include "../file-io/collection.h"
@@ -59,6 +60,8 @@ const QString HeaderSaveGroup    ("-PalapeliSavedPuzzle");
 const QString HolderSaveGroup    ("Holders");
 const QString LocationSaveGroup  ("XYCo-ordinates");
 const QString FormerSaveGroup    ("SaveGame");
+const QString AppearanceSaveGroup("Appearance");
+const QString PreviewSaveGroup   ("PuzzlePreview");
 
 Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	: QObject(mainWindow)
@@ -77,6 +80,7 @@ Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	, m_sizeFactor(1.3)
 	, m_currentHolder(0)
 	, m_previousHolder(0)
+	, m_playing(false)
 {
 	m_puzzleTableScene = m_puzzleTable->view()->scene();
 	m_viewList << m_puzzleTable->view();
@@ -164,6 +168,8 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 					return;
 				}
 			}
+			// True if same puzzle selected and not still loading.
+			m_playing = (! m_loadingPuzzle);
 		}
 		qDebug() << "NO LOAD: (m_puzzle == puzzle)"
 			 << (m_puzzle == puzzle);
@@ -236,6 +242,7 @@ void Palapeli::GamePlay::actionGoCollection()
 			view->hide();
 		}
 	}
+	m_playing = false;
 }
 
 void Palapeli::GamePlay::actionTogglePreview()
@@ -479,6 +486,7 @@ void Palapeli::GamePlay::restartPuzzle()
 			QString::fromLatin1("collection/%1.save");
 	QFile(KStandardDirs::locateLocal("appdata",
 			pathTemplate.arg(m_puzzle->identifier()))).remove();
+	m_playing = false;
 	// Load the puzzle and re-shuffle the pieces.
 	loadPuzzle();
 }
@@ -607,7 +615,12 @@ QList<Palapeli::Piece*> Palapeli::GamePlay::getSelectedPieces(Palapeli::View* v)
 
 void Palapeli::GamePlay::configure()
 {
-	Palapeli::ConfigDialog().exec();
+	if (Palapeli::ConfigDialog().exec() == QDialog::Accepted) {
+		if (m_playing) {
+			qDebug() << "SAVING SETTINGS FOR THIS PUZZLE";
+			updateSavedGame();	// Save current puzzle Settings.
+		}
+	}
 }
 
 //END action handlers
@@ -620,6 +633,15 @@ void Palapeli::GamePlay::loadPuzzle()
 	// Stop autosaving and progress-reporting and start the loading-widget.
 	m_savegameTimer->stop(); // Just in case it is running ...
 	emit reportProgress(0, 0);
+	// Is there a saved game?
+	static const QString pathTemplate =
+				QString::fromLatin1("collection/%1.save");
+	KConfig savedConfig(KStandardDirs::locateLocal("appdata",
+				pathTemplate.arg(m_puzzle->identifier())));
+	if (savedConfig.hasGroup(AppearanceSaveGroup)) {
+		// Get settings for background, shadows, etc. in this puzzle.
+		restorePuzzleSettings(&savedConfig);
+	}
 	// Return to the event queue to start the loading-widget graphics ASAP.
 	QTimer::singleShot(0, this, SLOT(loadPuzzleFile()));
 	qDebug() << "END loadPuzzle()";
@@ -929,12 +951,14 @@ void Palapeli::GamePlay::finishLoading()
 		createHolder(i18nc("For holding pieces", "Hand"));
 	}
 	m_loadingPuzzle = false;
+	m_playing = true;
 	// Check if puzzle has been completed.
 	if (m_currentPieceCount == 1) {
 		int result = KMessageBox::questionYesNo(m_mainWindow,
 			i18n("You have finished the puzzle. Do you want to restart it now?"));
 		if (result == KMessageBox::Yes) {
 			restartPuzzle();
+			m_playing = false;
 			return;
 		}
 	}
@@ -1011,6 +1035,8 @@ void Palapeli::GamePlay::updateSavedGame()
 	KConfig savedConfig(KStandardDirs::locateLocal("appdata",
 				pathTemplate.arg(m_puzzle->identifier())));
 
+	savePuzzleSettings(&savedConfig);
+
 	// Save the positions of pieces and attributes of piece-holders.
 	KConfigGroup headerGroup   (&savedConfig, HeaderSaveGroup);
 	KConfigGroup holderGroup   (&savedConfig, HolderSaveGroup);
@@ -1047,6 +1073,66 @@ void Palapeli::GamePlay::updateSavedGame()
 		}
 	    }
 	    groupID++;
+	}
+}
+
+void Palapeli::GamePlay::savePuzzleSettings(KConfig* savedConfig)
+{
+	// Save the Appearance settings of the pieces and puzzle background.
+	KConfigGroup settingsGroup (savedConfig, AppearanceSaveGroup);
+	settingsGroup.writeEntry("PieceBevelsEnabled",
+				Settings::pieceBevelsEnabled());
+	settingsGroup.writeEntry("PieceShadowsEnabled",
+				Settings::pieceShadowsEnabled());
+	settingsGroup.writeEntry("PieceSpacing", Settings::pieceSpacing());
+	settingsGroup.writeEntry("ViewBackground", Settings::viewBackground());
+	settingsGroup.writeEntry("ViewBackgroundColor",
+				Settings::viewBackgroundColor());
+	settingsGroup.writeEntry("ViewHighlightColor",
+				Settings::viewHighlightColor());
+	Palapeli::ConfigDialog::SolutionSpace solutionArea =
+				(Palapeli::ConfigDialog::SolutionSpace)
+				Settings::solutionArea();
+	settingsGroup.writeEntry("SolutionArea", (int)solutionArea);
+
+	// Save the Preview settings.
+	KConfigGroup previewGroup (savedConfig, PreviewSaveGroup);
+	previewGroup.writeEntry("PuzzlePreviewGeometry",
+				Settings::puzzlePreviewGeometry());
+	previewGroup.writeEntry("PuzzlePreviewVisible",
+				Settings::puzzlePreviewVisible());
+}
+
+void Palapeli::GamePlay::restorePuzzleSettings(KConfig* savedConfig)
+{
+	// Assume Palapeli::loadPuzzle() has tested if Appearance group exists.
+	KConfigGroup settingsGroup(savedConfig, AppearanceSaveGroup);
+	Settings::setPieceBevelsEnabled(settingsGroup.readEntry(
+				"PieceBevelsEnabled", false));
+	Settings::setPieceShadowsEnabled(settingsGroup.readEntry(
+				"PieceShadowsEnabled", false));
+	Settings::setPieceSpacing(settingsGroup.readEntry(
+				"PieceSpacing", 6));
+	Settings::setViewBackground(settingsGroup.readEntry(
+				"ViewBackground", "background.svg"));
+	Settings::setViewBackgroundColor(settingsGroup.readEntry(
+				"ViewBackgroundColor", QColor(0xfff7eb)));
+	Settings::setViewHighlightColor(settingsGroup.readEntry(
+				"ViewHighlightColor", QColor(0x6effff)));
+	Settings::setSolutionArea(settingsGroup.readEntry(
+				"SolutionArea", 2));
+
+	// Ask TextureHelper to re-draw background (but only after KConfigDialog
+	// has written the settings, which might happen after this slot call).
+	QTimer::singleShot(0, Palapeli::TextureHelper::instance(),
+				SLOT(readSettings()));
+
+	if (savedConfig->hasGroup(PreviewSaveGroup)) {
+		KConfigGroup previewGroup(savedConfig, PreviewSaveGroup);
+		Settings::setPuzzlePreviewGeometry(previewGroup.readEntry(
+				"PuzzlePreviewGeometry", QRect(-1,-1,320,240)));
+		Settings::setPuzzlePreviewVisible(previewGroup.readEntry(
+				"PuzzlePreviewVisible", true));
 	}
 }
 
