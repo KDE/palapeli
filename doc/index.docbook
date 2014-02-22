@@ -262,7 +262,7 @@
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><shortcut><keycap>C</keycap></shortcut><guimenu>Move</guimenu><guimenuitem>Create piece holder...</guimenuitem></menuchoice></term>
-				<listitem><para><action>Create a temporary holder for sorting pieces.</action></para><para>To teleport selected pieces between holders press &Shift; and click with &LMB;.</para></listitem>
+				<listitem><para><action>Create a temporary holder for sorting pieces.</action></para><para>To teleport selected pieces between holders press &Shift; and click with the &LMB;.</para></listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><shortcut><keycap>D</keycap></shortcut><guimenu>Move</guimenu><guimenuitem>Delete piece holder</guimenuitem></menuchoice></term>
