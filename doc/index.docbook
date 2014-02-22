@@ -31,7 +31,7 @@
 		</copyright>
 		<legalnotice>&FDLNotice;</legalnotice>
 		<date>2014-02-18</date>
-		<releaseinfo>1.2 (&kde; 4.13)</releaseinfo>
+		<releaseinfo>2.0 (&kde; 4.13)</releaseinfo>
 
 		<abstract>
 			<para>This is the manual for &palapeli;, a jigsaw puzzle game based on &kde; technology.</para>
@@ -261,19 +261,19 @@
 				<listitem><para><action>Discards the saved progress for the current puzzle.</action></para></listitem>
 			</varlistentry>
 			<varlistentry>
-				<term><menuchoice><guimenu>Move</guimenu><guimenuitem>Create piece holder...</guimenuitem></menuchoice></term>
-				<listitem><para><action>Create a temporary holder for sorting pieces.</action></para></listitem>
+				<term><menuchoice><shortcut><keycap>C</keycap></shortcut><guimenu>Move</guimenu><guimenuitem>Create piece holder...</guimenuitem></menuchoice></term>
+				<listitem><para><action>Create a temporary holder for sorting pieces.</action></para><para>To teleport selected pieces between holders press &Shift; and click with &LMB;.</para></listitem>
 			</varlistentry>
 			<varlistentry>
-				<term><menuchoice><guimenu>Move</guimenu><guimenuitem>Delete piece holder</guimenuitem></menuchoice></term>
+				<term><menuchoice><shortcut><keycap>D</keycap></shortcut><guimenu>Move</guimenu><guimenuitem>Delete piece holder</guimenuitem></menuchoice></term>
 				<listitem><para><action>Delete a selected temporary holder when it is empty.</action></para></listitem>
 			</varlistentry>
 			<varlistentry>
-				<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></shortcut><guimenu>Move</guimenu><guimenuitem>Select all</guimenuitem></menuchoice></term>
+				<term><menuchoice><shortcut><keycap>A</keycap></shortcut><guimenu>Move</guimenu><guimenuitem>Select all in holder</guimenuitem></menuchoice></term>
 				<listitem><para><action>Select all pieces in a selected piece holder.</action></para></listitem>
 			</varlistentry>
 			<varlistentry>
-				<term><menuchoice><guimenu>Move</guimenu><guimenuitem>Rearrange pieces</guimenuitem></menuchoice></term>
+				<term><menuchoice><shortcut><keycap>R</keycap></shortcut><guimenu>Move</guimenu><guimenuitem>Rearrange pieces</guimenuitem></menuchoice></term>
 				<listitem><para><action>Rearrange all pieces in a selected piece holder or selected pieces in any 
 window.</action></para></listitem>
 			</varlistentry>
@@ -318,11 +318,29 @@ window.</action></para></listitem>
 		<title>Game Configuration</title>
 		<para>To open the configuration dialog, use the menubar option: <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &palapeli;...</guimenuitem></menuchoice></para>
 		<sect1 id="configuration-general">
-			<title><guilabel>General settings</guilabel></title>
+			<title>General settings</title>
 			<variablelist>
 				<varlistentry>
+				        <term><guilabel>Puzzle table</guilabel></term>
+					<listitem>
+					  <para>
+					    Let you choose some parameters of the puzzle table.
+					  </para>
+					  <variablelist>
+					<varlistentry>
 					<term><guilabel>Background</guilabel></term>
-					<listitem><para><action>Lets you choose another background texture for the puzzle table.</action> If you choose a single color instead of a texture, the button besides the selection box can be used to define this single color.</para></listitem>
+					<listitem><para><action>Let you choose another background texture for the puzzle table.</action> If you choose a single color instead of a texture, the button besides the selection box can be used to define this single color.</para></listitem>
+				      </varlistentry>
+				      <varlistentry>
+					<term><guilabel>Color for highlighting selected pieces</guilabel></term>
+					<listitem><para><action>Let you choose highlighting color of the selected pieces.</action> Click on the button to the right of the label to open the <ulink url="help:/kde-runtime/fundamentals/colors.html">Color Selector</ulink> window.</para></listitem>
+				      </varlistentry>
+				      <varlistentry>
+					<term><guilabel>Spacing of pieces in puzzle grids (1.0-1.5)</guilabel></term>
+					<listitem><para><action>Let you choose spacing in puzzle grids.</action> No space is provided with puzzles of less than 20 pieces. Changes will take effect when a puzzle is created or re-started.</para></listitem>
+				      </varlistentry>
+				    </variablelist>
+				  </listitem>
 				</varlistentry>
 				<varlistentry>
 					<term><guilabel>Piece appearance</guilabel></term>
@@ -330,20 +348,20 @@ window.</action></para></listitem>
 				</varlistentry>
 				<varlistentry>
 					<term><guilabel>Snapping precision</guilabel></term>
-					<listitem><para><action>Lets you choose how near neighbor pieces must be positioned to each other to snap together.</action> If you move the slider more to the right, pieces will snap together even if they are not so close. This makes the game a bit simpler to handle.</para></listitem>
+					<listitem><para><action>Let you choose how near neighbor pieces must be positioned to each other to snap together.</action> If you move the slider more to the right, pieces will snap together even if they are not so close. This makes the game a bit simpler to handle.</para></listitem>
 				</varlistentry>
 			</variablelist>
 		</sect1>
 		<sect1 id="configuration-mouseactions">
-			<title><guilabel>Mouse interaction</guilabel></title>
+			<title>Mouse interaction</title>
 			<para>This page of the configuration dialog allows you to assign the mouse interactions described in the section <link linkend="puzzletable-mouseactions">Playing on the puzzle table</link> to different mouse buttons. The interactions are divided into those that can be assigned to mouse buttons (&eg; <action>Move viewport by dragging</action>), and those that can be assigned to the mouse wheel (&eg; <action>Scroll viewport horizontally</action>).</para>
 			<sect2>
-				<title><guilabel>Mouse buttons</guilabel> tab</title>
+				<title>Mouse buttons tab</title>
 				<para>Next to the name of each interaction is a button with a picture of a computer mouse which shows the currently assigned action. You can configure the interaction by clicking on that button with the &LMB; and then with the mouse button which you want to assign to this interaction. If you hold modifier keys while clicking for the second time, the puzzle table will allow this interaction only while these modifiers are being held.</para>
 				<tip><para>Instead of clicking, you can also press <keycap>Space</keycap> to assign the special <guilabel>No-Button</guilabel> to this interaction. This is only allowed if modifier keys are being held. The <guilabel>No-Button</guilabel> means that the modifier keys take the role of the mouse button: The interaction starts when the modifier keys are pressed, and stops when one of the modifier keys is released.</para></tip>
 			</sect2>
 			<sect2>
-				<title><guilabel>Mouse wheel</guilabel> tab</title>
+				<title>Mouse wheel tab</title>
 				<para>This tab works similar to the previous one. When the button on the right asks for input, you have to turn the mouse wheel instead of clicking a mouse button. Holding modifier keys is allowed, too, with the same consequences as in the previous case.</para>
 				<tip><para>If your mouse has a bidirectional mouse wheel (as most commonly found on notebook touchpads), you can take advantage of this: The button will recognize whether you turned the mouse wheel horizontally or vertically.</para></tip>
 			</sect2>
