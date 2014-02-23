@@ -81,6 +81,8 @@ Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	, m_currentHolder(0)
 	, m_previousHolder(0)
 	, m_playing(false)
+	, m_canDeletePuzzle(false)	// No puzzle selected at startup.
+	, m_canExportPuzzle(false)
 {
 	m_puzzleTableScene = m_puzzleTable->view()->scene();
 	m_viewList << m_puzzleTable->view();
@@ -136,6 +138,13 @@ void Palapeli::GamePlay::init()
 	m_centralWidget->addWidget(m_puzzleTable);
 	m_centralWidget->setCurrentWidget(m_collectionView);
 	m_mainWindow->setCentralWidget(m_centralWidget);
+	// Get some current action states from the collection.
+	m_canDeletePuzzle = m_mainWindow->actionCollection()->
+				action("game_delete")->isEnabled();
+	m_canExportPuzzle = m_mainWindow->actionCollection()->
+				action("game_export")->isEnabled();
+	// Enable collection actions and disable playing actions initially.
+	setPalapeliMode(false);
 }
 
 //BEGIN action handlers
@@ -144,14 +153,12 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 {
 	t.start();	// IDW test. START the clock.
 	qDebug() << "START playPuzzle(): elapsed 0";
+	// Get some current action states from the collection.
+	m_canDeletePuzzle = m_mainWindow->actionCollection()->
+				action("game_delete")->isEnabled();
+	m_canExportPuzzle = m_mainWindow->actionCollection()->
+				action("game_export")->isEnabled();
 	m_centralWidget->setCurrentWidget(m_puzzleTable);
-	m_mainWindow->actionCollection()->
-				action("view_collection")->setEnabled(true);
-	m_mainWindow->actionCollection()->
-				action("game_restart")->setEnabled(true);
-	m_mainWindow->actionCollection()->
-				action("view_preview")->setEnabled(true);
-	// IDW TODO - Could be empty if we use "view_collection" and come back.
 	m_puzzlePreview = new Palapeli::PuzzlePreview();
 
 	if (m_loadingPuzzle || (!puzzle) || (m_puzzle == puzzle)) {
@@ -169,7 +176,7 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 				}
 			}
 			// True if same puzzle selected and not still loading.
-			m_playing = (! m_loadingPuzzle);
+			setPalapeliMode(! m_loadingPuzzle);
 		}
 		qDebug() << "NO LOAD: (m_puzzle == puzzle)"
 			 << (m_puzzle == puzzle);
@@ -183,11 +190,7 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 	qDebug() << "Returned from loadPuzzle(): elapsed" << t.elapsed();
 
 	// IDW TODO - There is no way to stop loading a puzzle and start loading
-	//            another, although it is possible to do "view_collection"
-	//            during loading, pick another puzzle and continue loading
-	//            the first puzzle. That puzzle eventually gets the wrong
-	//            title (the title of the second with the contents of the
-	//            first). Maybe it will also get the wrong Preview.
+	//            another. The only option is to Quit or abort Palapeli.
 
 	QTimer::singleShot(0, this, SLOT(loadPreview()));
 }
@@ -227,12 +230,7 @@ void Palapeli::GamePlay::playPuzzleFile(const QString& path)
 
 void Palapeli::GamePlay::actionGoCollection()
 {
-	// IDW TODO - Should this terminate puzzle loading? Should it be enabled
-	//            when a puzzle is loading?
 	m_centralWidget->setCurrentWidget(m_collectionView);
-	m_mainWindow->actionCollection()->action("view_collection")->setEnabled(false);
-	m_mainWindow->actionCollection()->action("game_restart")->setEnabled(false);
-	m_mainWindow->actionCollection()->action("view_preview")->setEnabled(false);
 	delete m_puzzlePreview;
 	m_puzzlePreview = 0;
 	m_mainWindow->setCaption(QString());
@@ -242,7 +240,8 @@ void Palapeli::GamePlay::actionGoCollection()
 			view->hide();
 		}
 	}
-	m_playing = false;
+	// Disable playing actions and enable collection actions.
+	setPalapeliMode(false);
 }
 
 void Palapeli::GamePlay::actionTogglePreview()
@@ -257,8 +256,6 @@ void Palapeli::GamePlay::actionTogglePreview()
 
 void Palapeli::GamePlay::actionCreate()
 {
-	// IDW TODO - Should this terminate puzzle loading? Should it be enabled
-	//            when a puzzle is loading?
 	QPointer<Palapeli::PuzzleCreatorDialog> creatorDialog(new Palapeli::PuzzleCreatorDialog);
 	if (creatorDialog->exec())
 	{
@@ -277,8 +274,6 @@ void Palapeli::GamePlay::actionCreate()
 
 void Palapeli::GamePlay::actionDelete()
 {
-	// IDW TODO - Should this terminate puzzle loading? Should it be enabled
-	//            when a puzzle is loading?
 	QModelIndexList indexes = m_collectionView->selectedIndexes();
 	//ask user for confirmation
 	QStringList puzzleNames;
@@ -295,8 +290,6 @@ void Palapeli::GamePlay::actionDelete()
 
 void Palapeli::GamePlay::actionImport()
 {
-	// IDW TODO - Should this terminate puzzle loading? Should it be enabled
-	//            when a puzzle is loading?
 	const QString filter = i18nc("Filter for a file dialog", "*.puzzle|Palapeli puzzles (*.puzzle)");
 	const QStringList paths = KFileDialog::getOpenFileNames(KUrl("kfiledialog:///palapeli-import"), filter);
 	Palapeli::Collection* coll = Palapeli::Collection::instance();
@@ -306,8 +299,6 @@ void Palapeli::GamePlay::actionImport()
 
 void Palapeli::GamePlay::actionExport()
 {
-	// IDW TODO - Should this terminate puzzle loading? Should it be enabled
-	//            when a puzzle is loading?
 	QModelIndexList indexes = m_collectionView->selectedIndexes();
 	Palapeli::Collection* coll = Palapeli::Collection::instance();
 	foreach (const QModelIndex& index, indexes)
@@ -476,8 +467,6 @@ void Palapeli::GamePlay::actionZoomOut()
 
 void Palapeli::GamePlay::restartPuzzle()
 {
-	// IDW TODO - Should this terminate puzzle loading? Should it be enabled
-	//            when a puzzle is loading?
 	if (!m_puzzle) {
 		return;	// If no puzzle was successfully loaded and started.
 	}
@@ -486,7 +475,6 @@ void Palapeli::GamePlay::restartPuzzle()
 			QString::fromLatin1("collection/%1.save");
 	QFile(KStandardDirs::locateLocal("appdata",
 			pathTemplate.arg(m_puzzle->identifier()))).remove();
-	m_playing = false;
 	// Load the puzzle and re-shuffle the pieces.
 	loadPuzzle();
 }
@@ -599,6 +587,43 @@ void Palapeli::GamePlay::transferPieces(const QList<Palapeli::Piece*> pieces,
 	}
 }
 
+void Palapeli::GamePlay::setPalapeliMode(bool playing)
+{
+	// Palapeli has three modes: playing, loading and managing a collection.
+	// When playing, collection actions are disabled and playing actions are
+	// enabled: vice versa when managing the collection. When loading a
+	// puzzle, both sets of actions are disabled, because they cannot work
+	// concurrently with loading (enPlaying and enCollection both false).
+
+	const char* playingActions[] = {"view_collection", "game_restart",
+					"view_preview", "move_create_holder",
+					"move_delete_holder", "move_select_all",
+					"move_rearrange", "view_zoom_in",
+					"view_zoom_out", "END" };
+	const char* collectionActions[] = {"game_new", "game_delete",
+					"game_import", "game_export", "END" };
+	bool enPlaying    = (! m_loadingPuzzle) && playing;
+	bool enCollection = (! m_loadingPuzzle) && (! playing);
+
+	for (uint i = 0; (strcmp (playingActions[i], "END") != 0); i++) {
+		m_mainWindow->actionCollection()->
+			action(playingActions[i])->setEnabled(enPlaying);
+	}
+	for (uint i = 0; (strcmp (collectionActions[i], "END") != 0); i++) {
+		m_mainWindow->actionCollection()->
+			action(collectionActions[i])->setEnabled(enCollection);
+	}
+	// The collection view may enable or disable Delete and Export actions,
+	// depending on what puzzle, if any, is currently selected.
+	if (enCollection) {
+		m_mainWindow->actionCollection()->
+			action("game_delete")->setEnabled(m_canDeletePuzzle);
+		m_mainWindow->actionCollection()->
+			action("game_export")->setEnabled(m_canExportPuzzle);
+	}
+	m_playing = playing;
+}
+
 QList<Palapeli::Piece*> Palapeli::GamePlay::getSelectedPieces(Palapeli::View* v)
 {
 	qDebug() << "ENTERED GamePlay::getSelectedPieces(): PuzzleTable" << (v == m_puzzleTable->view());
@@ -628,8 +653,10 @@ void Palapeli::GamePlay::configure()
 void Palapeli::GamePlay::loadPuzzle()
 {
 	qDebug() << "START loadPuzzle()";
-	m_loadingPuzzle = true;
 	m_restoredGame = false;
+	// Disable all collection and playing actions during loading.
+	m_loadingPuzzle = true;
+	setPalapeliMode(false);
 	// Stop autosaving and progress-reporting and start the loading-widget.
 	m_savegameTimer->stop(); // Just in case it is running ...
 	emit reportProgress(0, 0);
@@ -950,15 +977,12 @@ void Palapeli::GamePlay::finishLoading()
 		// New puzzle and a large one: create a default PieceHolder.
 		createHolder(i18nc("For holding pieces", "Hand"));
 	}
-	m_loadingPuzzle = false;
-	m_playing = true;
 	// Check if puzzle has been completed.
 	if (m_currentPieceCount == 1) {
 		int result = KMessageBox::questionYesNo(m_mainWindow,
 			i18n("You have finished the puzzle. Do you want to restart it now?"));
 		if (result == KMessageBox::Yes) {
 			restartPuzzle();
-			m_playing = false;
 			return;
 		}
 	}
@@ -973,6 +997,9 @@ void Palapeli::GamePlay::finishLoading()
 				SLOT(teleport(Piece*,const QPointF&,View*)));
 		}
 	}
+	// Enable playing actions.
+	m_loadingPuzzle = false;
+	setPalapeliMode(true);
 	qDebug() << "finishLoading(): time" << t.restart();
 }
 

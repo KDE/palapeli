@@ -108,6 +108,7 @@ namespace Palapeli
 			void transferPieces(const QList<Piece*> pieces,
 					View* source, View* dest,
 					const QPointF& scenePos = QPointF());
+			void setPalapeliMode(bool playing);
 			QList<Piece*> getSelectedPieces(View* v);
 
 			void savePuzzleSettings(KConfig* savedConfig);
@@ -134,6 +135,8 @@ namespace Palapeli
 			int m_currentPieceCount;
 			qreal m_sizeFactor;
 			bool m_playing;
+			bool m_canDeletePuzzle;
+			bool m_canExportPuzzle;
 			QTime t;	// IDW test.
 	};
 }
