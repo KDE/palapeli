@@ -494,8 +494,8 @@ void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
 		 << "CurrentHolder?" << (view == m_currentHolder);
 	if (! m_currentHolder) {
 		KMessageBox::information(m_mainWindow,
-			i18n("You need to click on a piece holder to select "
-			     "it before you can transfer pieces into or "
+			i18n("You need to have a piece holder and click it to "
+			     "select it before you can transfer pieces into or "
 			     "out of it."));
 		return;
 	}
@@ -508,6 +508,22 @@ void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
 		selectedPieces = getSelectedPieces(view);
 		if (selectedPieces.count() > 0) {
 			// Transfer from the puzzle table to a piece-holder.
+			foreach (Palapeli::Piece* piece, selectedPieces) {
+				if (piece->representedAtomicPieces().count()
+					> 6) {
+					int ans = 0;
+					ans = KMessageBox::questionYesNo (
+						m_mainWindow,
+						i18n("You have selected to "
+						"transfer a large piece "
+						"containing more than six "
+						"small pieces to a holder. Do "
+						"you really wish to do that?"));
+					if (ans == KMessageBox::No) {
+						return;
+					}
+				}
+			}
 			transferPieces(selectedPieces, view, m_currentHolder);
 		}
 		else {
@@ -549,8 +565,7 @@ void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
 				i18n("You need to have at least two holders, "
 				     "one of them selected and with selected "
 				     "pieces inside it, before you can "
-				     "transfer pieces from one holder to "
-				     "another."));
+				     "transfer pieces to a second holder."));
 		}
 	}
 	positionChanged(0);		// Save the transfer - a little later.
@@ -976,6 +991,59 @@ void Palapeli::GamePlay::finishLoading()
 	if (!m_restoredGame && (m_originalPieceCount >= LargePuzzle)) {
 		// New puzzle and a large one: create a default PieceHolder.
 		createHolder(i18nc("For holding pieces", "Hand"));
+		KMessageBox::information(m_mainWindow,
+			i18nc("Hints for solving large puzzles",
+			"You have just created a large puzzle: Palapeli has "
+			"several features to help you solve it within the "
+			"limited space on the desktop. They are described in "
+			"detail in the Palapeli Handbook (on the Help menu). "
+			"Here are just a few quick tips.\n\n"
+			"Before beginning, it may be best not to use bevels or "
+			"shadowing with large puzzles (see the Settings "
+			"dialog). Loading is slower and highlighting can be "
+			"hard to see when the pieces in the view are very "
+			"small.\n\n"
+			"The first feature is the puzzle Preview (a picture of "
+			"the completed puzzle) and a toolbar button to turn it "
+			"on or off. If you hover over it with the mouse, it "
+			"magnifies parts of the picture, so the window size "
+			"you choose for it can be quite small.\n\n"
+			"Next, there are close-up and distant views of the "
+			"puzzle table, which you can switch quickly by using "
+			"a mouse button (default Middle-Click). In close-up "
+			"view, use the empty space in the scroll bars to "
+			"search through the puzzle pieces a 'page' at a time. "
+			"You can adjust the two views by zooming in or out "
+			"and your changes will be remembered.\n\n"
+			"Then there is a space on the puzzle table reserved "
+			"for building up the solution.\n\n"
+			"Last but not least, there are small windows called "
+			"'holders'. They are for sorting pieces into groups "
+			"such as edges, sky or white house on left. You can "
+			"have as many holders as you like and can give "
+			"them names. You should already have one named "
+			"'Hand', for carrying pieces from wherever you find "
+			"them to the solution area.\n\n"
+			"You use a special mouse click to transfer pieces into "
+			"or out of a holder (default Shift Left-Click). First "
+			"make sure the holder you want to use is active: it "
+			"should have a blue outline. If not, click on it. To "
+			"transfer pieces into the holder, select them on the "
+			"puzzle table then do the special click to 'teleport' "
+			"them into the holder. Or you can just do the special "
+			"click on one piece at a time.\n\n"
+			"To transfer pieces out of the holder, make "
+			"sure no pieces are selected on the puzzle table, go "
+			"into the holder window and select some pieces, using "
+			"normal Palapeli mouse operations, then go back to the "
+			"puzzle table and do the special click on an empty "
+			"space. Do this a few pieces at a time, to avoid "
+			"collisions of pieces on the puzzle table.\n\n"
+			"By the way, holders can do almost all the things the "
+			"puzzle table and its window can do, including joining "
+			"pieces to build up a part of the solution."),
+			i18nc("Caption for hints", "Solving Large Puzzles"),
+			QLatin1String("largepuzzle-introduction"));
 	}
 	// Check if puzzle has been completed.
 	if (m_currentPieceCount == 1) {
