@@ -342,9 +342,6 @@ void Palapeli::GamePlay::createHolder()
 		SIGNAL(teleport(Piece*,const QPointF&,View*)),
 		this,
 		SLOT(teleport(Piece*,const QPointF&,View*)));
-	connect (view, SIGNAL(closing(PieceHolder*)),
-		SLOT(closeHolder(PieceHolder*)));
-	positionChanged(0);	// Save the holder - a little later.
 }
 
 void Palapeli::GamePlay::createHolder(const QString& name, bool sel)
@@ -354,6 +351,8 @@ void Palapeli::GamePlay::createHolder(const QString& name, bool sel)
 	m_viewList << h;
 	connect(h, SIGNAL(selected(PieceHolder*)),
 		this, SLOT(changeSelectedHolder(PieceHolder*)));
+	connect (h, SIGNAL(closing(PieceHolder*)),
+		SLOT(closeHolder(PieceHolder*)));
 	if (sel) {
 		changeSelectedHolder(h);
 	}
@@ -362,6 +361,7 @@ void Palapeli::GamePlay::createHolder(const QString& name, bool sel)
 	}
 	m_puzzleTable->view()->setFocus(Qt::OtherFocusReason);
 	m_puzzleTable->activateWindow();	// Return focus to main window.
+	positionChanged(0);			// Save holder - a little later.
 }
 
 void Palapeli::GamePlay::deleteHolder()
@@ -978,14 +978,26 @@ void Palapeli::GamePlay::finishLoading()
 	// qDebug() << "finishLoading(): Starting";
 	m_puzzle->dropComponent(Palapeli::PuzzleComponent::Contents);
 	// Start each scene and view.
+	qDebug() << "COUNTING CURRENT PIECES";
 	m_currentPieceCount = 0;
 	foreach (Palapeli::View* view, m_viewList) {
 		Palapeli::Scene* scene = view->scene();
 		m_currentPieceCount = m_currentPieceCount +
 					scene->pieces().size();
+		qDebug() << "Counted" << scene->pieces().size();
 		// IDW TODO - Do this better. It's the VIEWS that need to know.
-		scene->startPuzzle();
+		// IDW TODO - DELETE scene->startPuzzle();
+		if (view != m_puzzleTable->view()) {
+			Palapeli::PieceHolder* holder =
+				qobject_cast<Palapeli::PieceHolder*>(view);
+			qDebug() << "Holder" << holder->name() << scene->pieces().size();
+			holder->initializeZooming();
+		}
+		else {
+			qDebug() << "Puzzle table" << scene->pieces().size();
+		}
 	}
+	m_puzzleTable->view()->puzzleStarted();
 	// Initialize external progress display.
 	emit reportProgress(m_originalPieceCount, m_currentPieceCount);
 	if (!m_restoredGame && (m_originalPieceCount >= LargePuzzle)) {
@@ -1000,14 +1012,14 @@ void Palapeli::GamePlay::finishLoading()
 			"Here are just a few quick tips.\n\n"
 			"Before beginning, it may be best not to use bevels or "
 			"shadowing with large puzzles (see the Settings "
-			"dialog). Loading is slower and highlighting can be "
-			"hard to see when the pieces in the view are very "
-			"small.\n\n"
+			"dialog), because they make loading slower and "
+			"highlighting harder to see when the pieces in the "
+			"view are very small.\n\n"
 			"The first feature is the puzzle Preview (a picture of "
 			"the completed puzzle) and a toolbar button to turn it "
 			"on or off. If you hover over it with the mouse, it "
 			"magnifies parts of the picture, so the window size "
-			"you choose for it can be quite small.\n\n"
+			"you choose for the Preview can be quite small.\n\n"
 			"Next, there are close-up and distant views of the "
 			"puzzle table, which you can switch quickly by using "
 			"a mouse button (default Middle-Click). In close-up "
@@ -1032,12 +1044,13 @@ void Palapeli::GamePlay::finishLoading()
 			"puzzle table then do the special click to 'teleport' "
 			"them into the holder. Or you can just do the special "
 			"click on one piece at a time.\n\n"
-			"To transfer pieces out of the holder, make "
+			"To transfer pieces out of a holder, make "
 			"sure no pieces are selected on the puzzle table, go "
 			"into the holder window and select some pieces, using "
 			"normal Palapeli mouse operations, then go back to the "
 			"puzzle table and do the special click on an empty "
-			"space. Do this a few pieces at a time, to avoid "
+			"space where you want the pieces to arrive. Transfer "
+			"no more than a few pieces at a time, to avoid "
 			"collisions of pieces on the puzzle table.\n\n"
 			"By the way, holders can do almost all the things the "
 			"puzzle table and its window can do, including joining "

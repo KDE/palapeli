@@ -35,6 +35,7 @@ namespace Palapeli
 		public:
 			View();
 
+			void puzzleStarted();
 			Palapeli::InteractorManager* interactorManager() const;
 			Palapeli::Scene* scene() const;
 
@@ -68,7 +69,6 @@ namespace Palapeli
 		protected:
 			virtual qreal calculateCloseUpScale();
 		private Q_SLOTS:
-			void puzzleStarted();
 			void startVictoryAnimation();
 		private:
 			Palapeli::InteractorManager* m_interactorManager;

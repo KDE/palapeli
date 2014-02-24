@@ -240,6 +240,7 @@ qreal Palapeli::View::calculateCloseUpScale()
 
 void Palapeli::View::puzzleStarted()
 {
+	qDebug() << "ENTERED View::puzzleStarted()";
 	// At this point the whole puzzle area has been scaled to fit the view.
 	// Now adjust zooming and slider to range of distant and close-up views.
 	//
