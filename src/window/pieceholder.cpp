@@ -19,6 +19,7 @@
 #include "pieceholder.h"
 #include "../engine/scene.h"
 #include "../engine/piece.h"
+#include "settings.h"
 
 #include <QCloseEvent>
 #include <QDebug>
@@ -27,7 +28,9 @@ Palapeli::PieceHolder::PieceHolder(const QSizeF& pieceArea, const QString& title
 	: View()		// A parentless QWidget == a window.
 	, m_scene(scene())
 {
-	QRectF r(QPointF(0.0, 0.0), pieceArea);
+	// Allow space for four pieces initially.
+	qreal f = (1.0 + 0.05 * Settings::pieceSpacing()) * 2.0;
+	QRectF r(QPointF(0.0, 0.0), pieceArea * f);
 	m_scene->setPieceAreaSize(pieceArea);
 	m_scene->initializeGrid(QPointF(0.0, 0.0));
 	m_scene->setSceneRect(r);
@@ -35,7 +38,6 @@ Palapeli::PieceHolder::PieceHolder(const QSizeF& pieceArea, const QString& title
 				| Qt::WindowStaysOnTopHint);
 	setWindowTitle(title);
 	qreal s = calculateCloseUpScale();
-	qreal f = 1.5;
 	setMinimumSize(s*f*pieceArea.width()+1.0, s*f*pieceArea.height()+1.0);
 	resize(minimumSize());
 	QTransform t;
@@ -44,6 +46,11 @@ Palapeli::PieceHolder::PieceHolder(const QSizeF& pieceArea, const QString& title
 	centerOn(r.center());
 	setSelected(true);
 	show();
+}
+
+void Palapeli::PieceHolder::initializeZooming()
+{
+	qDebug() << "ENTERED PieceHolder::initializeZooming() for" << name();
 }
 
 void Palapeli::PieceHolder::focusInEvent(QFocusEvent* e)
