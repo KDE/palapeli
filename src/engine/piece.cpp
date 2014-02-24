@@ -41,6 +41,7 @@ void Palapeli::Piece::commonInit(const Palapeli::PieceVisuals& pieceVisuals)
 	// replacing m_pieceItems pixmap (in rerenderBevel()) causes weird pixel errors
 	// when using fast transformation. SmoothTransformation looks better anyway...
 	m_pieceItem->setTransformationMode(Qt::SmoothTransformation);
+	m_offset = m_pieceItem->offset().toPoint();
 }
 
 Palapeli::Piece::Piece(const QImage& pieceImage, const QPoint& offset)
@@ -72,6 +73,7 @@ Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapel
 	, m_activeShadowItem(0)
 	, m_highlightItem(0)
 	, m_animator(0)
+	, m_offset(QPoint(0, 0))	// Gets set in Piece::commonInit().
 {
 	commonInit(pieceVisuals);
 	if (!shadowVisuals.isNull())
@@ -298,6 +300,7 @@ void Palapeli::Piece::setPlace(const QPointF& topLeft, int x, int y,
 	const QRectF b = sceneBareBoundingRect();
 	const QSizeF pieceSize = b.size();
 	QPointF areaOffset;
+	QPoint pieceOffset = m_pieceItem->offset().toPoint();
 	if (random) {
 		int dx = area.width() - pieceSize.width();
 		int dy = area.height() - pieceSize.height();
