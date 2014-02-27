@@ -83,6 +83,7 @@ QMap<QByteArray, Palapeli::Trigger> Palapeli::TriggerMapper::associations() cons
 void Palapeli::TriggerMapper::readSettings()
 {
 	m_associations.clear();
+	m_associations = Palapeli::TriggerMapper::defaultAssociations();
 	//read config
 	KConfigGroup group(KGlobal::config(), "Mouse Interaction");
 	const QStringList configKeys = group.keyList();
@@ -91,12 +92,12 @@ void Palapeli::TriggerMapper::readSettings()
 		const QByteArray interactorKey = configKey.toLatin1();
 		const QList<QByteArray> triggers = group.readEntry(configKey, QList<QByteArray>());
 		foreach (const Palapeli::Trigger& trigger, triggers) //implicit casts FTW
-			if (trigger.isValid())
+			if (trigger.isValid()) {
+				// Remove default and insert config value(s).
+				m_associations.remove(interactorKey);
 				m_associations.insertMulti(interactorKey, trigger);
+			}
 	}
-	//fallback to default settings if necessary
-	if (m_associations.isEmpty())
-		m_associations = Palapeli::TriggerMapper::defaultAssociations();
 	//announce update to InteractorManagers
 	emit associationsChanged();
 }
