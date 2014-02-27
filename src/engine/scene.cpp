@@ -30,7 +30,7 @@ Palapeli::Scene::Scene(QObject* parent)
 	, m_constrained(false)
 	, m_constraintVisualizer(new Palapeli::ConstraintVisualizer(this))
 	, m_puzzle(0)
-	, m_pieceAreaSize(QSizeF())
+	, m_pieceAreaSize(QSizeF(32.0, 32.0))	// Allow 1024 pixels initially.
 	, m_margin(10.0)
 	, m_handleWidth(7.0)
 {
@@ -81,17 +81,11 @@ void Palapeli::Scene::addMargin(const qreal handleWidth, const qreal spacer) {
 	qDebug() << "SCENE RECT" << r << "VIEW SIZE" << views()[0]->size();
 }
 
-void Palapeli::Scene::startPuzzle()
+QRectF Palapeli::Scene::piecesBoundingRect(const int minGrid) const
 {
-	emit puzzleStarted();
-}
-
-QRectF Palapeli::Scene::piecesBoundingRect() const
-{
-	QRectF result;
-	if (m_pieces.isEmpty())	{	// If no pieces in the scene.
-		return QRectF(0.0, 0.0, 2000.0, 2000.0);
-	}
+	// Space is >= minGrid*minGrid pieces (e.g. for a new PieceHolder).
+	QSizeF minSize = minGrid * m_gridSpacing;
+	QRectF result (QPointF(0.0, 0.0), minSize);
 	foreach (Palapeli::Piece* piece, m_pieces)
 		result |= piece->sceneBareBoundingRect();
 	return result;
@@ -215,10 +209,15 @@ void Palapeli::Scene::initializeGrid(const QPointF& gridTopLeft)
 	m_gridRank = 1;
 	m_gridX = 0;
 	m_gridY = 0;
+	// qDebug() << "GRID INITIALIZED" << m_gridTopLeft
+	//	 << "spacing" << m_gridSpacing << "scene size" << sceneRect();
 }
 
 void Palapeli::Scene::addToGrid(Palapeli::Piece* piece)
 {
+	// qDebug() << "ADD TO GRID AT" << m_gridTopLeft
+	//	 << QPoint(m_gridX, m_gridY)
+	//	 << "spacing" << m_gridSpacing << "random" << false;
 	piece->setPlace(m_gridTopLeft, m_gridX, m_gridY, m_gridSpacing, false);
 	// Calculate the next spot on the square grid.
 	if (m_gridY == (m_gridRank - 1)) {

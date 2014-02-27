@@ -67,6 +67,8 @@ namespace Palapeli
 			void zoomAdjustable(bool adjustable);
 			void teleport(Piece* p, const QPointF& scPos, View* v);
 		protected:
+			virtual int calculateZoomRange(qreal distantScale,
+							bool distantView);
 			virtual qreal calculateCloseUpScale();
 		private Q_SLOTS:
 			void startVictoryAnimation();

@@ -71,7 +71,7 @@ Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	, m_puzzlePreview(0)
 	, m_mainWindow(mainWindow)
 	, m_puzzle(0)
-	, m_pieceAreaSize(QSizeF(1.0, 1.0))
+	, m_pieceAreaSize(QSizeF(32.0, 32.0))	// Allow 1024 pixels initially.
 	, m_savegameTimer(new QTimer(this))
 	, m_loadingPuzzle(false)
 	, m_restoredGame(false)
@@ -336,6 +336,8 @@ void Palapeli::GamePlay::createHolder()
 	createHolder(name);
 	// Merges/moves in new holders add to the progress bar and are saved.
 	Palapeli::View* view = m_viewList.last();
+	Palapeli::PieceHolder* h = qobject_cast<Palapeli::PieceHolder*>(view);
+	h->initializeZooming();
 	connect(view->scene(), SIGNAL(saveMove(int)),
 		this, SLOT(positionChanged(int)));
 	connect(view,
@@ -588,7 +590,14 @@ void Palapeli::GamePlay::transferPieces(const QList<Palapeli::Piece*> pieces,
 		m_puzzleTableScene->initializeGrid(scenePos);
 	}
 	Palapeli::Scene* scene = dest->scene();
+	foreach (Palapeli::Piece* piece, scene->pieces()) {
+		// Clear all previous selections in the destination scene.
+		if (piece->isSelected()) {
+			piece->setSelected(false);
+		}
+	}
 	foreach (Palapeli::Piece* piece, pieces) {
+		// Leave the new arrivals selected, connected and in a grid.
 		scene->addPieceToList(piece);
 		scene->addItem(piece);
 		scene->addToGrid(piece);
@@ -843,13 +852,13 @@ void Palapeli::GamePlay::loadPiecePositions()
 			const int group = oldFormat ? 0 :
 					holderGroup.readEntry(ID, 0);
 			const QPointF p = locationGroup.readEntry(ID, QPointF());
-			qDebug() << "Piece ID" << ID << "group" << group << "pos" << p;
+			// qDebug() << "Piece ID" << ID << "group" << group << "pos" << p;
 			Palapeli::View* view = m_viewList.at(group);
-			qDebug() << "View" << (view != 0) << "Scene" << (view->scene() != 0);
+			// qDebug() << "View" << (view != 0) << "Scene" << (view->scene() != 0);
 			view->scene()->addPieceToList(piece);
-			qDebug() << "PIECE HAS BEEN ADDED TO SCENE's LIST";
+			// qDebug() << "PIECE HAS BEEN ADDED TO SCENE's LIST";
 			piece->setPos(p);
-			qDebug() << "PIECE HAS BEEN POSITIONED";
+			// qDebug() << "PIECE HAS BEEN POSITIONED";
 			// IDW TODO - Selecting/unselecting did not trigger a
 			//            save. Needed to bring back a "dirty" flag.
 			// IDW TODO - Same for all other saveable actions?
