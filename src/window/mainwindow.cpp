@@ -48,6 +48,13 @@ Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 	args->clear();
 }
 
+bool Palapeli::MainWindow::queryClose()
+{
+	// Terminate cleanly if the user Quits when playing a puzzle.
+	m_game->shutdown();
+	return true;
+}
+
 void Palapeli::MainWindow::setupActions()
 {
 	// Standard stuff.
@@ -100,6 +107,8 @@ void Palapeli::MainWindow::setupActions()
 	restartPuzzleAct->setEnabled(false); //no puzzle in progress initially
 	actionCollection()->addAction("game_restart", restartPuzzleAct);
 	connect(restartPuzzleAct, SIGNAL(triggered()), m_game, SLOT(restartPuzzle()));
+	// Quit.
+	KStandardAction::quit (this, SLOT (close()), actionCollection());
 	// Create piece-holder.
 	KAction* createHolderAct = new KAction(i18n("&Create piece holder..."), 0);
 	createHolderAct->setToolTip(i18n("Create a temporary holder for sorting pieces"));
