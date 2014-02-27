@@ -45,7 +45,7 @@ namespace Palapeli
 			void addPieceToList(Palapeli::Piece* piece);
 			void addPieceItemsToScene();
 			bool isConstrained() const;
-			QRectF piecesBoundingRect() const;
+			QRectF piecesBoundingRect(const int minGrid = 2) const;
 			qreal margin() { return m_margin; }
 			qreal handleWidth() { return m_handleWidth; }
 			void addMargin(const qreal handleWidth,
@@ -66,11 +66,9 @@ namespace Palapeli
 			void addToGrid(Piece* piece);
 
 		public Q_SLOTS:
-			void startPuzzle();
 			void setConstrained(bool constrained);
 		Q_SIGNALS:
 			void constrainedChanged(bool constrained);
-			void puzzleStarted();
 			void saveMove(int reduction);
 		private Q_SLOTS:
 			void pieceMoved(bool finished);

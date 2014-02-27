@@ -24,22 +24,27 @@
 #include <QCloseEvent>
 #include <QDebug>
 
+const qreal minGrid = 2.0;	// 2x2 pieces in close-up of minimum holder.
+const qreal maxGrid = 6.0;	// 6x6 pieces in distant view of min holder.
+
 Palapeli::PieceHolder::PieceHolder(const QSizeF& pieceArea, const QString& title)
 	: View()		// A parentless QWidget == a window.
 	, m_scene(scene())
 {
-	// Allow space for four pieces initially.
-	qreal f = (1.0 + 0.05 * Settings::pieceSpacing()) * 2.0;
-	QRectF r(QPointF(0.0, 0.0), pieceArea * f);
+	qDebug() << "CONSTRUCTING Palapeli::PieceHolder" << title;
+	// Allow space for (2 * 2) pieces in minimum view initially.
 	m_scene->setPieceAreaSize(pieceArea);
 	m_scene->initializeGrid(QPointF(0.0, 0.0));
-	m_scene->setSceneRect(r);
+	m_scene->setSceneRect(m_scene->piecesBoundingRect(minGrid));
 	setWindowFlags(Qt::Tool | Qt::WindowTitleHint
 				| Qt::WindowStaysOnTopHint);
 	setWindowTitle(title);
 	qreal s = calculateCloseUpScale();
-	setMinimumSize(s*f*pieceArea.width()+1.0, s*f*pieceArea.height()+1.0);
+	QRectF r = m_scene->sceneRect();
+	setMinimumSize(s*r.width()+1.0, s*r.height()+1.0);
 	resize(minimumSize());
+	qDebug() << "Close-up scale" << s << "pieceArea" << pieceArea
+		 << "size" << size();
 	QTransform t;
 	t.scale(s, s);
 	setTransform(t);
@@ -50,7 +55,18 @@ Palapeli::PieceHolder::PieceHolder(const QSizeF& pieceArea, const QString& title
 
 void Palapeli::PieceHolder::initializeZooming()
 {
+	// Allow space for a distant view of at most (maxGrid * maxGrid) pieces
+	// in a piece holder when the view is at minimum size. More that number
+	// of pieces can be teleported in, but the holder window will have to be
+	// resized or scrolled for the user to see them, even in distant view.
+
 	qDebug() << "ENTERED PieceHolder::initializeZooming() for" << name();
+	qreal scale = qMin(transform().m11(), transform().m22());
+	scale = scale * (minGrid / maxGrid);
+	// Calculate the zooming range and return the close-up scale's level.
+	int level = calculateZoomRange(scale, false);
+	zoomTo(level);
+	centerOn(sceneRect().center());
 }
 
 void Palapeli::PieceHolder::focusInEvent(QFocusEvent* e)

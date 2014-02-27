@@ -51,7 +51,6 @@ Palapeli::View::View()
 	setResizeAnchor(QGraphicsView::AnchorUnderMouse);
 	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 	setScene(new Palapeli::Scene(this));
-	connect(m_scene, SIGNAL(puzzleStarted()), this, SLOT(puzzleStarted()));
 	connect(m_scene, SIGNAL(sceneRectChanged(QRectF)), this, SLOT(logSceneChange(QRectF))); // IDW test.
 	qDebug() << "Initial size of Palapeli::View" << size();
 }
@@ -238,20 +237,16 @@ qreal Palapeli::View::calculateCloseUpScale()
 	return scale;
 }
 
-void Palapeli::View::puzzleStarted()
+int Palapeli::View::calculateZoomRange(qreal distantScale, bool distantView)
 {
-	qDebug() << "ENTERED View::puzzleStarted()";
-	// At this point the whole puzzle area has been scaled to fit the view.
-	// Now adjust zooming and slider to range of distant and close-up views.
-	//
-	// Choose the lesser of the horizontal and vertical scaling factors.
-	const qreal scalingFactor = qMin(transform().m11(), transform().m22());
-	qDebug() << "scalingFactor" << scalingFactor;
 	qreal closeUpScale = calculateCloseUpScale();
-	if (closeUpScale < scalingFactor) {
-		closeUpScale = scalingFactor;	// View is already large enough.
+	if (closeUpScale < distantScale) {
+		closeUpScale = distantScale;	// View is already large enough.
 	}
-	const qreal minScale = scalingFactor*0.75;
+	qDebug() << "View::calculateZoomRange: distantScale" << distantScale
+		 << "distantView" << distantView
+		 << "closeUpScale" << closeUpScale;
+	const qreal minScale = distantScale*0.75;
 	const qreal maxScale = closeUpScale*2.0;
 	const qreal range = log(maxScale/minScale)/log(2.0);
 	const qreal dZoom = (MaximumZoomLevel - MinimumZoomLevel)/range;
@@ -260,15 +255,30 @@ void Palapeli::View::puzzleStarted()
 	m_dZoom = dZoom;
 	m_minScale = minScale;
 
-	const int level = qRound(dZoom*log(scalingFactor/minScale)/log(2.0));
-	qDebug() << "INITIAL LEVEL" << level;
-
 	// Set the toggling levels. If close-up is too small, adjust it.
+	m_distantLevel = qRound(dZoom*log(distantScale/minScale)/log(2.0));;
 	m_closeUpLevel = qRound(MaximumZoomLevel - MinimumZoomLevel - m_dZoom);
-	m_distantLevel = level;
 	m_closeUpLevel = (m_closeUpLevel >= (m_distantLevel + MinDiff)) ?
 				m_closeUpLevel : m_distantLevel + MinDiff;
-	m_isCloseUp = false;		// Start with the view zoomed out.
+	m_isCloseUp = (! distantView);	// Start with the view zoomed in or out.
+	const int level = (distantView ? m_distantLevel : m_closeUpLevel);
+	qDebug() << "INITIAL LEVEL" << level
+		 << "toggles" << m_distantLevel << m_closeUpLevel;
+	return level;
+}
+
+void Palapeli::View::puzzleStarted()
+{
+	qDebug() << "ENTERED View::puzzleStarted()";
+	// At this point the puzzle pieces have been shuffled or loaded from a
+	// .save file and the puzzle table has been scaled to fit the view. Now
+	// adjust zooming and slider to a range of distant and close-up views.
+
+	// Choose the lesser of the horizontal and vertical scaling factors.
+	const qreal distantScale = qMin(transform().m11(), transform().m22());
+	qDebug() << "distantScale" << distantScale;
+	// Calculate the zooming range and return the distant scale's level.
+	int level = calculateZoomRange(distantScale, true);
 
 	// Don't readjust the zoom. Just set the slider pointer.
 	m_zoomLevel = level;		// Make zoomTo() ignore the back-signal.
