@@ -147,6 +147,19 @@ void Palapeli::GamePlay::init()
 	setPalapeliMode(false);
 }
 
+void Palapeli::GamePlay::shutdown()
+{
+	qDebug() << "ENTERED Palapeli::GamePlay::shutdown()";
+	// Make sure the last change is saved.
+	if (m_savegameTimer->isActive()) {
+		m_savegameTimer->stop();
+		updateSavedGame();
+	}
+	// Delete piece-holders cleanly: no closeEvents in PieceHolder objects
+	// and no messages about holders not being empty.
+	deletePuzzleViews();
+}
+
 //BEGIN action handlers
 
 void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)

@@ -54,6 +54,7 @@ namespace Palapeli
 			GamePlay(MainWindow* mainWindow = 0);
 			virtual ~GamePlay();
 			void    init();
+			void    shutdown();
 			CollectionView* collectionView()
 					{ return m_collectionView; };
 			PuzzleTableWidget* puzzleTable()

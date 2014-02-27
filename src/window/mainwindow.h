@@ -36,6 +36,8 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			MainWindow(KCmdLineArgs* args);
+		protected:
+			virtual bool queryClose();
 		private:
 			void setupActions();
 
