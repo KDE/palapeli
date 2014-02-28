@@ -43,6 +43,7 @@ namespace Palapeli
 			void setViewportRect(const QRectF& viewportRect);
 			void teleportPieces(Piece* piece, const QPointF& scPos);
 			void toggleCloseUp();
+			void handleNewPieceSelection();
 
 			static const int MinimumZoomLevel;
 			static const int MaximumZoomLevel;
@@ -66,6 +67,7 @@ namespace Palapeli
 			void zoomLevelChanged(int level);
 			void zoomAdjustable(bool adjustable);
 			void teleport(Piece* p, const QPointF& scPos, View* v);
+			void newPieceSelectionSeen(View* v);
 		protected:
 			virtual int calculateZoomRange(qreal distantScale,
 							bool distantView);

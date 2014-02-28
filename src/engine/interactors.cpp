@@ -70,6 +70,8 @@ void Palapeli::MovePieceInteractor::determineSelectedItems(QGraphicsItem* clicke
 			selectedItem->setSelected(false);
 		clickedItem->setSelected(true);
 		m_currentPieces << clickedPiece;
+		Palapeli::View* v = qobject_cast<Palapeli::View*>(this->view());
+		v->handleNewPieceSelection();
 	}
 }
 
@@ -161,8 +163,13 @@ bool Palapeli::SelectPieceInteractor::startInteraction(const Palapeli::MouseEven
 	if (!m_currentPiece)
 		return false;
 	//toggle selection state for piece under mouse
-	m_currentPiece->setSelected(!m_currentPiece->isSelected());
+	bool previouslySelected = m_currentPiece->isSelected();
+	m_currentPiece->setSelected(! previouslySelected);
 	m_currentPiece->startClick();
+	if (! previouslySelected) {
+		Palapeli::View* v = qobject_cast<Palapeli::View*>(this->view());
+		v->handleNewPieceSelection();
+	}
 	return true;
 }
 
@@ -393,7 +400,18 @@ void Palapeli::RubberBandInteractor::stopInteraction(const Palapeli::MouseEvent&
 {
 	Q_UNUSED(event)
 	m_item->hide(); //NOTE: This is not necessary for the painting, but we use m_item->isVisible() to determine whether we are rubberbanding at the moment.
-	m_item->setRect(QRectF());
+	m_item->setRect(QRectF());	// Finalise the selection(s), if any.
+	const QList<QGraphicsItem*> selectedItems = scene()->selectedItems();
+	foreach (QGraphicsItem* selectedItem, selectedItems) {
+		Palapeli::Piece* selectedPiece =
+			Palapeli::Piece::fromSelectedItem(selectedItem);
+		if (selectedPiece) {
+			Palapeli::View* v =
+				qobject_cast<Palapeli::View*>(this->view());
+			v->handleNewPieceSelection();
+			break;
+		}
+	}
 }
 
 //END Palapeli::RubberBandInteractor

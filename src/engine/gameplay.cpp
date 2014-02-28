@@ -357,6 +357,8 @@ void Palapeli::GamePlay::createHolder()
 		SIGNAL(teleport(Piece*,const QPointF&,View*)),
 		this,
 		SLOT(teleport(Piece*,const QPointF&,View*)));
+	connect(view, SIGNAL(newPieceSelectionSeen(View*)),
+		this, SLOT(handleNewPieceSelection(View*)));
 }
 
 void Palapeli::GamePlay::createHolder(const QString& name, bool sel)
@@ -421,6 +423,7 @@ void Palapeli::GamePlay::selectAll()
 			foreach (Palapeli::Piece* piece, pieces) {
 				piece->setSelected(true);
 			}
+			handleNewPieceSelection(m_currentHolder);
 		}
 		else {
 			KMessageBox::information(m_mainWindow,
@@ -578,6 +581,18 @@ void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
 		}
 	}
 	positionChanged(0);		// Save the transfer - a little later.
+}
+
+void Palapeli::GamePlay::handleNewPieceSelection(Palapeli::View* view)
+{
+	// De-select pieces on puzzle table, to prevent teleport bounce-back.
+	Palapeli::View* m_puzzleTableView = m_puzzleTable->view();
+	if (view != m_puzzleTableView) {	// Pieces selected in a holder.
+		foreach (Palapeli::Piece* piece,
+				getSelectedPieces(m_puzzleTableView)) {
+			piece->setSelected(false);
+		}
+	}
 }
 
 void Palapeli::GamePlay::transferPieces(const QList<Palapeli::Piece*> pieces,
@@ -1092,6 +1107,8 @@ void Palapeli::GamePlay::finishLoading()
 				SIGNAL(teleport(Piece*,const QPointF&,View*)),
 				this,
 				SLOT(teleport(Piece*,const QPointF&,View*)));
+			connect(view, SIGNAL(newPieceSelectionSeen(View*)),
+				this, SLOT(handleNewPieceSelection(View*)));
 		}
 	}
 	// Enable playing actions.
