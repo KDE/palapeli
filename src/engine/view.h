@@ -42,6 +42,7 @@ namespace Palapeli
 			QRectF viewportRect() const;
 			void setViewportRect(const QRectF& viewportRect);
 			void teleportPieces(Piece* piece, const QPointF& scPos);
+			void toggleCloseUp();
 
 			static const int MinimumZoomLevel;
 			static const int MaximumZoomLevel;
@@ -54,7 +55,6 @@ namespace Palapeli
 			void zoomOut();
 			void zoomBy(int delta); //delta = 0 -> no change, delta < 0 -> zoom out, delta > 0 -> zoom in
 			void zoomTo(int level); //level = 100 -> actual size
-			void toggleCloseUp();
 		protected:
 			virtual void keyPressEvent(QKeyEvent* event);
 			virtual void keyReleaseEvent(QKeyEvent* event);

@@ -148,14 +148,6 @@ void Palapeli::MainWindow::setupActions()
 	togglePreviewAct->setChecked(false);
 	connect(togglePreviewAct, SIGNAL(triggered()), m_game, SLOT(actionTogglePreview()));
 
-	/* REMOVED: Now triggered by mouse button, default Middle-Click.
-	// Toggle close-up view.
-	KToggleAction* toggleCloseUpAct = new KToggleAction(i18nc("As in a movie close-up scene", "Close-up View"), 0);
-	toggleCloseUpAct->setShortcut(QKeySequence(Qt::Key_Space));
-	actionCollection()->addAction("view_closeup", toggleCloseUpAct);
-	connect(toggleCloseUpAct, SIGNAL(triggered()), m_game, SLOT(toggleCloseUp()));
-	*/
-
 	// View zoom in.
 	KStandardAction::zoomIn(m_game, SLOT(actionZoomIn()),
 						actionCollection());

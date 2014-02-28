@@ -75,7 +75,6 @@ namespace Palapeli
 			void rearrangePieces();
 			void actionZoomIn();
 			void actionZoomOut();
-			void toggleCloseUp();
 			void restartPuzzle();
 			void configure();
 
