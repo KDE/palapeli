@@ -45,9 +45,8 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			PieceHolder(const QSizeF& pieceArea, const QString& title);
-			// IDW TODO - void releasePieces(QList<Piece*> pieces);
-			// IDW TODO - void repackPieces(QRectF& rect); // Belongs in scene()?
+			PieceHolder(QWidget* parent, const QSizeF& pieceArea,
+					const QString& title);
 			void initializeZooming();
 			void setSelected(bool onOff);
 			QString name() { return windowTitle(); }

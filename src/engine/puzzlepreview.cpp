@@ -26,7 +26,7 @@
 #include <QPainter>
 #include <KLocalizedString>
 
-Palapeli::PuzzlePreview::PuzzlePreview()
+Palapeli::PuzzlePreview::PuzzlePreview(QWidget* parent)
 {
 	m_settingsSaveTimer = new QTimer(this);
 	connect(m_settingsSaveTimer, SIGNAL(timeout()), this, SLOT(writeConfigIfGeometryChanged()));
@@ -37,8 +37,9 @@ Palapeli::PuzzlePreview::PuzzlePreview()
 	m_mousePos = QPoint();
 
 	setScene(new QGraphicsScene());
+	setParent(parent);
 	setWindowTitle(i18nc("Window title", "Preview of completed puzzle"));
-	setWindowFlags(Qt::Tool | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
+	setWindowFlags(Qt::Tool | Qt::WindowTitleHint);
 	setAttribute (Qt::WA_NoMousePropagation); // Accept all mouse events.
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

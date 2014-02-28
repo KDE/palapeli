@@ -172,7 +172,7 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 	m_canExportPuzzle = m_mainWindow->actionCollection()->
 				action("game_export")->isEnabled();
 	m_centralWidget->setCurrentWidget(m_puzzleTable);
-	m_puzzlePreview = new Palapeli::PuzzlePreview();
+	m_puzzlePreview = new Palapeli::PuzzlePreview(m_mainWindow);
 
 	if (m_loadingPuzzle || (!puzzle) || (m_puzzle == puzzle)) {
 		if (m_puzzle == puzzle) {
@@ -364,7 +364,7 @@ void Palapeli::GamePlay::createHolder()
 void Palapeli::GamePlay::createHolder(const QString& name, bool sel)
 {
 	Palapeli::PieceHolder* h =
-			new Palapeli::PieceHolder(m_pieceAreaSize, name);
+		new Palapeli::PieceHolder(m_mainWindow, m_pieceAreaSize, name);
 	m_viewList << h;
 	connect(h, SIGNAL(selected(PieceHolder*)),
 		this, SLOT(changeSelectedHolder(PieceHolder*)));
