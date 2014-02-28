@@ -227,6 +227,11 @@ void Palapeli::View::toggleCloseUp()
 	}
 }
 
+void Palapeli::View::handleNewPieceSelection()
+{
+	emit newPieceSelectionSeen(this);
+}
+
 qreal Palapeli::View::calculateCloseUpScale()
 {
 	// Get the size of the monitor on which this view resides (in pixels).

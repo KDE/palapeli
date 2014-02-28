@@ -98,6 +98,7 @@ namespace Palapeli
 			void teleport(Piece* piece, const QPointF& scenePos,
 							View* view);
 			void closeHolder(PieceHolder* h);
+			void handleNewPieceSelection(View* view);
 
 		private:
 			void deletePuzzleViews();
