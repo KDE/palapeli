@@ -27,17 +27,17 @@
 const qreal minGrid = 2.0;	// 2x2 pieces in close-up of minimum holder.
 const qreal maxGrid = 6.0;	// 6x6 pieces in distant view of min holder.
 
-Palapeli::PieceHolder::PieceHolder(const QSizeF& pieceArea, const QString& title)
-	: View()		// A parentless QWidget == a window.
-	, m_scene(scene())
+Palapeli::PieceHolder::PieceHolder(QWidget* parent, const QSizeF& pieceArea,
+					const QString& title)
+	: m_scene(scene())
 {
 	qDebug() << "CONSTRUCTING Palapeli::PieceHolder" << title;
+	setParent(parent);
+	setWindowFlags(Qt::Window | Qt::Tool | Qt::WindowTitleHint);
 	// Allow space for (2 * 2) pieces in minimum view initially.
 	m_scene->setPieceAreaSize(pieceArea);
 	m_scene->initializeGrid(QPointF(0.0, 0.0));
 	m_scene->setSceneRect(m_scene->piecesBoundingRect(minGrid));
-	setWindowFlags(Qt::Tool | Qt::WindowTitleHint
-				| Qt::WindowStaysOnTopHint);
 	setWindowTitle(title);
 	qreal s = calculateCloseUpScale();
 	QRectF r = m_scene->sceneRect();
