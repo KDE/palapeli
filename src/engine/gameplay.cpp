@@ -494,12 +494,6 @@ void Palapeli::GamePlay::restartPuzzle()
 	loadPuzzle();
 }
 
-void Palapeli::GamePlay::toggleCloseUp()
-{
-	// IDW TODO - Keep this? It is triggered by spacebar.
-	m_puzzleTable->view()->toggleCloseUp();
-}
-
 void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
 				  const QPointF& scenePos, Palapeli::View* view)
 {
