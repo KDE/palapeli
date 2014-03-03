@@ -246,7 +246,6 @@ bool Palapeli::ToggleCloseUpInteractor::startInteraction(const Palapeli::MouseEv
 	Palapeli::View* view = qobject_cast<Palapeli::View*>(this->view());
 	if (view)
 		view->toggleCloseUp();
-	// IDW TODO - Need to get scene-position from MouseEvent, for precision.
 	return true;
 }
 

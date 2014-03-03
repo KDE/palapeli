@@ -59,7 +59,8 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	m_progressBar->setText(i18n("No puzzle loaded"));
 	//setup zoom widget
 	m_zoomWidget->setLevel((View::MaximumZoomLevel+View::MinimumZoomLevel)/2);
-	connect(m_zoomWidget, SIGNAL(levelChanged(int)), m_view, SLOT(zoomTo(int)));
+	connect(m_zoomWidget, SIGNAL(levelChanged(int)),
+		m_view, SLOT(zoomSliderInput(int)));
 	connect(m_zoomWidget, SIGNAL(zoomInRequest()), m_view, SLOT(zoomIn()));
 	connect(m_zoomWidget, SIGNAL(zoomOutRequest()), m_view, SLOT(zoomOut()));
 	connect(m_view, SIGNAL(zoomLevelChanged(int)), m_zoomWidget, SLOT(setLevel(int)));
