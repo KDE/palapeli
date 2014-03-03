@@ -31,10 +31,13 @@
 
 #include <QApplication>
 #include <QDesktopWidget>
+
+#include <QTimer>
 #include <QDebug> // IDW test.
 
 const int Palapeli::View::MinimumZoomLevel = 0;
 const int Palapeli::View::MaximumZoomLevel = 200;
+const int DefaultDelta = 120;
 
 Palapeli::View::View()
 	: m_interactorManager(new Palapeli::InteractorManager(this))
@@ -45,6 +48,7 @@ Palapeli::View::View()
 	, m_isCloseUp(false)
 	, m_dZoom(20.0)
 	, m_minScale(0.01)
+	, m_adjustPointer(false)
 {
 	setFrameStyle(QFrame::NoFrame);
 	setMouseTracking(true);
@@ -153,6 +157,14 @@ void Palapeli::View::teleportPieces(Piece* pieceUnder, const QPointF& scenePos)
 
 void Palapeli::View::zoomBy(int delta)
 {
+	// Scroll wheel and touchpad come here.
+	// Delta is typically +-120 per click for a mouse-wheel, but can be <10
+	// for an Apple MacBook touchpad (using two fingers to scroll).
+
+	// IDW TODO - Accept deltas of <10, either by accumulating deltas or by
+	//            implementing fractional zoom levels.
+	qDebug() << "View::zoomBy: delta" << delta;
+	m_adjustPointer = true;
 	zoomTo(m_zoomLevel + delta / 10);
 }
 
@@ -161,36 +173,71 @@ void Palapeli::View::zoomTo(int level)
 	// IDW TODO - BUG: If you zoom out as far as Palapeli will go, using the
 	//            scroll-wheel, then go on scrolling, the view will zoom in
 	//            and back out again momentarily.
-	//
-	//validate/normalize input
+
+	// Validate/normalize input.
 	level = qBound(MinimumZoomLevel, level, MaximumZoomLevel);
-	//skip unimportant requests
+	// Skip unimportant requests.
 	if (level == m_zoomLevel) {
-		qDebug() << "ZOOM LEVEL UNCHANGED: View::zoomTo:" << level;
 		return;
 	}
-	//create a new transform
-	const QPointF center = mapToScene(rect().center());
+	// Save the mouse position in both view and scene.
+	m_mousePos = mapFromGlobal(QCursor::pos());
+	m_scenePos = mapToScene(m_mousePos);
+	// Create a new transform.
 	const qreal scalingFactor = m_minScale * pow(2, level/m_dZoom);
 	qDebug() << "View::zoomTo: level" << level
-		 << "scalingFactor" << scalingFactor;
-	QTransform t;
-	t.translate(center.x(), center.y());
-	t.scale(scalingFactor, scalingFactor);
+		 << "scalingFactor" << scalingFactor
+		 << m_mousePos << m_scenePos;
+	// Translation, shear, etc. are the same: only the scale is replaced.
+	QTransform t = transform();
+	t.setMatrix(scalingFactor, t.m12(), t.m13(),
+		    t.m21(), scalingFactor, t.m23(),
+		    t.m31(), t.m32(), t.m33());
 	setTransform(t);
-	//save and report changes
+	// Save and report changes.
 	m_zoomLevel = level;
 	emit zoomLevelChanged(m_zoomLevel);
+	// In a mouse-centered zoom, lock the pointer onto the scene position.
+	if (m_adjustPointer) {
+		// Let the new view settle down before checking the mouse.
+		QTimer::singleShot(0, this, SLOT(adjustPointer()));
+	}
+}
+
+void Palapeli::View::adjustPointer()
+{
+	// If the view moved, keep the mouse at the same position in the scene.
+	const QPoint mousePos = mapFromScene(m_scenePos);
+	if (mousePos != m_mousePos) {
+		qDebug() << "POINTER MOVED from" << m_mousePos
+			 << "to" << mousePos << "scenePos" << m_scenePos;
+		QCursor::setPos(mapToGlobal(mousePos));
+	}
+}
+
+void Palapeli::View::zoomSliderInput(int level)
+{
+	if (level == m_zoomLevel) {
+		return;		// Avoid echo from zoomLevelChanged() signal.
+	}
+	m_adjustPointer = false;
+	zoomTo(level);
 }
 
 void Palapeli::View::zoomIn()
 {
-	zoomBy(120);
+	// ZoomWidget ZoomIn button comes here via zoomInRequest signal.
+	// ZoomIn menu and shortcut come here via GamePlay::actionZoomIn.
+	m_adjustPointer = false;
+	zoomTo(m_zoomLevel + DefaultDelta / 10);
 }
 
 void Palapeli::View::zoomOut()
 {
-	zoomBy(-120);
+	// ZoomWidget ZoomOut button comes here via zoomOutRequest signal.
+	// ZoomOut menu and shortcut come here via GamePlay::actionZoomOut.
+	m_adjustPointer = false;
+	zoomTo(m_zoomLevel - DefaultDelta / 10);
 }
 
 // IDW TODO - Keyboard shortcuts for moving the view left, right, up or down by
@@ -205,14 +252,8 @@ const int MinDiff = 10;		// Minimum separation of the two zoom levels.
 
 void Palapeli::View::toggleCloseUp()
 {
-	// IDW TODO - Make sure the mouse pointer stays at the same point in the
-	//            scene as we change views.  It tends to drift off if we are
-	//            near the edge of the scene as we go to close-up or if we
-	//            move the mouse-pointer or the view during close-up.
-
-	qDebug() << "View::toggleCloseUp()" << m_closeUpLevel << m_distantLevel
-		 << "current" << m_zoomLevel << m_isCloseUp;
 	m_isCloseUp = !m_isCloseUp;	// Switch to the other view.
+	m_adjustPointer = true;
 	if (m_isCloseUp) {
 		// Save distant level as we leave: in case it changed.
 		m_distantLevel = (m_zoomLevel <= (m_closeUpLevel - MinDiff)) ?

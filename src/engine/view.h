@@ -52,6 +52,7 @@ namespace Palapeli
 			void setScene(Palapeli::Scene* scene);
 
 			void moveViewportBy(const QPointF& sceneDelta);
+			void zoomSliderInput(int level);
 			void zoomIn();
 			void zoomOut();
 			void zoomBy(int delta); //delta = 0 -> no change, delta < 0 -> zoom out, delta > 0 -> zoom in
@@ -74,6 +75,7 @@ namespace Palapeli
 			virtual qreal calculateCloseUpScale();
 		private Q_SLOTS:
 			void startVictoryAnimation();
+			void adjustPointer();
 		private:
 			Palapeli::InteractorManager* m_interactorManager;
 			Palapeli::Scene* m_scene;
@@ -84,6 +86,9 @@ namespace Palapeli
 			bool m_isCloseUp;
 			qreal m_dZoom;
 			qreal m_minScale;
+			QPoint m_mousePos;
+			QPointF m_scenePos;
+			bool m_adjustPointer;
 	};
 }
 
