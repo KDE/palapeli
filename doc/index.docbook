@@ -22,6 +22,11 @@
 				<surname>Majewsky</surname>
 				<affiliation><address><email>majewsky@gmx.net</email></address></affiliation>
 			</author>
+			<author>
+				<firstname>Ian</firstname>
+				<surname>Wadham</surname>
+				<affiliation><address><email>iandw.au@gmail.com</email></address></affiliation>
+			</author>
 			<!-- TRANS:ROLES_OF_TRANSLATORS -->
 		</authorgroup>
 
@@ -29,8 +34,12 @@
 			<year>2009, 2010</year>
 			<holder>Johannes L&#xF6;hnert, Stefan Majewsky</holder>
 		</copyright>
+		<copyright>
+			<year>2014</year>
+			<holder>Ian Wadham</holder>
+		</copyright>
 		<legalnotice>&FDLNotice;</legalnotice>
-		<date>2014-02-18</date>
+		<date>2014-03-09</date>
 		<releaseinfo>2.0 (&kde; 4.13)</releaseinfo>
 
 		<abstract>
@@ -48,14 +57,20 @@
 
 	<chapter id="introduction">
 		<title>Introduction</title>
-		<para>&palapeli; is a single-player jigsaw puzzle game.</para>
-		<para>The &palapeli; window is separated into two areas, the puzzle collection and the puzzle table. This manual will now continue with describing these two areas.</para>
+		<para>&palapeli; is a single-player jigsaw puzzle game. With it you can create and play puzzles ranging from 4 to 10,000 pieces. This version includes faciities to assist in solving large puzzles (300 pieces or more) within the size limits of a computer screen.</para>
+		<para>The main &palapeli; window is separated into two areas, the puzzle collection and the puzzle table.</para>
+		<para>This manual continues by describing those two areas.</para>
 	</chapter>
 
 	<chapter id="collection">
 		<title>Browsing the puzzle collection</title>
-		<para>When you launch &palapeli; for the first time, your puzzle collection is preloaded with some default puzzles that come with &palapeli;. Click on one of the puzzles to immediately start playing. Playing takes place on the puzzle table; see <link linkend="puzzletable">the section after next</link> for how to use the puzzle table.</para>
-		<para>Apart from selecting a puzzle, the puzzle collection can be used for the following actions:</para>
+		<sect1 id="play-maintain-collection">
+			<title>Playing puzzles and updating the collection</title>
+		<para>When you launch &palapeli; for the first time, your puzzle collection already contains some sample puzzles that come with &palapeli;. Click on one of them to start playing immediately. Later, when you have created some of your own puzzles (see below), you can also click on them to start playing.</para>
+		<para>Play takes place on the puzzle table; see <link linkend="puzzletable">the section after next</link> for how to use the puzzle table.</para>
+		<note><para>You can select and highlight puzzles in the puzzle list by pressing &Ctrl; and &LMB; together. Pressing the &LMB; or &RMB; without &Ctrl; opens that puzzle for playing in the puzzle table.</para>
+		      <para>On Apple OS X you need to double-click the &LMB; to begin playing. A single click will just select and highlight one entry in the puzzle list.</para></note>
+		<para>As well as playing a puzzle, you can use the puzzle collection for the following actions:</para>
 		<itemizedlist>
 			<listitem><para><emphasis>create</emphasis> new puzzles from images on your disk</para></listitem>
 			<listitem><para><emphasis>import</emphasis> puzzles made by others</para></listitem>
@@ -63,19 +78,19 @@
 			<listitem><para><emphasis>delete</emphasis> puzzles you do not need any more</para></listitem>
 		</itemizedlist>
 		<para>The following section shows how to perform these tasks with the toolbar buttons.</para>
-		<sect1 id="toolbars-collection">
+	    </sect1>
+		<sect1 id="toolbar-collection">
 			<title>Toolbar overview</title>
-			<note><para>You can select puzzles in the puzzle list by pressing &Ctrl; and &LMB; together. Pressing the &LMB; or &RMB; without &Ctrl; opens the specific puzzle in the puzzle table.</para></note>
 			<variablelist>
 				<varlistentry>
 					<term><guiicon>Create new puzzle</guiicon></term>
 					<listitem>
-						<para><action>Opens a dialog which allows you to create a puzzle from an image on your disk.</action> See <link linkend="create-puzzles">the next section</link> for details.</para>
+						<para><action>Opens a dialog which allows you to create a puzzle from an image on your disk.</action> See <link linkend="create-puzzles">the next chapter</link> for details.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
 					<term><guiicon>Delete puzzle</guiicon></term>
-					<listitem><para><action>Any puzzles that you have selected in the puzzle list, will be permanently deleted from your library. </action></para><warning><para>This action cannot be undone.</para></warning></listitem>
+					<listitem><para><action>Any puzzles that you have selected in the puzzle list, will be permanently deleted from your collection. </action></para><warning><para>This action cannot be undone.</para></warning></listitem>
 				</varlistentry>
 				<varlistentry>
 					<term><guiicon>Import from file</guiicon></term>
@@ -91,17 +106,25 @@
 
 	<chapter id="create-puzzles">
 		<title>Creating new puzzles</title>
-		<para>As described in <link linkend="collection">the previous section</link>, you can create new puzzles by clicking on the <guiicon>Create new puzzle</guiicon> button on the puzzle collection.</para>
+		<sect1 id="creation-dialog">
+		<title>The puzzle creation dialog</title>
+		<para>As described in <link linkend="toolbar-collection">the previous section</link>, you can create new puzzles by clicking on the <guiicon>Create new puzzle</guiicon> button on the puzzle collection.</para>
 		<para>Clicking this button opens the puzzle creation dialog, which consists of three pages:</para>
 		<procedure>
-			<step><para>On the first page, select an image file which shall be sliced into pieces. Be sure to enter the correct metadata for the image: You should give attribution to the author of the image (&eg; the photographer or the painter); please respect the copyright of the image author.</para></step>
-			<step><para>On the second page, you can select the type of pieces into which the image shall be sliced. &palapeli; comes with a collection of slicers preinstalled, but third-party slicers may also be available.</para></step>
+			<step><para>On the first page, select an image file which will be sliced into pieces. Be sure to enter the correct metadata for the image: You should give attribution to the author of the image (&eg; the photographer or the painter); please respect the copyright of the image author.</para></step>
+			<step><para>On the second page, you can select the type of pieces into which the image will be sliced. &palapeli; comes with a collection of slicers preinstalled, but third-party slicers may also be available.</para></step>
 			<step><para>On the final page of the dialog, the selected slicer can be customized &eg; by choosing a different piece count or by adjusting parameters of the piece shape. The available set of options depends which slicer has been selected.</para></step>
 		</procedure>
 		<para>This manual will continue to discuss the slicers which come with &palapeli;. If you have downloaded a third-party slicer plugin for &palapeli;, please refer to the documentation of this plugin if you have trouble installing or using it on your system.</para>
+		</sect1>
+		<sect1 id="simple-slicers">
+			<title>Simple slicers</title>
+			<para>&palapeli; has two simple slicers, &quot;Classic jigsaw pieces&quot; and &quot;Rectangular pieces&quot;. These slicers create simple rectangular pieces either with or without connecting plugs.</para>
+			<para>Both slicers allow the piece count and the aspect ratio to be adjusted. Dragging the aspect ratio slider to the left results in tall pieces, adjusting it to the right produces wide pieces. The default selection produces approximately square pieces.</para>
+		</sect1>
 		<sect1 id="psc">
-			<title>&psc;</title>
-			<para>The &psc; produces realistical jigsaw pieces with various basic patterns:</para>
+			<title>The advanced &psc;</title>
+			<para>The &psc; produces realistic jigsaw pieces with various basic patterns:</para>
 			<variablelist>
 				<varlistentry>
 					<term>Rectangular grid</term>
@@ -164,25 +187,63 @@
 				</varlistentry>
 			</variablelist>
 		</sect1>
-		<sect1 id="legacy-slicers">
-			<title>Legacy slicers</title>
-			<para>For historical reasons, &palapeli; also includes the slicers &quot;Classic jigsaw pieces&quot; and &quot;Rectangular pieces&quot;. These slicers create simple rectangular pieces either with or without connecting plugs. Both slicers allow the piece count and the aspect ratio to be adjusted. Dragging the aspect ratio slider to the left results in tall pieces, adjusting it to the right produces wide pieces. The default selection produces approximately square pieces.</para>
-		</sect1>
 	</chapter>
 
 	<chapter id="puzzletable">
 		<title>Playing on the puzzle table</title>
+
+		<sect1 id="puzzletable-moves">
+		<title>Basic moves</title>
 		<screenshot><mediaobject>
 			<imageobject><imagedata fileref="puzzletable1.png" format="PNG"/></imageobject>
 			<textobject><phrase>The puzzle table (detail)</phrase></textobject>
 		</mediaobject></screenshot>
-		<para>The object of the game is to assemble the given pieces to an image.</para>
-		<para>Pieces can be freely moved by clicking and dragging them with the &LMB;. You can select multiple pieces at once by holding &Ctrl; and clicking on them, or by dragging a rubberband around them with the &LMB;.</para>
-		<para>When you put one piece near a neighboring piece, both pieces will automatically snap together (1). After having snapped together, pieces cannot be torn apart anymore. Unlike in reality, you cannot combine two pieces that are not true neighbors.</para>
-		<para>The progress bar below the puzzle table indicates your progress (2). &palapeli; will automatically save your progress after every move, so you'll normally not have to bother about saving.</para>
-		<para>With the mouse wheel, or with the slider at the bottom right (3), you can change the zoom level of the puzzle table view. By clicking and dragging with the &RMB;, you can move the puzzle table view.</para>
+		<para>The object of the game is to assemble the given pieces into an image.</para>
+		<para>The floating Preview window shows you what that image should be. Use a toolbar or menu action to show or hide the window. For a detailed description, see <link linkend="puzzletable-preview">The Preview window</link>.</para>
+		<para>If you wish to attempt a puzzle that has 300 or more pieces, please read the chapter on <link linkend="large-puzzles">Facilities for solving large puzzles</link>, after you have read this chapter.</para>
+		<para>You can move a single piece by clicking and dragging it with the &LMB;. That will leave the piece selected and highlighted. To move several pieces at once, first select and highlight them, then click and drag just one of the pieces. The rest will follow.</para>
+		<para>You can select and highlight multiple pieces by holding &Ctrl; and clicking on them, or by dragging a rubberband around them with the &LMB;. You can also use &Ctrl; and &LMB; to increase or decrease the current selection one piece at a time.</para>
+		<para>To remove selection and highlighting, just click on an empty spot on the puzzle table or on a piece that is not already selected.</para>
+		<para>When you put one piece near a neighboring piece, both pieces will automatically snap together and become joined (1). After pieces have been snapped together, they cannot be torn apart. Another difference between &palapeli; and a real-world jigsaw puzzle is that you cannot combine two pieces that are not true neighbors.</para>
+		<para>The progress bar below the puzzle table indicates your progress by counting joined pieces (2). &palapeli; will automatically save your progress after every move, so you do not have to worry about saving.</para>
+		<para>You can zoom the puzzle table view in or out with the mouse wheel, the slider at the bottom right or the buttons at the bottom right (3).</para>
+		<para>You can move the puzzle table view in any direction by clicking and dragging with the &RMB;.</para>
 		<para>The movement of the pieces is limited by the <emphasis>puzzle table area</emphasis>. This area is represented on the puzzle table's background by a light rectangular shade. When you move pieces to the border (4) of the puzzle table area, the area will automatically expand to give you more space for moving your puzzle pieces. Near the shaded borders, the mouse cursor changes into a double-headed arrow, indicating that you can adjust the puzzle table area by clicking there and dragging with the &LMB;.</para>
-		<para>You can lock the puzzle table area with the small button (5) right next to the progress bar. The shade (4) around the puzzle table will darken, and pieces will now stop to move at the edges of the puzzle table area. It is still possible to adjust the size of the puzzle table area manually.</para>
+		<para>You can lock the puzzle table area with the small button (5) to the right of the progress bar. The shade (4) around the puzzle table will darken, and pieces will now stop moving at the edges of the puzzle table area. It is still possible to adjust the size of the puzzle table area manually.</para>
+		</sect1>
+
+		<sect1 id="puzzletable-preview">
+			<title>The Preview window</title>
+			<para>The Preview is a small window that floats
+			above or to one side of the puzzle table window. It
+			contains an image of the completed puzzle: the picture
+			that would appear on top of the box if this was a
+			real-world jigsaw puzzle.
+			</para>
+			<para>The window can be shown or hidden by using the
+			<guiicon>Preview</guiicon> toolbar button or the
+			<menuchoice><guimenu>View</guimenu><guimenuitem>
+			Preview</guimenuitem></menuchoice> menu item. Its
+			size, position and visible or not visible setting
+			are saved and restored between runs of Palapeli.
+			</para>
+			<para>Being a window, it can be freely moved around
+			the desktop and resized. Its Close button will
+			hide it and its Maximize button will expand or
+			contract the picture rapidly.
+			</para>
+			<para>The Preview window has a magnification
+			feature, so it need not take up much space.
+			If you move the mouse over the window,
+			it zooms in quickly to reveal a magnified view
+			of the area under the mouse and the equivalent
+			of a few pieces around it. This is very useful
+			for viewing details of the puzzle and identifying
+			pieces you have found, but it can be tricky to
+			control, especially near the edges of the picture.
+			</para>
+		</sect1>
+
 		<sect1 id="puzzletable-mouseactions">
 			<title>Mouse interactions</title>
 			<para>As described in the previous section, there are plenty of ways to interact with &palapeli;'s puzzle table using the mouse. You can configure freely which actions are triggered by which mouse buttons. (See <link linkend="configuration-mouseactions">Game Configuration</link> section for more information on how to configure this.) The following list summarizes all possible mouse actions:</para>
@@ -193,19 +254,35 @@
 				</varlistentry>
 				<varlistentry>
 					<term><action>Move pieces by dragging</action></term>
-					<listitem><para>When you click and drag a puzzle piece, this piece will be moved. If multiple pieces are selected and you click and drag one of these pieces, then all pieces are moved. By default, this action is assigned to the &LMB;.</para></listitem>
+					<listitem><para>When you click and drag a puzzle piece, this piece will be moved. If multiple pieces have been selected and you click and drag one of these pieces, then all pieces are moved. By default, this action is assigned to the &LMB;.</para></listitem>
 				</varlistentry>
 				<varlistentry>
 					<term><action>Move viewport by dragging</action></term>
-					<listitem><para>By default, this action is assigned to the &RMB;.</para></listitem>
+					<listitem><para>This action moves the view of the entire puzzle table in any direction. By default, it is assigned to the &RMB;.</para></listitem>
 				</varlistentry>
 				<varlistentry>
-					<term><action>Select multiple pieces at once</action></term>
+					<term><action>Select several pieces by rubberbanding</action></term>
 					<listitem><para>When you click on a free area of the puzzle table instead of a puzzle piece, you can drag a rubberband. When you let the mouse button go, all pieces inside the rubberband are selected. All other pieces are deselected. By default, this action is assigned to the &LMB;.</para></listitem>
 				</varlistentry>
 				<varlistentry>
-					<term><action>Select pieces by clicking</action></term>
-					<listitem><para>When you click on a single puzzle piece, it will be selected. If it was already selected, it will be deselected. By default, this action is assigned to the &LMB; and only available when &Ctrl; is pressed.</para></listitem>
+					<term><action>Select several pieces by clicking</action></term>
+					<listitem><para>When you click on a puzzle piece, it will be selected or, if it was already selected, it will be deselected. It can also be used to adjust a rubberband selection. By default, this action is assigned to the &LMB; and only available when &Ctrl; is pressed.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term><action>Clear selections and highlighting</action></term>
+					<listitem><para>Click on an empty spot in the puzzle table or on a piece that is not already selected.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term><action>Zoom the puzzle table view in or out</action></term>
+					<listitem><para>This action is identical to clicking the buttons either side of the slider (3) on the status bar. It is assigned to the mouse wheel by default.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Switch to close-up or distant view<action></action></term>
+					<listitem><para>This action alternates (toggles) between a close-up and distant view, at the position of the mouse pointer. It is intended mainly to provide fast zooming in large puzzles (300 pieces or more).  For more detail, see <link linkend="large-puzzle-fast-zooming">Fast zooming between close-up and distant view</link>. By default, the action is assigned to the &MMB;.</para></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Teleport pieces to or from a holder<action></action></term>
+					<listitem><para>This action helps you collect, sort and move pieces rapidly in large puzzles (300 pieces or more) without dragging and dropping. You can use it in smaller puzzles if you wish. For more detail, see <link linkend="large-puzzle-holders">Using piece-holders</link>. By default, the action is assigned to to the &LMB; and only available when &Shift; is pressed.</para></listitem>
 				</varlistentry>
 				<varlistentry>
 					<term><action>Toggle lock state of the puzzle table area</action></term>
@@ -215,12 +292,9 @@
 					<term><action>Scroll viewport horizontally</action> and <action>Scroll viewport vertically</action></term>
 					<listitem><para>By default, this action is not assigned to the mouse wheel, but you can enable it from <link linkend="configuration-mouseactions">the configuration dialog</link>.</para></listitem>
 				</varlistentry>
-				<varlistentry>
-					<term><action>Zoom viewport</action></term>
-					<listitem><para>This action is identical to moving the slider (3) on the status bar. This action is assigned to the mouse wheel by default.</para></listitem>
-				</varlistentry>
 			</variablelist>
 		</sect1>
+
 		<sect1 id="toolbars-puzzletable">
 			<title>Toolbar overview</title>
 			<variablelist>
@@ -236,13 +310,406 @@
 		</sect1>
 	</chapter>
 
+	<chapter id="large-puzzles">
+		<title>Facilities for solving large puzzles</title>
+
+		<sect1 id="large-puzzle-general">
+			<title>General principles</title>
+			<para>&palapeli; can handle large puzzles from 300 to
+			10,000 pieces, but you need some special facilities to
+			help you work with them on a small screen.
+			</para>
+			<para>You can create a large puzzle in exactly the
+			same way as a smaller puzzle. See the chapter on
+			<link linkend="create-puzzles">Creating new
+			puzzles</link>, but there are some things you
+			need to think about before you begin. For details see
+			<link linkend="large-puzzle-creation">Creating large
+			puzzles - special concerns</link>.
+			</para>
+			<para>The Preview window is very useful in large
+			puzzles: see the section about it for a
+			<link linkend="puzzletable-preview">
+			detailed description</link>.
+			</para>
+			<para>Managing space and moving around are your next
+			concerns. When you zoom out to view the whole puzzle
+			table, it becomes hard to see individual pieces. If
+			you zoom in and find a piece you are looking for, it
+			is unlikely that the place where it goes will be
+			visible in the view.
+			See the <link linkend="large-puzzle-space">Managing
+			space and moving around</link> section for some
+			solutions to these problems and others.
+			</para>
+			<para>Finally, you need to collect pieces and convey
+			them to your solution area in some more efficient
+			way than repetitive dragging and dropping over
+			large distances. This is where piece-holders come in.
+			</para>
+			<para>When you start a large puzzle, you are given
+			a holder (a small floating window) called "Hand"
+			into which you can put pieces when and wherever
+			you see them. Then you can drop them near your
+			solution and work out where each piece has to go.
+			This is like collecting pieces in one hand as you
+			scan a large real-world jigsaw puzzle.
+			</para>
+			<para>You may need some systematic way to collect
+			and sort pieces by common attributes (e.g. edges, sky,
+			skyline, etc.) and so you can use as many holders
+			as you like and give them names. Holders are saved
+			continually, along with the puzzle table, which
+			means you can use them to build up parts of the
+			solution and store them or even to store pieces
+			that you wish to put into a "too hard basket"
+			until later. For details on how to use holders
+			see the <link linkend="large-puzzle-holders">Using
+			piece-holders</link> section.
+			</para>
+			<para>Finally, the <link linkend=
+			"puzzletable-mouseactions">Mouse interactions</link>
+			section lists the two special mouse actions that
+			make working with large puzzles quicker and easier:
+			teleporting pieces and zooming to close-up or
+			distant view.
+			</para>
+		</sect1>
+
+		<sect1 id="large-puzzle-creation">
+			<title>Creating large puzzles - special concerns</title>
+			<para>Before you create a large puzzle, you should make
+			sure that the image in your source contains enough
+			detail (i.e. enough megapixels). You can use a file
+			utility or photo viewer/editor to find out how many
+			pixels wide and high your picture is when not compressed
+			by JPEG or other image format. As a rough rule of thumb,
+			allow one megapixel per 1,000 pieces. That will give
+			each piece about 1,000 pixels or more than 30 by 30
+			pixels, making the pieces
+			reasonably sharp at the edges and clear to see when you
+			zoom in. You can work with fewer megapixels, but it may
+			be hard to distinguish and recognize pieces during play.
+			</para>
+			<para>When you create or restart a large puzzle, it may
+			be best to avoid using the bevel and shadowing features
+			of &palapeli; (see the
+			<link linkend="configuration-general">General
+			settings</link> section), because they make loading
+			slower and highlighting harder to see when the pieces
+			in the view are very small. More prominent highlighting
+			appears when shadowing is not used.
+			</para>
+		</sect1>
+
+		<sect1 id="large-puzzle-space">
+			<title>Managing space and moving around</title>
+			<sect2 id="large-puzzle-space-allocation">
+			<title>Allocating space on the puzzle table</title>
+			<para>When you create or restart a puzzle, the
+			pieces are shuffled and placed randomly into grid
+			locations on the puzzle table. Two settings affect
+			the space required, see
+			<link linkend="configuration">Game Configuration</link>
+			for a list of settings provided via
+			<menuchoice><guimenu>Settings</guimenu>
+			<guimenuitem>Configure &palapeli;...</guimenuitem>
+			</menuchoice> or, on Apple OS X,
+			<menuchoice><guimenu>&palapeli;</guimenu>
+			<guimenuitem>Preferences...</guimenuitem></menuchoice>.
+			</para>
+			<para>The spacing of pieces in puzzle grids can be
+			set from 1.0 to 1.5 times the height and width of
+			the highest and widest pieces. Smaller settings
+			pack the pieces into the view better, but larger
+			ones allow more space for dragging, dropping and
+			rubberbanding. The default is 1.3, but 1.1 is
+			very workable in large puzzles. The setting
+			applies to puzzles of all sizes, and also
+			affects grids used with piece-holders (see
+			<link linkend="large-puzzle-holders">Using
+			piece-holders</link>) or when re-arranging
+			pieces automatically on the puzzle table, using
+			<menuchoice><shortcut><keycap>R</keycap></shortcut>
+			<guimenu>Move</guimenu><guimenuitem>Rearrange
+			pieces</guimenuitem></menuchoice>.
+			</para>
+			<para>The other setting provides space on the
+			puzzle table of exactly the right size for
+			building your solution. The default is for it
+			to appear in the center, with the pieces
+			distributed evenly around the outside. On
+			average, this should put the pieces closest to
+			where they have to go eventually. You can also
+			choose to use any of the four corners or have
+			no space (option None), in which case you have
+			to clear space manually, perhaps by expanding
+			the puzzle table area (see
+			<link linkend="puzzletable-moves">Basic moves</link>).
+			The solution space setting affects puzzles
+			down to 20 pieces, but with fewer than 20 pieces
+			solution spaces are pointless.
+			</para>
+			<para>As the puzzle solution progresses, pieces
+			move into the solution area and leave spaces
+			elsewhere. It may be helpful to pack the
+			remaining pieces closer together. If so, select
+			some pieces using rubberbanding or &Ctrl; and
+			&LMB;, then use <menuchoice><shortcut>
+			<keycap>R</keycap></shortcut>
+			<guimenu>Move</guimenu>
+			<guimenuitem>Rearrange pieces</guimenuitem></menuchoice>
+			or simply the shortcut key (default
+			<keycap>R</keycap>). The pieces are packed into
+			a grid and remain selected, so that they can be
+			easily moved to a better position, if required.
+			This is also a way to gather together pieces
+			with some common attribute, but using
+			piece-holders is more powerful.
+			</para>
+			</sect2>
+			<sect2 id="large-puzzle-fast-zooming">
+			<title>Fast zooming between close-up and distant view</title>
+			<para>When a puzzle is loaded, &palapeli;
+			calculates distant and close-up views and
+			displays the distant view, which shows the
+			entire puzzle table area. The close-up view
+			shows pieces at a convenient viewing size for
+			your eyes and your screen and desktop. Use
+			the &MMB; to switch quickly between the two
+			views, at a location where the mouse is
+			pointing. Then you can home in quickly on any
+			piece in the puzzle table and see what shape
+			it is and what part of the picture it contains.
+			</para>
+			<para>You can adjust the scale of either view by
+			zooming manually and your setting will be
+			remembered next time you switch the view by
+			using the &MMB;. Puzzles of all sizes have the
+			fast zooming feature, but in puzzles with less
+			than 100 pieces the two views are almost the
+			same as each other. In other words, the pieces
+			are easy to see when you view the whole puzzle table.
+			</para>
+			</sect2>
+			<sect2 id="large-puzzle-navigating">
+			<title>Moving around in a large puzzle</title>
+			<para>The hard way to move pieces in a large puzzle
+			is to select them and then alternately drag the
+			pieces and the puzzle table (&LMB; and &RMB;)
+			until you get to your destination. A much easier
+			way to do the same thing is to select the pieces,
+			zoom to distant view (&MMB;, see above), drag
+			the pieces to the destination in one move (&LMB;)
+			and then zoom to close-up view (&MMB;). This is
+			also a good way to retrieve a single stray piece,
+			but dragging that tiny piece across the puzzle
+			table, without losing the selection, can be
+			tricky if there are thousands of pieces.
+			</para>
+			<para>Another way to navigate and search the puzzle
+			table systematically is to zoom in on the top
+			left corner (&MMB;), then use the empty spaces
+			in the scroll bars to step through the table
+			horizontally or vertically, one fixed-size
+			"page" at a time. This technique is very
+			effective when you are using piece-holders to
+			collect pieces you are looking for. If you
+			keep the close-up scale fixed and always start
+			at the same place, you will always get "pages"
+			of fixed size and contents.
+			</para>
+			</sect2>
+			<sect2 id="large-puzzle-visibility">
+			<title>Visibility of pieces in large puzzles</title>
+			<para>In large jigsaw puzzles on a small screen it
+			can be hard to see what you are doing. For
+			example, with a 10,000 piece puzzle on a
+			1440 by 900 screen, the pieces in the distant
+			view of the puzzle table are about 7 pixels
+			across. At this scale, it is hard to see picture,
+			color, piece-shape or even highlighting.
+			</para>
+			<para>&palapeli; has always had a choice of
+			backgrounds and background colors and that
+			helps visibility. Added to these is a more
+			prominent highlighting scheme, which appears
+			if you do not choose shadowing, and a setting
+			to choose the color of the highlight, to
+			contrast with the background and most pieces.
+			Also these settings are now saved and restored
+			with each puzzle. So each puzzle can have the
+			background and highlighting that best suits
+			its overall picture. It is worth experimenting
+			with settings when you create a large puzzle,
+			but you may need to reload or restart the
+			puzzle before all changes can take effect.
+			</para>
+			</sect2>
+		</sect1>
+
+		<sect1 id="large-puzzle-holders">
+			<title>Using piece-holders</title>
+			<sect2 id="large-puzzle-whatareholders">
+			<title>What are piece-holders?</title>
+			<para>Piece-holders are perhaps the most useful
+			feature of Palapeli for helping solve large
+			puzzles. They are small, floating windows into
+			which you can sort groups of pieces, such as
+			"edges", "sky", "skyline" or "white house on
+			left". Initially they appear at a minimum size
+			which is just large enough to show four pieces at
+			close-up scale, so they are quite easy to fit
+			in next to the main puzzle table window.
+			</para>
+			<para>Being windows, holders can be freely moved
+			around the desktop and resized. The Close button
+			will delete the holder, but only if it contains
+			no pieces. The Maximize button will expand or
+			contract the holder rapidly. The holder can contain
+			any number of pieces (maybe hundreds). A Maximize
+			action can be useful when reviewing the contents or
+			constructing a sub-assembly inside the holder.
+			</para>
+			<para>You can have as many holders as you like.
+			There is usually one which is active - outlined
+			in blue. It is the target for actions such as
+			transferring pieces or deleting a holder.
+			</para>
+			</sect2>
+			<sect2 id="large-puzzle-createholders">
+			<title>Creating and deleting holders</title>
+			<para>When you start a large puzzle, a holder
+			called "Hand" is created automatically. This
+			may be the only holder you need with puzzles 
+			of 300 to 750 pieces, but you can have as many
+			holders as you like, even with puzzles of less
+			than 300 pieces.
+			</para>
+			<para>To create or delete a holder, use
+			<menuchoice><shortcut><keycap>C</keycap></shortcut>
+			<guimenu>Move</guimenu><guimenuitem>
+			Create piece holder...</guimenuitem></menuchoice>
+			or
+			<menuchoice><shortcut><keycap>D</keycap></shortcut>
+			<guimenu>Move</guimenu><guimenuitem>
+			Delete piece holder</guimenuitem></menuchoice>, or
+			simply the shortcut keys <keycap>C</keycap> and
+			<keycap>D</keycap>, or the Close button to delete.
+			When you create a holder, you are asked to give it
+			a name, but that is not essential. Usually the
+			holder is at close-up scale and you can easily see
+			what kind of piece is in it.
+			</para>
+			<para>When you delete a holder, it must be active
+			(outlined in blue) and empty of pieces. If the
+			holder to be deleted is not active, click on it.
+			After deletion, there is no active holder, so
+			click on one of those that are left.
+			</para>
+			</sect2>
+			<sect2 id="large-puzzle-teleporting">
+			<title>Transferring pieces into and out of holders</title>
+			<para>Transferring pieces by dragging and dropping
+			is not possible with holders, nor is it needed.
+			Instead, you can transfer pieces instantly by
+			"teleporting", as in "Star Trek". Teleporting works
+			by using the &Shift; and &LMB; together.
+			</para>
+			<para>To transfer pieces to a holder, make sure your
+			target holder is active (outlined in blue),
+			then select some pieces on the puzzle table
+			and click with &Shift; and &LMB;. Or you can
+			just click on one piece at a time with &Shift;
+			and &LMB;. The transferred pieces vanish from
+			the puzzle table and reappear, highlighted,
+			in the holder. As they arrive, they are
+			automatically packed into a grid and the last
+			piece transferred is centered in the view.
+			</para>
+			<para>To transfer pieces out of a holder, select
+			a piece or pieces inside the holder, then
+			return to the puzzle table and click on an
+			empty spot where you would like the piece(s)
+			to appear, using &Shift; and &LMB;. Avoid
+			clicking on a piece that is already on the
+			puzzle table: it will send the piece to the
+			the holder - not what you want. If you accidentally
+			do this with a large joined-up piece
+			(i.e. part of your solution), there
+			is a warning message and an opportunity to cancel.
+			</para>
+			<para>Pieces stay highlighted after teleporting.
+			That allows you to reverse the action quickly
+			if you accidentally transfer the wrong pieces
+			or use the wrong holder. Also, on the puzzle
+			table, you can easily adjust the position of
+			a piece or pieces that have just arrived or move
+			a piece into the solution.
+			</para>
+			<para>Teleporting also works between holders.
+			Start as if you are going to transfer pieces
+			to the puzzle table, but then use &Shift;
+			and &LMB; in an empty spot in another holder.
+			To reverse the process, go back to the
+			original holder and click with &Shift; and
+			&LMB; again.
+			</para>
+			</sect2>
+			<sect2 id="large-puzzle-sorting">
+			<title>Sorting pieces</title>
+			<para>To sort pieces into holders efficiently
+			as you search through a large puzzle, use the
+			technique for stepping through the puzzle a
+			"page" at a time,
+			<link linkend="large-puzzle-navigating">
+			as described earlier</link>, combined with
+			holders and teleporting to collect pieces
+			as you go. When you have scanned the whole puzzle
+			table, zoom to a close-up of your solution area and
+			place the pieces you have collected. Or you
+			can pre-assemble pieces in holders.
+			</para>
+			</sect2>
+			<sect2 id="large-puzzle-otherholderactions">
+			<title>Other holder actions</title>
+			<para>Piece-holders support all the functions
+			of the puzzle table (see <link linkend=
+			"puzzletable-moves">Basic moves</link>), except
+			that you can only zoom by using the scroll-wheel
+			or the &MMB;.
+			</para>
+			<para>This means that you can use a holder as an
+			extra puzzle table, if you wish. You can drag
+			and drop, join pieces together, move the
+			boundaries of the area, etc. You can also
+			teleport assembled pieces of any size into
+			or out of a holder, but beware of overlaps
+			or small pieces being hidden.
+			</para>
+			<para>Finally, you can use <menuchoice><shortcut>
+			<keycap>A</keycap></shortcut><guimenu>Move</guimenu>
+			<guimenuitem>Select all in holder</guimenuitem>
+			</menuchoice>, followed by <menuchoice><shortcut>
+			<keycap>R</keycap></shortcut><guimenu>Move</guimenu>
+			<guimenuitem>Rearrange pieces</guimenuitem>
+			</menuchoice> or &Shift; and &LMB;, to re-pack all
+			the pieces in the holder or empty all the pieces
+			out onto the puzzle table. Or just use the shortcut
+			keys <keycap>A</keycap> or <keycap>R</keycap> on the
+			currently selected holder.
+			</para>
+			</sect2>
+		</sect1>
+	</chapter>
+
 	<chapter id="interface">
 		<title>Interface Overview</title>
-		<para>&palapeli;'s two areas, the puzzle collection and the puzzle table, are embedded into the menubar as tabs. There are also menus with standard actions which are described below.</para>
+		<para>The following are &palapeli;'s menu actions, some of which are also available as toolbar buttons and shortcut keys.</para>
 		<variablelist>
 		        <varlistentry>
 			  <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo></shortcut><guimenu>Game</guimenu><guimenuitem>Create new puzzle...</guimenuitem></menuchoice></term>
-				<listitem><para><action>Opens a dialog which allows you to create a puzzle from an image on your disk.</action> See <link linkend="create-puzzles">the corresponding section</link> for details.</para></listitem>
+			  <listitem><para><action>Opens a dialog which allows you to create a puzzle from an image on your disk.</action> See <link linkend="create-puzzles">the corresponding section</link> for details and also <link linkend="large-puzzle-creation">special concerns</link>, if you are going to create a puzzle with 300 or more pieces.</para></listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><guimenu>Game</guimenu><guimenuitem>Import from file...</guimenuitem></menuchoice></term>
@@ -254,15 +721,15 @@
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><guimenu>Game</guimenu><guimenuitem>Delete puzzle</guimenuitem></menuchoice></term>
-				<listitem><para><action>Any puzzles that you have selected in the puzzle list, will be permanently deleted from your library.</action></para><warning><para>This action cannot be undone.</para></warning></listitem>
+				<listitem><para><action>Any puzzles that you have selected in the puzzle list, will be permanently deleted from your collection.</action></para><warning><para>This action cannot be undone.</para></warning></listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><guimenu>Game</guimenu><guimenuitem>Restart puzzle</guimenuitem></menuchoice></term>
-				<listitem><para><action>Discards the saved progress for the current puzzle.</action></para></listitem>
+				<listitem><para><action>Re-shuffles all the pieces and discards the saved progress for the current puzzle.</action></para></listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><shortcut><keycap>C</keycap></shortcut><guimenu>Move</guimenu><guimenuitem>Create piece holder...</guimenuitem></menuchoice></term>
-				<listitem><para><action>Create a temporary holder for sorting pieces.</action></para><para>To teleport selected pieces between holders press &Shift; and click with the &LMB;.</para></listitem>
+				<listitem><para><action>Create a temporary holder for storing or sorting pieces. See <link linkend="large-puzzle-holders">Using piece-holders</link> for details of how to use a holder.</action></para></listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><shortcut><keycap>D</keycap></shortcut><guimenu>Move</guimenu><guimenuitem>Delete piece holder</guimenuitem></menuchoice></term>
@@ -270,12 +737,11 @@
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><shortcut><keycap>A</keycap></shortcut><guimenu>Move</guimenu><guimenuitem>Select all in holder</guimenuitem></menuchoice></term>
-				<listitem><para><action>Select all pieces in a selected piece holder.</action></para></listitem>
+				<listitem><para><action>Select all pieces in the currently selected piece-holder (outlined in blue).</action></para></listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><shortcut><keycap>R</keycap></shortcut><guimenu>Move</guimenu><guimenuitem>Rearrange pieces</guimenuitem></menuchoice></term>
-				<listitem><para><action>Rearrange all pieces in a selected piece holder or selected pieces in any 
-window.</action></para></listitem>
+				<listitem><para><action>Rearrange selected pieces in any holder or the puzzle table by packing them into a grid.</action></para></listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><guimenu>View</guimenu><guimenuitem>Back to collection</guimenuitem></menuchoice></term>
@@ -287,16 +753,12 @@ window.</action></para></listitem>
 				<listitem><para><action>Toggle the display of the completed puzzle preview image.</action> Hover it with the mouse pointer to zoom in the image.</para></listitem>
 			</varlistentry>
 			<varlistentry>
-				<term><menuchoice><shortcut><keycap>Space</keycap></shortcut><guimenu>View</guimenu><guimenuitem>Close-up View</guimenuitem></menuchoice></term>
-				<listitem><para><action>Toggle between close-up and distant view.</action></para></listitem>
-			</varlistentry>
-			<varlistentry>
 				<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>+</keycap></keycombo></shortcut><guimenu>View</guimenu><guimenuitem>Zoom In</guimenuitem></menuchoice></term>
-				<listitem><para><action>Increase the scale by 20%.</action></para></listitem>
+				<listitem><para><action>Increase the scale.</action></para></listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>-</keycap></keycombo></shortcut><guimenu>View</guimenu><guimenuitem>Zoom Out</guimenuitem></menuchoice></term>
-				<listitem><para><action>Decrease the scale by 20%.</action></para></listitem>
+				<listitem><para><action>Decrease the scale.</action></para></listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><guimenu>Settings</guimenu><guimenuitem>Show statusbar of puzzle table</guimenuitem></menuchoice></term>
@@ -324,45 +786,50 @@ window.</action></para></listitem>
 				        <term><guilabel>Puzzle table</guilabel></term>
 					<listitem>
 					  <para>
-					    Let you choose some parameters of the puzzle table.
+					    Lets you choose some parameters of the puzzle table.
 					  </para>
 					  <variablelist>
 					<varlistentry>
 					<term><guilabel>Background</guilabel></term>
-					<listitem><para><action>Let you choose another background texture for the puzzle table.</action> If you choose a single color instead of a texture, the button besides the selection box can be used to define this single color.</para></listitem>
+					<listitem><para><action>Lets you choose another background texture for the puzzle table.</action> If you choose a single color instead of a texture, the button besides the selection box can be used to define the color.</para></listitem>
 				      </varlistentry>
 				      <varlistentry>
 					<term><guilabel>Color for highlighting selected pieces</guilabel></term>
-					<listitem><para><action>Let you choose highlighting color of the selected pieces.</action> Click on the button to the right of the label to open the <ulink url="help:/fundamentals/colors.html">Color Selector</ulink> window.</para></listitem>
+					<listitem><para><action>Lets you choose highlighting color of pieces when they are selected.</action> Click on the button to the right of the label to open the <ulink url="help:/fundamentals/colors.html">Color Selector</ulink> window.</para></listitem>
+				      </varlistentry>
+				      <varlistentry>
+					<term><guilabel>Space for solution</guilabel></term>
+					<listitem><para><action>Lets you choose where to reserve some space on the puzzle table for building the solution.</action> No space is provided if you select option None or the puzzle has less than 20 pieces. Changes will take effect when a puzzle is created or re-started.</para></listitem>
 				      </varlistentry>
 				      <varlistentry>
 					<term><guilabel>Spacing of pieces in puzzle grids (1.0-1.5)</guilabel></term>
-					<listitem><para><action>Let you choose spacing in puzzle grids.</action> No space is provided with puzzles of less than 20 pieces. Changes will take effect when a puzzle is created or re-started.</para></listitem>
+					<listitem><para><action>Lets you choose spacing in puzzle grids.</action> Changes in the overall puzzle spacing will take effect only when a puzzle is created or re-started.</para></listitem>
 				      </varlistentry>
 				    </variablelist>
 				  </listitem>
 				</varlistentry>
 				<varlistentry>
 					<term><guilabel>Piece appearance</guilabel></term>
-					<listitem><para><action>Controls the appearance of pieces on the puzzle table.</action> If &palapeli; is running slowly, or when puzzles take very long to open, you can disable the graphical effects in this category to speed up everything.</para></listitem>
+					<listitem><para><action>Controls the appearance of pieces on the puzzle table.</action> If &palapeli; is running slowly, or when puzzles take very long to open, you can disable the graphical effects in this category to speed up everything. If you choose shadowing, highlighting is implemented by changing the color of the shadow.</para></listitem>
 				</varlistentry>
 				<varlistentry>
 					<term><guilabel>Snapping precision</guilabel></term>
-					<listitem><para><action>Let you choose how near neighbor pieces must be positioned to each other to snap together.</action> If you move the slider more to the right, pieces will snap together even if they are not so close. This makes the game a bit simpler to handle.</para></listitem>
+					<listitem><para><action>Lets you choose how closely neighboring pieces must be positioned before they snap together.</action> If you move the slider to the right, pieces will snap together even if they are not so close. This makes the game a bit easier to play.</para></listitem>
 				</varlistentry>
 			</variablelist>
 		</sect1>
 		<sect1 id="configuration-mouseactions">
 			<title>Mouse interaction</title>
-			<para>This page of the configuration dialog allows you to assign the mouse interactions described in the section <link linkend="puzzletable-mouseactions">Playing on the puzzle table</link> to different mouse buttons. The interactions are divided into those that can be assigned to mouse buttons (&eg; <action>Move viewport by dragging</action>), and those that can be assigned to the mouse wheel (&eg; <action>Scroll viewport horizontally</action>).</para>
+			<para>This page of the configuration dialog allows you to change the assignments of mouse buttons and modifier keys to the actions described in <link linkend="puzzletable-mouseactions">Playing on the puzzle table, Mouse interactions</link>. Care should be taken to avoid ambiguous assignments. Three of the default assignments can go to the &LMB; because the pointer is over different areas when you use them, but the other assignments must be distinct.</para>
+			<para>The interactions are divided into those that can be assigned to mouse buttons (&eg; <action>Move viewport by dragging</action>), and those that can be assigned to the mouse wheel (&eg; <action>Scroll viewport horizontally</action>).</para>
 			<sect2>
 				<title>Mouse buttons tab</title>
-				<para>Next to the name of each interaction is a button with a picture of a computer mouse which shows the currently assigned action. You can configure the interaction by clicking on that button with the &LMB; and then with the mouse button which you want to assign to this interaction. If you hold modifier keys while clicking for the second time, the puzzle table will allow this interaction only while these modifiers are being held.</para>
+				<para>To the right of the name of each interaction is a button with a picture of a computer mouse which shows the currently assigned action. You can configure the interaction by clicking on that button with the &LMB; and then with the mouse button which you wish to assign to this interaction. If you hold modifier keys while clicking for the second time, the puzzle table will allow this interaction only while these modifiers are being held.</para>
 				<tip><para>Instead of clicking, you can also press <keycap>Space</keycap> to assign the special <guilabel>No-Button</guilabel> to this interaction. This is only allowed if modifier keys are being held. The <guilabel>No-Button</guilabel> means that the modifier keys take the role of the mouse button: The interaction starts when the modifier keys are pressed, and stops when one of the modifier keys is released.</para></tip>
 			</sect2>
 			<sect2>
 				<title>Mouse wheel tab</title>
-				<para>This tab works similar to the previous one. When the button on the right asks for input, you have to turn the mouse wheel instead of clicking a mouse button. Holding modifier keys is allowed, too, with the same consequences as in the previous case.</para>
+				<para>This tab works similarly to the previous one. When the button on the right asks for input, you have to turn the mouse wheel instead of clicking a mouse button. Holding modifier keys is allowed, too, with the same consequences as in the previous case.</para>
 				<tip><para>If your mouse has a bidirectional mouse wheel (as most commonly found on notebook touchpads), you can take advantage of this: The button will recognize whether you turned the mouse wheel horizontally or vertically.</para></tip>
 			</sect2>
 		</sect1>
@@ -371,8 +838,10 @@ window.</action></para></listitem>
 	<chapter id="credits">
 		<title>Credits and License</title>
 		<para>&palapeli; aims to bring the unagitated fun and challenge of jigsaw puzzles to your desktop.</para>
-		<para>The idea was first developed by Bernhard Schiffner, together with Stefan Majewsky, who is the current lead developer of &palapeli;. The &psc; was contributed by Johannes L&#xF6;hnert.</para>
-		<para>Documentation Copyright 2009, 2010 Johannes L&#xF6;hnert, Stefan Majewsky.</para>
+		<para>The idea was first developed by Bernhard Schiffner, together with Stefan Majewsky, who was the leading developer of &palapeli;.</para>
+		<para>The &psc; was contributed by Johannes L&#xF6;hnert.</para>
+		<para>The large-puzzle facilities were contributed by Ian Wadham.</para>
+		<para>Documentation Copyright 2009, 2010 Johannes L&#xF6;hnert, Stefan Majewsky and Copyright 2014 Ian Wadham.</para>
 		<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 		&underFDL;
 		&underGPL;
