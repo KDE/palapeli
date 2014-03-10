@@ -675,8 +675,7 @@
 			<sect2 id="large-puzzle-otherholderactions">
 			<title>Other holder actions</title>
 			<para>Piece-holders support all the functions
-			of the puzzle table (see <link linkend=
-			"puzzletable-moves">Basic moves</link>), except
+			of the puzzle table (see <link linkend="puzzletable-moves">Basic moves</link>), except
 			that you can only zoom by using the scroll-wheel
 			or the &MMB;.
 			</para>
