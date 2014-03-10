@@ -151,7 +151,7 @@
 			<variablelist>
 				<varlistentry>
 					<term>Approx. piece count</term>
-					<listitem><para></para></listitem>
+					<listitem><para><!--FIXME add missing description here--></para></listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>Flipped edge percentage</term>
@@ -277,11 +277,11 @@
 					<listitem><para>This action is identical to clicking the buttons either side of the slider (3) on the status bar. It is assigned to the mouse wheel by default.</para></listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>Switch to close-up or distant view<action></action></term>
+					<term><action>Switch to close-up or distant view</action></term>
 					<listitem><para>This action alternates (toggles) between a close-up and distant view, at the position of the mouse pointer. It is intended mainly to provide fast zooming in large puzzles (300 pieces or more).  For more detail, see <link linkend="large-puzzle-fast-zooming">Fast zooming between close-up and distant view</link>. By default, the action is assigned to the &MMB;.</para></listitem>
 				</varlistentry>
 				<varlistentry>
-					<term>Teleport pieces to or from a holder<action></action></term>
+					<term><action>Teleport pieces to or from a holder</action></term>
 					<listitem><para>This action helps you collect, sort and move pieces rapidly in large puzzles (300 pieces or more) without dragging and dropping. You can use it in smaller puzzles if you wish. For more detail, see <link linkend="large-puzzle-holders">Using piece-holders</link>. By default, the action is assigned to to the &LMB; and only available when &Shift; is pressed.</para></listitem>
 				</varlistentry>
 				<varlistentry>
