@@ -225,7 +225,7 @@
 			<menuchoice><guimenu>View</guimenu><guimenuitem>
 			Preview</guimenuitem></menuchoice> menu item. Its
 			size, position and visible or not visible setting
-			are saved and restored between runs of Palapeli.
+			are saved and restored between runs of &palapeli;.
 			</para>
 			<para>Being a window, it can be freely moved around
 			the desktop and resized. Its Close button will
@@ -282,7 +282,7 @@
 				</varlistentry>
 				<varlistentry>
 					<term><action>Teleport pieces to or from a holder</action></term>
-					<listitem><para>This action helps you collect, sort and move pieces rapidly in large puzzles (300 pieces or more) without dragging and dropping. You can use it in smaller puzzles if you wish. For more detail, see <link linkend="large-puzzle-holders">Using piece-holders</link>. By default, the action is assigned to to the &LMB; and only available when &Shift; is pressed.</para></listitem>
+					<listitem><para>This action helps you collect, sort and move pieces rapidly in large puzzles (300 pieces or more) without dragging and dropping. You can use it in smaller puzzles if you wish. For more detail, see <link linkend="large-puzzle-holders">Using piece-holders</link>. By default, the action is assigned to the &LMB; and only available when &Shift; is pressed.</para></listitem>
 				</varlistentry>
 				<varlistentry>
 					<term><action>Toggle lock state of the puzzle table area</action></term>
@@ -367,8 +367,7 @@
 			see the <link linkend="large-puzzle-holders">Using
 			piece-holders</link> section.
 			</para>
-			<para>Finally, the <link linkend=
-			"puzzletable-mouseactions">Mouse interactions</link>
+			<para>Finally, the <link linkend="puzzletable-mouseactions">Mouse interactions</link>
 			section lists the two special mouse actions that
 			make working with large puzzles quicker and easier:
 			teleporting pieces and zooming to close-up or
@@ -380,7 +379,7 @@
 			<title>Creating large puzzles - special concerns</title>
 			<para>Before you create a large puzzle, you should make
 			sure that the image in your source contains enough
-			detail (i.e. enough megapixels). You can use a file
+			detail (&ie; enough megapixels). You can use a file
 			utility or photo viewer/editor to find out how many
 			pixels wide and high your picture is when not compressed
 			by JPEG or other image format. As a rough rule of thumb,
@@ -553,7 +552,7 @@
 			<sect2 id="large-puzzle-whatareholders">
 			<title>What are piece-holders?</title>
 			<para>Piece-holders are perhaps the most useful
-			feature of Palapeli for helping solve large
+			feature of &palapeli; for helping solve large
 			puzzles. They are small, floating windows into
 			which you can sort groups of pieces, such as
 			<quote>edges</quote>, <quote>sky</quote>,
@@ -638,7 +637,7 @@
 			puzzle table: it will send the piece to the
 			the holder - not what you want. If you accidentally
 			do this with a large joined-up piece
-			(i.e. part of your solution), there
+			(&ie; part of your solution), there
 			is a warning message and an opportunity to cancel.
 			</para>
 			<para>Pieces stay highlighted after teleporting.
@@ -684,7 +683,7 @@
 			<para>This means that you can use a holder as an
 			extra puzzle table, if you wish. You can drag
 			and drop, join pieces together, move the
-			boundaries of the area, etc. You can also
+			boundaries of the area, &etc; You can also
 			teleport assembled pieces of any size into
 			or out of a holder, but beware of overlaps
 			or small pieces being hidden.
