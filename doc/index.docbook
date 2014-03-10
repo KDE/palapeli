@@ -57,7 +57,7 @@
 
 	<chapter id="introduction">
 		<title>Introduction</title>
-		<para>&palapeli; is a single-player jigsaw puzzle game. With it you can create and play puzzles ranging from 4 to 10,000 pieces. This version includes faciities to assist in solving large puzzles (300 pieces or more) within the size limits of a computer screen.</para>
+		<para>&palapeli; is a single-player jigsaw puzzle game. With it you can create and play puzzles ranging from 4 to 10,000 pieces. This version includes facilities to assist in solving large puzzles (300 pieces or more) within the size limits of a computer screen.</para>
 		<para>The main &palapeli; window is separated into two areas, the puzzle collection and the puzzle table.</para>
 		<para>This manual continues by describing those two areas.</para>
 	</chapter>
@@ -108,7 +108,7 @@
 		<title>Creating new puzzles</title>
 		<sect1 id="creation-dialog">
 		<title>The puzzle creation dialog</title>
-		<para>As described in <link linkend="toolbar-collection">the previous section</link>, you can create new puzzles by clicking on the <guiicon>Create new puzzle</guiicon> button on the puzzle collection.</para>
+		<para>As described in <link linkend="toolbar-collection">the previous section</link>, you can create new puzzles by clicking on the <guiicon>Create new puzzle</guiicon> button in the puzzle collection window.</para>
 		<para>Clicking this button opens the puzzle creation dialog, which consists of three pages:</para>
 		<procedure>
 			<step><para>On the first page, select an image file which will be sliced into pieces. Be sure to enter the correct metadata for the image: You should give attribution to the author of the image (&eg; the photographer or the painter); please respect the copyright of the image author.</para></step>
@@ -155,7 +155,7 @@
 				</varlistentry>
 				<varlistentry>
 					<term>Flipped edge percentage</term>
-					<listitem><para>The probability for each plug to be flipped. A plug is considered flipped if it points in the opposite direction as it would in a fully regular grid. On the rectangular grid, this results in pieces with 3 or 4 plugs pointing inwards resp. outwards. Position the slider at the very left to obtain the normal fully regular grid. In the middle, plug orientation is random. At the right, the grid is fully regular again, but with an "alternate" rule. This does <emphasis>not</emphasis> mean reversal of all plugs: In the alternate regular grid, for instance, each piece has four inward-pointing or four outward-pointing plugs. This setting has no effect in the irregular grid.</para></listitem>
+					<listitem><para>The probability for each plug to be flipped. A plug is considered flipped if it points in the opposite direction as it would in a fully regular grid. On the rectangular grid, this results in pieces with 3 or 4 plugs pointing inwards resp. outwards. Position the slider at the very left to obtain the normal fully regular grid. In the middle, plug orientation is random. At the right, the grid is fully regular again, but with an &quot;alternate&quot; rule. This does <emphasis>not</emphasis> mean reversal of all plugs: In the alternate regular grid, for instance, each piece has four inward-pointing or four outward-pointing plugs. This setting has no effect in the irregular grid.</para></listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>Edge curviness</term>
@@ -348,7 +348,7 @@
 			large distances. This is where piece-holders come in.
 			</para>
 			<para>When you start a large puzzle, you are given
-			a holder (a small floating window) called "Hand"
+			a holder (a small floating window) called &quot;Hand&quot;
 			into which you can put pieces when and wherever
 			you see them. Then you can drop them near your
 			solution and work out where each piece has to go.
@@ -356,13 +356,13 @@
 			scan a large real-world jigsaw puzzle.
 			</para>
 			<para>You may need some systematic way to collect
-			and sort pieces by common attributes (e.g. edges, sky,
+			and sort pieces by common attributes (&eg; edges, sky,
 			skyline, etc.) and so you can use as many holders
 			as you like and give them names. Holders are saved
 			continually, along with the puzzle table, which
 			means you can use them to build up parts of the
 			solution and store them or even to store pieces
-			that you wish to put into a "too hard basket"
+			that you wish to put into a &quot;too hard basket&quot;
 			until later. For details on how to use holders
 			see the <link linkend="large-puzzle-holders">Using
 			piece-holders</link> section.
@@ -512,11 +512,11 @@
 			left corner (&MMB;), then use the empty spaces
 			in the scroll bars to step through the table
 			horizontally or vertically, one fixed-size
-			"page" at a time. This technique is very
+			&quot;page&quot; at a time. This technique is very
 			effective when you are using piece-holders to
 			collect pieces you are looking for. If you
 			keep the close-up scale fixed and always start
-			at the same place, you will always get "pages"
+			at the same place, you will always get &quot;pages&quot;
 			of fixed size and contents.
 			</para>
 			</sect2>
@@ -556,8 +556,9 @@
 			feature of Palapeli for helping solve large
 			puzzles. They are small, floating windows into
 			which you can sort groups of pieces, such as
-			"edges", "sky", "skyline" or "white house on
-			left". Initially they appear at a minimum size
+			&quot;edges&quot;, &quot;sky&quot;, &quot;skyline&quot;
+			or &quot;white house on
+			left&quot;. Initially they appear at a minimum size
 			which is just large enough to show four pieces at
 			close-up scale, so they are quite easy to fit
 			in next to the main puzzle table window.
@@ -580,7 +581,7 @@
 			<sect2 id="large-puzzle-createholders">
 			<title>Creating and deleting holders</title>
 			<para>When you start a large puzzle, a holder
-			called "Hand" is created automatically. This
+			called &quot;Hand&quot; is created automatically. This
 			may be the only holder you need with puzzles 
 			of 300 to 750 pieces, but you can have as many
 			holders as you like, even with puzzles of less
@@ -613,7 +614,8 @@
 			<para>Transferring pieces by dragging and dropping
 			is not possible with holders, nor is it needed.
 			Instead, you can transfer pieces instantly by
-			"teleporting", as in "Star Trek". Teleporting works
+			&quot;teleporting&quot;, as in &quot;Star Trek&quot;.
+			Teleporting works
 			by using the &Shift; and &LMB; together.
 			</para>
 			<para>To transfer pieces to a holder, make sure your
@@ -661,7 +663,7 @@
 			<para>To sort pieces into holders efficiently
 			as you search through a large puzzle, use the
 			technique for stepping through the puzzle a
-			"page" at a time,
+			&quot;page&quot; at a time,
 			<link linkend="large-puzzle-navigating">
 			as described earlier</link>, combined with
 			holders and teleporting to collect pieces
@@ -725,7 +727,7 @@
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><guimenu>Game</guimenu><guimenuitem>Restart puzzle</guimenuitem></menuchoice></term>
-				<listitem><para><action>Re-shuffles all the pieces and discards the saved progress for the current puzzle.</action></para></listitem>
+				<listitem><para><action>Re-shuffle all the pieces and discard the saved progress for the current puzzle.</action></para></listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><menuchoice><shortcut><keycap>C</keycap></shortcut><guimenu>Move</guimenu><guimenuitem>Create piece holder...</guimenuitem></menuchoice></term>
@@ -795,7 +797,7 @@
 				      </varlistentry>
 				      <varlistentry>
 					<term><guilabel>Color for highlighting selected pieces</guilabel></term>
-					<listitem><para><action>Lets you choose highlighting color of pieces when they are selected.</action> Click on the button to the right of the label to open the <ulink url="help:/fundamentals/colors.html">Color Selector</ulink> window.</para></listitem>
+					<listitem><para><action>Lets you choose the highlighting color of pieces when they are selected.</action> Click on the button to the right of the label to open the <ulink url="help:/fundamentals/colors.html">Color Selector</ulink> window.</para></listitem>
 				      </varlistentry>
 				      <varlistentry>
 					<term><guilabel>Space for solution</guilabel></term>
@@ -803,14 +805,14 @@
 				      </varlistentry>
 				      <varlistentry>
 					<term><guilabel>Spacing of pieces in puzzle grids (1.0-1.5)</guilabel></term>
-					<listitem><para><action>Lets you choose spacing in puzzle grids.</action> Changes in the overall puzzle spacing will take effect only when a puzzle is created or re-started.</para></listitem>
+					<listitem><para><action>Lets you choose the spacing in puzzle grids.</action> Changes in the overall puzzle spacing will take effect only when a puzzle is created or re-started.</para></listitem>
 				      </varlistentry>
 				    </variablelist>
 				  </listitem>
 				</varlistentry>
 				<varlistentry>
 					<term><guilabel>Piece appearance</guilabel></term>
-					<listitem><para><action>Controls the appearance of pieces on the puzzle table.</action> If &palapeli; is running slowly, or when puzzles take very long to open, you can disable the graphical effects in this category to speed up everything. If you choose shadowing, highlighting is implemented by changing the color of the shadow.</para></listitem>
+					<listitem><para><action>Controls the appearance of pieces on the puzzle table.</action> If &palapeli; is running slowly or puzzles take a long time to open, you can disable the graphical effects in this category and speed up everything. If you choose shadowing, highlighting is implemented by changing the color of the shadow.</para></listitem>
 				</varlistentry>
 				<varlistentry>
 					<term><guilabel>Snapping precision</guilabel></term>
