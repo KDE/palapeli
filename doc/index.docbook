@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
 <!ENTITY palapeli "<application>Palapeli</application>">
-<!ENTITY psc "<application>Palapeli Slicer Collection</application>">
+<!ENTITY i18n-psc "<application>Palapeli Slicer Collection</application>">
 <!ENTITY kappname "&palapeli;">
 <!ENTITY package "kdegames">
 <!ENTITY % English "INCLUDE">
@@ -119,12 +119,12 @@
 		</sect1>
 		<sect1 id="simple-slicers">
 			<title>Simple slicers</title>
-			<para>&palapeli; has two simple slicers, &quot;Classic jigsaw pieces&quot; and &quot;Rectangular pieces&quot;. These slicers create simple rectangular pieces either with or without connecting plugs.</para>
+			<para>&palapeli; has two simple slicers, <quote>Classic jigsaw pieces</quote> and <quote>Rectangular pieces</quote>. These slicers create simple rectangular pieces either with or without connecting plugs.</para>
 			<para>Both slicers allow the piece count and the aspect ratio to be adjusted. Dragging the aspect ratio slider to the left results in tall pieces, adjusting it to the right produces wide pieces. The default selection produces approximately square pieces.</para>
 		</sect1>
 		<sect1 id="psc">
-			<title>The advanced &psc;</title>
-			<para>The &psc; produces realistic jigsaw pieces with various basic patterns:</para>
+			<title>The advanced &i18n-psc;</title>
+			<para>The &i18n-psc; produces realistic jigsaw pieces with various basic patterns:</para>
 			<variablelist>
 				<varlistentry>
 					<term>Rectangular grid</term>
@@ -147,7 +147,7 @@
 					<listitem><para>This grid is available only if you have installed <application>qvoronoi</application> from the <ulink url="http://www.qhull.org"><application>qhull</application> package</ulink>. <application>qvoronoi</application> is used to calculate irregular piece shapes from randomly placed points.</para></listitem>
 				</varlistentry>
 			</variablelist>
-			<para>The &psc; has various parameters which control the appearance of the piece edges, especially the plugs on them. Default settings are provided for all of these parameters. An additional preset mode is available which reduces the amount of parameters to a bare minimum. The following parameters are available usually:</para>
+			<para>The &i18n-psc; has various parameters which control the appearance of the piece edges, especially the plugs on them. Default settings are provided for all of these parameters. An additional preset mode is available which reduces the amount of parameters to a bare minimum. The following parameters are available usually:</para>
 			<variablelist>
 				<varlistentry>
 					<term>Approx. piece count</term>
@@ -155,7 +155,7 @@
 				</varlistentry>
 				<varlistentry>
 					<term>Flipped edge percentage</term>
-					<listitem><para>The probability for each plug to be flipped. A plug is considered flipped if it points in the opposite direction as it would in a fully regular grid. On the rectangular grid, this results in pieces with 3 or 4 plugs pointing inwards resp. outwards. Position the slider at the very left to obtain the normal fully regular grid. In the middle, plug orientation is random. At the right, the grid is fully regular again, but with an &quot;alternate&quot; rule. This does <emphasis>not</emphasis> mean reversal of all plugs: In the alternate regular grid, for instance, each piece has four inward-pointing or four outward-pointing plugs. This setting has no effect in the irregular grid.</para></listitem>
+					<listitem><para>The probability for each plug to be flipped. A plug is considered flipped if it points in the opposite direction as it would in a fully regular grid. On the rectangular grid, this results in pieces with 3 or 4 plugs pointing inwards resp. outwards. Position the slider at the very left to obtain the normal fully regular grid. In the middle, plug orientation is random. At the right, the grid is fully regular again, but with an <quote>alternate</quote> rule. This does <emphasis>not</emphasis> mean reversal of all plugs: In the alternate regular grid, for instance, each piece has four inward-pointing or four outward-pointing plugs. This setting has no effect in the irregular grid.</para></listitem>
 				</varlistentry>
 				<varlistentry>
 					<term>Edge curviness</term>
@@ -348,7 +348,7 @@
 			large distances. This is where piece-holders come in.
 			</para>
 			<para>When you start a large puzzle, you are given
-			a holder (a small floating window) called &quot;Hand&quot;
+			a holder (a small floating window) called <quote>Hand</quote>
 			into which you can put pieces when and wherever
 			you see them. Then you can drop them near your
 			solution and work out where each piece has to go.
@@ -362,7 +362,7 @@
 			continually, along with the puzzle table, which
 			means you can use them to build up parts of the
 			solution and store them or even to store pieces
-			that you wish to put into a &quot;too hard basket&quot;
+			that you wish to put into a <quote>too hard basket</quote>
 			until later. For details on how to use holders
 			see the <link linkend="large-puzzle-holders">Using
 			piece-holders</link> section.
@@ -512,11 +512,11 @@
 			left corner (&MMB;), then use the empty spaces
 			in the scroll bars to step through the table
 			horizontally or vertically, one fixed-size
-			&quot;page&quot; at a time. This technique is very
+			<quote>page</quote> at a time. This technique is very
 			effective when you are using piece-holders to
 			collect pieces you are looking for. If you
 			keep the close-up scale fixed and always start
-			at the same place, you will always get &quot;pages&quot;
+			at the same place, you will always get <quote>pages</quote>
 			of fixed size and contents.
 			</para>
 			</sect2>
@@ -556,9 +556,9 @@
 			feature of Palapeli for helping solve large
 			puzzles. They are small, floating windows into
 			which you can sort groups of pieces, such as
-			&quot;edges&quot;, &quot;sky&quot;, &quot;skyline&quot;
-			or &quot;white house on
-			left&quot;. Initially they appear at a minimum size
+			<quote>edges</quote>, <quote>sky</quote>,
+			<quote>skyline</quote> or <quote>white house on
+			left</quote>. Initially they appear at a minimum size
 			which is just large enough to show four pieces at
 			close-up scale, so they are quite easy to fit
 			in next to the main puzzle table window.
@@ -581,8 +581,8 @@
 			<sect2 id="large-puzzle-createholders">
 			<title>Creating and deleting holders</title>
 			<para>When you start a large puzzle, a holder
-			called &quot;Hand&quot; is created automatically. This
-			may be the only holder you need with puzzles 
+			called <quote>Hand</quote> is created automatically.
+			This may be the only holder you need with puzzles
 			of 300 to 750 pieces, but you can have as many
 			holders as you like, even with puzzles of less
 			than 300 pieces.
@@ -614,7 +614,7 @@
 			<para>Transferring pieces by dragging and dropping
 			is not possible with holders, nor is it needed.
 			Instead, you can transfer pieces instantly by
-			&quot;teleporting&quot;, as in &quot;Star Trek&quot;.
+			<quote>teleporting</quote>, as in <quote>Star Trek</quote>.
 			Teleporting works
 			by using the &Shift; and &LMB; together.
 			</para>
@@ -663,7 +663,7 @@
 			<para>To sort pieces into holders efficiently
 			as you search through a large puzzle, use the
 			technique for stepping through the puzzle a
-			&quot;page&quot; at a time,
+			<quote>page</quote> at a time,
 			<link linkend="large-puzzle-navigating">
 			as described earlier</link>, combined with
 			holders and teleporting to collect pieces
@@ -841,7 +841,7 @@
 		<title>Credits and License</title>
 		<para>&palapeli; aims to bring the unagitated fun and challenge of jigsaw puzzles to your desktop.</para>
 		<para>The idea was first developed by Bernhard Schiffner, together with Stefan Majewsky, who was the leading developer of &palapeli;.</para>
-		<para>The &psc; was contributed by Johannes L&#xF6;hnert.</para>
+		<para>The &i18n-psc; was contributed by Johannes L&#xF6;hnert.</para>
 		<para>The large-puzzle facilities were contributed by Ian Wadham.</para>
 		<para>Documentation Copyright 2009, 2010 Johannes L&#xF6;hnert, Stefan Majewsky and Copyright 2014 Ian Wadham.</para>
 		<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
