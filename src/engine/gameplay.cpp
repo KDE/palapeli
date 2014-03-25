@@ -122,6 +122,8 @@ void Palapeli::GamePlay::deletePuzzleViews()
 			delete view;
 		}
 	}
+	m_currentHolder = 0;
+	m_previousHolder = 0;
 }
 
 void Palapeli::GamePlay::init()
