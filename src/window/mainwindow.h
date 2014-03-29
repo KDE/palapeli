@@ -38,6 +38,8 @@ namespace Palapeli
 			MainWindow(KCmdLineArgs* args);
 		protected:
 			virtual bool queryClose();
+		private Q_SLOTS:
+			void enableMessages();
 		private:
 			void setupActions();
 

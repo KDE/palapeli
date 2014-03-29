@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gui name="palapeli" version="4"
+<gui name="palapeli" version="5"
 	xmlns="http://www.kde.org/standards/kxmlgui/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0 http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd">
@@ -26,6 +26,9 @@
 			<Separator/>
 			<Action name="view_zoom_in"/>
 			<Action name="view_zoom_out"/>
+		</Menu>
+		<Menu name="settings">
+			<Action name="enable_messages"/>
 		</Menu>
 	</MenuBar>
 	<ToolBar name="mainToolBar">
