@@ -30,6 +30,7 @@
 #include <KDE/KLocalizedString>
 #include <KDE/KStandardAction>
 #include <KDE/KToggleAction>
+#include <KDE/KMessageBox>
 
 Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 	: m_game(new Palapeli::GamePlay(this))
@@ -155,6 +156,22 @@ void Palapeli::MainWindow::setupActions()
 	// View zoom out.
 	KStandardAction::zoomOut(m_game, SLOT(actionZoomOut()),
 						actionCollection());
+	// Settings: enable messages that the user marked "Do not show again".
+	KAction* enableMessagesAct = new KAction(i18n("Enable all messages"),0);
+	actionCollection()->addAction("enable_messages", enableMessagesAct);
+	connect(enableMessagesAct, SIGNAL(triggered()), SLOT(enableMessages()));
+}
+
+void Palapeli::MainWindow::enableMessages()
+{
+	// Enable all messages that the user has marked "Do not show again".
+	int result = KMessageBox::questionYesNo(this,
+					i18n("Enable all messages"));
+	if (result == KMessageBox::Yes) {
+		qDebug() << "ENABLE ALL MESSAGES";
+		KMessageBox::enableAllMessages();
+		KGlobal::config()->sync();	// Save the changes to disk.
+	}
 }
 
 #include "mainwindow.moc"
