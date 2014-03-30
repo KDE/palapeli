@@ -1030,9 +1030,10 @@ void Palapeli::GamePlay::finishLoading()
 			qDebug() << "Puzzle table" << scene->pieces().size();
 		}
 	}
-	m_puzzleTable->view()->puzzleStarted();
-	// Initialize external progress display.
+	// Initialize external progress display, hide loading widget, show view.
 	emit reportProgress(m_originalPieceCount, m_currentPieceCount);
+	// Adjust zoom-levels, center the view, show autosave message if needed.
+	m_puzzleTable->view()->puzzleStarted();
 	if (!m_restoredGame && (m_originalPieceCount >= LargePuzzle)) {
 		// New puzzle and a large one: create a default PieceHolder.
 		createHolder(i18nc("For holding pieces", "Hand"));
