@@ -268,6 +268,19 @@ void Palapeli::View::toggleCloseUp()
 	}
 }
 
+void Palapeli::View::setCloseUp(bool onOff)
+{
+	m_isCloseUp = onOff;
+	// Force zoomTo() to recalculate, even if m_zoomLevel == required value.
+	m_zoomLevel = m_isCloseUp ? m_closeUpLevel - 1 : m_distantLevel + 1;
+	if (m_isCloseUp) {
+		zoomTo(m_closeUpLevel);
+	}
+	else {
+		zoomTo(m_distantLevel);
+	}
+}
+
 void Palapeli::View::handleNewPieceSelection()
 {
 	emit newPieceSelectionSeen(this);

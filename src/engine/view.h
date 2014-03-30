@@ -43,6 +43,7 @@ namespace Palapeli
 			void setViewportRect(const QRectF& viewportRect);
 			void teleportPieces(Piece* piece, const QPointF& scPos);
 			void toggleCloseUp();
+			void setCloseUp(bool onOff);
 			void handleNewPieceSelection();
 
 			static const int MinimumZoomLevel;

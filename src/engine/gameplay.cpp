@@ -351,8 +351,7 @@ void Palapeli::GamePlay::createHolder()
 	createHolder(name);
 	// Merges/moves in new holders add to the progress bar and are saved.
 	Palapeli::View* view = m_viewList.last();
-	Palapeli::PieceHolder* h = qobject_cast<Palapeli::PieceHolder*>(view);
-	h->initializeZooming();
+	view->setCloseUp(true);	// New holders start in close-up scale.
 	connect(view->scene(), SIGNAL(saveMove(int)),
 		this, SLOT(positionChanged(int)));
 	connect(view,
@@ -368,6 +367,7 @@ void Palapeli::GamePlay::createHolder(const QString& name, bool sel)
 	Palapeli::PieceHolder* h =
 		new Palapeli::PieceHolder(m_mainWindow, m_pieceAreaSize, name);
 	m_viewList << h;
+	h->initializeZooming();			// Min. view 2x2 to 6x6 pieces.
 	connect(h, SIGNAL(selected(PieceHolder*)),
 		this, SLOT(changeSelectedHolder(PieceHolder*)));
 	connect (h, SIGNAL(closing(PieceHolder*)),
@@ -1018,13 +1018,9 @@ void Palapeli::GamePlay::finishLoading()
 		m_currentPieceCount = m_currentPieceCount +
 					scene->pieces().size();
 		qDebug() << "Counted" << scene->pieces().size();
-		// IDW TODO - Do this better. It's the VIEWS that need to know.
-		// IDW TODO - DELETE scene->startPuzzle();
 		if (view != m_puzzleTable->view()) {
-			Palapeli::PieceHolder* holder =
-				qobject_cast<Palapeli::PieceHolder*>(view);
-			qDebug() << "Holder" << holder->name() << scene->pieces().size();
-			holder->initializeZooming();
+			// Saved-and-restored holders start in close-up scale.
+			view->setCloseUp(true);
 		}
 		else {
 			qDebug() << "Puzzle table" << scene->pieces().size();
