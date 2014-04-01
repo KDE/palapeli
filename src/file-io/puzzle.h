@@ -114,7 +114,7 @@ namespace Palapeli
 			///in memory.
 			void dropComponent(Palapeli::PuzzleComponent::Type type);
 		private:
-			class Private;
+			struct Private;
 			Private* const d;
 	};
 }
