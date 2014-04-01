@@ -45,7 +45,8 @@ namespace Palapeli
 			void addPieceToList(Palapeli::Piece* piece);
 			void addPieceItemsToScene();
 			bool isConstrained() const;
-			QRectF piecesBoundingRect(const int minGrid = 2) const;
+			QRectF extPiecesBoundingRect();
+			QRectF piecesBoundingRect(const int minGrid = 0);
 			qreal margin() { return m_margin; }
 			qreal handleWidth() { return m_handleWidth; }
 			void addMargin(const qreal handleWidth,
@@ -96,6 +97,8 @@ namespace Palapeli
 			int m_gridRank;
 			int m_gridX;
 			int m_gridY;
+			// Scene has at least m_minGrid*m_minGrid piece-spaces.
+			int m_minGrid;
 	};
 }
 

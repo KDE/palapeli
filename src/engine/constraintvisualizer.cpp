@@ -117,9 +117,7 @@ void Palapeli::ConstraintVisualizer::update(const QRectF& sceneRect)
 	if (m_sceneRect == sceneRect)
 		return;
 	// Make sure the ConstraintVisualizer stays outside the pieces' area.
-	QRectF minimumRect = m_scene->piecesBoundingRect();
-	qreal m = m_scene->margin();
-	minimumRect.adjust(-m, -m, m, m);
+	QRectF minimumRect = m_scene->extPiecesBoundingRect();
 	m_sceneRect = sceneRect;
 	if(!sceneRect.contains(minimumRect)) {
 		// IDW TODO - Works and seems safe,

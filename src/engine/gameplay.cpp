@@ -629,7 +629,7 @@ void Palapeli::GamePlay::transferPieces(const QList<Palapeli::Piece*> pieces,
 		connect(piece, SIGNAL(moved(bool)),
 			scene, SLOT(pieceMoved(bool)));
 	}
-	scene->setSceneRect(scene->piecesBoundingRect());
+	scene->setSceneRect(scene->extPiecesBoundingRect());
 	if (! destIsPuzzleTable) {
 		dest->centerOn(pieces.last()->sceneBareBoundingRect().center());
 	}
@@ -1132,7 +1132,7 @@ void Palapeli::GamePlay::playVictoryAnimation()
 	QPropertyAnimation* animation = new QPropertyAnimation
 					(m_puzzleTableScene, "sceneRect", this);
 	animation->setStartValue(m_puzzleTableScene->sceneRect());
-	animation->setEndValue(m_puzzleTableScene->piecesBoundingRect());
+	animation->setEndValue(m_puzzleTableScene->extPiecesBoundingRect());
 	animation->setDuration(1000);
 	connect(animation, SIGNAL(finished()),
 		this, SLOT(playVictoryAnimation2()));
@@ -1141,7 +1141,7 @@ void Palapeli::GamePlay::playVictoryAnimation()
 
 void Palapeli::GamePlay::playVictoryAnimation2()
 {
-	m_puzzleTableScene->setSceneRect(m_puzzleTableScene->piecesBoundingRect());
+	m_puzzleTableScene->setSceneRect(m_puzzleTableScene->extPiecesBoundingRect());
 	QTimer::singleShot(100, this, SIGNAL(victoryAnimationFinished()));
 	// Give the View some time to play its part of the victory animation.
 	QTimer::singleShot(1500, this, SLOT(playVictoryAnimation3()));

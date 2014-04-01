@@ -62,7 +62,7 @@ Palapeli::View::View()
 // IDW test.
 void Palapeli::View::logSceneChange(QRectF r)
 {
-	qDebug() << "View::logSceneChange" << r << "View size" << this->size();
+	// qDebug() << "View::logSceneChange" << r << "View size" << this->size();
 }
 
 Palapeli::InteractorManager* Palapeli::View::interactorManager() const
@@ -354,7 +354,7 @@ void Palapeli::View::startVictoryAnimation()
 {
 	//move viewport to show the complete puzzle
 	QPropertyAnimation* animation = new QPropertyAnimation(this, "viewportRect", this);
-	animation->setEndValue(m_scene->piecesBoundingRect());
+	animation->setEndValue(m_scene->extPiecesBoundingRect());
 	animation->setDuration(1000);
 	animation->start(QAbstractAnimation::DeleteWhenStopped);
 	emit zoomAdjustable(false);
