@@ -24,7 +24,7 @@
 
 namespace Palapeli
 {
-	class PuzzleMetadata;
+	struct PuzzleMetadata;
 
 	class PuzzlePreview : public QGraphicsView
 	{

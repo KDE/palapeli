@@ -28,7 +28,7 @@ class QPropertyAnimation;
 namespace Palapeli
 {
 	class MovePieceInteractor;
-	struct PieceVisuals;
+	class PieceVisuals;
 
 	class Piece : public Palapeli::GraphicsObject<Palapeli::PieceUserType>
 	{
