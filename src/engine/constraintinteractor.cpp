@@ -72,7 +72,7 @@ bool Palapeli::ConstraintInteractor::startInteraction(const Palapeli::MouseEvent
 
 void Palapeli::ConstraintInteractor::continueInteraction(const Palapeli::MouseEvent& event)
 {
-	//in this method, we need the scene() as Palapeli::Scene for the piecesBoundingRect
+	// In this method, we need the scene() to be Palapeli::Scene type.
 	Palapeli::Scene* scene = qobject_cast<Palapeli::Scene*>(this->scene());
 	if (!scene)
 		return;
@@ -87,7 +87,7 @@ void Palapeli::ConstraintInteractor::continueInteraction(const Palapeli::MouseEv
 		sceneRect.setTop(newBounds.y());
 	else if (m_draggingSides.contains(BottomSide))
 		sceneRect.setBottom(newBounds.y());
-	scene->setSceneRect(sceneRect | scene->piecesBoundingRect());
+	scene->setSceneRect(sceneRect | scene->extPiecesBoundingRect());
 }
 
 void Palapeli::ConstraintInteractor::stopInteraction(const Palapeli::MouseEvent& event)
