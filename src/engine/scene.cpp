@@ -33,8 +33,7 @@ Palapeli::Scene::Scene(QObject* parent)
 	, m_pieceAreaSize(QSizeF(32.0, 32.0))	// Allow 1024 pixels initially.
 	, m_margin(10.0)
 	, m_handleWidth(7.0)
-	, m_minGrid(0)				// Min. space for puzzle table.
-	// IDW TODO - Why does default 1 not work for the puzzle table?
+	, m_minGrid(1)				// Min. space for puzzle table.
 {
 	initializeGrid(QPointF(0.0, 0.0));
 }
@@ -78,12 +77,13 @@ void Palapeli::Scene::addMargin(const qreal handleWidth, const qreal spacer) {
 	QRectF r = piecesBoundingRect();
 	r.adjust(-m_margin, -m_margin, m_margin, m_margin);
 	setSceneRect(r);
+	m_constraintVisualizer->stop();
 	m_constraintVisualizer->start(r, handleWidth);
 	views()[0]->fitInView(r, Qt::KeepAspectRatio);
 	qDebug() << "SCENE RECT" << r << "VIEW SIZE" << views()[0]->size();
 }
 
-QRectF Palapeli::Scene::extPiecesBoundingRect()
+QRectF Palapeli::Scene::extPiecesBoundingRect() const
 {
 	// Bounding rectangle of pieces plus constraint visualizer (margin).
 	QRectF result = piecesBoundingRect();
@@ -91,18 +91,25 @@ QRectF Palapeli::Scene::extPiecesBoundingRect()
 	return result;
 }
 
-QRectF Palapeli::Scene::piecesBoundingRect(const int minGrid)
+void Palapeli::Scene::setMinGrid(const int minGrid)
+{
+	m_minGrid = minGrid;
+}
+
+QRectF Palapeli::Scene::piecesBoundingRect() const
 {
 	// If no pieces, space is >= m_minGrid*m_minGrid pieces (e.g. for a new
 	// PieceHolder). Default is >= 1 piece for the puzzle table.
-	if (minGrid > 0) {		// If there is a minGrid parameter,
-		m_minGrid = minGrid;	// set a new minimum size.
-	}
-	QSizeF minSize = m_minGrid * m_gridSpacing;
-	QRectF result (QPointF(0.0, 0.0), minSize);
+	QRectF result;
 	foreach (Palapeli::Piece* piece, m_pieces)
 		result |= piece->sceneBareBoundingRect();
-	return result;
+	QSizeF minSize = m_minGrid * m_gridSpacing;
+	QRectF minRect(QPointF(0.0, 0.0), minSize);
+	if (m_pieces.count() > 0) {
+		// Center the minRect over the piece(s).
+		minRect.moveTopLeft(result.center() - minRect.center());
+	}
+	return (result | minRect);
 }
 
 bool Palapeli::Scene::isConstrained() const

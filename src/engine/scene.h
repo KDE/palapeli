@@ -45,8 +45,9 @@ namespace Palapeli
 			void addPieceToList(Palapeli::Piece* piece);
 			void addPieceItemsToScene();
 			bool isConstrained() const;
-			QRectF extPiecesBoundingRect();
-			QRectF piecesBoundingRect(const int minGrid = 0);
+			QRectF extPiecesBoundingRect() const;
+			void setMinGrid(const int minGrid);
+			QRectF piecesBoundingRect() const;
 			qreal margin() { return m_margin; }
 			qreal handleWidth() { return m_handleWidth; }
 			void addMargin(const qreal handleWidth,
