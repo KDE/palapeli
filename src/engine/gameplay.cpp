@@ -466,6 +466,7 @@ void Palapeli::GamePlay::rearrangePieces()
 		bRect |= piece->sceneBareBoundingRect();
 	}
 	Palapeli::Scene* scene = view->scene();
+	// IDW TODO - scene->initializeGrid((view == m_currentHolder) ? QPointF(0.0, 0.0) : bRect.topLeft());
 	scene->initializeGrid(bRect.topLeft());
 	foreach (Palapeli::Piece* piece, selectedPieces) {
 		scene->addToGrid(piece);
@@ -994,13 +995,18 @@ void Palapeli::GamePlay::loadPiecePositions()
 		// solved puzzle.
 		updateSavedGame();
 	}
+	// Add constraint_handles+spacer to puzzle table and setSceneRect().
+	QRectF s = m_puzzleTableScene->piecesBoundingRect();
+	qreal handleWidth = qMin(s.width(), s.height())/100.0;
+	m_puzzleTableScene->addMargin(handleWidth, 0.5*handleWidth);
+	// Add all the pieces to the puzzle table and piece-holder scenes.
 	foreach (Palapeli::View* view, m_viewList) {
 		Palapeli::Scene* scene = view->scene();
-		QRectF s = scene->piecesBoundingRect();
-		qreal handleWidth = qMin(s.width(), s.height())/100.0;
-		// Add margin for constraint_handles+spacer and setSceneRect().
-		scene->addMargin(handleWidth, 0.5*handleWidth);
 		scene->addPieceItemsToScene();
+		if (scene != m_puzzleTableScene) {
+			// Expand the piece-holder sceneRects.
+			scene->setSceneRect(scene->extPiecesBoundingRect());
+		}
 	}
 	qDebug() << "Finish loadPiecePositions(): time" << t.restart();
 	finishLoading();
