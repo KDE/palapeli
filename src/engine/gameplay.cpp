@@ -466,10 +466,14 @@ void Palapeli::GamePlay::rearrangePieces()
 		bRect |= piece->sceneBareBoundingRect();
 	}
 	Palapeli::Scene* scene = view->scene();
-	// IDW TODO - scene->initializeGrid((view == m_currentHolder) ? QPointF(0.0, 0.0) : bRect.topLeft());
-	scene->initializeGrid(bRect.topLeft());
+	scene->initializeGrid((view == m_currentHolder) ?
+				QPointF(0.0, 0.0) : bRect.topLeft());
 	foreach (Palapeli::Piece* piece, selectedPieces) {
 		scene->addToGrid(piece);
+	}
+	if (view == m_currentHolder) {
+		// Adjust the piece-holder's scene to frame the pieces.
+		scene->setSceneRect(scene->extPiecesBoundingRect());
 	}
 	positionChanged(0);	// There is no attempt to merge pieces here.
 }
