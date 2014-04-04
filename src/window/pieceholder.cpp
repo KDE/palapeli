@@ -38,13 +38,10 @@ Palapeli::PieceHolder::PieceHolder(QWidget* parent, const QSizeF& pieceArea,
 	m_scene->setPieceAreaSize(pieceArea);
 	m_scene->initializeGrid(QPointF(0.0, 0.0));
 	m_scene->setMinGrid(minGrid);
-	m_scene->setSceneRect(m_scene->piecesBoundingRect());
-	/* IDW test.
+	// Add margin for constraint_handles+spacer and setSceneRect().
 	QRectF rect = m_scene->piecesBoundingRect();
 	qreal handleWidth = qMin(rect.width(), rect.height())/25.0;
-	// Add margin for constraint_handles+spacer and setSceneRect().
 	m_scene->addMargin(handleWidth, 0.5*handleWidth);
-	*/
 	setWindowTitle(title);
 	qreal s = calculateCloseUpScale();
 	QRectF r = m_scene->sceneRect();
