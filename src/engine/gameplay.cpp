@@ -466,7 +466,9 @@ void Palapeli::GamePlay::rearrangePieces()
 		bRect |= piece->sceneBareBoundingRect();
 	}
 	Palapeli::Scene* scene = view->scene();
-	scene->initializeGrid((view == m_currentHolder) ?
+	// If in a piece-holder and ALL pieces are selected, start at (0, 0).
+	scene->initializeGrid(((view == m_currentHolder) &&
+			(selectedPieces.count() == scene->pieces().count())) ?
 				QPointF(0.0, 0.0) : bRect.topLeft());
 	foreach (Palapeli::Piece* piece, selectedPieces) {
 		scene->addToGrid(piece);
