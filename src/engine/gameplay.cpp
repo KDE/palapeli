@@ -299,8 +299,16 @@ void Palapeli::GamePlay::actionDelete()
 		return;
 	//do deletion
 	Palapeli::Collection* coll = Palapeli::Collection::instance();
-	foreach (const QModelIndex& index, indexes)
-		coll->deletePuzzle(index);
+
+	// We cannot simply use a foreach here, because after deleting the first
+	// puzzle, the rest of the indexes should no longer be used (model was
+	// modified).  Ask again for the list of selected indexes after each
+	// step instead.
+	while (indexes.size() > 0)
+	{
+		coll->deletePuzzle(indexes.at(0));
+		indexes = m_collectionView->selectedIndexes();
+	}
 }
 
 void Palapeli::GamePlay::actionImport()
