@@ -122,6 +122,12 @@ bool crop_endpoints_to_frame(QPointF *p1, QPointF *p2, int width, int height) {
         }
         else {
             if (QLineF::BoundedIntersection == border.intersect(ridge, &new_p2)) {
+                // We have to set new_points_found > 1, in order to get
+                // endpoints cropped correctly in the case where both points are
+                // outside the frame, but the ridge passes through the frame.
+                // The lack of the next line was probably the cause of the
+                // crashes mentioned below
+                new_points_found = 2;
                 // no need to search further
                 break;
             }
@@ -139,7 +145,9 @@ bool crop_endpoints_to_frame(QPointF *p1, QPointF *p2, int width, int height) {
         else {
             *p1 = new_p1;
         }
-        // sometimes there is a crash which probably comes from bad cropping. hoping to catch it with this.
+        // Sometimes there is a crash which probably comes from bad cropping.
+        // Hoping to catch it with this.
+        // Problem should be fixed now - SB
         qDebug() << "p1contained:" << p1_contained << " p1:" << *p1 << " p2:" << *p2;
     }
     else {
@@ -390,9 +398,10 @@ void IrregularMode::generateVoronoiGrid(GoldbergEngine *e, QList<QPointF> cell_c
         bool ridge_oob = !crop_endpoints_to_frame(&p1, &p2, width, height);
         //qDebug() << "after crop: " << p1 << p2;
 
-        // add the cell with lower id to the neighbour list of the cell with higher id
-        // but only if none of both belongs to the "safety box"
-        if (cell1 < cells.size() && cell2 < cells.size()) {
+        // Add the cell with lower id to the neighbour list of the cell with
+        // higher id, but only if none of both belongs to the "safety box"
+        // and only if the ridge is not out of bounds.
+        if ( ! ridge_oob && cell1 < cells.size() && cell2 < cells.size()) {
             if (cell1 < cell2) {
                 cells[cell2].neighbours.append(cell1);
             }
