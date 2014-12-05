@@ -22,7 +22,7 @@
 #include "triggerlistview.h"
 #include "elidinglabel.h"
 #include "mouseinputbutton.h"
-
+#include <kstringhandler_deprecated.h>
 #include <QApplication>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -30,7 +30,6 @@
 #include <KCategorizedSortFilterProxyModel>
 #include <KCategoryDrawer>
 #include <KLocalizedString>
-#include <KStringHandler>
 #include <KWidgetItemDelegate>
 
 namespace Palapeli
@@ -124,7 +123,7 @@ namespace Palapeli
 				return m_calculator->minimumSizeHint();
 			}
 		protected:
-			virtual QList<QWidget*> createItemWidgets() const
+			virtual QList<QWidget*> createItemWidgets(const QModelIndex &index) const
 			{
 				return QList<QWidget*>() << new Palapeli::TriggerListDelegateWidget(itemView());
 			}

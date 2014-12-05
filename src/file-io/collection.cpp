@@ -210,4 +210,4 @@ bool Palapeli::Collection::deletePuzzle(const QModelIndex& index)
 }
 
 #include "collection.moc"
-#include "collection_p.moc"
+//#include "collection_p.moc"

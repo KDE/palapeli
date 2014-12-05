@@ -36,7 +36,7 @@ static QString categoryToString(Palapeli::Interactor::Category category)
 
 Palapeli::TriggerListView::TriggerListView(const QMap<QByteArray, Palapeli::Interactor*>& interactors, Palapeli::InteractorType interactorType, QWidget* parent)
 	: KCategorizedView(parent)
-	, m_categoryDrawer(new KCategoryDrawer)
+	, m_categoryDrawer(new KCategoryDrawer(this))
 	, m_baseModel(new QStandardItemModel(this))
 	, m_proxyModel(new Palapeli::TriggerListProxyModel(this))
 	, m_delegate(new Palapeli::TriggerListDelegate(this))
@@ -96,4 +96,4 @@ void Palapeli::TriggerListView::setAssociations(const QMap<QByteArray, Palapeli:
 }
 
 #include "triggerlistview.moc"
-#include "triggerlistview_p.moc"
+//#include "triggerlistview_p.moc"

@@ -35,7 +35,7 @@ QByteArray serializeLine(QList<qreal> input) {
     for (int i=0; i<input.size(); ++i) {
         result.append(QString::number(input[i]));
     }
-    return result.join( QLatin1String( " " )).toAscii();
+    return result.join( QLatin1String( " " )).toLatin1();
 }
 
 /// unserializes the first item of the input into a list of space-separated ints and removes it.
@@ -332,7 +332,7 @@ void IrregularMode::generateVoronoiGrid(GoldbergEngine *e, QList<QPointF> cell_c
     cell_centers.append(QPointF(-width, 2 * height));
     cell_centers.append(QPointF(2 * width, -height));
     cell_centers.append(QPointF(2 * width, 2 * height));
-    qvoronoi_input.append(QString::number(cell_centers.size()).toAscii()).append("\n");
+    qvoronoi_input.append(QString::number(cell_centers.size()).toLatin1()).append("\n");
     for (int n=0; n<cell_centers.size(); n++) {
         QList<qreal> coords;
         coords.append(cell_centers[n].x());

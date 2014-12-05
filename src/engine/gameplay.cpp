@@ -35,7 +35,7 @@
 
 #include "../config/configdialog.h"
 #include "settings.h"
-
+#include <KUrl>
 #include <QtGui/QStackedWidget>
 #include <QPointer>
 #include <QPropertyAnimation>

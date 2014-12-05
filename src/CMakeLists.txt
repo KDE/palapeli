@@ -44,12 +44,12 @@ set(palapeli_SRCS
 	window/puzzletablewidget.cpp
 	window/pieceholder.cpp
 )
-kde4_add_kcfg_files(palapeli_SRCS settings.kcfgc)
-kde4_add_ui_files(palapeli_SRCS settings.ui)
+kconfig_add_kcfg_files(palapeli_SRCS settings.kcfgc)
+ki18n_wrap_ui(palapeli_SRCS settings.ui)
 kde4_add_app_icon(palapeli_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/hi*-app-palapeli.png")
 
-kde4_add_executable(palapeli ${palapeli_SRCS})
-target_link_libraries(palapeli pala ${KDE4_KFILE_LIBS})
+add_executable(palapeli ${palapeli_SRCS})
+target_link_libraries(palapeli pala KF5::KDELibs4Support KF5::Archive Qt5::Concurrent)
 
 install(TARGETS palapeli ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeli.kcfg palapeli.notifyrc palapeliui.rc

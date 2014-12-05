@@ -13,18 +13,19 @@ else(QVORONOI_EXECUTABLE)
 	set(QVORONOI_FOUND FALSE)
 endif(QVORONOI_EXECUTABLE)
 
-macro_log_feature(QVORONOI_FOUND "qvoronoi" "Part of the qhull package, needed for the irregular grid from the Palapeli Slicer Collection" "http://www.qhull.org/download" FALSE "" "")
+#PORT IT
+#macro_log_feature(QVORONOI_FOUND "qvoronoi" "Part of the qhull package, needed for the irregular grid from the Palapeli Slicer Collection" "http://www.qhull.org/download" FALSE "" "")
 
 
 
 #correctly include the headers of libpala when they are not yet installed
 set_directory_properties(PROPERTIES COMPILE_DEFINITIONS USE_LOCAL_LIBPALA)
-set(SLICER_LINK_LIBS ${KDE4_KDECORE_LIBS} ${QT_QTGUI_LIBRARY} pala)
+set(SLICER_LINK_LIBS KF5::KDELibs4Support Qt5::Gui pala)
 
-kde4_add_plugin(palapeli_rectslicer slicer-rect.cpp)
+add_library(palapeli_rectslicer MODULE slicer-rect.cpp)
 target_link_libraries(palapeli_rectslicer ${SLICER_LINK_LIBS})
 
-kde4_add_plugin(palapeli_jigsawslicer slicer-jigsaw.cpp)
+add_library(palapeli_jigsawslicer MODULE slicer-jigsaw.cpp)
 target_link_libraries(palapeli_jigsawslicer ${SLICER_LINK_LIBS})
 
 set(palapeli_goldbergslicer_SRCS
@@ -40,7 +41,7 @@ set(palapeli_goldbergslicer_SRCS
 	goldberg/utilities.cpp
 )
 
-kde4_add_plugin(palapeli_goldbergslicer ${palapeli_goldbergslicer_SRCS})
+add_library(palapeli_goldbergslicer MODULE ${palapeli_goldbergslicer_SRCS})
 target_link_libraries(palapeli_goldbergslicer ${SLICER_LINK_LIBS})
 
 

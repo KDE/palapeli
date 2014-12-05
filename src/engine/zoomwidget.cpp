@@ -39,10 +39,10 @@ Palapeli::ZoomWidget::ZoomWidget(QWidget* parent)
 	m_constrainedButton->setCheckable(true);
 	connect(m_constrainedButton, SIGNAL(toggled(bool)), this, SIGNAL(constrainedChanged(bool)));
 	m_zoomOutButton->setIcon(KIcon( QLatin1String( "zoom-out" )));
-	m_zoomOutButton->setShortcut(KStandardShortcut::zoomOut().primary());
+	//QT5 m_zoomOutButton->setShortcut(KStandardShortcut::zoomOut().primary());
 	connect(m_zoomOutButton, SIGNAL(pressed()), this, SIGNAL(zoomOutRequest()));
 	m_zoomInButton->setIcon(KIcon( QLatin1String( "zoom-in" )));
-	m_zoomInButton->setShortcut(KStandardShortcut::zoomIn().primary());
+	//QT5 m_zoomInButton->setShortcut(KStandardShortcut::zoomIn().primary());
 	connect(m_zoomInButton, SIGNAL(pressed()), this, SIGNAL(zoomInRequest()));
 	//init slider
 	m_slider->setMinimum(Palapeli::View::MinimumZoomLevel);

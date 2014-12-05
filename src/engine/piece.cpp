@@ -370,4 +370,4 @@ void Palapeli::Piece::endMove()
 //END mouse interaction
 
 #include "piece.moc"
-#include "piece_p.moc"
+//#include "piece_p.moc"

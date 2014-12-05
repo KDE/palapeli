@@ -19,13 +19,13 @@
 #include "puzzle.h"
 
 #include <QtCore/QAtomicInt>
-#include <QtCore/QAtomicPointer>
+#include <QAtomicPointer>
 #include <QtCore/QFileInfo>
 #include <QtCore/QFutureSynchronizer>
 #include <QtCore/QHash>
 #include <QtCore/QMutexLocker>
 #include <QtCore/QWaitCondition>
-#include <QtCore/QtConcurrentRun>
+#include <QtConcurrentRun>
 #include <KDE/KGlobal>
 
 //BEGIN Palapeli::PuzzleComponent

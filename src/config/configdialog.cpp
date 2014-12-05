@@ -21,7 +21,7 @@
 #include "triggerconfigwidget.h"
 #include "../engine/texturehelper.h"
 #include "settings.h"
-
+#include <KIcon>
 #include <QTimer>
 
 //BEGIN Palapeli::TriggerComboBox
@@ -143,4 +143,4 @@ void Palapeli::ConfigDialog::solutionAreaChange(int index)
 //END Palapeli::ConfigDialog
 
 #include "configdialog.moc"
-#include "configdialog_p.moc"
+//#include "configdialog_p.moc"
