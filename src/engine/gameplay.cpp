@@ -42,11 +42,11 @@
 #include <QFutureWatcher>
 #include <QtCore/qmath.h>
 #include <QInputDialog>
-#include <KDE/KAction>
-#include <KDE/KActionCollection>
-#include <KDE/KLocalizedString>
-#include <KDE/KMessageBox>
-#include <KDE/KFileDialog>
+#include <KAction>
+#include <KActionCollection>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KFileDialog>
 #include <KStandardDirs>
 
 // Use this because comma in type is not possible in foreach macro.

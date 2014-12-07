@@ -25,10 +25,10 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QFutureWatcher>
 #include <QtCore/QUuid>
-#include <KDE/KConfig>
-#include <KDE/KConfigGroup>
-#include <KDE/KLocale>
-#include <KDE/KStandardDirs>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KLocale>
+#include <KStandardDirs>
 
 //BEGIN Palapeli::Collection::Item
 

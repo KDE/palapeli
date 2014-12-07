@@ -21,7 +21,7 @@
 #include "../libpala/slicerjob.h"
 #include "../libpala/slicermode.h"
 
-#include <KDE/KServiceTypeTrader>
+#include <KServiceTypeTrader>
 
 Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) const
 {

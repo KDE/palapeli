@@ -26,7 +26,7 @@
 #include <QtCore/QMutexLocker>
 #include <QtCore/QWaitCondition>
 #include <QtConcurrentRun>
-#include <KDE/KGlobal>
+#include <KGlobal>
 
 //BEGIN Palapeli::PuzzleComponent
 
@@ -92,7 +92,7 @@ Palapeli::Puzzle::Private::Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponen
 	, m_location(location)
 	, m_identifier(identifier)
 {
-	m_mainComponent->m_puzzle = q;
+	//QT5 m_mainComponent.m_puzzle = q;
 	m_components.insert(mainComponent->type(), new Component(mainComponent));
 	//mutexes not necessary here because concurrent access is impossible in the ctor
 }
@@ -147,6 +147,7 @@ const Palapeli::PuzzleComponent* Palapeli::Puzzle::Private::get(Palapeli::Puzzle
 	//start cast() to create component
 	if (doRequest)
 	{
+#if 0 //QT5
 		Palapeli::PuzzleComponent* cmp = m_mainComponent->cast(type);
 		if (cmp)
 			cmp->m_puzzle = q;
@@ -157,6 +158,7 @@ const Palapeli::PuzzleComponent* Palapeli::Puzzle::Private::get(Palapeli::Puzzle
 		//notify other waiting threads that the component is available
 		c->wait.wakeAll();
 		return cmp;
+#endif
 	}
 	//component has been requested by another worker thread - wait until that
 	//thread is done (but come back every 1000 ms in case the other thread
@@ -227,4 +229,3 @@ K_GLOBAL_STATIC(QList<QString>, g_usedIdentifiers)
 
 //END Palapeli::Puzzle
 
-#include "puzzle.moc"

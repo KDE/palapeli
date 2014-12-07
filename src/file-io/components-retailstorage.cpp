@@ -22,8 +22,8 @@
 
 #include <QtCore/QDir>
 #include <QtCore/QVariant>
-#include <KDE/KConfigGroup>
-#include <KDE/KDesktopFile>
+#include <KConfigGroup>
+#include <KDesktopFile>
 
 Palapeli::RetailStorageComponent::RetailStorageComponent(const QString& desktopFile)
 	: m_desktopFile(desktopFile)

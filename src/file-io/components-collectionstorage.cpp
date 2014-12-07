@@ -20,7 +20,7 @@
 
 #include <QtCore/QBuffer>
 #include <QtCore/QFileInfo>
-#include <KDE/KConfigGroup>
+#include <KConfigGroup>
 
 Palapeli::CollectionStorageComponent::CollectionStorageComponent(KConfigGroup* group)
 	: m_group(group)

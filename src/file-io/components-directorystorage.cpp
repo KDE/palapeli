@@ -20,9 +20,9 @@
 
 #include <QtCore/QDir>
 #include <QtCore/QFutureSynchronizer>
-#include <KDE/KConfigGroup>
-#include <KDE/KDesktopFile>
-#include <KDE/KTempDir>
+#include <KConfigGroup>
+#include <KDesktopFile>
+#include <KTempDir>
 
 Palapeli::DirectoryStorageComponent::DirectoryStorageComponent()
 	: m_dir(new KTempDir)

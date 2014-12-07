@@ -24,9 +24,9 @@
 #include <QtCore/QFutureWatcher>
 #include <QtCore/QTimer>
 #include <QtGui/QApplication>
-#include <KDE/KCmdLineArgs>
-#include <KDE/KDebug> //we use kError
-#include <KDE/KNotification>
+#include <KCmdLineArgs>
+#include <KDebug> //we use kError
+#include <KNotification>
 
 Palapeli::ImportHelper::ImportHelper(KCmdLineArgs* args)
 	: m_args(args)

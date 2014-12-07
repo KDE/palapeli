@@ -21,7 +21,7 @@
 
 class QStackedWidget;
 class KCmdLineArgs;
-#include <KDE/KXmlGuiWindow>
+#include <KXmlGuiWindow>
 
 namespace Palapeli
 {
