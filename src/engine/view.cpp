@@ -360,4 +360,4 @@ void Palapeli::View::startVictoryAnimation()
 	emit zoomAdjustable(false);
 }
 
-#include "view.moc"
+

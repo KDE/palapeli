@@ -106,4 +106,4 @@ void Palapeli::SlicerSelector::slotSelectionChanged()
 	emit currentSelectionChanged(currentSelection());
 }
 
-#include "slicerselector.moc"
+

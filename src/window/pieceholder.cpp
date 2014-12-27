@@ -101,4 +101,4 @@ void Palapeli::PieceHolder::closeEvent(QCloseEvent* event)
 	emit closing(this);		// GamePlay handles the details.
 }
 
-#include "pieceholder.moc"
+

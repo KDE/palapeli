@@ -1305,4 +1305,4 @@ void Palapeli::GamePlay::changeSelectedHolder(Palapeli::PieceHolder* h)
 	m_currentHolder = h;
 }
 
-#include "gameplay.moc"
+

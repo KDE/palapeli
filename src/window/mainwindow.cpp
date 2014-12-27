@@ -174,4 +174,4 @@ void Palapeli::MainWindow::enableMessages()
 	}
 }
 
-#include "mainwindow.moc"
+

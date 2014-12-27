@@ -257,5 +257,5 @@ void Palapeli::MouseInputButton::showModifiers(Qt::KeyboardModifiers modifiers)
 	m_mainLabel->setText(dummyTrigger.toString().arg(i18n("Input here...")));
 }
 
-#include "mouseinputbutton.moc"
-//#include "mouseinputbutton_p.moc"
+
+//

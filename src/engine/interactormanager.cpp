@@ -170,4 +170,4 @@ void Palapeli::InteractorManager::handleEventCommon(const Palapeli::MouseEvent& 
 	}
 }
 
-#include "interactormanager.moc"
+

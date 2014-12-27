@@ -125,4 +125,4 @@ void Palapeli::TextureHelper::removeScene(QObject* scene)
 	m_scenes.removeAll(static_cast<QGraphicsScene*>(scene));
 }
 
-#include "texturehelper.moc"
+

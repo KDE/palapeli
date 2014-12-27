@@ -257,4 +257,4 @@ void Palapeli::Scene::addToGrid(Palapeli::Piece* piece)
 	}
 }
 
-#include "scene.moc"
+

@@ -433,4 +433,4 @@ bool Palapeli::ToggleConstraintInteractor::startInteraction(const Palapeli::Mous
 
 //END Palapeli::ToggleConstraintInteractor
 
-#include "interactors.moc"
+

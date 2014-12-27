@@ -95,5 +95,5 @@ void Palapeli::TriggerListView::setAssociations(const QMap<QByteArray, Palapeli:
 	}
 }
 
-#include "triggerlistview.moc"
-//#include "triggerlistview_p.moc"
+
+//

@@ -184,4 +184,4 @@ void Palapeli::ConstraintVisualizer::update(const QRectF& sceneRect)
 	m_handleItems[RightHandle]->setRect(handleRect);
 }
 
-#include "constraintvisualizer.moc"
+

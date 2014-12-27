@@ -176,4 +176,4 @@ void Palapeli::MergeGroup::createMergedPiece()
 	deleteLater();
 }
 
-#include "mergegroup.moc"
+

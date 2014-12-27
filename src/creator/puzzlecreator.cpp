@@ -146,4 +146,4 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	m_result = new Palapeli::Puzzle(new Palapeli::CreationContextComponent(creationContext), QString(), QUuid::createUuid().toString());
 }
 
-#include "puzzlecreator.moc"
+

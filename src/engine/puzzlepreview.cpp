@@ -169,4 +169,4 @@ void Palapeli::PuzzlePreview::updateViewport()
 	}
 }
 
-#include "puzzlepreview.moc"
+

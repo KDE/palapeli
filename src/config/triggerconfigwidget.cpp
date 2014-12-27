@@ -80,4 +80,4 @@ void Palapeli::TriggerConfigWidget::updateWidgetsDefault()
 	emit associationsChanged();
 }
 
-#include "triggerconfigwidget.moc"
+

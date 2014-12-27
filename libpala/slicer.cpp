@@ -114,4 +114,4 @@ bool Pala::Slicer::process(Pala::SlicerJob* job)
 	return run(job);
 }
 
-#include "slicer.moc"
+
