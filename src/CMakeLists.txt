@@ -54,5 +54,5 @@ target_link_libraries(palapeli pala ${KDE4_KFILE_LIBS})
 install(TARGETS palapeli ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeli.kcfg palapeli.notifyrc palapeliui.rc
         DESTINATION ${DATA_INSTALL_DIR}/palapeli)
-install(PROGRAMS palapeli.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(PROGRAMS org.kde.palapeli.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 add_subdirectory(pics)
