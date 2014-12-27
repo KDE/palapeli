@@ -42,7 +42,7 @@
 #include <QFutureWatcher>
 #include <QtCore/qmath.h>
 #include <QInputDialog>
-#include <KAction>
+#include <QAction>
 #include <KActionCollection>
 #include <KLocalizedString>
 #include <KMessageBox>
