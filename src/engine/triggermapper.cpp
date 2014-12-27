@@ -85,7 +85,7 @@ void Palapeli::TriggerMapper::readSettings()
 	m_associations.clear();
 	m_associations = Palapeli::TriggerMapper::defaultAssociations();
 	//read config
-	KConfigGroup group(KGlobal::config(), "Mouse Interaction");
+	KConfigGroup group(KSharedConfig::openConfig(), "Mouse Interaction");
 	const QStringList configKeys = group.keyList();
 	foreach (const QString& configKey, configKeys)
 	{
@@ -115,14 +115,14 @@ void Palapeli::TriggerMapper::setAssociations(const QMap<QByteArray, Palapeli::T
 			triggerSerializations[it1.key()] << it1.value().serialized();
 	}
 	//clear config
-	KConfigGroup group(KGlobal::config(), "Mouse Interaction");
+	KConfigGroup group(KSharedConfig::openConfig(), "Mouse Interaction");
 	foreach (const QString& key, group.keyList())
 		group.deleteEntry(key);
 	//write config (in a way that supports multiple triggers for one interactor)
 	QMap<QByteArray, QList<QByteArray> >::const_iterator it1 = triggerSerializations.constBegin(), it2 = triggerSerializations.constEnd();
 	for (; it1 != it2; ++it1)
 		group.writeEntry(it1.key().data(), it1.value());
-	KGlobal::config()->sync();
+	KSharedConfig::openConfig()->sync();
 }
 
 Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const QByteArray& interactor, QWheelEvent* event) const

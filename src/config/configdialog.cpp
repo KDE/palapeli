@@ -137,7 +137,7 @@ void Palapeli::ConfigDialog::solutionAreaChange(int index)
 	// index setting if .kcfg says "Int", but it does not officially support
 	// the QComboBox type.
 	Settings::setSolutionArea(index);
-	Settings::self()->writeConfig();
+	Settings::self()->save();
 }
 
 //END Palapeli::ConfigDialog

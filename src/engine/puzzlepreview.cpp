@@ -84,7 +84,7 @@ void Palapeli::PuzzlePreview::toggleVisible()
 {
 	setVisible(!isVisible());
 	Settings::setPuzzlePreviewVisible(isVisible());
-	Settings::self()->writeConfig();
+	Settings::self()->save();
 }
 
 void Palapeli::PuzzlePreview::mouseMoveEvent(QMouseEvent* event)
@@ -137,7 +137,7 @@ void Palapeli::PuzzlePreview::writeConfigIfGeometryChanged()
 
 	// move() includes window frame, resize() doesn't :-/
 	Settings::setPuzzlePreviewGeometry(QRect(frameGeometry().topLeft(), size()));
-	Settings::self()->writeConfig();
+	Settings::self()->save();
 	m_geometryChanged = false;
 }
 

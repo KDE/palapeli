@@ -170,7 +170,7 @@ void Palapeli::MainWindow::enableMessages()
 	if (result == KMessageBox::Yes) {
 		qDebug() << "ENABLE ALL MESSAGES";
 		KMessageBox::enableAllMessages();
-		KGlobal::config()->sync();	// Save the changes to disk.
+		KSharedConfig::openConfig()->sync();	// Save the changes to disk.
 	}
 }
 

@@ -106,7 +106,7 @@ void Palapeli::PuzzleTableWidget::showStatusBar(bool visible)
 	m_zoomWidget->setVisible(visible);
 	//save setting
 	Settings::setShowStatusBar(visible);
-	Settings::self()->writeConfig();
+	Settings::self()->save();
 }
 
 void Palapeli::PuzzleTableWidget::reportProgress(int pieceCount, int partCount)
