@@ -21,7 +21,7 @@
 #include "triggerconfigwidget.h"
 #include "../engine/texturehelper.h"
 #include "settings.h"
-#include <KIcon>
+#include <QIcon>
 #include <QTimer>
 
 //BEGIN Palapeli::TriggerComboBox
@@ -71,10 +71,10 @@ Palapeli::ConfigDialog::ConfigDialog(QWidget* parent)
 	setupSolutionAreaComboBox();
 
 	addPage(generalPage, i18n("General settings"))->
-				setIcon(KIcon( QLatin1String( "configure" )));
+				setIcon(QIcon::fromTheme( QLatin1String( "configure" )));
 	//setup page "Mouse interaction"
 	addPage(m_triggerPage, i18n("Mouse interaction"))->
-				setIcon(KIcon( QLatin1String( "input-mouse" )));
+				setIcon(QIcon::fromTheme( QLatin1String( "input-mouse" )));
 	connect(m_triggerPage, SIGNAL(associationsChanged()),
 			       SLOT(updateButtons()));
 }
