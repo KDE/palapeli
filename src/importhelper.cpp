@@ -23,7 +23,7 @@
 
 #include <QtCore/QFutureWatcher>
 #include <QtCore/QTimer>
-#include <QtGui/QApplication>
+#include <QApplication>
 #include <KCmdLineArgs>
 #include <KDebug> //we use kError
 #include <KNotification>

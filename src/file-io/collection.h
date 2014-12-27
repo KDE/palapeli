@@ -19,7 +19,7 @@
 #ifndef PALAPELI_COLLECTION_H
 #define PALAPELI_COLLECTION_H
 
-#include <QtGui/QStandardItemModel>
+#include <QStandardItemModel>
 class KConfig;
 class KConfigGroup;
 

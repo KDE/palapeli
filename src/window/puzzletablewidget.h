@@ -19,7 +19,7 @@
 #ifndef PALAPELI_PUZZLETABLEWIDGET_H
 #define PALAPELI_PUZZLETABLEWIDGET_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 
 class QStackedWidget;
 
