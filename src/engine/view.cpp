@@ -55,7 +55,7 @@ Palapeli::View::View()
 	setResizeAnchor(QGraphicsView::AnchorUnderMouse);
 	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 	setScene(new Palapeli::Scene(this));
-	connect(m_scene, SIGNAL(sceneRectChanged(QRectF)), this, SLOT(logSceneChange(QRectF))); // IDW test.
+	connect(m_scene, &Palapeli::Scene::sceneRectChanged, this, &View::logSceneChange);
 	qDebug() << "Initial size of Palapeli::View" << size();
 }
 

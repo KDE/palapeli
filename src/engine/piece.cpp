@@ -31,7 +31,7 @@
 void Palapeli::Piece::commonInit(const Palapeli::PieceVisuals& pieceVisuals)
 {
 	Palapeli::SelectionAwarePixmapItem* pieceItem = new Palapeli::SelectionAwarePixmapItem(pieceVisuals.pixmap(), this);
-	connect(pieceItem, SIGNAL(selectedChanged(bool)), SLOT(pieceItemSelectedChanged(bool)));
+	connect(pieceItem, &Palapeli::SelectionAwarePixmapItem::selectedChanged, this, &Piece::pieceItemSelectedChanged);
 	m_pieceItem = pieceItem;
 	m_pieceItem->setOffset(pieceVisuals.offset());
 	//initialize behavior

@@ -29,7 +29,7 @@
 Palapeli::PuzzlePreview::PuzzlePreview(QWidget* parent)
 {
 	m_settingsSaveTimer = new QTimer(this);
-	connect(m_settingsSaveTimer, SIGNAL(timeout()), this, SLOT(writeConfigIfGeometryChanged()));
+	connect(m_settingsSaveTimer, &QTimer::timeout, this, &PuzzlePreview::writeConfigIfGeometryChanged);
 	m_geometryChanged = false;
 
 	m_hoverZoom = 1.0;

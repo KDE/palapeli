@@ -59,12 +59,11 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	m_progressBar->setText(i18n("No puzzle loaded"));
 	//setup zoom widget
 	m_zoomWidget->setLevel((View::MaximumZoomLevel+View::MinimumZoomLevel)/2);
-	connect(m_zoomWidget, SIGNAL(levelChanged(int)),
-		m_view, SLOT(zoomSliderInput(int)));
-	connect(m_zoomWidget, SIGNAL(zoomInRequest()), m_view, SLOT(zoomIn()));
-	connect(m_zoomWidget, SIGNAL(zoomOutRequest()), m_view, SLOT(zoomOut()));
-	connect(m_view, SIGNAL(zoomLevelChanged(int)), m_zoomWidget, SLOT(setLevel(int)));
-	connect(m_view, SIGNAL(zoomAdjustable(bool)), this, SLOT(setZoomAdjustable(bool)));
+	connect(m_zoomWidget, &Palapeli::ZoomWidget::levelChanged, m_view, &Palapeli::View::zoomSliderInput);
+	connect(m_zoomWidget, &Palapeli::ZoomWidget::zoomInRequest, m_view, &Palapeli::View::zoomIn);
+	connect(m_zoomWidget, &Palapeli::ZoomWidget::zoomOutRequest, m_view, &Palapeli::View::zoomOut);
+	connect(m_view, &Palapeli::View::zoomLevelChanged, m_zoomWidget, &Palapeli::ZoomWidget::setLevel);
+	connect(m_view, &Palapeli::View::zoomAdjustable, this, &PuzzleTableWidget::setZoomAdjustable);
 	connect(m_zoomWidget, SIGNAL(constrainedChanged(bool)), m_view->scene(), SLOT(setConstrained(bool)));
 	connect(m_view->scene(), SIGNAL(constrainedChanged(bool)), m_zoomWidget, SLOT(setConstrained(bool)));
 	//setup widget stack

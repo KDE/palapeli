@@ -181,10 +181,7 @@ void Palapeli::Scene::searchConnections(const QList<Palapeli::Piece*>& pieces,
 			Palapeli::MergeGroup* mergeGroup =
 				new Palapeli::MergeGroup(pieceGroup, this,
 					m_pieceAreaSize, animatedMerging);
-			connect(mergeGroup, SIGNAL(pieceInstanceTransaction(
-			    QList<Palapeli::Piece*>,QList<Palapeli::Piece*>)),
-			    this, SLOT(pieceInstanceTransaction(
-			    QList<Palapeli::Piece*>,QList<Palapeli::Piece*>)));
+			connect(mergeGroup, &Palapeli::MergeGroup::pieceInstanceTransaction, this, &Scene::pieceInstanceTransaction);
 			mergeGroup->start();
 		}
 	}

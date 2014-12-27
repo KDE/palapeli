@@ -55,7 +55,7 @@ void Palapeli::ImportHelper::doWork()
 	}
 	//keep program running until the puzzle has been written
 	Palapeli::FutureWatcher* watcher = new Palapeli::FutureWatcher;
-	connect(watcher, SIGNAL(finished()), watcher, SLOT(deleteLater()));
+	connect(watcher, &Palapeli::FutureWatcher::finished, watcher, &Palapeli::FutureWatcher::deleteLater);
 	connect(watcher, SIGNAL(finished()), qApp, SLOT(quit()));
 	watcher->setFuture(puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage));
 }

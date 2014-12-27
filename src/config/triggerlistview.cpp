@@ -64,7 +64,7 @@ Palapeli::TriggerListView::TriggerListView(const QMap<QByteArray, Palapeli::Inte
 	m_proxyModel->setSourceModel(m_baseModel);
 	setModel(m_proxyModel);
 	setItemDelegate(m_delegate);
-	connect(m_delegate, SIGNAL(triggerChanged()), SIGNAL(associationsChanged()));
+	connect(m_delegate, &Palapeli::TriggerListDelegate::triggerChanged, this, &TriggerListView::associationsChanged);
 // 	setCategoryDrawer(m_categoryDrawer); //FIXME: Why do I crash?
 }
 

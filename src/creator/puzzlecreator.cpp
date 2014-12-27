@@ -72,12 +72,12 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	m_slicerConfigPage = addPage(m_slicerConfigMasterWidget, i18nc("@item:inlistbox (page name in an assistant dialog)", "Configure slicer"));
 	m_slicerConfigPage->setHeader(i18nc("@title:tab (page header in an assistant dialog)", "Tweak the parameters of the chosen slicing method"));
 	//wire up stuff
-	connect(this, SIGNAL(accepted()), this, SLOT(createPuzzle()));
-	connect(m_imageSelector, SIGNAL(urlSelected(KUrl)), this, SLOT(checkData()));
-	connect(m_nameEdit, SIGNAL(textChanged(QString)), this, SLOT(checkData()));
-	connect(m_authorEdit, SIGNAL(textChanged(QString)), this, SLOT(checkData()));
+	connect(this, &PuzzleCreatorDialog::accepted, this, &PuzzleCreatorDialog::createPuzzle);
+	connect(m_imageSelector, &KUrlRequester::urlSelected, this, &PuzzleCreatorDialog::checkData);
+	connect(m_nameEdit, &KLineEdit::textChanged, this, &PuzzleCreatorDialog::checkData);
+	connect(m_authorEdit, &KLineEdit::textChanged, this, &PuzzleCreatorDialog::checkData);
 	checkData(); //to invalidate first page
-	connect(m_slicerSelector, SIGNAL(currentSelectionChanged(Palapeli::SlicerSelection)), this, SLOT(updateSlicerSelection(Palapeli::SlicerSelection)));
+	connect(m_slicerSelector, &Palapeli::SlicerSelector::currentSelectionChanged, this, &PuzzleCreatorDialog::updateSlicerSelection);
 }
 
 Palapeli::Puzzle* Palapeli::PuzzleCreatorDialog::result() const

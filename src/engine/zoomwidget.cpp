@@ -37,17 +37,17 @@ Palapeli::ZoomWidget::ZoomWidget(QWidget* parent)
 	m_constrainedButton->setIcon(QIcon::fromTheme( QLatin1String( "select-rectangular" )));
 	m_constrainedButton->setToolTip(i18n("Lock the puzzle table area"));
 	m_constrainedButton->setCheckable(true);
-	connect(m_constrainedButton, SIGNAL(toggled(bool)), this, SIGNAL(constrainedChanged(bool)));
+	connect(m_constrainedButton, &QToolButton::toggled, this, &ZoomWidget::constrainedChanged);
 	m_zoomOutButton->setIcon(QIcon::fromTheme( QLatin1String( "zoom-out" )));
 	//QT5 m_zoomOutButton->setShortcut(KStandardShortcut::zoomOut().primary());
-	connect(m_zoomOutButton, SIGNAL(pressed()), this, SIGNAL(zoomOutRequest()));
+	connect(m_zoomOutButton, &QToolButton::pressed, this, &ZoomWidget::zoomOutRequest);
 	m_zoomInButton->setIcon(QIcon::fromTheme( QLatin1String( "zoom-in" )));
 	//QT5 m_zoomInButton->setShortcut(KStandardShortcut::zoomIn().primary());
-	connect(m_zoomInButton, SIGNAL(pressed()), this, SIGNAL(zoomInRequest()));
+	connect(m_zoomInButton, &QToolButton::pressed, this, &ZoomWidget::zoomInRequest);
 	//init slider
 	m_slider->setMinimum(Palapeli::View::MinimumZoomLevel);
 	m_slider->setMaximum(Palapeli::View::MaximumZoomLevel);
-	connect(m_slider, SIGNAL(valueChanged(int)), this, SIGNAL(levelChanged(int)));
+	connect(m_slider, &QSlider::valueChanged, this, &ZoomWidget::levelChanged);
 	//init widget layout
 	QHBoxLayout* layout = new QHBoxLayout;
 	layout->addWidget(m_constrainedButton);

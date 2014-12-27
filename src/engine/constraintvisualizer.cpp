@@ -79,8 +79,7 @@ void Palapeli::ConstraintVisualizer::start (const QRectF& sceneRect,
 	// thus enter an infinite loop when the constraint visualizer enlarges
 	// itself in reaction to the changed sceneRect, thereby changing the
 	// autogrowing sceneRect again.
-	connect(m_scene, SIGNAL(sceneRectChanged(QRectF)),
-		this, SLOT(update(QRectF)), Qt::QueuedConnection);
+	connect(m_scene, &Palapeli::Scene::sceneRectChanged, this, &ConstraintVisualizer::update, Qt::QueuedConnection);
 	m_isStopped = false;
 }
 

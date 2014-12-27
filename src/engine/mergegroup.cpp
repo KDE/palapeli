@@ -105,7 +105,7 @@ void Palapeli::MergeGroup::start()
 			masterAnimator->addAnimation(pieceAnimator);
 		}
 		masterAnimator->start(QAbstractAnimation::DeleteWhenStopped);
-		connect(masterAnimator, SIGNAL(finished()), this, SLOT(createMergedPiece()));
+		connect(masterAnimator, &QParallelAnimationGroup::finished, this, &MergeGroup::createMergedPiece);
 	}
 }
 

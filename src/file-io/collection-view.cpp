@@ -37,7 +37,7 @@ Palapeli::CollectionView::CollectionView(QWidget* parent)
 	, m_proxyModel(new QSortFilterProxyModel(this))
 {
 	//setup view
-	connect(m_view, SIGNAL(activated(QModelIndex)), this, SLOT(handleActivated(QModelIndex)));
+	connect(m_view, &QListView::activated, this, &CollectionView::handleActivated);
 	m_view->setAlternatingRowColors(true);
 	m_view->setMouseTracking(true);
 	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -60,7 +60,7 @@ Palapeli::CollectionView::CollectionView(QWidget* parent)
 	m_sortByPieceCount->setCheckable(true);
 	m_sortByTitle->setChecked(true);
 	m_sortByPieceCount->setChecked(false);
-	connect(sortMenu, SIGNAL(triggered(QAction*)), SLOT(sortMenuTriggered(QAction*)));
+	connect(sortMenu, &QMenu::triggered, this, &CollectionView::sortMenuTriggered);
 	//construct layout
 	QGridLayout* layout = new QGridLayout(this);
 	layout->addWidget(sortButton, 0, 0);
