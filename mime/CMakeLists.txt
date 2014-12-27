@@ -9,8 +9,8 @@ update_xdg_mimetypes(${XDG_MIME_INSTALL_DIR})
 install(FILES palapeli_servicemenu.desktop DESTINATION ${SERVICES_INSTALL_DIR}/ServiceMenus)
 
 # thumbnail creator plugin
-kde4_add_plugin(palathumbcreator thumbnail-creator.cpp)
-target_link_libraries(palathumbcreator ${KDE4_KIO_LIBS})
+add_library(palathumbcreator MODULE thumbnail-creator.cpp)
+target_link_libraries(palathumbcreator KF5::KIOCore KF5::KIOWidgets KF5::Archive KF5::KDELibs4Support)
 
 install(TARGETS palathumbcreator DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES palathumbcreator.desktop DESTINATION ${SERVICES_INSTALL_DIR})

@@ -17,8 +17,8 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 ***************************************************************************/
 
-#include <ThumbCreator>
-
+#include <KIO/ThumbCreator>
+#include <kdemacros.h>
 #include <QImage>
 #include <KTar>
 #include <KTempDir>
