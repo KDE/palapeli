@@ -28,7 +28,7 @@
 #include <QSortFilterProxyModel>
 #include <KAction>
 #include <KFilterProxySearchLine>
-#include <KLocale>
+#include <KLocalizedString>
 
 Palapeli::CollectionView::CollectionView(QWidget* parent)
 	: QWidget(parent)

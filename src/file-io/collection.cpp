@@ -27,7 +27,7 @@
 #include <QtCore/QUuid>
 #include <KConfig>
 #include <KConfigGroup>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KStandardDirs>
 
 //BEGIN Palapeli::Collection::Item
