@@ -45,3 +45,4 @@ add_subdirectory(mime)
 add_subdirectory(puzzles)
 add_subdirectory(doc)
 
+feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
