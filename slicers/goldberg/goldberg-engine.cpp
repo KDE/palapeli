@@ -436,4 +436,3 @@ void GoldbergEngine::renderClassicPlug(GBClassicPlugParams &params) {
     }
 }
 
-#include "goldberg-engine.moc"

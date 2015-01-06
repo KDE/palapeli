@@ -26,7 +26,7 @@
 #include <QMenu>
 #include <QPushButton>
 #include <QSortFilterProxyModel>
-#include <KAction>
+#include <QAction>
 #include <KFilterProxySearchLine>
 #include <KLocalizedString>
 

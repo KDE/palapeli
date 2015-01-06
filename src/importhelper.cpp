@@ -25,7 +25,7 @@
 #include <QtCore/QTimer>
 #include <QApplication>
 #include <KCmdLineArgs>
-#include <KDebug> //we use kError
+#include <QDebug>
 #include <KNotification>
 
 Palapeli::ImportHelper::ImportHelper(KCmdLineArgs* args)
@@ -38,7 +38,7 @@ void Palapeli::ImportHelper::doWork()
 {
 	if (m_args->count() == 0)
 	{
-		kError() << i18nc("command line message", "Error: No puzzle file given.");
+		qCritical() << i18nc("command line message", "Error: No puzzle file given.");
 		qApp->quit();
 	}
 	//import puzzle

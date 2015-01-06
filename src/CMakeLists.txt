@@ -49,7 +49,7 @@ ki18n_wrap_ui(palapeli_SRCS settings.ui)
 kde4_add_app_icon(palapeli_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/hi*-app-palapeli.png")
 
 add_executable(palapeli ${palapeli_SRCS})
-target_link_libraries(palapeli pala KF5::KDELibs4Support KF5::Archive Qt5::Concurrent)
+target_link_libraries(palapeli pala KF5::KDELibs4Support KF5::Archive Qt5::Concurrent Qt5::Svg)
 
 install(TARGETS palapeli ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeliui.rc
