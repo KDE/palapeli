@@ -55,7 +55,9 @@ install(TARGETS palapeli ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeliui.rc
         DESTINATION ${KXMLGUI_INSTALL_DIR}/palapeli)
 
-install(FILES palapeli.kcfg palapeli.notifyrc
+install(FILES palapeli.notifyrc DESTINATION ${KNOTIFYRC_INSTALL_DIR})
+
+install(FILES palapeli.kcfg
         DESTINATION ${DATA_INSTALL_DIR}/palapeli)
 install(PROGRAMS org.kde.palapeli.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 add_subdirectory(pics)

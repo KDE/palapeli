@@ -26,8 +26,8 @@ set(libpala_FANCY_HDRS
 	Pala/SlicerPropertySet
 )
 
-kde4_add_library(pala SHARED ${libpala_SRCS})
-target_link_libraries(pala ${KDE4_KDECORE_LIBS} ${QT_QTGUI_LIBRARY})
+add_library(pala SHARED ${libpala_SRCS})
+target_link_libraries(pala KF5::KDELibs4Support Qt5::Gui)
 set_target_properties(pala PROPERTIES
 	VERSION ${libpala_VERSION}
 	SOVERSION ${libpala_SOVERSION}
