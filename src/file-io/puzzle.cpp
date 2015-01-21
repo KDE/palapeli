@@ -26,7 +26,6 @@
 #include <QtCore/QMutexLocker>
 #include <QtCore/QWaitCondition>
 #include <QtConcurrentRun>
-#include <KGlobal>
 
 //BEGIN Palapeli::PuzzleComponent
 
@@ -210,7 +209,7 @@ void Palapeli::Puzzle::dropComponent(Palapeli::PuzzleComponent::Type type)
 	c = 0;
 }
 
-K_GLOBAL_STATIC(QList<QString>, g_usedIdentifiers)
+Q_GLOBAL_STATIC(QList<QString>, g_usedIdentifiers)
 
 /*static*/ QString Palapeli::Puzzle::fsIdentifier(const QString& location)
 {

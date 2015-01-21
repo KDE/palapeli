@@ -19,7 +19,6 @@
 #include "trigger.h"
 
 #include <QMap>
-#include <KGlobal>
 #include <KLocalizedString>
 
 namespace
@@ -116,8 +115,8 @@ namespace
 	};
 }
 
-K_GLOBAL_STATIC(TriggerParserData, tParserData)
-K_GLOBAL_STATIC(TriggerPrinterData, tPrinterData)
+Q_GLOBAL_STATIC(TriggerParserData, tParserData)
+Q_GLOBAL_STATIC(TriggerPrinterData, tPrinterData)
 
 Palapeli::Trigger::Trigger()
 	: m_modifiers(Qt::NoModifier)
