@@ -20,9 +20,9 @@
 #define LIBPALA_SLICERPROPERTYSET_H
 
 #if defined(MAKE_LIBPALA) || defined(USE_LOCAL_LIBPALA)
-# include "libpalamacros.h"
+# include "libpala_export.h"
 #else
-# include <libpala/libpalamacros.h>
+# include <libpala/libpala_export.h>
 #endif
 
 class QByteArray;

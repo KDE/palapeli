@@ -20,9 +20,9 @@
 #define LIBPALA_SLICER_H
 
 #if defined(MAKE_LIBPALA) || defined(USE_LOCAL_LIBPALA)
-# include "libpalamacros.h"
+# include "libpala_export.h"
 #else
-# include <libpala/libpalamacros.h>
+# include <libpala/libpala_export.h>
 #endif
 
 #include <QtCore/QObject>
@@ -96,7 +96,7 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 			//BIC: constify method
 
 			//This class is the only interface that slicers can use to communicate with Palapeli, and it is only instantiated very few times (one instance per slicer plugin), so it should be reasonable to reserve some space in the virtual table for future additions.
-			RESERVE_VIRTUAL_5
+			//RESERVE_VIRTUAL_5
 		protected:
 			///Add the given property to the property list of this slicer. The slicer will take care of destructing the given Pala::SlicerProperty instance when it is destructed.
 			///Use this method in the subclass constructors to fill the slicer with properties. Properties let the user control how the slicing is done.

@@ -11,7 +11,7 @@ set(libpala_SRCS
 	slicerpropertyset.cpp
 )
 set(libpala_HDRS
-	libpalamacros.h
+	${CMAKE_CURRENT_BINARY_DIR}/libpala_export.h
 	slicer.h
 	slicerjob.h
 	slicermode.h
@@ -27,6 +27,7 @@ set(libpala_FANCY_HDRS
 )
 
 add_library(pala SHARED ${libpala_SRCS})
+generate_export_header(pala BASE_NAME libpala)
 target_link_libraries(pala KF5::KDELibs4Support Qt5::Gui)
 set_target_properties(pala PROPERTIES
 	VERSION ${libpala_VERSION}

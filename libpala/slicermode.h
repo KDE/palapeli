@@ -20,9 +20,9 @@
 #define LIBPALA_SLICERMODE_H
 
 #if defined(MAKE_LIBPALA) || defined(USE_LOCAL_LIBPALA)
-# include "libpalamacros.h"
+# include "libpala_export.h"
 #else
-# include <libpala/libpalamacros.h>
+# include <libpala/libpala_export.h>
 #endif
 
 #include <QtCore/QByteArray>
@@ -64,7 +64,7 @@ namespace Pala
 			void setPropertyEnabled(const QByteArray& property, bool enabled);
 
 			//Some space in the vtable reserved for future additions
-			RESERVE_VIRTUAL_5
+			//RESERVE_VIRTUAL_5
 		private:
 			class Private;
 			Private* const p;
