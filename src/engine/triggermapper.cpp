@@ -25,7 +25,7 @@
 #include <QWheelEvent>
 #include <KConfig>
 #include <KConfigGroup>
-#include <KGlobal>
+#include <KSharedConfig>
 
 Palapeli::TriggerMapper* Palapeli::TriggerMapper::instance()
 {
