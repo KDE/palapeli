@@ -46,18 +46,19 @@ set(palapeli_SRCS
 )
 kconfig_add_kcfg_files(palapeli_SRCS settings.kcfgc)
 ki18n_wrap_ui(palapeli_SRCS settings.ui)
-kde4_add_app_icon(palapeli_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/hi*-app-palapeli.png")
+file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/hi*-apps-palapeli.png")
+ecm_add_app_icon(palapeli_SRCS ICONS ${ICONS_SRCS})
 
 add_executable(palapeli ${palapeli_SRCS})
 target_link_libraries(palapeli pala KF5::KDELibs4Support KF5::Archive Qt5::Concurrent Qt5::Svg)
 
-install(TARGETS palapeli ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS palapeli ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeliui.rc
-        DESTINATION ${KXMLGUI_INSTALL_DIR}/palapeli)
+        DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/palapeli)
 
-install(FILES palapeli.notifyrc DESTINATION ${KNOTIFYRC_INSTALL_DIR})
+install(FILES palapeli.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFY5RCDIR})
 
 install(FILES palapeli.kcfg
-        DESTINATION ${DATA_INSTALL_DIR}/palapeli)
-install(PROGRAMS org.kde.palapeli.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+        DESTINATION ${KDE_INSTALL_DATADIR}/palapeli)
+install(PROGRAMS org.kde.palapeli.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 add_subdirectory(pics)

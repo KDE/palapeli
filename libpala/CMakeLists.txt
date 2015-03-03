@@ -35,9 +35,9 @@ set_target_properties(pala PROPERTIES
 	DEFINE_SYMBOL MAKE_LIBPALA
 )
 
-install(TARGETS pala EXPORT pala-targets ${INSTALL_TARGETS_DEFAULT_ARGS})
-install(EXPORT pala-targets DESTINATION ${LIB_INSTALL_DIR}/libpala)
-install(FILES libpala-config.cmake DESTINATION ${LIB_INSTALL_DIR}/libpala)
-install(FILES ${libpala_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/libpala COMPONENT Devel)
-install(FILES ${libpala_FANCY_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/Pala COMPONENT Devel)
-install(FILES libpala-slicerplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
+install(TARGETS pala EXPORT pala-targets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+install(EXPORT pala-targets DESTINATION ${KDE_INSTALL_LIBDIR}/libpala)
+install(FILES libpala-config.cmake DESTINATION ${KDE_INSTALL_LIBDIR}/libpala)
+install(FILES ${libpala_HDRS} DESTINATION ${KDE_INSTALL_INCLUDEDIR}/libpala COMPONENT Devel)
+install(FILES ${libpala_FANCY_HDRS} DESTINATION ${KDE_INSTALL_INCLUDEDIR}/Pala COMPONENT Devel)
+install(FILES libpala-slicerplugin.desktop DESTINATION ${KDE_INSTALL_KSERVICETYPES5DIR})

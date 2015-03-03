@@ -49,9 +49,9 @@ install(TARGETS
 	palapeli_goldbergslicer
 	palapeli_rectslicer
 	palapeli_jigsawslicer
-DESTINATION ${PLUGIN_INSTALL_DIR})
+DESTINATION ${KDE_INSTALL_PLUGINDIR})
 install(FILES
 	palapeli_goldbergslicer.desktop
 	palapeli_rectslicer.desktop
 	palapeli_jigsawslicer.desktop
-DESTINATION ${SERVICES_INSTALL_DIR})
+DESTINATION ${KDE_INSTALL_KSERVICES5DIR})

@@ -2,15 +2,15 @@
 set(SHARED_MIME_INFO_MINIMUM_VERSION "0.23")
 find_package(SharedMimeInfo REQUIRED)
 
-install(FILES palapeli-mimetypes.xml DESTINATION ${XDG_MIME_INSTALL_DIR})
-update_xdg_mimetypes(${XDG_MIME_INSTALL_DIR})
+install(FILES palapeli-mimetypes.xml DESTINATION ${KDE_INSTALL_MIMEDIR})
+update_xdg_mimetypes(${KDE_INSTALL_MIMEDIR})
 
 # servicemenu integration
-install(FILES palapeli_servicemenu.desktop DESTINATION ${SERVICES_INSTALL_DIR}/ServiceMenus)
+install(FILES palapeli_servicemenu.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/ServiceMenus)
 
 # thumbnail creator plugin
 add_library(palathumbcreator MODULE thumbnail-creator.cpp)
 target_link_libraries(palathumbcreator KF5::KIOCore KF5::KIOWidgets KF5::Archive KF5::KDELibs4Support)
 
-install(TARGETS palathumbcreator DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES palathumbcreator.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+install(TARGETS palathumbcreator DESTINATION ${KDE_INSTALL_PLUGINDIR})
+install(FILES palathumbcreator.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})

@@ -9,9 +9,9 @@ install(FILES
 	european-honey-bee.jpg
 	panther-chameleon-female.desktop
 	panther-chameleon-female.jpg
-DESTINATION ${DATA_INSTALL_DIR}/palapeli/collection)
+DESTINATION ${KDE_INSTALL_DATADIR}/palapeli/collection)
 
 install(FILES
 	default-collection.conf
-DESTINATION ${CONFIG_INSTALL_DIR}
+DESTINATION ${KDE_INSTALL_CONFDIR}
 RENAME palapeli-collectionrc)

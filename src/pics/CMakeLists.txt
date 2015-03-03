@@ -5,4 +5,4 @@ install(FILES
 	mahogany-handjob-1.jpg
 	Rear-Admiral-Diplomat-1.jpg
 	Time-For-Lunch-2.jpg
-DESTINATION ${DATA_INSTALL_DIR}/palapeli/backgrounds)
+DESTINATION ${KDE_INSTALL_DATADIR}/palapeli/backgrounds)
