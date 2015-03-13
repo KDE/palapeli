@@ -20,7 +20,6 @@
 #define PALAPELI_MAINWINDOW_H
 
 class QStackedWidget;
-class KCmdLineArgs;
 #include <KXmlGuiWindow>
 
 namespace Palapeli
@@ -35,7 +34,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			MainWindow(KCmdLineArgs* args);
+            MainWindow(const QString &path);
 		protected:
 			virtual bool queryClose();
 		private Q_SLOTS:

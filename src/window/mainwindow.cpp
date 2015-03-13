@@ -26,13 +26,12 @@
 #include <KGlobal>
 #include <QAction>
 #include <KActionCollection>
-#include <KCmdLineArgs>
 #include <KLocalizedString>
 #include <KStandardAction>
 #include <KToggleAction>
 #include <KMessageBox>
 
-Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
+Palapeli::MainWindow::MainWindow(const QString &path)
 	: m_game(new Palapeli::GamePlay(this))
 {
 	setupActions();
@@ -42,11 +41,7 @@ Palapeli::MainWindow::MainWindow(KCmdLineArgs* args)
 	setupGUI(QSize(500, 500), guiOptions);
 	m_game->init();
 	//start a puzzle if a puzzle URL has been given
-	if (args->count() != 0)
-	{
-		m_game->playPuzzleFile(args->arg(0));
-	}
-	args->clear();
+    m_game->playPuzzleFile(path);
 }
 
 bool Palapeli::MainWindow::queryClose()

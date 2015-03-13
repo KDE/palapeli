@@ -20,7 +20,6 @@
 #define PALAPELI_IMPORTHELPER_H
 
 #include <QObject>
-class KCmdLineArgs;
 
 namespace Palapeli
 {
@@ -28,11 +27,11 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			ImportHelper(KCmdLineArgs* args);
+            ImportHelper(const QString &path);
 		public Q_SLOTS:
 			void doWork();
 		private:
-			KCmdLineArgs* m_args;
+            QString m_path;
 	};
 }
 

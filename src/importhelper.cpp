@@ -24,25 +24,25 @@
 #include <QtCore/QFutureWatcher>
 #include <QtCore/QTimer>
 #include <QApplication>
-#include <KCmdLineArgs>
 #include <QDebug>
+#include <KLocalizedString>
 #include <KNotification>
 
-Palapeli::ImportHelper::ImportHelper(KCmdLineArgs* args)
-	: m_args(args)
+Palapeli::ImportHelper::ImportHelper(const QString &path)
+    : m_path(path)
 {
 	QTimer::singleShot(0, this, SLOT(doWork()));
 }
 
 void Palapeli::ImportHelper::doWork()
 {
-	if (m_args->count() == 0)
+    if (m_path.isEmpty())
 	{
 		qCritical() << i18nc("command line message", "Error: No puzzle file given.");
 		qApp->quit();
 	}
 	//import puzzle
-	Palapeli::Puzzle* puzzle = Palapeli::Collection::instance()->importPuzzle(m_args->arg(0));
+    Palapeli::Puzzle* puzzle = Palapeli::Collection::instance()->importPuzzle(m_path);
 	//show notification
 	puzzle->get(Palapeli::PuzzleComponent::Metadata).waitForFinished();
 	const Palapeli::MetadataComponent* cmp = puzzle->component<Palapeli::MetadataComponent>();

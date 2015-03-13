@@ -21,35 +21,48 @@
 
 #include <ctime>
 #include <QTimer>
-#include <K4AboutData>
-#include <KApplication>
-#include <KCmdLineArgs>
+#include <KAboutData>
+
+
+#include <QApplication>
+#include <KLocalizedString>
+#include <QCommandLineParser>
+#include <QCommandLineOption>
 
 int main(int argc, char** argv)
 {
 	qsrand(time(0));
-	K4AboutData about("palapeli", 0, ki18nc("The application's name", "Palapeli"), "2.0", ki18n("KDE Jigsaw Puzzle Game"), K4AboutData::License_GPL, ki18n("Copyright 2009, 2010, Stefan Majewsky"));
-	about.addAuthor(ki18n("Stefan Majewsky"), KLocalizedString(), "majewsky@gmx.net", "http://majewsky.wordpress.com");
-	about.addCredit (ki18n ("Johannes Loehnert"),
-			 ki18n ("The option to preview the completed puzzle"),
+	KAboutData about("palapeli", i18nc("The application's name", "Palapeli"), "2.0", i18n("KDE Jigsaw Puzzle Game"), KAboutLicense::GPL, i18n("Copyright 2009, 2010, Stefan Majewsky"));
+	about.addAuthor(i18n("Stefan Majewsky"), QString(), "majewsky@gmx.net", "http://majewsky.wordpress.com");
+	about.addCredit (i18n ("Johannes Loehnert"),
+			 i18n ("The option to preview the completed puzzle"),
 			 "loehnert.kde@gmx.de");
-	KCmdLineArgs::init(argc, argv, &about);
+    QApplication app(argc, argv);
+    QCommandLineParser parser;
+    KAboutData::setApplicationData(about);
+    parser.addVersionOption();
+    parser.addHelpOption();
+        parser.addPositionalArgument(QLatin1String("puzzlefile"), i18n("Path to puzzle file (will be opened if -i is not given)"));
+        parser.addOption(QCommandLineOption(QStringList() << QLatin1String("i") << QLatin1String("import"), i18n("Import the given puzzle file into the local collection (does nothing if no puzzle file is given)")));
+        parser.addOption(QCommandLineOption(QStringList() << QLatin1String(""), i18n("If the -i/--import option is specified, the main window will not be shown after importing the given puzzle.")));
 
-	KCmdLineOptions options;
-	options.add("+puzzlefile", ki18n("Path to puzzle file (will be opened if -i is not given)"));
-	options.add("i").add("import", ki18n("Import the given puzzle file into the local collection (does nothing if no puzzle file is given)"));
-	options.add("", ki18n("If the -i/--import option is specified, the main window will not be shown after importing the given puzzle."));
-	KCmdLineArgs::addCmdLineOptions(options);
+    about.setupCommandLine(&parser);
+    parser.process(app);
+    about.processCommandLine(&parser);
 
-	KApplication app;
 
-	KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 	//NOTE: Syntax errors are reported on stderr, while file errors are presented to the user.
-	if (args->isSet("import"))
+	if (parser.isSet("import"))
 		//perform import request
-		new Palapeli::ImportHelper(args);
-	else
+        new Palapeli::ImportHelper(parser.value("import"));
+    else {
+        const QStringList args = parser.positionalArguments();
+        QString path;
+        if (args.count()>1) {
+            path = args.at(1);
+        }
 		//no import request, show main window
-		(new Palapeli::MainWindow(args))->show();
+        (new Palapeli::MainWindow(path))->show();
+    }
 	return app.exec();
 }
