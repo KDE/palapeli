@@ -1,4 +1,4 @@
 ecm_install_icons(ICONS
-hi128-apps-palapeli.png                hi16-apps-palapeli.png                hi24-apps-palapeli.png                hi32-apps-palapeli.png                hi48-apps-palapeli.png                hi64-apps-palapeli.png
-hi128-mime-application-x-palapeli.png  hi16-mime-application-x-palapeli.png  hi24-mime-application-x-palapeli.png  hi32-mime-application-x-palapeli.png  hi48-mime-application-x-palapeli.png  hi64-mime-application-x-palapeli.png
-DESTINATION ${KDE_INSTALL_ICONDIR} )
+128-apps-palapeli.png                16-apps-palapeli.png                24-apps-palapeli.png                32-apps-palapeli.png                48-apps-palapeli.png                64-apps-palapeli.png
+128-mime-application-x-palapeli.png  16-mime-application-x-palapeli.png  24-mime-application-x-palapeli.png  32-mime-application-x-palapeli.png  48-mime-application-x-palapeli.png  64-mime-application-x-palapeli.png
+DESTINATION ${KDE_INSTALL_ICONDIR} THEME hicolor )

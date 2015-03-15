@@ -46,7 +46,7 @@ set(palapeli_SRCS
 )
 kconfig_add_kcfg_files(palapeli_SRCS settings.kcfgc)
 ki18n_wrap_ui(palapeli_SRCS settings.ui)
-file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/hi*-apps-palapeli.png")
+file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/*-apps-palapeli.png")
 ecm_add_app_icon(palapeli_SRCS ICONS ${ICONS_SRCS})
 
 add_executable(palapeli ${palapeli_SRCS})
