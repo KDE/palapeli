@@ -23,7 +23,6 @@
 #include "puzzletablewidget.h"
 #include "../file-io/collection-view.h"
 #include "settings.h"
-#include <KGlobal>
 #include <QAction>
 #include <KActionCollection>
 #include <KLocalizedString>
