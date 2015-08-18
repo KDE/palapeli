@@ -42,7 +42,7 @@ Palapeli::CollectionDelegate::CollectionDelegate (QObject* parent)
         view->setItemDelegate(this);
 }
 
-QRect Palapeli::CollectionDelegate::thumbnailRect(const QRect& baseRect) const
+QRect Palapeli::CollectionDelegate::thumbnailRect (const QRect& baseRect) const
 {
     QRect thumbnailBaseRect (QPoint(Metrics::Padding + baseRect.left(), 0),
                              Palapeli::PuzzleMetadata::ThumbnailBaseSize);
@@ -55,14 +55,6 @@ QRect Palapeli::CollectionDelegate::thumbnailRect(const QRect& baseRect) const
 }
 
 void Palapeli::CollectionDelegate::paint (
-                                        QPainter* painter,
-                                        const QStyleOptionViewItem& option,
-                                        const QModelIndex& index) const
-{
-    paintItem (painter, option, index);
-}
-
-void Palapeli::CollectionDelegate::paintItem (
                                         QPainter* painter,
                                         const QStyleOptionViewItem& option,
                                         const QModelIndex& index) const
@@ -157,14 +149,6 @@ void Palapeli::CollectionDelegate::paintItem (
         currentTextRect.moveTop (currentTextRect.bottom());
     }
     painter->restore();
-}
-
-void Palapeli::CollectionDelegate::paintHeader (
-                                        QPainter* painter,
-                                        const QStyleOptionViewItem& option,
-                                        const QModelIndex& index) const
-{
-    QStyledItemDelegate::paint (painter, option, index);
 }
 
 QSize Palapeli::CollectionDelegate::sizeHint (
