@@ -38,6 +38,14 @@ Palapeli::CollectionView::CollectionView(QWidget* parent)
 {
 	//setup view
 	connect(m_view, SIGNAL(activated(QModelIndex)), this, SLOT(handleActivated(QModelIndex)));
+
+	// Set up for multi-column display of the Puzzle Collection, which
+	// allows the user to see more of the collection at one time.
+	m_view->setWrapping(true);
+	m_view->setResizeMode(QListView::Adjust);
+	m_view->setUniformItemSizes(true);
+	m_view->setFlow(QListView::LeftToRight);
+
 	m_view->setAlternatingRowColors(true);
 	m_view->setMouseTracking(true);
 	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
