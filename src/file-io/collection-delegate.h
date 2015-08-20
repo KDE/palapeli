@@ -36,6 +36,7 @@ namespace Palapeli
 
     private:
         QRect thumbnailRect    (const QRect& baseRect) const;
+	QWidget * m_viewport;
     };
 }
 
