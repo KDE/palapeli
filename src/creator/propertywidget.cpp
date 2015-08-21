@@ -87,7 +87,7 @@ void Palapeli::IntegerPropertyWidget::initialize(const Pala::SlicerProperty* pro
 		switch (intProperty->representation())
 		{
 			case Pala::IntegerProperty::SpinBox:
-				usedWidget = m_spinBox = new KIntSpinBox(this);
+				usedWidget = m_spinBox = new QSpinBox(this);
 				if (range.first != range.second) //only set range if it is not empty
 					m_spinBox->setRange(range.first, range.second);
 				m_spinBox->setValue(property->defaultValue().toInt());
