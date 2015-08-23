@@ -47,7 +47,7 @@ namespace Palapeli
 			virtual void initialize(const Pala::SlicerProperty* property);
 		private:
 			KComboBox* m_comboBox;
-			KIntSpinBox* m_spinBox;
+			QSpinBox* m_spinBox;
 			QSlider* m_slider;
 	};
 
