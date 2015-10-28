@@ -1106,7 +1106,7 @@ void Palapeli::GamePlay::finishLoading()
 			"puzzle table and its window can do, including joining "
 			"pieces to build up a part of the solution."),
 			i18nc("Caption for hints", "Solving Large Puzzles"),
-			QLatin1String("largepuzzle-introduction"));
+			QStringLiteral("largepuzzle-introduction"));
 	}
 	// Check if puzzle has been completed.
 	if (m_currentPieceCount == 1) {

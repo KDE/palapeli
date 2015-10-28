@@ -71,10 +71,10 @@ Palapeli::ConfigDialog::ConfigDialog(QWidget* parent)
 	setupSolutionAreaComboBox();
 
 	addPage(generalPage, i18n("General settings"))->
-				setIcon(QIcon::fromTheme( QLatin1String( "configure" )));
+				setIcon(QIcon::fromTheme( QStringLiteral( "configure" )));
 	//setup page "Mouse interaction"
 	addPage(m_triggerPage, i18n("Mouse interaction"))->
-				setIcon(QIcon::fromTheme( QLatin1String( "input-mouse" )));
+				setIcon(QIcon::fromTheme( QStringLiteral( "input-mouse" )));
 	connect(m_triggerPage, SIGNAL(associationsChanged()),
 			       SLOT(updateButtons()));
 }

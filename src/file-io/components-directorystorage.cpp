@@ -110,10 +110,10 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 		creationContext.slicerMode = jobGroup.readEntry("SlicerMode", QByteArray());
 		//all the other entries in jobGroup belong into slicerArgs
 		QMap<QString, QString> args = jobGroup.entryMap();
-		args.remove(QLatin1String("Image"));
-		args.remove(QLatin1String("ImageSize"));
-		args.remove(QLatin1String("Slicer"));
-		args.remove(QLatin1String("SlicerMode"));
+		args.remove(QStringLiteral("Image"));
+		args.remove(QStringLiteral("ImageSize"));
+		args.remove(QStringLiteral("Slicer"));
+		args.remove(QStringLiteral("SlicerMode"));
 		QMapIterator<QString, QString> iter(args);
 		while (iter.hasNext())
 		{
@@ -180,7 +180,7 @@ Palapeli::DirectoryStorageComponent* Palapeli::DirectoryStorageComponent::fromDa
 		iterPieces.value().save(imagePath);
 	}
 	//write thumbnail into tempdir
-	const QString imagePath = dir.absoluteFilePath(QLatin1String("image.jpg"));
+	const QString imagePath = dir.absoluteFilePath(QStringLiteral("image.jpg"));
 	metadata.image.save(imagePath);
 	//write piece offsets into target manifest
 	KConfigGroup offsetGroup(&manifest, "PieceOffsets");

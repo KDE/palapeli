@@ -34,14 +34,14 @@ Palapeli::ZoomWidget::ZoomWidget(QWidget* parent)
 	, m_slider(new QSlider(Qt::Horizontal))
 {
 	//init buttons
-	m_constrainedButton->setIcon(QIcon::fromTheme( QLatin1String( "select-rectangular" )));
+	m_constrainedButton->setIcon(QIcon::fromTheme( QStringLiteral( "select-rectangular" )));
 	m_constrainedButton->setToolTip(i18n("Lock the puzzle table area"));
 	m_constrainedButton->setCheckable(true);
 	connect(m_constrainedButton, &QToolButton::toggled, this, &ZoomWidget::constrainedChanged);
-	m_zoomOutButton->setIcon(QIcon::fromTheme( QLatin1String( "zoom-out" )));
+	m_zoomOutButton->setIcon(QIcon::fromTheme( QStringLiteral( "zoom-out" )));
 	//QT5 m_zoomOutButton->setShortcut(KStandardShortcut::zoomOut().primary());
 	connect(m_zoomOutButton, &QToolButton::pressed, this, &ZoomWidget::zoomOutRequest);
-	m_zoomInButton->setIcon(QIcon::fromTheme( QLatin1String( "zoom-in" )));
+	m_zoomInButton->setIcon(QIcon::fromTheme( QStringLiteral( "zoom-in" )));
 	//QT5 m_zoomInButton->setShortcut(KStandardShortcut::zoomIn().primary());
 	connect(m_zoomInButton, &QToolButton::pressed, this, &ZoomWidget::zoomInRequest);
 	//init slider

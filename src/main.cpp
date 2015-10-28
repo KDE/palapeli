@@ -42,8 +42,8 @@ int main(int argc, char** argv)
     KAboutData::setApplicationData(about);
     parser.addVersionOption();
     parser.addHelpOption();
-        parser.addPositionalArgument(QLatin1String("puzzlefile"), i18n("Path to puzzle file (will be opened if -i is not given)"));
-        parser.addOption(QCommandLineOption(QStringList() << QLatin1String("i") << QLatin1String("import"), i18n("Import the given puzzle file into the local collection (does nothing if no puzzle file is given)")));
+        parser.addPositionalArgument(QStringLiteral("puzzlefile"), i18n("Path to puzzle file (will be opened if -i is not given)"));
+        parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("i") << QStringLiteral("import"), i18n("Import the given puzzle file into the local collection (does nothing if no puzzle file is given)")));
         parser.addOption(QCommandLineOption(QStringList() << QLatin1String(""), i18n("If the -i/--import option is specified, the main window will not be shown after importing the given puzzle.")));
 
     about.setupCommandLine(&parser);

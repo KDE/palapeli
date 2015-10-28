@@ -56,7 +56,7 @@ Palapeli::ArchiveStorageComponent* Palapeli::ArchiveStorageComponent::fromData(P
 	KTar tar(puzzle->location(), "application/x-gzip");
 	if (!tar.open(QIODevice::WriteOnly))
 		return 0;
-	if (!tar.addLocalDirectory(dirStorage->directory(), QLatin1String(".")))
+	if (!tar.addLocalDirectory(dirStorage->directory(), QStringLiteral(".")))
 		return 0;
 	if (!tar.close())
 		return 0;

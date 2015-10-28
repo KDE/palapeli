@@ -103,7 +103,7 @@ namespace
 			m_modifierStrings[Qt::GroupSwitchModifier] = i18nc("a special keyboard modifier", "GroupSwitch");
 			m_buttonStrings[Qt::NoButton] = i18nc("refers to no mouse buttons being pressed", "No-Button");
 			//FIXME: Left/right may be wrong if mouse buttons are swapped.
-			m_buttonStrings[(Qt::MouseButton) -1] = QLatin1String("%1"); //allow external users to insert their custom strings into here
+			m_buttonStrings[(Qt::MouseButton) -1] = QStringLiteral("%1"); //allow external users to insert their custom strings into here
 			m_buttonStrings[Qt::LeftButton] = i18nc("a mouse button", "Left-Button");
 			m_buttonStrings[Qt::RightButton] = i18nc("a mouse button", "Right-Button");
 			m_buttonStrings[Qt::MidButton] = i18nc("a mouse button", "Middle-Button");

@@ -29,9 +29,9 @@
 static QIcon clearIcon()
 {
 	if (QApplication::isLeftToRight())
-		return QIcon::fromTheme( QLatin1String( "edit-clear-locationbar-rtl" ));
+		return QIcon::fromTheme( QStringLiteral( "edit-clear-locationbar-rtl" ));
 	else
-		return QIcon::fromTheme( QLatin1String( "edit-clear-locationbar-ltr" ));
+		return QIcon::fromTheme( QStringLiteral( "edit-clear-locationbar-ltr" ));
 }
 
 Palapeli::MouseInputButton::MouseInputButton(QWidget* parent)
@@ -48,7 +48,7 @@ Palapeli::MouseInputButton::MouseInputButton(QWidget* parent)
 	connect(this, SIGNAL(clicked()), SLOT(captureTrigger()));
 	connect(m_clearButton, SIGNAL(clicked()), SLOT(clearTrigger()));
 	setCheckable(true);
-	m_iconLabel->setPixmap(QIcon::fromTheme( QLatin1String( "input-mouse" )).pixmap(22)); //TODO: respect global icon size configuration
+	m_iconLabel->setPixmap(QIcon::fromTheme( QStringLiteral( "input-mouse" )).pixmap(22)); //TODO: respect global icon size configuration
 	//setup child widgets
 	m_iconLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	m_mainLabel->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);

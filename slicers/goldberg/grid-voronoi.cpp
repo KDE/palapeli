@@ -35,7 +35,7 @@ QByteArray serializeLine(QList<qreal> input) {
     for (int i=0; i<input.size(); ++i) {
         result.append(QString::number(input[i]));
     }
-    return result.join( QLatin1String( " " )).toLatin1();
+    return result.join( QStringLiteral( " " )).toLatin1();
 }
 
 /// unserializes the first item of the input into a list of space-separated ints and removes it.

@@ -48,7 +48,7 @@ void Palapeli::ImportHelper::doWork()
 	const Palapeli::MetadataComponent* cmp = puzzle->component<Palapeli::MetadataComponent>();
 	if (cmp)
 	{
-		KNotification::event(QLatin1String("importingPuzzle"),
+		KNotification::event(QStringLiteral("importingPuzzle"),
 			i18n("Importing puzzle \"%1\" into your collection", cmp->metadata.name),
 			QPixmap::fromImage(cmp->metadata.thumbnail)
 		);

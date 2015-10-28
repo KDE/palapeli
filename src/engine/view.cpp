@@ -346,7 +346,7 @@ void Palapeli::View::puzzleStarted()
 	emit zoomAdjustable(true);	// Enable the ZoomWidget.
 
 	// Explain autosaving.
-	KMessageBox::information(window(), i18n("Your progress is saved automatically while you play."), i18nc("used as caption for a dialog that explains the autosave feature", "Automatic saving"), QLatin1String("autosave-introduction"));
+	KMessageBox::information(window(), i18n("Your progress is saved automatically while you play."), i18nc("used as caption for a dialog that explains the autosave feature", "Automatic saving"), QStringLiteral("autosave-introduction"));
 	qDebug() << "EXITING View::puzzleStarted()";
 }
 
