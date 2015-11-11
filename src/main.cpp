@@ -33,6 +33,7 @@ int main(int argc, char** argv)
 	about.addCredit (ki18n ("Johannes Loehnert"),
 			 ki18n ("The option to preview the completed puzzle"),
 			 "loehnert.kde@gmx.de");
+	about.setHomepage("https://www.kde.org/applications/games/palapeli/");
 	KCmdLineArgs::init(argc, argv, &about);
 
 	KCmdLineOptions options;
