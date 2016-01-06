@@ -38,6 +38,9 @@ int main(int argc, char** argv)
 			 i18n ("The option to preview the completed puzzle"),
 			 "loehnert.kde@gmx.de");
     QApplication app(argc, argv);
+
+    KLocalizedString::setApplicationDomain("palapeli");
+
     QCommandLineParser parser;
     KAboutData::setApplicationData(about);
     parser.addVersionOption();
