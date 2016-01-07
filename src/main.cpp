@@ -67,5 +67,6 @@ int main(int argc, char** argv)
 		//no import request, show main window
         (new Palapeli::MainWindow(path))->show();
     }
+    app.setWindowIcon(QIcon::fromTheme(QStringLiteral("palapeli")));
 	return app.exec();
 }
