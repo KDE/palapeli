@@ -2,27 +2,30 @@ project(palapeli)
 
 cmake_minimum_required (VERSION 2.8.12 FATAL_ERROR)
 set (QT_MIN_VERSION "5.3.0")
+set (KF5_MIN_VERSION "5.15.0")
 
 find_package(ECM 1.7.0 REQUIRED CONFIG)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED NO_MODULE COMPONENTS Widgets Concurrent Svg)
-find_package(KF5 REQUIRED COMPONENTS 
-    CoreAddons
+find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     Archive
     Config
+    ConfigWidgets
+    CoreAddons
+    Crash
+    GuiAddons
+    I18n
     ItemModels
+    KDELibs4Support
+    KIO
+    NewStuff
+    NotifyConfig
+    TextWidgets
     WidgetsAddons
     WindowSystem
-    I18n
-    GuiAddons
-    ConfigWidgets
-    TextWidgets
     XmlGui
-    KIO
-    NotifyConfig
-    NewStuff
-    KDELibs4Support)
+)
 
 find_package(KF5KDEGames 4.9.0 REQUIRED)
 

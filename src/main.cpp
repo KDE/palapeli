@@ -22,7 +22,7 @@
 #include <ctime>
 #include <QTimer>
 #include <KAboutData>
-
+#include <KCrash>
 
 #include <QApplication>
 #include <KLocalizedString>
@@ -31,18 +31,19 @@
 
 int main(int argc, char** argv)
 {
-	qsrand(time(0));
-	KAboutData about("palapeli", i18nc("The application's name", "Palapeli"), "2.0", i18n("KDE Jigsaw Puzzle Game"), KAboutLicense::GPL, i18n("Copyright 2009, 2010, Stefan Majewsky"));
-	about.addAuthor(i18n("Stefan Majewsky"), QString(), "majewsky@gmx.net", "http://majewsky.wordpress.com");
-	about.addCredit (i18n ("Johannes Loehnert"),
-			 i18n ("The option to preview the completed puzzle"),
-			 "loehnert.kde@gmx.de");
+    qsrand(time(0));
+    KAboutData about("palapeli", i18nc("The application's name", "Palapeli"), "2.0", i18n("KDE Jigsaw Puzzle Game"), KAboutLicense::GPL, i18n("Copyright 2009, 2010, Stefan Majewsky"));
+    about.addAuthor(i18n("Stefan Majewsky"), QString(), "majewsky@gmx.net", "http://majewsky.wordpress.com");
+    about.addCredit (i18n ("Johannes Loehnert"),
+            i18n ("The option to preview the completed puzzle"),
+            "loehnert.kde@gmx.de");
     QApplication app(argc, argv);
 
     KLocalizedString::setApplicationDomain("palapeli");
 
     QCommandLineParser parser;
     KAboutData::setApplicationData(about);
+    KCrash::initialize();
     parser.addVersionOption();
     parser.addHelpOption();
         parser.addPositionalArgument(QStringLiteral("puzzlefile"), i18n("Path to puzzle file (will be opened if -i is not given)"));
@@ -54,9 +55,9 @@ int main(int argc, char** argv)
     about.processCommandLine(&parser);
 
 
-	//NOTE: Syntax errors are reported on stderr, while file errors are presented to the user.
-	if (parser.isSet("import"))
-		//perform import request
+    //NOTE: Syntax errors are reported on stderr, while file errors are presented to the user.
+    if (parser.isSet("import"))
+        //perform import request
         new Palapeli::ImportHelper(parser.value("import"));
     else {
         const QStringList args = parser.positionalArguments();
@@ -64,9 +65,9 @@ int main(int argc, char** argv)
         if (args.count()>1) {
             path = args.at(1);
         }
-		//no import request, show main window
+        //no import request, show main window
         (new Palapeli::MainWindow(path))->show();
     }
     app.setWindowIcon(QIcon::fromTheme(QStringLiteral("palapeli")));
-	return app.exec();
+    return app.exec();
 }

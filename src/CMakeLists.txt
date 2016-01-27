@@ -50,7 +50,14 @@ file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/*-apps-palapeli.png")
 ecm_add_app_icon(palapeli_SRCS ICONS ${ICONS_SRCS})
 
 add_executable(palapeli ${palapeli_SRCS})
-target_link_libraries(palapeli pala KF5::KDELibs4Support KF5::Archive Qt5::Concurrent Qt5::Svg)
+target_link_libraries(palapeli
+    pala
+    KF5::KDELibs4Support
+    KF5::Archive
+    KF5::Crash
+    Qt5::Concurrent
+    Qt5::Svg
+)
 
 install(TARGETS palapeli ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeliui.rc
