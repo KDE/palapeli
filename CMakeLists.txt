@@ -10,22 +10,22 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_D
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED NO_MODULE COMPONENTS Widgets Concurrent Svg)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     Archive
+    Completion
     Config
     ConfigWidgets
     CoreAddons
     Crash
-    GuiAddons
     I18n
-    ItemModels
+    ItemViews
     KDELibs4Support
     KIO
-    NewStuff
-    NotifyConfig
-    TextWidgets
+    Notifications
+    Service
     WidgetsAddons
-    WindowSystem
     XmlGui
 )
+
+find_package(KF5DocTools ${KF5_MIN_VERSION})
 
 find_package(KF5KDEGames 4.9.0 REQUIRED)
 
@@ -46,6 +46,8 @@ add_subdirectory(pics)
 add_subdirectory(src)
 add_subdirectory(mime)
 add_subdirectory(puzzles)
-add_subdirectory(doc)
+if (KF5DocTools_FOUND)
+    add_subdirectory(doc)
+endif()
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
