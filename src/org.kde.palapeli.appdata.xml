@@ -6,17 +6,21 @@
   <name>Palapeli</name>
   <name xml:lang="cs">Palapeli</name>
   <name xml:lang="de">Palapeli</name>
+  <name xml:lang="en-GB">Palapeli</name>
   <name xml:lang="es">Palapeli</name>
   <name xml:lang="nl">Palapeli</name>
   <name xml:lang="pt">Palapeli</name>
+  <name xml:lang="sk">Palapeli</name>
   <name xml:lang="sl">Palapeli</name>
   <name xml:lang="sv">Palapeli</name>
   <name xml:lang="x-test">xxPalapelixx</name>
   <summary>Jigsaw puzzle game</summary>
   <summary xml:lang="cs">Hra se skládáním puzzle</summary>
+  <summary xml:lang="en-GB">Jigsaw puzzle game</summary>
   <summary xml:lang="es">Juego de rompecabezas</summary>
   <summary xml:lang="nl">Legpuzzelspel</summary>
   <summary xml:lang="pt">Jogo de 'puzzles'</summary>
+  <summary xml:lang="sk">Puzzle hra</summary>
   <summary xml:lang="sl">Igra sestavljank</summary>
   <summary xml:lang="sv">Pusselspel</summary>
   <summary xml:lang="x-test">xxJigsaw puzzle gamexx</summary>
@@ -27,6 +31,7 @@
    The pieces are freely moveable.
    Also, Palapeli features real persistency, i.e. everything you do is saved on your disk immediately.
   </p>
+    <p xml:lang="en-GB">Palapeli is a single-player jigsaw puzzle game. Unlike other games in that genre, you are not limited to aligning pieces on imaginary grids. The pieces are freely moveable. Also, Palapeli features real persistence, i.e. everything you do is saved on your disk immediately.</p>
     <p xml:lang="es">Palapeli es un juego de rompecabezas para un único jugador. Al contrario de otros juegos del mismo género, no está limitado a alinear piezas en cuadrículas imaginarias. Las piezas se pueden mover libremente. Además, Palapeli usa persistencia real; es decir, todo lo que hace se guarda en el disco de forma inmediata.</p>
     <p xml:lang="nl">Palapeli is een legpuzzelspel voor één persoon. Anders dan in andere spellen in dit genre bent u niet gelimiteerd om stukjes op imaginaire rasters te plaatsen. De stukjes zijn vrij te verplaatsen. Palapeli heeft de echte blijvende functie, d.w.z. alles wat u doet wordt onmiddellijk opgeslagen op uw schijf.</p>
     <p xml:lang="pt">O Palapeli é um jogo de 'puzzles' para um único jogador. Ao contrário de outros jogos do género, não está limitado a alinhar as peças em grelhas imaginárias. As peças podem ser movidas à vontade. Da mesma forma, o Palapeli oferece uma persistência real; i.e., tudo o que fizer é gravado no seu disco imediatamente.</p>
@@ -36,14 +41,17 @@
     <p>Features:</p>
     <p xml:lang="cs">Vlastnosti:</p>
     <p xml:lang="de">Funktionen:</p>
+    <p xml:lang="en-GB">Features:</p>
     <p xml:lang="es">Funciones:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="pt">Funcionalidades:</p>
+    <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sl">Zmožnosti:</p>
     <p xml:lang="sv">Funktioner:</p>
     <p xml:lang="x-test">xxFeatures:xx</p>
     <ul>
       <li>Create and play puzzles ranging from 4 to 10,000 pieces</li>
+      <li xml:lang="en-GB">Create and play puzzles ranging from 4 to 10,000 pieces</li>
       <li xml:lang="es">Crear y jugar rompecabezas desde 4 hasta 10.000 piezas</li>
       <li xml:lang="nl">Puzzels maken en spelen variërend van 4 tot 10.000 stukjes</li>
       <li xml:lang="pt">Criar e jogar 'puzzles' que vão de 4 até 10 000 peças.</li>
@@ -51,6 +59,7 @@
       <li xml:lang="sv">Skapa och lös pussel från 4 till 10 000 bitar</li>
       <li xml:lang="x-test">xxCreate and play puzzles ranging from 4 to 10,000 piecesxx</li>
       <li>Piece-holders for helping solve large puzzles</li>
+      <li xml:lang="en-GB">Piece-holders for helping solve large puzzles</li>
       <li xml:lang="es">Portapiezas para ayudarle a resolver rompecabezas grandes</li>
       <li xml:lang="nl">Houders voor puzzelstukjes om te helpen grote puzzels op te lossen</li>
       <li xml:lang="pt">Armazéns de blocos de peças para ajudar a resolver 'puzzles' grandes</li>
