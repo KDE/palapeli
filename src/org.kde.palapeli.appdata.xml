@@ -12,6 +12,10 @@
   <name xml:lang="pt">Palapeli</name>
   <name xml:lang="sk">Palapeli</name>
   <name xml:lang="sl">Palapeli</name>
+  <name xml:lang="sr">Палапели</name>
+  <name xml:lang="sr-Latn">Palapeli</name>
+  <name xml:lang="sr-ijekavian">Палапели</name>
+  <name xml:lang="sr-ijekavianlatin">Palapeli</name>
   <name xml:lang="sv">Palapeli</name>
   <name xml:lang="x-test">xxPalapelixx</name>
   <summary>Jigsaw puzzle game</summary>
@@ -22,6 +26,10 @@
   <summary xml:lang="pt">Jogo de 'puzzles'</summary>
   <summary xml:lang="sk">Puzzle hra</summary>
   <summary xml:lang="sl">Igra sestavljank</summary>
+  <summary xml:lang="sr">Игра слагања делова</summary>
+  <summary xml:lang="sr-Latn">Igra slaganja delova</summary>
+  <summary xml:lang="sr-ijekavian">Игра слагања делова</summary>
+  <summary xml:lang="sr-ijekavianlatin">Igra slaganja delova</summary>
   <summary xml:lang="sv">Pusselspel</summary>
   <summary xml:lang="x-test">xxJigsaw puzzle gamexx</summary>
   <description>
@@ -36,6 +44,10 @@
     <p xml:lang="nl">Palapeli is een legpuzzelspel voor één persoon. Anders dan in andere spellen in dit genre bent u niet gelimiteerd om stukjes op imaginaire rasters te plaatsen. De stukjes zijn vrij te verplaatsen. Palapeli heeft de echte blijvende functie, d.w.z. alles wat u doet wordt onmiddellijk opgeslagen op uw schijf.</p>
     <p xml:lang="pt">O Palapeli é um jogo de 'puzzles' para um único jogador. Ao contrário de outros jogos do género, não está limitado a alinhar as peças em grelhas imaginárias. As peças podem ser movidas à vontade. Da mesma forma, o Palapeli oferece uma persistência real; i.e., tudo o que fizer é gravado no seu disco imediatamente.</p>
     <p xml:lang="sl">Palapeli je enoigralska igra sestavljank. V nasprotju z drugimi igrami te vrste, niste omejeni na navidezno mrežo, v katero postavljate kose, ampak lahko slednje prosto premikate. Dodatna zmožnost programa Palapeli je tudi prava obstojnost rešitev, saj se vsak premik takoj shrani na disk.</p>
+    <p xml:lang="sr">Палапели је игра слагања делова за једног играча. За разлику од других игара овог типа, нисте ограничени на уклапање делова у замишљене мреже, већ се делови могу слободно померати. Такође, Палапели изводи праву трајност, тј. све што учините одмах се уписује на диск.</p>
+    <p xml:lang="sr-Latn">Palapeli je igra slaganja delova za jednog igrača. Za razliku od drugih igara ovog tipa, niste ograničeni na uklapanje delova u zamišljene mreže, već se delovi mogu slobodno pomerati. Takođe, Palapeli izvodi pravu trajnost, tj. sve što učinite odmah se upisuje na disk.</p>
+    <p xml:lang="sr-ijekavian">Палапели је игра слагања делова за једног играча. За разлику од других игара овог типа, нисте ограничени на уклапање делова у замишљене мреже, већ се делови могу слободно померати. Такође, Палапели изводи праву трајност, тј. све што учините одмах се уписује на диск.</p>
+    <p xml:lang="sr-ijekavianlatin">Palapeli je igra slaganja delova za jednog igrača. Za razliku od drugih igara ovog tipa, niste ograničeni na uklapanje delova u zamišljene mreže, već se delovi mogu slobodno pomerati. Takođe, Palapeli izvodi pravu trajnost, tj. sve što učinite odmah se upisuje na disk.</p>
     <p xml:lang="sv">Palapeli är ett pusselspel för en ensam spelare. I motsats till andra spel i genren är du inte begränsat till att linjera upp bitar på tänkta rutmönster. Bitarna kan flyttas fritt. Dessutom har Palapeli verklig beständighet, dvs. allt du gör sparas omedelbart på disk.</p>
     <p xml:lang="x-test">xxPalapeli is a single-player jigsaw puzzle game. Unlike other games in that genre, you are not limited to aligning pieces on imaginary grids. The pieces are freely moveable. Also, Palapeli features real persistency, i.e. everything you do is saved on your disk immediately.xx</p>
     <p>Features:</p>
@@ -47,6 +59,10 @@
     <p xml:lang="pt">Funcionalidades:</p>
     <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sl">Zmožnosti:</p>
+    <p xml:lang="sr">Могућности:</p>
+    <p xml:lang="sr-Latn">Mogućnosti:</p>
+    <p xml:lang="sr-ijekavian">Могућности:</p>
+    <p xml:lang="sr-ijekavianlatin">Mogućnosti:</p>
     <p xml:lang="sv">Funktioner:</p>
     <p xml:lang="x-test">xxFeatures:xx</p>
     <ul>
@@ -56,6 +72,10 @@
       <li xml:lang="nl">Puzzels maken en spelen variërend van 4 tot 10.000 stukjes</li>
       <li xml:lang="pt">Criar e jogar 'puzzles' que vão de 4 até 10 000 peças.</li>
       <li xml:lang="sl">Ustvarite in rešite sestavljanke od velikosti 4 pa vse do velikosti 10000 kosov</li>
+      <li xml:lang="sr">стварање и играње слагалица од 4 до 10.000 делова</li>
+      <li xml:lang="sr-Latn">stvaranje i igranje slagalica od 4 do 10.000 delova</li>
+      <li xml:lang="sr-ijekavian">стварање и играње слагалица од 4 до 10.000 делова</li>
+      <li xml:lang="sr-ijekavianlatin">stvaranje i igranje slagalica od 4 do 10.000 delova</li>
       <li xml:lang="sv">Skapa och lös pussel från 4 till 10 000 bitar</li>
       <li xml:lang="x-test">xxCreate and play puzzles ranging from 4 to 10,000 piecesxx</li>
       <li>Piece-holders for helping solve large puzzles</li>
@@ -64,6 +84,10 @@
       <li xml:lang="nl">Houders voor puzzelstukjes om te helpen grote puzzels op te lossen</li>
       <li xml:lang="pt">Armazéns de blocos de peças para ajudar a resolver 'puzzles' grandes</li>
       <li xml:lang="sl">Vsebniki za kose, ki pomagajo pri večjih sestavljankah</li>
+      <li xml:lang="sr">држачи делова као помоћ у решавању великих слагалица</li>
+      <li xml:lang="sr-Latn">držači delova kao pomoć u rešavanju velikih slagalica</li>
+      <li xml:lang="sr-ijekavian">држачи делова као помоћ у решавању великих слагалица</li>
+      <li xml:lang="sr-ijekavianlatin">držači delova kao pomoć u rešavanju velikih slagalica</li>
       <li xml:lang="sv">Bitbehållare för att hjälpa till att lösa stora pussel</li>
       <li xml:lang="x-test">xxPiece-holders for helping solve large puzzlesxx</li>
     </ul>
