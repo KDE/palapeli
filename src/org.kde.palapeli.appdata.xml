@@ -11,6 +11,7 @@
   <name xml:lang="en-GB">Palapeli</name>
   <name xml:lang="es">Palapeli</name>
   <name xml:lang="nl">Palapeli</name>
+  <name xml:lang="nn">Palapeli</name>
   <name xml:lang="pt">Palapeli</name>
   <name xml:lang="sk">Palapeli</name>
   <name xml:lang="sl">Palapeli</name>
@@ -28,6 +29,7 @@
   <summary xml:lang="en-GB">Jigsaw puzzle game</summary>
   <summary xml:lang="es">Juego de rompecabezas</summary>
   <summary xml:lang="nl">Legpuzzelspel</summary>
+  <summary xml:lang="nn">Puslespelspel</summary>
   <summary xml:lang="pt">Jogo de 'puzzles'</summary>
   <summary xml:lang="sk">Puzzle hra</summary>
   <summary xml:lang="sl">Igra sestavljank</summary>
@@ -50,6 +52,7 @@
     <p xml:lang="en-GB">Palapeli is a single-player jigsaw puzzle game. Unlike other games in that genre, you are not limited to aligning pieces on imaginary grids. The pieces are freely moveable. Also, Palapeli features real persistence, i.e. everything you do is saved on your disk immediately.</p>
     <p xml:lang="es">Palapeli es un juego de rompecabezas para un único jugador. Al contrario de otros juegos del mismo género, no está limitado a alinear piezas en cuadrículas imaginarias. Las piezas se pueden mover libremente. Además, Palapeli usa persistencia real; es decir, todo lo que hace se guarda en el disco de forma inmediata.</p>
     <p xml:lang="nl">Palapeli is een legpuzzelspel voor één persoon. Anders dan in andere spellen in dit genre bent u niet gelimiteerd om stukjes op imaginaire rasters te plaatsen. De stukjes zijn vrij te verplaatsen. Palapeli heeft de echte blijvende functie, d.w.z. alles wat u doet wordt onmiddellijk opgeslagen op uw schijf.</p>
+    <p xml:lang="nn">Palapeli er eit puslespelspel for éin spelar. I motsetning til liknande spel, treng du her ikkje plassera brikkene på eit fast rutenett; du kan flytta dei fritt rundt. Alt du gjer vert òg automatisk lagra, slik at du kan halda fram med puslespelet seinare.</p>
     <p xml:lang="pt">O Palapeli é um jogo de 'puzzles' para um único jogador. Ao contrário de outros jogos do género, não está limitado a alinhar as peças em grelhas imaginárias. As peças podem ser movidas à vontade. Da mesma forma, o Palapeli oferece uma persistência real; i.e., tudo o que fizer é gravado no seu disco imediatamente.</p>
     <p xml:lang="sk">Palapeli je puzzle hra pre jedného hráča. Na rozdiel od ostatných podobných hier nie ste obmedzení zarovnaním častí do imaginárnej mriežky. Časti je možné voľne presúvať. Palapeli obsahuje aj perzistenciu, teda všetko, čo urobíte, sa okamžite uloží na disk.</p>
     <p xml:lang="sl">Palapeli je enoigralska igra sestavljank. V nasprotju z drugimi igrami te vrste, niste omejeni na navidezno mrežo, v katero postavljate kose, ampak lahko slednje prosto premikate. Dodatna zmožnost programa Palapeli je tudi prava obstojnost rešitev, saj se vsak premik takoj shrani na disk.</p>
@@ -68,6 +71,7 @@
     <p xml:lang="en-GB">Features:</p>
     <p xml:lang="es">Funciones:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
+    <p xml:lang="nn">Funksjonar:</p>
     <p xml:lang="pt">Funcionalidades:</p>
     <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sl">Zmožnosti:</p>
@@ -85,6 +89,7 @@
       <li xml:lang="en-GB">Create and play puzzles ranging from 4 to 10,000 pieces</li>
       <li xml:lang="es">Crear y jugar rompecabezas desde 4 hasta 10.000 piezas</li>
       <li xml:lang="nl">Puzzels maken en spelen variërend van 4 tot 10.000 stukjes</li>
+      <li xml:lang="nn">Lag og spel puslespel med alt frå 4 til 10 000 brikker</li>
       <li xml:lang="pt">Criar e jogar 'puzzles' que vão de 4 até 10 000 peças.</li>
       <li xml:lang="sk">Vytvoriť a hrať puzzle siahajúce od 4 do 10 000 častí</li>
       <li xml:lang="sl">Ustvarite in rešite sestavljanke od velikosti 4 pa vse do velikosti 10000 kosov</li>
@@ -101,6 +106,7 @@
       <li xml:lang="en-GB">Piece-holders for helping solve large puzzles</li>
       <li xml:lang="es">Portapiezas para ayudarle a resolver rompecabezas grandes</li>
       <li xml:lang="nl">Houders voor puzzelstukjes om te helpen grote puzzels op te lossen</li>
+      <li xml:lang="nn">Brikkehaldarar for å løysa store puslespel</li>
       <li xml:lang="pt">Armazéns de blocos de peças para ajudar a resolver 'puzzles' grandes</li>
       <li xml:lang="sk">Držiaky častí na pomoc pri riešení veľkých puzzle</li>
       <li xml:lang="sl">Vsebniki za kose, ki pomagajo pri večjih sestavljankah</li>
