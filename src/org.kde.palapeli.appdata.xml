@@ -15,6 +15,7 @@
   <name xml:lang="nn">Palapeli</name>
   <name xml:lang="pl">Palapeli</name>
   <name xml:lang="pt">Palapeli</name>
+  <name xml:lang="pt-BR">Palapeli</name>
   <name xml:lang="sk">Palapeli</name>
   <name xml:lang="sl">Palapeli</name>
   <name xml:lang="sr">Палапели</name>
@@ -35,6 +36,7 @@
   <summary xml:lang="nn">Puslespelspel</summary>
   <summary xml:lang="pl">Układanie puzzli</summary>
   <summary xml:lang="pt">Jogo de 'puzzles'</summary>
+  <summary xml:lang="pt-BR">Jogo de quebra-cabeça</summary>
   <summary xml:lang="sk">Puzzle hra</summary>
   <summary xml:lang="sl">Igra sestavljank</summary>
   <summary xml:lang="sr">Игра слагања делова</summary>
@@ -81,6 +83,7 @@
     <p xml:lang="nn">Funksjonar:</p>
     <p xml:lang="pl">Możliwości:</p>
     <p xml:lang="pt">Funcionalidades:</p>
+    <p xml:lang="pt-BR">Recursos:</p>
     <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sl">Zmožnosti:</p>
     <p xml:lang="sr">Могућности:</p>
