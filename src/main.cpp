@@ -47,8 +47,7 @@ int main(int argc, char** argv)
     parser.addVersionOption();
     parser.addHelpOption();
         parser.addPositionalArgument(QStringLiteral("puzzlefile"), i18n("Path to puzzle file (will be opened if -i is not given)"));
-        parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("i") << QStringLiteral("import"), i18n("Import the given puzzle file into the local collection (does nothing if no puzzle file is given)")));
-        parser.addOption(QCommandLineOption(QStringList() << QLatin1String(""), i18n("If the -i/--import option is specified, the main window will not be shown after importing the given puzzle.")));
+        parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("i") << QStringLiteral("import"), i18n("Import the given puzzle file into the local collection (does nothing if no puzzle file is given). The main window will not be shown after importing the given puzzle.")));
 
     about.setupCommandLine(&parser);
     parser.process(app);
