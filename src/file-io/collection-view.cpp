@@ -38,9 +38,21 @@ Palapeli::CollectionView::CollectionView(QWidget* parent)
 {
 	//setup view
 	connect(m_view, &QListView::activated, this, &CollectionView::handleActivated);
-	m_view->setAlternatingRowColors(true);
+
+	// Set up for multi-column display of the Puzzle Collection, which
+	// allows the user to see more of the collection at one time.
+	m_view->setWrapping(true);
+	m_view->setResizeMode(QListView::Adjust);
+	m_view->setUniformItemSizes(true);
+	m_view->setFlow(QListView::LeftToRight);
+
+	// Avoid a resize loop (with the scrollbar appearing and disappearing)
+	// when the number of items and display-columns hits a bad combination.
+	m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+
 	m_view->setMouseTracking(true);
 	m_view->setSelectionMode(QAbstractItemView::ExtendedSelection);
+	m_view->setVerticalScrollMode(QListView::ScrollPerPixel); // Smooth.
 	//setup proxy model
 	m_view->setModel(m_proxyModel);
 	connect(m_view->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), SLOT(handleSelectionChanged()));
@@ -66,7 +78,10 @@ Palapeli::CollectionView::CollectionView(QWidget* parent)
 	layout->addWidget(sortButton, 0, 0);
 	layout->addWidget(searchLine, 0, 1);
 	layout->addWidget(m_view, 1, 0, 1, 2);
-	layout->setMargin(0);
+	// Removed this because setMargin is obsolete and (0) cuts off the right
+	// hand and bottom edges of the search and ListView widgets --- on Apple
+	// OSX at least. The default margin is 11 pixels all round and looks OK.
+	// layout->setMargin(0);
 }
 
 void Palapeli::CollectionView::setModel(QAbstractItemModel* model)

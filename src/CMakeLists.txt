@@ -68,4 +68,5 @@ install(FILES palapeli.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFY5RCDIR})
 install(FILES palapeli.kcfg
         DESTINATION ${KDE_INSTALL_DATADIR}/palapeli)
 install(PROGRAMS org.kde.palapeli.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+install(FILES org.kde.palapeli.appdata.xml DESTINATION  ${DATA_INSTALL_DIR}/metainfo)
 add_subdirectory(pics)
