@@ -32,15 +32,15 @@
 int main(int argc, char** argv)
 {
     qsrand(time(0));
+    QApplication app(argc, argv);
+
+    KLocalizedString::setApplicationDomain("palapeli");
+
     KAboutData about("palapeli", i18nc("The application's name", "Palapeli"), "2.0", i18n("KDE Jigsaw Puzzle Game"), KAboutLicense::GPL, i18n("Copyright 2009, 2010, Stefan Majewsky"));
     about.addAuthor(i18n("Stefan Majewsky"), QString(), "majewsky@gmx.net", "http://majewsky.wordpress.com");
     about.addCredit (i18n ("Johannes Loehnert"),
             i18n ("The option to preview the completed puzzle"),
             "loehnert.kde@gmx.de");
-    QApplication app(argc, argv);
-
-    KLocalizedString::setApplicationDomain("palapeli");
-
     QCommandLineParser parser;
     KAboutData::setApplicationData(about);
     KCrash::initialize();
