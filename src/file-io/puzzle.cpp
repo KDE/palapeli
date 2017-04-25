@@ -18,13 +18,13 @@
 
 #include "puzzle.h"
 
-#include <QtCore/QAtomicInt>
+#include <QAtomicInt>
 #include <QAtomicPointer>
-#include <QtCore/QFileInfo>
-#include <QtCore/QFutureSynchronizer>
-#include <QtCore/QHash>
-#include <QtCore/QMutexLocker>
-#include <QtCore/QWaitCondition>
+#include <QFileInfo>
+#include <QFutureSynchronizer>
+#include <QHash>
+#include <QMutexLocker>
+#include <QWaitCondition>
 #include <QtConcurrentRun>
 
 //BEGIN Palapeli::PuzzleComponent
@@ -91,7 +91,7 @@ Palapeli::Puzzle::Private::Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponen
 	, m_location(location)
 	, m_identifier(identifier)
 {
-	//QT5 m_mainComponent.m_puzzle = q;
+	m_mainComponent.loadAcquire()->m_puzzle = q;
 	m_components.insert(mainComponent->type(), new Component(mainComponent));
 	//mutexes not necessary here because concurrent access is impossible in the ctor
 }
@@ -146,8 +146,7 @@ const Palapeli::PuzzleComponent* Palapeli::Puzzle::Private::get(Palapeli::Puzzle
 	//start cast() to create component
 	if (doRequest)
 	{
-#if 0 //QT5
-		Palapeli::PuzzleComponent* cmp = m_mainComponent->cast(type);
+		Palapeli::PuzzleComponent* cmp = m_mainComponent.load()->cast(type);
 		if (cmp)
 			cmp->m_puzzle = q;
 		//write access to c need not be mutex-secured because there
@@ -157,7 +156,6 @@ const Palapeli::PuzzleComponent* Palapeli::Puzzle::Private::get(Palapeli::Puzzle
 		//notify other waiting threads that the component is available
 		c->wait.wakeAll();
 		return cmp;
-#endif
 	}
 	//component has been requested by another worker thread - wait until that
 	//thread is done (but come back every 1000 ms in case the other thread
