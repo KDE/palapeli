@@ -43,13 +43,13 @@ namespace Palapeli
 				setCategorizedModel(true);
 			}
 		protected:
-			virtual int compareCategories(const QModelIndex& left, const QModelIndex& right) const
+			int compareCategories(const QModelIndex& left, const QModelIndex& right) const Q_DECL_OVERRIDE
 			{
 				const int categoryLeft = left.data(KCategorizedSortFilterProxyModel::CategorySortRole).value<int>();
 				const int categoryRight = right.data(KCategorizedSortFilterProxyModel::CategorySortRole).value<int>();
 				return categoryRight - categoryLeft;
 			}
-			virtual bool subSortLessThan(const QModelIndex& left, const QModelIndex& right) const
+			bool subSortLessThan(const QModelIndex& left, const QModelIndex& right) const Q_DECL_OVERRIDE
 			{
 				const QString textLeft = left.data(Qt::DisplayRole).toString();
 				const QString textRight = right.data(Qt::DisplayRole).toString();
@@ -112,22 +112,22 @@ namespace Palapeli
 				m_calculator = new Palapeli::TriggerListDelegateWidget(view);
 				m_calculator->setVisible(false);
 			}
-			virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+			void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const Q_DECL_OVERRIDE
 			{
 				Q_UNUSED(index)
 				QApplication::style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &option, painter, 0);
 			}
-			virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
+			QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const Q_DECL_OVERRIDE
 			{
 				updateItemWidgets(QList<QWidget*>() << m_calculator, option, index);
 				return m_calculator->minimumSizeHint();
 			}
 		protected:
-			virtual QList<QWidget*> createItemWidgets(const QModelIndex &index) const
+			QList<QWidget*> createItemWidgets(const QModelIndex &index) const Q_DECL_OVERRIDE
 			{
 				return QList<QWidget*>() << new Palapeli::TriggerListDelegateWidget(itemView());
 			}
-			virtual void updateItemWidgets(QList<QWidget*> widgets, const QStyleOptionViewItem& option, const QPersistentModelIndex& index) const
+			void updateItemWidgets(QList<QWidget*> widgets, const QStyleOptionViewItem& option, const QPersistentModelIndex& index) const Q_DECL_OVERRIDE
 			{
 				Palapeli::TriggerListDelegateWidget* widget = qobject_cast<Palapeli::TriggerListDelegateWidget*>(widgets[0]);
 				//adjust widget contents

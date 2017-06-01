@@ -34,7 +34,7 @@ namespace Palapeli
 			{
 			}
 
-			virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+			void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) Q_DECL_OVERRIDE
 			{
 				//suppress the ugly selection outline (we have much nicer selection indications in Palapeli::Piece)
 				QStyleOptionGraphicsItem opt(*option);
@@ -44,7 +44,7 @@ namespace Palapeli
 		Q_SIGNALS:
 			void selectedChanged(bool selected);
 		protected:
-			virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value)
+			QVariant itemChange(GraphicsItemChange change, const QVariant& value) Q_DECL_OVERRIDE
 			{
 				if (change == ItemSelectedChange)
 					emit selectedChanged(value.toBool());

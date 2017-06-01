@@ -28,7 +28,7 @@ class KTempDir;
 #define COMPONENT_SUBCLASS(mytype) \
 	public: \
 	enum { ComponentType = mytype }; \
-	virtual Type type() const { return mytype; }
+	Type type() const Q_DECL_OVERRIDE { return mytype; }
 
 namespace Palapeli
 {
@@ -58,7 +58,7 @@ namespace Palapeli
 			CreationContextComponent(const Palapeli::PuzzleCreationContext& creationContext) : creationContext(creationContext) {}
 
 			Palapeli::PuzzleCreationContext creationContext;
-			virtual Palapeli::PuzzleComponent* cast(Type type) const;
+			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
 	};
 
 	///This component copies the data (i.e. everything in puzzlestructs.h) from
@@ -69,7 +69,7 @@ namespace Palapeli
 		public:
 			CopyComponent(Palapeli::Puzzle* puzzle);
 
-			virtual Palapeli::PuzzleComponent* cast(Type type) const;
+			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
 		private:
 			Palapeli::Puzzle* m_puzzle;
 	};
@@ -84,7 +84,7 @@ namespace Palapeli
 			virtual ~DirectoryStorageComponent();
 
 			QString directory() const;
-			virtual Palapeli::PuzzleComponent* cast(Type type) const;
+			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
 		private:
 			KTempDir* m_dir;
 	};
@@ -97,7 +97,7 @@ namespace Palapeli
 			ArchiveStorageComponent();
 			static Palapeli::ArchiveStorageComponent* fromData(Palapeli::Puzzle* puzzle);
 
-			virtual Palapeli::PuzzleComponent* cast(Type type) const;
+			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
 	};
 
 	///This is a valid mainComponent.
@@ -109,7 +109,7 @@ namespace Palapeli
 			CollectionStorageComponent(KConfigGroup* group);
 			virtual ~CollectionStorageComponent();
 
-			virtual Palapeli::PuzzleComponent* cast(Type type) const;
+			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
 		private:
 			KConfigGroup* m_group;
 	};
@@ -123,7 +123,7 @@ namespace Palapeli
 		public:
 			RetailStorageComponent(const QString& desktopFile);
 
-			virtual Palapeli::PuzzleComponent* cast(Type type) const;
+			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
 		private:
 			QString m_desktopFile;
 	};

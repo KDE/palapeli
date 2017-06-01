@@ -59,12 +59,12 @@ namespace Palapeli
 			void zoomBy(int delta); //delta = 0 -> no change, delta < 0 -> zoom out, delta > 0 -> zoom in
 			void zoomTo(int level); //level = 100 -> actual size
 		protected:
-			virtual void keyPressEvent(QKeyEvent* event);
-			virtual void keyReleaseEvent(QKeyEvent* event);
-			virtual void mouseMoveEvent(QMouseEvent* event);
-			virtual void mousePressEvent(QMouseEvent* event);
-			virtual void mouseReleaseEvent(QMouseEvent* event);
-			virtual void wheelEvent(QWheelEvent* event);
+			void keyPressEvent(QKeyEvent* event) Q_DECL_OVERRIDE;
+			void keyReleaseEvent(QKeyEvent* event) Q_DECL_OVERRIDE;
+			void mouseMoveEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
+			void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
+			void mouseReleaseEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
+			void wheelEvent(QWheelEvent* event) Q_DECL_OVERRIDE;
 		Q_SIGNALS:
 			void zoomLevelChanged(int level);
 			void zoomAdjustable(bool adjustable);

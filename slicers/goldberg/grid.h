@@ -37,35 +37,35 @@ class PresetMode : public GoldbergMode
 {
 	public:
 		PresetMode() : GoldbergMode("preset", i18nc("Puzzle grid type", "Predefined settings")) {}
-		virtual void generateGrid(GoldbergEngine *e, int piece_count) const;
+		void generateGrid(GoldbergEngine *e, int piece_count) const Q_DECL_OVERRIDE;
 };
 
 class CairoMode : public GoldbergMode
 {
 	public:
 		CairoMode() : GoldbergMode("cairo", i18nc("Puzzle grid type", "Cairo (pentagonal) grid")) {}
-		virtual void generateGrid(GoldbergEngine *e, int piece_count) const;
+		void generateGrid(GoldbergEngine *e, int piece_count) const Q_DECL_OVERRIDE;
 };
 
 class HexMode : public GoldbergMode
 {
 	public:
 		HexMode() : GoldbergMode("hex", i18nc("Puzzle grid type", "Hexagonal grid")) {}
-		virtual void generateGrid(GoldbergEngine *e, int piece_count) const;
+		void generateGrid(GoldbergEngine *e, int piece_count) const Q_DECL_OVERRIDE;
 };
 
 class RectMode : public GoldbergMode
 {
 	public:
 		RectMode() : GoldbergMode("rect", i18nc("Puzzle grid type", "Rectangular grid")) {}
-		virtual void generateGrid(GoldbergEngine *e, int piece_count) const;
+		void generateGrid(GoldbergEngine *e, int piece_count) const Q_DECL_OVERRIDE;
 };
 
 class RotrexMode : public GoldbergMode
 {
 	public:
 		RotrexMode() : GoldbergMode("rotrex", i18nc("Puzzle grid type", "Rotrex (rhombi-trihexagonal) grid")) {}
-		virtual void generateGrid(GoldbergEngine *e, int piece_count) const;
+		void generateGrid(GoldbergEngine *e, int piece_count) const Q_DECL_OVERRIDE;
 };
 
 class IrregularMode : public GoldbergMode
@@ -76,7 +76,7 @@ class IrregularMode : public GoldbergMode
 		/// Checks if qvoronoi executable is there.
 		static bool checkForQVoronoi();
 
-		virtual void generateGrid(GoldbergEngine *e, int piece_count) const;
+		void generateGrid(GoldbergEngine *e, int piece_count) const Q_DECL_OVERRIDE;
 	private:
 		void generateVoronoiGrid(GoldbergEngine *e, QList<QPointF> cell_centers) const;
 };

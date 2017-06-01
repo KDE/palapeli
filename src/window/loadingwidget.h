@@ -29,9 +29,9 @@ namespace Palapeli
 		public:
 			LoadingWidget(QWidget* parent = 0);
 		protected:
-			virtual void showEvent(QShowEvent* event);
-			virtual void hideEvent(QHideEvent* event);
-			virtual void paintEvent(QPaintEvent* event);
+			void showEvent(QShowEvent* event) Q_DECL_OVERRIDE;
+			void hideEvent(QHideEvent* event) Q_DECL_OVERRIDE;
+			void paintEvent(QPaintEvent* event) Q_DECL_OVERRIDE;
 		private:
 			QTimer* m_updateTimer;
 			int m_angleDegrees;

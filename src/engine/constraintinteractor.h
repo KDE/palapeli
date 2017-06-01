@@ -28,9 +28,9 @@ namespace Palapeli
 		public:
 			ConstraintInteractor(QGraphicsView* view);
 		protected:
-			virtual bool startInteraction(const Palapeli::MouseEvent& event);
-			virtual void continueInteraction(const Palapeli::MouseEvent& event);
-			virtual void stopInteraction(const Palapeli::MouseEvent& event);
+			bool startInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
+			void continueInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
+			void stopInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
 		private:
 			enum Side { LeftSide = 0, RightSide, TopSide, BottomSide };
 			QList<Side> touchingSides(const QPointF& scenePos) const;

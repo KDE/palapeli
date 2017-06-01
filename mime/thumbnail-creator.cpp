@@ -28,7 +28,7 @@ namespace Palapeli
 	class ThumbCreator : public ::ThumbCreator
 	{
 		public:
-			virtual bool create(const QString& path, int width, int height, QImage& image);
+			bool create(const QString& path, int width, int height, QImage& image) Q_DECL_OVERRIDE;
 	};
 }
 

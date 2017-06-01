@@ -36,9 +36,9 @@ namespace Palapeli
 		public:
 			MovePieceInteractor(QGraphicsView* view);
 		protected:
-			virtual bool startInteraction(const Palapeli::MouseEvent& event);
-			virtual void continueInteraction(const Palapeli::MouseEvent& event);
-			virtual void stopInteraction(const Palapeli::MouseEvent& event);
+			bool startInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
+			void continueInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
+			void stopInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
 		protected Q_SLOTS:
 			void pieceReplacedBy(Palapeli::Piece* replacement);
 		private:
@@ -58,8 +58,8 @@ namespace Palapeli
 		public:
 			SelectPieceInteractor(QGraphicsView* view);
 		protected:
-			virtual bool startInteraction(const Palapeli::MouseEvent& event);
-			virtual void stopInteraction(const Palapeli::MouseEvent& event);
+			bool startInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
+			void stopInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
 		private:
 			Palapeli::Piece* m_currentPiece;
 	};
@@ -83,7 +83,7 @@ namespace Palapeli
 		public:
 			TeleportPieceInteractor(QGraphicsView* view);
 		protected:
-			virtual bool startInteraction(const Palapeli::MouseEvent& event);
+			bool startInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
 	};
 
 	//This interactor is assigned to RightButton;NoModifier by default.
@@ -93,8 +93,8 @@ namespace Palapeli
 		public:
 			MoveViewportInteractor(QGraphicsView* view);
 		protected:
-			virtual bool startInteraction(const Palapeli::MouseEvent& event);
-			virtual void continueInteraction(const Palapeli::MouseEvent& event);
+			bool startInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
+			void continueInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
 		private:
 			QPoint m_lastPos;
 	};
@@ -106,7 +106,7 @@ namespace Palapeli
 		public:
 			ToggleCloseUpInteractor(QGraphicsView* view);
 		protected:
-			virtual bool startInteraction(const Palapeli::MouseEvent& event);
+			bool startInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
 	};
 
 	//This interactor is assigned to wheel:Vertical;NoModifier by default.
@@ -116,7 +116,7 @@ namespace Palapeli
 		public:
 			ZoomViewportInteractor(QGraphicsView* view);
 		protected:
-			virtual void doInteraction(const Palapeli::WheelEvent& event);
+			void doInteraction(const Palapeli::WheelEvent& event) Q_DECL_OVERRIDE;
 	};
 
 	//This interactor is assigned to nothing by default.
@@ -126,7 +126,7 @@ namespace Palapeli
 		public:
 			ScrollViewportInteractor(Qt::Orientation orientation, QGraphicsView* view);
 		protected:
-			virtual void doInteraction(const Palapeli::WheelEvent& event);
+			void doInteraction(const Palapeli::WheelEvent& event) Q_DECL_OVERRIDE;
 		private:
 			Qt::Orientation m_orientation;
 	};
@@ -139,8 +139,8 @@ namespace Palapeli
 			QRectF rect() const;
 			void setRect(const QRectF& rect);
 
-			virtual QRectF boundingRect() const;
-			virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0);
+			QRectF boundingRect() const Q_DECL_OVERRIDE;
+			void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0) Q_DECL_OVERRIDE;
 		private:
 			QRectF m_rect;
 	};
@@ -153,10 +153,10 @@ namespace Palapeli
 			RubberBandInteractor(QGraphicsView* view);
 			virtual ~RubberBandInteractor();
 		protected:
-			virtual void sceneChangeEvent(QGraphicsScene* oldScene, QGraphicsScene* newScene);
-			virtual bool startInteraction(const Palapeli::MouseEvent& event);
-			virtual void continueInteraction(const Palapeli::MouseEvent& event);
-			virtual void stopInteraction(const Palapeli::MouseEvent& event);
+			void sceneChangeEvent(QGraphicsScene* oldScene, QGraphicsScene* newScene) Q_DECL_OVERRIDE;
+			bool startInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
+			void continueInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
+			void stopInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
 		private:
 			Palapeli::RubberBandItem* m_item;
 			QPointF m_basePosition;
@@ -169,7 +169,7 @@ namespace Palapeli
 		public:
 			ToggleConstraintInteractor(QGraphicsView* view);
 		protected:
-			virtual bool startInteraction(const Palapeli::MouseEvent& event);
+			bool startInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
 	};
 }
 

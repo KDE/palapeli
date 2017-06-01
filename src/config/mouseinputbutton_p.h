@@ -36,23 +36,23 @@ namespace Palapeli
 		Q_SIGNALS:
 			void clicked();
 		protected:
-			virtual void enterEvent(QEvent*)
+			void enterEvent(QEvent*) Q_DECL_OVERRIDE
 			{
 				//TODO: respect global icon size configuration
 				setPixmap(m_icon.pixmap(16, QIcon::Active));
 			}
-			virtual void leaveEvent(QEvent*)
+			void leaveEvent(QEvent*) Q_DECL_OVERRIDE
 			{
 				setPixmap(m_icon.pixmap(16, QIcon::Normal));
 			}
-			virtual void mousePressEvent(QMouseEvent* event)
+			void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE
 			{
 				if (event->button() == Qt::LeftButton)
 					event->accept();
 				else
 					QLabel::mousePressEvent(event);
 			}
-			virtual void mouseReleaseEvent(QMouseEvent* event)
+			void mouseReleaseEvent(QMouseEvent* event) Q_DECL_OVERRIDE
 			{
 				if (event->button() == Qt::LeftButton)
 				{
