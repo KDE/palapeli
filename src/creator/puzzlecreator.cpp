@@ -77,6 +77,7 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	connect(m_nameEdit, &KLineEdit::textChanged, this, &PuzzleCreatorDialog::checkData);
 	connect(m_authorEdit, &KLineEdit::textChanged, this, &PuzzleCreatorDialog::checkData);
 	checkData(); //to invalidate first page
+	setValid(m_slicerPage, false);
 	connect(m_slicerSelector, &Palapeli::SlicerSelector::currentSelectionChanged, this, &PuzzleCreatorDialog::updateSlicerSelection);
 }
 
