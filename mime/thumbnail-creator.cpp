@@ -20,8 +20,8 @@
 #include <KIO/ThumbCreator>
 #include <kdemacros.h>
 #include <QImage>
+#include <QTemporaryDir>
 #include <KTar>
-#include <KTempDir>
 
 namespace Palapeli
 {
@@ -47,8 +47,8 @@ bool Palapeli::ThumbCreator::create(const QString& path, int width, int height, 
 	KTar tar(path, "application/x-gzip");
 	if (!tar.open(QIODevice::ReadOnly))
 		return false;
-	KTempDir cache;
-	const QString cachePath = cache.name(); //note: includes trailing slash
+	QTemporaryDir cache;
+	const QString cachePath = cache.path() + QLatin1Char('/');
 	tar.directory()->copyTo(cachePath);
 	tar.close();
 	//read image

@@ -22,27 +22,27 @@
 #include <QtCore/QFutureSynchronizer>
 #include <KConfigGroup>
 #include <KDesktopFile>
-#include <KTempDir>
+#include <QTemporaryDir>
 
 Palapeli::DirectoryStorageComponent::DirectoryStorageComponent()
-	: m_dir(new KTempDir)
+  : m_dir(new QTemporaryDir)
 {
 }
 
 Palapeli::DirectoryStorageComponent::~DirectoryStorageComponent()
 {
-	m_dir->unlink();
+	m_dir->remove();
 	delete m_dir;
 }
 
 QString Palapeli::DirectoryStorageComponent::directory() const
 {
-	return m_dir->name();
+	return m_dir->path() + QLatin1Char('/');
 }
 
 Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::PuzzleComponent::Type type) const
 {
-	QDir dir(m_dir->name());
+	QDir dir(m_dir->path());
 	//load metadata from directory
 	if (type == Metadata)
 	{

@@ -23,7 +23,7 @@
 #include "puzzlestructs.h"
 
 class KConfigGroup;
-class KTempDir;
+class QTemporaryDir;
 
 #define COMPONENT_SUBCLASS(mytype) \
 	public: \
@@ -86,7 +86,7 @@ namespace Palapeli
 			QString directory() const;
 			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
 		private:
-			KTempDir* m_dir;
+			QTemporaryDir* m_dir;
 	};
 
 	///This is a valid mainComponent.
