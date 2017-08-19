@@ -28,10 +28,10 @@ Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)
 	, m_active(false)
 	, m_shadowItems(SideCount)
 	, m_handleItems(HandleCount)
-	, m_animator(new QPropertyAnimation(this, "opacity", this))
 	, m_sceneRect(QRectF())
-	, m_thickness(5.0)
+	, m_animator(new QPropertyAnimation(this, "opacity", this))
 	, m_isStopped(true)
+	, m_thickness(5.0)
 {
 	// All QGraphicsRectItems have null size until the first update().
 	setOpacity(0.3);
