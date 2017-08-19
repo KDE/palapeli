@@ -35,19 +35,19 @@
 
 #include "../config/configdialog.h"
 #include "settings.h"
-#include <KUrl>
+#include <QUrl>
 #include <QStackedWidget>
 #include <QPointer>
 #include <QPropertyAnimation>
 #include <QFutureWatcher>
 #include <QtCore/qmath.h>
+#include <QStandardPaths>
 #include <QInputDialog>
 #include <QAction>
+#include <QFileDialog>
 #include <KActionCollection>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KFileDialog>
-#include <KStandardDirs>
 
 // Use this because comma in type is not possible in foreach macro.
 typedef QPair<int, int> DoubleIntPair;
@@ -313,8 +313,11 @@ void Palapeli::GamePlay::actionDelete()
 
 void Palapeli::GamePlay::actionImport()
 {
-	const QString filter = i18nc("Filter for a file dialog", "*.puzzle|Palapeli puzzles (*.puzzle)");
-	const QStringList paths = KFileDialog::getOpenFileNames(KUrl("kfiledialog:///palapeli-import"), filter);
+	const QString filter = i18nc("Filter for a file dialog", "Palapeli puzzles (*.puzzle)");
+	const QStringList paths = QFileDialog::getOpenFileNames(m_mainWindow,
+															i18n("Import Palapeli puzzles"),
+															QString(),
+															filter);
 	Palapeli::Collection* coll = Palapeli::Collection::instance();
 	foreach (const QString& path, paths)
 		coll->importPuzzle(path);
@@ -335,9 +338,12 @@ void Palapeli::GamePlay::actionExport()
 		if (!cmp)
 			continue;
 		//ask user for target file name
-		const QString startLoc = QString::fromLatin1("kfiledialog:///palapeli-export/%1.puzzle").arg(cmp->metadata.name);
-		const QString filter = i18nc("Filter for a file dialog", "*.puzzle|Palapeli puzzles (*.puzzle)");
-		const QString location = KFileDialog::getSaveFileName(KUrl(startLoc), filter);
+		const QString startLoc = QString::fromLatin1("%1.puzzle").arg(cmp->metadata.name);
+		const QString filter = i18nc("Filter for a file dialog", "Palapeli puzzles (*.puzzle)");
+		const QString location = QFileDialog::getSaveFileName(m_mainWindow,
+															  i18n("Save Palapeli puzzles"),
+															  startLoc,
+															  filter);
 		if (location.isEmpty())
 			continue; //process aborted by user
 		//do export
@@ -508,7 +514,7 @@ void Palapeli::GamePlay::restartPuzzle()
 	// Discard the *.save file.
 	static const QString pathTemplate =
 			QString::fromLatin1("collection/%1.save");
-	QFile(KStandardDirs::locateLocal("appdata",
+	QFile(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
 			pathTemplate.arg(m_puzzle->identifier()))).remove();
 	// Load the puzzle and re-shuffle the pieces.
 	loadPuzzle();
@@ -726,7 +732,7 @@ void Palapeli::GamePlay::loadPuzzle()
 	// Is there a saved game?
 	static const QString pathTemplate =
 				QString::fromLatin1("collection/%1.save");
-	KConfig savedConfig(KStandardDirs::locateLocal("appdata",
+	KConfig savedConfig(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
 				pathTemplate.arg(m_puzzle->identifier())));
 	if (savedConfig.hasGroup(AppearanceSaveGroup)) {
 		// Get settings for background, shadows, etc. in this puzzle.
@@ -827,7 +833,7 @@ void Palapeli::GamePlay::loadPiecePositions()
 	// Is there a saved game?
 	static const QString pathTemplate =
 				QString::fromLatin1("collection/%1.save");
-	KConfig savedConfig(KStandardDirs::locateLocal("appdata",
+	KConfig savedConfig(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
 				pathTemplate.arg(m_puzzle->identifier())));
 	bool oldFormat = false;
 	m_restoredGame = false;
@@ -1192,7 +1198,7 @@ void Palapeli::GamePlay::updateSavedGame()
 {
 	static const QString pathTemplate =
 				QString::fromLatin1("collection/%1.save");
-	KConfig savedConfig(KStandardDirs::locateLocal("appdata",
+	KConfig savedConfig(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
 				pathTemplate.arg(m_puzzle->identifier())));
 
 	savePuzzleSettings(&savedConfig);

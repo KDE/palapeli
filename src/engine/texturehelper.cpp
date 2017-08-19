@@ -19,12 +19,11 @@
 #include "texturehelper.h"
 #include "settings.h"
 
-#include <QFileInfo>
+#include <QDir>
+#include <QDirIterator>
 #include <QGraphicsScene>
 #include <QPainter>
-#include <KGlobal>
 #include <KLocalizedString>
-#include <KStandardDirs>
 #include <QSvgRenderer>
 
 const QSize Palapeli::TextureHelper::DefaultThumbnailSize(32, 32);
@@ -36,13 +35,12 @@ Palapeli::TextureHelper* Palapeli::TextureHelper::instance()
 	return &instance;
 }
 
-QPixmap Palapeli::TextureHelper::render(const QString& fileName)
+QPixmap Palapeli::TextureHelper::render(const QString& filePath)
 {
-	const QString path = KStandardDirs::locate("appdata", "backgrounds/" + fileName);
 	QPixmap pixmap;
-	if (fileName.contains(".svg"))
+	if (filePath.endsWith(QLatin1String(".svg")))
 	{
-		QSvgRenderer renderer(path);
+		QSvgRenderer renderer(filePath);
 		pixmap = QPixmap(DefaultPixmapSize);
 		pixmap.fill(Qt::transparent);
 		QPainter painter(&pixmap);
@@ -50,7 +48,7 @@ QPixmap Palapeli::TextureHelper::render(const QString& fileName)
 		painter.end();
 	}
 	else
-		pixmap.load(path);
+		pixmap.load(filePath);
 	return pixmap;
 }
 
@@ -66,19 +64,27 @@ Palapeli::TextureHelper::TextureHelper()
 	colorItem->setData(i18nc("@item:inlistbox", "Single color"), Qt::DisplayRole);
 	appendRow(colorItem);
 	//fetch backgrounds, and create menu items
-	const QStringList backgroundFiles = KGlobal::dirs()->findAllResources("appdata", "backgrounds/*");
-	foreach (const QString& path, backgroundFiles)
+	const QStringList dirs = QStandardPaths::locateAll(QStandardPaths::AppLocalDataLocation,
+													   "backgrounds",
+													   QStandardPaths::LocateDirectory);
+	foreach (const QString& dir, dirs)
 	{
-		//get file name and find selected or default backgrounds
-		const QString fileName = QFileInfo(path).fileName();
-		//create item for this brush
-		const QPixmap pixmap = render(fileName);
-		QStandardItem* item = new QStandardItem;
-		item->setData(pixmap, BrushRole);
-		item->setData(fileName, IdentifierRole);
-		item->setData(pixmap.scaled(DefaultThumbnailSize, Qt::KeepAspectRatio), Qt::DecorationRole);
-		item->setData(fileName, Qt::DisplayRole);
-		appendRow(item);
+		QDirIterator dirIt(dir, QDir::Files);
+		while (dirIt.hasNext())
+		{
+			const QString filePath = dirIt.next();
+			const QString fileName = dirIt.fileName();
+			//create item for this brush
+			const QPixmap pixmap = render(filePath);
+			if (pixmap.isNull())
+				continue;
+			QStandardItem* item = new QStandardItem;
+			item->setData(pixmap, BrushRole);
+			item->setData(fileName, IdentifierRole);
+			item->setData(pixmap.scaled(DefaultThumbnailSize, Qt::KeepAspectRatio), Qt::DecorationRole);
+			item->setData(fileName, Qt::DisplayRole);
+			appendRow(item);
+		}
 	}
 	//select initial brush
 	readSettings();

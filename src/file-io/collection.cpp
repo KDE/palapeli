@@ -25,10 +25,10 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QFutureWatcher>
 #include <QtCore/QUuid>
+#include <QtCore/QStandardPaths>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
-#include <KStandardDirs>
 
 //BEGIN Palapeli::Collection::Item
 
@@ -82,9 +82,9 @@ static QString readPseudoUrl(const QString& path_, bool local = false)
 		QString path(path_);
 		path.remove(QRegExp("^palapeli:/*"));
 		if (local)
-			return KStandardDirs::locateLocal("appdata", path);
+			return QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, path);
 		else
-			return KStandardDirs::locate("appdata", path);
+			return QStandardPaths::locate(QStandardPaths::AppDataLocation, path);
 	}
 	else
 		return path_;
@@ -150,7 +150,7 @@ void Palapeli::Collection::importPuzzle(Palapeli::Puzzle* puzzle)
 	//determine new location
 	const QString id = puzzle->identifier();
 	const QString fileName = QString::fromLatin1("collection/%1.puzzle").arg(id);
-	puzzle->setLocation(KStandardDirs::locateLocal("appdata", fileName));
+	puzzle->setLocation(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, fileName));
 	//store puzzle
 	puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage).waitForFinished();
 	//create the config group for this puzzle (use pseudo-URL to avoid problems

@@ -42,7 +42,7 @@ namespace Palapeli
 			void removeScene(QObject* object);
 		private:
 			TextureHelper();
-			static QPixmap render(const QString& fileName);
+			static QPixmap render(const QString& filePath);
 
 			QList<QGraphicsScene*> m_scenes;
 			int m_currentIndex;
