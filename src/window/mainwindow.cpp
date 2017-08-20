@@ -40,7 +40,8 @@ Palapeli::MainWindow::MainWindow(const QString &path)
 	setupGUI(QSize(500, 500), guiOptions);
 	m_game->init();
 	//start a puzzle if a puzzle URL has been given
-    m_game->playPuzzleFile(path);
+	if (!path.isEmpty())
+		m_game->playPuzzleFile(path);
 }
 
 bool Palapeli::MainWindow::queryClose()
