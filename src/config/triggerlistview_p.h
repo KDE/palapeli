@@ -22,8 +22,8 @@
 #include "triggerlistview.h"
 #include "elidinglabel.h"
 #include "mouseinputbutton.h"
-#include <kstringhandler_deprecated.h>
 #include <QApplication>
+#include <QCollator>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QStandardItemModel>
@@ -41,6 +41,7 @@ namespace Palapeli
 				: KCategorizedSortFilterProxyModel(parent)
 			{
 				setCategorizedModel(true);
+				m_collator.setCaseSensitivity(Qt::CaseSensitive);
 			}
 		protected:
 			int compareCategories(const QModelIndex& left, const QModelIndex& right) const Q_DECL_OVERRIDE
@@ -53,8 +54,10 @@ namespace Palapeli
 			{
 				const QString textLeft = left.data(Qt::DisplayRole).toString();
 				const QString textRight = right.data(Qt::DisplayRole).toString();
-				return KStringHandler::naturalCompare(textLeft, textRight) < 0;
+				return m_collator.compare(textLeft, textRight) < 0;
 			}
+		private:
+			QCollator m_collator;
 	};
 
 	class TriggerListDelegateWidget : public QWidget

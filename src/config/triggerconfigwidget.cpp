@@ -24,7 +24,7 @@
 #include <KLocalizedString>
 
 Palapeli::TriggerConfigWidget::TriggerConfigWidget(QWidget* parent)
-	: KTabWidget(parent)
+	: QTabWidget(parent)
 	, m_interactors(Palapeli::TriggerMapper::createInteractors(0)) //these interactors are just for reading metadata
 	, m_mouseView(new Palapeli::TriggerListView(m_interactors, Palapeli::MouseInteractor, this))
 	, m_wheelView(new Palapeli::TriggerListView(m_interactors, Palapeli::WheelInteractor, this))
