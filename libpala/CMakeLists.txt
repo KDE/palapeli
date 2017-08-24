@@ -1,5 +1,7 @@
 project(libpala)
 
+include(GenerateExportHeader)
+
 set(libpala_VERSION "0.2.0")
 set(libpala_SOVERSION "0")
 
@@ -28,7 +30,7 @@ set(libpala_FANCY_HDRS
 
 add_library(pala SHARED ${libpala_SRCS})
 generate_export_header(pala BASE_NAME libpala)
-target_link_libraries(pala KF5::KDELibs4Support Qt5::Gui)
+target_link_libraries(pala KF5::I18n Qt5::Gui)
 set_target_properties(pala PROPERTIES
 	VERSION ${libpala_VERSION}
 	SOVERSION ${libpala_SOVERSION}

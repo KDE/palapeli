@@ -52,9 +52,14 @@ ecm_add_app_icon(palapeli_SRCS ICONS ${ICONS_SRCS})
 add_executable(palapeli ${palapeli_SRCS})
 target_link_libraries(palapeli
     pala
-    KF5::KDELibs4Support
     KF5::Archive
+    KF5::ConfigWidgets
     KF5::Crash
+    KF5::ItemViews
+    KF5::Notifications
+    KF5::KIOWidgets
+    KF5::WidgetsAddons
+    KF5::XmlGui
     Qt5::Concurrent
     Qt5::Svg
 )

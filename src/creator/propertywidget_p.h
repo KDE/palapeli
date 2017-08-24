@@ -21,8 +21,8 @@
 
 #include "propertywidget.h"
 #include <QCheckBox>
+#include <QSpinBox>
 #include <KComboBox>
-#include <KIntSpinBox>
 #include <KLineEdit>
 
 namespace Palapeli

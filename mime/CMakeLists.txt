@@ -10,7 +10,7 @@ install(FILES palapeli_servicemenu.desktop DESTINATION ${KDE_INSTALL_KSERVICES5D
 
 # thumbnail creator plugin
 add_library(palathumbcreator MODULE thumbnail-creator.cpp)
-target_link_libraries(palathumbcreator KF5::KIOCore KF5::KIOWidgets KF5::Archive KF5::KDELibs4Support)
+target_link_libraries(palathumbcreator KF5::KIOCore KF5::KIOWidgets KF5::Archive)
 
 install(TARGETS palathumbcreator DESTINATION ${KDE_INSTALL_PLUGINDIR})
 install(FILES palathumbcreator.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})

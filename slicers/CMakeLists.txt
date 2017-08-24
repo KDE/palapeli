@@ -20,7 +20,7 @@ endif(QVORONOI_EXECUTABLE)
 
 #correctly include the headers of libpala when they are not yet installed
 set_directory_properties(PROPERTIES COMPILE_DEFINITIONS USE_LOCAL_LIBPALA)
-set(SLICER_LINK_LIBS KF5::KDELibs4Support Qt5::Gui pala)
+set(SLICER_LINK_LIBS KF5::CoreAddons KF5::I18n Qt5::Gui pala)
 
 add_library(palapeli_rectslicer MODULE slicer-rect.cpp)
 target_link_libraries(palapeli_rectslicer ${SLICER_LINK_LIBS})

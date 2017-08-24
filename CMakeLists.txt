@@ -17,7 +17,6 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     Crash
     I18n
     ItemViews
-    KDELibs4Support
     KIO
     Notifications
     Service

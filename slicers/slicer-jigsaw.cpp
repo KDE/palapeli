@@ -23,7 +23,6 @@
 #include <QPainterPath>
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <KPluginLoader>
 
 //BEGIN utility functions
 
@@ -85,7 +84,6 @@ JigsawPlugParams JigsawPlugParams::mirrored()
 }
 
 K_PLUGIN_FACTORY(SvgSlicerFactory, registerPlugin<JigsawSlicer>();)
-K_EXPORT_PLUGIN(SvgSlicerFactory("palapeli_jigsawslicer"))
 
 JigsawSlicer::JigsawSlicer(QObject* parent, const QVariantList& args)
 	: Pala::Slicer(parent, args)

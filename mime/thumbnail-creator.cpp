@@ -18,7 +18,6 @@
 ***************************************************************************/
 
 #include <KIO/ThumbCreator>
-#include <kdemacros.h>
 #include <QImage>
 #include <QTemporaryDir>
 #include <KTar>
@@ -34,7 +33,7 @@ namespace Palapeli
 
 extern "C"
 {
-	KDE_EXPORT ThumbCreator* new_creator()
+	Q_DECL_EXPORT ThumbCreator* new_creator()
 	{
 		return new Palapeli::ThumbCreator;
 	}

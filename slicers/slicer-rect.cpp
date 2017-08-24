@@ -20,10 +20,8 @@
 
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <KPluginLoader>
 
 K_PLUGIN_FACTORY(RectSlicerFactory, registerPlugin<RectSlicer>();)
-K_EXPORT_PLUGIN(RectSlicerFactory("palapeli_rectslicer"))
 
 RectSlicer::RectSlicer(QObject* parent, const QVariantList& args)
 	: Pala::Slicer(parent, args)

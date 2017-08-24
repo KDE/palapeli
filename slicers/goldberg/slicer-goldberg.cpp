@@ -20,10 +20,8 @@
 
 #include "slicer-goldberg.h"
 
-#include <QMessageBox>
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <KPluginLoader>
 #include <QDebug>
 
 #include "goldberg-engine.h"
@@ -31,7 +29,6 @@
 #include "utilities.h"
 
 K_PLUGIN_FACTORY(SvgSlicerFactory, registerPlugin<GoldbergSlicer>();)
-K_EXPORT_PLUGIN(SvgSlicerFactory("palapeli_goldbergslicer"))
 
 GoldbergSlicer::GoldbergSlicer(QObject* parent, const QVariantList& args)
             : Pala::Slicer(parent, args) {
