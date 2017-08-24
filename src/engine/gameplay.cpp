@@ -512,10 +512,12 @@ void Palapeli::GamePlay::restartPuzzle()
 		return;	// If no puzzle was successfully loaded and started.
 	}
 	// Discard the *.save file.
-	static const QString pathTemplate =
-			QString::fromLatin1("collection/%1.save");
-	QFile(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
-			pathTemplate.arg(m_puzzle->identifier()))).remove();
+	const QString puzzleLoc(
+				QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
+									   saveGamePath() + saveGameFileName(m_puzzle->identifier())));
+	if (!puzzleLoc.isEmpty())
+		QFile(puzzleLoc).remove();
+
 	// Load the puzzle and re-shuffle the pieces.
 	loadPuzzle();
 }
@@ -730,13 +732,17 @@ void Palapeli::GamePlay::loadPuzzle()
 	m_savegameTimer->stop(); // Just in case it is running ...
 	emit reportProgress(0, 0);
 	// Is there a saved game?
-	static const QString pathTemplate =
-				QString::fromLatin1("collection/%1.save");
-	KConfig savedConfig(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
-				pathTemplate.arg(m_puzzle->identifier())));
-	if (savedConfig.hasGroup(AppearanceSaveGroup)) {
-		// Get settings for background, shadows, etc. in this puzzle.
-		restorePuzzleSettings(&savedConfig);
+	const QString puzzleLoc(
+				QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
+									   saveGamePath() + saveGameFileName(m_puzzle->identifier())));
+
+	if (!puzzleLoc.isEmpty())
+	{
+		KConfig savedConfig(puzzleLoc, KConfig::SimpleConfig);
+		if (savedConfig.hasGroup(AppearanceSaveGroup)) {
+			// Get settings for background, shadows, etc. in this puzzle.
+			restorePuzzleSettings(&savedConfig);
+		}
 	}
 	// Return to the event queue to start the loading-widget graphics ASAP.
 	QTimer::singleShot(0, this, SLOT(loadPuzzleFile()));
@@ -831,21 +837,24 @@ void Palapeli::GamePlay::loadPiecePositions()
 	m_puzzleTableScene->setPieceAreaSize(m_pieceAreaSize);
 
 	// Is there a saved game?
-	static const QString pathTemplate =
-				QString::fromLatin1("collection/%1.save");
-	KConfig savedConfig(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
-				pathTemplate.arg(m_puzzle->identifier())));
+	const QString puzzleLoc(
+				QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
+									   saveGamePath() + saveGameFileName(m_puzzle->identifier())));
+	// empty -> file not found -> no saved game
 	bool oldFormat = false;
 	m_restoredGame = false;
 	int nHolders = 0;
-	if (savedConfig.hasGroup(HeaderSaveGroup)) {
-		KConfigGroup headerGroup(&savedConfig, HeaderSaveGroup);
-		nHolders = headerGroup.readEntry("N_Holders", 0);
-		m_restoredGame = true;
-	}
-	else if (savedConfig.hasGroup(FormerSaveGroup)) {
-		m_restoredGame = true;
-		oldFormat = true;
+	KConfig savedConfig(puzzleLoc, KConfig::SimpleConfig);	// here because needed inside 'if (m_restoredGame)'
+	if (!puzzleLoc.isEmpty()) {
+		if (savedConfig.hasGroup(HeaderSaveGroup)) {
+			KConfigGroup headerGroup(&savedConfig, HeaderSaveGroup);
+			nHolders = headerGroup.readEntry("N_Holders", 0);
+			m_restoredGame = true;
+		}
+		else if (savedConfig.hasGroup(FormerSaveGroup)) {
+			m_restoredGame = true;
+			oldFormat = true;
+		}
 	}
 	if (m_restoredGame)
 	{
@@ -1196,10 +1205,13 @@ void Palapeli::GamePlay::positionChanged(int reduction)
 
 void Palapeli::GamePlay::updateSavedGame()
 {
-	static const QString pathTemplate =
-				QString::fromLatin1("collection/%1.save");
-	KConfig savedConfig(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
-				pathTemplate.arg(m_puzzle->identifier())));
+	QString path = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) +
+			QLatin1Char('/') + saveGamePath();
+	QDir d(path);
+	if (!d.exists())
+		d.mkpath(path);
+
+	KConfig savedConfig(path + saveGameFileName(m_puzzle->identifier()), KConfig::SimpleConfig);
 
 	savePuzzleSettings(&savedConfig);
 

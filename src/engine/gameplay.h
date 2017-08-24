@@ -101,6 +101,8 @@ namespace Palapeli
 			void handleNewPieceSelection(View* view);
 
 		private:
+			static QString saveGamePath() { return QStringLiteral("collection/"); }
+			static QString saveGameFileName(const QString &name) { return QStringLiteral("%1.save").arg(name); }
 			void deletePuzzleViews();
 			void loadPuzzle();
 			void playVictoryAnimation();
