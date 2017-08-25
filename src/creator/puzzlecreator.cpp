@@ -48,7 +48,7 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 {
 	//setup dialog
 	setWindowTitle(i18nc("@title:window", "Create new puzzle"));
-	//QT5showButton(KDialog::Help, false);
+	buttonBox()->button(QDialogButtonBox::Help)->setVisible(false);
 	//setup image selector
 	m_imageSelector->setMode(KFile::File | KFile::LocalOnly | KFile::ExistingOnly);
 	//build sublayouts
