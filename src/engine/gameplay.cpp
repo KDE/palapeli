@@ -122,8 +122,8 @@ void Palapeli::GamePlay::deletePuzzleViews()
 			delete view;
 		}
 	}
-	m_currentHolder = 0;
-	m_previousHolder = 0;
+	m_currentHolder = nullptr;
+	m_previousHolder = nullptr;
 }
 
 void Palapeli::GamePlay::init()
@@ -167,6 +167,10 @@ void Palapeli::GamePlay::shutdown()
 void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 {
 	t.start();	// IDW test. START the clock.
+	// we need to load the preview every time, although when the puzzle
+	// is already loaded because the preview is destroyed in actionGoCollection()
+	QTimer::singleShot(0, this, SLOT(loadPreview()));
+
 	qDebug() << "START playPuzzle(): elapsed 0";
 	// Get some current action states from the collection.
 	m_canDeletePuzzle = m_mainWindow->actionCollection()->
@@ -206,8 +210,6 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 
 	// IDW TODO - There is no way to stop loading a puzzle and start loading
 	//            another. The only option is to Quit or abort Palapeli.
-
-	QTimer::singleShot(0, this, SLOT(loadPreview()));
 }
 
 void Palapeli::GamePlay::loadPreview()
@@ -220,7 +222,7 @@ void Palapeli::GamePlay::loadPreview()
 	// Palapeli must load the collection-list quickly at startup time).
 	const Palapeli::PuzzleComponent* as =
 		m_puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage);
-	const Palapeli::PuzzleComponent* cmd = (as == 0) ? 0 :
+	const Palapeli::PuzzleComponent* cmd = (as == nullptr) ? nullptr :
 		as->cast(Palapeli::PuzzleComponent::Metadata);
 	if (cmd) {
 		// Load puzzle preview image from metadata.
@@ -229,11 +231,15 @@ void Palapeli::GamePlay::loadPreview()
 			metadata;
 		m_puzzlePreview->loadImageFrom(md);
 		m_mainWindow->setCaption(md.name);	// Set main title.
+		delete cmd;
 	}
 
 	m_puzzlePreview->setVisible(Settings::puzzlePreviewVisible());
 	connect (m_puzzlePreview, SIGNAL(closing()),
 		SLOT(actionTogglePreview()));	// Hide preview: do not delete.
+	// sync with mainWindow
+	m_mainWindow->actionCollection()->action("view_preview")->
+		setChecked(Settings::puzzlePreviewVisible());
 }
 
 void Palapeli::GamePlay::playPuzzleFile(const QString& path)
@@ -247,7 +253,7 @@ void Palapeli::GamePlay::actionGoCollection()
 {
 	m_centralWidget->setCurrentWidget(m_collectionView);
 	delete m_puzzlePreview;
-	m_puzzlePreview = 0;
+	m_puzzlePreview = nullptr;
 	m_mainWindow->setCaption(QString());
 	// IDW TODO - Disable piece-holder actions.
 	foreach (Palapeli::View* view, m_viewList) {
@@ -266,6 +272,8 @@ void Palapeli::GamePlay::actionTogglePreview()
 		m_puzzlePreview->toggleVisible();
 		m_mainWindow->actionCollection()->action("view_preview")->
 			setChecked(Settings::puzzlePreviewVisible());
+		// remember state
+		updateSavedGame();
 	}
 }
 
@@ -417,8 +425,8 @@ void Palapeli::GamePlay::closeHolder(Palapeli::PieceHolder* h)
 		int count = m_viewList.count();
 		m_viewList.removeOne(h);
 		qDebug() << "m_viewList WAS" << count << "NOW" << m_viewList.count();
-		m_currentHolder = 0;
-		m_previousHolder = 0;
+		m_currentHolder = nullptr;
+		m_previousHolder = nullptr;
 		h->deleteLater();
 		positionChanged(0);	// Save change - a little later.
 	}
@@ -525,7 +533,7 @@ void Palapeli::GamePlay::restartPuzzle()
 void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
 				  const QPointF& scenePos, Palapeli::View* view)
 {
-	qDebug() << "GamePlay::teleport: pieceUnder" << (pieceUnderMouse != 0)
+	qDebug() << "GamePlay::teleport: pieceUnder" << (pieceUnderMouse != nullptr)
 		 << "scPos" << scenePos
 		 << "PuzzleTable?" << (view == m_puzzleTable->view())
 		 << "CurrentHolder?" << (view == m_currentHolder);
@@ -872,7 +880,7 @@ void Palapeli::GamePlay::loadPiecePositions()
 			FormerSaveGroup : LocationSaveGroup);
 
 		// Re-create the saved piece-holders, if any.
-		m_currentHolder = 0;
+		m_currentHolder = nullptr;
 		for (int groupID = 1; groupID <= nHolders; groupID++) {
 			KConfigGroup holder (&savedConfig,
 					QString("Holder_%1").arg(groupID));
