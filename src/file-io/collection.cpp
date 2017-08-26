@@ -21,6 +21,7 @@
 #include "components.h"
 #include "puzzle.h"
 
+#include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
 #include <QtCore/QFutureWatcher>
@@ -75,16 +76,36 @@ Palapeli::Collection* Palapeli::Collection::instance()
 	return &instance;
 }
 
-static QString readPseudoUrl(const QString& path_, bool local = false)
+static QString readPseudoUrl(const QString& path_, bool local)
 {
-	if (path_.startsWith(QLatin1String("palapeli:/")))
+	static const QLatin1String pseudoUrl("palapeli:/");
+	if (path_.startsWith(pseudoUrl))
 	{
-		QString path(path_);
-		path.remove(QRegExp("^palapeli:/*"));
+		const QString path = path_.mid(pseudoUrl.size() + 1);
 		if (local)
-			return QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, path);
+		{
+			// this file can exist, if not, make sure all is ready
+			// for creating the file
+			// --> simulate KStandardDirs::locateLocal()
+			const QString loc =
+					QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) +
+					path;
+			QFileInfo fi(loc);
+			if (fi.exists())
+				return loc;
+			// file does not exist, make sure directory exists
+			QDir d(fi.absoluteDir());
+			if (!d.exists())
+				d.mkpath(fi.absolutePath());
+			return loc;
+		}
 		else
-			return QStandardPaths::locate(QStandardPaths::AppDataLocation, path);
+		{
+			// this file *must* exist
+			return QStandardPaths::locate(QStandardPaths::AppDataLocation,
+										  path,
+										  QStandardPaths::LocateFile);
+		}
 	}
 	else
 		return path_;
@@ -101,10 +122,10 @@ Palapeli::Collection::Collection()
 		KConfigGroup* puzzleGroup = new KConfigGroup(m_group, puzzleId);
 		//find involved files
 		const QString basePath = puzzleGroup->readEntry("Location", QString());
-		const QString path = readPseudoUrl(basePath);
+		const QString path = readPseudoUrl(basePath, false);
 		QString baseDesktopPath(basePath);
 		baseDesktopPath.replace(QRegExp("\\.puzzle$"), ".desktop");
-		const QString desktopPath = readPseudoUrl(baseDesktopPath);
+		const QString desktopPath = readPseudoUrl(baseDesktopPath, false);
 		//construct puzzle with CollectionStorageComponent
 		if (!path.isEmpty() && (desktopPath.isEmpty() || QFileInfo(path).lastModified() >= QFileInfo(desktopPath).lastModified()))
 		{
@@ -149,14 +170,14 @@ void Palapeli::Collection::importPuzzle(Palapeli::Puzzle* puzzle)
 {
 	//determine new location
 	const QString id = puzzle->identifier();
-	const QString fileName = QString::fromLatin1("collection/%1.puzzle").arg(id);
-	puzzle->setLocation(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, fileName));
+	const QString palapeliUrl = QStringLiteral("palapeli:///collection/%1.puzzle").arg(id);
+	puzzle->setLocation(readPseudoUrl(palapeliUrl, true));
 	//store puzzle
 	puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage).waitForFinished();
 	//create the config group for this puzzle (use pseudo-URL to avoid problems
 	//when the configuration directory is moved)
 	KConfigGroup puzzleGroup(m_group, id);
-	puzzleGroup.writeEntry("Location", QString("palapeli:///%1").arg(fileName));
+	puzzleGroup.writeEntry("Location", palapeliUrl);
 	m_config->sync();
 	//add to the model
 	appendRow(new Item(puzzle));
