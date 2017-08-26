@@ -63,21 +63,21 @@ void Palapeli::MainWindow::setupActions()
 	statusBarAct->setText(i18n("Show statusbar of puzzle table"));
 
 	// Back to collection.
-	QAction * goCollAct = new QAction(QIcon::fromTheme("go-previous"), i18n("Back to &collection"), 0);
+	QAction * goCollAct = new QAction(QIcon::fromTheme("go-previous"), i18n("Back to &collection"), this);
 	goCollAct->setToolTip(i18n("Go back to the collection to choose another puzzle"));
 	goCollAct->setEnabled(false); //because the collection is initially shown
 	actionCollection()->addAction("view_collection", goCollAct);
 	connect(goCollAct, SIGNAL(triggered()), m_game, SLOT(actionGoCollection()));
 
 	// Create new puzzle (FIXME: action should have a custom icon).
-	QAction * createAct = new QAction(QIcon::fromTheme("tools-wizard"), i18n("Create &new puzzle..."), 0);
+	QAction * createAct = new QAction(QIcon::fromTheme("tools-wizard"), i18n("Create &new puzzle..."), this);
 	createAct->setToolTip(i18n("Create a new puzzle using an image file from your disk"));
 	actionCollection()->setDefaultShortcuts(createAct, KStandardShortcut::openNew());
 	actionCollection()->addAction("game_new", createAct);
 	connect(createAct, SIGNAL(triggered()), m_game, SLOT(actionCreate()));
 
 	// Delete a puzzle.
-	QAction * deleteAct = new QAction(QIcon::fromTheme("archive-remove"), i18n("&Delete puzzle"), 0);
+	QAction * deleteAct = new QAction(QIcon::fromTheme("archive-remove"), i18n("&Delete puzzle"), this);
 	deleteAct->setEnabled(false); //will be enabled when something is selected
 	deleteAct->setToolTip(i18n("Delete the selected puzzle from your collection"));
 	actionCollection()->addAction("game_delete", deleteAct);
@@ -85,13 +85,13 @@ void Palapeli::MainWindow::setupActions()
 	connect(deleteAct, SIGNAL(triggered()), m_game, SLOT(actionDelete()));
 
 	// Import from file...
-	QAction * importAct = new QAction(QIcon::fromTheme("document-import"), i18n("&Import from file..."), 0);
+	QAction * importAct = new QAction(QIcon::fromTheme("document-import"), i18n("&Import from file..."), this);
 	importAct->setToolTip(i18n("Import a new puzzle from a file into your collection"));
 	actionCollection()->addAction("game_import", importAct);
 	connect(importAct, SIGNAL(triggered()), m_game, SLOT(actionImport()));
 
 	// Export to file...
-	QAction * exportAct = new QAction(QIcon::fromTheme("document-export"), i18n("&Export to file..."), 0);
+	QAction * exportAct = new QAction(QIcon::fromTheme("document-export"), i18n("&Export to file..."), this);
 	exportAct->setEnabled(false); //will be enabled when something is selected
 	exportAct->setToolTip(i18n("Export the selected puzzle from your collection into a file"));
 	actionCollection()->addAction("game_export", exportAct);
@@ -99,7 +99,7 @@ void Palapeli::MainWindow::setupActions()
 	connect(exportAct, SIGNAL(triggered()), m_game, SLOT(actionExport()));
 
 	//Reshuffle and restart puzzle
-	QAction * restartPuzzleAct = new QAction(QIcon::fromTheme("view-refresh"), i18n("&Restart puzzle..."), 0);
+	QAction * restartPuzzleAct = new QAction(QIcon::fromTheme("view-refresh"), i18n("&Restart puzzle..."), this);
 	restartPuzzleAct->setToolTip(i18n("Delete the saved progress and reshuffle the pieces"));
 	restartPuzzleAct->setEnabled(false); //no puzzle in progress initially
 	actionCollection()->addAction("game_restart", restartPuzzleAct);
@@ -107,28 +107,28 @@ void Palapeli::MainWindow::setupActions()
 	// Quit.
 	KStandardAction::quit (this, SLOT (close()), actionCollection());
 	// Create piece-holder.
-	QAction * createHolderAct = new QAction(i18n("&Create piece holder..."), 0);
+	QAction * createHolderAct = new QAction(i18n("&Create piece holder..."), this);
 	createHolderAct->setToolTip(i18n("Create a temporary holder for sorting pieces"));
 	actionCollection()->setDefaultShortcut(createHolderAct, QKeySequence(Qt::Key_C));
 	actionCollection()->addAction("move_create_holder", createHolderAct);
 	connect(createHolderAct, SIGNAL(triggered()), m_game, SLOT(createHolder()));
 
 	// Delete piece-holder.
-	QAction * deleteHolderAct = new QAction(i18n("&Delete piece holder"), 0);
+	QAction * deleteHolderAct = new QAction(i18n("&Delete piece holder"), this);
 	deleteHolderAct->setToolTip(i18n("Delete a selected temporary holder when it is empty"));
 	actionCollection()->setDefaultShortcut(deleteHolderAct, QKeySequence(Qt::Key_D));
 	actionCollection()->addAction("move_delete_holder", deleteHolderAct);
 	connect(deleteHolderAct, SIGNAL(triggered()), m_game, SLOT(deleteHolder()));
 
 	// Select all pieces in a piece-holder.
-	QAction * selectAllAct = new QAction(i18n("&Select all in holder"), 0);
+	QAction * selectAllAct = new QAction(i18n("&Select all in holder"), this);
 	selectAllAct->setToolTip(i18n("Select all pieces in a selected piece holder"));
 	actionCollection()->setDefaultShortcut(selectAllAct, QKeySequence(Qt::Key_A));
 	actionCollection()->addAction("move_select_all", selectAllAct);
 	connect(selectAllAct, SIGNAL(triggered()), m_game, SLOT(selectAll()));
 
 	// Rearrange a selected piece-holder or selected pieces in any view.
-	QAction * rearrangeAct = new QAction(i18n("&Rearrange pieces"), 0);
+	QAction * rearrangeAct = new QAction(i18n("&Rearrange pieces"), this);
 	rearrangeAct->setToolTip(i18n("Rearrange all pieces in a selected piece holder or selected pieces in any window"));
 	actionCollection()->setDefaultShortcut(rearrangeAct, QKeySequence(Qt::Key_R));
 	actionCollection()->addAction("move_rearrange", rearrangeAct);
@@ -153,7 +153,7 @@ void Palapeli::MainWindow::setupActions()
 	KStandardAction::zoomOut(m_game, SLOT(actionZoomOut()),
 						actionCollection());
 	// Settings: enable messages that the user marked "Do not show again".
-	QAction * enableMessagesAct = new QAction(i18n("Enable all messages"),0);
+	QAction * enableMessagesAct = new QAction(i18n("Enable all messages"), this);
 	actionCollection()->addAction("enable_messages", enableMessagesAct);
 	connect(enableMessagesAct, SIGNAL(triggered()), SLOT(enableMessages()));
 }
