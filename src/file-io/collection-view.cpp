@@ -57,7 +57,10 @@ Palapeli::CollectionView::CollectionView(QWidget* parent)
 	m_view->setModel(m_proxyModel);
 	connect(m_view->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), SLOT(handleSelectionChanged()));
 	m_proxyModel->setDynamicSortFilter(true);
-	m_proxyModel->sort(Qt::DisplayRole, Qt::AscendingOrder);
+	m_proxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
+	m_proxyModel->setSortLocaleAware(true);
+	m_proxyModel->setSortRole(Qt::DisplayRole);
+	m_proxyModel->sort(0, Qt::AscendingOrder);
 	//TODO: save sorting role between sessions
 	//setup filter search line
 	KFilterProxySearchLine* searchLine = new KFilterProxySearchLine(this);
@@ -126,7 +129,7 @@ void Palapeli::CollectionView::sortMenuTriggered(QAction* action)
 	if (action == m_sortByPieceCount)
 		sortRole = Palapeli::Collection::PieceCountRole;
 	//update sorting and menu
-	m_proxyModel->sort(sortRole, Qt::AscendingOrder);
+	m_proxyModel->setSortRole(sortRole);
 	m_sortByTitle->setChecked(sortRole == Qt::DisplayRole);
 	m_sortByPieceCount->setChecked(sortRole == Palapeli::Collection::PieceCountRole);
 }
