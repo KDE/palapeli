@@ -28,6 +28,7 @@
 #include "view.h"
 #include "piece.h"
 #include "texturehelper.h"
+#include "interactormanager.h"
 #include "../file-io/puzzle.h"
 #include "../file-io/components.h"
 #include "../file-io/collection.h"
@@ -115,6 +116,7 @@ void Palapeli::GamePlay::deletePuzzleViews()
 		disconnect(scene, SIGNAL(saveMove(int)),
 			   this, SLOT(positionChanged(int)));
 		qDebug() << "scene->clearPieces();";
+		view->interactorManager()->resetActiveTriggers();
 		scene->clearPieces();
 		qDebug() << "if (scene != m_puzzleTableScene) {";
 		if (scene != m_puzzleTableScene) {
