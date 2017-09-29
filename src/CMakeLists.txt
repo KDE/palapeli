@@ -55,5 +55,5 @@ install(TARGETS palapeli ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES palapeli.kcfg palapeli.notifyrc palapeliui.rc
         DESTINATION ${DATA_INSTALL_DIR}/palapeli)
 install(PROGRAMS org.kde.palapeli.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES org.kde.palapeli.appdata.xml DESTINATION  ${DATA_INSTALL_DIR}/metainfo)
+install(FILES org.kde.palapeli.appdata.xml DESTINATION  ${SHARE_INSTALL_DIR}/metainfo)
 add_subdirectory(pics)
