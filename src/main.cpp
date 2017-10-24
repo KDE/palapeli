@@ -44,8 +44,6 @@ int main(int argc, char** argv)
     QCommandLineParser parser;
     KAboutData::setApplicationData(about);
     KCrash::initialize();
-    parser.addVersionOption();
-    parser.addHelpOption();
         parser.addPositionalArgument(QStringLiteral("puzzlefile"), i18n("Path to puzzle file (will be opened if -i is not given)"));
         parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("i") << QStringLiteral("import"), i18n("Import the given puzzle file into the local collection (does nothing if no puzzle file is given). The main window will not be shown after importing the given puzzle.")));
 
