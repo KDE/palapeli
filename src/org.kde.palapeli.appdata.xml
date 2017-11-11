@@ -19,6 +19,7 @@
   <name xml:lang="pl">Palapeli</name>
   <name xml:lang="pt">Palapeli</name>
   <name xml:lang="pt-BR">Palapeli</name>
+  <name xml:lang="ru">Palapeli</name>
   <name xml:lang="sk">Palapeli</name>
   <name xml:lang="sl">Palapeli</name>
   <name xml:lang="sr">Палапели</name>
@@ -96,6 +97,7 @@
     <p xml:lang="pl">Możliwości:</p>
     <p xml:lang="pt">Funcionalidades:</p>
     <p xml:lang="pt-BR">Recursos:</p>
+    <p xml:lang="ru">Возможности:</p>
     <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sl">Zmožnosti:</p>
     <p xml:lang="sr">Могућности:</p>
