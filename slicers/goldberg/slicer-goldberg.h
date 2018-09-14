@@ -17,8 +17,8 @@
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PALAPELISLICERS_GOLDBERG_SLICER_H //krazy:exclude=includes
-#define PALAPELISLICERS_GOLDBERG_SLICER_H
+#ifndef PALAPELISLICERS_SLICER_GOLDBERG_H
+#define PALAPELISLICERS_SLICER_GOLDBERG_H
 
 #include "../../libpala/slicer.h"
 #include "../../libpala/slicerjob.h"

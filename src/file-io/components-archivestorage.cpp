@@ -18,7 +18,7 @@
 
 #include "components.h"
 
-#include <QtCore/QVariant>
+#include <QVariant>
 #include <KTar>
 
 Palapeli::ArchiveStorageComponent::ArchiveStorageComponent()

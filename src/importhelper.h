@@ -27,7 +27,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-            ImportHelper(const QString &path);
+            explicit ImportHelper(const QString &path);
 		public Q_SLOTS:
 			void doWork();
 		private:

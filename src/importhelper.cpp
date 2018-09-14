@@ -21,8 +21,8 @@
 #include "file-io/components.h"
 #include "file-io/puzzle.h"
 
-#include <QtCore/QFutureWatcher>
-#include <QtCore/QTimer>
+#include <QFutureWatcher>
+#include <QTimer>
 #include <QApplication>
 #include <QDebug>
 #include <KLocalizedString>

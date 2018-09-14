@@ -300,7 +300,7 @@ void Palapeli::Piece::setPlace(const QPointF& topLeft, int x, int y,
 	const QRectF b = sceneBareBoundingRect();
 	const QSizeF pieceSize = b.size();
 	QPointF areaOffset;
-	QPoint pieceOffset = m_pieceItem->offset().toPoint();
+	// QPoint pieceOffset = m_pieceItem->offset().toPoint();
 	if (random) {
 		int dx = area.width() - pieceSize.width();
 		int dy = area.height() - pieceSize.height();

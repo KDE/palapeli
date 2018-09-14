@@ -32,7 +32,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			MouseInputButton(QWidget* parent = 0);
+			explicit MouseInputButton(QWidget* parent = 0);
 			QSize sizeHint() const Q_DECL_OVERRIDE;
 
 			///If unset, this button will not generate any wheel triggers.

@@ -19,7 +19,7 @@
 #include "slicerjob.h"
 #include "slicer.h"
 
-#include <QtGui/QPainter>
+#include <QPainter>
 
 //BEGIN Pala::SlicerJob::Private
 

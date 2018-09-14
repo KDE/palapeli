@@ -19,8 +19,8 @@
 #ifndef PALAPELI_PUZZLE_H
 #define PALAPELI_PUZZLE_H
 
-#include <QtCore/QFuture>
-#include <QtCore/QMetaType>
+#include <QFuture>
+#include <QMetaType>
 
 #include <iostream>
 #define CAST_ERROR(x) std::cerr << qPrintable(x) << std::endl; //TODO: these errors should be reported to Puzzle

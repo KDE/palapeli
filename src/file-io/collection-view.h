@@ -32,7 +32,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			CollectionView(QWidget* parent = 0);
+			explicit CollectionView(QWidget* parent = 0);
 
 			void setModel(QAbstractItemModel* model);
 			QModelIndexList selectedIndexes() const;

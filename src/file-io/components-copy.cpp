@@ -18,8 +18,8 @@
 
 #include "components.h"
 
-#include <QtCore/QFile>
-#include <QtCore/QVariant>
+#include <QFile>
+#include <QVariant>
 
 Palapeli::CopyComponent::CopyComponent(Palapeli::Puzzle* puzzle)
 	: m_puzzle(puzzle)

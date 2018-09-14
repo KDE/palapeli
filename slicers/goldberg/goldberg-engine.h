@@ -40,7 +40,7 @@ struct GBClassicPlugParams {
     qreal basepos, basewidth;
     // knobsize: distance of knob ctl points from base points
     // knobangle, knobtilt: hard to describe.. they determine width
-    // and asymetry of the knob.
+    // and asymmetry of the knob.
     qreal knobsize, knobangle, knobtilt;
 
 };
@@ -62,7 +62,7 @@ class GoldbergEngine {
         // determines the actual size of the knob.
         qreal m_length_base;
 
-        GoldbergEngine(Pala::SlicerJob *job);
+        explicit GoldbergEngine(Pala::SlicerJob *job);
 
         void set_dump_grid(bool dump);
         bool get_dump_grid();

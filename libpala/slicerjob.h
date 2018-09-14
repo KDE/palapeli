@@ -25,10 +25,10 @@
 # include <libpala/libpala_export.h>
 #endif
 
-#include <QtCore/QMap>
-#include <QtCore/QPoint>
-#include <QtCore/QVariant>
-#include <QtGui/QImage>
+#include <QMap>
+#include <QPoint>
+#include <QVariant>
+#include <QImage>
 
 namespace Pala
 {

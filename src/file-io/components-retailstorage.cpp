@@ -20,8 +20,8 @@
 #include "puzzle.h"
 #include "puzzlestructs.h"
 
-#include <QtCore/QDir>
-#include <QtCore/QVariant>
+#include <QDir>
+#include <QVariant>
 #include <KConfigGroup>
 #include <KDesktopFile>
 

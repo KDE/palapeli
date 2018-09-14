@@ -36,7 +36,7 @@ namespace Palapeli
 	class SlicerConfigWidget : public QWidget
 	{
 		public:
-			SlicerConfigWidget(const Pala::Slicer* slicer);
+			explicit SlicerConfigWidget(const Pala::Slicer* slicer);
 
 			QMap<QByteArray, QVariant> arguments() const;
 			void setMode(const Pala::SlicerMode* mode);

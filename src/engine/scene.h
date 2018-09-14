@@ -32,7 +32,7 @@ namespace Palapeli
 	 * Palapeli scene, which can be either a piece-holder or the main
 	 * puzzle table. The scene also handles adding and removing pieces,
 	 * moving pieces, merging (or joining) pieces, arranging pieces into
-	 * a grid and signalling changes in the state of the puzzle and its
+	 * a grid and signaling changes in the state of the puzzle and its
 	 * pieces, wherever they may be.
 	 */
 
@@ -40,7 +40,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			Scene(QObject* parent = 0);
+			explicit Scene(QObject* parent = 0);
 
 			void addPieceToList(Palapeli::Piece* piece);
 			void addPieceItemsToScene();

@@ -19,7 +19,7 @@
 #ifndef PALAPELI_ENGINE_MATHTRICKS_H
 #define PALAPELI_ENGINE_MATHTRICKS_H
 
-#include <QtCore/qmath.h>
+#include <QtMath>
 
 namespace Palapeli
 {

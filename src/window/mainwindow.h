@@ -34,7 +34,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-            MainWindow(const QString &path);
+            explicit MainWindow(const QString &path);
 		protected:
 			bool queryClose() Q_DECL_OVERRIDE;
 		private Q_SLOTS:

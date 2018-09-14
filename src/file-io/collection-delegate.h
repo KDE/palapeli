@@ -26,7 +26,7 @@ namespace Palapeli
     class CollectionDelegate : public QStyledItemDelegate
     {
     public:
-        CollectionDelegate     (QObject* parent = 0);
+        explicit CollectionDelegate     (QObject* parent = 0);
 
         void paint     (QPainter* painter,
                                 const QStyleOptionViewItem& option,

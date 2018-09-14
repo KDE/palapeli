@@ -24,7 +24,7 @@
 #include <QDebug>
 #include <QImage>
 #include <QPainter>
-#include <QtCore/qmath.h>
+#include <QtMath>
 
 //BEGIN shadow blur algorithm
 

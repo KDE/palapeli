@@ -19,7 +19,7 @@
 #include "grid.h"
 
 #include <cmath>
-#include <QtCore/qmath.h>
+#include <QtMath>
 #include <QDebug>
 #include <QPainterPath>
 #include <QProcess>

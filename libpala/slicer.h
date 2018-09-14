@@ -25,8 +25,8 @@
 # include <libpala/libpala_export.h>
 #endif
 
-#include <QtCore/QObject>
-#include <QtCore/QVariant>
+#include <QObject>
+#include <QVariant>
 
 namespace Pala
 {

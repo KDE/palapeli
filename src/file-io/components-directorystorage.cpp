@@ -18,8 +18,8 @@
 
 #include "components.h"
 
-#include <QtCore/QDir>
-#include <QtCore/QFutureSynchronizer>
+#include <QDir>
+#include <QFutureSynchronizer>
 #include <KConfigGroup>
 #include <KDesktopFile>
 #include <QTemporaryDir>

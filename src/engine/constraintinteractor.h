@@ -26,7 +26,7 @@ namespace Palapeli
 	class ConstraintInteractor : public Palapeli::Interactor
 	{
 		public:
-			ConstraintInteractor(QGraphicsView* view);
+			explicit ConstraintInteractor(QGraphicsView* view);
 		protected:
 			bool startInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
 			void continueInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;

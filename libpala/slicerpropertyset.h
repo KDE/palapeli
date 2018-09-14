@@ -26,7 +26,7 @@
 #endif
 
 class QByteArray;
-#include <QtCore/QSize>
+#include <QSize>
 
 namespace Pala
 {
@@ -70,7 +70,7 @@ namespace Pala
 	class LIBPALA_EXPORT SimpleGridPropertySet : public Pala::SlicerPropertySet
 	{
 		public:
-			SimpleGridPropertySet(Pala::Slicer* slicer);
+			explicit SimpleGridPropertySet(Pala::Slicer* slicer);
 			~SimpleGridPropertySet();
 
 			QSize pieceCount(Pala::SlicerJob* job) const;

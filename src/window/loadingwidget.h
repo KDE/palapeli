@@ -27,7 +27,7 @@ namespace Palapeli
 	class LoadingWidget : public QWidget
 	{
 		public:
-			LoadingWidget(QWidget* parent = 0);
+			explicit LoadingWidget(QWidget* parent = 0);
 		protected:
 			void showEvent(QShowEvent* event) Q_DECL_OVERRIDE;
 			void hideEvent(QHideEvent* event) Q_DECL_OVERRIDE;

@@ -235,8 +235,8 @@ void JigsawSlicer::addPlugToPath(QPainterPath& path, qreal plugNormLength, const
 	//rN is the control point of pN on the cubic between pN and p{N+1}.
 	const QPointF p1 = line.p1(), p5 = line.p2();
 	const QPointF growthDirection = plugDirection / sqrt(plugDirection * plugDirection);
-	const qreal sizeFactor = line.length();
-	const QPointF growthVector = growthDirection * sizeFactor;
+	//const qreal sizeFactor = line.length();
+	//const QPointF growthVector = growthDirection * sizeFactor;
 	const QPointF plugVector = params.plugLength * plugNormLength * growthDirection;
 	//calculate points p2, p3, p4
 	const qreal t3 = params.plugPosition;

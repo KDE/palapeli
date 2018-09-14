@@ -41,7 +41,7 @@
 #include <QPointer>
 #include <QPropertyAnimation>
 #include <QFutureWatcher>
-#include <QtCore/qmath.h>
+#include <QtMath>
 #include <QStandardPaths>
 #include <QInputDialog>
 #include <QAction>
@@ -95,9 +95,9 @@ Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	connect(this, SIGNAL(victoryAnimationFinished()),
 		m_puzzleTable->view(), SLOT(startVictoryAnimation()));
 	connect(m_puzzleTable->view(),
-		SIGNAL(teleport(Piece*,const QPointF&,View*)),
+		SIGNAL(teleport(Piece*,QPointF,View*)),
 		this,
-		SLOT(teleport(Piece*,const QPointF&,View*)));
+		SLOT(teleport(Piece*,QPointF,View*)));
 }
 
 Palapeli::GamePlay::~GamePlay()
@@ -379,9 +379,9 @@ void Palapeli::GamePlay::createHolder()
 	connect(view->scene(), SIGNAL(saveMove(int)),
 		this, SLOT(positionChanged(int)));
 	connect(view,
-		SIGNAL(teleport(Piece*,const QPointF&,View*)),
+		SIGNAL(teleport(Piece*,QPointF,View*)),
 		this,
-		SLOT(teleport(Piece*,const QPointF&,View*)));
+		SLOT(teleport(Piece*,QPointF,View*)));
 	connect(view, SIGNAL(newPieceSelectionSeen(View*)),
 		this, SLOT(handleNewPieceSelection(View*)));
 }
@@ -1148,9 +1148,9 @@ void Palapeli::GamePlay::finishLoading()
 			this, SLOT(positionChanged(int)));
 		if (view != m_puzzleTable->view()) {
 			connect(view,
-				SIGNAL(teleport(Piece*,const QPointF&,View*)),
+				SIGNAL(teleport(Piece*,QPointF,View*)),
 				this,
-				SLOT(teleport(Piece*,const QPointF&,View*)));
+				SLOT(teleport(Piece*,QPointF,View*)));
 			connect(view, SIGNAL(newPieceSelectionSeen(View*)),
 				this, SLOT(handleNewPieceSelection(View*)));
 		}

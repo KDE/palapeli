@@ -30,7 +30,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			PuzzlePreview(QWidget* parent);
+			explicit PuzzlePreview(QWidget* parent);
 
 			void setImage(const QImage &image);
 			void loadImageFrom(const Palapeli::PuzzleMetadata& md);

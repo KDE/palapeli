@@ -48,7 +48,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			ConstraintVisualizer(Palapeli::Scene* scene);
+			explicit ConstraintVisualizer(Palapeli::Scene* scene);
 
 			bool isActive() const;
 			void start (const QRectF& sceneRect,

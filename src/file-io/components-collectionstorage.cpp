@@ -18,8 +18,8 @@
 
 #include "components.h"
 
-#include <QtCore/QBuffer>
-#include <QtCore/QFileInfo>
+#include <QBuffer>
+#include <QFileInfo>
 #include <KConfigGroup>
 
 Palapeli::CollectionStorageComponent::CollectionStorageComponent(KConfigGroup* group)

@@ -43,7 +43,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			SlicerSelector(QWidget* parent = 0);
+			explicit SlicerSelector(QWidget* parent = 0);
 			~SlicerSelector();
 
 			QList<const Pala::Slicer*> slicers() const;

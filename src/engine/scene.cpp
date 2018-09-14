@@ -209,7 +209,7 @@ void Palapeli::Scene::pieceMoved(bool finished)
 		emit saveMove(0);
 		return;
 	}
-	int before = m_pieces.count();
+	// int before = m_pieces.count();
 	QList<Palapeli::Piece*> mergeCandidates;
 	foreach (QGraphicsItem* item, selectedItems())
 	{

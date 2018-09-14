@@ -31,7 +31,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			ConfigDialog(QWidget* parent = 0);
+			explicit ConfigDialog(QWidget* parent = 0);
 
 			enum SolutionSpace { Center, None, TopLeft, TopRight,
 					     BottomLeft, BottomRight };

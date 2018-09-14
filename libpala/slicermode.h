@@ -25,7 +25,7 @@
 # include <libpala/libpala_export.h>
 #endif
 
-#include <QtCore/QByteArray>
+#include <QByteArray>
 
 namespace Pala
 {

@@ -34,7 +34,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			MovePieceInteractor(QGraphicsView* view);
+			explicit MovePieceInteractor(QGraphicsView* view);
 		protected:
 			bool startInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
 			void continueInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
@@ -56,7 +56,7 @@ namespace Palapeli
 	class SelectPieceInteractor : public Palapeli::Interactor
 	{
 		public:
-			SelectPieceInteractor(QGraphicsView* view);
+			explicit SelectPieceInteractor(QGraphicsView* view);
 		protected:
 			bool startInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
 			void stopInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
@@ -81,7 +81,7 @@ namespace Palapeli
 	class TeleportPieceInteractor : public Palapeli::Interactor
 	{
 		public:
-			TeleportPieceInteractor(QGraphicsView* view);
+			explicit TeleportPieceInteractor(QGraphicsView* view);
 		protected:
 			bool startInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
 	};
@@ -91,7 +91,7 @@ namespace Palapeli
 	class MoveViewportInteractor : public Palapeli::Interactor
 	{
 		public:
-			MoveViewportInteractor(QGraphicsView* view);
+			explicit MoveViewportInteractor(QGraphicsView* view);
 		protected:
 			bool startInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
 			void continueInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
@@ -104,7 +104,7 @@ namespace Palapeli
 	class ToggleCloseUpInteractor : public Palapeli::Interactor
 	{
 		public:
-			ToggleCloseUpInteractor(QGraphicsView* view);
+			explicit ToggleCloseUpInteractor(QGraphicsView* view);
 		protected:
 			bool startInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
 	};
@@ -114,7 +114,7 @@ namespace Palapeli
 	class ZoomViewportInteractor : public Palapeli::Interactor
 	{
 		public:
-			ZoomViewportInteractor(QGraphicsView* view);
+			explicit ZoomViewportInteractor(QGraphicsView* view);
 		protected:
 			void doInteraction(const Palapeli::WheelEvent& event) Q_DECL_OVERRIDE;
 	};
@@ -134,7 +134,7 @@ namespace Palapeli
 	class RubberBandItem : public QGraphicsItem
 	{
 		public:
-			RubberBandItem(QGraphicsItem* parent = 0);
+			explicit RubberBandItem(QGraphicsItem* parent = 0);
 
 			QRectF rect() const;
 			void setRect(const QRectF& rect);
@@ -150,7 +150,7 @@ namespace Palapeli
 	class RubberBandInteractor : public Palapeli::Interactor
 	{
 		public:
-			RubberBandInteractor(QGraphicsView* view);
+			explicit RubberBandInteractor(QGraphicsView* view);
 			virtual ~RubberBandInteractor();
 		protected:
 			void sceneChangeEvent(QGraphicsScene* oldScene, QGraphicsScene* newScene) Q_DECL_OVERRIDE;
@@ -167,7 +167,7 @@ namespace Palapeli
 	class ToggleConstraintInteractor : public Palapeli::Interactor
 	{
 		public:
-			ToggleConstraintInteractor(QGraphicsView* view);
+			explicit ToggleConstraintInteractor(QGraphicsView* view);
 		protected:
 			bool startInteraction(const Palapeli::MouseEvent& event) Q_DECL_OVERRIDE;
 	};

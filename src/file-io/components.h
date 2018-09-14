@@ -67,7 +67,7 @@ namespace Palapeli
 	{
 		COMPONENT_SUBCLASS(Copy)
 		public:
-			CopyComponent(Palapeli::Puzzle* puzzle);
+			explicit CopyComponent(Palapeli::Puzzle* puzzle);
 
 			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
 		private:
@@ -106,7 +106,7 @@ namespace Palapeli
 		COMPONENT_SUBCLASS(CollectionStorage)
 		public:
 			///Takes ownership of @a group.
-			CollectionStorageComponent(KConfigGroup* group);
+			explicit CollectionStorageComponent(KConfigGroup* group);
 			virtual ~CollectionStorageComponent();
 
 			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
@@ -121,7 +121,7 @@ namespace Palapeli
 	{
 		COMPONENT_SUBCLASS(RetailStorage)
 		public:
-			RetailStorageComponent(const QString& desktopFile);
+			explicit RetailStorageComponent(const QString& desktopFile);
 
 			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
 		private:
