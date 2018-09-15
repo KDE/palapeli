@@ -21,12 +21,12 @@
 #include "components.h"
 #include "puzzle.h"
 
-#include <QtCore/QDir>
-#include <QtCore/QFile>
-#include <QtCore/QFileInfo>
-#include <QtCore/QFutureWatcher>
-#include <QtCore/QUuid>
-#include <QtCore/QStandardPaths>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QFutureWatcher>
+#include <QUuid>
+#include <QStandardPaths>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
