@@ -140,9 +140,7 @@ void Palapeli::MouseInputButton::clearTrigger()
 
 bool Palapeli::MouseInputButton::event(QEvent* event)
 {
-	const QWheelEvent* wEvent = static_cast<QWheelEvent*>(event);
-	const QMouseEvent* mEvent = static_cast<QMouseEvent*>(event);
-	const QKeyEvent* kEvent = static_cast<QKeyEvent*>(event);
+
 	if (isChecked())
 	{
 		//got a trigger or cancel
@@ -151,6 +149,7 @@ bool Palapeli::MouseInputButton::event(QEvent* event)
 			case QEvent::Wheel: {
 				if (!m_wheelAllowed)
 					return false;
+				const QWheelEvent* wEvent = static_cast<QWheelEvent*>(event);
 				Palapeli::Trigger newTrigger;
 				newTrigger.setModifiers(wEvent->modifiers());
 				newTrigger.setWheelDirection(wEvent->orientation());
@@ -161,6 +160,7 @@ bool Palapeli::MouseInputButton::event(QEvent* event)
 			case QEvent::MouseButtonRelease: {
 				if (!m_mouseAllowed)
 					return false;
+				const QMouseEvent* mEvent = static_cast<QMouseEvent*>(event);
 				Palapeli::Trigger newTrigger;
 				newTrigger.setModifiers(mEvent->modifiers());
 				newTrigger.setButton(mEvent->button());
@@ -172,6 +172,7 @@ bool Palapeli::MouseInputButton::event(QEvent* event)
 				event->accept();
 				return true;
 			case QEvent::KeyPress: {
+				const QKeyEvent* kEvent = static_cast<QKeyEvent*>(event);
 				if (kEvent->key() == Qt::Key_Escape)
 				{
 					//cancel
@@ -190,14 +191,17 @@ bool Palapeli::MouseInputButton::event(QEvent* event)
 					return true;
 				}
 			}	//fall through
-			case QEvent::KeyRelease:
+			case QEvent::KeyRelease: {
+				const QKeyEvent* kEvent = static_cast<QKeyEvent*>(event);
 				showModifiers(kEvent->modifiers());
 				break;
+			}
 		}
 	}
 	bool ret = QPushButton::event(event);
 	if (event->type() == QEvent::MouseButtonRelease)
 	{
+		const QMouseEvent* mEvent = static_cast<QMouseEvent*>(event);
 		//fake a tooltip event
 		//because otherwise they go away when you click and don't come back until you move the mouse
 		QHelpEvent tip(QEvent::ToolTip, mEvent->pos(), mEvent->globalPos());
