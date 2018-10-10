@@ -25,7 +25,7 @@
 
 Palapeli::LoadingWidget::LoadingWidget(QWidget* parent)
 	: QWidget(parent)
-	, m_updateTimer(new QTimer)
+	, m_updateTimer(new QTimer(this))
 	, m_angleDegrees(0)
 {
 	setMinimumSize(QSize(64, 64));
