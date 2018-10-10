@@ -36,7 +36,7 @@ Palapeli::PuzzlePreview::PuzzlePreview(QWidget* parent)
 	m_isZoomed = false;
 	m_mousePos = QPoint();
 
-	setScene(new QGraphicsScene());
+	setScene(new QGraphicsScene(this));
 	setParent(parent);
 	setWindowTitle(i18nc("Window title", "Preview of completed puzzle"));
 	setWindowFlags(Qt::Tool | Qt::WindowTitleHint);
