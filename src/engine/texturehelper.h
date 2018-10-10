@@ -44,7 +44,7 @@ namespace Palapeli
 			TextureHelper();
 			static QPixmap render(const QString& filePath);
 
-			QList<QGraphicsScene*> m_scenes;
+			QList<QObject*> m_scenes;
 			int m_currentIndex;
 			QBrush m_currentBrush;
 

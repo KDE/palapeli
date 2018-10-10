@@ -111,8 +111,8 @@ void Palapeli::TextureHelper::readSettings()
 			m_currentBrush = selectedColor;
 		else
 			m_currentBrush = item->data(BrushRole).value<QPixmap>();
-		foreach (QGraphicsScene* scene, m_scenes)
-			scene->setBackgroundBrush(m_currentBrush);
+		foreach (QObject* scene, m_scenes)
+			static_cast<QGraphicsScene*>(scene)->setBackgroundBrush(m_currentBrush);
 	}
 }
 
@@ -127,8 +127,7 @@ void Palapeli::TextureHelper::addScene(QGraphicsScene* scene)
 
 void Palapeli::TextureHelper::removeScene(QObject* scene)
 {
-	//called by scene->QObject::destroyed signal, so qobject_cast won't work anymore
-	m_scenes.removeAll(static_cast<QGraphicsScene*>(scene));
+	m_scenes.removeAll(scene);
 }
 
 
