@@ -21,9 +21,10 @@
 #include <QtCore/QBuffer>
 #include <QtCore/QFileInfo>
 #include <KConfigGroup>
+#include <QThread>
 
-Palapeli::CollectionStorageComponent::CollectionStorageComponent(KConfigGroup* group)
-	: m_group(group)
+Palapeli::CollectionStorageComponent::CollectionStorageComponent(KConfigGroup* group, QMutex *groupMutex)
+	: m_group(group), m_groupMutex(groupMutex)
 {
 }
 
@@ -45,6 +46,7 @@ Palapeli::PuzzleComponent* Palapeli::CollectionStorageComponent::cast(Type type)
 	}
 	//try to serve metadata from cache
 	const QDateTime mtime = QFileInfo(file).lastModified();
+	m_groupMutex->lock();
 	if (m_group->readEntry("ModifyDateTime", QDateTime()) == mtime)
 	{
 		//cache is up-to-date
@@ -55,10 +57,12 @@ Palapeli::PuzzleComponent* Palapeli::CollectionStorageComponent::cast(Type type)
 		metadata.pieceCount = m_group->readEntry("PieceCount", 0);
 		metadata.modifyProtection = m_group->readEntry("ModifyProtection", false);
 		metadata.thumbnail.loadFromData(m_group->readEntry("Thumbnail", QByteArray()));
+		m_groupMutex->unlock();
 		return new Palapeli::MetadataComponent(metadata);
 	}
 	else
 	{
+		m_groupMutex->unlock();
 		//read metadata from archive...
 		const Palapeli::PuzzleComponent* arStorage = puzzle()->get(ArchiveStorage);
 		if (!arStorage)
@@ -69,16 +73,18 @@ Palapeli::PuzzleComponent* Palapeli::CollectionStorageComponent::cast(Type type)
 		//...and populate cache (image is written via a buffer
 		//because KConfig does not support QImage directly)
 		const Palapeli::PuzzleMetadata metadata = dynamic_cast<Palapeli::MetadataComponent*>(cMetadata)->metadata;
+		QBuffer buffer;
+		metadata.thumbnail.save(&buffer, "PNG");
+		m_groupMutex->lock();
 		m_group->writeEntry("Name", metadata.name);
 		m_group->writeEntry("Comment", metadata.comment);
 		m_group->writeEntry("Author", metadata.author);
 		m_group->writeEntry("PieceCount", metadata.pieceCount);
 		m_group->writeEntry("ModifyProtection", metadata.modifyProtection);
 		m_group->writeEntry("ModifyDateTime", mtime);
-		QBuffer buffer;
-		metadata.thumbnail.save(&buffer, "PNG");
 		m_group->writeEntry("Thumbnail", buffer.data());
 		m_group->sync();
+		m_groupMutex->unlock();
 		return cMetadata;
 	}
 }
