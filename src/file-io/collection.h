@@ -20,6 +20,8 @@
 #define PALAPELI_COLLECTION_H
 
 #include <QStandardItemModel>
+#include <QMutex>
+
 class KConfig;
 class KConfigGroup;
 
@@ -56,6 +58,7 @@ namespace Palapeli
 
 			KConfig* m_config;
 			KConfigGroup* m_group;
+			QMutex m_configMutex;
 	};
 }
 

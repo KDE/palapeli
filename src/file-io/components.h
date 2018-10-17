@@ -106,12 +106,13 @@ namespace Palapeli
 		COMPONENT_SUBCLASS(CollectionStorage)
 		public:
 			///Takes ownership of @a group.
-			explicit CollectionStorageComponent(KConfigGroup* group);
+			CollectionStorageComponent(KConfigGroup* group, QMutex *groupMutex);
 			virtual ~CollectionStorageComponent();
 
 			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
 		private:
 			KConfigGroup* m_group;
+			QMutex *m_groupMutex;
 	};
 
 	///This is used by the collection if, instead of an actual puzzle archive,
