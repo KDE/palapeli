@@ -30,6 +30,7 @@
   <name xml:lang="sv">Palapeli</name>
   <name xml:lang="uk">Palapeli</name>
   <name xml:lang="x-test">xxPalapelixx</name>
+  <name xml:lang="zh-CN">Palapeli</name>
   <summary>Jigsaw puzzle game</summary>
   <summary xml:lang="ca">Joc de trencaclosques</summary>
   <summary xml:lang="ca-valencia">Joc de trencaclosques</summary>
@@ -55,6 +56,7 @@
   <summary xml:lang="sv">Pusselspel</summary>
   <summary xml:lang="uk">Гра у складанку</summary>
   <summary xml:lang="x-test">xxJigsaw puzzle gamexx</summary>
+  <summary xml:lang="zh-CN">拼图游戏</summary>
   <description>
     <p>
    Palapeli is a single-player jigsaw puzzle game.
