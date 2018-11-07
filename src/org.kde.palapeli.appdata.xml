@@ -169,6 +169,7 @@
   </screenshots>
   <url type="homepage">https://www.kde.org/applications/games/palapeli/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=palapeli</url>
+  <url type="donation">https://www.kde.org/community/donations/?app=palapeli&amp;source=appdata</url>
   <project_group>KDE</project_group>
   <provides>
     <binary>palapeli</binary>
