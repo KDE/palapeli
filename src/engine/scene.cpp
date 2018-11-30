@@ -105,7 +105,7 @@ QRectF Palapeli::Scene::piecesBoundingRect() const
 		result |= piece->sceneBareBoundingRect();
 	QSizeF minSize = m_minGrid * m_gridSpacing;
 	QRectF minRect(QPointF(0.0, 0.0), minSize);
-	if (m_pieces.count() > 0) {
+        if (!m_pieces.isEmpty()) {
 		// Center the minRect over the piece(s).
 		minRect.moveTopLeft(result.center() - minRect.center());
 	}

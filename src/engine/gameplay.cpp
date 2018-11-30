@@ -553,7 +553,7 @@ void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
 			pieceUnderMouse->setSelected(true);
 		}
 		selectedPieces = getSelectedPieces(view);
-		if (selectedPieces.count() > 0) {
+                if (!selectedPieces.isEmpty()) {
 			// Transfer from the puzzle table to a piece-holder.
 			foreach (Palapeli::Piece* piece, selectedPieces) {
 				if (piece->representedAtomicPieces().count()
@@ -577,7 +577,7 @@ void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
 			selectedPieces = getSelectedPieces(m_currentHolder);
 			qDebug() << "Transfer from holder" << selectedPieces.count() << m_currentHolder->name();
 			// Transfer from a piece-holder to the puzzle table.
-			if (selectedPieces.count() > 0) {
+                        if (!selectedPieces.isEmpty()) {
 				transferPieces(selectedPieces, m_currentHolder,
 						view, scenePos);
 			}
@@ -595,7 +595,7 @@ void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
 		if (m_previousHolder) {
 			selectedPieces = getSelectedPieces(m_previousHolder);
 			// Transfer from one piece-holder to another.
-			if (selectedPieces.count() > 0) {
+                        if (!selectedPieces.isEmpty()) {
 				transferPieces(selectedPieces, m_previousHolder,
 						view, scenePos);
 			}
