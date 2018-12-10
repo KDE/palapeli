@@ -12,6 +12,9 @@ set(libpala_SRCS
 	slicerproperty.cpp
 	slicerpropertyset.cpp
 )
+
+ecm_qt_declare_logging_category(libpala_SRCS HEADER libpala_debug.h IDENTIFIER PALAPELI_LIBPALA_LOG CATEGORY_NAME org.kde.palapeli.libpala)
+
 set(libpala_HDRS
 	${CMAKE_CURRENT_BINARY_DIR}/libpala_export.h
 	slicer.h

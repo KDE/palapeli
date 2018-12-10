@@ -34,6 +34,7 @@ include(ECMInstallIcons)
 include(KDEInstallDirs)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
+include(ECMQtDeclareLoggingCategory)
 
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 
@@ -48,5 +49,7 @@ add_subdirectory(puzzles)
 if (KF5DocTools_FOUND)
     add_subdirectory(doc)
 endif()
+
+install( FILES palapeli.categories DESTINATION ${KDE_INSTALL_CONFDIR} )
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

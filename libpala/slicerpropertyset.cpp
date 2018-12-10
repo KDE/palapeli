@@ -22,7 +22,7 @@
 #include "slicerproperty.h"
 
 #include <cmath>
-#include <QDebug>
+#include "libpala_debug.h"
 #include <KLocalizedString>
 
 //BEGIN Private classes
@@ -96,11 +96,11 @@ QSize Pala::SimpleGridPropertySet::pieceCount(Pala::SlicerJob* job) const
 	qreal aspect = imageAspect / pieceAspect;
 	int maxX = ceil(sqrt(qreal(count) * aspect)) + 5;
 	int maxY = ceil(sqrt(qreal(count) / aspect)) + 5;
-	qDebug() << "Determining counts for total count" << count;
-	qDebug() << "  Piece aspect ratio is" << pieceAspect;
-	qDebug() << "  Image aspect is" << imageAspect;
-	qDebug() << "  Target count aspect is" << aspect;
-	qDebug() << " Will try x <" << maxX << ", y <" << maxY;
+	qCDebug(PALAPELI_LIBPALA_LOG) << "Determining counts for total count" << count;
+	qCDebug(PALAPELI_LIBPALA_LOG) << "  Piece aspect ratio is" << pieceAspect;
+	qCDebug(PALAPELI_LIBPALA_LOG) << "  Image aspect is" << imageAspect;
+	qCDebug(PALAPELI_LIBPALA_LOG) << "  Target count aspect is" << aspect;
+	qCDebug(PALAPELI_LIBPALA_LOG) << " Will try x <" << maxX << ", y <" << maxY;
 
 	for (int x = 1; x < maxX; ++x)
 	{
@@ -119,7 +119,7 @@ QSize Pala::SimpleGridPropertySet::pieceCount(Pala::SlicerJob* job) const
 			}
 		}
 	}
-	qDebug() << "We liked " << bestCount << " ( at quality" << bestQ << ")";
+	qCDebug(PALAPELI_LIBPALA_LOG) << "We liked " << bestCount << " ( at quality" << bestQ << ")";
 	return bestCount;
 }
 
