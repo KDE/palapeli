@@ -21,7 +21,7 @@
 #include "mathtricks.h"
 
 #include <cmath>
-#include <QDebug>
+#include "palapeli_debug.h"
 #include <QImage>
 #include <QPainter>
 #include <QtMath>
@@ -267,7 +267,7 @@ QImage Palapeli::applyBevelMap(const QImage &source, const Palapeli::BevelMap& b
 	// first, prevent mem corruption
 	if (source.width() * source.height() != bevelmap.size())
 	{
-		qWarning() << "ApplyBevelMap: returning unbeveled source since bevelmap has wrong size";
+		qCWarning(PALAPELI_LOG) << "ApplyBevelMap: returning unbeveled source since bevelmap has wrong size";
 		return source;
 	}
 

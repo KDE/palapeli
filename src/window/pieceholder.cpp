@@ -22,7 +22,7 @@
 #include "settings.h"
 
 #include <QCloseEvent>
-#include <QDebug>
+#include "palapeli_debug.h"
 
 const qreal minGrid = 2.0;	// 2x2 pieces in close-up of minimum holder.
 const qreal maxGrid = 6.0;	// 6x6 pieces in distant view of min holder.
@@ -31,7 +31,7 @@ Palapeli::PieceHolder::PieceHolder(QWidget* parent, const QSizeF& pieceArea,
 					const QString& title)
 	: m_scene(scene())
 {
-	qDebug() << "CONSTRUCTING Palapeli::PieceHolder" << title;
+	qCDebug(PALAPELI_LOG) << "CONSTRUCTING Palapeli::PieceHolder" << title;
 	setParent(parent);
 	setWindowFlags(Qt::Window | Qt::Tool | Qt::WindowTitleHint);
 	// Allow space for (2 * 2) pieces in minimum view initially.
@@ -47,7 +47,7 @@ Palapeli::PieceHolder::PieceHolder(QWidget* parent, const QSizeF& pieceArea,
 	QRectF r = m_scene->sceneRect();
 	setMinimumSize(s*r.width()+1.0, s*r.height()+1.0);
 	resize(minimumSize());
-	qDebug() << "Close-up scale" << s << "pieceArea" << pieceArea
+	qCDebug(PALAPELI_LOG) << "Close-up scale" << s << "pieceArea" << pieceArea
 		 << "size" << size();
 	QTransform t;
 	t.scale(s, s);
@@ -64,7 +64,7 @@ void Palapeli::PieceHolder::initializeZooming()
 	// of pieces can be teleported in, but the holder window will have to be
 	// resized or scrolled for the user to see them, even in distant view.
 
-	qDebug() << "ENTERED PieceHolder::initializeZooming() for" << name();
+	qCDebug(PALAPELI_LOG) << "ENTERED PieceHolder::initializeZooming() for" << name();
 	qreal scale = qMin(transform().m11(), transform().m22());
 	scale = scale * (minGrid / maxGrid);
 	// Calculate the zooming range and return the close-up scale's level.
@@ -77,14 +77,14 @@ void Palapeli::PieceHolder::focusInEvent(QFocusEvent* e)
 {
 	// The user selected this piece holder.
 	Q_UNUSED(e)
-	qDebug() << "PieceHolder::focusInEvent()" << windowTitle();
+	qCDebug(PALAPELI_LOG) << "PieceHolder::focusInEvent()" << windowTitle();
 	setSelected(true);
 	emit selected(this);	// De-select the previously selected holder.
 }
 
 void Palapeli::PieceHolder::setSelected(bool onOff)
 {
-	qDebug() << "PieceHolder::setSelected()" << windowTitle() << onOff;
+	qCDebug(PALAPELI_LOG) << "PieceHolder::setSelected()" << windowTitle() << onOff;
 	setStyleSheet(QString("QFrame { border: 3px solid %1; }").arg
 				(onOff ? "blue" : "lightGray"));
 }

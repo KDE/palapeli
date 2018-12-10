@@ -18,6 +18,7 @@
 ***************************************************************************/
 
 #include "gameplay.h"
+#include "palapeli_debug.h"
 
 #include "../file-io/collection-view.h"
 #include "../window/puzzletablewidget.h"
@@ -108,19 +109,19 @@ Palapeli::GamePlay::~GamePlay()
 
 void Palapeli::GamePlay::deletePuzzleViews()
 {
-	qDebug() << "ENTERED GamePlay::deletePuzzleViews() ...";
+	qCDebug(PALAPELI_LOG) << "ENTERED GamePlay::deletePuzzleViews() ...";
 	while (! m_viewList.isEmpty()) {
 		Palapeli::View* view = m_viewList.takeLast();
 		Palapeli::Scene* scene = view->scene();
-		qDebug() << "DISCONNECT SLOT(positionChanged(int))";
+		qCDebug(PALAPELI_LOG) << "DISCONNECT SLOT(positionChanged(int))";
 		disconnect(scene, SIGNAL(saveMove(int)),
 			   this, SLOT(positionChanged(int)));
-		qDebug() << "scene->clearPieces();";
+		qCDebug(PALAPELI_LOG) << "scene->clearPieces();";
 		view->interactorManager()->resetActiveTriggers();
 		scene->clearPieces();
-		qDebug() << "if (scene != m_puzzleTableScene) {";
+		qCDebug(PALAPELI_LOG) << "if (scene != m_puzzleTableScene) {";
 		if (scene != m_puzzleTableScene) {
-			qDebug() << "DELETING holder" << view->windowTitle();
+			qCDebug(PALAPELI_LOG) << "DELETING holder" << view->windowTitle();
 			delete view;
 		}
 	}
@@ -153,7 +154,7 @@ void Palapeli::GamePlay::init()
 
 void Palapeli::GamePlay::shutdown()
 {
-	qDebug() << "ENTERED Palapeli::GamePlay::shutdown()";
+	qCDebug(PALAPELI_LOG) << "ENTERED Palapeli::GamePlay::shutdown()";
 	// Make sure the last change is saved.
 	if (m_savegameTimer->isActive()) {
 		m_savegameTimer->stop();
@@ -173,7 +174,7 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 	// is already loaded because the preview is destroyed in actionGoCollection()
 	QTimer::singleShot(0, this, SLOT(loadPreview()));
 
-	qDebug() << "START playPuzzle(): elapsed 0";
+	qCDebug(PALAPELI_LOG) << "START playPuzzle(): elapsed 0";
 	// Get some current action states from the collection.
 	m_canDeletePuzzle = m_mainWindow->actionCollection()->
 				action("game_delete")->isEnabled();
@@ -184,7 +185,7 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 
 	if (m_loadingPuzzle || (!puzzle) || (m_puzzle == puzzle)) {
 		if (m_puzzle == puzzle) {
-			qDebug() << "RESUMING A PUZZLE.";
+			qCDebug(PALAPELI_LOG) << "RESUMING A PUZZLE.";
 			// IDW TODO - Show piece-holders.
 			// Check if puzzle has been completed.
 			if (m_currentPieceCount == 1) {
@@ -199,16 +200,16 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 			// True if same puzzle selected and not still loading.
 			setPalapeliMode(! m_loadingPuzzle);
 		}
-		qDebug() << "NO LOAD: (m_puzzle == puzzle)"
+		qCDebug(PALAPELI_LOG) << "NO LOAD: (m_puzzle == puzzle)"
 			 << (m_puzzle == puzzle);
-		qDebug() << "m_loadingPuzzle" << m_loadingPuzzle
+		qCDebug(PALAPELI_LOG) << "m_loadingPuzzle" << m_loadingPuzzle
 			 << (puzzle ? "puzzle != 0" : "puzzle == 0");
 		return;		// Already loaded, loading or failed to start.
 	}
 	m_puzzle = puzzle;
-	qDebug() << "RESTART the clock: elapsed" << t.restart(); // IDW test.
+	qCDebug(PALAPELI_LOG) << "RESTART the clock: elapsed" << t.restart(); // IDW test.
 	loadPuzzle();
-	qDebug() << "Returned from loadPuzzle(): elapsed" << t.elapsed();
+	qCDebug(PALAPELI_LOG) << "Returned from loadPuzzle(): elapsed" << t.elapsed();
 
 	// IDW TODO - There is no way to stop loading a puzzle and start loading
 	//            another. The only option is to Quit or abort Palapeli.
@@ -363,7 +364,7 @@ void Palapeli::GamePlay::actionExport()
 
 void Palapeli::GamePlay::createHolder()
 {
-	qDebug() << "GamePlay::createHolder() entered";
+	qCDebug(PALAPELI_LOG) << "GamePlay::createHolder() entered";
 	bool OK;
 	QString name = QInputDialog::getText(m_mainWindow,
 		i18n("Create a piece holder"),
@@ -409,7 +410,7 @@ void Palapeli::GamePlay::createHolder(const QString& name, bool sel)
 
 void Palapeli::GamePlay::deleteHolder()
 {
-	qDebug() << "GamePlay::deleteHolder() entered";
+	qCDebug(PALAPELI_LOG) << "GamePlay::deleteHolder() entered";
 	if (m_currentHolder) {
 		closeHolder(m_currentHolder);
 	}
@@ -426,7 +427,7 @@ void Palapeli::GamePlay::closeHolder(Palapeli::PieceHolder* h)
 	if (h->scene()->pieces().isEmpty()) {
 		int count = m_viewList.count();
 		m_viewList.removeOne(h);
-		qDebug() << "m_viewList WAS" << count << "NOW" << m_viewList.count();
+		qCDebug(PALAPELI_LOG) << "m_viewList WAS" << count << "NOW" << m_viewList.count();
 		m_currentHolder = nullptr;
 		m_previousHolder = nullptr;
 		h->deleteLater();
@@ -441,7 +442,7 @@ void Palapeli::GamePlay::closeHolder(Palapeli::PieceHolder* h)
 
 void Palapeli::GamePlay::selectAll()
 {
-	qDebug() << "GamePlay::selectAll() entered";
+	qCDebug(PALAPELI_LOG) << "GamePlay::selectAll() entered";
 	if (m_currentHolder) {
 		QList<Palapeli::Piece*> pieces =
 					m_currentHolder->scene()->pieces();
@@ -467,7 +468,7 @@ void Palapeli::GamePlay::selectAll()
 
 void Palapeli::GamePlay::rearrangePieces()
 {
-	qDebug() << "GamePlay::rearrangePieces() entered";
+	qCDebug(PALAPELI_LOG) << "GamePlay::rearrangePieces() entered";
 	QList<Palapeli::Piece*> selectedPieces;
 	Palapeli::View* view = m_puzzleTable->view();
 	selectedPieces = getSelectedPieces(view);
@@ -535,7 +536,7 @@ void Palapeli::GamePlay::restartPuzzle()
 void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
 				  const QPointF& scenePos, Palapeli::View* view)
 {
-	qDebug() << "GamePlay::teleport: pieceUnder" << (pieceUnderMouse != nullptr)
+	qCDebug(PALAPELI_LOG) << "GamePlay::teleport: pieceUnder" << (pieceUnderMouse != nullptr)
 		 << "scPos" << scenePos
 		 << "PuzzleTable?" << (view == m_puzzleTable->view())
 		 << "CurrentHolder?" << (view == m_currentHolder);
@@ -575,7 +576,7 @@ void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
 		}
 		else {
 			selectedPieces = getSelectedPieces(m_currentHolder);
-			qDebug() << "Transfer from holder" << selectedPieces.count() << m_currentHolder->name();
+			qCDebug(PALAPELI_LOG) << "Transfer from holder" << selectedPieces.count() << m_currentHolder->name();
 			// Transfer from a piece-holder to the puzzle table.
                         if (!selectedPieces.isEmpty()) {
 				transferPieces(selectedPieces, m_currentHolder,
@@ -635,7 +636,7 @@ void Palapeli::GamePlay::transferPieces(const QList<Palapeli::Piece*> pieces,
 					Palapeli::View* dest,
 					const QPointF& scenePos)
 {
-	qDebug() << "ENTERED GamePlay::transferPieces(): pieces" << pieces.count() << "SourceIsTable" << (source == m_puzzleTable->view()) << "DestIsTable" << (dest == m_puzzleTable->view()) << "scenePos" << scenePos;
+	qCDebug(PALAPELI_LOG) << "ENTERED GamePlay::transferPieces(): pieces" << pieces.count() << "SourceIsTable" << (source == m_puzzleTable->view()) << "DestIsTable" << (dest == m_puzzleTable->view()) << "scenePos" << scenePos;
 	source->scene()->dispatchPieces(pieces);
 	if ((source != m_puzzleTable->view()) &&	// If empty holder.
 		(source->scene()->pieces().isEmpty())) {
@@ -707,7 +708,7 @@ void Palapeli::GamePlay::setPalapeliMode(bool playing)
 
 QList<Palapeli::Piece*> Palapeli::GamePlay::getSelectedPieces(Palapeli::View* v)
 {
-	qDebug() << "ENTERED GamePlay::getSelectedPieces(): PuzzleTable" << (v == m_puzzleTable->view());
+	qCDebug(PALAPELI_LOG) << "ENTERED GamePlay::getSelectedPieces(): PuzzleTable" << (v == m_puzzleTable->view());
 	const QList<QGraphicsItem*> sel = v->scene()->selectedItems();
 	QList<Palapeli::Piece*> pieces;
 	foreach (QGraphicsItem* item, sel) {
@@ -723,7 +724,7 @@ void Palapeli::GamePlay::configure()
 {
 	if (Palapeli::ConfigDialog().exec() == QDialog::Accepted) {
 		if (m_playing) {
-			qDebug() << "SAVING SETTINGS FOR THIS PUZZLE";
+			qCDebug(PALAPELI_LOG) << "SAVING SETTINGS FOR THIS PUZZLE";
 			updateSavedGame();	// Save current puzzle Settings.
 		}
 	}
@@ -733,7 +734,7 @@ void Palapeli::GamePlay::configure()
 
 void Palapeli::GamePlay::loadPuzzle()
 {
-	qDebug() << "START loadPuzzle()";
+	qCDebug(PALAPELI_LOG) << "START loadPuzzle()";
 	m_restoredGame = false;
 	// Disable all collection and playing actions during loading.
 	m_loadingPuzzle = true;
@@ -756,18 +757,18 @@ void Palapeli::GamePlay::loadPuzzle()
 	}
 	// Return to the event queue to start the loading-widget graphics ASAP.
 	QTimer::singleShot(0, this, SLOT(loadPuzzleFile()));
-	qDebug() << "END loadPuzzle()";
+	qCDebug(PALAPELI_LOG) << "END loadPuzzle()";
 }
 
 void Palapeli::GamePlay::loadPuzzleFile()
 {
 	// Clear all scenes, and delete any piece holders that exist.
-	qDebug() << "Start clearing all scenes: elapsed" << t.elapsed();
+	qCDebug(PALAPELI_LOG) << "Start clearing all scenes: elapsed" << t.elapsed();
 	deletePuzzleViews();
 	m_viewList << m_puzzleTable->view();	// Re-list the puzzle-table.
-	qDebug() << "Finish clearing all scenes: elapsed" << t.elapsed();
+	qCDebug(PALAPELI_LOG) << "Finish clearing all scenes: elapsed" << t.elapsed();
 
-	qDebug() << "Start loadPuzzleFile(): elapsed" << t.restart();
+	qCDebug(PALAPELI_LOG) << "Start loadPuzzleFile(): elapsed" << t.restart();
 	// Begin loading the puzzle.
 	// It is loaded asynchronously and processed one piece at a time.
 	m_loadedPieces.clear();
@@ -779,7 +780,7 @@ void Palapeli::GamePlay::loadPuzzleFile()
 		watcher->setFuture(
 			m_puzzle->get(Palapeli::PuzzleComponent::Contents));
 	}
-	qDebug() << "Finish loadPuzzleFile(): time" << t.restart();
+	qCDebug(PALAPELI_LOG) << "Finish loadPuzzleFile(): time" << t.restart();
 }
 
 void Palapeli::GamePlay::loadNextPiece()
@@ -809,7 +810,7 @@ void Palapeli::GamePlay::loadNextPiece()
 			iterPieces.value(), contents.pieceOffsets[pieceID]);
 		piece->addRepresentedAtomicPieces(QList<int>() << pieceID);
 		piece->addAtomicSize(iterPieces.value().size());
-		// IDW test. qDebug() << "PIECE" << pieceID
+		// IDW test. qCDebug(PALAPELI_LOG) << "PIECE" << pieceID
 		//                << "offset" << contents.pieceOffsets[pieceID]
 		//                << "size" << iterPieces.value().size();
 		m_loadedPieces[pieceID] = piece;
@@ -826,10 +827,10 @@ void Palapeli::GamePlay::loadNextPiece()
 
 void Palapeli::GamePlay::loadPiecePositions()
 {
-	qDebug() << "Finish loadNextPiece() calls: time" << t.restart();
+	qCDebug(PALAPELI_LOG) << "Finish loadNextPiece() calls: time" << t.restart();
 	if (!m_puzzle)
 		return;
-	qDebug() << "loadPiecePositions():";
+	qCDebug(PALAPELI_LOG) << "loadPiecePositions():";
 	m_originalPieceCount = m_loadedPieces.count();
 	const Palapeli::PuzzleContents contents = m_puzzle->component<Palapeli::ContentsComponent>()->contents;
 	//add piece relations
@@ -876,7 +877,7 @@ void Palapeli::GamePlay::loadPiecePositions()
 		// identical and searchConnections(m_pieces) handles that by
 		// calling on a MergeGroup object to join the pieces.
 
-		qDebug() << "RESTORING SAVED PUZZLE.";
+		qCDebug(PALAPELI_LOG) << "RESTORING SAVED PUZZLE.";
 		KConfigGroup holderGroup   (&savedConfig, HolderSaveGroup);
 		KConfigGroup locationGroup (&savedConfig, oldFormat ?
 			FormerSaveGroup : LocationSaveGroup);
@@ -887,14 +888,14 @@ void Palapeli::GamePlay::loadPiecePositions()
 			KConfigGroup holder (&savedConfig,
 					QString("Holder_%1").arg(groupID));
 			// Re-create a piece-holder and add it to m_viewList.
-			qDebug() << "RE-CREATE HOLDER"
+			qCDebug(PALAPELI_LOG) << "RE-CREATE HOLDER"
 				 << QString("Holder_%1").arg(groupID) << "name"
 				 << holder.readEntry("Name", QString(""));
 			createHolder(holder.readEntry("Name", QString("")),
 				     holder.readEntry("Selected", false));
 			// Restore the piece-holder's size and position.
 			QRect r = holder.readEntry("Geometry", QRect());
-			qDebug() << "GEOMETRY" << r;
+			qCDebug(PALAPELI_LOG) << "GEOMETRY" << r;
 			Palapeli::View* v = m_viewList.at(groupID);
 			v->resize(r.size());
 			int x = (r.left() < 0) ? 0 : r.left();
@@ -903,8 +904,8 @@ void Palapeli::GamePlay::loadPiecePositions()
 		}
 
 		// Move pieces to saved positions, in holders or puzzle table.
-		qDebug() << "START POSITIONING PIECES";
-		qDebug() << "Old format" << oldFormat << HolderSaveGroup << (oldFormat ? FormerSaveGroup : LocationSaveGroup);
+		qCDebug(PALAPELI_LOG) << "START POSITIONING PIECES";
+		qCDebug(PALAPELI_LOG) << "Old format" << oldFormat << HolderSaveGroup << (oldFormat ? FormerSaveGroup : LocationSaveGroup);
 		QMap<int, Palapeli::Piece*>::const_iterator i =
 						m_loadedPieces.constBegin();
 		const QMap<int, Palapeli::Piece*>::const_iterator end =
@@ -916,18 +917,18 @@ void Palapeli::GamePlay::loadPiecePositions()
 			const int group = oldFormat ? 0 :
 					holderGroup.readEntry(ID, 0);
 			const QPointF p = locationGroup.readEntry(ID, QPointF());
-			// qDebug() << "Piece ID" << ID << "group" << group << "pos" << p;
+			// qCDebug(PALAPELI_LOG) << "Piece ID" << ID << "group" << group << "pos" << p;
 			Palapeli::View* view = m_viewList.at(group);
-			// qDebug() << "View" << (view != 0) << "Scene" << (view->scene() != 0);
+			// qCDebug(PALAPELI_LOG) << "View" << (view != 0) << "Scene" << (view->scene() != 0);
 			view->scene()->addPieceToList(piece);
-			// qDebug() << "PIECE HAS BEEN ADDED TO SCENE's LIST";
+			// qCDebug(PALAPELI_LOG) << "PIECE HAS BEEN ADDED TO SCENE's LIST";
 			piece->setPos(p);
-			// qDebug() << "PIECE HAS BEEN POSITIONED";
+			// qCDebug(PALAPELI_LOG) << "PIECE HAS BEEN POSITIONED";
 			// IDW TODO - Selecting/unselecting did not trigger a
 			//            save. Needed to bring back a "dirty" flag.
 			// IDW TODO - Same for all other saveable actions?
 		}
-		qDebug() << "FINISHED POSITIONING PIECES";
+		qCDebug(PALAPELI_LOG) << "FINISHED POSITIONING PIECES";
 		// Each scene re-merges pieces, as required, with no animation.
 		foreach (Palapeli::View* view, m_viewList) {
 			view->scene()->mergeLoadedPieces();
@@ -936,11 +937,11 @@ void Palapeli::GamePlay::loadPiecePositions()
 	else
 	{
 		// Place pieces at nice positions.
-		qDebug() << "GENERATING A NEW PUZZLE BY SHUFFLING.";
+		qCDebug(PALAPELI_LOG) << "GENERATING A NEW PUZZLE BY SHUFFLING.";
 		// Step 1: determine maximum piece size.
 		QSizeF pieceAreaSize = m_pieceAreaSize;
 		m_sizeFactor = 1.0 + 0.05 * Settings::pieceSpacing();
-		qDebug() << "PIECE SPACING FACTOR" << m_sizeFactor;
+		qCDebug(PALAPELI_LOG) << "PIECE SPACING FACTOR" << m_sizeFactor;
 		pieceAreaSize *= m_sizeFactor;	// Allow more space for pieces.
 
 		// Step 2: place pieces in a grid in random order.
@@ -1002,11 +1003,11 @@ void Palapeli::GamePlay::loadPiecePositions()
 		}
 		int x2 = x1 + xResv;
 		int y2 = y1 + yResv;
-		qDebug() << "Reserve:" << xResv << yResv << "position" << space;
-		qDebug() << "Pieces" << piecePool.count() << "rect" << r
+		qCDebug(PALAPELI_LOG) << "Reserve:" << xResv << yResv << "position" << space;
+		qCDebug(PALAPELI_LOG) << "Pieces" << piecePool.count() << "rect" << r
 			 << "pieceAreaSize" << pieceAreaSize;
-		qDebug() << "q" << q << "a" << a << "a/2" << a/2;
-		qDebug() << "xMax" << xMax << "x1 y1" << x1 << y1
+		qCDebug(PALAPELI_LOG) << "q" << q << "a" << a << "a/2" << a/2;
+		qCDebug(PALAPELI_LOG) << "xMax" << xMax << "x1 y1" << x1 << y1
 					   << "x2 y2" << x2 << y2;
 
 		for (int y = 0; !piecePool.isEmpty(); ++y) {
@@ -1047,28 +1048,28 @@ void Palapeli::GamePlay::loadPiecePositions()
 			scene->setSceneRect(scene->extPiecesBoundingRect());
 		}
 	}
-	qDebug() << "Finish loadPiecePositions(): time" << t.restart();
+	qCDebug(PALAPELI_LOG) << "Finish loadPiecePositions(): time" << t.restart();
 	finishLoading();
 }
 
 void Palapeli::GamePlay::finishLoading()
 {
-	// qDebug() << "finishLoading(): Starting";
+	// qCDebug(PALAPELI_LOG) << "finishLoading(): Starting";
 	m_puzzle->dropComponent(Palapeli::PuzzleComponent::Contents);
 	// Start each scene and view.
-	qDebug() << "COUNTING CURRENT PIECES";
+	qCDebug(PALAPELI_LOG) << "COUNTING CURRENT PIECES";
 	m_currentPieceCount = 0;
 	foreach (Palapeli::View* view, m_viewList) {
 		Palapeli::Scene* scene = view->scene();
 		m_currentPieceCount = m_currentPieceCount +
 					scene->pieces().size();
-		qDebug() << "Counted" << scene->pieces().size();
+		qCDebug(PALAPELI_LOG) << "Counted" << scene->pieces().size();
 		if (view != m_puzzleTable->view()) {
 			// Saved-and-restored holders start in close-up scale.
 			view->setCloseUp(true);
 		}
 		else {
-			qDebug() << "Puzzle table" << scene->pieces().size();
+			qCDebug(PALAPELI_LOG) << "Puzzle table" << scene->pieces().size();
 		}
 	}
 	// Initialize external progress display, hide loading widget, show view.
@@ -1158,7 +1159,7 @@ void Palapeli::GamePlay::finishLoading()
 	// Enable playing actions.
 	m_loadingPuzzle = false;
 	setPalapeliMode(true);
-	qDebug() << "finishLoading(): time" << t.restart();
+	qCDebug(PALAPELI_LOG) << "finishLoading(): time" << t.restart();
 }
 
 void Palapeli::GamePlay::calculatePieceAreaSize()
@@ -1168,7 +1169,7 @@ void Palapeli::GamePlay::calculatePieceAreaSize()
 		m_pieceAreaSize = m_pieceAreaSize.expandedTo
 				(piece->sceneBareBoundingRect().size());
 	}
-	qDebug() << "m_pieceAreaSize =" << m_pieceAreaSize;
+	qCDebug(PALAPELI_LOG) << "m_pieceAreaSize =" << m_pieceAreaSize;
 }
 
 void Palapeli::GamePlay::playVictoryAnimation()
@@ -1200,7 +1201,7 @@ void Palapeli::GamePlay::playVictoryAnimation3()
 void Palapeli::GamePlay::positionChanged(int reduction)
 {
 	if (reduction) {
-		qDebug() << "Reduction:" << reduction << "from" << m_currentPieceCount;
+		qCDebug(PALAPELI_LOG) << "Reduction:" << reduction << "from" << m_currentPieceCount;
 		bool victory = (m_currentPieceCount > 1) &&
 			       ((m_currentPieceCount - reduction) <= 1);
 		m_currentPieceCount = m_currentPieceCount - reduction;

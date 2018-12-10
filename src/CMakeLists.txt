@@ -44,6 +44,9 @@ set(palapeli_SRCS
 	window/puzzletablewidget.cpp
 	window/pieceholder.cpp
 )
+
+ecm_qt_declare_logging_category(palapeli_SRCS HEADER palapeli_debug.h IDENTIFIER PALAPELI_LOG CATEGORY_NAME org.kde.palapeli)
+
 kconfig_add_kcfg_files(palapeli_SRCS settings.kcfgc)
 ki18n_wrap_ui(palapeli_SRCS settings.ui)
 file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/*-apps-palapeli.png")

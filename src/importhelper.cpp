@@ -24,7 +24,7 @@
 #include <QFutureWatcher>
 #include <QTimer>
 #include <QApplication>
-#include <QDebug>
+#include "palapeli_debug.h"
 #include <KLocalizedString>
 #include <KNotification>
 
@@ -38,7 +38,7 @@ void Palapeli::ImportHelper::doWork()
 {
     if (m_path.isEmpty())
 	{
-		qCritical() << i18nc("command line message", "Error: No puzzle file given.");
+		qCCritical(PALAPELI_LOG) << i18nc("command line message", "Error: No puzzle file given.");
 		qApp->quit();
 	}
 	//import puzzle

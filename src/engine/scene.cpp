@@ -23,7 +23,7 @@
 #include "settings.h"
 
 #include <QGraphicsView>
-#include <QDebug>
+#include "palapeli_debug.h"
 
 Palapeli::Scene::Scene(QObject* parent)
 	: QGraphicsScene(parent)
@@ -63,11 +63,11 @@ void Palapeli::Scene::dispatchPieces(const QList<Palapeli::Piece*> pieces)
 
 void Palapeli::Scene::clearPieces()
 {
-	qDebug() << "Palapeli::Scene Delete" << m_pieces.count() << "pieces in  m_pieces list.";
+	qCDebug(PALAPELI_LOG) << "Palapeli::Scene Delete" << m_pieces.count() << "pieces in  m_pieces list.";
 	qDeleteAll(m_pieces);
-	qDebug() << "Palapeli::Scene Clear m_pieces list.";
+	qCDebug(PALAPELI_LOG) << "Palapeli::Scene Clear m_pieces list.";
 	m_pieces.clear();
-	qDebug() << "Palapeli::Scene Stop m_constraintVisualizer.";
+	qCDebug(PALAPELI_LOG) << "Palapeli::Scene Stop m_constraintVisualizer.";
 	m_constraintVisualizer->stop();
 }
 
@@ -80,7 +80,7 @@ void Palapeli::Scene::addMargin(const qreal handleWidth, const qreal spacer) {
 	m_constraintVisualizer->stop();
 	m_constraintVisualizer->start(r, handleWidth);
 	views()[0]->fitInView(r, Qt::KeepAspectRatio);
-	qDebug() << "SCENE RECT" << r << "VIEW SIZE" << views()[0]->size();
+	qCDebug(PALAPELI_LOG) << "SCENE RECT" << r << "VIEW SIZE" << views()[0]->size();
 }
 
 QRectF Palapeli::Scene::extPiecesBoundingRect() const
@@ -189,7 +189,7 @@ void Palapeli::Scene::searchConnections(const QList<Palapeli::Piece*>& pieces,
 
 void Palapeli::Scene::pieceInstanceTransaction(const QList<Palapeli::Piece*>& deletedPieces, const QList<Palapeli::Piece*>& createdPieces)
 {
-	// qDebug() << "Scene::pieceInstanceTransaction(delete" << deletedPieces.count() << "add" << createdPieces.count();
+	// qCDebug(PALAPELI_LOG) << "Scene::pieceInstanceTransaction(delete" << deletedPieces.count() << "add" << createdPieces.count();
 	const int oldPieceCount = m_pieces.count();
 	foreach (Palapeli::Piece* oldPiece, deletedPieces)
 		m_pieces.removeAll(oldPiece); //these pieces have been deleted by the caller
@@ -199,7 +199,7 @@ void Palapeli::Scene::pieceInstanceTransaction(const QList<Palapeli::Piece*>& de
 		connect(newPiece, SIGNAL(moved(bool)),
 			this, SLOT(pieceMoved(bool)));
 	}
-	// qDebug() << "emit saveMove(" << oldPieceCount - m_pieces.count();
+	// qCDebug(PALAPELI_LOG) << "emit saveMove(" << oldPieceCount - m_pieces.count();
 	emit saveMove(oldPieceCount - m_pieces.count());
 }
 
@@ -227,13 +227,13 @@ void Palapeli::Scene::initializeGrid(const QPointF& gridTopLeft)
 	m_gridRank = 1;
 	m_gridX = 0;
 	m_gridY = 0;
-	// qDebug() << "GRID INITIALIZED" << m_gridTopLeft
+	// qCDebug(PALAPELI_LOG) << "GRID INITIALIZED" << m_gridTopLeft
 	//	 << "spacing" << m_gridSpacing << "scene size" << sceneRect();
 }
 
 void Palapeli::Scene::addToGrid(Palapeli::Piece* piece)
 {
-	// qDebug() << "ADD TO GRID AT" << m_gridTopLeft
+	// qCDebug(PALAPELI_LOG) << "ADD TO GRID AT" << m_gridTopLeft
 	//	 << QPoint(m_gridX, m_gridY)
 	//	 << "spacing" << m_gridSpacing << "random" << false;
 	piece->setPlace(m_gridTopLeft, m_gridX, m_gridY, m_gridSpacing, false);

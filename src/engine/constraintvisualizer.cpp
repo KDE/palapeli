@@ -21,7 +21,7 @@
 
 #include <QCursor>
 #include <QPropertyAnimation>
-#include <QDebug> // IDW test.
+#include "palapeli_debug.h" // IDW test.
 
 Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)
 	: m_scene(scene)

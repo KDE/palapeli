@@ -33,7 +33,7 @@
 #include <QDesktopWidget>
 
 #include <QTimer>
-#include <QDebug> // IDW test.
+#include "palapeli_debug.h" // IDW test.
 
 const int Palapeli::View::MinimumZoomLevel = 0;
 const int Palapeli::View::MaximumZoomLevel = 200;
@@ -56,13 +56,13 @@ Palapeli::View::View()
 	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 	setScene(new Palapeli::Scene(this));
 	connect(m_scene, &Palapeli::Scene::sceneRectChanged, this, &View::logSceneChange);
-	qDebug() << "Initial size of Palapeli::View" << size();
+	qCDebug(PALAPELI_LOG) << "Initial size of Palapeli::View" << size();
 }
 
 // IDW test.
 void Palapeli::View::logSceneChange(QRectF r)
 {
-	// qDebug() << "View::logSceneChange" << r << "View size" << this->size();
+	// qCDebug(PALAPELI_LOG) << "View::logSceneChange" << r << "View size" << this->size();
 }
 
 Palapeli::InteractorManager* Palapeli::View::interactorManager() const
@@ -150,7 +150,7 @@ void Palapeli::View::moveViewportBy(const QPointF& sceneDelta)
 
 void Palapeli::View::teleportPieces(Piece* pieceUnder, const QPointF& scenePos)
 {
-	qDebug() << "TELEPORT: pieceUnder" << (pieceUnder != 0)
+	qCDebug(PALAPELI_LOG) << "TELEPORT: pieceUnder" << (pieceUnder != 0)
 		 << "scenePos" << scenePos;
 	emit teleport(pieceUnder, scenePos, this);
 }
@@ -163,7 +163,7 @@ void Palapeli::View::zoomBy(int delta)
 
 	// IDW TODO - Accept deltas of <10, either by accumulating deltas or by
 	//            implementing fractional zoom levels.
-	qDebug() << "View::zoomBy: delta" << delta;
+	qCDebug(PALAPELI_LOG) << "View::zoomBy: delta" << delta;
 	m_adjustPointer = true;
 	zoomTo(m_zoomLevel + delta / 10);
 }
@@ -185,7 +185,7 @@ void Palapeli::View::zoomTo(int level)
 	m_scenePos = mapToScene(m_mousePos);
 	// Create a new transform.
 	const qreal scalingFactor = m_minScale * pow(2, level/m_dZoom);
-	qDebug() << "View::zoomTo: level" << level
+	qCDebug(PALAPELI_LOG) << "View::zoomTo: level" << level
 		 << "scalingFactor" << scalingFactor
 		 << m_mousePos << m_scenePos;
 	// Translation, shear, etc. are the same: only the scale is replaced.
@@ -209,7 +209,7 @@ void Palapeli::View::adjustPointer()
 	// If the view moved, keep the mouse at the same position in the scene.
 	const QPoint mousePos = mapFromScene(m_scenePos);
 	if (mousePos != m_mousePos) {
-		qDebug() << "POINTER MOVED from" << m_mousePos
+		qCDebug(PALAPELI_LOG) << "POINTER MOVED from" << m_mousePos
 			 << "to" << mousePos << "scenePos" << m_scenePos;
 		QCursor::setPos(mapToGlobal(mousePos));
 	}
@@ -302,14 +302,14 @@ int Palapeli::View::calculateZoomRange(qreal distantScale, bool distantView)
 	if (closeUpScale < distantScale) {
 		closeUpScale = distantScale;	// View is already large enough.
 	}
-	qDebug() << "View::calculateZoomRange: distantScale" << distantScale
+	qCDebug(PALAPELI_LOG) << "View::calculateZoomRange: distantScale" << distantScale
 		 << "distantView" << distantView
 		 << "closeUpScale" << closeUpScale;
 	const qreal minScale = distantScale*0.75;
 	const qreal maxScale = closeUpScale*2.0;
 	const qreal range = log(maxScale/minScale)/log(2.0);
 	const qreal dZoom = (MaximumZoomLevel - MinimumZoomLevel)/range;
-	qDebug() << "minScale" << minScale << "maxScale" << maxScale
+	qCDebug(PALAPELI_LOG) << "minScale" << minScale << "maxScale" << maxScale
 		 << "range" << range << "dZoom" << dZoom;
 	m_dZoom = dZoom;
 	m_minScale = minScale;
@@ -321,21 +321,21 @@ int Palapeli::View::calculateZoomRange(qreal distantScale, bool distantView)
 				m_closeUpLevel : m_distantLevel + MinDiff;
 	m_isCloseUp = (! distantView);	// Start with the view zoomed in or out.
 	const int level = (distantView ? m_distantLevel : m_closeUpLevel);
-	qDebug() << "INITIAL LEVEL" << level
+	qCDebug(PALAPELI_LOG) << "INITIAL LEVEL" << level
 		 << "toggles" << m_distantLevel << m_closeUpLevel;
 	return level;
 }
 
 void Palapeli::View::puzzleStarted()
 {
-	qDebug() << "ENTERED View::puzzleStarted()";
+	qCDebug(PALAPELI_LOG) << "ENTERED View::puzzleStarted()";
 	// At this point the puzzle pieces have been shuffled or loaded from a
 	// .save file and the puzzle table has been scaled to fit the view. Now
 	// adjust zooming and slider to a range of distant and close-up views.
 
 	// Choose the lesser of the horizontal and vertical scaling factors.
 	const qreal distantScale = qMin(transform().m11(), transform().m22());
-	qDebug() << "distantScale" << distantScale;
+	qCDebug(PALAPELI_LOG) << "distantScale" << distantScale;
 	// Calculate the zooming range and return the distant scale's level.
 	int level = calculateZoomRange(distantScale, true);
 
@@ -347,7 +347,7 @@ void Palapeli::View::puzzleStarted()
 
 	// Explain autosaving.
 	KMessageBox::information(window(), i18n("Your progress is saved automatically while you play."), i18nc("used as caption for a dialog that explains the autosave feature", "Automatic saving"), QStringLiteral("autosave-introduction"));
-	qDebug() << "EXITING View::puzzleStarted()";
+	qCDebug(PALAPELI_LOG) << "EXITING View::puzzleStarted()";
 }
 
 void Palapeli::View::startVictoryAnimation()

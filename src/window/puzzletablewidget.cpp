@@ -22,6 +22,7 @@
 #include "../engine/view.h"
 #include "../engine/zoomwidget.h"
 #include "settings.h"
+#include "palapeli_debug.h"
 
 #include <QToolBar>
 #include <QGridLayout>
@@ -110,7 +111,7 @@ void Palapeli::PuzzleTableWidget::showStatusBar(bool visible)
 
 void Palapeli::PuzzleTableWidget::reportProgress(int pieceCount, int partCount)
 {
-	qDebug() << "PuzzleTableWidget::reportProgress(" << pieceCount << partCount;
+	qCDebug(PALAPELI_LOG) << "PuzzleTableWidget::reportProgress(" << pieceCount << partCount;
 	m_zoomWidget->setEnabled(pieceCount > 0); //zoom does not work reliably when no puzzle is loaded
 	if (m_progressBar->minimum() != 0)
 		m_progressBar->setMinimum(0);

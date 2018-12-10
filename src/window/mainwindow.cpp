@@ -19,6 +19,7 @@
 #include "mainwindow.h"
 
 #include "../engine/gameplay.h"
+#include "palapeli_debug.h"
 
 #include "puzzletablewidget.h"
 #include "../file-io/collection-view.h"
@@ -164,7 +165,7 @@ void Palapeli::MainWindow::enableMessages()
 	int result = KMessageBox::questionYesNo(this,
 					i18n("Enable all messages"));
 	if (result == KMessageBox::Yes) {
-		qDebug() << "ENABLE ALL MESSAGES";
+		qCDebug(PALAPELI_LOG) << "ENABLE ALL MESSAGES";
 		KMessageBox::enableAllMessages();
 		KSharedConfig::openConfig()->sync();	// Save the changes to disk.
 	}

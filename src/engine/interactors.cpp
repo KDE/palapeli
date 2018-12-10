@@ -21,7 +21,7 @@
 #include "scene.h"
 #include "view.h"
 
-#include <QDebug>	// IDW test.
+#include "palapeli_debug.h"	// IDW test.
 
 #include <QApplication>
 #include <QStyle>
@@ -186,12 +186,12 @@ Palapeli::TeleportPieceInteractor::TeleportPieceInteractor(QGraphicsView* view)
 	: Palapeli::Interactor(25, Palapeli::MouseInteractor, view)
 {
 	setMetadata(PieceInteraction, i18nc("Works instantly, without dragging", "Teleport pieces to or from a holder"), QIcon());
-	qDebug() << "CONSTRUCTED TeleportPieceInteractor";
+	qCDebug(PALAPELI_LOG) << "CONSTRUCTED TeleportPieceInteractor";
 }
 
 bool Palapeli::TeleportPieceInteractor::startInteraction(const Palapeli::MouseEvent& event)
 {
-	qDebug() << "ENTERED TeleportPieceInteractor::startInteraction";
+	qCDebug(PALAPELI_LOG) << "ENTERED TeleportPieceInteractor::startInteraction";
 	Palapeli::View* view = qobject_cast<Palapeli::View*>(this->view());
 	if (!view)
 		return false;
@@ -237,12 +237,12 @@ Palapeli::ToggleCloseUpInteractor::ToggleCloseUpInteractor(QGraphicsView* view)
 	//
 	// IDW TODO - What about Palapeli::MouseEvent flags?
 	setMetadata(ViewportInteraction, i18nc("As in a movie scene", "Switch to close-up or distant view"), QIcon::fromTheme(QStringLiteral("zoom-in")));
-	qDebug() << "CONSTRUCTED ToggleCloseUpInteractor";
+	qCDebug(PALAPELI_LOG) << "CONSTRUCTED ToggleCloseUpInteractor";
 }
 
 bool Palapeli::ToggleCloseUpInteractor::startInteraction(const Palapeli::MouseEvent& event)
 {
-	qDebug() << "ENTERED ToggleCloseUpInteractor::startInteraction";
+	qCDebug(PALAPELI_LOG) << "ENTERED ToggleCloseUpInteractor::startInteraction";
 	Palapeli::View* view = qobject_cast<Palapeli::View*>(this->view());
 	if (view)
 		view->toggleCloseUp();
