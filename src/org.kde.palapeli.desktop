@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=palapeli
+Exec=palapeli %u
 Name=Palapeli
 Name[bs]=Palapeli
 Name[ca]=Palapeli
