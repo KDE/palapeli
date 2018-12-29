@@ -158,7 +158,7 @@ bool Palapeli::Trigger::isValid() const
 	if (m_wheelDirection > 0 && m_button > 0)
 		return false; //do not allow wheel and mouse triggers at the same time
 	else
-		return m_button >= 0; //do not allow negative m_button values
+		return m_button != ((Qt::MouseButton) -1); //do not allow 'negative' m_button values
 }
 
 QByteArray Palapeli::Trigger::serialized() const
