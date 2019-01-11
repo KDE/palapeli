@@ -631,7 +631,7 @@ void Palapeli::GamePlay::handleNewPieceSelection(Palapeli::View* view)
 	}
 }
 
-void Palapeli::GamePlay::transferPieces(const QList<Palapeli::Piece*> pieces,
+void Palapeli::GamePlay::transferPieces(const QList<Palapeli::Piece*> &pieces,
 					Palapeli::View* source,
 					Palapeli::View* dest,
 					const QPointF& scenePos)

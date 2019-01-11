@@ -108,7 +108,7 @@ namespace Palapeli
 			void playVictoryAnimation();
 			void calculatePieceAreaSize();
 			void createHolder(const QString& name, bool sel = true);
-			void transferPieces(const QList<Piece*> pieces,
+			void transferPieces(const QList<Piece*> &pieces,
 					View* source, View* dest,
 					const QPointF& scenePos = QPointF());
 			void setPalapeliMode(bool playing);

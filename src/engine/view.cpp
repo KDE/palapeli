@@ -60,7 +60,7 @@ Palapeli::View::View()
 }
 
 // IDW test.
-void Palapeli::View::logSceneChange(QRectF r)
+void Palapeli::View::logSceneChange(const QRectF &r)
 {
 	// qCDebug(PALAPELI_LOG) << "View::logSceneChange" << r << "View size" << this->size();
 }

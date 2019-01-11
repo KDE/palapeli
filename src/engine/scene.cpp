@@ -51,7 +51,7 @@ void Palapeli::Scene::addPieceItemsToScene()
 	}
 }
 
-void Palapeli::Scene::dispatchPieces(const QList<Palapeli::Piece*> pieces)
+void Palapeli::Scene::dispatchPieces(const QList<Palapeli::Piece*> &pieces)
 {
 	foreach (Palapeli::Piece * piece, pieces) {
 		piece->setSelected(false);
