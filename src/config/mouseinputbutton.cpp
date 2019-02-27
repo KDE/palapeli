@@ -58,7 +58,7 @@ Palapeli::MouseInputButton::MouseInputButton(QWidget* parent)
 	//setup layout
 	QHBoxLayout* layout = new QHBoxLayout;
 	setLayout(layout);
-	layout->setMargin(0);
+	layout->setContentsMargins(0, 0, 0, 0);
 	layout->addWidget(m_iconLabel);
 	layout->addWidget(m_mainLabel);
 	layout->addWidget(m_clearButton);

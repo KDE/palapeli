@@ -84,7 +84,7 @@ Palapeli::CollectionView::CollectionView(QWidget* parent)
 	// Removed this because setMargin is obsolete and (0) cuts off the right
 	// hand and bottom edges of the search and ListView widgets --- on Apple
 	// OSX at least. The default margin is 11 pixels all round and looks OK.
-	// layout->setMargin(0);
+	// layout->setContentsMargins(0, 0, 0, 0);
 }
 
 void Palapeli::CollectionView::setModel(QAbstractItemModel* model)
