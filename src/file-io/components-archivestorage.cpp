@@ -32,7 +32,7 @@ Palapeli::PuzzleComponent* Palapeli::ArchiveStorageComponent::cast(Palapeli::Puz
 	{
 		//make archive available locally
 		//open archive and extract into temporary directory
-		KTar tar(puzzle()->location(), "application/x-gzip");
+		KTar tar(puzzle()->location(), QStringLiteral("application/x-gzip"));
 		if (!tar.open(QIODevice::ReadOnly))
 			return 0;
 		Palapeli::DirectoryStorageComponent* storage = new Palapeli::DirectoryStorageComponent;
@@ -53,7 +53,7 @@ Palapeli::ArchiveStorageComponent* Palapeli::ArchiveStorageComponent::fromData(P
 	puzzle->get(DirectoryStorage).waitForFinished();
 	const Palapeli::DirectoryStorageComponent* dirStorage = puzzle->component<Palapeli::DirectoryStorageComponent>();
 	//compress archive to location
-	KTar tar(puzzle->location(), "application/x-gzip");
+	KTar tar(puzzle->location(), QStringLiteral("application/x-gzip"));
 	if (!tar.open(QIODevice::WriteOnly))
 		return 0;
 	if (!tar.addLocalDirectory(dirStorage->directory(), QStringLiteral(".")))

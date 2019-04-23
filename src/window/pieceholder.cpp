@@ -85,7 +85,7 @@ void Palapeli::PieceHolder::focusInEvent(QFocusEvent* e)
 void Palapeli::PieceHolder::setSelected(bool onOff)
 {
 	qCDebug(PALAPELI_LOG) << "PieceHolder::setSelected()" << windowTitle() << onOff;
-	setStyleSheet(QString("QFrame { border: 3px solid %1; }").arg
+	setStyleSheet(QStringLiteral("QFrame { border: 3px solid %1; }").arg
 				(onOff ? "blue" : "lightGray"));
 }
 

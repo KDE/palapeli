@@ -48,8 +48,8 @@ Palapeli::Collection::Item::Item(Palapeli::Puzzle* puzzle)
 	setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 	//request metadata
 	Palapeli::FutureWatcher* watcher = new Palapeli::FutureWatcher;
-	connect(watcher, SIGNAL(finished()), SLOT(populate()));
-	connect(watcher, SIGNAL(finished()), watcher, SLOT(deleteLater()));
+	connect(watcher, &QFutureWatcherBase::finished, this, &Item::populate);
+	connect(watcher, &QFutureWatcherBase::finished, watcher, &QObject::deleteLater);
 	watcher->setFuture(puzzle->get(Palapeli::PuzzleComponent::Metadata));
 	//take ownership of puzzle
 	m_puzzle->QObject::setParent(this);
@@ -112,7 +112,7 @@ static QString readPseudoUrl(const QString& path_, bool local)
 }
 
 Palapeli::Collection::Collection()
-	: m_config(new KConfig("palapeli-collectionrc", KConfig::CascadeConfig))
+	: m_config(new KConfig(QStringLiteral("palapeli-collectionrc"), KConfig::CascadeConfig))
 	, m_group(new KConfigGroup(m_config, "Palapeli Collection"))
 {
 	//read the puzzles
@@ -124,7 +124,7 @@ Palapeli::Collection::Collection()
 		const QString basePath = puzzleGroup->readEntry("Location", QString());
 		const QString path = readPseudoUrl(basePath, false);
 		QString baseDesktopPath(basePath);
-		baseDesktopPath.replace(QRegExp("\\.puzzle$"), ".desktop");
+		baseDesktopPath.replace(QRegExp("\\.puzzle$"), QLatin1String(".desktop"));
 		const QString desktopPath = readPseudoUrl(baseDesktopPath, false);
 		//construct puzzle with CollectionStorageComponent
 		if (!path.isEmpty() && (desktopPath.isEmpty() || QFileInfo(path).lastModified() >= QFileInfo(desktopPath).lastModified()))

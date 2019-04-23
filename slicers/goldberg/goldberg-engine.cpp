@@ -62,7 +62,7 @@ int GoldbergEngine::get_image_height() {
 
 void GoldbergEngine::dump_grid_image() {
     if (m_dump_grid) {
-        QString path = QDir::home().filePath("goldberg-slicer-dump.png");
+        QString path = QDir::home().filePath(QStringLiteral("goldberg-slicer-dump.png"));
         qDebug() << "Dumping grid image to" << path;
         m_grid_image->save(path, 0, -1);
         delete m_grid_image;

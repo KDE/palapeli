@@ -92,7 +92,7 @@ bool Palapeli::ConfigDialog::isDefault()
 void Palapeli::ConfigDialog::updateSettings()
 {
 	//schedule update of TextureHelper (but only after KConfigDialog has written the settings, which might happen after this slot call)
-	QTimer::singleShot(0, Palapeli::TextureHelper::instance(), SLOT(readSettings()));
+	QTimer::singleShot(0, Palapeli::TextureHelper::instance(), &TextureHelper::readSettings);
 	m_triggerPage->updateSettings();
 }
 

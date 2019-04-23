@@ -30,7 +30,7 @@ Palapeli::InteractorManager::InteractorManager(QGraphicsView* view)
 	, m_view(view)
 	, m_interactors(Palapeli::TriggerMapper::createInteractors(view))
 {
-	connect(Palapeli::TriggerMapper::instance(), SIGNAL(associationsChanged()), SLOT(resetActiveTriggers()));
+	connect(Palapeli::TriggerMapper::instance(), &TriggerMapper::associationsChanged, this, &InteractorManager::resetActiveTriggers);
 }
 
 Palapeli::InteractorManager::~InteractorManager()

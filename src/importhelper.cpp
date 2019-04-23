@@ -31,7 +31,7 @@
 Palapeli::ImportHelper::ImportHelper(const QString &path)
     : m_path(path)
 {
-	QTimer::singleShot(0, this, SLOT(doWork()));
+	QTimer::singleShot(0, this, &ImportHelper::doWork);
 }
 
 void Palapeli::ImportHelper::doWork()

@@ -278,7 +278,7 @@ void IrregularMode::generateGrid(GoldbergEngine *e, int piece_count) const {
 bool IrregularMode::checkForQVoronoi() {
     QProcess process;
 
-    process.start("qvoronoi");
+    process.start(QStringLiteral("qvoronoi"));
     process.waitForStarted();
     if (process.error() == QProcess::FailedToStart) {
         return false;
@@ -344,7 +344,7 @@ void IrregularMode::generateVoronoiGrid(GoldbergEngine *e, QList<QPointF> cell_c
 
     // shellout to qvoronoi, and ask it to return voronoi vertices (p) and ridges (Fv) for possibly degenerate (Qz) input.
     QProcess process;
-    process.start("qvoronoi", QStringList() << "Qz" << "p" << "Fv");
+    process.start(QStringLiteral("qvoronoi"), QStringList() << QStringLiteral("Qz") << QStringLiteral("p") << QStringLiteral("Fv"));
     process.waitForStarted();
     process.write(qvoronoi_input);
     process.closeWriteChannel();

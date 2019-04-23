@@ -36,11 +36,11 @@ int main(int argc, char** argv)
 
     KLocalizedString::setApplicationDomain("palapeli");
 
-    KAboutData about("palapeli", i18nc("The application's name", "Palapeli"), "2.1", i18n("KDE Jigsaw Puzzle Game"), KAboutLicense::GPL, i18n("Copyright 2009, 2010, Stefan Majewsky"));
-    about.addAuthor(i18n("Stefan Majewsky"), QString(), "majewsky@gmx.net", "http://majewsky.wordpress.com");
+    KAboutData about(QStringLiteral("palapeli"), i18nc("The application's name", "Palapeli"), QStringLiteral("2.1"), i18n("KDE Jigsaw Puzzle Game"), KAboutLicense::GPL, i18n("Copyright 2009, 2010, Stefan Majewsky"));
+    about.addAuthor(i18n("Stefan Majewsky"), QString(), QStringLiteral("majewsky@gmx.net"), QStringLiteral("http://majewsky.wordpress.com"));
     about.addCredit (i18n ("Johannes Loehnert"),
             i18n ("The option to preview the completed puzzle"),
-            "loehnert.kde@gmx.de");
+            QStringLiteral("loehnert.kde@gmx.de"));
     QCommandLineParser parser;
     KAboutData::setApplicationData(about);
     KCrash::initialize();
@@ -53,9 +53,9 @@ int main(int argc, char** argv)
 
 
     //NOTE: Syntax errors are reported on stderr, while file errors are presented to the user.
-    if (parser.isSet("import"))
+    if (parser.isSet(QStringLiteral("import")))
         //perform import request
-        new Palapeli::ImportHelper(parser.value("import"));
+        new Palapeli::ImportHelper(parser.value(QStringLiteral("import")));
     else {
         const QStringList args = parser.positionalArguments();
         QString path;

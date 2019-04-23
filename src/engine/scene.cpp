@@ -47,7 +47,7 @@ void Palapeli::Scene::addPieceItemsToScene()
 {
 	foreach (Palapeli::Piece * piece, m_pieces) {
 		addItem(piece);
-		connect(piece, SIGNAL(moved(bool)), this, SLOT(pieceMoved(bool)));
+		connect(piece, &Piece::moved, this, &Scene::pieceMoved);
 	}
 }
 
@@ -57,7 +57,7 @@ void Palapeli::Scene::dispatchPieces(const QList<Palapeli::Piece*> &pieces)
 		piece->setSelected(false);
 		removeItem(piece);
 		m_pieces.removeAll(piece);
-		disconnect(piece, SIGNAL(moved(bool)), this, SLOT(pieceMoved(bool)));
+		disconnect(piece, &Piece::moved, this, &Scene::pieceMoved);
 	}
 }
 
@@ -196,8 +196,8 @@ void Palapeli::Scene::pieceInstanceTransaction(const QList<Palapeli::Piece*>& de
 	foreach (Palapeli::Piece* newPiece, createdPieces)
 	{
 		m_pieces << newPiece;
-		connect(newPiece, SIGNAL(moved(bool)),
-			this, SLOT(pieceMoved(bool)));
+		connect(newPiece, &Piece::moved,
+			this, &Scene::pieceMoved);
 	}
 	// qCDebug(PALAPELI_LOG) << "emit saveMove(" << oldPieceCount - m_pieces.count();
 	emit saveMove(oldPieceCount - m_pieces.count());

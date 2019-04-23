@@ -64,87 +64,87 @@ void Palapeli::MainWindow::setupActions()
 	statusBarAct->setText(i18n("Show statusbar of puzzle table"));
 
 	// Back to collection.
-	QAction * goCollAct = new QAction(QIcon::fromTheme("go-previous"), i18n("Back to &collection"), this);
+	QAction * goCollAct = new QAction(QIcon::fromTheme(QStringLiteral("go-previous")), i18n("Back to &collection"), this);
 	goCollAct->setToolTip(i18n("Go back to the collection to choose another puzzle"));
 	goCollAct->setEnabled(false); //because the collection is initially shown
-	actionCollection()->addAction("view_collection", goCollAct);
-	connect(goCollAct, SIGNAL(triggered()), m_game, SLOT(actionGoCollection()));
+	actionCollection()->addAction(QStringLiteral("view_collection"), goCollAct);
+	connect(goCollAct, &QAction::triggered, m_game, &GamePlay::actionGoCollection);
 
 	// Create new puzzle (FIXME: action should have a custom icon).
-	QAction * createAct = new QAction(QIcon::fromTheme("tools-wizard"), i18n("Create &new puzzle..."), this);
+	QAction * createAct = new QAction(QIcon::fromTheme(QStringLiteral("tools-wizard")), i18n("Create &new puzzle..."), this);
 	createAct->setToolTip(i18n("Create a new puzzle using an image file from your disk"));
 	actionCollection()->setDefaultShortcuts(createAct, KStandardShortcut::openNew());
-	actionCollection()->addAction("game_new", createAct);
-	connect(createAct, SIGNAL(triggered()), m_game, SLOT(actionCreate()));
+	actionCollection()->addAction(QStringLiteral("game_new"), createAct);
+	connect(createAct, &QAction::triggered, m_game, &GamePlay::actionCreate);
 
 	// Delete a puzzle.
-	QAction * deleteAct = new QAction(QIcon::fromTheme("archive-remove"), i18n("&Delete puzzle"), this);
+	QAction * deleteAct = new QAction(QIcon::fromTheme(QStringLiteral("archive-remove")), i18n("&Delete puzzle"), this);
 	deleteAct->setEnabled(false); //will be enabled when something is selected
 	deleteAct->setToolTip(i18n("Delete the selected puzzle from your collection"));
-	actionCollection()->addAction("game_delete", deleteAct);
-	connect(m_game->collectionView(), SIGNAL(canDeleteChanged(bool)), deleteAct, SLOT(setEnabled(bool)));
-	connect(deleteAct, SIGNAL(triggered()), m_game, SLOT(actionDelete()));
+	actionCollection()->addAction(QStringLiteral("game_delete"), deleteAct);
+	connect(m_game->collectionView(), &CollectionView::canDeleteChanged, deleteAct, &QAction::setEnabled);
+	connect(deleteAct, &QAction::triggered, m_game, &GamePlay::actionDelete);
 
 	// Import from file...
-	QAction * importAct = new QAction(QIcon::fromTheme("document-import"), i18n("&Import from file..."), this);
+	QAction * importAct = new QAction(QIcon::fromTheme(QStringLiteral("document-import")), i18n("&Import from file..."), this);
 	importAct->setToolTip(i18n("Import a new puzzle from a file into your collection"));
-	actionCollection()->addAction("game_import", importAct);
-	connect(importAct, SIGNAL(triggered()), m_game, SLOT(actionImport()));
+	actionCollection()->addAction(QStringLiteral("game_import"), importAct);
+	connect(importAct, &QAction::triggered, m_game, &GamePlay::actionImport);
 
 	// Export to file...
-	QAction * exportAct = new QAction(QIcon::fromTheme("document-export"), i18n("&Export to file..."), this);
+	QAction * exportAct = new QAction(QIcon::fromTheme(QStringLiteral("document-export")), i18n("&Export to file..."), this);
 	exportAct->setEnabled(false); //will be enabled when something is selected
 	exportAct->setToolTip(i18n("Export the selected puzzle from your collection into a file"));
-	actionCollection()->addAction("game_export", exportAct);
-	connect(m_game->collectionView(), SIGNAL(canExportChanged(bool)), exportAct, SLOT(setEnabled(bool)));
-	connect(exportAct, SIGNAL(triggered()), m_game, SLOT(actionExport()));
+	actionCollection()->addAction(QStringLiteral("game_export"), exportAct);
+	connect(m_game->collectionView(), &CollectionView::canExportChanged, exportAct, &QAction::setEnabled);
+	connect(exportAct, &QAction::triggered, m_game, &GamePlay::actionExport);
 
 	//Reshuffle and restart puzzle
-	QAction * restartPuzzleAct = new QAction(QIcon::fromTheme("view-refresh"), i18n("&Restart puzzle..."), this);
+	QAction * restartPuzzleAct = new QAction(QIcon::fromTheme(QStringLiteral("view-refresh")), i18n("&Restart puzzle..."), this);
 	restartPuzzleAct->setToolTip(i18n("Delete the saved progress and reshuffle the pieces"));
 	restartPuzzleAct->setEnabled(false); //no puzzle in progress initially
-	actionCollection()->addAction("game_restart", restartPuzzleAct);
-	connect(restartPuzzleAct, SIGNAL(triggered()), m_game, SLOT(restartPuzzle()));
+	actionCollection()->addAction(QStringLiteral("game_restart"), restartPuzzleAct);
+	connect(restartPuzzleAct, &QAction::triggered, m_game, &GamePlay::restartPuzzle);
 	// Quit.
 	KStandardAction::quit (this, SLOT (close()), actionCollection());
 	// Create piece-holder.
 	QAction * createHolderAct = new QAction(i18n("&Create piece holder..."), this);
 	createHolderAct->setToolTip(i18n("Create a temporary holder for sorting pieces"));
 	actionCollection()->setDefaultShortcut(createHolderAct, QKeySequence(Qt::Key_C));
-	actionCollection()->addAction("move_create_holder", createHolderAct);
+	actionCollection()->addAction(QStringLiteral("move_create_holder"), createHolderAct);
 	connect(createHolderAct, SIGNAL(triggered()), m_game, SLOT(createHolder()));
 
 	// Delete piece-holder.
 	QAction * deleteHolderAct = new QAction(i18n("&Delete piece holder"), this);
 	deleteHolderAct->setToolTip(i18n("Delete a selected temporary holder when it is empty"));
 	actionCollection()->setDefaultShortcut(deleteHolderAct, QKeySequence(Qt::Key_D));
-	actionCollection()->addAction("move_delete_holder", deleteHolderAct);
-	connect(deleteHolderAct, SIGNAL(triggered()), m_game, SLOT(deleteHolder()));
+	actionCollection()->addAction(QStringLiteral("move_delete_holder"), deleteHolderAct);
+	connect(deleteHolderAct, &QAction::triggered, m_game, &GamePlay::deleteHolder);
 
 	// Select all pieces in a piece-holder.
 	QAction * selectAllAct = new QAction(i18n("&Select all in holder"), this);
 	selectAllAct->setToolTip(i18n("Select all pieces in a selected piece holder"));
 	actionCollection()->setDefaultShortcut(selectAllAct, QKeySequence(Qt::Key_A));
-	actionCollection()->addAction("move_select_all", selectAllAct);
-	connect(selectAllAct, SIGNAL(triggered()), m_game, SLOT(selectAll()));
+	actionCollection()->addAction(QStringLiteral("move_select_all"), selectAllAct);
+	connect(selectAllAct, &QAction::triggered, m_game, &GamePlay::selectAll);
 
 	// Rearrange a selected piece-holder or selected pieces in any view.
 	QAction * rearrangeAct = new QAction(i18n("&Rearrange pieces"), this);
 	rearrangeAct->setToolTip(i18n("Rearrange all pieces in a selected piece holder or selected pieces in any window"));
 	actionCollection()->setDefaultShortcut(rearrangeAct, QKeySequence(Qt::Key_R));
-	actionCollection()->addAction("move_rearrange", rearrangeAct);
-	connect(rearrangeAct, SIGNAL(triggered()), m_game, SLOT(rearrangePieces()));
+	actionCollection()->addAction(QStringLiteral("move_rearrange"), rearrangeAct);
+	connect(rearrangeAct, &QAction::triggered, m_game, &GamePlay::rearrangePieces);
 
 	// Toggle puzzle-preview.
 	bool  isVisible = Settings::puzzlePreviewVisible();
 	const QString text = i18nc("Preview is a noun here", "&Preview");
-	KToggleAction* togglePreviewAct = new KToggleAction(QIcon::fromTheme("view-preview"), text, this);
+	KToggleAction* togglePreviewAct = new KToggleAction(QIcon::fromTheme(QStringLiteral("view-preview")), text, this);
 	togglePreviewAct->setIconText(i18nc("Preview is a noun here", "Preview"));
 	togglePreviewAct->setToolTip(i18n("Show or hide the image of the completed puzzle"));
-	actionCollection()->addAction("view_preview", togglePreviewAct);
+	actionCollection()->addAction(QStringLiteral("view_preview"), togglePreviewAct);
 	togglePreviewAct->setEnabled(false);
 	togglePreviewAct->setChecked(isVisible);
-	connect(togglePreviewAct, SIGNAL(triggered()), m_game, SLOT(actionTogglePreview()));
+	connect(togglePreviewAct, &QAction::triggered, m_game, &GamePlay::actionTogglePreview);
 
 	// View zoom in.
 	KStandardAction::zoomIn(m_game, SLOT(actionZoomIn()),
@@ -155,8 +155,8 @@ void Palapeli::MainWindow::setupActions()
 						actionCollection());
 	// Settings: enable messages that the user marked "Do not show again".
 	QAction * enableMessagesAct = new QAction(i18n("Enable all messages"), this);
-	actionCollection()->addAction("enable_messages", enableMessagesAct);
-	connect(enableMessagesAct, SIGNAL(triggered()), SLOT(enableMessages()));
+	actionCollection()->addAction(QStringLiteral("enable_messages"), enableMessagesAct);
+	connect(enableMessagesAct, &QAction::triggered, this, &MainWindow::enableMessages);
 }
 
 void Palapeli::MainWindow::enableMessages()

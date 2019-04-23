@@ -65,7 +65,7 @@ Palapeli::TextureHelper::TextureHelper()
 	appendRow(colorItem);
 	//fetch backgrounds, and create menu items
 	const QStringList dirs = QStandardPaths::locateAll(QStandardPaths::AppLocalDataLocation,
-													   "backgrounds",
+													   QStringLiteral("backgrounds"),
 													   QStandardPaths::LocateDirectory);
 	foreach (const QString& dir, dirs)
 	{
@@ -122,7 +122,7 @@ void Palapeli::TextureHelper::addScene(QGraphicsScene* scene)
 		return;
 	m_scenes << scene;
 	scene->setBackgroundBrush(m_currentBrush);
-	connect(scene, SIGNAL(destroyed(QObject*)), SLOT(removeScene(QObject*)));
+	connect(scene, &QObject::destroyed, this, &TextureHelper::removeScene);
 }
 
 void Palapeli::TextureHelper::removeScene(QObject* scene)

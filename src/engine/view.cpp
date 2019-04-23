@@ -200,7 +200,7 @@ void Palapeli::View::zoomTo(int level)
 	// In a mouse-centered zoom, lock the pointer onto the scene position.
 	if (m_adjustPointer) {
 		// Let the new view settle down before checking the mouse.
-		QTimer::singleShot(0, this, SLOT(adjustPointer()));
+		QTimer::singleShot(0, this, &View::adjustPointer);
 	}
 }
 

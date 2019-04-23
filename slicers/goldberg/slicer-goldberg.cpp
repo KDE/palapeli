@@ -62,7 +62,7 @@ GoldbergSlicer::GoldbergSlicer(QObject* parent, const QVariantList& args)
     choices << i18nc("Puzzle shape preset", "Very diverse");
     choices << i18nc("Puzzle shape preset", "Large plugs");
     sprop->setChoices(choices);
-    sprop->setDefaultValue(QString(""));
+    sprop->setDefaultValue(QLatin1String(""));
     sprop->setEnabled(false);
     presetMode->setPropertyEnabled("025_QuickPreset", true);
     addProperty("025_QuickPreset", sprop);

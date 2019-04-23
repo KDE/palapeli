@@ -55,7 +55,7 @@ Palapeli::CollectionView::CollectionView(QWidget* parent)
 	m_view->setVerticalScrollMode(QListView::ScrollPerPixel); // Smooth.
 	//setup proxy model
 	m_view->setModel(m_proxyModel);
-	connect(m_view->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), SLOT(handleSelectionChanged()));
+	connect(m_view->selectionModel(), &QItemSelectionModel::selectionChanged, this, &CollectionView::handleSelectionChanged);
 	m_proxyModel->setDynamicSortFilter(true);
 	m_proxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
 	m_proxyModel->setSortLocaleAware(true);

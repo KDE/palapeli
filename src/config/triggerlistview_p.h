@@ -69,7 +69,7 @@ namespace Palapeli
 				m_iconLabel = new QLabel(this);
 				m_nameLabel = new Palapeli::ElidingLabel(this);
 				m_inputButton = new Palapeli::MouseInputButton(this);
-				connect(m_inputButton, SIGNAL(triggerChanged(const Palapeli::Trigger&)), SIGNAL(triggerChanged(const Palapeli::Trigger&)));
+				connect(m_inputButton, &MouseInputButton::triggerChanged, this, &TriggerListDelegateWidget::triggerChanged);
 				//construct layout
 				QHBoxLayout* layout = new QHBoxLayout;
 				setLayout(layout);
@@ -138,7 +138,7 @@ namespace Palapeli
 				widget->setText(index.data(Qt::DisplayRole).value<QString>());
 				disconnect(widget, 0, this, 0);
 				widget->setTrigger(index.data(TriggerRole).value<Palapeli::Trigger>());
-				connect(widget, SIGNAL(triggerChanged(const Palapeli::Trigger&)), SLOT(slotTriggerChanged(const Palapeli::Trigger&)));
+				connect(widget, &TriggerListDelegateWidget::triggerChanged, this, &TriggerListDelegate::slotTriggerChanged);
 				//adjust widget geometry
 				QRect rect = option.rect;
 				rect.moveTop(0);

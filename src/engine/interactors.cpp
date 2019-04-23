@@ -94,7 +94,7 @@ bool Palapeli::MovePieceInteractor::startInteraction(const Palapeli::MouseEvent&
 	foreach(Palapeli::Piece* piece, m_currentPieces)
 	{
 		m_basePositions << piece->pos();
-		connect(piece, SIGNAL(replacedBy(Palapeli::Piece*)), SLOT(pieceReplacedBy(Palapeli::Piece*)), Qt::DirectConnection);
+		connect(piece, &Piece::replacedBy, this, &MovePieceInteractor::pieceReplacedBy, Qt::DirectConnection);
 		piece->beginMove();
 	}
 	return true;

@@ -32,7 +32,7 @@ Palapeli::SlicerSelector::SlicerSelector(QWidget* parent)
 	setSelectionMode(QAbstractItemView::SingleSelection);
 	connect(this, &SlicerSelector::itemSelectionChanged, this, &SlicerSelector::slotSelectionChanged);
 	//load slicer plugins
-	KService::List offers = KServiceTypeTrader::self()->query("Libpala/SlicerPlugin");
+	KService::List offers = KServiceTypeTrader::self()->query(QStringLiteral("Libpala/SlicerPlugin"));
 	foreach (KService::Ptr offer, offers)
 	{
 		const QString pluginName = offer->library(), slicerName = offer->name();

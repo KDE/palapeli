@@ -65,8 +65,8 @@ Palapeli::PuzzleTableWidget::PuzzleTableWidget()
 	connect(m_zoomWidget, &Palapeli::ZoomWidget::zoomOutRequest, m_view, &Palapeli::View::zoomOut);
 	connect(m_view, &Palapeli::View::zoomLevelChanged, m_zoomWidget, &Palapeli::ZoomWidget::setLevel);
 	connect(m_view, &Palapeli::View::zoomAdjustable, this, &PuzzleTableWidget::setZoomAdjustable);
-	connect(m_zoomWidget, SIGNAL(constrainedChanged(bool)), m_view->scene(), SLOT(setConstrained(bool)));
-	connect(m_view->scene(), SIGNAL(constrainedChanged(bool)), m_zoomWidget, SLOT(setConstrained(bool)));
+	connect(m_zoomWidget, &ZoomWidget::constrainedChanged, m_view->scene(), &Scene::setConstrained);
+	connect(m_view->scene(), &Scene::constrainedChanged, m_zoomWidget, &ZoomWidget::setConstrained);
 	//setup widget stack
 	// /* IDW test. Disable LOADING WIDGET.
 	m_stack->addWidget(m_loadingWidget);

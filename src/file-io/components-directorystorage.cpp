@@ -47,14 +47,14 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 	if (type == Metadata)
 	{
 		Palapeli::PuzzleMetadata metadata;
-		KDesktopFile manifest(dir.absoluteFilePath("pala.desktop"));
+		KDesktopFile manifest(dir.absoluteFilePath(QStringLiteral("pala.desktop")));
 		//read simple metadata
 		metadata.name = manifest.readName();
 		metadata.author = manifest.desktopGroup().readEntry("X-KDE-PluginInfo-Author", QString());
 		metadata.comment = manifest.readComment();
 		metadata.modifyProtection = manifest.group("Collection").readEntry("ModifyProtection", false);
 		//read image
-		metadata.image.load(dir.absoluteFilePath("image.jpg"));
+		metadata.image.load(dir.absoluteFilePath(QStringLiteral("image.jpg")));
 		metadata.thumbnail = metadata.image.scaled(Palapeli::PuzzleMetadata::ThumbnailBaseSize, Qt::KeepAspectRatio);
 		//count pieces
 		const QStringList keys = manifest.group("PieceOffsets").keyList();
@@ -68,7 +68,7 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 	else if (type == Contents)
 	{
 		Palapeli::PuzzleContents contents;
-		KDesktopFile manifest(dir.absoluteFilePath("pala.desktop"));
+		KDesktopFile manifest(dir.absoluteFilePath(QStringLiteral("pala.desktop")));
 		contents.imageSize = manifest.group("Job").readEntry("ImageSize", QSize());
 		//load piece offsets and images
 		KConfigGroup offsetGroup(&manifest, "PieceOffsets");
@@ -104,7 +104,7 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 		Palapeli::PuzzleCreationContext creationContext;
 		*((Palapeli::PuzzleMetadata*)&creationContext) = metadata;
 		//load slicer configuration
-		KDesktopFile manifest(dir.absoluteFilePath("pala.desktop"));
+		KDesktopFile manifest(dir.absoluteFilePath(QStringLiteral("pala.desktop")));
 		KConfigGroup jobGroup(&manifest, "Job");
 		creationContext.slicer = jobGroup.readEntry("Slicer", QString());
 		creationContext.slicerMode = jobGroup.readEntry("SlicerMode", QByteArray());
@@ -149,7 +149,7 @@ Palapeli::DirectoryStorageComponent* Palapeli::DirectoryStorageComponent::fromDa
 	Palapeli::DirectoryStorageComponent* cmp = new Palapeli::DirectoryStorageComponent;
 	QDir dir(cmp->directory());
 	//write manifest
-	KConfig manifest(dir.absoluteFilePath("pala.desktop"));
+	KConfig manifest(dir.absoluteFilePath(QStringLiteral("pala.desktop")));
 	KConfigGroup mainGroup(&manifest, "Desktop Entry");
 	mainGroup.writeEntry("Name", metadata.name);
 	mainGroup.writeEntry("Comment", metadata.comment);

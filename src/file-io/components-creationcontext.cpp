@@ -43,7 +43,7 @@ Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) c
 		//TODO: move slicer instantiation to a location that is shared between
 		//      puzzle creator dialog and this function
 		//find slicer
-		KService::List offers = KServiceTypeTrader::self()->query("Libpala/SlicerPlugin");
+		KService::List offers = KServiceTypeTrader::self()->query(QStringLiteral("Libpala/SlicerPlugin"));
 		KService::Ptr slicerOffer;
 		foreach (KService::Ptr offer, offers)
 			if (offer->library() == cc.slicer)
