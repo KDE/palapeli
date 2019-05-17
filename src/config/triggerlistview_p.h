@@ -153,7 +153,7 @@ namespace Palapeli
 			{
 				const QModelIndex index = focusedIndex();
 				QAbstractItemModel* model = const_cast<QAbstractItemModel*>(index.model());
-				model->setData(index, qVariantFromValue(newTrigger), Palapeli::TriggerRole);
+				model->setData(index, QVariant::fromValue(newTrigger), Palapeli::TriggerRole);
 				emit triggerChanged();
 			}
 		private:

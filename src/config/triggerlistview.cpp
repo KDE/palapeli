@@ -55,7 +55,7 @@ Palapeli::TriggerListView::TriggerListView(const QMap<QByteArray, Palapeli::Inte
 		item->setData(interactor->icon(), Qt::DecorationRole);
 		item->setData(interactorType, Palapeli::InteractorTypeRole);
 		item->setData(it1.key(), Palapeli::InteractorRole);
-		item->setData(qVariantFromValue(Palapeli::Trigger()), Palapeli::TriggerRole);
+		item->setData(QVariant::fromValue(Palapeli::Trigger()), Palapeli::TriggerRole);
 		item->setData(categoryToString(interactor->category()), KCategorizedSortFilterProxyModel::CategoryDisplayRole);
 		item->setData(interactor->category(), KCategorizedSortFilterProxyModel::CategorySortRole);
 		m_baseModel->appendRow(item);
@@ -91,7 +91,7 @@ void Palapeli::TriggerListView::setAssociations(const QMap<QByteArray, Palapeli:
 	{
 		QStandardItem* item = m_baseModel->item(i);
 		const QByteArray interactor = item->data(Palapeli::InteractorRole).value<QByteArray>();
-		item->setData(qVariantFromValue(associations.value(interactor)), Palapeli::TriggerRole);
+		item->setData(QVariant::fromValue(associations.value(interactor)), Palapeli::TriggerRole);
 	}
 }
 
