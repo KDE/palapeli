@@ -19,16 +19,12 @@
 #ifndef PALAPELI_MAINWINDOW_H
 #define PALAPELI_MAINWINDOW_H
 
-class QStackedWidget;
 #include <KXmlGuiWindow>
 
 namespace Palapeli
 {
 	class GamePlay;
-	class CollectionView;
 	class Puzzle;
-	class PuzzleTableWidget;
-	class PuzzlePreview;
 
 	class MainWindow : public KXmlGuiWindow
 	{

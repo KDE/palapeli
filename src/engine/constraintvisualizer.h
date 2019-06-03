@@ -26,7 +26,6 @@ class QPropertyAnimation;
 
 namespace Palapeli
 {
-	class CvHandleItem;
 	class Scene;
 
 	/* This class creates and manages a draggable frame around a Palapeli

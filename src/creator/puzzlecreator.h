@@ -24,7 +24,6 @@
 #include <QMap>
 class QStackedWidget;
 #include <KAssistantDialog>
-class KComboBox;
 class KLineEdit;
 class KUrlRequester;
 

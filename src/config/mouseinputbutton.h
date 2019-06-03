@@ -24,7 +24,6 @@
 
 class QLabel;
 #include <QPushButton>
-class QToolButton;
 
 namespace Palapeli
 {

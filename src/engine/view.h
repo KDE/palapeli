@@ -23,7 +23,6 @@
 
 namespace Palapeli
 {
-	class ConstraintVisualizer;
 	class InteractorManager;
 	class Scene;
 	class Piece;
