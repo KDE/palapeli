@@ -37,7 +37,6 @@
 
 #include "../config/configdialog.h"
 #include "settings.h"
-#include <QUrl>
 #include <QStackedWidget>
 #include <QPointer>
 #include <QPropertyAnimation>
@@ -45,7 +44,6 @@
 #include <QtMath>
 #include <QStandardPaths>
 #include <QInputDialog>
-#include <QAction>
 #include <QFileDialog>
 #include <KActionCollection>
 #include <KLocalizedString>

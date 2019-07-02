@@ -21,8 +21,7 @@
 
 #include <QMap>
 #include <QPair>
-#include <QPixmap>
-
+#include <QImage>
 //NOTE: This header defines data structures for Palapeli::Puzzle. PuzzleMetadata contains a bunch of metadata, which is used in the Palapeli::Collection classes. PuzzleContents contains the constituents of the puzzle, and is used by the Palapeli::Scene. Both structures are separate, to allow Palapeli::Puzzle to load only the metadata if only they are needed. The PuzzleCreationContext structure contains some data which is generated during puzzle creation, but not loaded in the current Palapeli version. When writing a newly generated puzzle for the first time, they are also written into the file, to have them available if a newer Palapeli version decides to use them.
 
 namespace Palapeli

@@ -26,12 +26,10 @@
 #include "../libpala/slicerjob.h"
 #include "../libpala/slicermode.h"
 
-#include <QBoxLayout>
 #include <QFormLayout>
 #include <QLabel>
 #include <QStackedWidget>
 #include <QUuid>
-#include <KComboBox>
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KMessageBox>

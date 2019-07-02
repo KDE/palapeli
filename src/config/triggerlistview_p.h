@@ -26,10 +26,7 @@
 #include <QCollator>
 #include <QHBoxLayout>
 #include <QLabel>
-#include <QStandardItemModel>
 #include <KCategorizedSortFilterProxyModel>
-#include <KCategoryDrawer>
-#include <KLocalizedString>
 #include <KWidgetItemDelegate>
 
 namespace Palapeli

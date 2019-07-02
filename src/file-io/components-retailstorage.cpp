@@ -21,7 +21,6 @@
 #include "puzzlestructs.h"
 
 #include <QDir>
-#include <QVariant>
 #include <KConfigGroup>
 #include <KDesktopFile>
 

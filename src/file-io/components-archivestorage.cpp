@@ -18,7 +18,6 @@
 
 #include "components.h"
 
-#include <QVariant>
 #include <KTar>
 
 Palapeli::ArchiveStorageComponent::ArchiveStorageComponent()

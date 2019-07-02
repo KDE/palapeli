@@ -18,7 +18,6 @@
 
 #include "slicer-rect.h"
 
-#include <KLocalizedString>
 #include <KPluginFactory>
 
 K_PLUGIN_FACTORY(RectSlicerFactory, registerPlugin<RectSlicer>();)

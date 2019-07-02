@@ -18,7 +18,9 @@
 
 #include "triggerlistview.h"
 #include "triggerlistview_p.h"
-
+#include <KCategoryDrawer>
+#include <KLocalizedString>
+#include <QStandardItemModel>
 static QString categoryToString(Palapeli::Interactor::Category category)
 {
 	switch (category)

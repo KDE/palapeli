@@ -20,7 +20,6 @@
 #include "window/mainwindow.h"
 
 #include <ctime>
-#include <QTimer>
 #include <KAboutData>
 #include <KCrash>
 

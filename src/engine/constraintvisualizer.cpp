@@ -19,8 +19,8 @@
 #include "constraintvisualizer.h"
 #include "scene.h"
 
-#include <QCursor>
 #include <QPropertyAnimation>
+#include <QCursor>
 #include "palapeli_debug.h" // IDW test.
 
 Palapeli::ConstraintVisualizer::ConstraintVisualizer(Palapeli::Scene* scene)

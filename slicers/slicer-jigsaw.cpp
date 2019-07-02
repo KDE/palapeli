@@ -21,7 +21,6 @@
 #include <cmath>
 #include <QPainter>
 #include <QPainterPath>
-#include <KLocalizedString>
 #include <KPluginFactory>
 
 //BEGIN utility functions

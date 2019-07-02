@@ -22,7 +22,6 @@
 
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <QDebug>
 
 #include "goldberg-engine.h"
 #include "grid.h"
