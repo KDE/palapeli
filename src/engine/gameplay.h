@@ -26,6 +26,7 @@ class QStackedWidget;
 
 #include "../window/mainwindow.h"
 
+#include <QMap>
 #include <QTime>	// IDW test.
 
 namespace Palapeli
