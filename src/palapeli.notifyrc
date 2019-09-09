@@ -1,5 +1,6 @@
 [Global]
 Comment=Palapeli Jigsaw Puzzle
+DesktopEntry=org.kde.palapeli
 Comment[bs]=Palapeli testerasta slagalica
 Comment[ca]=Trencaclosques Palapeli
 Comment[ca@valencia]=Trencaclosques Palapeli
