@@ -1,6 +1,5 @@
 [Global]
 Comment=Palapeli Jigsaw Puzzle
-DesktopEntry=org.kde.palapeli
 Comment[bs]=Palapeli testerasta slagalica
 Comment[ca]=Trencaclosques Palapeli
 Comment[ca@valencia]=Trencaclosques Palapeli
@@ -43,6 +42,7 @@ Comment[uk]=Гра у складанку Palapeli
 Comment[x-test]=xxPalapeli Jigsaw Puzzlexx
 Comment[zh_CN]=Palapeli 拼图
 Comment[zh_TW]=Palapeli 拼圖遊戲
+DesktopEntry=org.kde.palapeli
 IconName=palapeli
 
 [Context/filemanagement]
