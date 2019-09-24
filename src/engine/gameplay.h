@@ -27,7 +27,7 @@ class QStackedWidget;
 #include "../window/mainwindow.h"
 
 #include <QMap>
-#include <QTime>	// IDW test.
+#include <QElapsedTimer>	// IDW test.
 
 namespace Palapeli
 {
@@ -141,7 +141,7 @@ namespace Palapeli
 			bool m_playing;
 			bool m_canDeletePuzzle;
 			bool m_canExportPuzzle;
-			QTime t;	// IDW test.
+            QElapsedTimer t;	// IDW test.
 	};
 }
 
