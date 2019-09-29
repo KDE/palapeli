@@ -52,6 +52,8 @@ QList<Palapeli::Piece*> Palapeli::MergeGroup::tryGrowMergeGroup(Palapeli::Piece*
 		{
 			foreach (Palapeli::Piece* logicalNeighbor, piece->logicalNeighbors())
 			{
+				if (piece->scene() != logicalNeighbor->scene())
+					continue;
 				//no need to check the located physical neighbors again
 				if (resultSet.contains(logicalNeighbor))
 					continue;

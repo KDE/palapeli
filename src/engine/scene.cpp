@@ -191,11 +191,10 @@ void Palapeli::Scene::pieceInstanceTransaction(const QList<Palapeli::Piece*>& de
 {
 	// qCDebug(PALAPELI_LOG) << "Scene::pieceInstanceTransaction(delete" << deletedPieces.count() << "add" << createdPieces.count();
 	const int oldPieceCount = m_pieces.count();
-	foreach (Palapeli::Piece* oldPiece, deletedPieces)
-		m_pieces.removeAll(oldPiece); //these pieces have been deleted by the caller
+	dispatchPieces(deletedPieces);
 	foreach (Palapeli::Piece* newPiece, createdPieces)
 	{
-		m_pieces << newPiece;
+		addPieceToList (newPiece);
 		connect(newPiece, &Piece::moved,
 			this, &Scene::pieceMoved);
 	}
