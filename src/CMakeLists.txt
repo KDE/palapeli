@@ -63,6 +63,7 @@ target_link_libraries(palapeli
     KF5::KIOWidgets
     KF5::WidgetsAddons
     KF5::XmlGui
+    KF5KDEGames
     Qt5::Concurrent
     Qt5::Svg
 )
