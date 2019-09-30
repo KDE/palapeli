@@ -41,6 +41,7 @@ Palapeli::Scene::Scene(QObject* parent)
 void Palapeli::Scene::addPieceToList(Palapeli::Piece* piece)
 {
 	m_pieces << piece;
+	piece->setOwner(this);
 }
 
 void Palapeli::Scene::addPieceItemsToScene()
@@ -54,6 +55,7 @@ void Palapeli::Scene::addPieceItemsToScene()
 void Palapeli::Scene::dispatchPieces(const QList<Palapeli::Piece*> &pieces)
 {
 	foreach (Palapeli::Piece * piece, pieces) {
+		piece->setOwner(nullptr);
 		piece->setSelected(false);
 		removeItem(piece);
 		m_pieces.removeAll(piece);
@@ -191,11 +193,10 @@ void Palapeli::Scene::pieceInstanceTransaction(const QList<Palapeli::Piece*>& de
 {
 	// qCDebug(PALAPELI_LOG) << "Scene::pieceInstanceTransaction(delete" << deletedPieces.count() << "add" << createdPieces.count();
 	const int oldPieceCount = m_pieces.count();
-	foreach (Palapeli::Piece* oldPiece, deletedPieces)
-		m_pieces.removeAll(oldPiece); //these pieces have been deleted by the caller
+	dispatchPieces(deletedPieces);
 	foreach (Palapeli::Piece* newPiece, createdPieces)
 	{
-		m_pieces << newPiece;
+		addPieceToList(newPiece);
 		connect(newPiece, &Piece::moved,
 			this, &Scene::pieceMoved);
 	}

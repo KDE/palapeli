@@ -29,6 +29,7 @@ namespace Palapeli
 {
 	class MovePieceInteractor;
 	class PieceVisuals;
+	class Scene;
 
 	class Piece : public Palapeli::GraphicsObject<Palapeli::PieceUserType>
 	{
@@ -86,6 +87,8 @@ namespace Palapeli
 			/// Place piece in a grid-cell, randomly or centered.
 			void setPlace(const QPointF& topLeft, int x, int y,
 					const QSizeF& area, bool random);
+			void setOwner(const Palapeli::Scene *s) { m_owner = s; }
+			const Palapeli::Scene *owner() const { return m_owner; }
 		Q_SIGNALS:
 			void moved(bool finished);
 			void replacedBy(Palapeli::Piece* newPiece);
@@ -109,6 +112,7 @@ namespace Palapeli
 			QPropertyAnimation* m_animator;
 			QPoint m_offset; // IDW test.
 
+			const Palapeli::Scene *m_owner {};
 			QList<int> m_representedAtomicPieces;
 			QList<Palapeli::Piece*> m_logicalNeighbors;
 			QSize m_atomicSize;

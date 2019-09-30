@@ -59,7 +59,7 @@ namespace Palapeli
 					{ return m_pieceAreaSize; }
 			void setPieceAreaSize(const QSizeF& pieceAreaSize)
 					{ m_pieceAreaSize = pieceAreaSize; }
-			QList<Palapeli::Piece*> pieces() { return m_pieces; }
+			const QList<Palapeli::Piece*> pieces() const { return m_pieces; }
 
 			void dispatchPieces(const QList<Palapeli::Piece*> &pcs);
 			void clearPieces();
