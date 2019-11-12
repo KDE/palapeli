@@ -10,6 +10,7 @@
   <name xml:lang="de">Palapeli</name>
   <name xml:lang="en-GB">Palapeli</name>
   <name xml:lang="es">Palapeli</name>
+  <name xml:lang="et">Palapeli</name>
   <name xml:lang="fi">Palapeli</name>
   <name xml:lang="fr">Palapeli</name>
   <name xml:lang="gl">Palapeli</name>
@@ -39,6 +40,7 @@
   <summary xml:lang="de">Bilderpuzzle</summary>
   <summary xml:lang="en-GB">Jigsaw puzzle game</summary>
   <summary xml:lang="es">Juego de rompecabezas</summary>
+  <summary xml:lang="et">Puslemäng</summary>
   <summary xml:lang="fi">Palapeli</summary>
   <summary xml:lang="fr">Jeu de puzzle</summary>
   <summary xml:lang="gl">Xogo de quebracabezas jigsaw</summary>
@@ -72,6 +74,7 @@
     <p xml:lang="de">Palapeli ist ein Bilderpuzzle-Spiel für einen Spieler. Im Gegensatz zu anderen Spielen in dieser Kategorie werden Sie nicht auf das Ausrichten von Teilen an imaginären Gittern eingeschränkt. Die Puzzleteile können beliebig verschoben werden. Außerdem bleiben alle Spielzüge erhalten, da jeder Zug sofort auf der Festplatte gespeichert wird.</p>
     <p xml:lang="en-GB">Palapeli is a single-player jigsaw puzzle game. Unlike other games in that genre, you are not limited to aligning pieces on imaginary grids. The pieces are freely moveable. Also, Palapeli features real persistence, i.e. everything you do is saved on your disk immediately.</p>
     <p xml:lang="es">Palapeli es un juego de rompecabezas para un único jugador. Al contrario de otros juegos del mismo género, no está limitado a alinear piezas en cuadrículas imaginarias. Las piezas se pueden mover libremente. Además, Palapeli usa persistencia real; es decir, todo lo que hace se guarda en el disco de forma inmediata.</p>
+    <p xml:lang="et">Palapeli on ühe mängijaga puslemäng. Erinevalt teistest sama žanri mängudest ei ole siin piiranguid tükkide asetamisele kujutletavale alusvõrgustikule. Kõiki tükke saab vabalt liigutada. Samuti iseloommustab Palapelit see, et kogu sinu tegevus salvestatakse reaalajas kettale, nii et midagi ei lähe kaotsi.</p>
     <p xml:lang="fi">Palapeli on yhden pelaajan peli. Muista samanlaisista peleistä poiketen sinun ei tarvitse sijoittaa palasia kuvitteelliseen ruudukkoon vaan palaset ovat vapaasti liikuteltavissa. Palapeli myös muistaa aina tilanteen eli tallentaa kaiken mitä teet heti levylle.</p>
     <p xml:lang="fr">Palapeli est un jeu de puzzle à un joueur. A la différence des autres jeux de ce genre, vous n'êtes pas limité à aligner les pièces sur des grilles imaginaires. Vous pouvez déplacer les pièces à votre bon vouloir. Palapeli propose également une vraie persistance, tout ce que vous faites est immédiatement enregistré sur votre disque.</p>
     <p xml:lang="gl">Palapeli é un xogo de quebracabezas jigsaw para un xogador. A diferenza doutros xogos do mesmo xénero, non estás limitado a aliñar pezas en grades imaxinarias. As pezas poden moverse libremente. Ademais, Palapeli fornece persistencia real, é dicir, todo o que fas gárdase no disco inmediatamente.</p>
@@ -99,6 +102,7 @@
     <p xml:lang="de">Funktionen:</p>
     <p xml:lang="en-GB">Features:</p>
     <p xml:lang="es">Funciones:</p>
+    <p xml:lang="et">Omadused:</p>
     <p xml:lang="fi">Ominaisuuksia:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
     <p xml:lang="gl">Funcionalidades:</p>
@@ -129,6 +133,7 @@
       <li xml:lang="de">Erstellen und Spielen von Puzzles von 4 bis 10.00 Teilen</li>
       <li xml:lang="en-GB">Create and play puzzles ranging from 4 to 10,000 pieces</li>
       <li xml:lang="es">Crear y jugar rompecabezas desde 4 hasta 10.000 piezas</li>
+      <li xml:lang="et">Puslede loomine ja läbimängimine, milles on 4 kuni 10 000 tükki</li>
       <li xml:lang="fi">Luo ja pelaa 4–10 000 palan palapelejä</li>
       <li xml:lang="fr">Créez et jouez à des puzzles comptant de 4 à 10 000 pièces</li>
       <li xml:lang="gl">Crea e xoga quebracabezas de entre 4 e 10.000 pezas.</li>
@@ -155,6 +160,7 @@
       <li xml:lang="de">Teileablagen als Hilfe für große Puzzles</li>
       <li xml:lang="en-GB">Piece-holders for helping solve large puzzles</li>
       <li xml:lang="es">Portapiezas para ayudarle a resolver rompecabezas grandes</li>
+      <li xml:lang="et">Tükihoidikud suuremate puslede lahendamise hõlbustamiseks</li>
       <li xml:lang="fi">Palaryhmät suurten palapelien ratkaisemisen helpottamiseksi</li>
       <li xml:lang="fr">Casier à pièces pour vous aider à résoudre les grands puzzles</li>
       <li xml:lang="gl">Caixóns de pezas para axudar a resolver quebracabezas grandes.</li>
