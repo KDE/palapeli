@@ -36,7 +36,7 @@ namespace Palapeli
 	{
 		COMPONENT_SUBCLASS(Metadata)
 		public:
-			MetadataComponent(const Palapeli::PuzzleMetadata& metadata) : metadata(metadata) {}
+			explicit MetadataComponent(const Palapeli::PuzzleMetadata& metadata) : metadata(metadata) {}
 
 			Palapeli::PuzzleMetadata metadata;
 	};
@@ -45,7 +45,7 @@ namespace Palapeli
 	{
 		COMPONENT_SUBCLASS(Contents)
 		public:
-			ContentsComponent(const Palapeli::PuzzleContents& contents) : contents(contents) {}
+			explicit ContentsComponent(const Palapeli::PuzzleContents& contents) : contents(contents) {}
 
 			Palapeli::PuzzleContents contents;
 	};
@@ -55,7 +55,7 @@ namespace Palapeli
 	{
 		COMPONENT_SUBCLASS(CreationContext)
 		public:
-			CreationContextComponent(const Palapeli::PuzzleCreationContext& creationContext) : creationContext(creationContext) {}
+			explicit CreationContextComponent(const Palapeli::PuzzleCreationContext& creationContext) : creationContext(creationContext) {}
 
 			Palapeli::PuzzleCreationContext creationContext;
 			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;

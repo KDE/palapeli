@@ -34,7 +34,7 @@ namespace Palapeli
 	class TriggerListProxyModel : public KCategorizedSortFilterProxyModel
 	{
 		public:
-			TriggerListProxyModel(QObject* parent = 0)
+			explicit TriggerListProxyModel(QObject* parent = 0)
 				: KCategorizedSortFilterProxyModel(parent)
 			{
 				setCategorizedModel(true);
@@ -61,7 +61,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			TriggerListDelegateWidget(QWidget* parent = 0) : QWidget(parent)
+			explicit TriggerListDelegateWidget(QWidget* parent = 0) : QWidget(parent)
 			{
 				m_iconLabel = new QLabel(this);
 				m_nameLabel = new Palapeli::ElidingLabel(this);
