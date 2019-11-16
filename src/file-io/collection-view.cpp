@@ -23,11 +23,11 @@
 
 #include <QApplication>
 #include <QGridLayout>
+#include <QLineEdit>
 #include <QMenu>
 #include <QPushButton>
 #include <QSortFilterProxyModel>
 #include <QAction>
-#include <KFilterProxySearchLine>
 #include <KLocalizedString>
 
 Palapeli::CollectionView::CollectionView(QWidget* parent)
@@ -63,8 +63,9 @@ Palapeli::CollectionView::CollectionView(QWidget* parent)
 	m_proxyModel->sort(0, Qt::AscendingOrder);
 	//TODO: save sorting role between sessions
 	//setup filter search line
-	KFilterProxySearchLine* searchLine = new KFilterProxySearchLine(this);
-	searchLine->setProxy(m_proxyModel);
+	QLineEdit* searchLine = new QLineEdit(this);
+	searchLine->setClearButtonEnabled(true);
+	connect(searchLine, &QLineEdit::textChanged, this, &Palapeli::CollectionView::slotTextChanged);
 	//setup sort button
 	QPushButton* sortButton = new QPushButton(i18nc("@action:button that pops up sorting strategy selection menu", "Sort list..."), this);
 	QMenu* sortMenu = new QMenu(sortButton);
@@ -85,6 +86,11 @@ Palapeli::CollectionView::CollectionView(QWidget* parent)
 	// hand and bottom edges of the search and ListView widgets --- on Apple
 	// OSX at least. The default margin is 11 pixels all round and looks OK.
 	// layout->setContentsMargins(0, 0, 0, 0);
+}
+
+void Palapeli::CollectionView::slotTextChanged(const QString &str)
+{
+    m_proxyModel->setFilterFixedString(str);
 }
 
 void Palapeli::CollectionView::setModel(QAbstractItemModel* model)

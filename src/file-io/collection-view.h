@@ -44,6 +44,7 @@ namespace Palapeli
 			void handleActivated(const QModelIndex& index);
 			void handleSelectionChanged();
 			void sortMenuTriggered(QAction* action);
+			void slotTextChanged(const QString &str);
 		private:
 			QListView* m_view;
 			Palapeli::CollectionDelegate* m_delegate;
