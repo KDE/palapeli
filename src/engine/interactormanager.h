@@ -24,9 +24,9 @@
 
 namespace Palapeli
 {
-	class EventContext;
+	struct EventContext;
 	class Interactor;
-	class MouseEvent;
+	struct MouseEvent;
 
 	class InteractorManager : public QObject
 	{

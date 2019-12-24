@@ -122,7 +122,7 @@ namespace Pala
 			///Decides how the property is represented in the user interface of Palapeli.
 			void setRepresentation(Representation representation);
 		private:
-			class Private;
+			struct Private;
 			Private* const p;
 	};
 

@@ -148,7 +148,7 @@ void RotrexMode::generateGrid(GoldbergEngine *e, int piece_count) const {
             }
 
             // bottom edge
-            if ((y == yCount)) {
+            if (y == yCount) {
                 cells[x][y].vert.unit_x.setP2(QPointF(
                             cells[x][y].vert.unit_x.x2(),
                             y * cellHeight));
