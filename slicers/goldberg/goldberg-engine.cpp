@@ -25,6 +25,7 @@
 #include <QPainterPath>
 #include <QDebug>
 #include <QDir>
+#include <QRandomGenerator>
 #include "utilities.h"
 
 
@@ -74,7 +75,7 @@ void GoldbergEngine::dump_grid_image() {
 GBClassicPlugParams GoldbergEngine::initEdge(bool is_straight) {
     GBClassicPlugParams r;
     r.size_correction = 1.0;
-    r.flipped = (qrand() % 100 < m_flip_threshold);
+    r.flipped = (QRandomGenerator::global()->bounded(100) < m_flip_threshold);
     r.is_straight = is_straight;
     r.is_plugless = false;
     r.path_is_rendered = false;

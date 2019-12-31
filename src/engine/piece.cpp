@@ -27,6 +27,7 @@
 #include <QPalette>
 #include <QPropertyAnimation>
 #include <QPainter> // IDW test.
+#include <QRandomGenerator>
 
 void Palapeli::Piece::commonInit(const Palapeli::PieceVisuals& pieceVisuals)
 {
@@ -304,9 +305,10 @@ void Palapeli::Piece::setPlace(const QPointF& topLeft, int x, int y,
 	if (random) {
 		int dx = area.width() - pieceSize.width();
 		int dy = area.height() - pieceSize.height();
+                auto *generator = QRandomGenerator::global();
 		areaOffset = QPointF(	// Place the piece randomly in the cell.
-			(dx > 0) ? (qrand() % dx) : 0,	// Avoid division by 0.
-			(dy > 0) ? (qrand() % dy) : 0);
+                        (dx > 0) ? (generator->bounded(dx)) : 0,	// Avoid division by 0.
+                        (dy > 0) ? (generator->bounded(dy)) : 0);
 	}
 	else {
 		areaOffset = QPointF(	// Center the piece in the cell.

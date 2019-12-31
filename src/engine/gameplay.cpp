@@ -45,6 +45,7 @@
 #include <QStandardPaths>
 #include <QInputDialog>
 #include <QFileDialog>
+#include <QRandomGenerator>
 #include <KActionCollection>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -1008,6 +1009,7 @@ void Palapeli::GamePlay::loadPiecePositions()
 		qCDebug(PALAPELI_LOG) << "xMax" << xMax << "x1 y1" << x1 << y1
 					   << "x2 y2" << x2 << y2;
 
+                auto *generator = QRandomGenerator::global();
 		for (int y = 0; !piecePool.isEmpty(); ++y) {
 			for (int x = 0; x < xMax && !piecePool.isEmpty(); ++x) {
 				if ((x >= x1) && (x < x2) &&
@@ -1016,7 +1018,7 @@ void Palapeli::GamePlay::loadPiecePositions()
 				}
 				// Select a random piece.
 				Palapeli::Piece* piece = piecePool.takeAt(
-						qrand() % piecePool.count());
+                                                generator->bounded(piecePool.count()));
 				// Place it randomly in grid-cell (x, y).
 				const QPointF p0(0.0, 0.0);
 				piece->setPlace(p0, x, y, pieceAreaSize, true);

@@ -22,12 +22,13 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <KPluginFactory>
+#include <QRandomGenerator>
 
 //BEGIN utility functions
 
 qreal myrand(qreal min, qreal max)
 {
-	const qreal randNum = qreal(qrand() % 10000) / 10000; //a quite random number between 0 and 1
+        const qreal randNum = qreal(QRandomGenerator::global()->bounded(10000)) / 10000; //a quite random number between 0 and 1
 	return randNum * (max - min) + min;
 }
 
@@ -106,6 +107,7 @@ bool JigsawSlicer::run(Pala::SlicerJob* job)
 	JigsawPlugParams** verticalPlugParams = new JigsawPlugParams*[xCount];
 	int** horizontalPlugDirections = new int*[xCount]; //+1: male is left, female is right, plug points to the right (-1 is the opposite direction)
 	int** verticalPlugDirections = new int*[xCount]; //true: male is above female, plug points down
+        auto *generator = QRandomGenerator::global();
 	for (int x = 0; x < xCount; ++x)
 	{
 		horizontalPlugParams[x] = new JigsawPlugParams[yCount];
@@ -116,10 +118,10 @@ bool JigsawSlicer::run(Pala::SlicerJob* job)
 		{
 			//plugs along X axis
 			horizontalPlugParams[x][y] = JigsawPlugParams::createRandomParams();
-			horizontalPlugDirections[x][y] = (qrand() % 2) ? 1 : -1;
+                        horizontalPlugDirections[x][y] = (generator->bounded(2)) ? 1 : -1;
 			//plugs along Y axis
 			verticalPlugParams[x][y] = JigsawPlugParams::createRandomParams();
-			verticalPlugDirections[x][y] = (qrand() % 2) ? 1 : -1;
+                        verticalPlugDirections[x][y] = (generator->bounded(2)) ? 1 : -1;
 		}
 	}
 	//create pieces

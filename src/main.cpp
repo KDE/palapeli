@@ -30,7 +30,6 @@
 
 int main(int argc, char** argv)
 {
-    qsrand(time(0));
     QApplication app(argc, argv);
 
     KLocalizedString::setApplicationDomain("palapeli");

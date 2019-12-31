@@ -23,6 +23,7 @@
 #include <QDebug>
 #include <QPainterPath>
 #include <QProcess>
+#include <QRandomGenerator>
 #include "pointfinder.h"
 #include "utilities.h"
 
@@ -219,9 +220,10 @@ void IrregularMode::generateGrid(GoldbergEngine *e, int piece_count) const {
     if (piece_count < 2) piece_count = 2;
 
     pfinder = new PointFinder(width, height, radius);
+    auto *generator = QRandomGenerator::global();
     for (int i=0; i<piece_count; ++i) {
-        qreal x = 0.000001 * qreal(qrand() % 1000000) * width;
-        qreal y = 0.000001 * qreal(qrand() % 1000000) * height;
+        qreal x = 0.000001 * qreal(generator->bounded(1000000)) * width;
+        qreal y = 0.000001 * qreal(generator->bounded(1000000)) * height;
         pfinder->append(QPointF(x, y));
     }
 

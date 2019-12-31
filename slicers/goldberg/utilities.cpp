@@ -19,7 +19,7 @@
 #include "utilities.h"
 
 #include <QDebug>
-
+#include <QRandomGenerator>
 
 void getBestFit(int &xCount, int &yCount, qreal target_aspect, int approx_count) {
     qreal nx_exact = sqrt(approx_count * target_aspect);
@@ -118,13 +118,14 @@ qreal nonuniform_rand(qreal min, qreal max, qreal sigma, qreal skew) {
 
     qreal randNum;
 
+    auto *generator = QRandomGenerator::global();
     if (sigma > 0.4247) {
         // "wide" distribution, use rejection sampling
         qreal x, y;
         qreal ssq = 2 * sigma * sigma;
         do {
-            x = 0.000001 * qreal(qrand() % 1000000);
-            y = 0.000001 * qreal(qrand() % 1000000);
+            x = 0.000001 * qreal(generator->bounded(1000000));
+            y = 0.000001 * qreal(generator->bounded(1000000));
         } while (y > exp(-(x-0.5)*(x-0.5)/ssq));
 
         randNum = x;
@@ -136,8 +137,8 @@ qreal nonuniform_rand(qreal min, qreal max, qreal sigma, qreal skew) {
         randNum = -1;
         do {
             do {
-                u1 = 0.000002 * qreal(qrand() % 1000000) - 1;
-                u2 = 0.000002 * qreal(qrand() % 1000000) - 1;
+                u1 = 0.000002 * qreal(generator->bounded(1000000)) - 1;
+                u2 = 0.000002 * qreal(generator->bounded(1000000)) - 1;
                 q = u1*u1 + u2*u2;
             } while (q>1);
             p = sqrt(-2 * log(q) / q) * sigma;

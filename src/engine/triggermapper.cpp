@@ -179,7 +179,7 @@ Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palape
 		}
 	}
 	//if execution comes to this point, trigger does not match
-	return 0;
+        return {};
 }
 
 Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palapeli::Trigger& trigger, QMouseEvent* event) const
@@ -211,7 +211,7 @@ Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palape
 		}
 	}
 	//if execution comes to this point, trigger does not match
-	return 0;
+        return {};
 }
 
 Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palapeli::Trigger& trigger, QKeyEvent* event, Qt::MouseButtons buttons) const
@@ -241,7 +241,7 @@ Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palape
 		}
 	}
 	//if execution comes to this point, trigger does not match
-	return 0;
+        return {};
 }
 
 
