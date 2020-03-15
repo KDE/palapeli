@@ -45,6 +45,7 @@ set(palapeli_SRCS
 	window/pieceholder.cpp
 )
 
+ecm_setup_version(${PROJECT_VERSION} VARIABLE_PREFIX PALAPELI VERSION_HEADER palapeli_version.h)
 ecm_qt_declare_logging_category(palapeli_SRCS HEADER palapeli_debug.h IDENTIFIER PALAPELI_LOG CATEGORY_NAME org.kde.palapeli)
 
 kconfig_add_kcfg_files(palapeli_SRCS settings.kcfgc)
