@@ -203,6 +203,7 @@
   </provides>
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="2.1.20041" date="2020-05-14"/>
     <release version="2.1.20040" date="2020-04-23"/>
   </releases>
 </component>
