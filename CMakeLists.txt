@@ -47,9 +47,7 @@ include(ECMQtDeclareLoggingCategory)
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/libpala)
-if (EXISTS "${CMAKE_SOURCE_DIR}/.git")
-   add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x060000)
-endif()
+
 add_subdirectory(libpala)
 add_subdirectory(slicers)
 add_subdirectory(pics)
