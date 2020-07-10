@@ -27,7 +27,7 @@
 #include <QAction>
 #include <KActionCollection>
 #include <KLocalizedString>
-#include <kstandardgameaction.h>
+#include <KStandardGameAction>
 #include <KStandardAction>
 #include <KStandardShortcut>
 #include <KToggleAction>
