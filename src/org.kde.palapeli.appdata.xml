@@ -204,9 +204,9 @@
   </provides>
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="2.1.20080" date="2020-08-13"/>
     <release version="2.1.20043" date="2020-07-09"/>
     <release version="2.1.20042" date="2020-06-11"/>
     <release version="2.1.20041" date="2020-05-14"/>
-    <release version="2.1.20040" date="2020-04-23"/>
   </releases>
 </component>
