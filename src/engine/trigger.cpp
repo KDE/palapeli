@@ -83,7 +83,7 @@ namespace
 			m_buttonStrings[Qt::NoButton] = "NoButton";
 			m_buttonStrings[Qt::LeftButton] = "LeftButton";
 			m_buttonStrings[Qt::RightButton] = "RightButton";
-			m_buttonStrings[Qt::MidButton] = "MidButton";
+			m_buttonStrings[Qt::MiddleButton] = "MidButton";
 			m_buttonStrings[Qt::XButton1] = "XButton1";
 			m_buttonStrings[Qt::XButton2] = "XButton2";
 			m_orientationStrings[Qt::Horizontal] = "wheel:Horizontal";
@@ -106,7 +106,7 @@ namespace
 			m_buttonStrings[(Qt::MouseButton) -1] = QStringLiteral("%1"); //allow external users to insert their custom strings into here
 			m_buttonStrings[Qt::LeftButton] = i18nc("a mouse button", "Left-Button");
 			m_buttonStrings[Qt::RightButton] = i18nc("a mouse button", "Right-Button");
-			m_buttonStrings[Qt::MidButton] = i18nc("a mouse button", "Middle-Button");
+			m_buttonStrings[Qt::MiddleButton] = i18nc("a mouse button", "Middle-Button");
 			m_buttonStrings[Qt::XButton1] = i18nc("a special mouse button", "XButton1");
 			m_buttonStrings[Qt::XButton2] = i18nc("a special mouse button", "XButton2");
 			m_orientationStrings[Qt::Horizontal] = i18n("Horizontal-Scroll");
