@@ -9,7 +9,6 @@ X-KDE-PluginInfo-Name=palapeli_jigsawslicer
 X-KDE-PluginInfo-Version=0.3
 X-KDE-PluginInfo-Website=https://kde.org/applications/games/org.kde.palapeli
 X-KDE-PluginInfo-Category=
-X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 Name=Classic jigsaw pieces
