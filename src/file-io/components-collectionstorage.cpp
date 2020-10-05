@@ -47,7 +47,7 @@ Palapeli::PuzzleComponent* Palapeli::CollectionStorageComponent::cast(Type type)
 	//try to serve metadata from cache
 	const QDateTime mtime = QFileInfo(file).lastModified();
 	m_groupMutex->lock();
-	if (m_group->readEntry("ModifyDateTime", QDateTime()) == mtime)
+	if (m_group->readEntry("ModifyDateTime", QString()) == mtime.toString())
 	{
 		//cache is up-to-date
 		Palapeli::PuzzleMetadata metadata;
@@ -56,7 +56,8 @@ Palapeli::PuzzleComponent* Palapeli::CollectionStorageComponent::cast(Type type)
 		metadata.author = m_group->readEntry("Author", QString());
 		metadata.pieceCount = m_group->readEntry("PieceCount", 0);
 		metadata.modifyProtection = m_group->readEntry("ModifyProtection", false);
-		metadata.thumbnail.loadFromData(m_group->readEntry("Thumbnail", QByteArray()));
+		QByteArray ar = m_group->readEntry("Thumbnail", QByteArray());
+		metadata.thumbnail.loadFromData(QByteArray::fromBase64 (ar));
 		m_groupMutex->unlock();
 		return new Palapeli::MetadataComponent(metadata);
 	}
@@ -81,8 +82,8 @@ Palapeli::PuzzleComponent* Palapeli::CollectionStorageComponent::cast(Type type)
 		m_group->writeEntry("Author", metadata.author);
 		m_group->writeEntry("PieceCount", metadata.pieceCount);
 		m_group->writeEntry("ModifyProtection", metadata.modifyProtection);
-		m_group->writeEntry("ModifyDateTime", mtime);
-		m_group->writeEntry("Thumbnail", buffer.data());
+		m_group->writeEntry("ModifyDateTime", mtime.toString());
+		m_group->writeEntry("Thumbnail", buffer.data().toBase64 ());
 		m_group->sync();
 		m_groupMutex->unlock();
 		return cMetadata;
