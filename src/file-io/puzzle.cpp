@@ -21,7 +21,6 @@
 #include <QAtomicInt>
 #include <QAtomicPointer>
 #include <QFileInfo>
-#include <QFutureSynchronizer>
 #include <QHash>
 #include <QMutexLocker>
 #include <QWaitCondition>
@@ -66,8 +65,6 @@ struct Component
 struct Palapeli::Puzzle::Private
 {
 	Palapeli::Puzzle* q;
-	QMutex m_allFuturesMutex; //controls access to m_allFutures
-	QFutureSynchronizer<void> m_allFutures;
 	QMutex m_hashMutex; //controls access to m_components
 	QHash<Palapeli::PuzzleComponent::Type, Component*> m_components;
 	QAtomicPointer<Palapeli::PuzzleComponent> m_mainComponent;
@@ -98,7 +95,6 @@ Palapeli::Puzzle::Private::Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponen
 
 Palapeli::Puzzle::~Puzzle()
 {
-	d->m_allFutures.waitForFinished();
 	d->m_hashMutex.lock();
 	QHashIterator<Palapeli::PuzzleComponent::Type, Component*> iter(d->m_components);
 	while (iter.hasNext())
@@ -113,15 +109,9 @@ const Palapeli::PuzzleComponent* Palapeli::Puzzle::component(Palapeli::PuzzleCom
 	return c ? c->component : 0;
 }
 
-QFuture<const Palapeli::PuzzleComponent*> Palapeli::Puzzle::get(Palapeli::PuzzleComponent::Type type)
+const Palapeli::PuzzleComponent* Palapeli::Puzzle::get(Palapeli::PuzzleComponent::Type type)
 {
-	QFuture<const Palapeli::PuzzleComponent*> future;
-	future = QtConcurrent::run(d, &Palapeli::Puzzle::Private::get, type);
-	//m_allFutures is used to wait for all running casts to be finished in dtor
-	d->m_allFuturesMutex.lock();
-	d->m_allFutures.addFuture(future);
-	d->m_allFuturesMutex.unlock();
-	return future;
+	return d->get (type);
 }
 
 const Palapeli::PuzzleComponent* Palapeli::Puzzle::Private::get(Palapeli::PuzzleComponent::Type type)

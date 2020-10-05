@@ -21,7 +21,7 @@
 #include <QBuffer>
 #include <QFileInfo>
 #include <KConfigGroup>
-#include <QThread>
+#include <QMutex>
 
 Palapeli::CollectionStorageComponent::CollectionStorageComponent(KConfigGroup* group, QMutex *groupMutex)
 	: m_group(group), m_groupMutex(groupMutex)

@@ -49,7 +49,7 @@ Palapeli::PuzzleComponent* Palapeli::ArchiveStorageComponent::cast(Palapeli::Puz
 
 Palapeli::ArchiveStorageComponent* Palapeli::ArchiveStorageComponent::fromData(Palapeli::Puzzle* puzzle)
 {
-	puzzle->get(DirectoryStorage).waitForFinished();
+	puzzle->get(DirectoryStorage);
 	const Palapeli::DirectoryStorageComponent* dirStorage = puzzle->component<Palapeli::DirectoryStorageComponent>();
 	//compress archive to location
 	KTar tar(puzzle->location(), QStringLiteral("application/x-gzip"));

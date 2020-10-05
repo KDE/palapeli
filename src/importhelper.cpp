@@ -21,7 +21,6 @@
 #include "file-io/components.h"
 #include "file-io/puzzle.h"
 
-#include <QFutureWatcher>
 #include <QTimer>
 #include <QApplication>
 #include "palapeli_debug.h"
@@ -44,7 +43,7 @@ void Palapeli::ImportHelper::doWork()
 	//import puzzle
     Palapeli::Puzzle* puzzle = Palapeli::Collection::instance()->importPuzzle(m_path);
 	//show notification
-	puzzle->get(Palapeli::PuzzleComponent::Metadata).waitForFinished();
+	puzzle->get(Palapeli::PuzzleComponent::Metadata);
 	const Palapeli::MetadataComponent* cmp = puzzle->component<Palapeli::MetadataComponent>();
 	if (cmp)
 	{
@@ -53,9 +52,6 @@ void Palapeli::ImportHelper::doWork()
 			QPixmap::fromImage(cmp->metadata.thumbnail)
 		);
 	}
-	//keep program running until the puzzle has been written
-	Palapeli::FutureWatcher* watcher = new Palapeli::FutureWatcher;
-	connect(watcher, &Palapeli::FutureWatcher::finished, watcher, &Palapeli::FutureWatcher::deleteLater);
-	connect(watcher, SIGNAL(finished()), qApp, SLOT(quit()));
-	watcher->setFuture(puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage));
+	puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage);
+	qApp->quit ();
 }

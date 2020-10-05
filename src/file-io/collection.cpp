@@ -24,7 +24,6 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
-#include <QFutureWatcher>
 #include <QUuid>
 #include <QStandardPaths>
 #include <KConfig>
@@ -47,10 +46,8 @@ Palapeli::Collection::Item::Item(Palapeli::Puzzle* puzzle)
 	setData(i18n("Loading puzzle..."), Qt::DisplayRole);
 	setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 	//request metadata
-	Palapeli::FutureWatcher* watcher = new Palapeli::FutureWatcher;
-	connect(watcher, &QFutureWatcherBase::finished, this, &Item::populate);
-	connect(watcher, &QFutureWatcherBase::finished, watcher, &QObject::deleteLater);
-	watcher->setFuture(puzzle->get(Palapeli::PuzzleComponent::Metadata));
+	puzzle->get(Palapeli::PuzzleComponent::Metadata);
+	populate ();
 	//take ownership of puzzle
 	m_puzzle->QObject::setParent(this);
 }
@@ -173,7 +170,7 @@ void Palapeli::Collection::importPuzzle(Palapeli::Puzzle* puzzle)
 	const QString palapeliUrl = QStringLiteral("palapeli:///collection/%1.puzzle").arg(id);
 	puzzle->setLocation(readPseudoUrl(palapeliUrl, true));
 	//store puzzle
-	puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage).waitForFinished();
+	puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage);
 	//create the config group for this puzzle (use pseudo-URL to avoid problems
 	//when the configuration directory is moved)
 	m_configMutex.lock();
@@ -207,7 +204,7 @@ void Palapeli::Collection::exportPuzzle(const QModelIndex& index, const QString&
 	//create a copy of the given puzzle, and relocate it to the new location
 	const QString identifier = Palapeli::Puzzle::fsIdentifier(path);
 	Palapeli::Puzzle* newPuzzle = new Palapeli::Puzzle(new Palapeli::CopyComponent(puzzle), path, identifier);
-	newPuzzle->get(Palapeli::PuzzleComponent::ArchiveStorage).waitForFinished();
+	newPuzzle->get(Palapeli::PuzzleComponent::ArchiveStorage);
 }
 
 bool Palapeli::Collection::deletePuzzle(const QModelIndex& index)

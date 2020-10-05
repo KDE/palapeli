@@ -98,7 +98,7 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 	//load creation context from directory
 	else if (type == CreationContext)
 	{
-		puzzle()->get(Metadata).waitForFinished();
+		puzzle()->get(Metadata);
 		const Palapeli::PuzzleMetadata metadata = puzzle()->component<Palapeli::MetadataComponent>()->metadata;
 		//initialize creation context from existing metadata
 		Palapeli::PuzzleCreationContext creationContext;
@@ -131,12 +131,10 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 
 Palapeli::DirectoryStorageComponent* Palapeli::DirectoryStorageComponent::fromData(Palapeli::Puzzle* puzzle)
 {
-	//make sure that everything's available
-	QFutureSynchronizer<void> sync;
-	sync.addFuture(puzzle->get(Metadata));
-	sync.addFuture(puzzle->get(Contents));
-	sync.addFuture(puzzle->get(CreationContext));
-	sync.waitForFinished();
+	puzzle->get(Metadata);
+	puzzle->get(Contents);
+	puzzle->get(CreationContext);
+
 	//retrieve data (only metadata and contents are totally necessary)
 	const Palapeli::MetadataComponent* cMetadata = puzzle->component<Palapeli::MetadataComponent>();
 	const Palapeli::ContentsComponent* cContents = puzzle->component<Palapeli::ContentsComponent>();

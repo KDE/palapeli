@@ -19,7 +19,7 @@
 #ifndef PALAPELI_PUZZLE_H
 #define PALAPELI_PUZZLE_H
 
-#include <QFuture>
+#include <QObject>
 #include <QMetaType>
 
 #include <iostream>
@@ -65,9 +65,6 @@ namespace Palapeli
 			Palapeli::Puzzle* m_puzzle;
 	};
 
-	typedef QFuture<const Palapeli::PuzzleComponent*> Future;
-	typedef QFutureWatcher<const Palapeli::PuzzleComponent*> FutureWatcher;
-
 	class Puzzle : public QObject
 	{
 		Q_OBJECT
@@ -93,10 +90,7 @@ namespace Palapeli
 				return dynamic_cast<const T*>(component((Palapeli::PuzzleComponent::Type) T::ComponentType));
 			}
 			///Requests that the given component @a type is made available.
-			///Use the returned future to get the component once the operation
-			///has finished. The future's waitForFinished() method can be used
-			///for synchronized access.
-			Palapeli::Future get(Palapeli::PuzzleComponent::Type type);
+			const Palapeli::PuzzleComponent *get(Palapeli::PuzzleComponent::Type type);
 
 			QString identifier() const;
 			QString location() const;

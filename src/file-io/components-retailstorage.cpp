@@ -34,7 +34,7 @@ Palapeli::PuzzleComponent* Palapeli::RetailStorageComponent::cast(Type type) con
 	//all casting via CreationContextComponent
 	if (type != CreationContext)
 	{
-		return puzzle()->get(CreationContext).result()->cast(type);
+		return puzzle()->get(CreationContext)->cast(type);
 	}
 	//create creation context
 	Palapeli::PuzzleCreationContext creationContext;

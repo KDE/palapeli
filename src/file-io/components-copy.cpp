@@ -55,7 +55,7 @@ Palapeli::PuzzleComponent* Palapeli::CopyComponent::cast(Type type) const
 			return Palapeli::ArchiveStorageComponent::fromData(puzzle());
 		//optimization: if the other puzzle has an archive or collection
 		//storage available, copy that instead of recreating everything
-		m_puzzle->get(ArchiveStorage).waitForFinished();
+		m_puzzle->get(ArchiveStorage);
 		QFile otherFile(m_puzzle->location());
 		if (otherFile.copy(puzzle()->location()))
 			return new Palapeli::ArchiveStorageComponent;

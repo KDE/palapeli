@@ -343,7 +343,7 @@ void Palapeli::GamePlay::actionExport()
 		if (!puzzle)
 			continue;
 		//get puzzle name (as an initial guess for the file name)
-		puzzle->get(Palapeli::PuzzleComponent::Metadata).waitForFinished();
+		puzzle->get(Palapeli::PuzzleComponent::Metadata);
 		const Palapeli::MetadataComponent* cmp = puzzle->component<Palapeli::MetadataComponent>();
 		if (!cmp)
 			continue;
@@ -772,12 +772,8 @@ void Palapeli::GamePlay::loadPuzzleFile()
 	// It is loaded asynchronously and processed one piece at a time.
 	m_loadedPieces.clear();
 	if (m_puzzle) {
-		Palapeli::FutureWatcher* watcher = new Palapeli::FutureWatcher;
-		connect(watcher, SIGNAL(finished()), SLOT(loadNextPiece()));
-		connect(watcher, SIGNAL(finished()),
-			watcher, SLOT(deleteLater()));
-		watcher->setFuture(
-			m_puzzle->get(Palapeli::PuzzleComponent::Contents));
+		m_puzzle->get(Palapeli::PuzzleComponent::Contents);
+		QTimer::singleShot(0, this, &Palapeli::GamePlay::loadNextPiece);
 	}
 	qCDebug(PALAPELI_LOG) << "Finish loadPuzzleFile(): time" << t.restart();
 }
@@ -817,9 +813,9 @@ void Palapeli::GamePlay::loadNextPiece()
 
 		// Continue with next piece or next stage, after event loop run.
 		if (contents.pieces.size() > m_loadedPieces.size())
-			QTimer::singleShot(0, this, SLOT(loadNextPiece()));
+			QTimer::singleShot(0, this, &Palapeli::GamePlay::loadNextPiece);
 		else
-			QTimer::singleShot(0, this, SLOT(loadPiecePositions()));
+			QTimer::singleShot(0, this, &Palapeli::GamePlay::loadPiecePositions);
 		return;
 	}
 }
