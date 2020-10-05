@@ -84,7 +84,6 @@ Palapeli::PuzzleComponent* Palapeli::CollectionStorageComponent::cast(Type type)
 		m_group->writeEntry("ModifyProtection", metadata.modifyProtection);
 		m_group->writeEntry("ModifyDateTime", mtime.toString());
 		m_group->writeEntry("Thumbnail", buffer.data().toBase64 ());
-		m_group->sync();
 		m_groupMutex->unlock();
 		return cMetadata;
 	}

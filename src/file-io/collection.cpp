@@ -140,6 +140,11 @@ Palapeli::Collection::Collection()
 		//make sure puzzle gets converted to archive format
 		puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage);
 	}
+	/* Moved out of CollectionStorageComponent, where we'd potentially call fdatasync on every
+	   puzzle.  */
+	m_configMutex.lock();
+	m_config->sync();
+	m_configMutex.unlock();
 }
 
 Palapeli::Collection::~Collection()
