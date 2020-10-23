@@ -22,7 +22,6 @@
 
 #include <cmath>
 #include <QPainter>
-#include <QPainterPath>
 #include <QDebug>
 #include <QDir>
 #include <QRandomGenerator>

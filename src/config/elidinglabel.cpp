@@ -19,7 +19,6 @@
 #include "elidinglabel.h"
 
 #include <QFontMetrics>
-#include <QLabel>
 
 Palapeli::ElidingLabel::ElidingLabel(QWidget* parent)
 	: QLabel(parent)

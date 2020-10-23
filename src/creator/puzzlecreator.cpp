@@ -18,7 +18,6 @@
 
 #include "puzzlecreator.h"
 #include "slicerconfwidget.h"
-#include "slicerselector.h"
 #include "file-io/components.h"
 #include "file-io/puzzle.h"
 #include "file-io/puzzlestructs.h"
