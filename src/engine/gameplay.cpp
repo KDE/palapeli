@@ -662,6 +662,7 @@ void Palapeli::GamePlay::transferPieces(const QList<Palapeli::Piece*> &pieces,
 		connect(piece, SIGNAL(moved(bool)),
 			scene, SLOT(pieceMoved(bool)));
 	}
+	source->scene()->update();
 	scene->setSceneRect(scene->extPiecesBoundingRect());
 	if (! destIsPuzzleTable) {
 		dest->centerOn(pieces.last()->sceneBareBoundingRect().center());
