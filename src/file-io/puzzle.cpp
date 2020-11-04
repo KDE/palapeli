@@ -18,13 +18,8 @@
 
 #include "puzzle.h"
 
-#include <QAtomicInt>
-#include <QAtomicPointer>
 #include <QFileInfo>
 #include <QHash>
-#include <QMutexLocker>
-#include <QWaitCondition>
-#include <QtConcurrentRun>
 
 //BEGIN Palapeli::PuzzleComponent
 
@@ -54,21 +49,17 @@ Palapeli::Puzzle* Palapeli::PuzzleComponent::puzzle() const
 //See Private::get() for the whole story.
 struct Component
 {
-	QAtomicInt available;
-	QAtomicPointer<Palapeli::PuzzleComponent> component;
-	QWaitCondition wait;
+	Palapeli::PuzzleComponent *component = nullptr;
 
-	Component() : available(false), component(0) {}
-	explicit Component(Palapeli::PuzzleComponent* component) : available(true), component(component) {}
-	~Component() { wait.wakeAll(); delete component; }
+	Component() {}
+	explicit Component(Palapeli::PuzzleComponent* component) : component(component) {}
+	~Component() { delete component; }
 };
 struct Palapeli::Puzzle::Private
 {
 	Palapeli::Puzzle* q;
-	QMutex m_hashMutex; //controls access to m_components
 	QHash<Palapeli::PuzzleComponent::Type, Component*> m_components;
-	QAtomicPointer<Palapeli::PuzzleComponent> m_mainComponent;
-	QMutex m_locationMutex; //controls access to m_location
+	Palapeli::PuzzleComponent *m_mainComponent;
 	QString m_location;
 	QString m_identifier;
 
@@ -88,18 +79,15 @@ Palapeli::Puzzle::Private::Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponen
 	, m_location(location)
 	, m_identifier(identifier)
 {
-	m_mainComponent.loadAcquire()->m_puzzle = q;
+	m_mainComponent->m_puzzle = q;
 	m_components.insert(mainComponent->type(), new Component(mainComponent));
-	//mutexes not necessary here because concurrent access is impossible in the ctor
 }
 
 Palapeli::Puzzle::~Puzzle()
 {
-	d->m_hashMutex.lock();
 	QHashIterator<Palapeli::PuzzleComponent::Type, Component*> iter(d->m_components);
 	while (iter.hasNext())
 		delete iter.next().value();
-	d->m_hashMutex.unlock();
 	delete d;
 }
 
@@ -116,47 +104,16 @@ const Palapeli::PuzzleComponent* Palapeli::Puzzle::get(Palapeli::PuzzleComponent
 
 const Palapeli::PuzzleComponent* Palapeli::Puzzle::Private::get(Palapeli::PuzzleComponent::Type type)
 {
-	bool doRequest = false;
-	Component* c = 0;
-	//mutex-secured hash access to check state of component
-	{
-		QMutexLocker l(&m_hashMutex);
-		c = m_components.value(type);
-		if (!c)
-		{
-			//this get() is the first to request this component - create Component
-			//to mark this component as "work in progress"
-			m_components.insert(type, c = new Component);
-			//but release mutex before creating the component
-			doRequest = true;
-		}
-		else if (c->available)
-			return c->component;
-	}
-	//start cast() to create component
-	if (doRequest)
-	{
-		Palapeli::PuzzleComponent* cmp = m_mainComponent.load()->cast(type);
-		if (cmp)
-			cmp->m_puzzle = q;
-		//write access to c need not be mutex-secured because there
-		//is only one write access ever per component
-		c->component.fetchAndStoreOrdered(cmp);
-		c->available.fetchAndStoreOrdered(true);
-		//notify other waiting threads that the component is available
-		c->wait.wakeAll();
-		return cmp;
-	}
-	//component has been requested by another worker thread - wait until that
-	//thread is done (but come back every 1000 ms in case the other thread
-	//jumped through a concurrent loophole and triggered the waitcondition
-	//without me listening)
-	QMutex mutex;
-	mutex.lock();
-	while (!c->available)
-		c->wait.wait(&mutex, 1000);
-	mutex.unlock();
-	return c->component;
+	Component* c = m_components.value(type);
+	if (c)
+		return c->component;
+
+	m_components.insert(type, c = new Component);
+	Palapeli::PuzzleComponent* cmp = m_mainComponent->cast(type);
+	if (cmp)
+		cmp->m_puzzle = q;
+	c->component = cmp;
+	return cmp;
 }
 
 QString Palapeli::Puzzle::identifier() const
@@ -166,13 +123,11 @@ QString Palapeli::Puzzle::identifier() const
 
 QString Palapeli::Puzzle::location() const
 {
-	QMutexLocker l(&d->m_locationMutex);
 	return d->m_location;
 }
 
 void Palapeli::Puzzle::setLocation(const QString& location)
 {
-	QMutexLocker l(&d->m_locationMutex);
 	d->m_location = location;
 }
 
@@ -181,17 +136,15 @@ void Palapeli::Puzzle::setMainComponent(Palapeli::PuzzleComponent* component)
 	if (!component)
 		return;
 	//add component
-	QMutexLocker locker(&d->m_hashMutex);
 	Component*& c = d->m_components[component->type()];
 	delete c;
 	c = new Component(component);
-	d->m_mainComponent.fetchAndStoreOrdered(component);
+	d->m_mainComponent = component;
 }
 
 void Palapeli::Puzzle::dropComponent(Palapeli::PuzzleComponent::Type type)
 {
 	//DO NEVER EVER USE THIS FUNCTION! THIS FUNCTION IS PURELY DANGEROUS. STUFF WILL BREAK.
-	QMutexLocker locker(&d->m_hashMutex);
 	Component*& c = d->m_components[type];
 	delete c;
 	c = 0;

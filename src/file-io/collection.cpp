@@ -126,7 +126,7 @@ Palapeli::Collection::Collection()
 		//construct puzzle with CollectionStorageComponent
 		if (!path.isEmpty() && (desktopPath.isEmpty() || QFileInfo(path).lastModified() >= QFileInfo(desktopPath).lastModified()))
 		{
-			Palapeli::Puzzle* puzzle = new Palapeli::Puzzle(new Palapeli::CollectionStorageComponent(puzzleGroup, &m_configMutex), path, puzzleId);
+			Palapeli::Puzzle* puzzle = new Palapeli::Puzzle(new Palapeli::CollectionStorageComponent(puzzleGroup), path, puzzleId);
 			appendRow(new Item(puzzle));
 			continue;
 		}
@@ -142,9 +142,7 @@ Palapeli::Collection::Collection()
 	}
 	/* Moved out of CollectionStorageComponent, where we'd potentially call fdatasync on every
 	   puzzle.  */
-	m_configMutex.lock();
 	m_config->sync();
-	m_configMutex.unlock();
 }
 
 Palapeli::Collection::~Collection()
@@ -178,11 +176,9 @@ void Palapeli::Collection::importPuzzle(Palapeli::Puzzle* puzzle)
 	puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage);
 	//create the config group for this puzzle (use pseudo-URL to avoid problems
 	//when the configuration directory is moved)
-	m_configMutex.lock();
 	KConfigGroup puzzleGroup(m_group, id);
 	puzzleGroup.writeEntry("Location", palapeliUrl);
 	m_config->sync();
-	m_configMutex.unlock();
 	//add to the model
 	appendRow(new Item(puzzle));
 }
@@ -221,10 +217,8 @@ bool Palapeli::Collection::deletePuzzle(const QModelIndex& index)
 	if (!QFile(puzzle->location()).remove())
 		return false;
 	//remove puzzle from config
-	m_configMutex.lock();
 	KConfigGroup(m_group, puzzle->identifier()).deleteGroup();
 	m_config->sync();
-	m_configMutex.unlock();
 	//remove puzzle from model and delete it
 	const int count = rowCount();
 	for (int row = 0; row < count; ++row)

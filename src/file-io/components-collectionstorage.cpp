@@ -21,10 +21,9 @@
 #include <QBuffer>
 #include <QFileInfo>
 #include <KConfigGroup>
-#include <QMutex>
 
-Palapeli::CollectionStorageComponent::CollectionStorageComponent(KConfigGroup* group, QMutex *groupMutex)
-	: m_group(group), m_groupMutex(groupMutex)
+Palapeli::CollectionStorageComponent::CollectionStorageComponent(KConfigGroup* group)
+	: m_group(group)
 {
 }
 
@@ -46,7 +45,6 @@ Palapeli::PuzzleComponent* Palapeli::CollectionStorageComponent::cast(Type type)
 	}
 	//try to serve metadata from cache
 	const QDateTime mtime = QFileInfo(file).lastModified();
-	m_groupMutex->lock();
 	if (m_group->readEntry("ModifyDateTime", QString()) == mtime.toString())
 	{
 		//cache is up-to-date
@@ -58,12 +56,10 @@ Palapeli::PuzzleComponent* Palapeli::CollectionStorageComponent::cast(Type type)
 		metadata.modifyProtection = m_group->readEntry("ModifyProtection", false);
 		QByteArray ar = m_group->readEntry("Thumbnail", QByteArray());
 		metadata.thumbnail.loadFromData(QByteArray::fromBase64 (ar));
-		m_groupMutex->unlock();
 		return new Palapeli::MetadataComponent(metadata);
 	}
 	else
 	{
-		m_groupMutex->unlock();
 		//read metadata from archive...
 		const Palapeli::PuzzleComponent* arStorage = puzzle()->get(ArchiveStorage);
 		if (!arStorage)
@@ -76,7 +72,6 @@ Palapeli::PuzzleComponent* Palapeli::CollectionStorageComponent::cast(Type type)
 		const Palapeli::PuzzleMetadata metadata = dynamic_cast<Palapeli::MetadataComponent*>(cMetadata)->metadata;
 		QBuffer buffer;
 		metadata.thumbnail.save(&buffer, "PNG");
-		m_groupMutex->lock();
 		m_group->writeEntry("Name", metadata.name);
 		m_group->writeEntry("Comment", metadata.comment);
 		m_group->writeEntry("Author", metadata.author);
@@ -84,7 +79,6 @@ Palapeli::PuzzleComponent* Palapeli::CollectionStorageComponent::cast(Type type)
 		m_group->writeEntry("ModifyProtection", metadata.modifyProtection);
 		m_group->writeEntry("ModifyDateTime", mtime.toString());
 		m_group->writeEntry("Thumbnail", buffer.data().toBase64 ());
-		m_groupMutex->unlock();
 		return cMetadata;
 	}
 }

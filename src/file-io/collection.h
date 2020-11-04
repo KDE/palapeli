@@ -58,7 +58,6 @@ namespace Palapeli
 
 			KConfig* m_config;
 			KConfigGroup* m_group;
-			QMutex m_configMutex;
 	};
 }
 
