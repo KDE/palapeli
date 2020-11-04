@@ -95,11 +95,6 @@ namespace Palapeli
 			QString identifier() const;
 			QString location() const;
 			void setLocation(const QString& location);
-			///Resets the main component, which is used for casting. Components
-			///which were created before the setMainComponent() call are not
-			///affected. Other components of the same type will be overwritten
-			///by the given @a component.
-			void setMainComponent(Palapeli::PuzzleComponent* component);
 
 			///Deletes the component with the given @a type from this puzzle.
 			///Because the component might be in use elsewhere in the program,

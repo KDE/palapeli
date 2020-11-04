@@ -131,17 +131,6 @@ void Palapeli::Puzzle::setLocation(const QString& location)
 	d->m_location = location;
 }
 
-void Palapeli::Puzzle::setMainComponent(Palapeli::PuzzleComponent* component)
-{
-	if (!component)
-		return;
-	//add component
-	Component*& c = d->m_components[component->type()];
-	delete c;
-	c = new Component(component);
-	d->m_mainComponent = component;
-}
-
 void Palapeli::Puzzle::dropComponent(Palapeli::PuzzleComponent::Type type)
 {
 	//DO NEVER EVER USE THIS FUNCTION! THIS FUNCTION IS PURELY DANGEROUS. STUFF WILL BREAK.
