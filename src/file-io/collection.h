@@ -43,7 +43,7 @@ namespace Palapeli
 				IdentifierRole
 			};
 
-			static Palapeli::Collection* instance();
+			static Palapeli::Collection* instance(QWidget * = nullptr);
 			Palapeli::Puzzle* puzzleFromIndex(const QModelIndex& index) const;
 
 			void importPuzzle(Palapeli::Puzzle* puzzle); ///< without copying!
@@ -51,7 +51,7 @@ namespace Palapeli
 			void exportPuzzle(const QModelIndex& index, const QString& path);
 			bool deletePuzzle(const QModelIndex& index);
 		protected:
-			Collection();
+			Collection(QWidget *);
 			virtual ~Collection();
 		private:
 			class Item;

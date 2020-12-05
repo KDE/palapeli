@@ -131,7 +131,7 @@ void Palapeli::GamePlay::deletePuzzleViews()
 void Palapeli::GamePlay::init()
 {
 	// Set up the collection view.
-	m_collectionView->setModel(Palapeli::Collection::instance());
+	m_collectionView->setModel(Palapeli::Collection::instance(m_mainWindow));
 	connect(m_collectionView, SIGNAL(playRequest(Palapeli::Puzzle*)), SLOT(playPuzzle(Palapeli::Puzzle*)));
 
 	// Set up the puzzle table.

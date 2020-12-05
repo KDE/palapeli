@@ -26,6 +26,7 @@
 #include <QFileInfo>
 #include <QUuid>
 #include <QStandardPaths>
+#include <QProgressDialog>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -67,9 +68,9 @@ void Palapeli::Collection::Item::populate()
 
 //END Palapeli::Collection::Item
 
-Palapeli::Collection* Palapeli::Collection::instance()
+Palapeli::Collection* Palapeli::Collection::instance(QWidget *parent)
 {
-	static Palapeli::Collection instance;
+	static Palapeli::Collection instance(parent);
 	return &instance;
 }
 
@@ -108,14 +109,20 @@ static QString readPseudoUrl(const QString& path_, bool local)
 		return path_;
 }
 
-Palapeli::Collection::Collection()
+Palapeli::Collection::Collection(QWidget *parent)
 	: m_config(new KConfig(QStringLiteral("palapeli-collectionrc"), KConfig::CascadeConfig))
 	, m_group(new KConfigGroup(m_config, "Palapeli Collection"))
 {
 	//read the puzzles
 	const QStringList puzzleIds = m_group->groupList();
+	int len = puzzleIds.length ();
+	int count = 0;
+	QProgressDialog dlg(i18n("Loading collection"), QString(), 0, len, parent);
+	dlg.setMinimumDuration(2000);
+	dlg.setWindowModality(Qt::WindowModal);
 	foreach (const QString& puzzleId, puzzleIds)
 	{
+		dlg.setValue(count++);
 		KConfigGroup* puzzleGroup = new KConfigGroup(m_group, puzzleId);
 		//find involved files
 		const QString basePath = puzzleGroup->readEntry("Location", QString());
