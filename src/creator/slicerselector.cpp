@@ -21,7 +21,9 @@
 #include "../libpala/slicerjob.h"
 #include "../libpala/slicermode.h"
 
-#include <KServiceTypeTrader>
+#include <KPluginFactory>
+#include <KPluginMetaData>
+#include <KPluginLoader>
 
 Palapeli::SlicerSelector::SlicerSelector(QWidget* parent)
 	: QTreeWidget(parent)
@@ -32,12 +34,14 @@ Palapeli::SlicerSelector::SlicerSelector(QWidget* parent)
 	setSelectionMode(QAbstractItemView::SingleSelection);
 	connect(this, &SlicerSelector::itemSelectionChanged, this, &SlicerSelector::slotSelectionChanged);
 	//load slicer plugins
-	KService::List offers = KServiceTypeTrader::self()->query(QStringLiteral("Libpala/SlicerPlugin"));
-	foreach (KService::Ptr offer, offers)
+	const QVector<KPluginMetaData> offers = KPluginLoader::findPlugins(QStringLiteral("palapelislicers"));
+	for (const KPluginMetaData &offer : offers)
 	{
-		const QString pluginName = offer->library(), slicerName = offer->name();
+		const QString pluginName = offer.fileName(), slicerName = offer.name();
 		//create slicer object
-		Pala::Slicer* slicer = offer->createInstance<Pala::Slicer>(0, QVariantList());
+		KPluginLoader loader(pluginName);
+		KPluginFactory *factory = loader.factory();
+		Pala::Slicer* slicer = factory->create<Pala::Slicer>(0, QVariantList());
 		if (!slicer)
 			continue;
 		m_slicerInstances << slicer;

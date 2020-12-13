@@ -20,7 +20,7 @@
 
 #include <KPluginFactory>
 
-K_PLUGIN_FACTORY(RectSlicerFactory, registerPlugin<RectSlicer>();)
+K_PLUGIN_CLASS_WITH_JSON(RectSlicer, "palapeli_rectslicer.json")
 
 RectSlicer::RectSlicer(QObject* parent, const QVariantList& args)
 	: Pala::Slicer(parent, args)

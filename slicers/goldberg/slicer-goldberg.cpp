@@ -27,7 +27,7 @@
 #include "grid.h"
 #include "utilities.h"
 
-K_PLUGIN_FACTORY(SvgSlicerFactory, registerPlugin<GoldbergSlicer>();)
+K_PLUGIN_CLASS_WITH_JSON(GoldbergSlicer, "palapeli_goldbergslicer.json")
 
 GoldbergSlicer::GoldbergSlicer(QObject* parent, const QVariantList& args)
             : Pala::Slicer(parent, args) {

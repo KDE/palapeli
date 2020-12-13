@@ -21,7 +21,9 @@
 #include "../libpala/slicerjob.h"
 #include "../libpala/slicermode.h"
 
-#include <KServiceTypeTrader>
+#include <KPluginFactory>
+#include <KPluginMetaData>
+#include <KPluginLoader>
 
 Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) const
 {
@@ -43,25 +45,21 @@ Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) c
 		//TODO: move slicer instantiation to a location that is shared between
 		//      puzzle creator dialog and this function
 		//find slicer
-		KService::List offers = KServiceTypeTrader::self()->query(QStringLiteral("Libpala/SlicerPlugin"));
-		KService::Ptr slicerOffer;
-		foreach (KService::Ptr offer, offers)
-			if (offer->library() == cc.slicer)
-			{
-				slicerOffer = offer;
-				break;
-			}
-		if (!slicerOffer)
+		const QVector<KPluginMetaData> offers = KPluginLoader::findPlugins(QStringLiteral("palapelislicers"), [cc](const KPluginMetaData &m) {
+			return m.fileName() == cc.slicer;
+		});
+		if (offers.isEmpty())
 		{
 			CAST_ERROR(QString::fromLatin1("Could not find slicer \"%1\".").arg(cc.slicer));
 			return 0;
 		}
 		//initialize requested slicer plugin
-		QString errorMessage;
-		QScopedPointer<Pala::Slicer> slicer(slicerOffer->createInstance<Pala::Slicer>(0, QVariantList(), &errorMessage));
+		KPluginLoader loader(offers.first().fileName());
+		KPluginFactory *factory = loader.factory();
+		QScopedPointer<Pala::Slicer> slicer(factory->create<Pala::Slicer>(0, QVariantList()));
 		if (!slicer)
 		{
-			CAST_ERROR(QString::fromLatin1("Could not load slicer \"%1\": %2").arg(cc.slicer).arg(errorMessage));
+			CAST_ERROR(QString::fromLatin1("Could not load slicer \"%1\": %2").arg(cc.slicer).arg(loader.errorString()));
 			return 0;
 		}
 		//create job

@@ -83,7 +83,7 @@ JigsawPlugParams JigsawPlugParams::mirrored()
 	return result;
 }
 
-K_PLUGIN_FACTORY(SvgSlicerFactory, registerPlugin<JigsawSlicer>();)
+K_PLUGIN_CLASS_WITH_JSON(JigsawSlicer, "palapeli_jigsawslicer.json")
 
 JigsawSlicer::JigsawSlicer(QObject* parent, const QVariantList& args)
 	: Pala::Slicer(parent, args)
