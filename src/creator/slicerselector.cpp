@@ -37,9 +37,9 @@ Palapeli::SlicerSelector::SlicerSelector(QWidget* parent)
 	const QVector<KPluginMetaData> offers = KPluginLoader::findPlugins(QStringLiteral("palapelislicers"));
 	for (const KPluginMetaData &offer : offers)
 	{
-		const QString pluginName = offer.fileName(), slicerName = offer.name();
+		const QString pluginName = offer.pluginId(), slicerName = offer.name();
 		//create slicer object
-		KPluginLoader loader(pluginName);
+		KPluginLoader loader(offer.fileName());
 		KPluginFactory *factory = loader.factory();
 		Pala::Slicer* slicer = factory->create<Pala::Slicer>(0, QVariantList());
 		if (!slicer)

@@ -46,7 +46,7 @@ Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) c
 		//      puzzle creator dialog and this function
 		//find slicer
 		const QVector<KPluginMetaData> offers = KPluginLoader::findPlugins(QStringLiteral("palapelislicers"), [cc](const KPluginMetaData &m) {
-			return m.fileName() == cc.slicer;
+			return m.pluginId() == cc.slicer;
 		});
 		if (offers.isEmpty())
 		{
