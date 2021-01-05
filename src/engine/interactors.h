@@ -42,7 +42,6 @@ namespace Palapeli
 		protected Q_SLOTS:
 			void pieceReplacedBy(Palapeli::Piece* replacement);
 		private:
-			Palapeli::Piece* findPieceForItem(QGraphicsItem* mouseInteractingItem) const;
 			void determineSelectedItems(QGraphicsItem* clickedItem, Palapeli::Piece* clickedPiece);
 
 			QList<Palapeli::Piece*> m_currentPieces;
