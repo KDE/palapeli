@@ -125,6 +125,7 @@ namespace Palapeli
 		protected:
 			QList<QWidget*> createItemWidgets(const QModelIndex &index) const override
 			{
+				Q_UNUSED(index);
 				return QList<QWidget*>() << new Palapeli::TriggerListDelegateWidget(itemView());
 			}
 			void updateItemWidgets(QList<QWidget*> widgets, const QStyleOptionViewItem& option, const QPersistentModelIndex& index) const override
