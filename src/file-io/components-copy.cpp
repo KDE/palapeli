@@ -32,19 +32,19 @@ Palapeli::PuzzleComponent* Palapeli::CopyComponent::cast(Type type) const
 	{
 		const Palapeli::PuzzleComponent* c = m_puzzle->get(Metadata);
 		const Palapeli::MetadataComponent* cmp = dynamic_cast<const Palapeli::MetadataComponent*>(c);
-		return cmp ? new Palapeli::MetadataComponent(cmp->metadata) : 0;
+		return cmp ? new Palapeli::MetadataComponent(cmp->metadata) : nullptr;
 	}
 	else if (type == Contents)
 	{
 		const Palapeli::PuzzleComponent* c = m_puzzle->get(Contents);
 		const Palapeli::ContentsComponent* cmp = dynamic_cast<const Palapeli::ContentsComponent*>(c);
-		return cmp ? new Palapeli::ContentsComponent(cmp->contents) : 0;
+		return cmp ? new Palapeli::ContentsComponent(cmp->contents) : nullptr;
 	}
 	else if (type == CreationContext)
 	{
 		const Palapeli::PuzzleComponent* c = m_puzzle->get(CreationContext);
 		const Palapeli::CreationContextComponent* cmp = dynamic_cast<const Palapeli::CreationContextComponent*>(c);
-		return cmp ? new Palapeli::CreationContextComponent(cmp->creationContext) : 0;
+		return cmp ? new Palapeli::CreationContextComponent(cmp->creationContext) : nullptr;
 	}
 	//casts for writing an archive
 	else if (type == DirectoryStorage)
@@ -60,9 +60,9 @@ Palapeli::PuzzleComponent* Palapeli::CopyComponent::cast(Type type) const
 		if (otherFile.copy(puzzle()->location()))
 			return new Palapeli::ArchiveStorageComponent;
 		else
-			return 0;
+			return nullptr;
 	}
 	//unknown type requested
 	else
-		return 0;
+		return nullptr;
 }

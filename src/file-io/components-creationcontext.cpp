@@ -51,16 +51,16 @@ Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) c
 		if (offers.isEmpty())
 		{
 			CAST_ERROR(QString::fromLatin1("Could not find slicer \"%1\".").arg(cc.slicer));
-			return 0;
+			return nullptr;
 		}
 		//initialize requested slicer plugin
 		KPluginLoader loader(offers.first().fileName());
 		KPluginFactory *factory = loader.factory();
-		QScopedPointer<Pala::Slicer> slicer(factory->create<Pala::Slicer>(0, QVariantList()));
+		QScopedPointer<Pala::Slicer> slicer(factory->create<Pala::Slicer>(nullptr, QVariantList()));
 		if (!slicer)
 		{
 			CAST_ERROR(QString::fromLatin1("Could not load slicer \"%1\": %2").arg(cc.slicer).arg(loader.errorString()));
-			return 0;
+			return nullptr;
 		}
 		//create job
 		Pala::SlicerJob job(cc.image, cc.slicerArgs);
@@ -75,14 +75,14 @@ Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) c
 			if (!job.mode())
 			{
 				CAST_ERROR(QString::fromLatin1("Could not find slicer mode \"%1\".").arg(QString::fromUtf8(cc.slicerMode)));
-				return 0;
+				return nullptr;
 			}
 		}
 		//do slicing
 		if (!slicer->process(&job))
 		{
 			CAST_ERROR(QString::fromLatin1("Slicing failed because of undetermined problems."));
-			return 0;
+			return nullptr;
 		}
 		//assemble PuzzleContents
 		Palapeli::PuzzleContents contents;
@@ -99,5 +99,5 @@ Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) c
 		return Palapeli::ArchiveStorageComponent::fromData(puzzle());
 	//unknown type requested
 	else
-		return 0;
+		return nullptr;
 }

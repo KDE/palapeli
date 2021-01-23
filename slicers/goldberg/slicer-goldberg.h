@@ -27,7 +27,7 @@
 class GoldbergSlicer : public Pala::Slicer {
     Q_OBJECT
     public:
-        explicit GoldbergSlicer(QObject* parent = 0, const QVariantList& args = QVariantList());
+        explicit GoldbergSlicer(QObject* parent = nullptr, const QVariantList& args = QVariantList());
         bool run(Pala::SlicerJob* job) Q_DECL_OVERRIDE;
     private:
         bool m_qvoronoi_available;

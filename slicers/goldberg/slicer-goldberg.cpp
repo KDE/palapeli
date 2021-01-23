@@ -38,13 +38,13 @@ GoldbergSlicer::GoldbergSlicer(QObject* parent, const QVariantList& args)
 
     m_qvoronoi_available = IrregularMode::checkForQVoronoi();
 
-    Pala::SlicerMode* presetMode = 0;
+    Pala::SlicerMode* presetMode = nullptr;
     addMode(presetMode = new PresetMode);
     addMode(new RectMode);
     addMode(new CairoMode);
     addMode(new HexMode);
     addMode(new RotrexMode);
-    Pala::SlicerMode* irregularMode = 0;
+    Pala::SlicerMode* irregularMode = nullptr;
     if (m_qvoronoi_available)
         addMode(irregularMode = new IrregularMode);
 

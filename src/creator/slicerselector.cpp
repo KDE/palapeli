@@ -41,7 +41,7 @@ Palapeli::SlicerSelector::SlicerSelector(QWidget* parent)
 		//create slicer object
 		KPluginLoader loader(offer.fileName());
 		KPluginFactory *factory = loader.factory();
-		Pala::Slicer* slicer = factory->create<Pala::Slicer>(0, QVariantList());
+		Pala::Slicer* slicer = factory->create<Pala::Slicer>(nullptr, QVariantList());
 		if (!slicer)
 			continue;
 		m_slicerInstances << slicer;

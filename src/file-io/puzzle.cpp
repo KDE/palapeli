@@ -24,7 +24,7 @@
 //BEGIN Palapeli::PuzzleComponent
 
 Palapeli::PuzzleComponent::PuzzleComponent()
-	: m_puzzle(0)
+	: m_puzzle(nullptr)
 {
 }
 
@@ -35,7 +35,7 @@ Palapeli::PuzzleComponent::~PuzzleComponent()
 Palapeli::PuzzleComponent* Palapeli::PuzzleComponent::cast(Palapeli::PuzzleComponent::Type type) const
 {
 	Q_UNUSED(type)
-	return 0;
+	return nullptr;
 }
 
 Palapeli::Puzzle* Palapeli::PuzzleComponent::puzzle() const
@@ -94,7 +94,7 @@ Palapeli::Puzzle::~Puzzle()
 const Palapeli::PuzzleComponent* Palapeli::Puzzle::component(Palapeli::PuzzleComponent::Type type) const
 {
 	const Component* c = d->m_components.value(type);
-	return c ? c->component : 0;
+	return c ? c->component : nullptr;
 }
 
 const Palapeli::PuzzleComponent* Palapeli::Puzzle::get(Palapeli::PuzzleComponent::Type type)
@@ -136,7 +136,7 @@ void Palapeli::Puzzle::dropComponent(Palapeli::PuzzleComponent::Type type)
 	//DO NEVER EVER USE THIS FUNCTION! THIS FUNCTION IS PURELY DANGEROUS. STUFF WILL BREAK.
 	Component*& c = d->m_components[type];
 	delete c;
-	c = 0;
+	c = nullptr;
 }
 
 Q_GLOBAL_STATIC(QList<QString>, g_usedIdentifiers)

@@ -29,7 +29,7 @@ Palapeli::Scene::Scene(QObject* parent)
 	: QGraphicsScene(parent)
 	, m_constrained(false)
 	, m_constraintVisualizer(new Palapeli::ConstraintVisualizer(this))
-	, m_puzzle(0)
+	, m_puzzle(nullptr)
 	, m_pieceAreaSize(QSizeF(32.0, 32.0))	// Allow 1024 pixels initially.
 	, m_margin(10.0)
 	, m_handleWidth(7.0)

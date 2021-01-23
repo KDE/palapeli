@@ -33,7 +33,7 @@ Palapeli::PuzzleComponent* Palapeli::ArchiveStorageComponent::cast(Palapeli::Puz
 		//open archive and extract into temporary directory
 		KTar tar(puzzle()->location(), QStringLiteral("application/x-gzip"));
 		if (!tar.open(QIODevice::ReadOnly))
-			return 0;
+			return nullptr;
 		Palapeli::DirectoryStorageComponent* storage = new Palapeli::DirectoryStorageComponent;
 		tar.directory()->copyTo(storage->directory());
 		//cleanup
@@ -43,7 +43,7 @@ Palapeli::PuzzleComponent* Palapeli::ArchiveStorageComponent::cast(Palapeli::Puz
 	else
 	{
 		const Palapeli::PuzzleComponent* dirStorage = puzzle()->get(DirectoryStorage);
-		return dirStorage ? dirStorage->cast(type) : 0;
+		return dirStorage ? dirStorage->cast(type) : nullptr;
 	}
 }
 
@@ -54,11 +54,11 @@ Palapeli::ArchiveStorageComponent* Palapeli::ArchiveStorageComponent::fromData(P
 	//compress archive to location
 	KTar tar(puzzle->location(), QStringLiteral("application/x-gzip"));
 	if (!tar.open(QIODevice::WriteOnly))
-		return 0;
+		return nullptr;
 	if (!tar.addLocalDirectory(dirStorage->directory(), QStringLiteral(".")))
-		return 0;
+		return nullptr;
 	if (!tar.close())
-		return 0;
+		return nullptr;
 	//done
 	return new Palapeli::ArchiveStorageComponent;
 }

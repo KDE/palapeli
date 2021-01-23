@@ -40,12 +40,12 @@ Palapeli::MovePieceInteractor::MovePieceInteractor(QGraphicsView* view)
 static QGraphicsItem* findSelectableItemAt(const QPointF& scenePos, QGraphicsScene* scene)
 {
 	if (!scene)
-		return 0;
+		return nullptr;
 	QList<QGraphicsItem*> itemsUnderMouse = scene->items(scenePos);
 	foreach (QGraphicsItem* itemUnderMouse, itemsUnderMouse)
 		if (itemUnderMouse->flags() & QGraphicsItem::ItemIsSelectable)
 			return itemUnderMouse;
-	return 0;
+	return nullptr;
 }
 
 void Palapeli::MovePieceInteractor::determineSelectedItems(QGraphicsItem* clickedItem, Palapeli::Piece* clickedPiece)
@@ -137,7 +137,7 @@ void Palapeli::MovePieceInteractor::stopInteraction(const Palapeli::MouseEvent& 
 	Q_UNUSED(event)
 	foreach(Palapeli::Piece* piece, m_currentPieces)
 	{
-		disconnect(piece, 0, this, 0);
+		disconnect(piece, nullptr, this, nullptr);
 		piece->endMove();
 	}
 	m_currentPieces.clear();
@@ -196,7 +196,7 @@ bool Palapeli::TeleportPieceInteractor::startInteraction(const Palapeli::MouseEv
 	if (!view)
 		return false;
 	QGraphicsItem* item = findSelectableItemAt(event.scenePos, scene());
-	Palapeli::Piece* piece = 0;
+	Palapeli::Piece* piece = nullptr;
 	if (item) {
 		piece = Palapeli::Piece::fromSelectedItem(item);
 	}

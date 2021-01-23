@@ -29,7 +29,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			explicit ZoomWidget(QWidget* parent = 0);
+			explicit ZoomWidget(QWidget* parent = nullptr);
 		public Q_SLOTS:
 			void setConstrained(bool constrained);
 			void setLevel(int level);

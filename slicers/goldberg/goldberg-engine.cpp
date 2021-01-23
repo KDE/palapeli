@@ -64,7 +64,7 @@ void GoldbergEngine::dump_grid_image() {
     if (m_dump_grid) {
         QString path = QDir::home().filePath(QStringLiteral("goldberg-slicer-dump.png"));
         qDebug() << "Dumping grid image to" << path;
-        m_grid_image->save(path, 0, -1);
+        m_grid_image->save(path, nullptr, -1);
         delete m_grid_image;
         m_dump_grid = false;
     }
@@ -171,7 +171,7 @@ bool GoldbergEngine::plugsIntersect(GBClassicPlugParams &candidate, GBClassicPlu
     if (!other.path_is_rendered) renderClassicPlug(other);
 
     bool result = candidate.path.intersects(other.path);
-    if (result && offenders!=NULL) {
+    if (result && offenders!=nullptr) {
         offenders->append(&other);
     }
     return result;

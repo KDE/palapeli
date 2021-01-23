@@ -46,11 +46,11 @@ void Palapeli::Piece::commonInit(const Palapeli::PieceVisuals& pieceVisuals)
 }
 
 Palapeli::Piece::Piece(const QImage& pieceImage, const QPoint& offset)
-	: m_pieceItem(0)
-	, m_inactiveShadowItem(0)
-	, m_activeShadowItem(0)
-	, m_highlightItem(0)
-	, m_animator(0)
+	: m_pieceItem(nullptr)
+	, m_inactiveShadowItem(nullptr)
+	, m_activeShadowItem(nullptr)
+	, m_highlightItem(nullptr)
+	, m_animator(nullptr)
 	, m_offset(offset)
 {
 	//create bevel map if wanted
@@ -69,11 +69,11 @@ Palapeli::Piece::Piece(const QImage& pieceImage, const QPoint& offset)
 }
 
 Palapeli::Piece::Piece(const Palapeli::PieceVisuals& pieceVisuals, const Palapeli::PieceVisuals& shadowVisuals, const Palapeli::PieceVisuals& highlightVisuals)
-	: m_pieceItem(0)
-	, m_inactiveShadowItem(0)
-	, m_activeShadowItem(0)
-	, m_highlightItem(0)
-	, m_animator(0)
+	: m_pieceItem(nullptr)
+	, m_inactiveShadowItem(nullptr)
+	, m_activeShadowItem(nullptr)
+	, m_highlightItem(nullptr)
+	, m_animator(nullptr)
 	, m_offset(QPoint(0, 0))	// Gets set in Piece::commonInit().
 {
 	commonInit(pieceVisuals);

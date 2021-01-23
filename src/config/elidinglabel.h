@@ -26,7 +26,7 @@ namespace Palapeli
 	class ElidingLabel : public QLabel
 	{
 		public:
-			explicit ElidingLabel(QWidget* parent = 0);
+			explicit ElidingLabel(QWidget* parent = nullptr);
 
 			QSize minimumSizeHint() const Q_DECL_OVERRIDE;
 			QSize sizeHint() const Q_DECL_OVERRIDE;

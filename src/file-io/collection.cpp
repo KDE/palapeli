@@ -170,7 +170,7 @@ Palapeli::Puzzle* Palapeli::Collection::puzzleFromIndex(const QModelIndex& index
 		if (item && item->puzzle()->identifier() == identifier)
 			return item->puzzle();
 	}
-	return 0;
+	return nullptr;
 }
 
 void Palapeli::Collection::importPuzzle(Palapeli::Puzzle* puzzle)

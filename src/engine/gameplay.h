@@ -52,7 +52,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			explicit GamePlay(MainWindow* mainWindow = 0);
+			explicit GamePlay(MainWindow* mainWindow = nullptr);
 			virtual ~GamePlay();
 			void    init();
 			void    shutdown();

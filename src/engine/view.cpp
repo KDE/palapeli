@@ -41,7 +41,7 @@ const int DefaultDelta = 120;
 
 Palapeli::View::View()
 	: m_interactorManager(new Palapeli::InteractorManager(this))
-	, m_scene(0)
+	, m_scene(nullptr)
 	, m_zoomLevel(MinimumZoomLevel)
 	, m_closeUpLevel(MaximumZoomLevel)
 	, m_distantLevel(MinimumZoomLevel)
@@ -150,7 +150,7 @@ void Palapeli::View::moveViewportBy(const QPointF& sceneDelta)
 
 void Palapeli::View::teleportPieces(Piece* pieceUnder, const QPointF& scenePos)
 {
-	qCDebug(PALAPELI_LOG) << "TELEPORT: pieceUnder" << (pieceUnder != 0)
+	qCDebug(PALAPELI_LOG) << "TELEPORT: pieceUnder" << (pieceUnder != nullptr)
 		 << "scenePos" << scenePos;
 	emit teleport(pieceUnder, scenePos, this);
 }

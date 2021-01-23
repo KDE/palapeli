@@ -44,7 +44,7 @@ Palapeli::WheelEvent::WheelEvent(QGraphicsView* view, const QPoint& pos_, int de
 Palapeli::Interactor::Interactor(int priority, Palapeli::InteractorType type, QGraphicsView* view)
 	: m_type(type)
 	, m_view(view)
-	, m_scene(view ? view->scene() : 0)
+	, m_scene(view ? view->scene() : nullptr)
 	, m_active(false)
 	, m_category(NoCategory)
 	, m_priority(priority)
@@ -90,7 +90,7 @@ void Palapeli::Interactor::setMetadata(Palapeli::Interactor::Category category, 
 void Palapeli::Interactor::updateScene()
 {
 	QGraphicsScene* oldScene = m_scene;
-	QGraphicsScene* newScene = m_view ? m_view->scene() : 0;
+	QGraphicsScene* newScene = m_view ? m_view->scene() : nullptr;
 	if (oldScene != newScene)
 	{
 		setInactive();

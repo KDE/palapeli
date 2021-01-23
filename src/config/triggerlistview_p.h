@@ -34,7 +34,7 @@ namespace Palapeli
 	class TriggerListProxyModel : public KCategorizedSortFilterProxyModel
 	{
 		public:
-			explicit TriggerListProxyModel(QObject* parent = 0)
+			explicit TriggerListProxyModel(QObject* parent = nullptr)
 				: KCategorizedSortFilterProxyModel(parent)
 			{
 				setCategorizedModel(true);
@@ -61,7 +61,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			explicit TriggerListDelegateWidget(QWidget* parent = 0) : QWidget(parent)
+			explicit TriggerListDelegateWidget(QWidget* parent = nullptr) : QWidget(parent)
 			{
 				m_iconLabel = new QLabel(this);
 				m_nameLabel = new Palapeli::ElidingLabel(this);
@@ -107,7 +107,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			explicit TriggerListDelegate(QAbstractItemView* view, QObject* parent = 0) : KWidgetItemDelegate(view, parent)
+			explicit TriggerListDelegate(QAbstractItemView* view, QObject* parent = nullptr) : KWidgetItemDelegate(view, parent)
 			{
 				m_calculator = new Palapeli::TriggerListDelegateWidget(view);
 				m_calculator->setVisible(false);
@@ -115,7 +115,7 @@ namespace Palapeli
 			void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const Q_DECL_OVERRIDE
 			{
 				Q_UNUSED(index)
-				QApplication::style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &option, painter, 0);
+				QApplication::style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &option, painter, nullptr);
 			}
 			QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const Q_DECL_OVERRIDE
 			{
@@ -133,7 +133,7 @@ namespace Palapeli
 				//adjust widget contents
 				widget->setIcon(index.data(Qt::DecorationRole).value<QIcon>());
 				widget->setText(index.data(Qt::DisplayRole).value<QString>());
-				disconnect(widget, 0, this, 0);
+				disconnect(widget, nullptr, this, nullptr);
 				widget->setTrigger(index.data(TriggerRole).value<Palapeli::Trigger>());
 				connect(widget, &TriggerListDelegateWidget::triggerChanged, this, &TriggerListDelegate::slotTriggerChanged);
 				//adjust widget geometry

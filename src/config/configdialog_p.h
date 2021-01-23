@@ -28,7 +28,7 @@ namespace Palapeli
 		Q_OBJECT
 		Q_PROPERTY(QString backgroundKey READ backgroundKey WRITE setBackgroundKey NOTIFY backgroundKeyChanged USER true)
 		public:
-			explicit TriggerComboBox(QWidget* parent = 0);
+			explicit TriggerComboBox(QWidget* parent = nullptr);
 
 			QString backgroundKey() const;
 		public Q_SLOTS:

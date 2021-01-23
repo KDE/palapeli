@@ -73,7 +73,7 @@ QList<Palapeli::Piece*> Palapeli::MergeGroup::tryGrowMergeGroup(Palapeli::Piece*
 Palapeli::MergeGroup::MergeGroup(const QList<Palapeli::Piece*>& pieces, QGraphicsScene* scene, const QSizeF& pieceAreaSize, bool animated)
 	: m_animated(animated)
 	, m_pieces(pieces)
-	, m_mergedPiece(0)
+	, m_mergedPiece(nullptr)
 	, m_scene(scene)
 	, m_pieceAreaSize(pieceAreaSize)
 {
@@ -99,7 +99,7 @@ void Palapeli::MergeGroup::start()
 		QParallelAnimationGroup* masterAnimator = new QParallelAnimationGroup(this);
 		foreach (Palapeli::Piece* piece, m_pieces)
 		{
-			QPropertyAnimation* pieceAnimator = new QPropertyAnimation(piece, "pos", 0);
+			QPropertyAnimation* pieceAnimator = new QPropertyAnimation(piece, "pos", nullptr);
 			pieceAnimator->setStartValue(piece->pos());
 			pieceAnimator->setEndValue(m_ucsPosition);
 			pieceAnimator->setDuration(200);
@@ -167,7 +167,7 @@ void Palapeli::MergeGroup::createMergedPiece()
 		m_mergedPiece->setZValue(qMax(m_mergedPiece->zValue(), piece->zValue()));
 		piece->announceReplaced(m_mergedPiece); //make sure that interactors know about the change, and delete the piece
 	}
-	m_mergedPiece->rewriteLogicalNeighbors(m_pieces, 0); //0 = these neighbors should be dropped
+	m_mergedPiece->rewriteLogicalNeighbors(m_pieces, nullptr); //0 = these neighbors should be dropped
 	foreach (Palapeli::Piece* logicalNeighbor, m_mergedPiece->logicalNeighbors())
 		logicalNeighbor->rewriteLogicalNeighbors(m_pieces, m_mergedPiece); //these neighbors are now represented by m_mergedPiece
 	//transaction done

@@ -75,7 +75,7 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 			 * \brief Constructs a new Slicer object.
 			 * In any subclass, the constructor signature has to be the same (due to the way the plugin loader works). The arguments should be passed to this constructor and ignored by the subclass implementation, as their format might change without notice in future versions.
 			 */
-			explicit Slicer(QObject* parent = 0, const QVariantList& args = QVariantList());
+			explicit Slicer(QObject* parent = nullptr, const QVariantList& args = QVariantList());
 			///Deletes this slicer, and all properties and modes which have been added with addProperty() and addMode().
 			virtual ~Slicer();
 

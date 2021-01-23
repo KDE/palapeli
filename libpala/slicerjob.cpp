@@ -26,7 +26,7 @@
 class Pala::SlicerJob::Private
 {
 	public:
-		Private() : m_mode(0) {}
+		Private() : m_mode(nullptr) {}
 
 		QMap<QByteArray, QVariant> m_args;
 		QImage m_image;

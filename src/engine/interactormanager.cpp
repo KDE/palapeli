@@ -58,7 +58,7 @@ void Palapeli::InteractorManager::handleEvent(QWheelEvent* event)
 	//convert event
 	Palapeli::WheelEvent pEvent(m_view, event->pos(), event->delta());
 	//check which interactors are triggered by this event
-	Palapeli::Interactor* bestMatchInteractor = 0;
+	Palapeli::Interactor* bestMatchInteractor = nullptr;
 	int bestMatchPriority = -1;
 	QMap<QByteArray, Palapeli::Interactor*>::const_iterator it1 = m_interactors.constBegin(), it2 = m_interactors.constEnd();
 	for (; it1 != it2; ++it1)

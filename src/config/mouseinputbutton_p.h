@@ -28,9 +28,9 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			explicit FlatButton(const QIcon& icon, QWidget* parent = 0) : QLabel(parent), m_icon(icon)
+			explicit FlatButton(const QIcon& icon, QWidget* parent = nullptr) : QLabel(parent), m_icon(icon)
 			{
-				leaveEvent(0); //apply icon
+				leaveEvent(nullptr); //apply icon
 				setMouseTracking(true);
 			}
 		Q_SIGNALS:

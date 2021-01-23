@@ -40,7 +40,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			explicit Scene(QObject* parent = 0);
+			explicit Scene(QObject* parent = nullptr);
 
 			void addPieceToList(Palapeli::Piece* piece);
 			void addPieceItemsToScene();

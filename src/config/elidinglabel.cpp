@@ -58,7 +58,7 @@ QSize Palapeli::ElidingLabel::sizeHint() const
 void Palapeli::ElidingLabel::setFullText(const QString& text)
 {
 	m_fullText = text;
-	resizeEvent(0); //change text in label
+	resizeEvent(nullptr); //change text in label
 }
 
 void Palapeli::ElidingLabel::resizeEvent(QResizeEvent* event)

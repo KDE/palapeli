@@ -37,7 +37,7 @@ Palapeli::PropertyWidget* Palapeli::createPropertyWidget(const Pala::SlicerPrope
 			pw = new Palapeli::StringPropertyWidget;
 			break;
 		default:
-			return 0;
+			return nullptr;
 	}
 	pw->initialize(property);
 	return pw;
@@ -46,7 +46,7 @@ Palapeli::PropertyWidget* Palapeli::createPropertyWidget(const Pala::SlicerPrope
 //BEGIN Palapeli::BooleanPropertyWidget
 
 Palapeli::BooleanPropertyWidget::BooleanPropertyWidget()
-	: m_checkBox(0)
+	: m_checkBox(nullptr)
 {
 }
 
@@ -70,9 +70,9 @@ QVariant Palapeli::BooleanPropertyWidget::propertyValue() const
 //BEGIN Palapeli::IntegerPropertyWidget
 
 Palapeli::IntegerPropertyWidget::IntegerPropertyWidget()
-	: m_comboBox(0)
-	, m_spinBox(0)
-	, m_slider(0)
+	: m_comboBox(nullptr)
+	, m_spinBox(nullptr)
+	, m_slider(nullptr)
 {
 }
 
@@ -130,8 +130,8 @@ QVariant Palapeli::IntegerPropertyWidget::propertyValue() const
 //BEGIN Palapeli::StringPropertyWidget
 
 Palapeli::StringPropertyWidget::StringPropertyWidget()
-	: m_comboBox(0)
-	, m_lineEdit(0)
+	: m_comboBox(nullptr)
+	, m_lineEdit(nullptr)
 {
 }
 

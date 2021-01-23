@@ -133,13 +133,13 @@ namespace Palapeli
 	class RubberBandItem : public QGraphicsItem
 	{
 		public:
-			explicit RubberBandItem(QGraphicsItem* parent = 0);
+			explicit RubberBandItem(QGraphicsItem* parent = nullptr);
 
 			QRectF rect() const;
 			void setRect(const QRectF& rect);
 
 			QRectF boundingRect() const Q_DECL_OVERRIDE;
-			void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0) Q_DECL_OVERRIDE;
+			void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) Q_DECL_OVERRIDE;
 		private:
 			QRectF m_rect;
 	};

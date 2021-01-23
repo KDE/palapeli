@@ -41,7 +41,7 @@ Palapeli::PuzzleComponent* Palapeli::CollectionStorageComponent::cast(Type type)
 	else if (type != Metadata)
 	{
 		const Palapeli::PuzzleComponent* arStorage = puzzle()->get(ArchiveStorage);
-		return arStorage ? arStorage->cast(type) : 0;
+		return arStorage ? arStorage->cast(type) : nullptr;
 	}
 	//try to serve metadata from cache
 	const QDateTime mtime = QFileInfo(file).lastModified();
@@ -63,10 +63,10 @@ Palapeli::PuzzleComponent* Palapeli::CollectionStorageComponent::cast(Type type)
 		//read metadata from archive...
 		const Palapeli::PuzzleComponent* arStorage = puzzle()->get(ArchiveStorage);
 		if (!arStorage)
-			return 0;
+			return nullptr;
 		Palapeli::PuzzleComponent* cMetadata = arStorage->cast(Metadata);
 		if (!cMetadata)
-			return 0;
+			return nullptr;
 		//...and populate cache (image is written via a buffer
 		//because KConfig does not support QImage directly)
 		const Palapeli::PuzzleMetadata metadata = dynamic_cast<Palapeli::MetadataComponent*>(cMetadata)->metadata;

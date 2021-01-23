@@ -81,7 +81,7 @@ class GoldbergEngine {
         // checks if candidate intersects with an already set border.
         // If *offenders is given and the plugs intersect, a reference to the "other" border is added to the list.
         // If any plug is not rendered yet, this is done beforehands.
-        bool plugsIntersect(GBClassicPlugParams &candidate, GBClassicPlugParams &other, QList<GBClassicPlugParams*>* offenders=NULL);
+        bool plugsIntersect(GBClassicPlugParams &candidate, GBClassicPlugParams &other, QList<GBClassicPlugParams*>* offenders = nullptr);
         // checks if candidate is out of bounds (image frame).
         // If candidate is not rendered yet, this is done beforehands.
         bool plugOutOfBounds(GBClassicPlugParams &candidate);

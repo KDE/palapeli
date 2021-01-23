@@ -275,7 +275,7 @@ void IrregularMode::generateGrid(GoldbergEngine *e, int piece_count) const {
         }
         delete pfinder;
         pfinder = new_pfinder;
-        new_pfinder = NULL;
+        new_pfinder = nullptr;
     }
 
 
@@ -481,7 +481,7 @@ void IrregularMode::generateVoronoiGrid(GoldbergEngine *e, QList<QPointF> cell_c
         }
         else {
             // invisible ridge: no border definition
-            p_plug = NULL;
+            p_plug = nullptr;
         }
 
         // add the border to the cells

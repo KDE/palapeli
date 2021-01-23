@@ -126,7 +126,7 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 	else if (type == DirectoryStorage)
 		return Palapeli::DirectoryStorageComponent::fromData(puzzle());
 	else
-		return 0;
+		return nullptr;
 }
 
 Palapeli::DirectoryStorageComponent* Palapeli::DirectoryStorageComponent::fromData(Palapeli::Puzzle* puzzle)
@@ -139,7 +139,7 @@ Palapeli::DirectoryStorageComponent* Palapeli::DirectoryStorageComponent::fromDa
 	const Palapeli::MetadataComponent* cMetadata = puzzle->component<Palapeli::MetadataComponent>();
 	const Palapeli::ContentsComponent* cContents = puzzle->component<Palapeli::ContentsComponent>();
 	if (!cMetadata || !cContents)
-		return 0;
+		return nullptr;
 	const Palapeli::CreationContextComponent* cCreationContext = puzzle->component<Palapeli::CreationContextComponent>();
 	const Palapeli::PuzzleMetadata metadata = cMetadata->metadata;
 	const Palapeli::PuzzleContents contents = cContents->contents;

@@ -35,7 +35,7 @@
 #include <KUrlRequester>
 
 Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
-	: m_result(0)
+	: m_result(nullptr)
 	, m_imageSelector(new KUrlRequester)
 	, m_nameEdit(new KLineEdit)
 	, m_commentEdit(new KLineEdit)

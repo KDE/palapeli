@@ -65,7 +65,7 @@ void Pala::SlicerPropertySet::addPropertyToSlicer(const QByteArray& key, Pala::S
 
 Pala::SimpleGridPropertySet::SimpleGridPropertySet(Pala::Slicer* slicer)
 	: Pala::SlicerPropertySet(slicer)
-	, p(0)
+	, p(nullptr)
 {
 	Pala::IntegerProperty* prop;
 	prop = new Pala::IntegerProperty(i18n("Piece count"));

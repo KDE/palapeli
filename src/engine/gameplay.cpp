@@ -69,13 +69,13 @@ Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	, m_centralWidget(new QStackedWidget)
 	, m_collectionView(new Palapeli::CollectionView)
 	, m_puzzleTable(new Palapeli::PuzzleTableWidget)
-	, m_puzzlePreview(0)
+	, m_puzzlePreview(nullptr)
 	, m_mainWindow(mainWindow)
-	, m_puzzle(0)
+	, m_puzzle(nullptr)
 	, m_pieceAreaSize(QSizeF(32.0, 32.0))	// Allow 1024 pixels initially.
 	, m_savegameTimer(new QTimer(this))
-	, m_currentHolder(0)
-	, m_previousHolder(0)
+	, m_currentHolder(nullptr)
+	, m_previousHolder(nullptr)
 	, m_loadingPuzzle(false)
 	, m_restoredGame(false)
 	, m_originalPieceCount(0)
@@ -832,9 +832,9 @@ void Palapeli::GamePlay::loadPiecePositions()
 	//add piece relations
 	foreach (const DoubleIntPair& relation, contents.relations) {
 		Palapeli::Piece* firstPiece =
-				m_loadedPieces.value(relation.first, 0);
+				m_loadedPieces.value(relation.first, nullptr);
 		Palapeli::Piece* secondPiece =
-				m_loadedPieces.value(relation.second, 0);
+				m_loadedPieces.value(relation.second, nullptr);
 		firstPiece->addLogicalNeighbors(QList<Palapeli::Piece*>()
 				<< secondPiece);
 		secondPiece->addLogicalNeighbors(QList<Palapeli::Piece*>()

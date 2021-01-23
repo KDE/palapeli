@@ -37,7 +37,7 @@ namespace Palapeli
 	class TextProgressBar : public QProgressBar
 	{
 		public:
-			TextProgressBar(QWidget* parent = 0) : QProgressBar(parent) {}
+			TextProgressBar(QWidget* parent = nullptr) : QProgressBar(parent) {}
 
 			QString text() const Q_DECL_OVERRIDE { return m_text; }
 			void setText(const QString& text) { m_text = text; update(); }

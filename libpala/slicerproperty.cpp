@@ -132,7 +132,7 @@ void Pala::SlicerProperty::setKey(const QByteArray& key)
 
 Pala::BooleanProperty::BooleanProperty(const QString& caption)
 	: Pala::SlicerProperty(QVariant::Bool, caption)
-	, p(0)
+	, p(nullptr)
 {
 }
 
@@ -177,7 +177,7 @@ void Pala::IntegerProperty::setRepresentation(Pala::IntegerProperty::Representat
 
 Pala::StringProperty::StringProperty(const QString& caption)
 	: Pala::SlicerProperty(QVariant::String, caption)
-	, p(0)
+	, p(nullptr)
 {
 }
 

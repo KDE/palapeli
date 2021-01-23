@@ -31,8 +31,8 @@ namespace Palapeli
 {
 	struct SlicerSelection
 	{
-		SlicerSelection() : slicer(0), mode(0) {}
-		SlicerSelection(const QString& n, const Pala::Slicer* s, const Pala::SlicerMode* m = 0) : slicerPluginName(n), slicer(s), mode(m) {}
+		SlicerSelection() : slicer(nullptr), mode(nullptr) {}
+		SlicerSelection(const QString& n, const Pala::Slicer* s, const Pala::SlicerMode* m = nullptr) : slicerPluginName(n), slicer(s), mode(m) {}
 
 		QString slicerPluginName;
 		const Pala::Slicer* slicer;
@@ -43,7 +43,7 @@ namespace Palapeli
 	{
 		Q_OBJECT
 		public:
-			explicit SlicerSelector(QWidget* parent = 0);
+			explicit SlicerSelector(QWidget* parent = nullptr);
 			~SlicerSelector();
 
 			QList<const Pala::Slicer*> slicers() const;
