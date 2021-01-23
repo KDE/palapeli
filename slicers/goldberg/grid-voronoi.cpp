@@ -295,7 +295,7 @@ void IrregularMode::generateGrid(GoldbergEngine *e, int piece_count) const {
 bool IrregularMode::checkForQVoronoi() {
     QProcess process;
 
-    process.start(QStringLiteral("qvoronoi"));
+    process.start(QStringLiteral("qvoronoi"), QStringList());
     process.waitForStarted();
     if (process.error() == QProcess::FailedToStart) {
         return false;
