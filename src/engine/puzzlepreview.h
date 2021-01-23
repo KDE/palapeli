@@ -43,12 +43,12 @@ namespace Palapeli
 			void closing();
 
 		protected:
-			void mouseMoveEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
-			void enterEvent(QEvent* event) Q_DECL_OVERRIDE;
-			void leaveEvent(QEvent* event) Q_DECL_OVERRIDE;
-			void resizeEvent(QResizeEvent* event) Q_DECL_OVERRIDE;
-			void moveEvent(QMoveEvent *event) Q_DECL_OVERRIDE;
-			void closeEvent(QCloseEvent* event) Q_DECL_OVERRIDE;
+			void mouseMoveEvent(QMouseEvent* event) override;
+			void enterEvent(QEvent* event) override;
+			void leaveEvent(QEvent* event) override;
+			void resizeEvent(QResizeEvent* event) override;
+			void moveEvent(QMoveEvent *event) override;
+			void closeEvent(QCloseEvent* event) override;
 			void updateViewport();
 
 		private Q_SLOTS:

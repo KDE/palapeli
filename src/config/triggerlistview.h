@@ -38,7 +38,7 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			TriggerListView(const QMap<QByteArray, Palapeli::Interactor*>& interactors, Palapeli::InteractorType interactorType, QWidget* parent = nullptr);
-			virtual ~TriggerListView();
+			~TriggerListView() override;
 
 			void getAssociations(QMap<QByteArray, Palapeli::Trigger>& associations);
 			void setAssociations(const QMap<QByteArray, Palapeli::Trigger>& associations);

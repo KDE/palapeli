@@ -71,7 +71,7 @@ namespace Palapeli
 		public:
 			///Takes ownership of @a mainComponent.
 			Puzzle(Palapeli::PuzzleComponent* mainComponent, const QString& location, const QString& identifier);
-			virtual ~Puzzle();
+			~Puzzle() override;
 
 			///Returns an identifier for use with puzzles loaded from the file
 			///system. Rationale: The identifier must be unique during the

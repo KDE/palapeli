@@ -32,7 +32,7 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			explicit MouseInputButton(QWidget* parent = nullptr);
-			QSize sizeHint() const Q_DECL_OVERRIDE;
+			QSize sizeHint() const override;
 
 			///If unset, this button will not generate any wheel triggers.
 			bool isMouseAllowed() const;
@@ -56,7 +56,7 @@ namespace Palapeli
 			void confirmTrigger(const Palapeli::Trigger& trigger);
 			void setTrigger(const Palapeli::Trigger& trigger);
 		protected:
-			bool event(QEvent* event) Q_DECL_OVERRIDE;
+			bool event(QEvent* event) override;
 		private:
 			void updateAppearance();
 			void applyTrigger(const Palapeli::Trigger& newTrigger);

@@ -52,7 +52,7 @@ namespace Palapeli
 			bool deletePuzzle(const QModelIndex& index);
 		protected:
 			Collection(QWidget *);
-			virtual ~Collection();
+			~Collection() override;
 		private:
 			class Item;
 

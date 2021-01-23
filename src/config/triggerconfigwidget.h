@@ -33,7 +33,7 @@ namespace Palapeli
 		public:
 			//TODO: Provide signal interface for changes (to enable "Apply" button in config dialog.)
 			explicit TriggerConfigWidget(QWidget* parent = nullptr);
-			virtual ~TriggerConfigWidget();
+			~TriggerConfigWidget() override;
 
 			bool hasChanged() const;
 			bool isDefault() const;

@@ -31,9 +31,9 @@ namespace Palapeli
 	{
 		public:
 			BooleanPropertyWidget();
-			QVariant propertyValue() const Q_DECL_OVERRIDE;
+			QVariant propertyValue() const override;
 		protected:
-			void initialize(const Pala::SlicerProperty* property) Q_DECL_OVERRIDE;
+			void initialize(const Pala::SlicerProperty* property) override;
 		private:
 			QCheckBox* m_checkBox;
 	};
@@ -42,9 +42,9 @@ namespace Palapeli
 	{
 		public:
 			IntegerPropertyWidget();
-			QVariant propertyValue() const Q_DECL_OVERRIDE;
+			QVariant propertyValue() const override;
 		protected:
-			void initialize(const Pala::SlicerProperty* property) Q_DECL_OVERRIDE;
+			void initialize(const Pala::SlicerProperty* property) override;
 		private:
 			KComboBox* m_comboBox;
 			QSpinBox* m_spinBox;
@@ -55,9 +55,9 @@ namespace Palapeli
 	{
 		public:
 			StringPropertyWidget();
-			QVariant propertyValue() const Q_DECL_OVERRIDE;
+			QVariant propertyValue() const override;
 		protected:
-			void initialize(const Pala::SlicerProperty* property) Q_DECL_OVERRIDE;
+			void initialize(const Pala::SlicerProperty* property) override;
 		private:
 			KComboBox* m_comboBox;
 			KLineEdit* m_lineEdit;

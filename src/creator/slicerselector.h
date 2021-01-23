@@ -44,7 +44,7 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			explicit SlicerSelector(QWidget* parent = nullptr);
-			~SlicerSelector();
+			~SlicerSelector() override;
 
 			QList<const Pala::Slicer*> slicers() const;
 			//NOTE: The objects pointed to by the SlicerSelection instance will be destroyed when this class is deleted.

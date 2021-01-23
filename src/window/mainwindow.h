@@ -32,7 +32,7 @@ namespace Palapeli
 		public:
             explicit MainWindow(const QString &path);
 		protected:
-			bool queryClose() Q_DECL_OVERRIDE;
+			bool queryClose() override;
 		private Q_SLOTS:
 			void enableMessages();
 		private:

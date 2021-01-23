@@ -53,7 +53,7 @@ namespace Palapeli
 		Q_OBJECT
 		public:
 			explicit GamePlay(MainWindow* mainWindow = nullptr);
-			virtual ~GamePlay();
+			~GamePlay() override;
 			void    init();
 			void    shutdown();
 			CollectionView* collectionView()

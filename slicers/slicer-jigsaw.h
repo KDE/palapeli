@@ -39,7 +39,7 @@ class JigsawSlicer : public Pala::Slicer, public Pala::SimpleGridPropertySet
 	Q_OBJECT
 	public:
 		explicit JigsawSlicer(QObject* parent = nullptr, const QVariantList& args = QVariantList());
-		bool run(Pala::SlicerJob* job) Q_DECL_OVERRIDE;
+		bool run(Pala::SlicerJob* job) override;
 	protected:
 		void addPlugToPath(QPainterPath& path, qreal plugNormLength, const QLineF& line, const QPointF& plugDirection, const JigsawPlugParams& parameters);
 };

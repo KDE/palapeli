@@ -33,11 +33,11 @@ namespace Palapeli
 			{ if (noPainting) setFlag(QGraphicsItem::ItemHasNoContents); }
 
 			//empty QGraphicsItem reimplementation
-			QRectF boundingRect() const Q_DECL_OVERRIDE { return QRectF(); }
-			void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*) Q_DECL_OVERRIDE {}
+			QRectF boundingRect() const override { return QRectF(); }
+			void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*) override {}
 			//enable qgraphicsitem_cast
 			enum { Type = QGraphicsItem::UserType + userType };
-			int type() const Q_DECL_OVERRIDE { return Type; }
+			int type() const override { return Type; }
 	};
 
 	enum GraphicsObjectUserTypes

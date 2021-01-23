@@ -28,13 +28,13 @@ namespace Palapeli
 		public:
 			explicit ElidingLabel(QWidget* parent = nullptr);
 
-			QSize minimumSizeHint() const Q_DECL_OVERRIDE;
-			QSize sizeHint() const Q_DECL_OVERRIDE;
+			QSize minimumSizeHint() const override;
+			QSize sizeHint() const override;
 
 			QString fullText() const;
 			void setFullText(const QString& text);
 		protected:
-			void resizeEvent(QResizeEvent* event) Q_DECL_OVERRIDE;
+			void resizeEvent(QResizeEvent* event) override;
 		private:
 			QString m_fullText;
 	};

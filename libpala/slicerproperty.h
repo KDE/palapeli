@@ -94,7 +94,7 @@ namespace Pala
 	{
 		public:
 			explicit BooleanProperty(const QString& caption);
-			virtual ~BooleanProperty();
+			~BooleanProperty() override;
 		private:
 			class Private;
 			Private* const p;
@@ -110,7 +110,7 @@ namespace Pala
 			enum Representation { SpinBox, Slider, DefaultRepresentation = SpinBox };
 
 			explicit IntegerProperty(const QString& caption);
-			virtual ~IntegerProperty();
+			~IntegerProperty() override;
 
 			///\internal
 			QPair<int, int> range() const;
@@ -133,7 +133,7 @@ namespace Pala
 	{
 		public:
 			explicit StringProperty(const QString& caption);
-			virtual ~StringProperty();
+			~StringProperty() override;
 		private:
 			class Private;
 			Private* const p;

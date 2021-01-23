@@ -29,7 +29,7 @@ class RectSlicer : public Pala::Slicer, public Pala::SimpleGridPropertySet
 	Q_OBJECT
 	public:
 		explicit RectSlicer(QObject* parent = nullptr, const QVariantList& args = QVariantList());
-		bool run(Pala::SlicerJob* job) Q_DECL_OVERRIDE;
+		bool run(Pala::SlicerJob* job) override;
 };
 
 #endif // PALAPELISLICERS_RECTSLICER_H

@@ -36,12 +36,12 @@ namespace Palapeli
 			enum SolutionSpace { Center, None, TopLeft, TopRight,
 					     BottomLeft, BottomRight };
 		protected:
-			bool hasChanged() Q_DECL_OVERRIDE;
-			bool isDefault() Q_DECL_OVERRIDE;
-			void updateSettings() Q_DECL_OVERRIDE;
-			void updateWidgets() Q_DECL_OVERRIDE;
-			void updateWidgetsDefault() Q_DECL_OVERRIDE;
-			void showEvent(QShowEvent* event) Q_DECL_OVERRIDE;
+			bool hasChanged() override;
+			bool isDefault() override;
+			void updateSettings() override;
+			void updateWidgets() override;
+			void updateWidgetsDefault() override;
+			void showEvent(QShowEvent* event) override;
 		private Q_SLOTS:
 			void solutionAreaChange(int index);
 		private:

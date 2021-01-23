@@ -29,7 +29,7 @@ class QMutex;
 #define COMPONENT_SUBCLASS(mytype) \
 	public: \
 	enum { ComponentType = mytype }; \
-	Type type() const Q_DECL_OVERRIDE { return mytype; }
+	Type type() const override { return mytype; }
 
 namespace Palapeli
 {
@@ -59,7 +59,7 @@ namespace Palapeli
 			explicit CreationContextComponent(const Palapeli::PuzzleCreationContext& creationContext) : creationContext(creationContext) {}
 
 			Palapeli::PuzzleCreationContext creationContext;
-			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
+			Palapeli::PuzzleComponent* cast(Type type) const override;
 	};
 
 	///This component copies the data (i.e. everything in puzzlestructs.h) from
@@ -70,7 +70,7 @@ namespace Palapeli
 		public:
 			explicit CopyComponent(Palapeli::Puzzle* puzzle);
 
-			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
+			Palapeli::PuzzleComponent* cast(Type type) const override;
 		private:
 			Palapeli::Puzzle* m_puzzle;
 	};
@@ -82,10 +82,10 @@ namespace Palapeli
 		public:
 			DirectoryStorageComponent();
 			static Palapeli::DirectoryStorageComponent* fromData(Palapeli::Puzzle* puzzle);
-			virtual ~DirectoryStorageComponent();
+			~DirectoryStorageComponent() override;
 
 			QString directory() const;
-			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
+			Palapeli::PuzzleComponent* cast(Type type) const override;
 		private:
 			QTemporaryDir* m_dir;
 	};
@@ -98,7 +98,7 @@ namespace Palapeli
 			ArchiveStorageComponent();
 			static Palapeli::ArchiveStorageComponent* fromData(Palapeli::Puzzle* puzzle);
 
-			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
+			Palapeli::PuzzleComponent* cast(Type type) const override;
 	};
 
 	///This is a valid mainComponent.
@@ -108,9 +108,9 @@ namespace Palapeli
 		public:
 			///Takes ownership of @a group.
 			CollectionStorageComponent(KConfigGroup* group);
-			virtual ~CollectionStorageComponent();
+			~CollectionStorageComponent() override;
 
-			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
+			Palapeli::PuzzleComponent* cast(Type type) const override;
 		private:
 			KConfigGroup* m_group;
 	};
@@ -124,7 +124,7 @@ namespace Palapeli
 		public:
 			explicit RetailStorageComponent(const QString& desktopFile);
 
-			Palapeli::PuzzleComponent* cast(Type type) const Q_DECL_OVERRIDE;
+			Palapeli::PuzzleComponent* cast(Type type) const override;
 		private:
 			QString m_desktopFile;
 	};

@@ -51,8 +51,8 @@ namespace Palapeli
 			void setSelected(bool onOff);
 			QString name() { return windowTitle(); }
 		protected:
-			void focusInEvent(QFocusEvent* e) Q_DECL_OVERRIDE;
-			void closeEvent(QCloseEvent* event) Q_DECL_OVERRIDE;
+			void focusInEvent(QFocusEvent* e) override;
+			void closeEvent(QCloseEvent* event) override;
 		Q_SIGNALS:
 			void selected(PieceHolder* h);
 			void closing(PieceHolder* h);

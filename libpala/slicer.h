@@ -77,7 +77,7 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 			 */
 			explicit Slicer(QObject* parent = nullptr, const QVariantList& args = QVariantList());
 			///Deletes this slicer, and all properties and modes which have been added with addProperty() and addMode().
-			virtual ~Slicer();
+			~Slicer() override;
 
 			//The following function belongs to the interface to the Palapeli application. It is not documented because the documentation is targeted at slicer developers.
 			///\internal
