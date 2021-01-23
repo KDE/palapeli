@@ -35,13 +35,14 @@ find_package(KF5DocTools ${KF5_MIN_VERSION})
 
 find_package(KF5KDEGames 4.9.0 REQUIRED)
 
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings NO_POLICY_SCOPE)
+
 include(FeatureSummary)
 include(ECMAddAppIcon)
 include(ECMInstallIcons)
 include(ECMSetupVersion)
-include(KDEInstallDirs)
-include(KDECompilerSettings NO_POLICY_SCOPE)
-include(KDECMakeSettings)
 include(ECMQtDeclareLoggingCategory)
 
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
