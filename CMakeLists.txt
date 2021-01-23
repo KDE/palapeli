@@ -22,6 +22,7 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     ConfigWidgets
     CoreAddons
     Crash
+    DocTools
     I18n
     ItemViews
     KIO
@@ -30,8 +31,6 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     WidgetsAddons
     XmlGui
 )
-
-find_package(KF5DocTools ${KF5_MIN_VERSION})
 
 find_package(KF5KDEGames 4.9.0 REQUIRED)
 
@@ -55,9 +54,7 @@ add_subdirectory(pics)
 add_subdirectory(src)
 add_subdirectory(mime)
 add_subdirectory(puzzles)
-if (KF5DocTools_FOUND)
-    add_subdirectory(doc)
-endif()
+add_subdirectory(doc)
 
 ecm_qt_install_logging_categories(EXPORT PALAPELI FILE palapeli.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
 
