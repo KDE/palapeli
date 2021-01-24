@@ -101,7 +101,7 @@ void Palapeli::MainWindow::setupActions()
 	createHolderAct->setToolTip(i18n("Create a temporary holder for sorting pieces"));
 	actionCollection()->setDefaultShortcut(createHolderAct, QKeySequence(Qt::Key_C));
 	actionCollection()->addAction(QStringLiteral("move_create_holder"), createHolderAct);
-	connect(createHolderAct, SIGNAL(triggered()), m_game, SLOT(createHolder()));
+	connect(createHolderAct, &QAction::triggered, m_game, QOverload<>::of(&GamePlay::createHolder));
 
 	// Delete piece-holder.
 	QAction * deleteHolderAct = new QAction(i18n("&Delete piece holder"), this);

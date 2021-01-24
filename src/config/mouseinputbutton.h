@@ -15,6 +15,8 @@ class QLabel;
 
 namespace Palapeli
 {
+	class FlatButton;
+
 	class MouseInputButton : public QPushButton
 	{
 		Q_OBJECT
@@ -52,7 +54,7 @@ namespace Palapeli
 
 			QLabel* m_iconLabel;
 			QLabel* m_mainLabel;
-			QLabel* m_clearButton;
+			FlatButton* m_clearButton;
 
 			Palapeli::Trigger m_trigger, m_stagedTrigger; ///< m_stagedTrigger is the trigger which has been set with setTrigger(), but which is still waiting to be confirmed with confirmTrigger().
 			bool m_mouseAllowed, m_wheelAllowed;

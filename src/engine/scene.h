@@ -27,6 +27,7 @@ namespace Palapeli
 	class Scene : public QGraphicsScene
 	{
 		Q_OBJECT
+		friend class GamePlay;
 		public:
 			explicit Scene(QObject* parent = nullptr);
 

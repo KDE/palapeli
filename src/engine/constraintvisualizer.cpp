@@ -77,7 +77,7 @@ void Palapeli::ConstraintVisualizer::stop()
 		return;		// Starting first loadPuzzle(): nothing to do.
 	}
 	m_scene->removeItem(this);
-	disconnect(m_scene, SIGNAL(sceneRectChanged(QRectF)));
+	disconnect(m_scene, &QGraphicsScene::sceneRectChanged, this, &ConstraintVisualizer::update);
 	m_sceneRect = QRectF();
 	m_isStopped = true;
 }

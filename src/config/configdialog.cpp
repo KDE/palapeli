@@ -17,7 +17,8 @@
 Palapeli::TriggerComboBox::TriggerComboBox(QWidget* parent)
 	: KComboBox(parent)
 {
-	connect(this, SIGNAL(currentIndexChanged(int)), SLOT(handleCurrentIndexChanged(int)));
+	connect(this, QOverload<int>::of(&QComboBox::currentIndexChanged),
+                this, &TriggerComboBox::handleCurrentIndexChanged);
 }
 
 QString Palapeli::TriggerComboBox::backgroundKey() const
@@ -63,8 +64,8 @@ Palapeli::ConfigDialog::ConfigDialog(QWidget* parent)
 	//setup page "Mouse interaction"
 	addPage(m_triggerPage, i18n("Mouse interaction"))->
 				setIcon(QIcon::fromTheme( QStringLiteral( "input-mouse" )));
-	connect(m_triggerPage, SIGNAL(associationsChanged()),
-			       SLOT(updateButtons()));
+	connect(m_triggerPage, &TriggerConfigWidget::associationsChanged,
+	        this, &ConfigDialog::updateButtons);
 }
 
 bool Palapeli::ConfigDialog::hasChanged()
@@ -115,8 +116,8 @@ void Palapeli::ConfigDialog::setupSolutionAreaComboBox()
 	b->insertItem(BottomLeft,  i18n("Bottom Left"),  BottomLeft);
 	b->insertItem(BottomRight, i18n("Bottom Right"), BottomRight);
 	b->setCurrentIndex(Settings::solutionArea());
-	connect(b,    SIGNAL(currentIndexChanged(int)),
-		this, SLOT(solutionAreaChange(int)));
+	connect(b,    QOverload<int>::of(&QComboBox::currentIndexChanged),
+		this, &ConfigDialog::solutionAreaChange);
 }
 
 void Palapeli::ConfigDialog::solutionAreaChange(int index)

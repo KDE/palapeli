@@ -18,6 +18,7 @@ namespace Palapeli
 	class View : public QGraphicsView
 	{
 		Q_OBJECT
+		friend class GamePlay;
 			Q_PROPERTY(QRectF viewportRect READ viewportRect WRITE setViewportRect)
 		public:
 			View();

@@ -34,7 +34,7 @@ Palapeli::MouseInputButton::MouseInputButton(QWidget* parent)
 {
 	qRegisterMetaType<Palapeli::Trigger>();
 	connect(this, &QAbstractButton::clicked, this, &MouseInputButton::captureTrigger);
-	connect(m_clearButton, SIGNAL(clicked()), SLOT(clearTrigger()));
+	connect(m_clearButton, &FlatButton::clicked, this, &MouseInputButton::clearTrigger);
 	setCheckable(true);
 	m_iconLabel->setPixmap(QIcon::fromTheme( QStringLiteral( "input-mouse" )).pixmap(22)); //TODO: respect global icon size configuration
 	//setup child widgets

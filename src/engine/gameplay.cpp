@@ -77,15 +77,13 @@ Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	m_viewList << m_puzzleTable->view();
 	m_savegameTimer->setInterval(500); //write savegame twice per second at most
 	m_savegameTimer->setSingleShot(true);
-	connect(m_savegameTimer, SIGNAL(timeout()), this, SLOT(updateSavedGame()));
-	connect(this, SIGNAL(reportProgress(int,int)),
-		m_puzzleTable, SLOT(reportProgress(int,int)));
-	connect(this, SIGNAL(victoryAnimationFinished()),
-		m_puzzleTable->view(), SLOT(startVictoryAnimation()));
-	connect(m_puzzleTable->view(),
-		SIGNAL(teleport(Piece*,QPointF,View*)),
-		this,
-		SLOT(teleport(Piece*,QPointF,View*)));
+	connect(m_savegameTimer, &QTimer::timeout, this, &GamePlay::updateSavedGame);
+	connect(this, &GamePlay::reportProgress,
+		m_puzzleTable, &PuzzleTableWidget::reportProgress);
+	connect(this, &GamePlay::victoryAnimationFinished,
+		m_puzzleTable->view(), &View::startVictoryAnimation);
+	connect(m_puzzleTable->view(), &View::teleport,
+		this, &GamePlay::teleport);
 }
 
 Palapeli::GamePlay::~GamePlay()
@@ -101,8 +99,8 @@ void Palapeli::GamePlay::deletePuzzleViews()
 		Palapeli::View* view = m_viewList.takeLast();
 		Palapeli::Scene* scene = view->scene();
 		qCDebug(PALAPELI_LOG) << "DISCONNECT SLOT(positionChanged(int))";
-		disconnect(scene, SIGNAL(saveMove(int)),
-			   this, SLOT(positionChanged(int)));
+		disconnect(scene, &Scene::saveMove,
+			   this, &GamePlay::positionChanged);
 		qCDebug(PALAPELI_LOG) << "scene->clearPieces();";
 		view->interactorManager()->resetActiveTriggers();
 		scene->clearPieces();
@@ -120,7 +118,7 @@ void Palapeli::GamePlay::init()
 {
 	// Set up the collection view.
 	m_collectionView->setModel(Palapeli::Collection::instance(m_mainWindow));
-	connect(m_collectionView, SIGNAL(playRequest(Palapeli::Puzzle*)), SLOT(playPuzzle(Palapeli::Puzzle*)));
+	connect(m_collectionView, &CollectionView::playRequest, this, &GamePlay::playPuzzle);
 
 	// Set up the puzzle table.
 	m_puzzleTable->showStatusBar(Settings::showStatusBar());
@@ -159,7 +157,7 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 	t.start();	// IDW test. START the clock.
 	// we need to load the preview every time, although when the puzzle
 	// is already loaded because the preview is destroyed in actionGoCollection()
-	QTimer::singleShot(0, this, SLOT(loadPreview()));
+	QTimer::singleShot(0, this, &GamePlay::loadPreview);
 
 	qCDebug(PALAPELI_LOG) << "START playPuzzle(): elapsed 0";
 	// Get some current action states from the collection.
@@ -225,8 +223,8 @@ void Palapeli::GamePlay::loadPreview()
 	}
 
 	m_puzzlePreview->setVisible(Settings::puzzlePreviewVisible());
-	connect (m_puzzlePreview, SIGNAL(closing()),
-		SLOT(actionTogglePreview()));	// Hide preview: do not delete.
+	connect (m_puzzlePreview, &PuzzlePreview::closing,
+		 this, &GamePlay::actionTogglePreview);	// Hide preview: do not delete.
 	// sync with mainWindow
 	m_mainWindow->actionCollection()->action(QStringLiteral("view_preview"))->
 		setChecked(Settings::puzzlePreviewVisible());
@@ -364,14 +362,12 @@ void Palapeli::GamePlay::createHolder()
 	// Merges/moves in new holders add to the progress bar and are saved.
 	Palapeli::View* view = m_viewList.last();
 	view->setCloseUp(true);	// New holders start in close-up scale.
-	connect(view->scene(), SIGNAL(saveMove(int)),
-		this, SLOT(positionChanged(int)));
-	connect(view,
-		SIGNAL(teleport(Piece*,QPointF,View*)),
-		this,
-		SLOT(teleport(Piece*,QPointF,View*)));
-	connect(view, SIGNAL(newPieceSelectionSeen(View*)),
-		this, SLOT(handleNewPieceSelection(View*)));
+	connect(view->scene(), &Scene::saveMove,
+		this, &GamePlay::positionChanged);
+	connect(view, &View::teleport,
+		this, &GamePlay::teleport);
+	connect(view, &View::newPieceSelectionSeen,
+		this, &GamePlay::handleNewPieceSelection);
 }
 
 void Palapeli::GamePlay::createHolder(const QString& name, bool sel)
@@ -380,10 +376,10 @@ void Palapeli::GamePlay::createHolder(const QString& name, bool sel)
 		new Palapeli::PieceHolder(m_mainWindow, m_pieceAreaSize, name);
 	m_viewList << h;
 	h->initializeZooming();			// Min. view 2x2 to 6x6 pieces.
-	connect(h, SIGNAL(selected(PieceHolder*)),
-		this, SLOT(changeSelectedHolder(PieceHolder*)));
-	connect (h, SIGNAL(closing(PieceHolder*)),
-		SLOT(closeHolder(PieceHolder*)));
+	connect(h, &PieceHolder::selected,
+		this, &GamePlay::changeSelectedHolder);
+	connect (h, &PieceHolder::closing,
+		this, &GamePlay::closeHolder);
 	if (sel) {
 		changeSelectedHolder(h);
 	}
@@ -648,8 +644,8 @@ void Palapeli::GamePlay::transferPieces(const QList<Palapeli::Piece*> &pieces,
 		scene->addItem(piece);
 		scene->addToGrid(piece);
 		piece->setSelected(true);
-		connect(piece, SIGNAL(moved(bool)),
-			scene, SLOT(pieceMoved(bool)));
+		connect(piece, &Piece::moved,
+			scene, &Scene::pieceMoved);
 	}
 	source->scene()->update();
 	scene->setSceneRect(scene->extPiecesBoundingRect());
@@ -755,7 +751,7 @@ void Palapeli::GamePlay::loadPuzzle()
 		}
 	}
 	// Return to the event queue to start the loading-widget graphics ASAP.
-	QTimer::singleShot(0, this, SLOT(loadPuzzleFile()));
+	QTimer::singleShot(0, this, &GamePlay::loadPuzzleFile);
 	qCDebug(PALAPELI_LOG) << "END loadPuzzle()";
 }
 
@@ -1141,15 +1137,13 @@ void Palapeli::GamePlay::finishLoading()
 	}
 	// Connect moves and merges of pieces to autosaving and progress-report.
 	for (Palapeli::View* view : qAsConst(m_viewList)) {
-		connect(view->scene(), SIGNAL(saveMove(int)),
-			this, SLOT(positionChanged(int)));
+		connect(view->scene(), &Scene::saveMove,
+			this, &GamePlay::positionChanged);
 		if (view != m_puzzleTable->view()) {
-			connect(view,
-				SIGNAL(teleport(Piece*,QPointF,View*)),
-				this,
-				SLOT(teleport(Piece*,QPointF,View*)));
-			connect(view, SIGNAL(newPieceSelectionSeen(View*)),
-				this, SLOT(handleNewPieceSelection(View*)));
+			connect(view, &View::teleport,
+				this, &GamePlay::teleport);
+			connect(view, &View::newPieceSelectionSeen,
+				this, &GamePlay::handleNewPieceSelection);
 		}
 	}
 	// Enable playing actions.
@@ -1176,17 +1170,17 @@ void Palapeli::GamePlay::playVictoryAnimation()
 	animation->setStartValue(m_puzzleTableScene->sceneRect());
 	animation->setEndValue(m_puzzleTableScene->extPiecesBoundingRect());
 	animation->setDuration(1000);
-	connect(animation, SIGNAL(finished()),
-		this, SLOT(playVictoryAnimation2()));
+	connect(animation, &QAbstractAnimation::finished,
+		this, &GamePlay::playVictoryAnimation2);
 	animation->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
 void Palapeli::GamePlay::playVictoryAnimation2()
 {
 	m_puzzleTableScene->setSceneRect(m_puzzleTableScene->extPiecesBoundingRect());
-	QTimer::singleShot(100, this, SIGNAL(victoryAnimationFinished()));
+	QTimer::singleShot(100, this, &GamePlay::victoryAnimationFinished);
 	// Give the View some time to play its part of the victory animation.
-	QTimer::singleShot(1500, this, SLOT(playVictoryAnimation3()));
+	QTimer::singleShot(1500, this, &GamePlay::playVictoryAnimation3);
 }
 
 void Palapeli::GamePlay::playVictoryAnimation3()
@@ -1311,7 +1305,7 @@ void Palapeli::GamePlay::restorePuzzleSettings(KConfig* savedConfig)
 	// Ask TextureHelper to re-draw background (but only after KConfigDialog
 	// has written the settings, which might happen after this slot call).
 	QTimer::singleShot(0, Palapeli::TextureHelper::instance(),
-				SLOT(readSettings()));
+				&Palapeli::TextureHelper::readSettings);
 
 	if (savedConfig->hasGroup(PreviewSaveGroup)) {
 		KConfigGroup previewGroup(savedConfig, PreviewSaveGroup);
