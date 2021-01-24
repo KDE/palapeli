@@ -45,10 +45,10 @@ bool Palapeli::MainWindow::queryClose()
 void Palapeli::MainWindow::setupActions()
 {
 	// Standard stuff.
-	KStandardAction::preferences(m_game, SLOT(configure()),
+	KStandardAction::preferences(m_game, &GamePlay::configure,
 						actionCollection());
 	QAction * statusBarAct = KStandardAction::showStatusbar
-	(m_game->puzzleTable(), SLOT(showStatusBar(bool)), actionCollection());
+	(m_game->puzzleTable(), &PuzzleTableWidget::showStatusBar, actionCollection());
 	statusBarAct->setChecked(Settings::showStatusBar());
 	statusBarAct->setText(i18n("Show statusbar of puzzle table"));
 
@@ -95,7 +95,7 @@ void Palapeli::MainWindow::setupActions()
 	actionCollection()->addAction(QStringLiteral("game_restart"), restartPuzzleAct);
 	connect(restartPuzzleAct, &QAction::triggered, m_game, &GamePlay::restartPuzzle);
 	// Quit.
-	KStandardGameAction::quit (this, SLOT (close()), actionCollection());
+	KStandardGameAction::quit (this, &QWidget::close, actionCollection());
 	// Create piece-holder.
 	QAction * createHolderAct = new QAction(i18n("&Create piece holder..."), this);
 	createHolderAct->setToolTip(i18n("Create a temporary holder for sorting pieces"));
@@ -136,11 +136,11 @@ void Palapeli::MainWindow::setupActions()
 	connect(togglePreviewAct, &QAction::triggered, m_game, &GamePlay::actionTogglePreview);
 
 	// View zoom in.
-	KStandardAction::zoomIn(m_game, SLOT(actionZoomIn()),
+	KStandardAction::zoomIn(m_game, &GamePlay::actionZoomIn,
 						actionCollection());
 
 	// View zoom out.
-	KStandardAction::zoomOut(m_game, SLOT(actionZoomOut()),
+	KStandardAction::zoomOut(m_game, &GamePlay::actionZoomOut,
 						actionCollection());
 	// Settings: enable messages that the user marked "Do not show again".
 	QAction * enableMessagesAct = new QAction(i18n("Enable all messages"), this);
