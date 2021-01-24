@@ -9,12 +9,12 @@
 
 #include <QPainter>
 
-//BEGIN Pala::SlicerJob::Private
+//BEGIN Pala::SlicerJobPrivate
 
-class Pala::SlicerJob::Private
+class Pala::SlicerJobPrivate
 {
 	public:
-		Private() : m_mode(nullptr) {}
+		SlicerJobPrivate() : m_mode(nullptr) {}
 
 		QMap<QByteArray, QVariant> m_args;
 		QImage m_image;
@@ -25,76 +25,84 @@ class Pala::SlicerJob::Private
 		QList<QPair<int, int> > m_relations;
 };
 
-//END Pala::SlicerJob::Private
+//END Pala::SlicerJobPrivate
 
 Pala::SlicerJob::SlicerJob(const QImage& image, const QMap<QByteArray, QVariant>& args)
-	: p(new Private)
+	: d_ptr(new SlicerJobPrivate)
 {
-	p->m_args = args;
-	p->m_image = image;
+	Q_D(SlicerJob);
+	d->m_args = args;
+	d->m_image = image;
 }
 
-Pala::SlicerJob::~SlicerJob()
-{
-	delete p;
-}
+Pala::SlicerJob::~SlicerJob() = default;
 
 QVariant Pala::SlicerJob::argument(const QByteArray& key) const
 {
-	return p->m_args.value(key, QVariant());
+	Q_D(const SlicerJob);
+	return d->m_args.value(key, QVariant());
 }
 
 QImage Pala::SlicerJob::image() const
 {
-	return p->m_image;
+	Q_D(const SlicerJob);
+	return d->m_image;
 }
 
 const Pala::SlicerMode* Pala::SlicerJob::mode() const
 {
-	return p->m_mode;
+	Q_D(const SlicerJob);
+	return d->m_mode;
 }
 
 QMap<int, QImage> Pala::SlicerJob::pieces() const
 {
-	return p->m_pieces;
+	Q_D(const SlicerJob);
+	return d->m_pieces;
 }
 
 QMap<int, QPoint> Pala::SlicerJob::pieceOffsets() const
 {
-	return p->m_pieceOffsets;
+	Q_D(const SlicerJob);
+	return d->m_pieceOffsets;
 }
 
 QList<QPair<int, int> > Pala::SlicerJob::relations() const
 {
-	return p->m_relations;
+	Q_D(const SlicerJob);
+	return d->m_relations;
 }
 
 void Pala::SlicerJob::setMode(const Pala::SlicerMode* mode)
 {
-	p->m_mode = mode;
+	Q_D(SlicerJob);
+	d->m_mode = mode;
 }
 
 void Pala::SlicerJob::respectSlicerFlags(int flags)
 {
+	Q_D(SlicerJob);
 	if (!(flags & Pala::Slicer::AllowFullTransparency))
 	{
-		QImage image(p->m_image.size(), p->m_image.format());
+		QImage image(d->m_image.size(), d->m_image.format());
 		QColor blackShade(Qt::black); blackShade.setAlpha(42);
 		image.fill(blackShade.rgba());
 		QPainter painter(&image);
-		painter.drawImage(QPoint(), p->m_image);
+		painter.drawImage(QPoint(), d->m_image);
 		painter.end();
-		p->m_image = image;
+		d->m_image = image;
 	}
 }
 
 void Pala::SlicerJob::addPiece(int pieceID, const QImage& image, const QPoint& offset)
 {
-	p->m_pieces.insert(pieceID, image);
-	p->m_pieceOffsets.insert(pieceID, offset);
+	Q_D(SlicerJob);
+	d->m_pieces.insert(pieceID, image);
+	d->m_pieceOffsets.insert(pieceID, offset);
 }
 
 //A modified version of QImage::copy, which avoids rendering errors even if rect is outside the bounds of the source image.
+static
 QImage safeQImageCopy(const QImage& source, const QRect& rect)
 {
 	QRect targetRect(QPoint(), rect.size());
@@ -109,15 +117,17 @@ QImage safeQImageCopy(const QImage& source, const QRect& rect)
 
 void Pala::SlicerJob::addPieceFromMask(int pieceID, const QImage& mask, const QPoint& offset)
 {
+	Q_D(SlicerJob);
 	QImage pieceImage(mask);
 	QPainter painter(&pieceImage);
 	painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
-	painter.drawImage(QPoint(), safeQImageCopy(p->m_image, QRect(offset, mask.size())));
+	painter.drawImage(QPoint(), safeQImageCopy(d->m_image, QRect(offset, mask.size())));
 	painter.end();
 	addPiece(pieceID, pieceImage, offset);
 }
 
 void Pala::SlicerJob::addRelation(int pieceID1, int pieceID2)
 {
-	p->m_relations << QPair<int, int>(pieceID1, pieceID2);
+	Q_D(SlicerJob);
+	d->m_relations << QPair<int, int>(pieceID1, pieceID2);
 }

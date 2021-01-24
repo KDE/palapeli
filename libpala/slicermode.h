@@ -11,6 +11,8 @@
 
 #include <QByteArray>
 
+#include <memory>
+
 namespace Pala
 {
 	class SlicerProperty;
@@ -50,8 +52,10 @@ namespace Pala
 			//Some space in the vtable reserved for future additions
 			//RESERVE_VIRTUAL_5
 		private:
-			class Private;
-			Private* const p;
+			std::unique_ptr<class SlicerModePrivate> const d_ptr;
+			Q_DECLARE_PRIVATE(SlicerMode)
+			Q_DISABLE_COPY(SlicerMode)
+			// TODO: consider turning this into a value-type class with shared data
 	};
 }
 

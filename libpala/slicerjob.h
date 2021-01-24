@@ -14,6 +14,8 @@
 #include <QVariant>
 #include <QImage>
 
+#include <memory>
+
 namespace Pala
 {
 	class Slicer;
@@ -78,8 +80,9 @@ namespace Pala
 			void respectSlicerFlags(int flags);
 			friend class Slicer;
 		private:
-			class Private;
-			Private* const p;
+			std::unique_ptr<class SlicerJobPrivate> const d_ptr;
+			Q_DECLARE_PRIVATE(SlicerJob)
+			Q_DISABLE_COPY(SlicerJob)
 	};
 }
 

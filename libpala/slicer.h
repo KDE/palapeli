@@ -12,6 +12,8 @@
 #include <QObject>
 #include <QVariant>
 
+#include <memory>
+
 namespace Pala
 {
 	class SlicerJob;
@@ -106,8 +108,9 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 			virtual bool run(Pala::SlicerJob* job) = 0;
 			//BIC: constify method
 		private:
-			class Private;
-			Private* const p;
+			std::unique_ptr<class SlicerPrivate> const d_ptr;
+			Q_DECLARE_PRIVATE(Slicer)
+			Q_DISABLE_COPY(Slicer)
 	};
 
 	Q_DECLARE_OPERATORS_FOR_FLAGS(Slicer::SlicerFlags)
