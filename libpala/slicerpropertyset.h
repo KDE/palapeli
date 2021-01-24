@@ -7,11 +7,7 @@
 #ifndef LIBPALA_SLICERPROPERTYSET_H
 #define LIBPALA_SLICERPROPERTYSET_H
 
-#if defined(MAKE_LIBPALA) || defined(USE_LOCAL_LIBPALA)
-# include "libpala_export.h"
-#else
-# include <libpala/libpala_export.h>
-#endif
+#include "libpala_export.h"
 
 class QByteArray;
 #include <QSize>

@@ -6,9 +6,10 @@
 
 #include "slicerconfwidget.h"
 #include "propertywidget.h"
-#include "../libpala/slicer.h"
-#include "../libpala/slicermode.h"
-#include "../libpala/slicerproperty.h"
+
+#include <Pala/Slicer>
+#include <Pala/SlicerMode>
+#include <Pala/SlicerProperty>
 
 #include <QFormLayout>
 

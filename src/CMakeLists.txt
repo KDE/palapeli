@@ -1,6 +1,3 @@
-#correctly include the headers of libpala when they are not yet installed
-set_directory_properties(PROPERTIES COMPILE_DEFINITIONS USE_LOCAL_LIBPALA)
-
 set(palapeli_SRCS
 	config/configdialog.cpp
 	config/elidinglabel.cpp

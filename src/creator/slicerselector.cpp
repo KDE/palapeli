@@ -5,9 +5,10 @@
 */
 
 #include "slicerselector.h"
-#include "../libpala/slicer.h"
-#include "../libpala/slicerjob.h"
-#include "../libpala/slicermode.h"
+
+#include <Pala/Slicer>
+#include <Pala/SlicerJob>
+#include <Pala/SlicerMode>
 
 #include <KPluginFactory>
 #include <KPluginMetaData>

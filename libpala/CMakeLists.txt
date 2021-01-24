@@ -1,9 +1,13 @@
 project(libpala)
 
+include(ECMGenerateHeaders)
 include(GenerateExportHeader)
+include(CMakePackageConfigHelpers)
 
 set(libpala_VERSION "0.2.0")
 set(libpala_SOVERSION "0")
+# Pala/ is include visibility protection layer
+set(libpala_INSTALL_INCLUDEDIR ${KDE_INSTALL_INCLUDEDIR}/Pala)
 
 set(libpala_SRCS
 	slicer.cpp
@@ -16,32 +20,59 @@ set(libpala_SRCS
 ecm_qt_declare_logging_category(libpala_SRCS HEADER libpala_debug.h IDENTIFIER PALAPELI_LIBPALA_LOG CATEGORY_NAME org.kde.palapeli.libpala DESCRIPTION "palapeli (libpala)" EXPORT PALAPELI)
 
 set(libpala_HDRS
-	${CMAKE_CURRENT_BINARY_DIR}/libpala_export.h
-	slicer.h
-	slicerjob.h
-	slicermode.h
-	slicerproperty.h
-	slicerpropertyset.h
+    ${CMAKE_CURRENT_BINARY_DIR}/libpala_export.h
 )
-set(libpala_FANCY_HDRS
-	Pala/Slicer
-	Pala/SlicerJob
-	Pala/SlicerMode
-	Pala/SlicerProperty
-	Pala/SlicerPropertySet
+ecm_generate_headers(libpala_CamelCase_HEADERS
+    HEADER_NAMES
+        Slicer
+        SlicerJob
+        SlicerMode
+        SlicerProperty
+        SlicerPropertySet
+    REQUIRED_HEADERS libpala_HDRS
+    PREFIX Pala
 )
 
 add_library(pala SHARED ${libpala_SRCS})
 generate_export_header(pala BASE_NAME libpala)
 target_link_libraries(pala KF5::I18n Qt5::Gui)
+target_include_directories(pala
+    INTERFACE
+        "$<INSTALL_INTERFACE:${libpala_INSTALL_INCLUDEDIR}>"
+)
 set_target_properties(pala PROPERTIES
 	VERSION ${libpala_VERSION}
 	SOVERSION ${libpala_SOVERSION}
-	DEFINE_SYMBOL MAKE_LIBPALA
+    EXPORT_NAME Pala
 )
 
-install(TARGETS pala EXPORT pala-targets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
-install(EXPORT pala-targets DESTINATION ${KDE_INSTALL_LIBDIR}/libpala)
-install(FILES libpala-config.cmake DESTINATION ${KDE_INSTALL_LIBDIR}/libpala)
-install(FILES ${libpala_HDRS} DESTINATION ${KDE_INSTALL_INCLUDEDIR}/libpala COMPONENT Devel)
-install(FILES ${libpala_FANCY_HDRS} DESTINATION ${KDE_INSTALL_INCLUDEDIR}/Pala COMPONENT Devel)
+install(TARGETS pala EXPORT PalaTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+# pala/ & Pala/ are class namespace path part
+install(FILES ${libpala_HDRS} DESTINATION ${libpala_INSTALL_INCLUDEDIR}/pala COMPONENT Devel)
+install(FILES ${libpala_CamelCase_HEADERS} DESTINATION ${libpala_INSTALL_INCLUDEDIR}/Pala COMPONENT Devel)
+
+export(TARGETS pala FILE "${PROJECT_BINARY_DIR}/PalaTargets.cmake")
+
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/Pala")
+
+configure_package_config_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/PalaConfig.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/PalaConfig.cmake"
+    INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
+)
+write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/PalaConfigVersion.cmake"
+    VERSION ${libpala_VERSION}
+    COMPATIBILITY SameMajorVersion
+)
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/PalaConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/PalaConfigVersion.cmake"
+    DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+    COMPONENT Devel
+)
+
+install(EXPORT PalaTargets
+    DESTINATION ${CMAKECONFIG_INSTALL_DIR}
+    COMPONENT Devel
+)

@@ -9,9 +9,9 @@
 #ifndef PALAPELISLICERS_SLICER_GOLDBERG_H
 #define PALAPELISLICERS_SLICER_GOLDBERG_H
 
-#include "../../libpala/slicer.h"
-#include "../../libpala/slicerjob.h"
-#include "../../libpala/slicerproperty.h"
+#include <Pala/Slicer>
+#include <Pala/SlicerJob>
+#include <Pala/SlicerProperty>
 
 class GoldbergSlicer : public Pala::Slicer {
     Q_OBJECT

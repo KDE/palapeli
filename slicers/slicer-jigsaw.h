@@ -7,10 +7,10 @@
 #ifndef PALAPELISLICERS_JIGSAW_SLICER_H //krazy:excludeall=includes
 #define PALAPELISLICERS_JIGSAW_SLICER_H
 
-#include "../libpala/slicer.h"
-#include "../libpala/slicerjob.h"
-#include "../libpala/slicerproperty.h"
-#include "../libpala/slicerpropertyset.h"
+#include <Pala/Slicer>
+#include <Pala/SlicerJob>
+#include <Pala/SlicerProperty>
+#include <Pala/SlicerPropertySet>
 
 struct JigsawPlugParams
 {

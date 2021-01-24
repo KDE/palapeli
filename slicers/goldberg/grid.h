@@ -9,7 +9,7 @@
 #define PALAPELISLICERS_GOLDBERG_GRID_H
 
 #include <KLocalizedString>
-#include "../../libpala/slicermode.h"
+#include <Pala/SlicerMode>
 
 #include "goldberg-engine.h"
 

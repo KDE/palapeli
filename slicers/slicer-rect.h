@@ -7,10 +7,10 @@
 #ifndef PALAPELISLICERS_RECTSLICER_H //krazy:excludeall=includes
 #define PALAPELISLICERS_RECTSLICER_H
 
-#include "../libpala/slicer.h"
-#include "../libpala/slicerjob.h"
-#include "../libpala/slicerproperty.h"
-#include "../libpala/slicerpropertyset.h"
+#include <Pala/Slicer>
+#include <Pala/SlicerJob>
+#include <Pala/SlicerProperty>
+#include <Pala/SlicerPropertySet>
 
 class RectSlicer : public Pala::Slicer, public Pala::SimpleGridPropertySet
 {

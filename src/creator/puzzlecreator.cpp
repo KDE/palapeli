@@ -9,9 +9,10 @@
 #include "file-io/components.h"
 #include "file-io/puzzle.h"
 #include "file-io/puzzlestructs.h"
-#include "../libpala/slicer.h"
-#include "../libpala/slicerjob.h"
-#include "../libpala/slicermode.h"
+
+#include <Pala/Slicer>
+#include <Pala/SlicerJob>
+#include <Pala/SlicerMode>
 
 #include <QFormLayout>
 #include <QLabel>

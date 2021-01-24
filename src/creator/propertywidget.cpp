@@ -6,7 +6,8 @@
 
 #include "propertywidget.h"
 #include "propertywidget_p.h"
-#include "../libpala/slicerproperty.h"
+
+#include <Pala/SlicerProperty>
 
 #include <QHBoxLayout>
 

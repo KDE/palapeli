@@ -7,8 +7,9 @@
 #ifndef PALAPELISLICERS_GOLDBERG_ENGINE_H
 #define PALAPELISLICERS_GOLDBERG_ENGINE_H
 
-#include "../../libpala/slicerjob.h"
+#include <Pala/SlicerJob>
 #include <QPainterPath>
+
 struct GBClassicPlugParams {
     bool flipped;
     bool is_plugless;

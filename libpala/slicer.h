@@ -7,11 +7,7 @@
 #ifndef LIBPALA_SLICER_H
 #define LIBPALA_SLICER_H
 
-#if defined(MAKE_LIBPALA) || defined(USE_LOCAL_LIBPALA)
-# include "libpala_export.h"
-#else
-# include <libpala/libpala_export.h>
-#endif
+#include "libpala_export.h"
 
 #include <QObject>
 #include <QVariant>
