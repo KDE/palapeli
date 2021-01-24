@@ -48,6 +48,10 @@ set(palapeli_SRCS
 ecm_setup_version(${PROJECT_VERSION} VARIABLE_PREFIX PALAPELI VERSION_HEADER palapeli_version.h)
 ecm_qt_declare_logging_category(palapeli_SRCS HEADER palapeli_debug.h IDENTIFIER PALAPELI_LOG CATEGORY_NAME org.kde.palapeli DESCRIPTION "palapeli" EXPORT PALAPELI)
 
+qt5_add_resources(palapeli_SRCS
+    palapeli.qrc
+)
+
 kconfig_add_kcfg_files(palapeli_SRCS settings.kcfgc)
 ki18n_wrap_ui(palapeli_SRCS settings.ui)
 file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/*-apps-palapeli.png")
@@ -70,8 +74,6 @@ target_link_libraries(palapeli
 )
 
 install(TARGETS palapeli ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
-install(FILES palapeliui.rc
-        DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/palapeli)
 
 install(FILES palapeli.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFY5RCDIR})
 
@@ -79,4 +81,5 @@ install(FILES palapeli.kcfg
         DESTINATION ${KDE_INSTALL_DATADIR}/palapeli)
 install(PROGRAMS org.kde.palapeli.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 install(FILES org.kde.palapeli.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
+
 add_subdirectory(pics)

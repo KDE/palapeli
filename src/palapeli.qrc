@@ -1,0 +1,6 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/kxmlgui5/palapeli">
+        <file>palapeliui.rc</file>
+    </qresource>
+</RCC>
