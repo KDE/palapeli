@@ -31,7 +31,7 @@ Palapeli::Collection::Item::Item(Palapeli::Puzzle* puzzle)
 	//curly braces.
 	const QString id = puzzle->identifier();
 	setData(id, Palapeli::Collection::IdentifierRole);
-	setData(id.startsWith(QChar('{')), Palapeli::Collection::IsDeleteableRole);
+	setData(id.startsWith(QLatin1Char('{')), Palapeli::Collection::IsDeleteableRole);
 	setData(i18n("Loading puzzle..."), Qt::DisplayRole);
 	setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 	//request metadata
@@ -116,7 +116,7 @@ Palapeli::Collection::Collection(QWidget *parent)
 		const QString basePath = puzzleGroup->readEntry("Location", QString());
 		const QString path = readPseudoUrl(basePath, false);
 		QString baseDesktopPath(basePath);
-		baseDesktopPath.replace(QRegExp("\\.puzzle$"), QLatin1String(".desktop"));
+		baseDesktopPath.replace(QRegExp(QStringLiteral("\\.puzzle$")), QLatin1String(".desktop"));
 		const QString desktopPath = readPseudoUrl(baseDesktopPath, false);
 		//construct puzzle with CollectionStorageComponent
 		if (!path.isEmpty() && (desktopPath.isEmpty() || QFileInfo(path).lastModified() >= QFileInfo(desktopPath).lastModified()))

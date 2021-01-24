@@ -74,7 +74,7 @@ void Palapeli::PieceHolder::setSelected(bool onOff)
 {
 	qCDebug(PALAPELI_LOG) << "PieceHolder::setSelected()" << windowTitle() << onOff;
 	setStyleSheet(QStringLiteral("QFrame { border: 3px solid %1; }").arg
-				(onOff ? "blue" : "lightGray"));
+				(onOff ? QLatin1String("blue") : QLatin1String("lightGray")));
 }
 
 void Palapeli::PieceHolder::closeEvent(QCloseEvent* event)

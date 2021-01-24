@@ -32,9 +32,9 @@ QList<int> popIntLine(QList<QByteArray> &input) {
     if (input.size() == 0) return result;
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    const QStringList parts = QString(input.takeFirst()).split(' ', Qt::SkipEmptyParts);
+    const QStringList parts = QString::fromUtf8(input.takeFirst()).split(QLatin1Char(' '), Qt::SkipEmptyParts);
 #else
-    QStringList parts = QString(input.takeFirst()).split(' ', QString::SkipEmptyParts);
+    QStringList parts = QString::fromUtf8(input.takeFirst()).split(QLatin1Char(' '), QString::SkipEmptyParts);
 #endif
     bool ok;
 
@@ -56,9 +56,9 @@ QList<qreal> popFloatLine(QList<QByteArray> &input) {
     if (input.size() == 0) return result;
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    const QStringList parts = QString(input.takeFirst()).split(' ', Qt::SkipEmptyParts);
+    const QStringList parts = QString::fromUtf8(input.takeFirst()).split(QLatin1Char(' '), Qt::SkipEmptyParts);
 #else
-    QStringList parts = QString(input.takeFirst()).split(' ', QString::SkipEmptyParts);
+    QStringList parts = QString::fromUtf8(input.takeFirst()).split(QLatin1Char(' '), QString::SkipEmptyParts);
 #endif
     bool ok;
 

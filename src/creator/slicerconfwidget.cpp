@@ -24,7 +24,7 @@ Palapeli::SlicerConfigWidget::SlicerConfigWidget(const Pala::Slicer* slicer)
 		Palapeli::PropertyWidget* propWidget = Palapeli::createPropertyWidget(property);
 		Entry entry = { property, propWidget };
 		m_entries << entry;
-		m_layout->addRow(property->caption() + QChar(':'), propWidget);
+		m_layout->addRow(property->caption() + QLatin1Char(':'), propWidget);
 	}
 }
 

@@ -38,6 +38,6 @@ bool Palapeli::ThumbCreator::create(const QString& path, int width, int height, 
 	tar.directory()->copyTo(cachePath);
 	tar.close();
 	//read image
-	image.load(cachePath + "image.jpg");
+	image.load(cachePath + QLatin1String("image.jpg"));
 	return true;
 }

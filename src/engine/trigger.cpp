@@ -154,7 +154,7 @@ QByteArray Palapeli::Trigger::serialized() const
 	if (!isValid())
 		return QByteArray();
 	const QByteArray actionString = tParserData->actionString(m_wheelDirection, m_button);
-	QByteArray modifierString = tParserData->modifierString(m_modifiers, '|');
+	QByteArray modifierString = tParserData->modifierString(m_modifiers, QLatin1Char('|'));
 	if (modifierString.isEmpty())
 		modifierString = "NoModifier";
 	return actionString + QByteArray(1, ';') + modifierString;
@@ -163,11 +163,11 @@ QByteArray Palapeli::Trigger::serialized() const
 QString Palapeli::Trigger::toString() const
 {
 	const QString actionString = tPrinterData->actionString(m_wheelDirection, m_button);
-	const QString modifierString = tPrinterData->modifierString(m_modifiers, '+');
+	const QString modifierString = tPrinterData->modifierString(m_modifiers, QLatin1Char('+'));
 	if (modifierString.isEmpty())
 		return actionString;
 	else
-		return modifierString + QChar('+') + actionString;
+		return modifierString + QLatin1Char('+') + actionString;
 }
 
 Qt::KeyboardModifiers Palapeli::Trigger::modifiers() const

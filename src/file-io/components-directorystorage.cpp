@@ -69,7 +69,7 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 			if (!ok)
 				continue;
 			contents.pieceOffsets[pieceIndex] = offsetGroup.readEntry(key, QPoint());
-			contents.pieces[pieceIndex].load(dir.absoluteFilePath(key + ".png"));
+			contents.pieces[pieceIndex].load(dir.absoluteFilePath(key + QLatin1String(".png")));
 		}
 		//load relations
 		KConfigGroup relationsGroup(&manifest, "Relations");

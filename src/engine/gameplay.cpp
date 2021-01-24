@@ -45,12 +45,12 @@ typedef QPair<int, int> DoubleIntPair;
 
 const int Palapeli::GamePlay::LargePuzzle = 300;
 
-const QString HeaderSaveGroup    ("-PalapeliSavedPuzzle");
-const QString HolderSaveGroup    ("Holders");
-const QString LocationSaveGroup  ("XYCo-ordinates");
-const QString FormerSaveGroup    ("SaveGame");
-const QString AppearanceSaveGroup("Appearance");
-const QString PreviewSaveGroup   ("PuzzlePreview");
+const QString HeaderSaveGroup     = QStringLiteral("-PalapeliSavedPuzzle");
+const QString HolderSaveGroup     = QStringLiteral("Holders");
+const QString LocationSaveGroup   = QStringLiteral("XYCo-ordinates");
+const QString FormerSaveGroup     = QStringLiteral("SaveGame");
+const QString AppearanceSaveGroup = QStringLiteral("Appearance");
+const QString PreviewSaveGroup    = QStringLiteral("PuzzlePreview");
 
 Palapeli::GamePlay::GamePlay(MainWindow* mainWindow)
 	: QObject(mainWindow)
@@ -132,9 +132,9 @@ void Palapeli::GamePlay::init()
 	m_mainWindow->setCentralWidget(m_centralWidget);
 	// Get some current action states from the collection.
 	m_canDeletePuzzle = m_mainWindow->actionCollection()->
-				action("game_delete")->isEnabled();
+				action(QStringLiteral("game_delete"))->isEnabled();
 	m_canExportPuzzle = m_mainWindow->actionCollection()->
-				action("game_export")->isEnabled();
+				action(QStringLiteral("game_export"))->isEnabled();
 	// Enable collection actions and disable playing actions initially.
 	setPalapeliMode(false);
 }
@@ -164,9 +164,9 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 	qCDebug(PALAPELI_LOG) << "START playPuzzle(): elapsed 0";
 	// Get some current action states from the collection.
 	m_canDeletePuzzle = m_mainWindow->actionCollection()->
-				action("game_delete")->isEnabled();
+				action(QStringLiteral("game_delete"))->isEnabled();
 	m_canExportPuzzle = m_mainWindow->actionCollection()->
-				action("game_export")->isEnabled();
+				action(QStringLiteral("game_export"))->isEnabled();
 	m_centralWidget->setCurrentWidget(m_puzzleTable);
 	m_puzzlePreview = new Palapeli::PuzzlePreview(m_mainWindow);
 
@@ -228,7 +228,7 @@ void Palapeli::GamePlay::loadPreview()
 	connect (m_puzzlePreview, SIGNAL(closing()),
 		SLOT(actionTogglePreview()));	// Hide preview: do not delete.
 	// sync with mainWindow
-	m_mainWindow->actionCollection()->action("view_preview")->
+	m_mainWindow->actionCollection()->action(QStringLiteral("view_preview"))->
 		setChecked(Settings::puzzlePreviewVisible());
 }
 
@@ -260,7 +260,7 @@ void Palapeli::GamePlay::actionTogglePreview()
 	// This action is OK during puzzle loading.
 	if (m_puzzlePreview) {
 		m_puzzlePreview->toggleVisible();
-		m_mainWindow->actionCollection()->action("view_preview")->
+		m_mainWindow->actionCollection()->action(QStringLiteral("view_preview"))->
 			setChecked(Settings::puzzlePreviewVisible());
 		// remember state
 		updateSavedGame();
@@ -356,7 +356,7 @@ void Palapeli::GamePlay::createHolder()
 	QString name = QInputDialog::getText(m_mainWindow,
 		i18n("Create a piece holder"),
 		i18n("Enter a short name (optional):"),
-		QLineEdit::Normal, QString(""), &OK);
+		QLineEdit::Normal, QString(), &OK);
 	if (! OK) {
 		return;		// If CANCELLED, do not create a piece holder.
 	}
@@ -665,31 +665,41 @@ void Palapeli::GamePlay::setPalapeliMode(bool playing)
 	// puzzle, both sets of actions are disabled, because they cannot work
 	// concurrently with loading (enPlaying and enCollection both false).
 
-	const char* playingActions[] = {"view_collection", "game_restart",
-					"view_preview", "move_create_holder",
-					"move_delete_holder", "move_select_all",
-					"move_rearrange", "view_zoom_in",
-					"view_zoom_out", "END" };
-	const char* collectionActions[] = {"game_new", "game_delete",
-					"game_import", "game_export", "END" };
+	const QString playingActions[] = {
+            QStringLiteral("view_collection"),
+            QStringLiteral("game_restart"),
+            QStringLiteral("view_preview"),
+            QStringLiteral("move_create_holder"),
+            QStringLiteral("move_delete_holder"),
+            QStringLiteral("move_select_all"),
+            QStringLiteral("move_rearrange"),
+            QStringLiteral("view_zoom_in"),
+            QStringLiteral("view_zoom_out"),
+        };
+	const QString collectionActions[] = {
+            QStringLiteral("game_new"),
+            QStringLiteral("game_delete"),
+            QStringLiteral("game_import"),
+            QStringLiteral("game_export"),
+        };
 	bool enPlaying    = (! m_loadingPuzzle) && playing;
 	bool enCollection = (! m_loadingPuzzle) && (! playing);
 
-	for (uint i = 0; (strcmp (playingActions[i], "END") != 0); i++) {
+	for (const auto &actionId : playingActions) {
 		m_mainWindow->actionCollection()->
-			action(playingActions[i])->setEnabled(enPlaying);
+			action(actionId)->setEnabled(enPlaying);
 	}
-	for (uint i = 0; (strcmp (collectionActions[i], "END") != 0); i++) {
+	for (const auto &actionId : collectionActions) {
 		m_mainWindow->actionCollection()->
-			action(collectionActions[i])->setEnabled(enCollection);
+			action(actionId)->setEnabled(enCollection);
 	}
 	// The collection view may enable or disable Delete and Export actions,
 	// depending on what puzzle, if any, is currently selected.
 	if (enCollection) {
 		m_mainWindow->actionCollection()->
-			action("game_delete")->setEnabled(m_canDeletePuzzle);
+			action(QStringLiteral("game_delete"))->setEnabled(m_canDeletePuzzle);
 		m_mainWindow->actionCollection()->
-			action("game_export")->setEnabled(m_canExportPuzzle);
+			action(QStringLiteral("game_export"))->setEnabled(m_canExportPuzzle);
 	}
 	m_playing = playing;
 }
@@ -870,12 +880,12 @@ void Palapeli::GamePlay::loadPiecePositions()
 		m_currentHolder = nullptr;
 		for (int groupID = 1; groupID <= nHolders; groupID++) {
 			KConfigGroup holder (&savedConfig,
-					QString("Holder_%1").arg(groupID));
+					QStringLiteral("Holder_%1").arg(groupID));
 			// Re-create a piece-holder and add it to m_viewList.
 			qCDebug(PALAPELI_LOG) << "RE-CREATE HOLDER"
-				 << QString("Holder_%1").arg(groupID) << "name"
-				 << holder.readEntry("Name", QString(""));
-			createHolder(holder.readEntry("Name", QString("")),
+				 << QStringLiteral("Holder_%1").arg(groupID) << "name"
+				 << holder.readEntry("Name", QString());
+			createHolder(holder.readEntry("Name", QString()),
 				     holder.readEntry("Selected", false));
 			// Restore the piece-holder's size and position.
 			QRect r = holder.readEntry("Geometry", QRect());
@@ -1223,7 +1233,7 @@ void Palapeli::GamePlay::updateSavedGame()
 	    bool isHolder = (view != m_puzzleTable->view());
 	    if (isHolder) {
 		KConfigGroup holderDetails(&savedConfig,
-			QString("Holder_%1").arg(groupID));
+			QStringLiteral("Holder_%1").arg(groupID));
 		Palapeli::PieceHolder* holder =
 			qobject_cast<Palapeli::PieceHolder*>(view);
 		bool selected = (view == m_currentHolder);

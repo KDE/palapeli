@@ -134,7 +134,7 @@ Q_GLOBAL_STATIC(QList<QString>, g_usedIdentifiers)
 	QString puzzleName = QFileInfo(location).fileName();
 	const char* disallowedChars = "\\:*?\"<>|"; //Windows forbids using these chars in filenames, so we'll strip them
 	for (const char* c = disallowedChars; *c; ++c)
-		puzzleName.remove(*c);
+		puzzleName.remove(QLatin1Char(*c));
 	const QString identifierPattern = QString::fromLatin1("__FSC_%1_%2_").arg(puzzleName);
 	int uniquifier = 0;
 	while (g_usedIdentifiers->contains(identifierPattern.arg(uniquifier)))
