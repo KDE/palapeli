@@ -46,8 +46,6 @@ include(ECMQtDeclareLoggingCategory)
 
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/libpala)
-
 add_subdirectory(libpala)
 add_subdirectory(slicers)
 add_subdirectory(pics)
