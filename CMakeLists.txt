@@ -44,7 +44,16 @@ include(ECMInstallIcons)
 include(ECMSetupVersion)
 include(ECMQtDeclareLoggingCategory)
 
-add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+add_definitions(
+    -DQT_NO_SIGNALS_SLOTS_KEYWORDS
+    -DQT_NO_CAST_FROM_ASCII
+    -DQT_NO_CAST_TO_ASCII
+    -DQT_NO_CAST_FROM_BYTEARRAY
+    -DQT_NO_URL_CAST_FROM_STRING
+    -DQT_USE_QSTRINGBUILDER
+    -DQT_STRICT_ITERATORS
+    -DQT_NO_NARROWING_CONVERSIONS_IN_CONNECT
+)
 
 add_subdirectory(libpala)
 add_subdirectory(slicers)
