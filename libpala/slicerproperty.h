@@ -13,8 +13,12 @@
 #include <QVariant>
 #include <QVariantList>
 
+#include <memory>
+
 namespace Pala
 {
+	class SlicerPropertyPrivate;
+
 	/**
 	 * \class SlicerProperty slicerproperty.h <Pala/SlicerProperty>
 	 * \brief Representation of a single configurable parameter of a slicing algorithm.
@@ -28,7 +32,7 @@ namespace Pala
 	class LIBPALA_EXPORT SlicerProperty
 	{
 		protected:
-			explicit SlicerProperty(QVariant::Type type, const QString& caption);
+			explicit SlicerProperty(Pala::SlicerPropertyPrivate& dd);
 		public:
 			///Deletes this slicer property.
 			virtual ~SlicerProperty();
@@ -66,11 +70,14 @@ namespace Pala
 			///Sets whether this property is enabled (true by default). If you do not use multiple slicer modes (see Pala::Slicer::addSlicerMode), setting this to false is senseless. On the other hand, if you do use multiple slicer modes and have certain properties which are only useful in single modes, you probably want to set this to false, and enable the property in the relevant slicer modes using the Pala::SlicerMode::setPropertyEnabled method.
 			///\since libpala 1.2 (KDE SC 4.6)
 			void setEnabled(bool enabled);
+		protected:
+			std::unique_ptr<SlicerPropertyPrivate> const d_ptr;
 		private:
-			class Private;
-			Private* const p;
+			Q_DECLARE_PRIVATE(SlicerProperty)
+			Q_DISABLE_COPY(SlicerProperty)
 	};
 
+	class BooleanPropertyPrivate;
 	/**
 	 * \class BooleanProperty slicerproperty.h <Pala/SlicerProperty>
 	 */
@@ -80,10 +87,10 @@ namespace Pala
 			explicit BooleanProperty(const QString& caption);
 			~BooleanProperty() override;
 		private:
-			class Private;
-			Private* const p;
+			Q_DECLARE_PRIVATE(BooleanProperty)
 	};
 
+	class IntegerPropertyPrivate;
 	/**
 	 * \class IntegerProperty slicerproperty.h <Pala/SlicerProperty>
 	 */
@@ -106,10 +113,10 @@ namespace Pala
 			///Decides how the property is represented in the user interface of Palapeli.
 			void setRepresentation(Representation representation);
 		private:
-			struct Private;
-			Private* const p;
+			Q_DECLARE_PRIVATE(IntegerProperty)
 	};
 
+	class StringPropertyPrivate;
 	/**
 	 * \class StringProperty slicerproperty.h <Pala/SlicerProperty>
 	 */
@@ -119,8 +126,7 @@ namespace Pala
 			explicit StringProperty(const QString& caption);
 			~StringProperty() override;
 		private:
-			class Private;
-			Private* const p;
+			Q_DECLARE_PRIVATE(StringProperty)
 	};
 }
 

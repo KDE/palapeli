@@ -9,14 +9,19 @@
 
 #include "libpala_export.h"
 
-class QByteArray;
 #include <QSize>
+
+#include <memory>
+
+class QByteArray;
 
 namespace Pala
 {
 	class Slicer;
 	class SlicerJob;
 	class SlicerProperty;
+
+	class SlicerPropertySetPrivate;
 
 	/**
 	 * \class SlicerPropertySet slicerpropertyset.h <Pala/SlicerPropertySet>
@@ -36,13 +41,18 @@ namespace Pala
 			Pala::Slicer* slicer() const;
 		protected:
 			SlicerPropertySet(Pala::Slicer* slicer);
+			SlicerPropertySet(Pala::SlicerPropertySetPrivate& dd);
 			~SlicerPropertySet();
 			///A synonym for Pala::Slicer::addProperty (because the latter is "protected"; this abstract base class can access it because it is a "protected friend" of Pala::Slicer).
 			void addPropertyToSlicer(const QByteArray& key, Pala::SlicerProperty* property);
+		protected:
+			std::unique_ptr<class SlicerPropertySetPrivate> const d_ptr;
 		private:
-			class Private;
-			Private* const p;
+			Q_DECLARE_PRIVATE(SlicerPropertySet)
+			Q_DISABLE_COPY(SlicerPropertySet)
 	};
+
+	class SimpleGridPropertySetPrivate;
 
 	/**
 	 * \class SimpleGridPropertySet slicerpropertyset.h <Pala/SlicerPropertySet>
@@ -59,8 +69,7 @@ namespace Pala
 
 			QSize pieceCount(Pala::SlicerJob* job) const;
 		private:
-			class Private;
-			Private* const p;
+			Q_DECLARE_PRIVATE(SimpleGridPropertySet)
 	};
 }
 

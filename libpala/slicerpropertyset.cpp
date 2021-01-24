@@ -15,36 +15,52 @@
 
 //BEGIN Private classes
 
-struct Pala::SlicerPropertySet::Private
+class Pala::SlicerPropertySetPrivate
 {
-	Pala::Slicer* m_slicer;
+public:
+	explicit SlicerPropertySetPrivate(Pala::Slicer* slicer)
+	    : m_slicer(slicer)
+	{
+	}
+
+	Pala::Slicer* const m_slicer;
 };
 
-struct Pala::SimpleGridPropertySet::Private {};
+class Pala::SimpleGridPropertySetPrivate : public Pala::SlicerPropertySetPrivate
+{
+public:
+	explicit SimpleGridPropertySetPrivate(Pala::Slicer* slicer)
+	    : SlicerPropertySetPrivate(slicer)
+	{
+	}
+};
 
 //END Private classes
 
 //BEGIN Pala::SlicerPropertySet
 
 Pala::SlicerPropertySet::SlicerPropertySet(Pala::Slicer* slicer)
-	: p(new Pala::SlicerPropertySet::Private)
+	: SlicerPropertySet(*new Pala::SlicerPropertySetPrivate(slicer))
 {
-	p->m_slicer = slicer;
 }
 
-Pala::SlicerPropertySet::~SlicerPropertySet()
+Pala::SlicerPropertySet::SlicerPropertySet(SlicerPropertySetPrivate& dd)
+	: d_ptr(&dd)
 {
-	delete p;
 }
+
+Pala::SlicerPropertySet::~SlicerPropertySet() = default;
 
 Pala::Slicer* Pala::SlicerPropertySet::slicer() const
 {
-	return p->m_slicer;
+	Q_D(const SlicerPropertySet);
+	return d->m_slicer;
 }
 
 void Pala::SlicerPropertySet::addPropertyToSlicer(const QByteArray& key, Pala::SlicerProperty* property)
 {
-	p->m_slicer->addProperty(key, property);
+	Q_D(SlicerPropertySet);
+	d->m_slicer->addProperty(key, property);
 }
 
 //END Pala::SlicerPropertySet
@@ -52,8 +68,7 @@ void Pala::SlicerPropertySet::addPropertyToSlicer(const QByteArray& key, Pala::S
 //BEGIN Pala::SimpleGridPropertySet
 
 Pala::SimpleGridPropertySet::SimpleGridPropertySet(Pala::Slicer* slicer)
-	: Pala::SlicerPropertySet(slicer)
-	, p(nullptr)
+	: Pala::SlicerPropertySet(*new SimpleGridPropertySetPrivate(slicer))
 {
 	Pala::IntegerProperty* prop;
 	prop = new Pala::IntegerProperty(i18n("Piece count"));
@@ -67,10 +82,7 @@ Pala::SimpleGridPropertySet::SimpleGridPropertySet(Pala::Slicer* slicer)
 	addPropertyToSlicer("PieceAspect", prop);
 }
 
-Pala::SimpleGridPropertySet::~SimpleGridPropertySet()
-{
-	delete p;
-}
+Pala::SimpleGridPropertySet::~SimpleGridPropertySet() = default;
 
 QSize Pala::SimpleGridPropertySet::pieceCount(Pala::SlicerJob* job) const
 {
