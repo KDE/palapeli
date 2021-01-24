@@ -739,7 +739,7 @@ void Palapeli::GamePlay::loadPuzzle()
 	setPalapeliMode(false);
 	// Stop autosaving and progress-reporting and start the loading-widget.
 	m_savegameTimer->stop(); // Just in case it is running ...
-	emit reportProgress(0, 0);
+	Q_EMIT reportProgress(0, 0);
 	// Is there a saved game?
 	const QString puzzleLoc(
 				QStandardPaths::locate(QStandardPaths::AppLocalDataLocation,
@@ -1068,7 +1068,7 @@ void Palapeli::GamePlay::finishLoading()
 		}
 	}
 	// Initialize external progress display, hide loading widget, show view.
-	emit reportProgress(m_originalPieceCount, m_currentPieceCount);
+	Q_EMIT reportProgress(m_originalPieceCount, m_currentPieceCount);
 	// Adjust zoom-levels, center the view, show autosave message if needed.
 	m_puzzleTable->view()->puzzleStarted();
 	if (!m_restoredGame && (m_originalPieceCount >= LargePuzzle)) {
@@ -1200,7 +1200,7 @@ void Palapeli::GamePlay::positionChanged(int reduction)
 		bool victory = (m_currentPieceCount > 1) &&
 			       ((m_currentPieceCount - reduction) <= 1);
 		m_currentPieceCount = m_currentPieceCount - reduction;
-		emit reportProgress(m_originalPieceCount, m_currentPieceCount);
+		Q_EMIT reportProgress(m_originalPieceCount, m_currentPieceCount);
 		if (victory) {
 			playVictoryAnimation();
 		}

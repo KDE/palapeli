@@ -87,14 +87,14 @@ void Palapeli::TriggerMapper::readSettings()
 			}
 	}
 	//announce update to InteractorManagers
-	emit associationsChanged();
+	Q_EMIT associationsChanged();
 }
 
 void Palapeli::TriggerMapper::setAssociations(const QMap<QByteArray, Palapeli::Trigger>& associations)
 {
 	m_associations = associations;
 	//announce update to InteractorManagers
-	emit associationsChanged();
+	Q_EMIT associationsChanged();
 	//assemble trigger serializations
 	QMap<QByteArray, QList<QByteArray> > triggerSerializations;
 	{

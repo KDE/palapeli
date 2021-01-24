@@ -46,7 +46,7 @@ namespace Palapeli
 				{
 					event->accept();
 					if (rect().contains(event->pos()))
-						emit clicked();
+						Q_EMIT clicked();
 				}
 				else
 					QLabel::mouseReleaseEvent(event);

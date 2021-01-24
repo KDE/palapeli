@@ -96,7 +96,7 @@ Palapeli::SlicerSelection Palapeli::SlicerSelector::currentSelection() const
 
 void Palapeli::SlicerSelector::slotSelectionChanged()
 {
-	emit currentSelectionChanged(currentSelection());
+	Q_EMIT currentSelectionChanged(currentSelection());
 }
 
 

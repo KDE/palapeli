@@ -36,8 +36,8 @@ void Palapeli::TriggerComboBox::handleCurrentIndexChanged(int index)
 {
 	Q_UNUSED(index)
 	const QString key = backgroundKey();
-	emit backgroundKeyChanged(key);
-	emit itemTypeChanged(key == QLatin1String("__color__"));
+	Q_EMIT backgroundKeyChanged(key);
+	Q_EMIT itemTypeChanged(key == QLatin1String("__color__"));
 }
 
 //END Palapeli::TriggerComboBox

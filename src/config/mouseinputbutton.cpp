@@ -204,7 +204,7 @@ void Palapeli::MouseInputButton::setTrigger(const Palapeli::Trigger& trigger)
 	if (m_requiresValidation && trigger.isValid() && m_trigger != trigger)
 	{
 		m_stagedTrigger = trigger;
-		emit triggerRequest(trigger);
+		Q_EMIT triggerRequest(trigger);
 	}
 	else
 		applyTrigger(trigger);
@@ -239,7 +239,7 @@ void Palapeli::MouseInputButton::applyTrigger(const Palapeli::Trigger& trigger)
 	updateAppearance();
 	//announce change
 	if (announceChange)
-		emit triggerChanged(trigger);
+		Q_EMIT triggerChanged(trigger);
 }
 
 void Palapeli::MouseInputButton::showModifiers(Qt::KeyboardModifiers modifiers)

@@ -111,7 +111,7 @@ void Palapeli::Scene::setConstrained(bool constrained)
 		return;
 	m_constrained = constrained;
 	m_constraintVisualizer->setActive(constrained);
-	emit constrainedChanged(constrained);
+	Q_EMIT constrainedChanged(constrained);
 }
 
 void Palapeli::Scene::validatePiecePosition(Palapeli::Piece* piece)
@@ -187,13 +187,13 @@ void Palapeli::Scene::pieceInstanceTransaction(const QList<Palapeli::Piece*>& de
 			this, &Scene::pieceMoved);
 	}
 	// qCDebug(PALAPELI_LOG) << "emit saveMove(" << oldPieceCount - m_pieces.count();
-	emit saveMove(oldPieceCount - m_pieces.count());
+	Q_EMIT saveMove(oldPieceCount - m_pieces.count());
 }
 
 void Palapeli::Scene::pieceMoved(bool finished)
 {
 	if (!finished) {
-		emit saveMove(0);
+		Q_EMIT saveMove(0);
 		return;
 	}
 	// int before = m_pieces.count();

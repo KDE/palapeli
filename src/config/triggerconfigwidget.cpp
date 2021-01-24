@@ -57,7 +57,7 @@ void Palapeli::TriggerConfigWidget::updateWidgets()
 	const QMap<QByteArray, Palapeli::Trigger> associations = Palapeli::TriggerMapper::instance()->associations();
 	m_mouseView->setAssociations(associations);
 	m_wheelView->setAssociations(associations);
-	emit associationsChanged();
+	Q_EMIT associationsChanged();
 }
 
 void Palapeli::TriggerConfigWidget::updateWidgetsDefault()
@@ -65,7 +65,7 @@ void Palapeli::TriggerConfigWidget::updateWidgetsDefault()
 	const QMap<QByteArray, Palapeli::Trigger> associations = Palapeli::TriggerMapper::defaultAssociations();
 	m_mouseView->setAssociations(associations);
 	m_wheelView->setAssociations(associations);
-	emit associationsChanged();
+	Q_EMIT associationsChanged();
 }
 
 

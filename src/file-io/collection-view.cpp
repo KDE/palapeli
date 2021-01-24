@@ -99,21 +99,21 @@ void Palapeli::CollectionView::handleActivated(const QModelIndex& index)
 		return;
 	//change selection to indicate that the given puzzle has been chosen
 	m_view->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
-	emit playRequest(Palapeli::Collection::instance()->puzzleFromIndex(index));
+	Q_EMIT playRequest(Palapeli::Collection::instance()->puzzleFromIndex(index));
 }
 
 void Palapeli::CollectionView::handleSelectionChanged()
 {
 	const QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
 	const bool someSelection = !indexes.isEmpty();
-	emit canExportChanged(someSelection);
+	Q_EMIT canExportChanged(someSelection);
 	foreach (const QModelIndex& index, indexes)
 		if (!index.data(Palapeli::Collection::IsDeleteableRole).toBool())
 		{
-			emit canDeleteChanged(false);
+			Q_EMIT canDeleteChanged(false);
 			return;
 		}
-	emit canDeleteChanged(someSelection);
+	Q_EMIT canDeleteChanged(someSelection);
 }
 
 void Palapeli::CollectionView::sortMenuTriggered(QAction* action)

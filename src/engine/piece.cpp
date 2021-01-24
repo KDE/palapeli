@@ -267,7 +267,7 @@ void Palapeli::Piece::rewriteLogicalNeighbors(const QList<Palapeli::Piece*>& old
 
 void Palapeli::Piece::announceReplaced(Palapeli::Piece* replacement)
 {
-	emit replacedBy(replacement);
+	Q_EMIT replacedBy(replacement);
 	deleteLater();
 }
 
@@ -347,14 +347,14 @@ void Palapeli::Piece::doMove()
 	Palapeli::Scene* scene = qobject_cast<Palapeli::Scene*>(this->scene());
 	if (scene) {
 		scene->validatePiecePosition(this);
-		emit moved(false);	// Still moving.
+		Q_EMIT moved(false);	// Still moving.
 	}
 }
 
 void Palapeli::Piece::endMove()
 {
 	m_pieceItem->setCursor(Qt::OpenHandCursor);
-	emit moved(true);		// Finishd moving.
+	Q_EMIT moved(true);		// Finishd moving.
 }
 
 //END mouse interaction

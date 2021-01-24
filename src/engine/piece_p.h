@@ -35,7 +35,7 @@ namespace Palapeli
 			QVariant itemChange(GraphicsItemChange change, const QVariant& value) override
 			{
 				if (change == ItemSelectedChange)
-					emit selectedChanged(value.toBool());
+					Q_EMIT selectedChanged(value.toBool());
 				return QGraphicsPixmapItem::itemChange(change, value);
 			}
 	};

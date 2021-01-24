@@ -116,7 +116,7 @@ void Palapeli::PuzzlePreview::closeEvent(QCloseEvent* event)
 {
 	// Triggered by the preview window's Close button.
 	event->accept();
-	emit closing();
+	Q_EMIT closing();
 }
 
 void Palapeli::PuzzlePreview::writeConfigIfGeometryChanged()

@@ -51,7 +51,7 @@ void Palapeli::ZoomWidget::setConstrained(bool constrained)
 	if (m_constrainedButton->isChecked() != constrained)
 	{
 		m_constrainedButton->setChecked(constrained);
-		emit constrainedChanged(constrained);
+		Q_EMIT constrainedChanged(constrained);
 	}
 }
 

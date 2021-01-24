@@ -67,7 +67,7 @@ void Palapeli::PieceHolder::focusInEvent(QFocusEvent* e)
 	Q_UNUSED(e)
 	qCDebug(PALAPELI_LOG) << "PieceHolder::focusInEvent()" << windowTitle();
 	setSelected(true);
-	emit selected(this);	// De-select the previously selected holder.
+	Q_EMIT selected(this);	// De-select the previously selected holder.
 }
 
 void Palapeli::PieceHolder::setSelected(bool onOff)
@@ -86,7 +86,7 @@ void Palapeli::PieceHolder::closeEvent(QCloseEvent* event)
 	else {
 		event->ignore();	// The window cannot be closed.
 	}
-	emit closing(this);		// GamePlay handles the details.
+	Q_EMIT closing(this);		// GamePlay handles the details.
 }
 
 

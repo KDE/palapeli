@@ -141,7 +141,7 @@ void Palapeli::View::teleportPieces(Piece* pieceUnder, const QPointF& scenePos)
 {
 	qCDebug(PALAPELI_LOG) << "TELEPORT: pieceUnder" << (pieceUnder != nullptr)
 		 << "scenePos" << scenePos;
-	emit teleport(pieceUnder, scenePos, this);
+	Q_EMIT teleport(pieceUnder, scenePos, this);
 }
 
 void Palapeli::View::zoomBy(int delta)
@@ -185,7 +185,7 @@ void Palapeli::View::zoomTo(int level)
 	setTransform(t);
 	// Save and report changes.
 	m_zoomLevel = level;
-	emit zoomLevelChanged(m_zoomLevel);
+	Q_EMIT zoomLevelChanged(m_zoomLevel);
 	// In a mouse-centered zoom, lock the pointer onto the scene position.
 	if (m_adjustPointer) {
 		// Let the new view settle down before checking the mouse.
@@ -272,7 +272,7 @@ void Palapeli::View::setCloseUp(bool onOff)
 
 void Palapeli::View::handleNewPieceSelection()
 {
-	emit newPieceSelectionSeen(this);
+	Q_EMIT newPieceSelectionSeen(this);
 }
 
 qreal Palapeli::View::calculateCloseUpScale()
@@ -330,9 +330,9 @@ void Palapeli::View::puzzleStarted()
 
 	// Don't readjust the zoom. Just set the slider pointer.
 	m_zoomLevel = level;		// Make zoomTo() ignore the back-signal.
-	emit zoomLevelChanged(level);
+	Q_EMIT zoomLevelChanged(level);
 	centerOn(sceneRect().center());	// Center the view of the whole puzzle.
-	emit zoomAdjustable(true);	// Enable the ZoomWidget.
+	Q_EMIT zoomAdjustable(true);	// Enable the ZoomWidget.
 
 	// Explain autosaving.
 	KMessageBox::information(window(), i18n("Your progress is saved automatically while you play."), i18nc("used as caption for a dialog that explains the autosave feature", "Automatic saving"), QStringLiteral("autosave-introduction"));
@@ -346,7 +346,7 @@ void Palapeli::View::startVictoryAnimation()
 	animation->setEndValue(m_scene->extPiecesBoundingRect());
 	animation->setDuration(1000);
 	animation->start(QAbstractAnimation::DeleteWhenStopped);
-	emit zoomAdjustable(false);
+	Q_EMIT zoomAdjustable(false);
 }
 
 
