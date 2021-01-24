@@ -55,7 +55,7 @@ Palapeli::TextureHelper::TextureHelper()
 	const QStringList dirs = QStandardPaths::locateAll(QStandardPaths::AppLocalDataLocation,
 													   QStringLiteral("backgrounds"),
 													   QStandardPaths::LocateDirectory);
-	foreach (const QString& dir, dirs)
+	for (const QString& dir : dirs)
 	{
 		QDirIterator dirIt(dir, QDir::Files);
 		while (dirIt.hasNext())
@@ -99,7 +99,7 @@ void Palapeli::TextureHelper::readSettings()
 			m_currentBrush = selectedColor;
 		else
 			m_currentBrush = item->data(BrushRole).value<QPixmap>();
-		foreach (QObject* scene, m_scenes)
+		for (QObject* scene : qAsConst(m_scenes))
 			static_cast<QGraphicsScene*>(scene)->setBackgroundBrush(m_currentBrush);
 	}
 }

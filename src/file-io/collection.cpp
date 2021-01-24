@@ -108,7 +108,7 @@ Palapeli::Collection::Collection(QWidget *parent)
 	QProgressDialog dlg(i18n("Loading collection"), QString(), 0, len, parent);
 	dlg.setMinimumDuration(2000);
 	dlg.setWindowModality(Qt::WindowModal);
-	foreach (const QString& puzzleId, puzzleIds)
+	for (const QString& puzzleId : puzzleIds)
 	{
 		dlg.setValue(count++);
 		KConfigGroup* puzzleGroup = new KConfigGroup(m_group, puzzleId);

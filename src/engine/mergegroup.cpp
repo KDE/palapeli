@@ -36,9 +36,11 @@ QList<Palapeli::Piece*> Palapeli::MergeGroup::tryGrowMergeGroup(Palapeli::Piece*
 	{
 		addedSomethingInThisLoop = false; //not yet
 		//check all neighbors of the currently included pieces
-		foreach (Palapeli::Piece* piece, resultList)
+		const auto currentResultList = resultList;
+		for (Palapeli::Piece* piece : currentResultList)
 		{
-			foreach (Palapeli::Piece* logicalNeighbor, piece->logicalNeighbors())
+			const auto logicalNeighbors = piece->logicalNeighbors();
+			for (Palapeli::Piece* logicalNeighbor : logicalNeighbors)
 			{
 				if (piece->scene() != logicalNeighbor->scene())
 					continue;
@@ -67,7 +69,7 @@ Palapeli::MergeGroup::MergeGroup(const QList<Palapeli::Piece*>& pieces, QGraphic
 {
 	//find united coordinate system (UCS) -> large pieces contribute more than smaller pieces
 	int totalWeight = 0;
-	foreach (Palapeli::Piece* piece, pieces)
+	for (Palapeli::Piece* piece : pieces)
 	{
 		const int weight = piece->representedAtomicPieces().count();
 		m_ucsPosition += weight * piece->pos();
@@ -85,7 +87,7 @@ void Palapeli::MergeGroup::start()
 	{
 		//create animations for merging the piece coordinate systems into the UCS
 		QParallelAnimationGroup* masterAnimator = new QParallelAnimationGroup(this);
-		foreach (Palapeli::Piece* piece, m_pieces)
+		for (Palapeli::Piece* piece : qAsConst(m_pieces))
 		{
 			QPropertyAnimation* pieceAnimator = new QPropertyAnimation(piece, "pos", nullptr);
 			pieceAnimator->setStartValue(piece->pos());
@@ -111,7 +113,7 @@ void Palapeli::MergeGroup::createMergedPiece()
 	QList<Palapeli::PieceVisuals> shadowVisuals;
 	QList<Palapeli::PieceVisuals> highlightVisuals;
 	bool allPiecesHaveShadows = true;
-	foreach (Palapeli::Piece* piece, m_pieces)
+	for (Palapeli::Piece* piece : qAsConst(m_pieces))
 	{
 		pieceVisuals << piece->pieceVisuals();
 		if (allPiecesHaveShadows) //we stop collecting shadow samples when one piece has no shadow
@@ -145,7 +147,7 @@ void Palapeli::MergeGroup::createMergedPiece()
 	}
 	m_mergedPiece->setPos(m_ucsPosition);
 	//transfer information from old pieces to new piece, then destroy old pieces
-	foreach (Palapeli::Piece* piece, m_pieces)
+	for (Palapeli::Piece* piece : qAsConst(m_pieces))
 	{
 		m_mergedPiece->addRepresentedAtomicPieces(piece->representedAtomicPieces());
 		m_mergedPiece->addLogicalNeighbors(piece->logicalNeighbors());
@@ -156,7 +158,8 @@ void Palapeli::MergeGroup::createMergedPiece()
 		piece->announceReplaced(m_mergedPiece); //make sure that interactors know about the change, and delete the piece
 	}
 	m_mergedPiece->rewriteLogicalNeighbors(m_pieces, nullptr); //0 = these neighbors should be dropped
-	foreach (Palapeli::Piece* logicalNeighbor, m_mergedPiece->logicalNeighbors())
+	const auto logicalNeighbors = m_mergedPiece->logicalNeighbors();
+	for (Palapeli::Piece* logicalNeighbor : logicalNeighbors)
 		logicalNeighbor->rewriteLogicalNeighbors(m_pieces, m_mergedPiece); //these neighbors are now represented by m_mergedPiece
 	//transaction done
 	Q_EMIT pieceInstanceTransaction(m_pieces, QList<Palapeli::Piece*>() << m_mergedPiece);

@@ -92,7 +92,7 @@ void Palapeli::IntegerPropertyWidget::initialize(const Pala::SlicerProperty* pro
 	else
 	{
 		usedWidget = m_comboBox = new KComboBox(false, this); //false = not editable (only given choices can be used)
-		foreach (const QVariant& choice, choices)
+		for (const QVariant& choice : choices)
 			m_comboBox->addItem(choice.toString());
 	}
 	QHBoxLayout* layout = new QHBoxLayout;
@@ -133,7 +133,7 @@ void Palapeli::StringPropertyWidget::initialize(const Pala::SlicerProperty* prop
 	else
 	{
 		usedWidget = m_comboBox = new KComboBox(false, this); //false = not editable (only given choices can be used)
-		foreach (const QVariant& choice, choices)
+		for (const QVariant& choice : choices)
 			m_comboBox->addItem(choice.toString());
 	}
 	QHBoxLayout* layout = new QHBoxLayout;

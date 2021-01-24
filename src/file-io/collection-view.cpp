@@ -107,7 +107,7 @@ void Palapeli::CollectionView::handleSelectionChanged()
 	const QModelIndexList indexes = m_view->selectionModel()->selectedIndexes();
 	const bool someSelection = !indexes.isEmpty();
 	Q_EMIT canExportChanged(someSelection);
-	foreach (const QModelIndex& index, indexes)
+	for (const QModelIndex& index : indexes)
 		if (!index.data(Palapeli::Collection::IsDeleteableRole).toBool())
 		{
 			Q_EMIT canDeleteChanged(false);

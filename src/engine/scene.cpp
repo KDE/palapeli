@@ -33,7 +33,7 @@ void Palapeli::Scene::addPieceToList(Palapeli::Piece* piece)
 
 void Palapeli::Scene::addPieceItemsToScene()
 {
-	foreach (Palapeli::Piece * piece, m_pieces) {
+	for (Palapeli::Piece * piece : qAsConst(m_pieces)) {
 		addItem(piece);
 		connect(piece, &Piece::moved, this, &Scene::pieceMoved);
 	}
@@ -41,7 +41,7 @@ void Palapeli::Scene::addPieceItemsToScene()
 
 void Palapeli::Scene::dispatchPieces(const QList<Palapeli::Piece*> &pieces)
 {
-	foreach (Palapeli::Piece * piece, pieces) {
+	for (Palapeli::Piece * piece : pieces) {
 		piece->setSelected(false);
 		removeItem(piece);
 		m_pieces.removeAll(piece);
@@ -89,7 +89,7 @@ QRectF Palapeli::Scene::piecesBoundingRect() const
 	// If no pieces, space is >= m_minGrid*m_minGrid pieces (e.g. for a new
 	// PieceHolder). Default is >= 1 piece for the puzzle table.
 	QRectF result;
-	foreach (Palapeli::Piece* piece, m_pieces)
+	for (Palapeli::Piece* piece : m_pieces)
 		result |= piece->sceneBareBoundingRect();
 	QSizeF minSize = m_minGrid * m_gridSpacing;
 	QRectF minRect(QPointF(0.0, 0.0), minSize);
@@ -162,7 +162,7 @@ void Palapeli::Scene::searchConnections(const QList<Palapeli::Piece*>& pieces,
 		Palapeli::Piece* piece = uncheckedPieces.takeFirst();
 		const QList<Palapeli::Piece*> pieceGroup =
 			Palapeli::MergeGroup::tryGrowMergeGroup(piece);
-		foreach (Palapeli::Piece* checkedPiece, pieceGroup)
+		for (Palapeli::Piece* checkedPiece : pieceGroup)
 			uncheckedPieces.removeAll(checkedPiece);
 		if (pieceGroup.size() > 1)
 		{
@@ -180,7 +180,7 @@ void Palapeli::Scene::pieceInstanceTransaction(const QList<Palapeli::Piece*>& de
 	// qCDebug(PALAPELI_LOG) << "Scene::pieceInstanceTransaction(delete" << deletedPieces.count() << "add" << createdPieces.count();
 	const int oldPieceCount = m_pieces.count();
 	dispatchPieces(deletedPieces);
-	foreach (Palapeli::Piece* newPiece, createdPieces)
+	for (Palapeli::Piece* newPiece : createdPieces)
 	{
 		addPieceToList (newPiece);
 		connect(newPiece, &Piece::moved,
@@ -198,7 +198,8 @@ void Palapeli::Scene::pieceMoved(bool finished)
 	}
 	// int before = m_pieces.count();
 	QList<Palapeli::Piece*> mergeCandidates;
-	foreach (QGraphicsItem* item, selectedItems())
+	const auto selectedItems = this->selectedItems();
+	for (QGraphicsItem* item : selectedItems)
 	{
 		Palapeli::Piece* piece = Palapeli::Piece::fromSelectedItem(item);
 		if (piece)

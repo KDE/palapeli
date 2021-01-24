@@ -43,7 +43,7 @@ QList<const Pala::SlicerMode*> Pala::Slicer::modes() const
 QMap<QByteArray, const Pala::SlicerProperty*> Pala::Slicer::properties() const
 {
 	QMap<QByteArray, const Pala::SlicerProperty*> result;
-	foreach (const Pala::SlicerProperty* property, p->m_properties)
+	for (const Pala::SlicerProperty* property : qAsConst(p->m_properties))
 		result.insert(property->key(), property);
 	return result;
 }

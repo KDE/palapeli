@@ -52,7 +52,7 @@ Palapeli::SlicerSelector::SlicerSelector(QWidget* parent)
 		{
 			//slicer has modes - require to select a specific mode
 			slicerItem->setFlags(Qt::ItemIsEnabled);
-			foreach (const Pala::SlicerMode* mode, modes)
+			for (const Pala::SlicerMode* mode : modes)
 			{
 				QTreeWidgetItem* modeItem = new QTreeWidgetItem(slicerItem);
 				modeItem->setData(0, Qt::DisplayRole, mode->name());
@@ -76,7 +76,7 @@ Palapeli::SlicerSelector::~SlicerSelector()
 QList<const Pala::Slicer*> Palapeli::SlicerSelector::slicers() const
 {
 	QList<const Pala::Slicer*> result;
-	foreach (Pala::Slicer* slicer, m_slicerInstances)
+	for (Pala::Slicer* slicer : m_slicerInstances)
 		result << slicer;
 	return result;
 }

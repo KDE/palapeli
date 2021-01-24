@@ -315,7 +315,7 @@ Palapeli::PieceVisuals Palapeli::mergeVisuals(const QList<Palapeli::PieceVisuals
 	//determine geometry of combined pixmap, and hold a vote on which representation to use
 	int imageCount = 0, pixmapCount = 0;
 	QRect combinedGeometry;
-	foreach (const Palapeli::PieceVisuals& sample, visuals)
+	for (const Palapeli::PieceVisuals& sample : visuals)
 	{
 		QRect sampleGeometry(sample.offset(), sample.size());
 		if (combinedGeometry.isNull())
@@ -333,7 +333,7 @@ Palapeli::PieceVisuals Palapeli::mergeVisuals(const QList<Palapeli::PieceVisuals
 		QPixmap combinedPixmap(combinedGeometry.size());
 		combinedPixmap.fill(Qt::transparent);
 		QPainter painter(&combinedPixmap);
-		foreach (const Palapeli::PieceVisuals& sample, visuals)
+		for (const Palapeli::PieceVisuals& sample : visuals)
 			painter.drawPixmap(sample.offset() - combinedOffset, sample.pixmap());
 		painter.end();
 		return Palapeli::PieceVisuals(combinedPixmap, combinedOffset);
@@ -343,7 +343,7 @@ Palapeli::PieceVisuals Palapeli::mergeVisuals(const QList<Palapeli::PieceVisuals
 		QImage combinedImage(combinedGeometry.size(), QImage::Format_ARGB32_Premultiplied);
 		combinedImage.fill(0x00000000); // == Qt::transparent
 		QPainter painter(&combinedImage);
-		foreach (const Palapeli::PieceVisuals& sample, visuals)
+		for (const Palapeli::PieceVisuals& sample : visuals)
 			painter.drawImage(sample.offset() - combinedOffset, sample.image());
 		painter.end();
 		return Palapeli::PieceVisuals(combinedImage, combinedOffset);
@@ -354,7 +354,7 @@ Palapeli::BevelMap Palapeli::mergeBevelMaps(const QList<Palapeli::PieceVisuals>&
 {
 	//determine geometry of combined pixmap
 	QRect combinedGeometry;
-	foreach (const Palapeli::PieceVisuals& sample, visuals)
+	for (const Palapeli::PieceVisuals& sample : visuals)
 	{
 		QRect sampleGeometry(sample.offset(), sample.size());
 		if (combinedGeometry.isNull())

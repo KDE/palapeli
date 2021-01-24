@@ -44,7 +44,8 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	sourceLayout->addRow(i18nc("@label:textbox", "Image name:"), m_nameEdit);
 	sourceLayout->addRow(i18nc("@label:textbox (like in: This comment is optional.)", "Optional comment:"), m_commentEdit);
 	sourceLayout->addRow(i18nc("@label:textbox", "Name of image author:"), m_authorEdit);
-	foreach (const Pala::Slicer* slicer, m_slicerSelector->slicers())
+        const auto slicers = m_slicerSelector->slicers();
+	for (const Pala::Slicer* slicer : slicers)
 	{
 		m_slicerConfigWidgets[slicer] = new Palapeli::SlicerConfigWidget(slicer);
 		m_slicerConfigMasterWidget->addWidget(m_slicerConfigWidgets[slicer]);

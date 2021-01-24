@@ -224,7 +224,7 @@ void Palapeli::Piece::pieceItemSelectedChanged(bool selected)
 
 void Palapeli::Piece::addRepresentedAtomicPieces(const QList<int>& representedAtomicPieces)
 {
-	foreach (int id, representedAtomicPieces)
+	for (int id : representedAtomicPieces)
 		if (!m_representedAtomicPieces.contains(id))
 			m_representedAtomicPieces << id;
 }
@@ -236,7 +236,7 @@ QList<int> Palapeli::Piece::representedAtomicPieces() const
 
 void Palapeli::Piece::addLogicalNeighbors(const QList<Palapeli::Piece*>& logicalNeighbors)
 {
-	foreach (Palapeli::Piece* piece, logicalNeighbors)
+	for (Palapeli::Piece* piece : logicalNeighbors)
 		// IDW TODO - if (!m_logicalNeighbors.contains(piece) && piece)
 		//            If piece == 0, pieceID was not in m_loadedPieces.
 		//            This would be an integrity error in .puzzle file.
@@ -252,7 +252,7 @@ QList<Palapeli::Piece*> Palapeli::Piece::logicalNeighbors() const
 void Palapeli::Piece::rewriteLogicalNeighbors(const QList<Palapeli::Piece*>& oldPieces, Palapeli::Piece* newPiece)
 {
 	bool oldPiecesFound = false;
-	foreach (Palapeli::Piece* oldPiece, oldPieces)
+	for (Palapeli::Piece* oldPiece : oldPieces)
 	{
 		int index = m_logicalNeighbors.indexOf(oldPiece);
 		if (index != -1)

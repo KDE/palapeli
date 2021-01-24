@@ -55,7 +55,8 @@ Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) c
 		Pala::SlicerJob job(cc.image, cc.slicerArgs);
 		if (!cc.slicerMode.isEmpty())
 		{
-			foreach (const Pala::SlicerMode* mode, slicer->modes())
+			const auto modes = slicer->modes();
+			for (const Pala::SlicerMode* mode : modes)
 				if (mode->key() == cc.slicerMode)
 				{
 					job.setMode(mode);

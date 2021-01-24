@@ -29,8 +29,8 @@ static QGraphicsItem* findSelectableItemAt(const QPointF& scenePos, QGraphicsSce
 {
 	if (!scene)
 		return nullptr;
-	QList<QGraphicsItem*> itemsUnderMouse = scene->items(scenePos);
-	foreach (QGraphicsItem* itemUnderMouse, itemsUnderMouse)
+	const QList<QGraphicsItem*> itemsUnderMouse = scene->items(scenePos);
+	for (QGraphicsItem* itemUnderMouse : itemsUnderMouse)
 		if (itemUnderMouse->flags() & QGraphicsItem::ItemIsSelectable)
 			return itemUnderMouse;
 	return nullptr;
@@ -43,7 +43,7 @@ void Palapeli::MovePieceInteractor::determineSelectedItems(QGraphicsItem* clicke
 	if (clickedItem->isSelected())
 	{
 		//clicked item is already selected -> include all selected items/pieces in this move
-		foreach (QGraphicsItem* selectedItem, selectedItems)
+		for (QGraphicsItem* selectedItem : selectedItems)
 		{
 			Palapeli::Piece* selectedPiece = Palapeli::Piece::fromSelectedItem(selectedItem);
 			if (selectedPiece)
@@ -54,7 +54,7 @@ void Palapeli::MovePieceInteractor::determineSelectedItems(QGraphicsItem* clicke
 	else
 	{
 		//clicked item is not selected -> deselect everything else and select only this item
-		foreach (QGraphicsItem* selectedItem, selectedItems)
+		for (QGraphicsItem* selectedItem : selectedItems)
 			selectedItem->setSelected(false);
 		clickedItem->setSelected(true);
 		m_currentPieces << clickedPiece;
@@ -79,7 +79,7 @@ bool Palapeli::MovePieceInteractor::startInteraction(const Palapeli::MouseEvent&
 	m_baseScenePosition = event.scenePos;
 	m_currentOffset = QPointF();
 	m_basePositions.clear();
-	foreach(Palapeli::Piece* piece, m_currentPieces)
+	for (Palapeli::Piece* piece : qAsConst(m_currentPieces))
 	{
 		m_basePositions << piece->pos();
 		connect(piece, &Piece::replacedBy, this, &MovePieceInteractor::pieceReplacedBy, Qt::DirectConnection);
@@ -123,7 +123,7 @@ void Palapeli::MovePieceInteractor::pieceReplacedBy(Palapeli::Piece* replacement
 void Palapeli::MovePieceInteractor::stopInteraction(const Palapeli::MouseEvent& event)
 {
 	Q_UNUSED(event)
-	foreach(Palapeli::Piece* piece, m_currentPieces)
+	for (Palapeli::Piece* piece : qAsConst(m_currentPieces))
 	{
 		disconnect(piece, nullptr, this, nullptr);
 		piece->endMove();
@@ -389,7 +389,7 @@ void Palapeli::RubberBandInteractor::stopInteraction(const Palapeli::MouseEvent&
 	m_item->hide(); //NOTE: This is not necessary for the painting, but we use m_item->isVisible() to determine whether we are rubberbanding at the moment.
 	m_item->setRect(QRectF());	// Finalise the selection(s), if any.
 	const QList<QGraphicsItem*> selectedItems = scene()->selectedItems();
-	foreach (QGraphicsItem* selectedItem, selectedItems) {
+	for (QGraphicsItem* selectedItem : selectedItems) {
 		Palapeli::Piece* selectedPiece =
 			Palapeli::Piece::fromSelectedItem(selectedItem);
 		if (selectedPiece) {

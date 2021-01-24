@@ -246,7 +246,7 @@ void Palapeli::GamePlay::actionGoCollection()
 	m_puzzlePreview = nullptr;
 	m_mainWindow->setCaption(QString());
 	// IDW TODO - Disable piece-holder actions.
-	foreach (Palapeli::View* view, m_viewList) {
+	for (Palapeli::View* view : qAsConst(m_viewList)) {
 		if (view != m_puzzleTable->view()) {
 			view->hide();
 		}
@@ -290,7 +290,7 @@ void Palapeli::GamePlay::actionDelete()
 	QModelIndexList indexes = m_collectionView->selectedIndexes();
 	//ask user for confirmation
 	QStringList puzzleNames;
-	foreach (const QModelIndex& index, indexes)
+	for (const QModelIndex& index : qAsConst(indexes))
 		puzzleNames << index.data(Qt::DisplayRole).toString();
 	const int result = KMessageBox::warningContinueCancelList(m_mainWindow, i18n("The following puzzles will be deleted. This action cannot be undone."), puzzleNames);
 	if (result != KMessageBox::Continue)
@@ -317,15 +317,15 @@ void Palapeli::GamePlay::actionImport()
 															QString(),
 															filter);
 	Palapeli::Collection* coll = Palapeli::Collection::instance();
-	foreach (const QString& path, paths)
+	for (const QString& path : paths)
 		coll->importPuzzle(path);
 }
 
 void Palapeli::GamePlay::actionExport()
 {
-	QModelIndexList indexes = m_collectionView->selectedIndexes();
+	const QModelIndexList indexes = m_collectionView->selectedIndexes();
 	Palapeli::Collection* coll = Palapeli::Collection::instance();
-	foreach (const QModelIndex& index, indexes)
+	for (const QModelIndex& index : indexes)
 	{
 		Palapeli::Puzzle* puzzle = coll->puzzleFromIndex(index);
 		if (!puzzle)
@@ -431,10 +431,10 @@ void Palapeli::GamePlay::selectAll()
 {
 	qCDebug(PALAPELI_LOG) << "GamePlay::selectAll() entered";
 	if (m_currentHolder) {
-		QList<Palapeli::Piece*> pieces =
+		const QList<Palapeli::Piece*> pieces =
 					m_currentHolder->scene()->pieces();
 		if (! pieces.isEmpty()) {
-			foreach (Palapeli::Piece* piece, pieces) {
+			for (Palapeli::Piece* piece : pieces) {
 				piece->setSelected(true);
 			}
 			handleNewPieceSelection(m_currentHolder);
@@ -474,7 +474,7 @@ void Palapeli::GamePlay::rearrangePieces()
 		return;
 	}
 	QRectF bRect;
-	foreach (Palapeli::Piece* piece, selectedPieces) {
+	for (Palapeli::Piece* piece : qAsConst(selectedPieces)) {
 		bRect |= piece->sceneBareBoundingRect();
 	}
 	Palapeli::Scene* scene = view->scene();
@@ -482,7 +482,7 @@ void Palapeli::GamePlay::rearrangePieces()
 	scene->initializeGrid(((view == m_currentHolder) &&
 			(selectedPieces.count() == scene->pieces().count())) ?
 				QPointF(0.0, 0.0) : bRect.topLeft());
-	foreach (Palapeli::Piece* piece, selectedPieces) {
+	for (Palapeli::Piece* piece : qAsConst(selectedPieces)) {
 		scene->addToGrid(piece);
 	}
 	if (view == m_currentHolder) {
@@ -543,7 +543,7 @@ void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
 		selectedPieces = getSelectedPieces(view);
                 if (!selectedPieces.isEmpty()) {
 			// Transfer from the puzzle table to a piece-holder.
-			foreach (Palapeli::Piece* piece, selectedPieces) {
+			for (Palapeli::Piece* piece : qAsConst(selectedPieces)) {
 				if (piece->representedAtomicPieces().count()
 					> 6) {
 					int ans = 0;
@@ -611,8 +611,8 @@ void Palapeli::GamePlay::handleNewPieceSelection(Palapeli::View* view)
 	// De-select pieces on puzzle table, to prevent teleport bounce-back.
 	Palapeli::View* m_puzzleTableView = m_puzzleTable->view();
 	if (view != m_puzzleTableView) {	// Pieces selected in a holder.
-		foreach (Palapeli::Piece* piece,
-				getSelectedPieces(m_puzzleTableView)) {
+		const auto selectedPieces = getSelectedPieces(m_puzzleTableView);
+		for (Palapeli::Piece* piece : selectedPieces) {
 			piece->setSelected(false);
 		}
 	}
@@ -635,13 +635,14 @@ void Palapeli::GamePlay::transferPieces(const QList<Palapeli::Piece*> &pieces,
 		m_puzzleTableScene->initializeGrid(scenePos);
 	}
 	Palapeli::Scene* scene = dest->scene();
-	foreach (Palapeli::Piece* piece, scene->pieces()) {
+	const auto sccenePieces = scene->pieces();
+	for (Palapeli::Piece* piece : sccenePieces) {
 		// Clear all previous selections in the destination scene.
 		if (piece->isSelected()) {
 			piece->setSelected(false);
 		}
 	}
-	foreach (Palapeli::Piece* piece, pieces) {
+	for (Palapeli::Piece* piece : pieces) {
 		// Leave the new arrivals selected, connected and in a grid.
 		scene->addPieceToList(piece);
 		scene->addItem(piece);
@@ -709,7 +710,7 @@ QList<Palapeli::Piece*> Palapeli::GamePlay::getSelectedPieces(Palapeli::View* v)
 	qCDebug(PALAPELI_LOG) << "ENTERED GamePlay::getSelectedPieces(): PuzzleTable" << (v == m_puzzleTable->view());
 	const QList<QGraphicsItem*> sel = v->scene()->selectedItems();
 	QList<Palapeli::Piece*> pieces;
-	foreach (QGraphicsItem* item, sel) {
+	for (QGraphicsItem* item : sel) {
 		Palapeli::Piece* p = Palapeli::Piece::fromSelectedItem(item);
 		if (p) {
 			pieces << p;
@@ -828,7 +829,7 @@ void Palapeli::GamePlay::loadPiecePositions()
 	m_originalPieceCount = m_loadedPieces.count();
 	const Palapeli::PuzzleContents contents = m_puzzle->component<Palapeli::ContentsComponent>()->contents;
 	//add piece relations
-	foreach (const DoubleIntPair& relation, contents.relations) {
+	for (const DoubleIntPair& relation : contents.relations) {
 		Palapeli::Piece* firstPiece =
 				m_loadedPieces.value(relation.first, nullptr);
 		Palapeli::Piece* secondPiece =
@@ -924,7 +925,7 @@ void Palapeli::GamePlay::loadPiecePositions()
 		}
 		qCDebug(PALAPELI_LOG) << "FINISHED POSITIONING PIECES";
 		// Each scene re-merges pieces, as required, with no animation.
-		foreach (Palapeli::View* view, m_viewList) {
+		for (Palapeli::View* view : qAsConst(m_viewList)) {
 			view->scene()->mergeLoadedPieces();
 		}
 	}
@@ -948,7 +949,7 @@ void Palapeli::GamePlay::loadPiecePositions()
 
 		// Find the size of the area required for the solution.
 		QRectF r;
-		foreach (Palapeli::Piece* piece, piecePool) {
+		for (Palapeli::Piece* piece : qAsConst(piecePool)) {
 			r |= piece->sceneBareBoundingRect();
 		}
 		int xResv = 0;
@@ -1035,7 +1036,7 @@ void Palapeli::GamePlay::loadPiecePositions()
 	qreal handleWidth = qMin(s.width(), s.height())/100.0;
 	m_puzzleTableScene->addMargin(handleWidth, 0.5*handleWidth);
 	// Add all the pieces to the puzzle table and piece-holder scenes.
-	foreach (Palapeli::View* view, m_viewList) {
+	for (Palapeli::View* view : qAsConst(m_viewList)) {
 		Palapeli::Scene* scene = view->scene();
 		scene->addPieceItemsToScene();
 		if (scene != m_puzzleTableScene) {
@@ -1054,7 +1055,7 @@ void Palapeli::GamePlay::finishLoading()
 	// Start each scene and view.
 	qCDebug(PALAPELI_LOG) << "COUNTING CURRENT PIECES";
 	m_currentPieceCount = 0;
-	foreach (Palapeli::View* view, m_viewList) {
+	for (Palapeli::View* view : qAsConst(m_viewList)) {
 		Palapeli::Scene* scene = view->scene();
 		m_currentPieceCount = m_currentPieceCount +
 					scene->pieces().size();
@@ -1139,7 +1140,7 @@ void Palapeli::GamePlay::finishLoading()
 		}
 	}
 	// Connect moves and merges of pieces to autosaving and progress-report.
-	foreach (Palapeli::View* view, m_viewList) {
+	for (Palapeli::View* view : qAsConst(m_viewList)) {
 		connect(view->scene(), SIGNAL(saveMove(int)),
 			this, SLOT(positionChanged(int)));
 		if (view != m_puzzleTable->view()) {
@@ -1160,7 +1161,7 @@ void Palapeli::GamePlay::finishLoading()
 void Palapeli::GamePlay::calculatePieceAreaSize()
 {
 	m_pieceAreaSize = QSizeF(0.0, 0.0);
-	foreach (Palapeli::Piece* piece, m_loadedPieces) {
+	for (Palapeli::Piece* piece : qAsConst(m_loadedPieces)) {
 		m_pieceAreaSize = m_pieceAreaSize.expandedTo
 				(piece->sceneBareBoundingRect().size());
 	}
@@ -1229,7 +1230,7 @@ void Palapeli::GamePlay::updateSavedGame()
 	headerGroup.writeEntry("N_Holders", m_viewList.count() - 1);
 
 	int groupID = 0;
-	foreach (Palapeli::View* view, m_viewList) {
+	for (Palapeli::View* view : qAsConst(m_viewList)) {
 	    bool isHolder = (view != m_puzzleTable->view());
 	    if (isHolder) {
 		KConfigGroup holderDetails(&savedConfig,
@@ -1243,9 +1244,10 @@ void Palapeli::GamePlay::updateSavedGame()
 			QRect(view->frameGeometry().topLeft(), view->size()));
 	    }
 	    const QList<Palapeli::Piece*> pieces = view->scene()->pieces();
-	    foreach (Palapeli::Piece* piece, pieces) {
+	    for (Palapeli::Piece* piece : pieces) {
 		const QPointF position = piece->pos();
-		foreach (int atomicPieceID, piece->representedAtomicPieces()) {
+		const auto atomicPieces = piece->representedAtomicPieces();
+		for (int atomicPieceID : atomicPieces) {
 		    const QString ID = QString::number(atomicPieceID);
 		    locationGroup.writeEntry(ID, position);
 		    if (isHolder) {

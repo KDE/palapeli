@@ -127,7 +127,7 @@ Palapeli::Trigger::Trigger(const QByteArray& serialization)
 	if (sections[1] != "NoModifier")
 	{
 		const QList<QByteArray> modifierStrings = sections[1].split('|');
-		foreach (const QByteArray& modifierString, modifierStrings)
+		for (const QByteArray& modifierString : modifierStrings)
 		{
 			Qt::KeyboardModifier modifier = tParserData->m_modifierStrings.key(modifierString, Qt::NoModifier);
 			if (modifier == Qt::NoModifier)
