@@ -46,6 +46,7 @@ namespace Palapeli
 		EventConcludesInteraction = 1 << 3
 	};
 	Q_DECLARE_FLAGS(EventProcessingFlags, EventProcessingFlag)
+	Q_DECLARE_OPERATORS_FOR_FLAGS(EventProcessingFlags)
 
 	class Interactor
 	{
@@ -100,6 +101,5 @@ namespace Palapeli
 			int m_priority;
 	};
 }
-Q_DECLARE_OPERATORS_FOR_FLAGS(Palapeli::EventProcessingFlags)
 
 #endif // PALAPELI_INTERACTOR_H

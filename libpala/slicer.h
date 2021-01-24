@@ -109,8 +109,8 @@ K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))
 			class Private;
 			Private* const p;
 	};
-}
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(Pala::Slicer::SlicerFlags)
+	Q_DECLARE_OPERATORS_FOR_FLAGS(Slicer::SlicerFlags)
+}
 
 #endif // LIBPALA_SLICER_H
