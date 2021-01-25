@@ -44,7 +44,11 @@ void Palapeli::InteractorManager::resetActiveTriggers()
 void Palapeli::InteractorManager::handleEvent(QWheelEvent* event)
 {
 	//convert event
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+	Palapeli::WheelEvent pEvent(m_view, event->position().toPoint(), event->delta());
+#else
 	Palapeli::WheelEvent pEvent(m_view, event->pos(), event->delta());
+#endif
 	//check which interactors are triggered by this event
 	Palapeli::Interactor* bestMatchInteractor = nullptr;
 	int bestMatchPriority = -1;
