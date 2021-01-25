@@ -55,7 +55,7 @@ Palapeli::MouseInputButton::MouseInputButton(QWidget* parent)
 	QStyleOptionButton opt;
 	QPushButton::initStyleOption(&opt);
 	const QSize bareSizeHint = layout->sizeHint();
-	const QSize fullSizeHint = style()->sizeFromContents(QStyle::CT_PushButton, &opt, bareSizeHint, this).expandedTo(QApplication::globalStrut());
+	const QSize fullSizeHint = style()->sizeFromContents(QStyle::CT_PushButton, &opt, bareSizeHint, this);
 	const int marginX = (fullSizeHint.width() - bareSizeHint.width()) / 2;
 	const int marginY = (fullSizeHint.height() - bareSizeHint.height()) / 2;
 	layout->setContentsMargins(marginX, marginY, marginX, marginY);
