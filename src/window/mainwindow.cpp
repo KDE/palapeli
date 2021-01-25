@@ -111,7 +111,7 @@ void Palapeli::MainWindow::setupActions()
 	connect(deleteHolderAct, &QAction::triggered, m_game, &GamePlay::deleteHolder);
 
 	// Select all pieces in a piece-holder.
-	QAction * selectAllAct = new QAction(i18n("&Select all in holder"), this);
+	QAction * selectAllAct = new QAction(QIcon::fromTheme(QStringLiteral("edit-select-all")), i18n("&Select all in holder"), this);
 	selectAllAct->setToolTip(i18n("Select all pieces in a selected piece holder"));
 	actionCollection()->setDefaultShortcut(selectAllAct, QKeySequence(Qt::Key_A));
 	actionCollection()->addAction(QStringLiteral("move_select_all"), selectAllAct);
