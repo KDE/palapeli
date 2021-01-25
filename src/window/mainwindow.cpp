@@ -67,7 +67,7 @@ void Palapeli::MainWindow::setupActions()
 	connect(createAct, &QAction::triggered, m_game, &GamePlay::actionCreate);
 
 	// Delete a puzzle.
-	QAction * deleteAct = new QAction(QIcon::fromTheme(QStringLiteral("archive-remove")), i18n("&Delete puzzle"), this);
+	QAction * deleteAct = new QAction(QIcon::fromTheme(QStringLiteral("edit-delete")), i18n("&Delete puzzle"), this);
 	deleteAct->setEnabled(false); //will be enabled when something is selected
 	deleteAct->setToolTip(i18n("Delete the selected puzzle from your collection"));
 	actionCollection()->addAction(QStringLiteral("game_delete"), deleteAct);
@@ -104,7 +104,7 @@ void Palapeli::MainWindow::setupActions()
 	connect(createHolderAct, &QAction::triggered, m_game, QOverload<>::of(&GamePlay::createHolder));
 
 	// Delete piece-holder.
-	QAction * deleteHolderAct = new QAction(i18n("&Delete piece holder"), this);
+	QAction * deleteHolderAct = new QAction(QIcon::fromTheme(QStringLiteral("edit-delete")), i18n("&Delete piece holder"), this);
 	deleteHolderAct->setToolTip(i18n("Delete a selected temporary holder when it is empty"));
 	actionCollection()->setDefaultShortcut(deleteHolderAct, QKeySequence(Qt::Key_D));
 	actionCollection()->addAction(QStringLiteral("move_delete_holder"), deleteHolderAct);
