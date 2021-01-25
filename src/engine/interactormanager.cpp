@@ -131,7 +131,7 @@ void Palapeli::InteractorManager::handleEventCommon(const Palapeli::MouseEvent& 
 			}
 		}
 	//sort remaining interactors by priority (the sorting is done by QMap)
-	QMap<int, Palapeli::Interactor*> sortedInteractors;
+	QMultiMap<int, Palapeli::Interactor*> sortedInteractors;
 	QMapIterator<Palapeli::Interactor*, EventContext> iter1(interactorData);
 	while (iter1.hasNext())
 	{
@@ -140,7 +140,7 @@ void Palapeli::InteractorManager::handleEventCommon(const Palapeli::MouseEvent& 
 		if ((iter1.value().flags & Palapeli::EventMatchesExactly) == Palapeli::EventMatchesExactly)
 			priority += AdditionalPriorityForExactMatches;
 		//NOTE: The minus below implements a descending sort order.
-		sortedInteractors.insertMulti(-priority, interactor);
+		sortedInteractors.insert(-priority, interactor);
 	}
 	//try to activate interactors with matching triggers
 	for (Palapeli::Interactor* interactor : qAsConst(sortedInteractors))
