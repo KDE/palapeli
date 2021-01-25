@@ -18,6 +18,8 @@
 #include <QLabel>
 #include <QStackedWidget>
 #include <QUuid>
+#include <QImageReader>
+
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -37,6 +39,13 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	buttonBox()->button(QDialogButtonBox::Help)->setVisible(false);
 	//setup image selector
 	m_imageSelector->setMode(KFile::File | KFile::LocalOnly | KFile::ExistingOnly);
+	const auto supportedImageTypes = QImageReader::supportedMimeTypes();
+	QStringList mimeTypeFilters;
+	mimeTypeFilters.reserve(supportedImageTypes.size());
+	for (const auto& imageType : supportedImageTypes) {
+	    mimeTypeFilters.append(QString::fromUtf8(imageType));
+	}
+	m_imageSelector->setMimeTypeFilters(mimeTypeFilters);
 	//build sublayouts
 	QFormLayout* sourceLayout = new QFormLayout;
 	sourceLayout->addRow(i18nc("@label:chooser", "Image file:"), m_imageSelector);
