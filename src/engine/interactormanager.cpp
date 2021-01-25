@@ -45,7 +45,9 @@ void Palapeli::InteractorManager::handleEvent(QWheelEvent* event)
 {
 	//convert event
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-	Palapeli::WheelEvent pEvent(m_view, event->position().toPoint(), event->delta());
+	const QPoint angleDelta = event->angleDelta();
+        const int delta = (qAbs(angleDelta.x()) > qAbs(angleDelta.y())) ? angleDelta.x() : angleDelta.y();
+	Palapeli::WheelEvent pEvent(m_view, event->position().toPoint(), delta);
 #else
 	Palapeli::WheelEvent pEvent(m_view, event->pos(), event->delta());
 #endif
