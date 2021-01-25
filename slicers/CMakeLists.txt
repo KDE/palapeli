@@ -20,11 +20,9 @@ endif(QVORONOI_EXECUTABLE)
 set(SLICER_LINK_LIBS KF5::CoreAddons KF5::I18n Qt5::Gui pala)
 
 add_library(palapeli_rectslicer MODULE slicer-rect.cpp)
-kcoreaddons_desktop_to_json(palapeli_rectslicer palapeli_rectslicer.desktop)
 target_link_libraries(palapeli_rectslicer ${SLICER_LINK_LIBS})
 
 add_library(palapeli_jigsawslicer MODULE slicer-jigsaw.cpp)
-kcoreaddons_desktop_to_json(palapeli_jigsawslicer palapeli_jigsawslicer.desktop)
 target_link_libraries(palapeli_jigsawslicer ${SLICER_LINK_LIBS})
 
 set(palapeli_goldbergslicer_SRCS
@@ -41,7 +39,6 @@ set(palapeli_goldbergslicer_SRCS
 )
 
 add_library(palapeli_goldbergslicer MODULE ${palapeli_goldbergslicer_SRCS})
-kcoreaddons_desktop_to_json(palapeli_goldbergslicer palapeli_goldbergslicer.desktop)
 target_link_libraries(palapeli_goldbergslicer ${SLICER_LINK_LIBS})
 
 
