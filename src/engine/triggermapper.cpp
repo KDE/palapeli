@@ -82,8 +82,7 @@ void Palapeli::TriggerMapper::readSettings()
 		for (const Palapeli::Trigger& trigger : triggers) //implicit casts FTW
 			if (trigger.isValid()) {
 				// Remove default and insert config value(s).
-				m_associations.remove(interactorKey);
-				m_associations.insertMulti(interactorKey, trigger);
+				m_associations.insert(interactorKey, trigger);
 			}
 	}
 	//announce update to InteractorManagers
