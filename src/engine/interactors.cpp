@@ -230,6 +230,7 @@ Palapeli::ToggleCloseUpInteractor::ToggleCloseUpInteractor(QGraphicsView* view)
 
 bool Palapeli::ToggleCloseUpInteractor::startInteraction(const Palapeli::MouseEvent& event)
 {
+	Q_UNUSED(event);
 	qCDebug(PALAPELI_LOG) << "ENTERED ToggleCloseUpInteractor::startInteraction";
 	Palapeli::View* view = qobject_cast<Palapeli::View*>(this->view());
 	if (view)
