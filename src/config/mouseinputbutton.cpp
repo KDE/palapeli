@@ -140,7 +140,9 @@ bool Palapeli::MouseInputButton::event(QEvent* event)
 				const QWheelEvent* wEvent = static_cast<QWheelEvent*>(event);
 				Palapeli::Trigger newTrigger;
 				newTrigger.setModifiers(wEvent->modifiers());
-				newTrigger.setWheelDirection(wEvent->orientation());
+				const QPoint angleDelta = wEvent->angleDelta();
+				const Qt::Orientation orientation = (qAbs(angleDelta.x()) > qAbs(angleDelta.y()) ? Qt::Horizontal : Qt::Vertical);
+				newTrigger.setWheelDirection(orientation);
 				setTrigger(newTrigger);
 				event->accept();
 				return true;
