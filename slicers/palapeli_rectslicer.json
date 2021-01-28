@@ -4,8 +4,11 @@
             {
                 "Email": "majewsky@gmx.net",
                 "Name": "Stefan Majewsky",
+                "Name[ca@valencia]": "Stefan Majewsky",
                 "Name[ca]": "Stefan Majewsky",
+                "Name[es]": "Stefan Majewsky",
                 "Name[nl]": "Stefan Majewsky",
+                "Name[pt]": "Stefan Majewsky",
                 "Name[sv]": "Stefan Majewsky",
                 "Name[uk]": "Stefan Majewsky",
                 "Name[x-test]": "xxStefan Majewskyxx"

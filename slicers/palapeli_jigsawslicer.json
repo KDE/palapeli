@@ -4,8 +4,11 @@
             {
                 "Email": "majewsky@gmx.net",
                 "Name": "Stefan Majewsky",
+                "Name[ca@valencia]": "Stefan Majewsky",
                 "Name[ca]": "Stefan Majewsky",
+                "Name[es]": "Stefan Majewsky",
                 "Name[nl]": "Stefan Majewsky",
+                "Name[pt]": "Stefan Majewsky",
                 "Name[sv]": "Stefan Majewsky",
                 "Name[uk]": "Stefan Majewsky",
                 "Name[x-test]": "xxStefan Majewskyxx"
@@ -39,7 +42,7 @@
         "Name[nds]": "Klass'sch Pusseldelen",
         "Name[nl]": "Klassieke legpuzzelstukjes",
         "Name[pl]": "Klasyczne kawałki",
-        "Name[pt]": "Peças de puzzle clássicas",
+        "Name[pt]": "Peças de 'puzzle' clássicas",
         "Name[pt_BR]": "Peças de quebra-cabeça clássicas",
         "Name[ru]": "Классические кусочки мозаики",
         "Name[sk]": "Klasické dieliky skladačky",
