@@ -31,11 +31,7 @@ QList<int> popIntLine(QList<QByteArray> &input) {
     QList<int> result;
     if (input.size() == 0) return result;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     const QStringList parts = QString::fromUtf8(input.takeFirst()).split(QLatin1Char(' '), Qt::SkipEmptyParts);
-#else
-    QStringList parts = QString::fromUtf8(input.takeFirst()).split(QLatin1Char(' '), QString::SkipEmptyParts);
-#endif
     bool ok;
 
     for (int i=0; i<parts.size(); ++i) {
@@ -55,11 +51,7 @@ QList<qreal> popFloatLine(QList<QByteArray> &input) {
     QList<qreal> result;
     if (input.size() == 0) return result;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     const QStringList parts = QString::fromUtf8(input.takeFirst()).split(QLatin1Char(' '), Qt::SkipEmptyParts);
-#else
-    QStringList parts = QString::fromUtf8(input.takeFirst()).split(QLatin1Char(' '), QString::SkipEmptyParts);
-#endif
     bool ok;
 
     for (int i=0; i<parts.size(); ++i) {
@@ -101,11 +93,7 @@ bool crop_endpoints_to_frame(QPointF *p1, QPointF *p2, int width, int height) {
             case 3: border = QLineF(0, height, width, height); break;
         }
         if (new_points_found == 0) {
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-            if (QLineF::BoundedIntersection == border.intersect(ridge, &new_p1)) {
-#else
             if (QLineF::BoundedIntersection == border.intersects(ridge, &new_p1)) {
-#endif
                 // if one point is inside, there will be only 1 intersection point.
                 // But, if one point is on the frame, we might have found it. check that.
                 new_points_found = 1;
@@ -121,11 +109,7 @@ bool crop_endpoints_to_frame(QPointF *p1, QPointF *p2, int width, int height) {
             }
         }
         else {
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-            if (QLineF::BoundedIntersection == border.intersect(ridge, &new_p2)) {
-#else
             if (QLineF::BoundedIntersection == border.intersects(ridge, &new_p2)) {
-#endif
                 // We have to set new_points_found > 1, in order to get
                 // endpoints cropped correctly in the case where both points are
                 // outside the frame, but the ridge passes through the frame.
