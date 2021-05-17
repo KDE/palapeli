@@ -9,15 +9,23 @@ set(libpala_SOVERSION "0")
 # Pala/ is include visibility protection layer
 set(libpala_INSTALL_INCLUDEDIR ${KDE_INSTALL_INCLUDEDIR}/Pala)
 
-set(libpala_SRCS
-	slicer.cpp
-	slicerjob.cpp
-	slicermode.cpp
-	slicerproperty.cpp
-	slicerpropertyset.cpp
+add_library(pala SHARED)
+
+target_sources(pala PRIVATE
+    slicer.cpp
+    slicerjob.cpp
+    slicermode.cpp
+    slicerproperty.cpp
+    slicerpropertyset.cpp
 )
 
-ecm_qt_declare_logging_category(libpala_SRCS HEADER libpala_debug.h IDENTIFIER PALAPELI_LIBPALA_LOG CATEGORY_NAME org.kde.palapeli.libpala DESCRIPTION "palapeli (libpala)" EXPORT PALAPELI)
+ecm_qt_declare_logging_category(pala
+    HEADER libpala_debug.h
+    IDENTIFIER PALAPELI_LIBPALA_LOG
+    CATEGORY_NAME org.kde.palapeli.libpala
+    DESCRIPTION "palapeli (libpala)"
+    EXPORT PALAPELI
+)
 
 set(libpala_HDRS
     ${CMAKE_CURRENT_BINARY_DIR}/libpala_export.h
@@ -33,7 +41,6 @@ ecm_generate_headers(libpala_CamelCase_HEADERS
     PREFIX Pala
 )
 
-add_library(pala SHARED ${libpala_SRCS})
 generate_export_header(pala BASE_NAME libpala)
 target_link_libraries(pala KF5::I18n Qt5::Gui)
 target_include_directories(pala
@@ -41,8 +48,8 @@ target_include_directories(pala
         "$<INSTALL_INTERFACE:${libpala_INSTALL_INCLUDEDIR}>"
 )
 set_target_properties(pala PROPERTIES
-	VERSION ${libpala_VERSION}
-	SOVERSION ${libpala_SOVERSION}
+    VERSION ${libpala_VERSION}
+    SOVERSION ${libpala_SOVERSION}
     EXPORT_NAME Pala
 )
 

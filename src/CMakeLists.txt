@@ -1,59 +1,74 @@
-set(palapeli_SRCS
-	config/configdialog.cpp
-	config/elidinglabel.cpp
-	config/mouseinputbutton.cpp
-	config/triggerconfigwidget.cpp
-	config/triggerlistview.cpp
-	creator/propertywidget.cpp
-	creator/puzzlecreator.cpp
-	creator/slicerconfwidget.cpp
-	creator/slicerselector.cpp
-	engine/gameplay.cpp
-	engine/constraintinteractor.cpp
-	engine/constraintvisualizer.cpp
-	engine/interactor.cpp
-	engine/interactors.cpp
-	engine/interactormanager.cpp
-	engine/mergegroup.cpp
-	engine/piece.cpp
-	engine/piecevisuals.cpp
-	engine/puzzlepreview.cpp
-	engine/scene.cpp
-	engine/texturehelper.cpp
-	engine/trigger.cpp
-	engine/triggermapper.cpp
-	engine/view.cpp
-	engine/zoomwidget.cpp
-	file-io/collection.cpp
-	file-io/collection-delegate.cpp
-	file-io/collection-view.cpp
-	file-io/components-archivestorage.cpp
-	file-io/components-collectionstorage.cpp
-	file-io/components-copy.cpp
-	file-io/components-creationcontext.cpp
-	file-io/components-directorystorage.cpp
-	file-io/components-retailstorage.cpp
-	file-io/puzzle.cpp
-	importhelper.cpp
-	main.cpp
-	window/loadingwidget.cpp
-	window/mainwindow.cpp
-	window/puzzletablewidget.cpp
-	window/pieceholder.cpp
-	palapeli.qrc
+ecm_setup_version(${PROJECT_VERSION}
+    VARIABLE_PREFIX PALAPELI
+    VERSION_HEADER palapeli_version.h
 )
 
-ecm_setup_version(${PROJECT_VERSION} VARIABLE_PREFIX PALAPELI VERSION_HEADER palapeli_version.h)
-ecm_qt_declare_logging_category(palapeli_SRCS HEADER palapeli_debug.h IDENTIFIER PALAPELI_LOG CATEGORY_NAME org.kde.palapeli DESCRIPTION "palapeli" EXPORT PALAPELI)
+add_executable(palapeli)
 
-kconfig_add_kcfg_files(palapeli_SRCS settings.kcfgc)
-ki18n_wrap_ui(palapeli_SRCS settings.ui)
+target_sources(palapeli PRIVATE
+    config/configdialog.cpp
+    config/elidinglabel.cpp
+    config/mouseinputbutton.cpp
+    config/triggerconfigwidget.cpp
+    config/triggerlistview.cpp
+    creator/propertywidget.cpp
+    creator/puzzlecreator.cpp
+    creator/slicerconfwidget.cpp
+    creator/slicerselector.cpp
+    engine/gameplay.cpp
+    engine/constraintinteractor.cpp
+    engine/constraintvisualizer.cpp
+    engine/interactor.cpp
+    engine/interactors.cpp
+    engine/interactormanager.cpp
+    engine/mergegroup.cpp
+    engine/piece.cpp
+    engine/piecevisuals.cpp
+    engine/puzzlepreview.cpp
+    engine/scene.cpp
+    engine/texturehelper.cpp
+    engine/trigger.cpp
+    engine/triggermapper.cpp
+    engine/view.cpp
+    engine/zoomwidget.cpp
+    file-io/collection.cpp
+    file-io/collection-delegate.cpp
+    file-io/collection-view.cpp
+    file-io/components-archivestorage.cpp
+    file-io/components-collectionstorage.cpp
+    file-io/components-copy.cpp
+    file-io/components-creationcontext.cpp
+    file-io/components-directorystorage.cpp
+    file-io/components-retailstorage.cpp
+    file-io/puzzle.cpp
+    importhelper.cpp
+    main.cpp
+    window/loadingwidget.cpp
+    window/mainwindow.cpp
+    window/puzzletablewidget.cpp
+    window/pieceholder.cpp
+
+    palapeli.qrc
+)
+
+ecm_qt_declare_logging_category(palapeli
+    HEADER palapeli_debug.h
+    IDENTIFIER PALAPELI_LOG
+    CATEGORY_NAME org.kde.palapeli
+    DESCRIPTION "palapeli"
+    EXPORT PALAPELI
+)
+
+kconfig_add_kcfg_files(palapeli settings.kcfgc)
+
+ki18n_wrap_ui(palapeli settings.ui)
+
 file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/*-apps-palapeli.png")
-ecm_add_app_icon(palapeli_SRCS ICONS ${ICONS_SRCS})
+ecm_add_app_icon(palapeli ICONS ${ICONS_SRCS})
 
-add_executable(palapeli ${palapeli_SRCS})
 target_link_libraries(palapeli
     pala
+    KF5KDEGames
     KF5::Archive
     KF5::ConfigWidgets
     KF5::Crash
@@ -62,7 +77,6 @@ target_link_libraries(palapeli
     KF5::KIOWidgets
     KF5::WidgetsAddons
     KF5::XmlGui
-    KF5KDEGames
     Qt5::Svg
 )
 

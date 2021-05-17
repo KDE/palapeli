@@ -25,22 +25,20 @@ target_link_libraries(palapeli_rectslicer ${SLICER_LINK_LIBS})
 add_library(palapeli_jigsawslicer MODULE slicer-jigsaw.cpp)
 target_link_libraries(palapeli_jigsawslicer ${SLICER_LINK_LIBS})
 
-set(palapeli_goldbergslicer_SRCS
-	goldberg/slicer-goldberg.cpp
-	goldberg/goldberg-engine.cpp
-	goldberg/grid-preset.cpp
-	goldberg/grid-cairo.cpp
-	goldberg/grid-hex.cpp
-	goldberg/grid-rect.cpp
-	goldberg/grid-rotrex.cpp
-	goldberg/grid-voronoi.cpp
-	goldberg/pointfinder.cpp
-	goldberg/utilities.cpp
-)
-
-add_library(palapeli_goldbergslicer MODULE ${palapeli_goldbergslicer_SRCS})
+add_library(palapeli_goldbergslicer MODULE)
 target_link_libraries(palapeli_goldbergslicer ${SLICER_LINK_LIBS})
-
+target_sources(palapeli_goldbergslicer PRIVATE
+    goldberg/slicer-goldberg.cpp
+    goldberg/goldberg-engine.cpp
+    goldberg/grid-preset.cpp
+    goldberg/grid-cairo.cpp
+    goldberg/grid-hex.cpp
+    goldberg/grid-rect.cpp
+    goldberg/grid-rotrex.cpp
+    goldberg/grid-voronoi.cpp
+    goldberg/pointfinder.cpp
+    goldberg/utilities.cpp
+)
 
 install(TARGETS
 	palapeli_goldbergslicer
