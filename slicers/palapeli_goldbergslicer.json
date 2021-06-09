@@ -86,9 +86,6 @@
         "Name[x-test]": "xxPalapeli Slicer Collectionxx",
         "Name[zh_CN]": "Palapeli 切分器收藏",
         "Name[zh_TW]": "Palapeli 切割器收藏",
-        "ServiceTypes": [
-            "Libpala/SlicerPlugin"
-        ],
         "Version": "0.3"
     }
 }
