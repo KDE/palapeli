@@ -42,7 +42,7 @@ Palapeli::SlicerSelector::SlicerSelector(QWidget* parent)
             continue;
 #else
         Pala::Slicer* slicer = nullptr;
-        if (auto plugin = KPluginFactory::instantiatePlugin<Pala::Slicer>({}, nullptr).plugin) {
+        if (auto plugin = KPluginFactory::instantiatePlugin<Pala::Slicer>(offer, nullptr).plugin) {
             slicer = plugin;
         } else {
             continue;

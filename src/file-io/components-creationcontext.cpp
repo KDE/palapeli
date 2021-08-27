@@ -60,7 +60,7 @@ Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) c
         }
 #else
         QScopedPointer<Pala::Slicer> slicer;
-        if (auto plugin = KPluginFactory::instantiatePlugin<Pala::Slicer>({}, nullptr).plugin) {
+        if (auto plugin = KPluginFactory::instantiatePlugin<Pala::Slicer>(offers.first(), nullptr).plugin) {
             slicer.reset(plugin);
         } else {
             return nullptr;
