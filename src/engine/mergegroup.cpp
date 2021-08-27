@@ -87,7 +87,7 @@ void Palapeli::MergeGroup::start()
 	{
 		//create animations for merging the piece coordinate systems into the UCS
 		QParallelAnimationGroup* masterAnimator = new QParallelAnimationGroup(this);
-		for (Palapeli::Piece* piece : qAsConst(m_pieces))
+		for (Palapeli::Piece* piece : std::as_const(m_pieces))
 		{
 			QPropertyAnimation* pieceAnimator = new QPropertyAnimation(piece, "pos", nullptr);
 			pieceAnimator->setStartValue(piece->pos());
@@ -113,7 +113,7 @@ void Palapeli::MergeGroup::createMergedPiece()
 	QList<Palapeli::PieceVisuals> shadowVisuals;
 	QList<Palapeli::PieceVisuals> highlightVisuals;
 	bool allPiecesHaveShadows = true;
-	for (Palapeli::Piece* piece : qAsConst(m_pieces))
+	for (Palapeli::Piece* piece : std::as_const(m_pieces))
 	{
 		pieceVisuals << piece->pieceVisuals();
 		if (allPiecesHaveShadows) //we stop collecting shadow samples when one piece has no shadow
@@ -147,7 +147,7 @@ void Palapeli::MergeGroup::createMergedPiece()
 	}
 	m_mergedPiece->setPos(m_ucsPosition);
 	//transfer information from old pieces to new piece, then destroy old pieces
-	for (Palapeli::Piece* piece : qAsConst(m_pieces))
+	for (Palapeli::Piece* piece : std::as_const(m_pieces))
 	{
 		m_mergedPiece->addRepresentedAtomicPieces(piece->representedAtomicPieces());
 		m_mergedPiece->addLogicalNeighbors(piece->logicalNeighbors());

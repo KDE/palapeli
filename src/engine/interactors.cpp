@@ -79,7 +79,7 @@ bool Palapeli::MovePieceInteractor::startInteraction(const Palapeli::MouseEvent&
 	m_baseScenePosition = event.scenePos;
 	m_currentOffset = QPointF();
 	m_basePositions.clear();
-	for (Palapeli::Piece* piece : qAsConst(m_currentPieces))
+	for (Palapeli::Piece* piece : std::as_const(m_currentPieces))
 	{
 		m_basePositions << piece->pos();
 		connect(piece, &Piece::replacedBy, this, &MovePieceInteractor::pieceReplacedBy, Qt::DirectConnection);
@@ -123,7 +123,7 @@ void Palapeli::MovePieceInteractor::pieceReplacedBy(Palapeli::Piece* replacement
 void Palapeli::MovePieceInteractor::stopInteraction(const Palapeli::MouseEvent& event)
 {
 	Q_UNUSED(event)
-	for (Palapeli::Piece* piece : qAsConst(m_currentPieces))
+	for (Palapeli::Piece* piece : std::as_const(m_currentPieces))
 	{
 		disconnect(piece, nullptr, this, nullptr);
 		piece->endMove();

@@ -33,7 +33,7 @@ void Palapeli::Scene::addPieceToList(Palapeli::Piece* piece)
 
 void Palapeli::Scene::addPieceItemsToScene()
 {
-	for (Palapeli::Piece * piece : qAsConst(m_pieces)) {
+	for (Palapeli::Piece * piece : std::as_const(m_pieces)) {
 		addItem(piece);
 		connect(piece, &Piece::moved, this, &Scene::pieceMoved);
 	}

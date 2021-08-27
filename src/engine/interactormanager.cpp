@@ -28,13 +28,13 @@ Palapeli::InteractorManager::~InteractorManager()
 
 void Palapeli::InteractorManager::updateScene()
 {
-	for (Palapeli::Interactor* interactor : qAsConst(m_interactors))
+	for (Palapeli::Interactor* interactor : std::as_const(m_interactors))
 		interactor->updateScene();
 }
 
 void Palapeli::InteractorManager::resetActiveTriggers()
 {
-	for (Palapeli::Interactor* interactor : qAsConst(m_interactors))
+	for (Palapeli::Interactor* interactor : std::as_const(m_interactors))
 		interactor->setInactive();
 }
 
@@ -118,7 +118,7 @@ void Palapeli::InteractorManager::handleEvent(QKeyEvent* event)
 void Palapeli::InteractorManager::handleEventCommon(const Palapeli::MouseEvent& pEvent, QMap<Palapeli::Interactor*, Palapeli::EventContext>& interactorData, Qt::MouseButtons unhandledButtons)
 {
 	//try to use active triggers where possible
-	for (Palapeli::Interactor* interactor : qAsConst(m_interactors))
+	for (Palapeli::Interactor* interactor : std::as_const(m_interactors))
 		if (interactor->isActive())
 		{
 			//fetch flags, and remove them to mark this interactor as processed
@@ -145,7 +145,7 @@ void Palapeli::InteractorManager::handleEventCommon(const Palapeli::MouseEvent& 
 		sortedInteractors.insert(-priority, interactor);
 	}
 	//try to activate interactors with matching triggers
-	for (Palapeli::Interactor* interactor : qAsConst(sortedInteractors))
+	for (Palapeli::Interactor* interactor : std::as_const(sortedInteractors))
 	{
 		const EventContext context = interactorData.value(interactor);
 		//send event, mark button as processed

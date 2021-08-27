@@ -40,12 +40,12 @@ void Palapeli::SlicerConfigWidget::setMode(const Pala::SlicerMode* mode)
 {
 	//determine enabled properties
 	QList<const Pala::SlicerProperty*> enabledProps;
-	for (const Entry& entry : qAsConst(m_entries))
+	for (const Entry& entry : std::as_const(m_entries))
 		enabledProps << entry.property;
 	if (mode)
 		mode->filterProperties(enabledProps);
 	//update widget visibility according to enabled/disabled state
-	for (const Entry& entry : qAsConst(m_entries))
+	for (const Entry& entry : std::as_const(m_entries))
 	{
 		const bool isVisible = enabledProps.contains(entry.property);
 		entry.widget->setVisible(isVisible);

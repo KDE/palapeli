@@ -99,7 +99,7 @@ void Palapeli::TextureHelper::readSettings()
 			m_currentBrush = selectedColor;
 		else
 			m_currentBrush = item->data(BrushRole).value<QPixmap>();
-		for (QObject* scene : qAsConst(m_scenes))
+		for (QObject* scene : std::as_const(m_scenes))
 			static_cast<QGraphicsScene*>(scene)->setBackgroundBrush(m_currentBrush);
 	}
 }
