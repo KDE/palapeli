@@ -5,7 +5,7 @@
 */
 
 #include "slicerselector.h"
-
+#include "kcoreaddons_version.h"
 #include <Pala/Slicer>
 #include <Pala/SlicerJob>
 #include <Pala/SlicerMode>
@@ -22,17 +22,32 @@ Palapeli::SlicerSelector::SlicerSelector(QWidget* parent)
 	setSelectionBehavior(QAbstractItemView::SelectItems);
 	setSelectionMode(QAbstractItemView::SingleSelection);
 	connect(this, &SlicerSelector::itemSelectionChanged, this, &SlicerSelector::slotSelectionChanged);
-	//load slicer plugins
-	const QVector<KPluginMetaData> offers = KPluginLoader::findPlugins(QStringLiteral("palapelislicers"));
+    //load slicer plugins
+#if KCOREADDONS_VERSION < QT_VERSION_CHECK(5, 86, 0)
+    const QVector<KPluginMetaData> offers = KPluginLoader::findPlugins(QStringLiteral("palapelislicers"));
+#else
+    const QVector<KPluginMetaData> offers = KPluginMetaData::findPlugins(QStringLiteral("palapelislicers"));
+#endif
+
 	for (const KPluginMetaData &offer : offers)
-	{
-		const QString pluginName = offer.pluginId(), slicerName = offer.name();
+    {
+        const QString pluginName = offer.pluginId();
+        const QString slicerName = offer.name();
+#if KCOREADDONS_VERSION < QT_VERSION_CHECK(5, 86, 0)
 		//create slicer object
 		KPluginLoader loader(offer.fileName());
 		KPluginFactory *factory = loader.factory();
 		Pala::Slicer* slicer = factory->create<Pala::Slicer>(nullptr, QVariantList());
 		if (!slicer)
-			continue;
+            continue;
+#else
+        Pala::Slicer* slicer = nullptr;
+        if (auto plugin = KPluginFactory::instantiatePlugin<Pala::Slicer>({}, nullptr).plugin) {
+            slicer = plugin;
+        } else {
+            continue;
+        }
+#endif
 		m_slicerInstances << slicer;
 		//create item for this slicer
 		QTreeWidgetItem* slicerItem = new QTreeWidgetItem(this);

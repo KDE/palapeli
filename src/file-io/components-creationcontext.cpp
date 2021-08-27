@@ -5,7 +5,7 @@
 */
 
 #include "components.h"
-
+#include "kcoreaddons_version.h"
 #include <Pala/Slicer>
 #include <Pala/SlicerJob>
 #include <Pala/SlicerMode>
@@ -34,15 +34,22 @@ Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) c
 		//TODO: move slicer instantiation to a location that is shared between
 		//      puzzle creator dialog and this function
 		//find slicer
-		const QVector<KPluginMetaData> offers = KPluginLoader::findPlugins(QStringLiteral("palapelislicers"), [cc](const KPluginMetaData &m) {
-			return m.pluginId() == cc.slicer;
-		});
+#if KCOREADDONS_VERSION < QT_VERSION_CHECK(5, 86, 0)
+        const QVector<KPluginMetaData> offers = KPluginLoader::findPlugins(QStringLiteral("palapelislicers"), [cc](const KPluginMetaData &m) {
+            return m.pluginId() == cc.slicer;
+        });
+#else
+        const QVector<KPluginMetaData> offers = KPluginMetaData::findPlugins(QStringLiteral("palapelislicers"), [cc](const KPluginMetaData &m) {
+            return m.pluginId() == cc.slicer;
+        });
+#endif
 		if (offers.isEmpty())
 		{
 			CAST_ERROR(QString::fromLatin1("Could not find slicer \"%1\".").arg(cc.slicer));
 			return nullptr;
 		}
 		//initialize requested slicer plugin
+#if KCOREADDONS_VERSION < QT_VERSION_CHECK(5, 86, 0)
 		KPluginLoader loader(offers.first().fileName());
 		KPluginFactory *factory = loader.factory();
 		QScopedPointer<Pala::Slicer> slicer(factory->create<Pala::Slicer>(nullptr, QVariantList()));
@@ -50,7 +57,15 @@ Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) c
 		{
 			CAST_ERROR(QString::fromLatin1("Could not load slicer \"%1\": %2").arg(cc.slicer).arg(loader.errorString()));
 			return nullptr;
-		}
+        }
+#else
+        QScopedPointer<Pala::Slicer> slicer;
+        if (auto plugin = KPluginFactory::instantiatePlugin<Pala::Slicer>({}, nullptr).plugin) {
+            slicer.reset(plugin);
+        } else {
+            return nullptr;
+        }
+#endif
 		//create job
 		Pala::SlicerJob job(cc.image, cc.slicerArgs);
 		if (!cc.slicerMode.isEmpty())
