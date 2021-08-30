@@ -18,7 +18,8 @@ Palapeli::LoadingWidget::LoadingWidget(QWidget* parent)
 {
 	setMinimumSize(QSize(64, 64));
 	m_updateTimer->setInterval(30);
-	connect(m_updateTimer, &QTimer::timeout, this, QOverload<>::of(&QWidget::update));
+        connect(m_updateTimer, &QTimer::timeout, this,
+                qOverload<>(&QWidget::update));
 }
 
 void Palapeli::LoadingWidget::showEvent(QShowEvent* event)
