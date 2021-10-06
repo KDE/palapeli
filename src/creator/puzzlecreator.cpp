@@ -35,7 +35,7 @@ Palapeli::PuzzleCreatorDialog::PuzzleCreatorDialog()
 	, m_slicerConfigMasterWidget(new QStackedWidget)
 {
 	//setup dialog
-	setWindowTitle(i18nc("@title:window", "Create new puzzle"));
+	setWindowTitle(i18nc("@title:window", "Create New Puzzle"));
 	buttonBox()->button(QDialogButtonBox::Help)->setVisible(false);
 	//setup image selector
 	m_imageSelector->setMode(KFile::File | KFile::LocalOnly | KFile::ExistingOnly);

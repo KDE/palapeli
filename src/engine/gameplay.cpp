@@ -311,7 +311,7 @@ void Palapeli::GamePlay::actionImport()
 {
 	const QString filter = i18nc("Filter for a file dialog", "Palapeli puzzles (*.puzzle)");
 	const QStringList paths = QFileDialog::getOpenFileNames(m_mainWindow,
-															i18n("Import Palapeli puzzles"),
+															i18nc("@title:window", "Import Palapeli Puzzles"),
 															QString(),
 															filter);
 	Palapeli::Collection* coll = Palapeli::Collection::instance();
@@ -337,7 +337,7 @@ void Palapeli::GamePlay::actionExport()
 		const QString startLoc = QString::fromLatin1("%1.puzzle").arg(cmp->metadata.name);
 		const QString filter = i18nc("Filter for a file dialog", "Palapeli puzzles (*.puzzle)");
 		const QString location = QFileDialog::getSaveFileName(m_mainWindow,
-															  i18n("Save Palapeli puzzles"),
+															  i18nc("@title:window", "Save Palapeli Puzzles"),
 															  startLoc,
 															  filter);
 		if (location.isEmpty())

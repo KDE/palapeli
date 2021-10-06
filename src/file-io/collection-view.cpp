@@ -55,11 +55,11 @@ Palapeli::CollectionView::CollectionView(QWidget* parent)
 	searchLine->setClearButtonEnabled(true);
 	connect(searchLine, &QLineEdit::textChanged, this, &Palapeli::CollectionView::slotTextChanged);
 	//setup sort button
-	QPushButton* sortButton = new QPushButton(i18nc("@action:button that pops up sorting strategy selection menu", "Sort list..."), this);
+	QPushButton* sortButton = new QPushButton(i18nc("@action:button that pops up sorting strategy selection menu", "Sort List..."), this);
 	QMenu* sortMenu = new QMenu(sortButton);
 	sortButton->setMenu(sortMenu);
-	m_sortByTitle = sortMenu->addAction(i18nc("@action:inmenu selects sorting strategy for collection list", "By title"));
-	m_sortByPieceCount = sortMenu->addAction(i18nc("@action:inmenu selects sorting strategy for collection list", "By piece count"));
+	m_sortByTitle = sortMenu->addAction(i18nc("@action:inmenu selects sorting strategy for collection list", "By Title"));
+	m_sortByPieceCount = sortMenu->addAction(i18nc("@action:inmenu selects sorting strategy for collection list", "By Piece Count"));
 	m_sortByTitle->setCheckable(true);
 	m_sortByPieceCount->setCheckable(true);
 	m_sortByTitle->setChecked(true);

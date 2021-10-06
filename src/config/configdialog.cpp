@@ -49,7 +49,7 @@ Palapeli::ConfigDialog::ConfigDialog(QWidget* parent)
 	, m_triggerPage(new Palapeli::TriggerConfigWidget)
 	, m_shownForFirstTime(false)
 {
-	//setup page "General settings"
+	//setup page "General Settings"
 	QWidget* generalPage = new QWidget;
 	m_generalUi.setupUi(generalPage);
 
@@ -59,10 +59,10 @@ Palapeli::ConfigDialog::ConfigDialog(QWidget* parent)
 					Palapeli::TextureHelper::instance());
 	setupSolutionAreaComboBox();
 
-	addPage(generalPage, i18n("General settings"))->
+	addPage(generalPage, i18n("General Settings"))->
 				setIcon(QIcon::fromTheme( QStringLiteral( "configure" )));
-	//setup page "Mouse interaction"
-	addPage(m_triggerPage, i18n("Mouse interaction"))->
+	//setup page "Mouse Interaction"
+	addPage(m_triggerPage, i18n("Mouse Interaction"))->
 				setIcon(QIcon::fromTheme( QStringLiteral( "input-mouse" )));
 	connect(m_triggerPage, &TriggerConfigWidget::associationsChanged,
 	        this, &ConfigDialog::updateButtons);
