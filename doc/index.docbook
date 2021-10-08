@@ -1,9 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
-<!ENTITY palapeli "<application>Palapeli</application>">
 <!ENTITY i18n-psc "<application>Palapeli Slicer Collection</application>">
-<!ENTITY kappname "&palapeli;">
-<!ENTITY package "kdegames">
 <!ENTITY % English "INCLUDE">
 <!ENTITY % addindex "IGNORE">
 ]>
