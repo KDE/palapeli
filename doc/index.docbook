@@ -152,7 +152,7 @@
         </varlistentry>
         <varlistentry>
           <term><guilabel>Approx. piece count:</guilabel></term>
-          <listitem><para>Here set the desired number in which the image will sliced into pieces. This option only appears if the mathematical logic of the selected slicer readjust this number.</para></listitem>
+          <listitem><para>Here set the desired number in which the image will sliced into pieces. This option only appears if the mathematical logic of the selected slicer can readjust this number.</para></listitem>
         </varlistentry>
         <varlistentry>
           <term><guilabel>Flipped edge percentage:</guilabel></term>
