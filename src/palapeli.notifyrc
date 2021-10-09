@@ -1,8 +1,8 @@
 [Global]
 Comment=Palapeli Jigsaw Puzzle
 Comment[bs]=Palapeli testerasta slagalica
-Comment[ca]=Trencaclosques Palapeli
-Comment[ca@valencia]=Trencaclosques Palapeli
+Comment[ca]=Trencaclosques del Palapeli
+Comment[ca@valencia]=Trencaclosques del Palapeli
 Comment[da]=Palapeli puslespil
 Comment[de]=Palapeli-Bilderpuzzle
 Comment[el]=Palapeli Jigsaw Puzzle
@@ -48,8 +48,8 @@ IconName=palapeli
 [Context/filemanagement]
 Name=File management operations
 Name[bs]=Operacije upravljanja datotekama
-Name[ca]=Operacions de gestió de fitxers
-Name[ca@valencia]=Operacions de gestió de fitxers
+Name[ca]=Operacions de la gestió de fitxers
+Name[ca@valencia]=Operacions de la gestió de fitxers
 Name[da]=Filhåndteringshandlinger
 Name[de]=Dateiverwaltungsvorgänge
 Name[el]=Λειτουργίες διαχείρισης αρχείων
@@ -138,8 +138,8 @@ Name[zh_CN]=导入拼图
 Name[zh_TW]=匯入謎題
 Comment=A puzzle is being imported into the local puzzle collection
 Comment[bs]=Slagalica se unosi u lokalnu kolekciju slagalica
-Comment[ca]=S'està important un trencaclosques a la vostra col·lecció de trencaclosques local
-Comment[ca@valencia]=S'està important un trencaclosques a la vostra col·lecció de trencaclosques local
+Comment[ca]=S'està important un trencaclosques dins la col·lecció local de trencaclosques
+Comment[ca@valencia]=S'està important un trencaclosques dins la col·lecció local de trencaclosques
 Comment[da]=Et puslespil bliver importeret til den lokale puslespilssamling
 Comment[de]=Ein Puzzle wird in die lokale Puzzle-Sammlung importiert.
 Comment[el]=Ένα παζλ εισάγεται στην τοπική συλλογή των παζλ
