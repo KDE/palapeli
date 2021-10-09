@@ -74,7 +74,7 @@
       <listitem><para><emphasis>export</emphasis> puzzles to share them with your friends and the world</para></listitem>
       <listitem><para><emphasis>delete</emphasis> puzzles you do not need any more</para></listitem>
     </itemizedlist>
-    <para>The following section shows how to perform these tasks with the toolbar icons.</para>
+    <para>The following section shows how to perform these tasks with the action icons in the toolbar.</para>
       </sect1>
     <sect1 id="toolbar-collection">
       <title>Toolbar overview</title>
@@ -105,8 +105,8 @@
     <title>Creating new puzzles</title>
     <sect1 id="creation-dialog">
     <title>The puzzle creation dialog</title>
-    <para>As described in <link linkend="toolbar-collection">the previous section</link>, you can create new puzzles by clicking on the <inlinemediaobject><imageobject><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject></inlinemediaobject> <guiicon>Create New Puzzle...</guiicon> icon in the puzzle collection window.</para>
-    <para>Clicking this icon opens the puzzle creation dialog, which consists of three pages:</para>
+    <para>As described in <link linkend="toolbar-collection">the previous section</link>, you can create new puzzles by clicking on the <inlinemediaobject><imageobject><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject></inlinemediaobject> <guiicon>Create New Puzzle...</guiicon> action icon in the puzzle collection window.</para>
+    <para>Clicking this action icon opens the puzzle creation dialog, which consists of three pages:</para>
     <procedure>
       <step><para>On the first page, select an image file which will be sliced into pieces. Be sure to enter the correct metadata for the image: You should give attribution to the author of the image (&eg; the photographer or the painter); please respect the copyright of the image author.</para></step>
       <step><para>On the second page, you can select the type of pieces into which the image will be sliced. &palapeli; comes with a collection of slicers preinstalled, but third-party slicers may also be available.</para></step>
@@ -210,7 +210,7 @@
     <para>You can zoom the puzzle table view in or out with the mouse <mousebutton>wheel</mousebutton>, and at the bottom right (3) with the buttons and the slider.</para>
     <para>You can move the puzzle table view in any direction by clicking and dragging with the &RMB;.</para>
     <para>The movement of the pieces is limited by the <emphasis>puzzle table area</emphasis>. This area is represented on the puzzle table's background by a light rectangular shade. When you move pieces to the border (4) of the puzzle table area, the area will automatically expand to give you more space for moving your puzzle pieces. Near the shaded borders, the mouse cursor changes into a double-headed arrow, indicating that you can adjust the puzzle table area by clicking there and dragging with the &LMB;.</para>
-    <para>You can lock the puzzle table area with the small icon (5) to the right of the progress bar. The shade (4) around the puzzle table will darken, and pieces will now stop moving at the edges of the puzzle table area. It is still possible to adjust the size of the puzzle table area manually.</para>
+    <para>You can lock the puzzle table area with the small button (5) to the right of the progress bar. The shade (4) around the puzzle table will darken, and pieces will now stop moving at the edges of the puzzle table area. It is still possible to adjust the size of the puzzle table area manually.</para>
     </sect1>
 
     <sect1 id="puzzletable-preview">
@@ -224,7 +224,7 @@
       <para>The window can be shown or hidden by using the
       <inlinemediaobject><imageobject><imagedata fileref="view-preview.png" format="PNG"/>
       </imageobject></inlinemediaobject> <guiicon>Preview</guiicon>
-      toolbar icon or the <menuchoice><guimenu>View</guimenu>
+      action icon in the toolbar or the <menuchoice><guimenu>View</guimenu>
       <guimenuitem>Preview</guimenuitem></menuchoice> menu item. Its
       size, position and visible or not visible setting
       are saved and restored between runs of &palapeli;.
