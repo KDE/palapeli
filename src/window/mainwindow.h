@@ -12,7 +12,6 @@
 namespace Palapeli
 {
 	class GamePlay;
-	class Puzzle;
 
 	class MainWindow : public KXmlGuiWindow
 	{

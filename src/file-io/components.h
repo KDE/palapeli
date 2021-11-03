@@ -12,7 +12,6 @@
 
 class KConfigGroup;
 class QTemporaryDir;
-class QMutex;
 
 #define COMPONENT_SUBCLASS(mytype) \
 	public: \
