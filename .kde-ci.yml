@@ -19,4 +19,4 @@ Dependencies:
     'frameworks/kservice': '@stable'
     'frameworks/kwidgetsaddons': '@stable'
     'frameworks/kxmlgui': '@stable'
-    'games/libkdegames' : '@latest'
+    'games/libkdegames': '@same'
