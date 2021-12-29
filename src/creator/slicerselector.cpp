@@ -23,31 +23,18 @@ Palapeli::SlicerSelector::SlicerSelector(QWidget* parent)
 	setSelectionMode(QAbstractItemView::SingleSelection);
 	connect(this, &SlicerSelector::itemSelectionChanged, this, &SlicerSelector::slotSelectionChanged);
     //load slicer plugins
-#if KCOREADDONS_VERSION < QT_VERSION_CHECK(5, 86, 0)
-    const QVector<KPluginMetaData> offers = KPluginLoader::findPlugins(QStringLiteral("palapelislicers"));
-#else
     const QVector<KPluginMetaData> offers = KPluginMetaData::findPlugins(QStringLiteral("palapelislicers"));
-#endif
 
 	for (const KPluginMetaData &offer : offers)
     {
         const QString pluginName = offer.pluginId();
         const QString slicerName = offer.name();
-#if KCOREADDONS_VERSION < QT_VERSION_CHECK(5, 86, 0)
-		//create slicer object
-		KPluginLoader loader(offer.fileName());
-		KPluginFactory *factory = loader.factory();
-		Pala::Slicer* slicer = factory->create<Pala::Slicer>(nullptr, QVariantList());
-		if (!slicer)
-            continue;
-#else
         Pala::Slicer* slicer = nullptr;
         if (auto plugin = KPluginFactory::instantiatePlugin<Pala::Slicer>(offer, nullptr).plugin) {
             slicer = plugin;
         } else {
             continue;
         }
-#endif
 		m_slicerInstances << slicer;
 		//create item for this slicer
 		QTreeWidgetItem* slicerItem = new QTreeWidgetItem(this);

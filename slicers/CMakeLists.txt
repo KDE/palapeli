@@ -17,7 +17,7 @@ endif(QVORONOI_EXECUTABLE)
 #macro_log_feature(QVORONOI_FOUND "qvoronoi" "Part of the qhull package, needed for the irregular grid from the Palapeli Slicer Collection" "http://www.qhull.org/download" FALSE "" "")
 
 
-set(SLICER_LINK_LIBS KF5::CoreAddons KF5::I18n Qt5::Gui pala)
+set(SLICER_LINK_LIBS KF5::CoreAddons KF5::I18n Qt${QT_MAJOR_VERSION}::Gui pala)
 
 add_library(palapeli_rectslicer MODULE slicer-rect.cpp)
 target_link_libraries(palapeli_rectslicer ${SLICER_LINK_LIBS})

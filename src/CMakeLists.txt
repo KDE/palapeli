@@ -77,12 +77,12 @@ target_link_libraries(palapeli
     KF5::KIOWidgets
     KF5::WidgetsAddons
     KF5::XmlGui
-    Qt5::Svg
+    Qt${QT_MAJOR_VERSION}::Svg
 )
 
 install(TARGETS palapeli ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
-install(FILES palapeli.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFY5RCDIR})
+install(FILES palapeli.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFYRCDIR})
 
 install(FILES palapeli.kcfg
         DESTINATION ${KDE_INSTALL_DATADIR}/palapeli)
