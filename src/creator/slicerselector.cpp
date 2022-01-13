@@ -5,7 +5,6 @@
 */
 
 #include "slicerselector.h"
-#include "kcoreaddons_version.h"
 #include <Pala/Slicer>
 #include <Pala/SlicerJob>
 #include <Pala/SlicerMode>
