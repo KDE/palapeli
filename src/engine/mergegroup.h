@@ -6,7 +6,7 @@
 
 #ifndef PALAPELI_MERGEGROUP_H
 #define PALAPELI_MERGEGROUP_H
-
+#include "piece.h"
 class QGraphicsScene;
 #include <QObject>
 #include <QPointF>
@@ -14,8 +14,6 @@ class QGraphicsScene;
 
 namespace Palapeli
 {
-	class Piece;
-
 	///This transaction class handles merging of physically neighboring pieces.
 	class MergeGroup : public QObject
 	{

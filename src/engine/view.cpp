@@ -18,7 +18,7 @@
 #include <KMessageBox>
 
 #include <QApplication>
-#include <QDesktopWidget>
+#include <QScreen>
 
 #include <QTimer>
 #include "palapeli_debug.h" // IDW test.
@@ -278,7 +278,7 @@ void Palapeli::View::handleNewPieceSelection()
 qreal Palapeli::View::calculateCloseUpScale()
 {
 	// Get the size of the monitor on which this view resides (in pixels).
-	const QRect monitor = QApplication::desktop()->screenGeometry(this);
+    const QRect monitor = screen()->availableGeometry();
 	const int pixelsPerPiece = qMin(monitor.width(), monitor.height())/12;
 	QSizeF size = scene()->pieceAreaSize();
 	qreal  scale  = pixelsPerPiece/qMin(size.rwidth(),size.rheight());

@@ -18,6 +18,7 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
+#include <QRegularExpression>
 
 //BEGIN Palapeli::Collection::Item
 
@@ -116,7 +117,7 @@ Palapeli::Collection::Collection(QWidget *parent)
 		const QString basePath = puzzleGroup->readEntry("Location", QString());
 		const QString path = readPseudoUrl(basePath, false);
 		QString baseDesktopPath(basePath);
-		baseDesktopPath.replace(QRegExp(QStringLiteral("\\.puzzle$")), QLatin1String(".desktop"));
+        baseDesktopPath.replace(QRegularExpression(QStringLiteral("\\.puzzle$")), QLatin1String(".desktop"));
 		const QString desktopPath = readPseudoUrl(baseDesktopPath, false);
 		//construct puzzle with CollectionStorageComponent
 		if (!path.isEmpty() && (desktopPath.isEmpty() || QFileInfo(path).lastModified() >= QFileInfo(desktopPath).lastModified()))
