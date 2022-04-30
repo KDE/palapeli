@@ -34,7 +34,6 @@ namespace Pala
 class MySlicer : public Pala::Slicer { ... };
 
 #include <KPluginFactory>
-#include <KPluginLoader>
 
 K_PLUGIN_FACTORY(MySlicerFactory, registerPlugin<MySlicer>();)
 K_EXPORT_PLUGIN(MySlicerFactory("myslicer"))

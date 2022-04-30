@@ -11,7 +11,6 @@
 
 #include <KPluginFactory>
 #include <KPluginMetaData>
-#include <KPluginLoader>
 
 Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) const
 {

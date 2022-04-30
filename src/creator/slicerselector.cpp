@@ -11,7 +11,6 @@
 
 #include <KPluginFactory>
 #include <KPluginMetaData>
-#include <KPluginLoader>
 
 Palapeli::SlicerSelector::SlicerSelector(QWidget* parent)
 	: QTreeWidget(parent)
