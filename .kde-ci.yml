@@ -20,3 +20,5 @@ Dependencies:
     'frameworks/kwidgetsaddons': '@stable'
     'frameworks/kxmlgui': '@stable'
     'games/libkdegames': '@same'
+Options:
+  require-passing-tests-on: [ 'Linux', 'FreeBSD']
