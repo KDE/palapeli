@@ -6,7 +6,6 @@
 */
 
 #include "mergegroup.h"
-#include "piece.h"
 #include "settings.h"
 
 #include <QGraphicsScene>
