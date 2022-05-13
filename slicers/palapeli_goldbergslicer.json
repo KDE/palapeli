@@ -22,6 +22,7 @@
                 "Name[pt_BR]": "Johannes Loehnert",
                 "Name[sl]": "Johannes Loehnert",
                 "Name[sv]": "Johannes Loehnert",
+                "Name[tr]": "Johannes Loehnert",
                 "Name[uk]": "Johannes Loehnert",
                 "Name[x-test]": "xxJohannes Loehnertxx"
             }
@@ -45,6 +46,7 @@
         "Description[pt_BR]": "Anteriormente conhecido como divisão de Goldberg",
         "Description[sl]": "Predhodno znan kot Goldberg Slicer",
         "Description[sv]": "Tidigare känd som Goldberg delningsverktyg",
+        "Description[tr]": "Önceden Goldberg Slicer bilinir",
         "Description[uk]": "Раніше відомий як «Розрізувач Ґолдберґа»",
         "Description[x-test]": "xxFormerly known as Goldberg Slicerxx",
         "Id": "palapeli_goldbergslicer",
