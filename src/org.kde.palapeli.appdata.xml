@@ -33,6 +33,7 @@
   <name xml:lang="sr-ijekavian">Палапели</name>
   <name xml:lang="sr-ijekavianlatin">Palapeli</name>
   <name xml:lang="sv">Palapeli</name>
+  <name xml:lang="tr">Palapeli</name>
   <name xml:lang="uk">Palapeli</name>
   <name xml:lang="x-test">xxPalapelixx</name>
   <name xml:lang="zh-CN">Palapeli</name>
@@ -64,6 +65,7 @@
   <summary xml:lang="sr-ijekavian">Игра слагања делова</summary>
   <summary xml:lang="sr-ijekavianlatin">Igra slaganja delova</summary>
   <summary xml:lang="sv">Pusselspel</summary>
+  <summary xml:lang="tr">Yapboz oyunu</summary>
   <summary xml:lang="uk">Гра у складанку</summary>
   <summary xml:lang="x-test">xxJigsaw puzzle gamexx</summary>
   <summary xml:lang="zh-CN">拼图游戏</summary>
@@ -100,6 +102,7 @@
     <p xml:lang="sr-ijekavian">Палапели је игра слагања делова за једног играча. За разлику од других игара овог типа, нисте ограничени на уклапање делова у замишљене мреже, већ се делови могу слободно померати. Такође, Палапели изводи праву трајност, тј. све што учините одмах се уписује на диск.</p>
     <p xml:lang="sr-ijekavianlatin">Palapeli je igra slaganja delova za jednog igrača. Za razliku od drugih igara ovog tipa, niste ograničeni na uklapanje delova u zamišljene mreže, već se delovi mogu slobodno pomerati. Takođe, Palapeli izvodi pravu trajnost, tj. sve što učinite odmah se upisuje na disk.</p>
     <p xml:lang="sv">Palapeli är ett pusselspel för en ensam spelare. I motsats till andra spel i genren är du inte begränsat till att linjera upp bitar på tänkta rutmönster. Bitarna kan flyttas fritt. Dessutom har Palapeli verklig beständighet, dvs. allt du gör sparas omedelbart på disk.</p>
+    <p xml:lang="tr">Palapeli, tek kişilik bir yapboz oyunudur. Bu türdeki diğer oyunların aksine, parçaları hayali ızgaralarda birleştirmekle sınırlı değilsiniz. Parçalar serbestçe hareket ettirilebilir. Ayrıca, Palapeli ile yaptığınız her hareket anında kaydedilir.</p>
     <p xml:lang="uk">Palapeli — гра-складанка для одного гравця. На відміну від інших ігор у цьому жанрі, ви не просто розміщуєте шматочки зображення на заздалегідь визначеній ґратці. Шматочки у цій грі можна пересувати довільним чином. Крім того, у Palapeli передбачено негайне зберігання усіх ваших дій на диск, тому ви можете відновити збирання з того самого моменту, коли ви його перервали.</p>
     <p xml:lang="x-test">xxPalapeli is a single-player jigsaw puzzle game. Unlike other games in that genre, you are not limited to aligning pieces on imaginary grids. The pieces are freely moveable. Also, Palapeli features real persistency, i.e. everything you do is saved on your disk immediately.xx</p>
     <p>Features:</p>
@@ -131,6 +134,7 @@
     <p xml:lang="sr-ijekavian">Могућности:</p>
     <p xml:lang="sr-ijekavianlatin">Mogućnosti:</p>
     <p xml:lang="sv">Funktioner:</p>
+    <p xml:lang="tr">Özellikler:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="x-test">xxFeatures:xx</p>
     <p xml:lang="zh-CN">功能：</p>
@@ -163,6 +167,7 @@
       <li xml:lang="sr-ijekavian">стварање и играње слагалица од 4 до 10.000 делова</li>
       <li xml:lang="sr-ijekavianlatin">stvaranje i igranje slagalica od 4 do 10.000 delova</li>
       <li xml:lang="sv">Skapa och lös pussel från 4 till 10 000 bitar</li>
+      <li xml:lang="tr">4'ten 10.000'e kadar büyüklükteki yapbozlar oluşturun ve oynayın</li>
       <li xml:lang="uk">Створення і збирання головоломок, що складаються із багатьох елементів (від 4 до 10000)</li>
       <li xml:lang="x-test">xxCreate and play puzzles ranging from 4 to 10,000 piecesxx</li>
       <li>Piece-holders for helping solve large puzzles</li>
@@ -192,6 +197,7 @@
       <li xml:lang="sr-ijekavian">држачи делова као помоћ у решавању великих слагалица</li>
       <li xml:lang="sr-ijekavianlatin">držači delova kao pomoć u rešavanju velikih slagalica</li>
       <li xml:lang="sv">Bitbehållare för att hjälpa till att lösa stora pussel</li>
+      <li xml:lang="tr">Büyük yapbozları çözmeye yardımcı olmak için yer tutucular</li>
       <li xml:lang="uk">Панелі для шматочків, які допомагають збирати великі складанки</li>
       <li xml:lang="x-test">xxPiece-holders for helping solve large puzzlesxx</li>
     </ul>
