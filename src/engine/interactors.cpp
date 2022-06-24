@@ -302,7 +302,7 @@ void Palapeli::RubberBandItem::setRect(const QRectF& rect)
 	{
 		QPainterPath p;
 		p.addRect(sceneBoundingRect());
-		scene()->setSelectionArea(p, Qt::ContainsItemBoundingRect);
+		scene()->setSelectionArea(p, Qt::ReplaceSelection, Qt::ContainsItemBoundingRect);
 	}
 }
 
