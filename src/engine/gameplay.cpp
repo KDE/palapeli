@@ -176,7 +176,9 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 			if (m_currentPieceCount == 1) {
 				int result = KMessageBox::questionYesNo(
 					m_mainWindow,
-					i18n("You have finished the puzzle. Do you want to restart it now?"));
+					i18n("You have finished the puzzle. Do you want to restart it now?"), {},
+					KGuiItem(i18nc("@action:button", "Restart"), QStringLiteral("view-refresh")),
+					KStandardGuiItem::cont());
 				if (result == KMessageBox::Yes) {
 					restartPuzzle();
 					return;
@@ -549,7 +551,9 @@ void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
 						"transfer a large piece "
 						"containing more than six "
 						"small pieces to a holder. Do "
-						"you really wish to do that?"));
+						"you really wish to do that?"), {},
+						KGuiItem(i18nc("@action:button", "Transfer"), QStringLiteral("dialog-ok")),
+						KStandardGuiItem::cancel());
 					if (ans == KMessageBox::No) {
 						return;
 					}
@@ -1129,7 +1133,9 @@ void Palapeli::GamePlay::finishLoading()
 	// Check if puzzle has been completed.
 	if (m_currentPieceCount == 1) {
 		int result = KMessageBox::questionYesNo(m_mainWindow,
-			i18n("You have finished the puzzle. Do you want to restart it now?"));
+			i18n("You have finished the puzzle. Do you want to restart it now?"), {},
+			KGuiItem(i18nc("@action:button", "Restart"), QStringLiteral("view-refresh")),
+			KStandardGuiItem::cont());
 		if (result == KMessageBox::Yes) {
 			restartPuzzle();
 			return;

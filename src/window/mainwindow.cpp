@@ -153,7 +153,9 @@ void Palapeli::MainWindow::enableMessages()
 {
 	// Enable all messages that the user has marked "Do not show again".
 	int result = KMessageBox::questionYesNo(this,
-					i18n("Enable all messages"));
+						i18n("Enable all messages again?"), {},
+						KGuiItem(i18nc("@action:button", "Enable"), QStringLiteral("dialog-ok")),
+						KStandardGuiItem::cancel());
 	if (result == KMessageBox::Yes) {
 		qCDebug(PALAPELI_LOG) << "ENABLE ALL MESSAGES";
 		KMessageBox::enableAllMessages();
