@@ -109,14 +109,14 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	const Pala::Slicer* slicer = selection.slicer;
 	if (!slicer)
 	{
-		KMessageBox::sorry(this, i18n("Puzzle cannot be created: The slicer plugin could not be loaded."));
+		KMessageBox::error(this, i18n("Puzzle cannot be created: The slicer plugin could not be loaded."));
 		return;
 	}
 	QMap<QByteArray, QVariant> slicerArgs = m_slicerConfigWidgets[selection.slicer]->arguments();
 	QImage image;
 	if (!image.load(m_imageSelector->url().toLocalFile()))
 	{
-		KMessageBox::sorry(this, i18n("Puzzle cannot be created: The file you selected is not an image."));
+		KMessageBox::error(this, i18n("Puzzle cannot be created: The file you selected is not an image."));
 		return;
 	}
 	image = image.convertToFormat(image.hasAlphaChannel() ? QImage::Format_ARGB32 : QImage::Format_RGB32);
@@ -124,7 +124,7 @@ void Palapeli::PuzzleCreatorDialog::createPuzzle()
 	job.setMode(selection.mode);
 	if (!const_cast<Pala::Slicer*>(slicer)->process(&job)) //BIC: make Pala::Slicer::process() and run() const
 	{
-		KMessageBox::sorry(this, i18n("Puzzle cannot be created: Slicing failed because of undetermined problems."));
+		KMessageBox::error(this, i18n("Puzzle cannot be created: Slicing failed because of undetermined problems."));
 		return;
 	}
 	//create puzzle creation context
