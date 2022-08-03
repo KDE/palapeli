@@ -40,8 +40,9 @@ int main(int argc, char** argv)
     QCommandLineParser parser;
     KAboutData::setApplicationData(about);
     KCrash::initialize();
-        parser.addPositionalArgument(QStringLiteral("puzzlefile"), i18n("Path to puzzle file (will be opened if -i is not given)"));
-        parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("i") << QStringLiteral("import"), i18n("Import the given puzzle file into the local collection (does nothing if no puzzle file is given). The main window will not be shown after importing the given puzzle.")));
+    parser.addPositionalArgument(QStringLiteral("puzzlefile"), i18n("Path to puzzle file (will be opened if -i is not given)"));
+    const QCommandLineOption importOption(QStringList() << QStringLiteral("i") << QStringLiteral("import"), i18n("Import the given puzzle file into the local collection (does nothing if no puzzle file is given). The main window will not be shown after importing the given puzzle."));
+    parser.addOption(importOption);
 
     about.setupCommandLine(&parser);
     parser.process(app);
@@ -49,9 +50,9 @@ int main(int argc, char** argv)
 
 
     //NOTE: Syntax errors are reported on stderr, while file errors are presented to the user.
-    if (parser.isSet(QStringLiteral("import")))
+    if (parser.isSet(importOption))
         //perform import request
-        new Palapeli::ImportHelper(parser.value(QStringLiteral("import")));
+        new Palapeli::ImportHelper(parser.value(importOption));
     else {
         const QStringList args = parser.positionalArguments();
         QString path;
