@@ -55,8 +55,8 @@ int main(int argc, char** argv)
     else {
         const QStringList args = parser.positionalArguments();
         QString path;
-        if (args.count()>1) {
-            path = args.at(1);
+        if (!args.isEmpty()) {
+            path = args.first();
         }
         //no import request, show main window
         (new Palapeli::MainWindow(path))->show();
