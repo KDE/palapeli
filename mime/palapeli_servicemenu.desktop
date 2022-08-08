@@ -3,7 +3,7 @@ Actions=PalapeliImport;
 Type=Service
 Icon=
 Name=
-X-KDE-ServiceTypes=KonqPopupMenu/Plugin,application/x-palapeli-puzzle
+MimeType=application/x-palapeli-puzzle
 
 [Desktop Action PalapeliImport]
 Exec=palapeli --import %U

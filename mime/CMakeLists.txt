@@ -6,7 +6,7 @@ install(FILES palapeli-mimetypes.xml DESTINATION ${KDE_INSTALL_MIMEDIR})
 update_xdg_mimetypes(${KDE_INSTALL_MIMEDIR})
 
 # servicemenu integration
-install(FILES palapeli_servicemenu.desktop DESTINATION ${KDE_INSTALL_KSERVICESDIR}/ServiceMenus)
+install(PROGRAMS palapeli_servicemenu.desktop DESTINATION ${KDE_INSTALL_DATADIR}/kio/servicemenus)
 
 # thumbnail creator plugin
 add_library(palathumbcreator MODULE thumbnail-creator.cpp)
