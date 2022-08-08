@@ -33,13 +33,20 @@ void Palapeli::ImportHelper::doWork()
 	//show notification
 	puzzle->get(Palapeli::PuzzleComponent::Metadata);
 	const Palapeli::MetadataComponent* cmp = puzzle->component<Palapeli::MetadataComponent>();
+	puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage);
 	if (cmp)
 	{
-		KNotification::event(QStringLiteral("importingPuzzle"),
+		auto *noti = KNotification::event(QStringLiteral("importingPuzzle"),
 			i18n("Importing puzzle \"%1\" into your collection", cmp->metadata.name),
 			QPixmap::fromImage(cmp->metadata.thumbnail)
 		);
+
+		// Delay quitting until the notification expires
+		// Otherwise the notification is never shown
+		connect(noti, &KNotification::closed, this, []{
+			qApp->quit ();
+		});
+	} else {
+		qApp->quit ();
 	}
-	puzzle->get(Palapeli::PuzzleComponent::ArchiveStorage);
-	qApp->quit ();
 }
