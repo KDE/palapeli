@@ -17,6 +17,8 @@
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
+#include <iostream>
+
 int main(int argc, char** argv)
 {
     // Fixes blurry icons with fractional scaling
@@ -49,10 +51,17 @@ int main(int argc, char** argv)
 
 
     //NOTE: Syntax errors are reported on stderr, while file errors are presented to the user.
-    if (parser.isSet(QStringLiteral("import")))
+
+    if (parser.isSet(QStringLiteral("import"))) {
         //perform import request
-        new Palapeli::ImportHelper(parser.value(QStringLiteral("import")));
-    else {
+
+        if (parser.positionalArguments().isEmpty()) {
+            std::cout << i18n("No file to import given").toStdString() << std::endl;
+            return 1;
+        }
+
+        new Palapeli::ImportHelper(parser.positionalArguments().first());
+    } else {
         const QStringList args = parser.positionalArguments();
         QString path;
         if (!args.isEmpty()) {
