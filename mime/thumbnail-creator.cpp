@@ -26,6 +26,13 @@ extern "C"
 	}
 }
 
+class KIOPluginForMetaData : public QObject
+{
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID "KIOPluginForMetaData" FILE "palathumbcreator.json")
+};
+
+
 bool Palapeli::ThumbCreator::create(const QString& path, int width, int height, QImage& image)
 {
 	Q_UNUSED(width) Q_UNUSED(height) //NOTE: The ThumbCreator APIDOX says that these params should be ignored for images read from the disk.
@@ -41,3 +48,5 @@ bool Palapeli::ThumbCreator::create(const QString& path, int width, int height, 
 	image.load(cachePath + QLatin1String("image.jpg"));
 	return true;
 }
+
+#include "thumbnail-creator.moc"

@@ -1,0 +1,9 @@
+{
+    "CacheThumbnail": true,
+    "KPlugin": {
+        "MimeTypes": [
+            "application/x-palapeli-puzzle"
+        ],
+        "Name": "Palapeli puzzles"
+    }
+}
