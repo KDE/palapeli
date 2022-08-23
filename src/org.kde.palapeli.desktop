@@ -92,7 +92,6 @@ GenericName[uk]=Гра у складанку
 GenericName[x-test]=xxJigsaw puzzle gamexx
 GenericName[zh_CN]=拼图游戏
 GenericName[zh_TW]=拼圖式遊戲
-Terminal=false
 Icon=palapeli
 StartupNotify=true
 Categories=Qt;KDE;Game;LogicGame;
