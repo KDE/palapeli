@@ -34,7 +34,9 @@ int main(int argc, char** argv)
                      QStringLiteral(PALAPELI_VERSION_STRING),
                      i18n("Jigsaw Puzzle Game"),
                      KAboutLicense::GPL,
-                     i18n("Copyright 2009, 2010, Stefan Majewsky"));
+                     i18n("Copyright 2009, 2010, Stefan Majewsky"),
+                     QString(),
+                     QStringLiteral("https://apps.kde.org/palapeli"));
     about.addAuthor(i18n("Stefan Majewsky"), QString(), QStringLiteral("majewsky@gmx.net"), QStringLiteral("https://majewsky.wordpress.com/"));
     about.addCredit (i18n ("Johannes Loehnert"),
             i18n ("The option to preview the completed puzzle"),
