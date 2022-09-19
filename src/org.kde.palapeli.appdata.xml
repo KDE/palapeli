@@ -212,9 +212,11 @@
     </screenshot>
   </screenshots>
   <url type="homepage">https://apps.kde.org/palapeli/</url>
+  <url type="help">https://docs.kde.org/?application=palapeli</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=palapeli</url>
   <url type="donation">https://www.kde.org/community/donations/?app=palapeli&amp;source=appdata</url>
   <project_group>KDE</project_group>
+  <launchable type="desktop-id">org.kde.palapeli.desktop</launchable>
   <provides>
     <binary>palapeli</binary>
   </provides>
