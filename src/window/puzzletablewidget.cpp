@@ -13,10 +13,11 @@
 #include "palapeli_debug.h"
 
 #include <QToolBar>
-#include <QGridLayout>
 #include <QProgressBar>
 #include <QStackedWidget>
 #include <KLocalizedString>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 //BEGIN Palapeli::TextProgressBar
 

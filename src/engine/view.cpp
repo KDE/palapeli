@@ -17,7 +17,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
-#include <QApplication>
 #include <QScreen>
 
 #include <QTimer>

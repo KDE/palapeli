@@ -12,7 +12,6 @@
 #include "palapeli_debug.h"
 #include <QImage>
 #include <QPainter>
-#include <QtMath>
 
 //BEGIN shadow blur algorithm
 

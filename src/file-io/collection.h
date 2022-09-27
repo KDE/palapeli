@@ -8,7 +8,6 @@
 #define PALAPELI_COLLECTION_H
 
 #include <QStandardItemModel>
-#include <QMutex>
 
 class KConfig;
 class KConfigGroup;
