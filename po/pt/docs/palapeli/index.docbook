@@ -1,0 +1,720 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+<!ENTITY palapeli "<application
+>Palapeli</application
+>">
+<!ENTITY psc "<application
+>Palapeli Slicer Collection</application
+>">
+<!ENTITY kappname "&palapeli;">
+<!ENTITY package "kdegames">
+<!ENTITY % Portuguese "INCLUDE">
+<!ENTITY % addindex "IGNORE">
+]>
+
+<book id="palapeli" lang="&language;">
+	<bookinfo>
+		<title
+>O Manual do &palapeli;</title>
+		<authorgroup>
+			<author
+><firstname
+>Johannes</firstname
+> <surname
+>L&#xF6;hnert</surname
+> <affiliation
+><address
+><email
+>loehnert_kde@gmx.de</email
+></address
+></affiliation>
+			</author>
+			<author
+><firstname
+>Stefan</firstname
+> <surname
+>Majewsky</surname
+> <affiliation
+><address
+><email
+>majewsky@gmx.net</email
+></address
+></affiliation>
+			</author>
+			<othercredit role="translator"
+><firstname
+>José</firstname
+><surname
+>Pires</surname
+><affiliation
+><address
+><email
+>zepires@gmail.com</email
+></address
+></affiliation
+><contrib
+>Tradução</contrib
+></othercredit
+> 
+		</authorgroup>
+
+		<copyright>
+			<year
+>2009, 2010</year>
+			<holder
+>Johannes L&#xF6;hnert, Stefan Majewsky</holder>
+		</copyright>
+		<legalnotice
+>&FDLNotice;</legalnotice>
+		<date
+>2010-11-29</date>
+		<releaseinfo
+>1.2</releaseinfo>
+
+		<abstract>
+			<para
+>Este é o manual do &palapeli;, um jogo de 'puzzles' baseado na tecnologia do &kde;.</para>
+		</abstract>
+		<keywordset>
+			<keyword
+>KDE</keyword>
+			<keyword
+>kdegames</keyword>
+			<keyword
+>jogo</keyword>
+			<keyword
+>jogo de 'puzzle'</keyword>
+			<keyword
+>'puzzle'</keyword>
+			<keyword
+>palapeli</keyword>
+		</keywordset>
+	</bookinfo>
+
+	<chapter id="introduction">
+		<title
+>Introdução</title>
+		<para
+>O &palapeli; é um jogo de 'puzzles' para um único jogador.</para>
+		<para
+>A janela do &palapeli; está dividida em duas áreas, a colecção e a mesa. Este manual irá prosseguir com a descrição destas duas áreas.</para>
+	</chapter>
+
+	<chapter id="collection">
+		<title
+>Navegar pela colecção de 'puzzles'</title>
+		<para
+>Quando lançar o &palapeli; pela primeira vez, a sua colecção de 'puzzles' é previamente carregada com alguns 'puzzles' que vêm com o &palapeli;. Carregue num dos 'puzzles' para começar a jogar imediatamente. O jogo toma lugar na mesa do 'puzzle'; veja a <link linkend="puzzletable"
+>secção seguinte</link
+> para saber como usar a mesa do 'puzzle'.</para>
+		<para
+>Para além de seleccionar um 'puzzle', a colecção de 'puzzles' poderá ser usada para as seguintes acções:</para>
+		<itemizedlist>
+			<listitem
+><para
+><emphasis
+>criar</emphasis
+> 'puzzles' novos, a partir de imagens no seu disco</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>importar</emphasis
+> os 'puzzles' feitos por outros</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>exportar</emphasis
+> os 'puzzles', de modo a partilhá-los com os seus amigos e com todo o mundo</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>apagar</emphasis
+> os 'puzzles' que não necessita mais</para
+></listitem>
+		</itemizedlist>
+		<para
+>A secção seguinte mostra como efectuar estas tarefas com os botões da barra de ferramentas.</para>
+		<sect1 id="toolbars-collection">
+			<title
+>Introdução à barra de ferramentas</title>
+			<note
+><para
+>Poderá seleccionar os 'puzzles' na lista, carregando para tal no &Ctrl; e no &LMB; em conjunto. Se carregar no &LMB; ou no &RMB; sem o &Ctrl;, irá abrir o 'puzzle' em questão na mesa do 'puzzle'.</para
+></note>
+			<variablelist>
+				<varlistentry>
+					<term
+><guiicon
+>Criar um novo 'puzzle'</guiicon
+></term>
+					<listitem>
+						<para
+><action
+>Abre uma janela que lhe permite criar um 'puzzle' a partir de uma imagem no seu disco.</action
+> Veja a <link linkend="create-puzzles"
+>secção seguinte</link
+> para obter mais detalhes.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Apagar</guiicon
+></term>
+					<listitem
+><para
+><action
+>Todos os 'puzzles' que tiver seleccionado na lista de 'puzzles' serão removidos permanentemente da sua biblioteca. </action
+></para
+><warning
+><para
+>Esta acção não poderá ser anulada.</para
+></warning
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Importar de ficheiro</guiicon
+></term>
+					<listitem
+><para
+><action
+>Quando tiver recebido um ficheiro de 'puzzle' do &palapeli; (que poderá ser normalmente reconhecido pela extensão <literal role="extension"
+>*.puzzle</literal
+>), poderá usar esta acção para o importar para a sua colecção local.</action
+> Também poderá montar um 'puzzle', carregando simplesmente num ficheiro de 'puzzle' a partir do seu gestor de ficheiros preferido só que, após a importação, o 'puzzle' irá aparecer na sua colecção local, pelo que poderá apagar em segurança o ficheiro do 'puzzle' obtido.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Exportar para ficheiro</guiicon
+></term>
+					<listitem
+><para
+><action
+>Isto irá exportar os 'puzzles' seleccionados de momento para ficheiros, de modo a poder dá-los aos seus amigos, publicá-los na Web ou criar cópias de segurança da sua colecção.</action
+></para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="create-puzzles">
+		<title
+>Criar 'puzzles' novos</title>
+		<para
+>Como foi descrito na <link linkend="collection"
+>secção anterior</link
+>, poderá criar 'puzzles' novos s carregar no botão <guiicon
+>Criar um novo 'puzzle'</guiicon
+> na colecção de 'puzzles'.</para>
+		<para
+>Se carregar neste botão, irá abrir a janela de criação de 'puzzles', que consiste em três páginas:</para>
+		<procedure>
+			<step
+><para
+>Na primeira página, seleccione um ficheiro de imagem que será dividida em peças. Certifique-se que introduz os meta-dados correctos para a imagem: Deverá atribuir o autor da imagem (&eg; o fotógrafo ou o pintor); respeite por favor os direitos de cópia do autor da imagem.</para
+></step>
+			<step
+><para
+>Na segunda página, poderá seleccionar o tipo de peças em que ficará dividida a imagem. O &palapeli; vem com uma colecção de divisões pré-instaladas, mas poderá usar as divisões criadas por terceiros.</para
+></step>
+			<step
+><para
+>Na página final da janela, a divisão seleccionada poderá ser ainda personalizada &eg; ao escolher um número de peças diferente ou ajustando os parâmetros da forma da peça. O conjunto de peças disponível depende da divisão que tiver sido seleccionada.</para
+></step>
+		</procedure>
+		<para
+>Este manual irá continuar a descrever as divisões que vêm com o &palapeli;. Se tiver transferido um 'plugin' de divisão de terceiros para o &palapeli;, veja por favor a documentação deste 'plugin' caso tenha problemas a instalá-lo ou a usá-lo no seu sistema.</para>
+		<sect1 id="psc">
+			<title
+>&psc;</title>
+			<para
+>O &psc; produz peças de 'puzzle' realistas com diversos padrões básicos:</para>
+			<variablelist>
+				<varlistentry>
+					<term
+>Grelha rectangular</term>
+					<listitem
+><para
+>Contém as peças rectangulares, já bastante conhecidas.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Grelha Cairo</term>
+					<listitem
+><para
+>Com as suas peças pentagonais e ângulos de arestas irregulares, é relativamente difícil de compor, dado que as peças se encaixam em conjunto de uma forma não-familiar.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Grelha hexagonal</term>
+					<listitem
+><para
+>Produz peças hexagonais, organizadas como células em favos.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Grelha Rotrex</term>
+					<listitem
+><para
+>Através de uma composição especial de peças triangulares, hexagonais e rectangulares, as peças formam um padrão que faz lembrar vários círculos em intersecção.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Grelha irregular</term>
+					<listitem
+><para
+>Esta grelha está disponível apenas se tiver instalado o <application
+>qvoronoi</application
+> do <ulink url="http://www.qhull.org"
+>pacote <application
+>qhull</application
+></ulink
+>. O <application
+>qvoronoi</application
+> é usado para calcular formas de peças irregulares a partir de vários pontos colocados de forma aleatória.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+			<para
+>O &psc; tem vários parâmetros que controlam a aparência das arestas das peças, especialmente os encaixes nas mesmas. São fornecidos valores por omissão para todos estes parâmetros. Está disponível um modo de predefinição adicional que reduz a quantidade de parâmetros ao mínimo necessário. Normalmente, estão disponíveis os seguintes parâmetros:</para>
+			<variablelist>
+				<varlistentry>
+					<term
+>Número aprox. de peças</term>
+					<listitem
+><para
+></para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Percentagem de lados invertidos</term>
+					<listitem
+><para
+>A probabilidade de cada encaixe ficar invertido. Um encaixe é considerado invertido se apontar na direcção oposta a que deveria apontar numa grelha completamente regular. Na grelha rectangular, isso resulta em peças com 3 ou 4 encaixes que apontam para dentro ou para fora, respectivamente. Posicione a barra à esquerda para obter uma grelha perfeitamente regular. No meio, a orientação dos encaixes é aleatória. À direita, a grelha fica regular de novo, mas com uma regra "alternada". Isto <emphasis
+>não</emphasis
+> significa uma inversão de todos os encaixes: Na grelha regular alternada, por exemplo, cada peça tem quatro encaixes que apontam para dentro ou para fora. Esta opção não faz efeito na grelha irregular.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Curvatura das arestas</term>
+					<listitem
+><para
+>Define quão curvilíneas são as peças, &ie; com que força os contornos sobressaem ou se recolhem. Mova a barra para o extremo esquerdo para obter linhas de arestas rectas (excepto nos encaixes).</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Tamanho do encaixe</term>
+					<listitem
+><para
+>Define o tamanho da parte do encaixe de cada aresta. A opção por omissão (no meio da barra) é escolhida de forma para parecer um 'puzzle' real. A barra vai de 50% até 150% deste tamanho, o que irá parecer desmesuradamente grande. O programa tenta ao máximo evitar as colisões entre encaixes. As arestas em colisão são reorganizadas várias vezes e encolhidas em pequenos passos. Contudo, existem ainda alguns casos em que não seja possível achar uma solução, especialmente no caso de tamanhos de encaixes grandes.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Diversidade das curvas</term>
+					<listitem
+><para
+>Define como é que a curvatura (ver acima) varia entre arestas. Mova a barra para a esquerda para fazer com que as reentrâncias se pareçam todas iguais entre si. À direita, poderão existir alguns contornos muito rectos ou muito curvilíneos.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Diversidade da posição do encaixe</term>
+					<listitem
+><para
+>Define como é que a posição do encaixe na aresta varia. No extremo esquerdo, os encaixes ficam fixos no meio da sua aresta.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Diversidade dos encaixes</term>
+					<listitem
+><para
+>Define quão individuais ficam os encaixes. No extremo esquerdo, os encaixes parecem todos iguais. No extremo direito, cada encaixe será uma peça de arte única desenhada especialmente para si.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Irr.: Diversidade do tamanho das peças</term>
+					<listitem
+><para
+>Apenas na grelha irregular: Define como é que o tamanho da peça varia. Uma opção muito baixa corresponde a uma variação praticamente nula, onde poderá aparecer uma estrutura ligeiramente cristalizada. Os valores mais altos produzem peças muito grandes e muito pequenas.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Apresentar a imagem da grelha</term>
+					<listitem
+><para
+>Grava uma imagem da grelha (arestas pretas num fundo branco) em <filename
+>~/goldberg-slicer-dump.png</filename
+>. Se já existir uma gravação anterior, será sobreposta.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="legacy-slicers">
+			<title
+>Divisões legadas</title>
+			<para
+>Por razões históricas, o &palapeli; também inclui as divisões &quot;Peças de 'puzzle' clássicas&quot; e &quot;Peças rectangulares&quot;. Estas divisões criam peças rectangulares simples com ou sem encaixes. Ambas as divisões permitem ajustar o número de peças e as proporções. Se arrastar a barra da proporção para a esquerda, irá resultar em peças altas, enquanto se arrastar para a direita produz peças largas. A selecção por omissão produz peças aproximadamente quadradas.</para>
+		</sect1>
+	</chapter>
+
+	<chapter id="puzzletable">
+		<title
+>Jogar na mesa do 'puzzles'</title>
+		<screenshot
+><mediaobject>
+			<imageobject
+><imagedata fileref="puzzletable1.png" format="PNG"/></imageobject>
+			<textobject
+><phrase
+>A mesa do 'puzzle' (detalhe)</phrase
+></textobject>
+		</mediaobject
+></screenshot>
+		<para
+>O objectivo do jogo é juntar as peças indicadas numa imagem.</para>
+		<para
+>As peças podem ser movidas à vontade, carregando e arrastando as mesmas com o &LMB;. Poderá seleccionar várias peças de uma vez, mantendo pressionada a tecla &Ctrl; e carregando nelas, ou arrastando uma área em torno delas com o &LMB;.</para>
+		<para
+>Poderá mover as peças à vontade, bastando carregar nelas e arrastá-las. Quando colocar uma peça próxima de outra peça vizinha, ambas ficarão coladas automaticamente (1). Depois de se terem encaixado, já não podem ser mais separadas. Ao contrário da realidade, não poderá combinar duas peças que não sejam verdadeiramente vizinhas.</para>
+		<para
+>A barra de progresso, por baixo da mesa do 'puzzle', indica a sua evolução (2). O &palapeli; irá gravar automaticamente o seu progresso após cada jogada, pelo que não terá de se preocupar em gravar explicitamente.</para>
+		<para
+>Com a roda do rato, ou com a barra no canto inferior direito (3), poderá alterar o nível de ampliação da mesa do 'puzzle'. Se carregar com o &RMB;, poderá mover a área de visualização da mesma.</para>
+		<para
+>O movimento das peças é limitado pela <emphasis
+>área da mesa do 'puzzle'</emphasis
+>. Esta área está representada no fundo da mesa do 'puzzle' por uma sombra rectangular clara. Quando mover as peças para o extremo da área da mesa do 'puzzle' (4), a área irá expandir automaticamente, de modo a ter mais espaço para movimentar as suas peças. Perto dos contornos sombreados, o cursor do rato muda para uma seta de duas pontas, a qual indica que poderá ajustar a área da mesa do 'puzzle' se carregar e arrastar a mesma com o &LMB;.</para>
+		<para
+>Poderá bloquear a área da mesa do 'puzzle' com o pequeno botão (5), logo a seguir à barra de progresso. A área em torno da mesa do 'puzzle' (4) irá escurecer e as peças irão parar e mover-se-ão para os extremos da área da mesa. Continua a ser possível ajustar manualmente a área da mesa do 'puzzle'.</para>
+		<sect1 id="puzzletable-mouseactions">
+			<title
+>Interacções com o rato</title>
+			<para
+>Como foi descrito na secção anterior, existem diversas formas de interagir com a mesa do 'puzzle' do &palapeli;, usando para tal o rato. Poderá configurar à vontade as acções que são despoletadas por determinados botões do rato. (Veja a secção de <link linkend="configuration-mouseactions"
+>Configuração do Jogo</link
+> para obter mais informações sobre a configuração). A seguinte lista resume todas as acções do rato possíveis:</para>
+			<variablelist>
+				<varlistentry>
+					<term
+><action
+>Mudar o tamanho da mesa do puzzle ao arrastar os seus extremos</action
+></term>
+					<listitem
+><para
+>Por omissão, esta acção está associada ao &LMB;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Mover as peças por arrastamento</action
+></term>
+					<listitem
+><para
+>Quando carregar e arrastar uma peça do 'puzzle', esta peça será movida. Se estiverem várias peças seleccionadas e depois carregar e arrastar uma delas, então todas as peças mover-se-ão. Por omissão, esta acção está associada ao &LMB;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Mover a área de visualização por arrastamento</action
+></term>
+					<listitem
+><para
+>Por omissão, esta acção está associada ao &RMB;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Seleccionar várias peças de uma vez</action
+></term>
+					<listitem
+><para
+>Quando carregar numa área vazia da mesa do 'puzzle', em vez de carregar numa peça, poderá arrastar uma área inteira. Quando largar o botão do rato, todas as peças dentro dessa área ficarão seleccionadas. Todas as outras peças ficarão desmarcadas. Por omissão, esta acção está associada ao &LMB;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Seleccionar as peças ao carregar</action
+></term>
+					<listitem
+><para
+>Quando carregar numa única peça do 'puzzle', esta ficará seleccionada. Se já estava seleccionada, deixará de o estar. Por omissão, esta acção é atribuída ao &LMB; e só fica disponível quando tiver o &Ctrl; carregado.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Comutar o estado de bloqueio da área da mesa do 'puzzle'</action
+></term>
+					<listitem
+><para
+>Esta acção é idêntica a carregar no botão (5) da barra de estado. Por omissão, esta acção não está associada a nenhum botão do rato, mas você podê-la-á activar com a <link linkend="configuration-mouseactions"
+>janela de configuração</link
+>.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Deslocar a área de visualização na horizontal</action
+> e <action
+>Deslocar a área de visualização na vertical</action
+></term>
+					<listitem
+><para
+>Por omissão, esta acção está associada à roda do rato, mas podê-la-á activar com a <link linkend="configuration-mouseactions"
+>janela de configuração</link
+>.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Ampliar a área de visualização</action
+></term>
+					<listitem
+><para
+>Esta acção é idêntica a mover a barra deslizante (3) na barra de estado. Esta acção está atribuída à roda do rato, por omissão.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="toolbars-puzzletable">
+			<title
+>Introdução à barra de ferramentas</title>
+			<variablelist>
+				<varlistentry>
+					<term
+><guiicon
+>Reiniciar o 'puzzle'</guiicon
+></term>
+					<listitem
+><para
+><action
+>Elimina o progresso gravado para este 'puzzle'.</action
+></para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="interface">
+		<title
+>Apresentação à Interface</title>
+		<para
+>A duas áreas do &palapeli;, a colecção e a mesa, estão incorporadas no menu como páginas. Existem também dois menus com acções-padrão, os quais estão descritos em baixo.</para>
+		<sect1 id="settings-menu">
+			<title
+>O Menu <guimenu
+>Configuração</guimenu
+></title>
+			<variablelist>
+				<varlistentry>
+					<term
+><menuchoice
+><guimenu
+>Configuração</guimenu
+><guimenuitem
+>Mostrar a barra de estado da mesa</guimenuitem
+></menuchoice
+></term>
+					<listitem
+><para
+><action
+>Activar ou desactiva a visualização da barra de progresso e os botões respectivos, por baixo da mesa do 'puzzle'.</action
+> Esta acção não irá mudar nada na colecção de 'puzzles'.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><menuchoice
+><guimenu
+>Configuração</guimenu
+><guimenuitem
+>Configurar os Atalhos...</guimenuitem
+></menuchoice
+></term>
+					<listitem
+><para
+><action
+>Abre uma janela onde poderá configurar as teclas de atalho</action
+> do &palapeli;</para
+></listitem>
+				</varlistentry>
+				<varlistentry id="settings-menu-configure">
+					<term
+><menuchoice
+><guimenu
+>Configuração</guimenu
+><guimenuitem
+>Configurar o &palapeli;...</guimenuitem
+></menuchoice
+></term>
+					<listitem
+><para
+>Abre uma janela de configuração do jogo. Veja a secção da <link linkend="configuration"
+>Configuração do Jogo</link
+> para mais detalhes.</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="help">
+			<title
+>O Menu <guimenu
+>Ajuda</guimenu
+></title>
+&help.menu.documentation; </sect1>
+	</chapter>
+
+	<chapter id="configuration">
+		<title
+>Configuração do Jogo</title>
+		<para
+>Para abrir a janela de configuração, use a opção do menu: <menuchoice
+><guimenu
+>Configuração</guimenu
+><guimenuitem
+>Configurar o &palapeli;...</guimenuitem
+></menuchoice
+></para>
+		<sect1 id="configuration-general">
+			<title
+><guilabel
+>Configuração geral</guilabel
+></title>
+			<variablelist>
+				<varlistentry>
+					<term
+><guilabel
+>Fundo</guilabel
+></term>
+					<listitem
+><para
+><action
+>Permite-lhe escolher outra textura de fundo para a mesa do 'puzzle'.</action
+> Se escolher uma única cor, em vez de uma textura, o botão por baixo da área de selecção poderá ser usado para definir essa tal cor única.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guilabel
+>Aparência das peças</guilabel
+></term>
+					<listitem
+><para
+><action
+>Controla a aparência das peças na mesa do 'puzzle'.</action
+> Se o &palapeli; estiver a executar de forma lenta ou quando os 'puzzles' levam muito tempo a abrir, poderá desactivar os efeitos gráficos nesta categoria para acelerar tudo.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guilabel
+>Precisão do ajuste</guilabel
+></term>
+					<listitem
+><para
+><action
+>Permite-lhe seleccionar quão próximas as peças vizinhas deverão estar para se encaixarem em conjunto.</action
+> Se mover a barra mais para a direita, as peças encaixar-se-ão mesmo que não estejam muito próximas. Isto torna o jogo um pouco mais simples de jogar.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="configuration-mouseactions">
+			<title
+><guilabel
+>Interacção do rato</guilabel
+></title>
+			<para
+>Esta página da janela de configuração permite-lhe atribuir as interacções do rato descritas na secção <link linkend="puzzletable-mouseactions"
+>Jogar na mesa do 'puzzle'</link
+> aos diferentes botões do rato. As interacções são divididas entre as que podem ser atribuídas aos botões do rato (&eg; <action
+>Mover a área de visualização por arrastamento</action
+>) e as que podem ser atribuídas à roda do rato (&eg; <action
+>Deslocar a área de visualização na horizontal</action
+>).</para>
+			<sect2>
+				<title
+>Página de <guilabel
+>Botões do rato</guilabel
+></title>
+				<para
+>A seguir ao nome de cada interacção, existe um botão com uma imagem de um rato de computador que mostra a acção atribuída de momento. Poderá configurar a interacção, carregando para tal nesse botão com o &LMB; e depois com o botão do rato que deseja atribuir a essa interacção. Se carregar em teclas modificadoras, quando carregar pela segunda vez, a mesa do 'puzzle' irá permitir essa interacção apenas quando estiver a pressionar essas teclas.</para>
+				<tip
+><para
+>Em vez de carregar, poderá também pressionar a tecla <keycap
+>Espaço</keycap
+>, de modo a atribuir o <guilabel
+>Sem-Botão</guilabel
+> especial a esta interacção. Isto só é permitido caso as teclas modificadoras estejam a ser pressionadas. O <guilabel
+>Sem-Botão</guilabel
+> significa que as teclas modificadoras irão ocupar o papel do botão do rato. A interacção começa quando carregar nas teclas modificadoras, terminando quando uma delas for libertada.</para
+></tip>
+			</sect2>
+			<sect2>
+				<title
+>Página da <guilabel
+>Roda do rato</guilabel
+></title>
+				<para
+>Esta página funciona de forma semelhante à anterior. Quando o botão à direita pedir a introdução de dados, terá de movimentar a roda do rato em vez de carregar num botão do mesmo. Também é permitido manter pressionadas as teclas modificadoras, tendo a mesma consequência que o caso anterior.</para>
+				<tip
+><para
+>Se o seu rato tiver uma roda bidireccional (como acontece normalmente nos ratos por toque dos portáteis), poderá tirar partido desta: O botão irá reconhecer se  o utilizador moveu a roda na horizontal ou na vertical.</para
+></tip>
+			</sect2>
+		</sect1>
+	</chapter>
+
+	<chapter id="credits">
+		<title
+>Créditos e Licença</title>
+		<para
+>O &palapeli; permite trazer a diversão e o desafio dos 'puzzles' para o seu ambiente de trabalho.</para>
+		<para
+>A ideia foi desenvolvida em primeiro lugar por Bernhard Schiffner, em conjunto com o Stefan Majewsky, que é o actual programador-chefe do &palapeli;. O &psc; foi contribuído por Johannes L&#xF6;hnert.</para>
+		<para
+>Documentação com 'copyright' 2009, 2010 Johannes L&#xF6;hnert, Stefan Majewsky.</para>
+		<para
+>Tradução de José Nuno Pires <email
+>zepires@gmail.com</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+	<appendix id="installation">
+		<title
+>Instalação</title>
+		&install.intro.documentation;
+		<sect1 id="Compilation">
+			<title
+>Compilação e Instalação</title>
+&install.compile.documentation; </sect1>
+	</appendix>
+	&documentation.index;
+</book>

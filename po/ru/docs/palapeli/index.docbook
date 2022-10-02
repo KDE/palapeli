@@ -1,0 +1,520 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+<!ENTITY palapeli "<application
+>Palapeli</application
+>">
+<!ENTITY kappname "&palapeli;">
+<!ENTITY package "kdegames">
+<!ENTITY % Russian "INCLUDE">
+<!ENTITY % addindex "IGNORE">
+]>
+
+<book lang="&language;">
+	<bookinfo>
+		<title
+>Руководство пользователя &palapeli;</title>
+		<authorgroup>
+			<author
+><firstname
+>Stefan</firstname
+> <surname
+>Majewsky</surname
+> <affiliation
+><address
+><email
+>majewsky@gmx.net</email
+></address
+></affiliation>
+			</author>
+			<othercredit role="translator"
+><firstname
+>Максим</firstname
+><surname
+>Воробьёв</surname
+><affiliation
+><address
+> <email
+>vmax0770@gmail.com</email
+></address
+></affiliation
+><contrib
+>Перевод на русский язык</contrib
+></othercredit
+> 
+		</authorgroup>
+
+		<copyright>
+			<year
+>2009, 2010</year>
+			<holder
+>Stefan Majewsky</holder>
+		</copyright>
+		<legalnotice
+>&FDLNotice;</legalnotice>
+		<date
+>2010-05-24</date>
+		<releaseinfo
+>1.1</releaseinfo>
+
+		<abstract>
+			<para
+>Это — руководство по &palapeli;, мозаике, основанной на технологиях &kde;.</para>
+		</abstract>
+		<keywordset>
+			<keyword
+>KDE</keyword>
+			<keyword
+>kdegames</keyword>
+			<keyword
+>игра</keyword>
+			<keyword
+>игра-мозаика</keyword>
+			<keyword
+>мозаика-головоломка</keyword>
+			<keyword
+>palapeli</keyword>
+		</keywordset>
+	</bookinfo>
+
+	<chapter id="introduction">
+		<title
+>Введение</title>
+		<para
+>&palapeli; — мозаика для одного игрока.</para>
+		<para
+>Окно &palapeli; разделено на две части — коллекцию мозаик и игровую доску. Они будут описаны в данном руководстве.</para>
+	</chapter>
+
+	<chapter id="collection">
+		<title
+>Просмотр коллекции мозаик</title>
+		<para
+>При запуске &palapeli; впервые, в коллекции уже будет несколько мозаик, поставляющихся вместе с приложением. Щёлкните на одной из них, чтобы начать играть. Игра будет происходить на <link linkend="puzzletable"
+>игровой доске</link
+>.</para>
+		<para
+>Кроме выбора мозаик, коллекция может быть использована для:</para>
+		<itemizedlist>
+			<listitem
+><para
+><emphasis
+>создания</emphasis
+> новых мозаик из изображений</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>импорта</emphasis
+> мозаик, созданных другими</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>экспорта</emphasis
+> мозаик, чтобы поделиться ими с друзьями и со всем миром</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>удаления</emphasis
+> мозаик, не нужных вам</para
+></listitem>
+		</itemizedlist>
+		<para
+>Следующий раздел описывает, как выполнять эти действия с помощью панели инструментов.</para>
+		<sect1 id="toolbars-collection">
+			<title
+>Обзор панели инструментов</title>
+			<note
+><para
+>Можно выбирать мозаики из списка, нажимая &Ctrl; и левую кнопку мыши. Нажатие левой или правой кнопки мыши без &Ctrl; откроет мозаику.</para
+></note>
+			<variablelist>
+				<varlistentry>
+					<term
+><guiicon
+>Создать новую мозаику</guiicon
+></term>
+					<listitem>
+						<para
+><action
+>Открывает окно, позволяющее создать мозаику из изображения.</action
+> Введите корректные метаданные для изображения (например, имя художника или фотографа — уважайте их авторские права).</para>
+						<para
+>Также вам нужно будет выбрать тип мозаики. &palapeli; не ограничивает ее тип классической — другие также могут быть созданы сторонними разработчиками. У каждого типа мозаики могут быть свои параметры, как, например, число кусочков.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Удалить</guiicon
+></term>
+					<listitem
+><para
+><action
+>Выбранные мозаики будут удалены из коллекции навсегда. </action
+></para
+><warning
+><para
+>Это действие не может быть отменено.</para
+></warning
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Импортировать из файла</guiicon
+></term>
+					<listitem
+><para
+><action
+>Получив файл мозаики &palapeli; (обычно его можно распознать по расширению <literal role="extension"
+>*.puzzle</literal
+>), вы сможете использовать это действие для импортирования его в свою коллекцию.</action
+> Открыть мозаику можно, щёлкнув по ней в диспетчере файлов, но после импортирования Вы сможете удалить ее файл.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Экспортировать в файл</guiicon
+></term>
+					<listitem
+><para
+><action
+>Выбранные мозаки будут экспортированы в файлы. Вы сможете опубликовать их в интернете, поделиться с друзьями или создать резервную копию.</action
+></para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="puzzletable">
+		<title
+>Игровая доска</title>
+		<screenshot
+><mediaobject>
+			<imageobject
+><imagedata fileref="puzzletable1.png" format="PNG"/></imageobject>
+			<textobject
+><phrase
+>Игровая доска (детально)</phrase
+></textobject>
+		</mediaobject
+></screenshot>
+		<para
+>Цель игры — собрать все кусочки в картинку.</para>
+		<para
+>Кусочки можно свободно перемещать, щёлкая и перетаскивая их левой кнопкой мыши. Можно выбрать несколько кусочков, держа &Ctrl; и щлкая на них, или выделив их рамкой, удерживая левую клавишу мыши.</para>
+		<para
+>Когда Вы помещаете один кусочек рядом с другим, они автоматически соединяются (1). После соединения кусочки невозможно разъединить. Детали, не подходящие друг к другу, не соединятся.</para>
+		<para
+>Полоса, находящаяся под игровой доской, показывает игровой прогресс (2). &palapeli; автоматически сохраняет игру после каждого хода.</para>
+		<para
+>Вы можете изменять масштаб доски мозаик с помощью колеса мыши или ползунка в правом нижнем углу (3). Щёлкая и перетаскивая правой кнопкой мыши, вы можете менять вид игровой доски.</para>
+		<para
+>Движение кусочков ограничено <emphasis
+>частью игровой доски</emphasis
+>. Эта зона обозначена светлой прямоугольной тенью. При перемещении кусочков к границе (4), она автоматически расширится. При подведении курсора он изменит свою форму на двустороннюю стрелку, показывая, что можно изменить размер, щёлкая и перетаскивая границы левой кнопкой мыши.</para>
+		<para
+>Можно заблокировать часть игровой доски нажатием кнопки (5), находящейся справа от ползунка прогресса. Рамка вокруг игровой доски (4) потемнеет, и кусочки не будут передвигаться за её края. Размеры рамки можно изменить вручную.</para>
+		<sect1 id="puzzletable-mouseactions">
+			<title
+>Действия мышью</title>
+			<para
+>Как описано в предыдущем разделе, существует множество способов взаимодействовать с игровой доской &palapeli; при помощи мыши. Действия мышью можно настраивать (смотрите раздел <link linkend="configuration-mouseactions"
+>Настройка игры</link
+>). Здесь приведён список всех возможных действий:</para>
+			<variablelist>
+				<varlistentry>
+					<term
+><action
+>Изменить размер зоны игровой доски, перетаскивая её края</action
+></term>
+					<listitem
+><para
+>По умолчанию, это действие связано с левой кнопкой мыши.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Перемещать кусочки перетаскиванием</action
+></term>
+					<listitem
+><para
+>Когда вы щёлкаете на кусочке мозаики и перетаскиваете его, он будет перемещён. Если несколько кусочков выделено, и вы щёлкаете на одном из них, все кусочки будут перемещены. По умолчанию это действие связано с левой кнопкой мыши.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Перемещать зону просмотра с помощью перетаскивания</action
+></term>
+					<listitem
+><para
+>По умолчанию, это действие связано с правой кнопкой мыши.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Выбрать несколько кусочков</action
+></term>
+					<listitem
+><para
+>Щёлкая на игровой доске, а не на отдельном кусочке, можно использовать рамку. При её перетаскивании, все кусочки внутри выделяются. По умолчанию, это действие связано с левой кнопкой мыши.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Выбрать кусочки щелчком</action
+></term>
+					<listitem
+><para
+>Когда Вы щёлкаете на кусочке мозаики, он будет выбран. По умолчанию, это действие связано с левой кнопкой мыши и доступно только когда клавиша &Ctrl; нажата.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Заблокировать часть игровой доски.</action
+></term>
+					<listitem
+><para
+>Это действие аналогично нажатию кнопки (5) на строке состояния. По умолчанию, это действие не связано с мышью, но его можно <link linkend="configuration-mouseactions"
+>настроить</link
+>.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Перемещать зону просмотра по горизонтали</action
+> и <action
+>Перемещать зону просмотра по вертикали</action
+></term>
+					<listitem
+><para
+>По умолчанию, это действие не связано с колёсиком мыши, но его можно <link linkend="configuration-mouseactions"
+>настроить</link
+>.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Увеличить зону просмотра</action
+></term>
+					<listitem
+><para
+>Это действие аналогично перемещению ползунка (3) на строке состояния. Это действие связано с колёсиком мыши по умолчанию.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="toolbars-puzzletable">
+			<title
+>Обзор панели инструментов</title>
+			<variablelist>
+				<varlistentry>
+					<term
+><guiicon
+>Перезапустить игру</guiicon
+></term>
+					<listitem
+><para
+><action
+>Отменяет сохранённый прогресс для этой мозаики.</action
+></para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="interface">
+		<title
+>Обзор интерфейса</title>
+		<para
+>Две части &palapeli;, коллекция мозаик и игровая доска, встроены в меню как вкладки. Также есть два меню со стандартными действиями, описанными ниже.</para>
+		<sect1 id="settings-menu">
+			<title
+>Меню <guimenu
+>Настройка</guimenu
+></title>
+			<variablelist>
+				<varlistentry>
+					<term
+><menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Показывать строку состояния мозаичной доски</guimenuitem
+></menuchoice
+></term>
+					<listitem
+><para
+><action
+>Отображать полосу прогресса и кнопки под игровой доской.</action
+></para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Комбинации клавиш...</guimenuitem
+></menuchoice
+></term>
+					<listitem
+><para
+><action
+>Открыть окно с настройками комбинаций клавиш</action
+> для &palapeli;</para
+></listitem>
+				</varlistentry>
+				<varlistentry id="settings-menu-configure">
+					<term
+><menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Настроить &palapeli;...</guimenuitem
+></menuchoice
+></term>
+					<listitem
+><para
+>Открыть окно настройки игры (смотрите раздел <link linkend="configuration-mouseactions"
+>Настройка игры</link
+>)</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="help">
+			<title
+>Меню <guimenu
+>Справка</guimenu
+></title>
+&help.menu.documentation; </sect1>
+	</chapter>
+
+	<chapter id="configuration">
+		<title
+>Настройка игры</title>
+		<para
+>Чтобы открыть окно настройки, используйте меню: <menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Настроить &palapeli;...</guimenuitem
+></menuchoice
+></para>
+		<sect1 id="configuration-general">
+			<title
+><guilabel
+>Основные параметры</guilabel
+></title>
+			<variablelist>
+				<varlistentry>
+					<term
+><guilabel
+>Фон</guilabel
+></term>
+					<listitem
+><para
+><action
+>Позволяет выбрать другой фон для игровой доски.</action
+> При выборе цвета вместо текстуры, можно нажать кнопку перед списком для выбора этого цвета.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guilabel
+>Точность присоединения</guilabel
+></term>
+					<listitem
+><para
+><action
+>Позволяет выбрать, как близко должны находиться кусочки для присоединения.</action
+> При перемещении ползунка вправо, кусочки будут соединяться, даже если не находятся очень близко. Это делает игру проще.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="configuration-mouseactions">
+			<title
+><guilabel
+>Действия мышью</guilabel
+></title>
+			<para
+>Этот раздел настройки позволяет назначить действия мышью, описанные в разделе <link linkend="puzzletable-mouseactions"
+>Игровая доска</link
+>, различным кнопкам мыши. Действия разделяются на те, которые можно назначить кнопкам (например, <action
+>перемещение зоны просмотра с помощью перетаскивания</action
+>) и те, которые назначаются колесу мыши (например, <action
+>перемещать зоны просмотра по горизонтали</action
+>).</para>
+			<sect2>
+				<title
+><guilabel
+>Действия мышью</guilabel
+></title>
+				<para
+>После каждого названия находится кнопка с изображением мыши, показывающая текущее присоединённое действие. Действия можно настроить, щёлкая на ней левой кнопкой мыши, а затем, той кнопкой мыши, которую вы хотите назначить. Если держать клавиши-модификаторы во время второго щелчка, они будут добавлены комбинации.</para>
+				<tip
+><para
+>Вместо щелчка, вы также можете нажать <keycap
+>Пробел</keycap
+>, чтобы привязать специальную кнопку <guilabel
+>«без нажатия»</guilabel
+> к этому действию.Это возможно только при комбинации клавиш с клавишами-модификаторами, так как они будут играть роль кнопок мыши. Действие начинается, когда нажаты клавиши-модификаторы и заканчивается, когда одна из них отпущена.</para
+></tip>
+			</sect2>
+			<sect2>
+				<title
+><guilabel
+>Колёсико мыши</guilabel
+></title>
+				<para
+>Эта вкладка работает так же, как и предыдущая. Во время второго нажатия следует повернуть колёсико мыши. Клавиши-модификаторы также позволяются.</para>
+				<tip
+><para
+>Если у вашей мыши двунаправленное колёсико (как на ноутбуках), кнопка распознает и горизонтальное, и вертикальное вращение.</para
+></tip>
+			</sect2>
+		</sect1>
+	</chapter>
+
+	<chapter id="credits">
+		<title
+>Права и лицензия</title>
+		<para
+>&palapeli; старается доставить удовольствие от игры в мозаику.</para>
+		<para
+>Идея впервые была разработана Bernhard Schiffner вместе со Stefan Majewsky, кто сейчас является ведущим разработчиком &palapeli;.</para>
+		<para
+>Документация: © 2009, 2010 Stefan Majewsky.</para>
+		<para
+>Перевод на русский: Воробьёв Максим <email
+>vmax0770@gmail.com</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+	<appendix id="installation">
+		<title
+>Установка</title>
+		&install.intro.documentation;
+		<sect1 id="Compilation">
+			<title
+>Сборка и установка</title>
+&install.compile.documentation; </sect1>
+	</appendix>
+	&documentation.index;
+</book>

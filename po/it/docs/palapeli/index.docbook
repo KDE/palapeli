@@ -1,0 +1,1518 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+<!ENTITY i18n-psc "<application
+>Raccolta di ritagli di Palapeli</application
+>">
+<!ENTITY % Italian "INCLUDE">
+<!ENTITY % addindex "IGNORE">
+]>
+
+<book id="palapeli" lang="&language;">
+  <bookinfo>
+    <title
+>Manuale di &palapeli;</title>
+    <authorgroup>
+      <author
+><firstname
+>Johannes</firstname
+> <surname
+>L&#xF6;hnert</surname
+> <affiliation
+><address
+><email
+>loehnert_kde@gmx.de</email
+></address
+></affiliation>
+      </author>
+      <author
+><firstname
+>Stefan</firstname
+> <surname
+>Majewsky</surname
+> <affiliation
+><address
+><email
+>majewsky@gmx.net</email
+></address
+></affiliation>
+      </author>
+      <author
+><firstname
+>Ian</firstname
+> <surname
+>Wadham</surname
+> <affiliation
+><address
+><email
+>iandw.au@gmail.com</email
+></address
+></affiliation>
+      </author>
+      <othercredit role="translator"
+><firstname
+>Valter</firstname
+><surname
+>Mura</surname
+><affiliation
+><address
+><email
+>valtermura@gmail.com</email
+></address
+></affiliation
+><contrib
+>Traduzione in italiano</contrib
+></othercredit
+> 
+    </authorgroup>
+
+    <copyright>
+      <year
+>2009, 2010</year>
+      <holder
+>Johannes L&#xF6;hnert, Stefan Majewsky</holder>
+    </copyright>
+    <copyright>
+      <year
+>2014</year>
+      <holder
+>Ian Wadham</holder>
+    </copyright>
+    <legalnotice
+>&FDLNotice;</legalnotice>
+    <date
+>2021-10-06</date>
+    <releaseinfo
+>2.1 (KDE Gear 21.08)</releaseinfo>
+
+    <abstract>
+      <para
+>Questo è il manuale di &palapeli;, un gioco di puzzle.</para>
+    </abstract>
+    <keywordset>
+      <keyword
+>KDE</keyword>
+      <keyword
+>kdegames</keyword>
+      <keyword
+>gioco</keyword>
+      <keyword
+>gioco puzzle</keyword>
+      <keyword
+>puzzle</keyword>
+      <keyword
+>Palapeli</keyword>
+    </keywordset>
+  </bookinfo>
+
+  <chapter id="introduction">
+    <title
+>Introduzione</title>
+    <para
+>&palapeli; è un gioco di puzzle per giocatore singolo. Con esso puoi creare e giocare con puzzle da 4 a 10.000 pezzi. Questa versione include funzionalità per aiutarti a risolvere puzzle grandi (di trecento pezzi o più) all'interno delle dimensioni di uno schermo di computer.</para>
+    <para
+>La finestra principale di &palapeli; è divisa in due aree, la raccolta e il tavoliere del puzzle.</para>
+    <para
+>Il manuale continua con la descrizione di queste due aree.</para>
+  </chapter>
+
+  <chapter id="collection">
+    <title
+>Sfogliare la raccolta del puzzle</title>
+    <sect1 id="play-maintain-collection">
+      <title
+>Giocare con i puzzle e aggiornare la raccolta</title>
+    <para
+>Quando avvii &palapeli; per la prima volta, la raccolta del tuo puzzle contiene già alcuni puzzle di esempio. Fai clic su uno di essi per iniziare subito a giocare. In seguito, una volta creati dei puzzle personali (vedi sotto), puoi farci sopra clic per iniziare a giocare.</para>
+    <para
+>La partita si svolge sul tavoliere; vedi <link linkend="puzzletable"
+>la sezione dopo la successiva</link
+> riguardante l'uso del tavoliere.</para>
+    <note
+><para
+>Puoi selezionare ed evidenziare i puzzle nell'elenco dei puzzle mantenendo premuto il tasto &Ctrl; facendo clic sul &LMB;. Se premi &LMB; o &RMB; senza il tasto &Ctrl; si apre quel puzzle per giocare nel tavoliere.</para>
+    <para
+>Per iniziare a giocare su &macOS; devi fare doppio clic col &LMB;. Il clic singolo seleziona ed evidenzia una voce nella lista dei puzzle.</para
+></note>
+    <para
+>Oltre che per giocare con un puzzle, puoi usare la raccolta di puzzle per le seguenti azioni:</para>
+    <itemizedlist>
+      <listitem
+><para
+><emphasis
+>creare</emphasis
+> nuovi puzzle da immagini sul tuo disco</para
+></listitem>
+      <listitem
+><para
+><emphasis
+>importare</emphasis
+> puzzle creati da altri</para
+></listitem>
+      <listitem
+><para
+><emphasis
+>esportare</emphasis
+> puzzle per condividerli con gli amici e il mondo</para
+></listitem>
+      <listitem
+><para
+><emphasis
+>eliminare</emphasis
+> puzzle non più necessari</para
+></listitem>
+    </itemizedlist>
+    <para
+>La sezione seguente mostra come eseguire queste operazioni con le icone delle azioni nella barra degli strumenti.</para>
+      </sect1>
+    <sect1 id="toolbar-collection">
+      <title
+>Panoramica della barra degli strumenti</title>
+      <variablelist>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Crea un nuovo puzzle...</guiicon
+></term>
+          <listitem>
+            <para
+><action
+>Apre una finestra che permette di creare un puzzle da un'immagine sul disco.</action
+> Vedi <link linkend="create-puzzles"
+>il capitolo seguente</link
+> per i dettagli.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="edit-delete.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Elimina puzzle</guiicon
+></term>
+          <listitem
+><para
+><action
+>Tutti i puzzle che hai selezionato nell'elenco saranno eliminati definitivamente dalla tua raccolta. </action
+></para
+><warning
+><para
+>Questa azione non può essere annullata.</para
+></warning
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="document-import.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Importa da file...</guiicon
+></term>
+          <listitem
+><para
+><action
+>Al ricevimento di un file puzzle &palapeli; (normalmente riconoscibile dall'estensione di file <literal role="extension"
+>.puzzle</literal
+>), puoi utilizzare questa azione per importarlo nella tua raccolta locale.</action
+> I file puzzle possono essere anche eseguiti facendovi semplicemente sopra clic all'interno del tuo gestore di file preferito, ma dopo l'importazione; il puzzle apparirà nella tua raccolta locale e sarà possibile eliminare il file scaricato.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="document-export.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Esporta su file...</guiicon
+></term>
+          <listitem
+><para
+><action
+>Questa azione esporterà i puzzle correntemente selezionati in file, per permetterti di regalarli ai tuoi amici, pubblicarli nel web o eseguire copie di sicurezza della tua raccolta.</action
+></para
+></listitem>
+        </varlistentry>
+      </variablelist>
+    </sect1>
+  </chapter>
+
+  <chapter id="create-puzzles">
+    <title
+>Creare nuovi puzzle</title>
+    <sect1 id="creation-dialog">
+    <title
+>La finestra di dialogo del puzzle</title>
+    <para
+>Come descritto nella <link linkend="toolbar-collection"
+>sezione precedente</link
+>, puoi creare nuovi puzzle facendo clic sull'icona dell'azione <inlinemediaobject
+><imageobject
+><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Crea un nuovo puzzle</guiicon
+> nella raccolta dei puzzle.</para>
+    <para
+>Facendo clic su questa icona dell'azione si apre la finestra per la creazione del puzzle, formata da tre pagine:</para>
+    <procedure>
+      <step
+><para
+>Nella prima pagina selezioni un file immagine presente sul disco, divisibile in pezzi. Assicurati di inserire i metadati corretti per l'immagine: devi indicare l'autore dell'immagine (per es., il fotografo o il disegnatore); rispetta il copyright dell'autore dell'immagine.</para
+></step>
+      <step
+><para
+>Nella seconda pagina, puoi selezionare il tipo di pezzi in cui l'immagine dovrà essere divisa. &palapeli; contiene una raccolta di tipi di ritagli preinstallati, ma potrebbero essere disponibili anche ritagli di terze parti.</para
+></step>
+      <step
+><para
+>Nella pagina finale della finestra può essere personalizzato il ritaglio selezionato, per es. scegliendo un numero di pezzi diverso oppure regolando i parametri della forma del pezzo. Il gruppo di opzioni disponibili dipende dal tipo di ritaglio selezionato.</para
+></step>
+    </procedure>
+    <para
+>Questo manuale continuerà la trattazione dei ritagli forniti con &palapeli;. Se hai scaricato  un'estensione di ritaglio di terze parti, fai riferimento alla documentazione dell'estensione, in caso di problemi durante l'installazione o il suo uso nel sistema.</para>
+    </sect1>
+    <sect1 id="simple-slicers">
+      <title
+>Ritagli semplici</title>
+      <para
+>&palapeli; include due tipi di ritagli semplici, <guilabel
+>pezzi classici</guilabel
+> e <guilabel
+>pezzi rettangolari</guilabel
+>. Questi ritagli creano pezzi rettangolari semplici con o senza tasselli.</para>
+      <para
+>Entrambi i ritagli permettono il conteggio dei pezzi e la regolazione delle proporzioni. Spostando il cursore <guilabel
+>Proporzioni pezzo</guilabel
+> verso sinistra si produrranno pezzi alti, regolandolo verso destra, pezzi larghi. La selezione predefinita produce pezzi più o meno quadrati.</para>
+    </sect1>
+    <sect1 id="psc">
+      <title
+>Il &i18n-psc; avanzato</title>
+      <para
+>Il &i18n-psc; produce pezzi a incastro realistici con diversi modelli base:</para>
+      <variablelist>
+        <varlistentry>
+            <term
+><guilabel
+>Griglia rettangolare</guilabel
+></term>
+          <listitem
+><para
+>Contiene i famosi pezzi rettangolari.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Griglia Cairo</guilabel
+></term>
+          <listitem
+><para
+>Con i suoi pezzi pentagonali e gli angoli degli spigoli diseguali è molto difficile risolvere il puzzle dato che i pezzi incastrano assieme in modo non comune.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Griglia esagonale</guilabel
+></term>
+          <listitem
+><para
+>Produce pezzi esagonali disposti a nido d'ape.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Griglia Rotrex</guilabel
+></term>
+          <listitem
+><para
+>Grazie a una speciale composizione di pezzi triangolari, esagonali e rettangolari, i pezzi formano un modello che assomiglia tanti cerchi intersecanti.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Griglia irregolare</guilabel
+></term>
+          <listitem
+><para
+>Questa griglia è disponibile solo se hai installato <application
+>qvoronoi</application
+> dal pacchetto <ulink url="https://www.qhull.org"
+><application
+>qhull</application
+></ulink
+>. <application
+>qvoronoi</application
+> viene usato per calcolare forme irregolari dei pezzi partendo da punti stabiliti casualmente.</para
+></listitem>
+        </varlistentry>
+      </variablelist>
+      <para
+>Il &i18n-psc; contiene vari parametri che controllano l'aspetto del bordo dei pezzi, specialmente riguardo i tasselli. Vengono fornite impostazioni predefinite per tutti questi parametri. È disponibile una preselezione aggiuntiva che riduce i parametri a una quantità minima. Sono in genere disponibili i parametri seguenti:</para>
+      <variablelist>
+        <varlistentry>
+          <term
+><guilabel
+>Conteggio pezzi:</guilabel
+></term>
+          <listitem
+><para
+>Qui imposti l'esatto numero di pezzi in cui verrà divisa l'immagine. Questa opzione è presente solo se la logica matematica del ritaglio selezionato consente un numero qualsiasi.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Conteggio appross. pezzi:</guilabel
+></term>
+          <listitem
+><para
+>Qui imposti il numero di pezzi in cui vuoi che venga divisa l'immagine. Questa opzione è presente solo se la logica matematica del ritaglio selezionato può risistemare questo numero.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Percentuale capovolgimento bordo:</guilabel
+></term>
+          <listitem
+><para
+>La probabilità per ciascun tassello di essere capovolto. Un tassello è considerato capovolto se è rivolto nella direzione opposta, considerando una griglia regolare completa. Su una griglia rettangolare, ciò produce pezzi con tre o quattro tasselli rivolti all'interno piuttosto che all'esterno. Posizionando il cursore all'estrema sinistra si ottiene una griglia regolare totalmente normale. Nel mezzo, l'orientazione dei tasselli è casuale. Alla destra, la griglia è di nuovo totalmente regolare ma con una regola <quote
+>alternata</quote
+>. Questo <emphasis
+>non</emphasis
+> significa l'inversione di tutti i tasselli: nella griglia regolare alternata, per esempio, ciascun pezzo ha quattro tasselli rivolti all'interno oppure quattro rivolti all'esterno. Questa impostazione non ha effetto sulla griglia irregolare.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Curvatura del bordo:</guilabel
+></term>
+          <listitem
+><para
+>Determina quanto sono curvi i bordi, per es. quanto i bordi sono ammaccati o rigonfi. Sposta il cursore all'estrema sinistra per ottenere bordi lisci (ad eccezione dei tasselli).</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Dimensione tassello:</guilabel
+></term>
+          <listitem
+><para
+>Determina la dimensione del tassello per ciascun bordo. L'impostazione predefinita (posizione mediana del cursore) viene scelta per assomigliare a un puzzle vero. Il cursore determina la dimensione con un intervallo che va da 50% a 150%, misura in cui esso risulta esageratamente grande. Il programma tenta di evitare la collisione tra i tasselli. I bordi che collidono vengono ricreati più volte e ristretti pian piano. Vi sono casi, tuttavia, in cui non è possibile trovare una soluzione, soprattutto per i tasselli di dimensioni grandi.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Varietà della curvatura:</guilabel
+></term>
+          <listitem
+><para
+>Determina quanto varia la curvatura (vedi sopra) tra i bordi. Sposta il cursore verso sinistra per rendere uguali le ammaccature e i rigonfiamenti. Posiziona il cursore verso destra, possono capitare bordi molto curvati e dritti.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Varietà posizione tassello:</guilabel
+></term>
+          <listitem
+><para
+>Determina quanto varia la posizione del tassello sul bordo. Posiziona il cursore all'estrema sinistra, i tasselli sono posti a metà bordo.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Varietà dei tasselli:</guilabel
+></term>
+          <listitem
+><para
+>Determina le caratteristiche singolari dei tasselli. Posiziona il cursore all'estrema sinistra, i tasselli sembrano tutti uguali. All'estrema destra, ciascun tassello sarà un pezzo artistico creato in modo speciale per te.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Varietà della dimensione pezzo:</guilabel
+></term>
+          <listitem
+><para
+>Solo per le griglie irregolari: determina come varia la dimensione del pezzo. Un'impostazione molto bassa significa quasi nessuna variazione; si erge una struttura simile a cristallite. Impostazioni più alte producono pezzi molto piccoli e molto grandi.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Memorizza immagine della griglia:</guilabel
+></term>
+          <listitem
+><para
+>Salva un'immagine della griglia (bordi neri su sfondo bianco) in <filename
+>~/goldberg-slicer-dump.png</filename
+>. Se esiste un salvataggio precedente, esso viene sovrascritto.</para
+></listitem>
+        </varlistentry>
+      </variablelist>
+    </sect1>
+  </chapter>
+
+  <chapter id="puzzletable">
+    <title
+>Giocare sul tavoliere del puzzle</title>
+
+    <sect1 id="puzzletable-moves">
+    <title
+>Mosse fondamentali</title>
+    <screenshot
+><mediaobject>
+      <imageobject
+><imagedata fileref="puzzletable1.png" format="PNG"/></imageobject>
+      <textobject
+><phrase
+>Il tavoliere del puzzle (dettaglio)</phrase
+></textobject>
+    </mediaobject
+></screenshot>
+    <para
+>Lo scopo della partita è assemblare i pezzi dati in un'immagine.</para>
+    <para
+>La finestra di anteprima mobile ti mostra come dovrà essere l'immagine. Usa l'elemento della barra degli strumenti o del menu per visualizzare o nascondere la finestra. Vedi il capitolo <link linkend="puzzletable-preview"
+>La finestra Anteprima</link
+> per una descrizione dettagliata.</para>
+    <para
+>Se vuoi risolvere un puzzle con trecento pezzi o più, leggi il capitolo <link linkend="large-puzzles"
+>Strumenti per risolvere i puzzle grandi</link
+>, dopo aver letto questo.</para>
+    <para
+>Puoi spostare un singolo pezzo facendo clic e trascinandolo col &LMB;. Il pezzo resterà selezionato ed evidenziato. Per spostare più pezzi alla volta, prima selezionali ed evidenziali, poi fai clic su un pezzo e trascinalo.</para>
+    <para
+>Puoi selezionare ed evidenziare più pezzi tenendo premuto &Ctrl; e facendovi clic sopra, oppure trascinandovi intorno un elastico col &LMB;. Puoi anche tenere premuto il tasto &Ctrl; e fare clic col &LMB; per aumentare o diminuire di un pezzo alla volta la selezione attiva.</para>
+    <para
+>Per eliminare la selezione e l'evidenziazione, fai clic su un punto vuoto del tavoliere o su un pezzo non selezionato.</para>
+    <para
+>Quando posizioni un pezzo vicino ad uno contiguo, essi si agganceranno automaticamente e si uniranno (1). Dopo essersi agganciati assieme, i pezzi non possono essere più staccati. Un'altra differenza tra &palapeli; e un vero puzzle è che non puoi combinare due pezzi che non siano realmente contigui.</para>
+    <para
+>La barra di avanzamento sotto il tavoliere del rompicapo indica i tuoi progressi contando i pezzi uniti (2). &palapeli; salverà automaticamente i tuoi progressi dopo ogni mossa, dunque non devi preoccuparti del salvataggio.</para>
+    <para
+>Puoi ingrandire o diminuire la vista del tavoliere tramite la <mousebutton
+>rotella</mousebutton
+> del mouse e il cursore o i pulsanti che si trovano in basso a destra (3).</para>
+    <para
+>Puoi spostare la vista del tavoliere in qualsiasi direzione, facendo clic e trascinandolo col &RMB;.</para>
+    <para
+>Il movimento dei pezzi è limitato dall'<emphasis
+>area del tavoliere del rompicapo</emphasis
+>. Quest'area è rappresentata da una leggera ombra rettangolare sullo sfondo del tavoliere. Quando sposti i pezzi nel bordo (4) dell'area del tavoliere, l'area si espanderà automaticamente, offrendoti più spazio per muovere i tuoi pezzi. Vicino ai bordi ombreggiati, il puntatore del mouse cambia in una doppia freccia, e indica che puoi regolare l'area del tavoliere facendovi sopra clic e trascinando col &LMB;.</para>
+    <para
+>Puoi bloccare l'area del tavoliere del puzzle tramite il piccolo pulsante (5) che si trova alla destra della barra di avanzamento. L'ombra (4) intorno al tavoliere diventerà scura, e i pezzi smetteranno di muoversi ai bordi dell'area del tavoliere. È possibile regolare manualmente la dimensione dell'area del tavoliere.</para>
+    </sect1>
+
+    <sect1 id="puzzletable-preview">
+      <title
+>La finestra Anteprima</title>
+      <para
+>L'Anteprima è una piccola finestra spostabile sopra o al lato della finestra del tavoliere. Contiene un'immagine del puzzle completato: l'immagine che apparirebbe nella parte alta del riquadro se esso fosse un puzzle vero. </para>
+      <para
+>È possibile visualizzare o nascondere la finestra tramite l'icona dell'azione <inlinemediaobject
+><imageobject
+><imagedata fileref="view-preview.png" format="PNG"/> </imageobject
+></inlinemediaobject
+> <guiicon
+>Anteprima</guiicon
+> nella barra degli strumenti, oppure l'elemento di menu <menuchoice
+><guimenu
+>Visualizza</guimenu
+> <guimenuitem
+>Anteprima</guimenuitem
+></menuchoice
+>. Le impostazioni per la sua dimensione, posizione e visibilità sono salvate e applicate tra le varie sessioni di &palapeli;. </para>
+      <para
+>Essendo una finestra, essa può essere ridimensionata e liberamente spostata nel desktop. Il pulsante <guibutton
+>Chiudi</guibutton
+> la nasconderà, mentre il pulsante <guibutton
+>Massimizza</guibutton
+> espanderà o ridurrà rapidamente l'immagine. </para>
+      <para
+>La finestra Anteprima possiede la funzione di ingrandimento, per tale motivo non ha bisogno di molto spazio. Se sposti il mouse sulla finestra, verrà eseguito un ingrandimento rapido dell'area sotto il mouse e dei vari pezzi intorno. Questa funzione è molto utile per visualizzare i dettagli del puzzle e identificare i pezzi trovati, ma può essere difficoltosa da controllare, in special modo vicino ai bordi dell'immagine. </para>
+    </sect1>
+
+    <sect1 id="puzzletable-mouseactions">
+      <title
+>Interazioni con il mouse</title>
+      <para
+>Come descritto nella sezione precedente, vi sono molti modi per interagire con il tavoliere di &palapeli; tramite il mouse. Puoi configurare liberamente le azioni da eseguire con i vari pulsanti (per ulteriori dettagli su questa configurazione, consulta la sezione <link linkend="configuration-mouseactions"
+>Configurazione del gioco</link
+>). L'elenco seguente riassume tutte le azioni del mouse possibili:</para>
+      <variablelist>
+        <varlistentry>
+          <term
+><action
+>Cambia la dimensione dell'area del tavoliere trascinando i suoi bordi</action
+></term>
+          <listitem
+><para
+>Per impostazione predefinita questa azione è assegnata al &LMB;.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Sposta i pezzi col trascinamento</action
+></term>
+          <listitem
+><para
+>Quando fai clic e trascini un pezzo del puzzle, il pezzo viene spostato. Se selezioni più pezzi e fai clic su uno e lo trascini, tutti i pezzi vengono spostati. Per impostazione predefinita, questa azione è assegnata al &LMB;.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Sposta l'area di visualizzazione col trascinamento</action
+></term>
+          <listitem
+><para
+>Questa azione sposta la vista dell'intero tavoliere in qualsiasi direzione. Per impostazione predefinita è assegnata al &RMB;.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Seleziona i vari pezzi tramite l'area elastica</action
+></term>
+          <listitem
+><para
+>Se fai clic su un'area libera del tavoliere, invece che su un pezzo, puoi trascinare un'area elastica. Se rilasci il mouse, tutti i pezzi all'interno dell'area elastica vengono selezionati, mentre i pezzi all'esterno vengono deselezionati. Per impostazione predefinita questa azione è assegnata al &LMB;.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Seleziona più pezzi alla volta</action
+></term>
+          <listitem
+><para
+>Se fai clic su un pezzo, questo verrà selezionato oppure se era già selezionato sarà deselezionato. Può essere anche utilizzato per regolare una selezione tramite area elastica. Per impostazione predefinita, questa azione è assegnata al &LMB; ed è disponibile solo quando mantieni premuto &Ctrl;.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Azzerare le selezioni e le evidenziazioni</action
+></term>
+          <listitem
+><para
+>Fai clic su un punto vuoto del tavoliere o su un pezzo non selezionato.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Aumenta o riduci la vista del tavoliere</action
+></term>
+          <listitem
+><para
+>Questa azione è identica al clic sui pulsanti di entrambi i lati del cursore (3) nella barra di stato. Per impostazione predefinita, essa è assegnata alla <mousebutton
+>rotella</mousebutton
+> del mouse.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Commuta la vista ravvicinata/distante</action
+></term>
+          <listitem
+><para
+>Questa azione alterna (commuta) la vista ravvicinata e quella distante, alla posizione del puntatore del mouse. Serve principalmente per fornire un ingrandimento rapido nei puzzle grandi (trecento o più pezzi). Per ulteriori dettagli, vedi <link linkend="large-puzzle-fast-zooming"
+>Passaggio rapido tra vista ravvicinata e quella distante</link
+>. Per impostazione predefinita, l'azione è assegnata al &MMB;.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Teletrasporta pezzi da/a un contenitore pezzi</action
+></term>
+          <listitem
+><para
+>Questa azione ti aiuta a raccogliere, ordinare e spostare rapidamente i pezzi nei puzzle di grandi dimensioni (trecento o più pezzi) senza dover usare il trascinamento e rilascio. Puoi usarla in puzzle più piccoli, se vuoi. Per ulteriori dettagli, vedi <link linkend="large-puzzle-holders"
+>Usare i contenitori pezzi</link
+>. Per impostazione predefinita, l'azione è assegnata al &LMB; ed è disponibile solo quando viene premuto il tasto &Shift;.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Commuta il blocco dell'area del tavoliere</action
+></term>
+          <listitem
+><para
+>Questa azione è uguale alla pressione del pulsante (5) sulla barra di stato. Per impostazione predefinita, questa azione non è assegnata ad alcun pulsante del mouse, ma puoi abilitarla nella <link linkend="configuration-mouseactions"
+>finestra di configurazione</link
+>.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Scorri orizzontalmente l'area di visualizzazione</action
+> e <action
+>Scorri verticalmente l'area di visualizzazione</action
+></term>
+          <listitem
+><para
+>Per impostazione predefinita, questa azione non viene assegnata alla <mousebutton
+>rotella</mousebutton
+> del mouse, ma puoi abilitarla dalla <link linkend="configuration-mouseactions"
+>finestra di configurazione</link
+>.</para
+></listitem>
+        </varlistentry>
+      </variablelist>
+    </sect1>
+
+    <sect1 id="toolbars-puzzletable">
+      <title
+>Panoramica della barra degli strumenti</title>
+      <variablelist>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="go-previous.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Indietro alla raccolta</guiicon
+></term>
+          <listitem
+><para
+><action
+>Torna alla raccolta per scegliere un altro puzzle.</action
+> Può essere utilizzato quando stai risolvendo un puzzle.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="view-preview.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Anteprima</guiicon
+></term>
+          <listitem
+><para
+><action
+>Mostra o nasconde la visualizzazione della finestra di anteprima del puzzle completato.</action
+></para
+></listitem>
+        </varlistentry>
+      </variablelist>
+    </sect1>
+  </chapter>
+
+  <chapter id="large-puzzles">
+    <title
+>Strumenti per risolvere i puzzle grandi</title>
+
+    <sect1 id="large-puzzle-general">
+      <title
+>Principi generali</title>
+      <para
+>&palapeli; può gestire puzzle grandi da 300 a 10.000 pezzi, ma hai bisogno di particolari strumenti per lavorare con essi negli schermi piccoli. </para>
+      <para
+>Un puzzle grande lo crei esattamente allo stesso modo di uno più piccolo. Consulta il capitolo <link linkend="create-puzzles"
+>Creare nuovi puzzle</link
+>. Prima di iniziare esistono però alcune cose da tenere in considerazione. Per dettagli, vedi <link linkend="large-puzzle-creation"
+>Creare puzzle grandi - accorgimenti speciali</link
+>. </para>
+      <para
+>La finestra Anteprima è molto utile con i puzzle grandi: consulta la sezione ad essa relativa per una <link linkend="puzzletable-preview"
+>descrizione dettagliata</link
+>. </para>
+      <para
+>La gestione dello spazio e gli spostamenti sono il tuo problema successivo. Quando riduci lo zoom per visualizzare l'intero tavoliere, è difficile osservare i singoli pezzi. Se ingrandisci e trovi il pezzo che stavi cercando, è improbabile che la sua posizione sia visibile in tale vista. Per ottenere soluzioni relative a questo e altri problemi, consulta la sezione <link linkend="large-puzzle-space"
+>Gestione degli spazi e spostamenti</link
+>. </para>
+      <para
+>Per finire, hai bisogno di raccogliere e riunire i pezzi nell'area di soluzione in modo più efficiente del semplice e ripetitivo trascinamento e rilascio per grandi distanze. Qui entrano in gioco i contenitori dei pezzi. </para>
+      <para
+>Quando inizi un puzzle di grandi dimensioni, ti viene assegnato un contenitore (una piccola finestra mobile) chiamato <quote
+>Mano</quote
+> in cui puoi inserire i pezzi quando e ovunque li individui. Poi puoi rilasciarli vicino alla tua risoluzione e lavorare sul suo posizionamento. Funziona come la raccolta dei pezzi in una mano quando lavori su puzzle reale. </para>
+      <para
+>Potresti aver bisogno di raccogliere e ordinare in modo sistematico i pezzi con caratteristiche simili (&eg; bordi, cielo, orizzonte, &etc;), dunque puoi usare tanti contenitori quanti ne necessiti e attribuir loro dei nomi. I contenitori vengono continuamente salvati, insieme col tavoliere, e questo vuol dire che puoi usarli per costruire parti della soluzione o anche per conservare i pezzi in un <quote
+>raccoglitore associativo</quote
+> per futuro uso. Per dettagli sull'uso dei contenitori, vedi la sezione <link linkend="large-puzzle-holders"
+>Uso dei contenitori pezzi</link
+>. </para>
+      <para
+>Infine, la sezione <link linkend="puzzletable-mouseactions"
+>Interazioni con il mouse</link
+> elenca le due azioni speciali che rendono più veloce e facile il lavoro sui grandi puzzle: il teletrasporto dei pezzi e la vista ravvicinata e distante. </para>
+    </sect1>
+
+    <sect1 id="large-puzzle-creation">
+      <title
+>Creare puzzle grandi - accorgimenti speciali</title>
+      <para
+>Prima di creare un puzzle di gradi dimensioni, assicurati che l'immagine originale contenga dettagli sufficienti (&ie; sufficienti megapixel). Puoi usare un'utilità di gestione file o un editor/visualizzatore di immagini per verificare da quanti pixel in altezza e larghezza è formata la tua immagine quando non è compressa da JPEG o un altro formato immagine. In linea di massima, prevedi un megapixel per 1.000 pezzi. Questo renderà circa 1.000 pixel per ciascun pezzo, oppure più di 30 per 30 pixel, rendendo i pezzi ragionevolmente nitidi ai bordi e chiari durante gli ingrandimenti. Puoi lavorare con meno megapixel, rendendo però più difficoltoso il riconoscimento dei pezzi durante il gioco. </para>
+      <para
+>Quando crei o riavvi un puzzle grande, sarebbe opportuno evitare di usare le funzionalità di smussatura e ombreggiatura &palapeli; (vedi la sezione <link linkend="configuration-general"
+>Impostazioni generali</link
+>), poiché esse rendono il caricamento più lento e l'evidenziazione più difficile da distinguere quando i pezzi nella vista sono molto piccoli. L'evidenziazione spicca meglio senza l'uso dell'ombreggiatura. </para>
+    </sect1>
+
+    <sect1 id="large-puzzle-space">
+      <title
+>Gestione degli spazi e spostamenti</title>
+      <sect2 id="large-puzzle-space-allocation">
+      <title
+>Allocazione dello spazio sul tavoliere del puzzle</title>
+      <para
+>Quando crei o riavvi un puzzle, i pezzi sono mescolati e posizionati casualmente nella griglia sul tavoliere. Due impostazioni riguardano lo spazio richiesto: vedi <link linkend="configuration"
+>Configurazione del gioco</link
+> per un elenco delle impostazioni fornite tramite <menuchoice
+><guimenu
+>Impostazioni</guimenu
+> <guimenuitem
+>Configura &palapeli;...</guimenuitem
+> </menuchoice
+> o, su &macOS;, l'elemento di menu <menuchoice
+><guimenu
+>&palapeli;</guimenu
+> <guimenuitem
+>Preferenze...</guimenuitem
+></menuchoice
+>. </para>
+      <para
+>La distanza dei pezzi nelle griglie del puzzle può essere impostata da una a una volta e mezzo l'altezza e la larghezza dei pezzi più alti e più larghi. Le impostazioni di dimensioni più piccole sistemano meglio i pezzi nella vista, ma quelle più grandi permettono di avere più spazio per il trascinamento, il rilascio e l'uso dell'area elastica. Il valore predefinito è 1,3, ma 1,1 è molto adatto per i puzzle grandi. L'impostazione si applica ai puzzle di tutte le dimensioni, e riguarda anche le griglie utilizzate con i contenitori (vedi <link linkend="large-puzzle-holders"
+>Usare i contenitori pezzi</link
+>) o quando si riordinano automaticamente i pezzi sul tavoliere, tramite l'elemento di menu <menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+> <guimenu
+>Sposta</guimenu
+><guimenuitem
+>Riordina i pezzi</guimenuitem
+></menuchoice
+>. </para>
+      <para
+>L'altra impostazione fornisce spazio sul tavoliere di esattamente la dimensione giusta per la costruzione della tua soluzione. Il suo valore predefinito è apparire nel centro, con i pezzi distribuiti uniformemente all'esterno. Mediamente, ciò dovrebbe posizionare i pezzi nel punto più vicino dove essi dovrebbero eventualmente andare. Puoi anche scegliere di usare uno qualsiasi dei quattro angoli, o di non avere alcuno spazio (opzione <guilabel
+>Nessuno</guilabel
+>), nel qual caso devi ripulire manualmente lo spazio, magari espandendo l'area del tavoliere (vedi <link linkend="puzzletable-moves"
+>Mosse fondamentali</link
+>). L'impostazione dello spazio per la soluzione riguarda i puzzle sotto i venti pezzi, ma con meno di venti pezzi gli spazi per la soluzione inutili. </para>
+      <para
+>Con l'avanzare della soluzione del puzzle, i pezzi si spostano all'interno dell'area di soluzione, lasciando spazi vuoti nelle altre aree. Può essere utile radunare i pezzi restanti. In questo caso, seleziona i pezzi tramite l'area elastica o mantenendo premuto il tasto &Ctrl; e facendo clic col &LMB;, poi usa l'elemento di menu <menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+> <guimenu
+>Sposta</guimenu
+> <guimenuitem
+>Riordina i pezzi</guimenuitem
+></menuchoice
+>, o semplicemente la scorciatoia (il tasto <keycap
+>R</keycap
+> è predefinito). I pezzi vengono riuniti in una griglia e rimangono selezionati, in modo da poter essere spostati facilmente in una posizione migliore, se necessario. Questo metodo si può usare anche per riunire i pezzi con attributi comuni, sebbene l'uso dei contenitori pezzi sia più efficace. </para>
+      </sect2>
+      <sect2 id="large-puzzle-fast-zooming">
+      <title
+>Passaggio rapido tra vista ravvicinata e quella distante</title>
+      <para
+>Quando viene caricato un puzzle, &palapeli; calcola la vista distante e quella ravvicinata, e sceglie quella distante che mostra l'intera area del tavoliere. La vista ravvicinata mostra i pezzi a una dimensione adatta agli occhi, al tuo schermo e al desktop. Usa il &MMB; per alternare rapidamente le due viste, alla posizione del puntatore del mouse. In tal modo puoi ingrandire rapidamente qualsiasi pezzo nel tavoliere per osservarne la dimensione e quale parte dell'immagine contenga. </para>
+      <para
+>Puoi regolare la scala di entrambe le viste regolandola manualmente: le tue impostazioni verranno memorizzate la prossima volta che alterni le viste tramite il &MMB;. Tutti i puzzle hanno la funzione di ingrandimento rapido, ma nei puzzle con meno di cento pezzi le due viste praticamente si equivalgono. In altre parole, i pezzi sono facili da osservare quando li visualizzi nell'intera area del tavoliere. </para>
+      </sect2>
+      <sect2 id="large-puzzle-navigating">
+      <title
+>Muoversi in un puzzle di grandi dimensioni</title>
+      <para
+>Il metodo più complicato per spostare pezzi in un puzzle di grandi dimensioni è selezionarli poi trascinare alternativamente i pezzi e il tavoliere (&LMB; e &RMB;), fino a raggiungere la destinazione voluta. Un metodo molto più semplice per fare la stessa operazione è selezionare i pezzi, passare alla vista distante (&MMB;, vedi sopra), trascinare i pezzi alla destinazione in una mossa (&LMB;), poi tornare alla vista ravvicinata (&MMB;). Questo è anche un buon metodo per recuperare un singolo pezzo smarrito, anche se trascinare un pezzo così piccolo per il tavoliere, senza perdere la selezione, può essere difficoltoso, se i pezzi presenti sono migliaia. </para>
+      <para
+>Un altro modo per navigare e ricercare sistematicamente nel tavoliere è ingrandire sull'angolo superiore sinistro (&MMB;), poi usare gli spazi vuoti presenti nelle barre di scorrimento per scorrere il tavoliere in orizzontale e verticale, una <quote
+>pagina</quote
+> fissa alla volta. Questa tecnica è molto efficace quando usi i contenitori per radunare i pezzi che stai cercando. Se mantieni una scala ravvicinata fissa e inizi sempre dallo stesso punto, otterrai sempre <quote
+>pagine</quote
+> di dimensione e contenuti fissi. </para>
+      </sect2>
+      <sect2 id="large-puzzle-visibility">
+      <title
+>Visibilità dei pezzi nei puzzle di grandi dimensioni</title>
+      <para
+>In uno schermo piccolo è difficile vedere cosa si sta facendo all'interno dei puzzle di grandi dimensioni. Per esempio, con un puzzle di 10.000 pezzi in uno schermo di 1440 per 900 pixel, i pezzi nella vista distante sono larghi circa sette pixel. Con questa scala è difficile distinguere l'immagine, il colore, la forma dei pezzi o persino l'evidenziazione. </para>
+      <para
+>&palapeli; ha sempre avuto una scelta di sfondi e colori di sfondo che aiutano la visibilità. Oltre a ciò, esiste uno schema di evidenziazione più illustre (che appare se non scegli l'ombreggiatura e un'impostazione che non riporti il colore dell'evidenziazione) per contrastare lo sfondo e la maggior parte dei pezzi. Inoltre, queste impostazioni sono ora salvate e ripristinate con ciascun puzzle. Ogni puzzle, dunque, può avere lo sfondo e l'evidenziazione che meglio si adatta alla sua immagine complessiva. Vale la pena sperimentare queste impostazioni quando crei un puzzle grande: devi ricaricare o riavviare il puzzle prima che lo modifiche che effettuerai siano applicate. </para>
+      </sect2>
+    </sect1>
+
+    <sect1 id="large-puzzle-holders">
+      <title
+>Usare i contenitori pezzi</title>
+      <sect2 id="large-puzzle-whatareholders">
+      <title
+>Cosa sono i contenitori pezzi?</title>
+      <para
+>I contenitori pezzi sono forse la funzione più utile di &palapeli; per l'assistenza alla risoluzione dei puzzle di grandi dimensioni. Sono piccole finestre mobili in cui puoi ordinare gruppi di pezzi, quali <quote
+>bordi</quote
+>, <quote
+>cielo</quote
+>, <quote
+>orizzonte</quote
+> o la <quote
+>casa bianca sulla sinistra</quote
+>. Al principio appaiono alla dimensione minima, in cui trovano posto quattro pezzi alla scala ravvicinata, ma sono molto versatili nell'adattamento al tavoliere principale. </para>
+      <para
+>Essendo finestre, i contenitori possono essere liberamente spostati nel desktop, e ridimensionati. Il pulsante <guibutton
+>Chiudi</guibutton
+> elimina il contenitore, ma solo se non contiene pezzi. Il pulsante <guibutton
+>Massimizza</guibutton
+> espande o contrae rapidamente il contenitore. Il contenitore può centinaia di pezzi, e l'azione di espansione può essere utile per ricontrollare il suo contenuto o preparare un assemblaggio parziale al suo interno. </para>
+      <para
+>Puoi possedere tanti contenitori quanti ne necessiti. In genere ne è presente uno attivo, contornato di blu. Indica la destinazione delle azioni quali il trasferimento dei pezzi o l'eliminazione del contenitore. </para>
+      </sect2>
+      <sect2 id="large-puzzle-createholders">
+      <title
+>Creare ed eliminare contenitori</title>
+      <para
+>Quando inizi un puzzle di grandi dimensioni, viene creato automaticamente un contenitore di nome <quote
+>Mano</quote
+>. Potrebbe essere l'unico contenitore di cui hai bisogno con i puzzle dai 300 ai 750 pezzi, ma tieni conto che puoi avere quanti contenitori desideri, anche con puzzle con meno di 300 pezzi. </para>
+      <para
+>Per creare o eliminare un contenitore, usa gli elementi di menu <menuchoice
+><shortcut
+><keycap
+>C</keycap
+></shortcut
+> <guimenu
+>Sposta</guimenu
+><guimenuitem
+> Crea contenitore pezzi...</guimenuitem
+></menuchoice
+> o <menuchoice
+><shortcut
+><keycap
+>D</keycap
+></shortcut
+> <guimenu
+>Sposta</guimenu
+><guimenuitem
+> Elimina contenitore pezzi</guimenuitem
+></menuchoice
+>, oppure semplicemente i tasti <keycap
+>C</keycap
+> e <keycap
+>D</keycap
+> o il pulsante Chiudi per eliminare. Quando crei un contenitore, ti viene chiesto di dargli un nome, anche se non è obbligatorio. In genere il contenitore è presentato in scala ravvicinata, in modo da vedere facilmente i pezzi in esso contenuti. </para>
+      <para
+>Quando elimini un contenitore, esso deve essere attivo (col contorno in blu) e vuoto. Se il contenitore da eliminare non è attiva, facci sopra clic. Dopo l'eliminazione, non rimangono contenitori attivi. </para>
+      </sect2>
+      <sect2 id="large-puzzle-teleporting">
+      <title
+>Trasferire i pezzi dentro e fuori i contenitori</title>
+      <para
+>Non è possibile trasferire pezzi nei contenitori col trascinamento e il rilascio, né è necessario. Puoi trasferire i pezzi istantaneamente tramite il <quote
+>teletrasporto</quote
+>, come in <quote
+>Star Trek</quote
+>. Il teletrasporto funziona usando tenendo premuto il tasto &Shift; e facendo clic sul &LMB;. </para>
+      <para
+>Per trasferire pezzi in un contenitore, assicurati che il contenitore di destinazione sia attivo (col contorno in blu), poi seleziona alcuni pezzi sul tavoliere e tenendo premuto il tasto &Shift; e facendo clic sul &LMB;. Puoi fare anche clic su un pezzo alla volta tenendo premuto il tasto &Shift; e facendo clic sul &LMB;. I pezzi trasferiti spariranno dal tavoliere e riappariranno, evidenziati, nel contenitore. All'arrivo essi vengono automaticamente disposti in una griglia e l'ultimo pezzo trasferito centrato nella vista. </para>
+      <para
+>Per trasferire pezzi fuori dal contenitore, seleziona uno o più pezzi al suo interno, poi torna al tavoliere e premi su un punto vuoto in cui vuoi che essi appaiano, tenendo premuto il tasto &Shift; e facendo clic sul &LMB;. Evita di fare clic su un pezzo presente nel tavoliere: esso verrebbe inviato all'interno del contenitore, che non è l'azione che vogliamo. Se esegui per sbaglio questa azione su un pezzo grande unito (&ie; una parte della soluzione), appare un messaggio di avviso e l'opzione di annullamento dell'azione. </para>
+      <para
+>Dopo il teletrasporto i pezzi restano evidenziati. Questo permette di invertire rapidamente l'azione, se trasferisci accidentalmente i pezzi sbagliati o usi il contenitore sbagliato. Nel tavoliere, inoltre, puoi facilmente regolare la posizione di un pezzo o più pezzi appena arrivati, o anche spostare un pezzo all'interno della soluzione. </para>
+      <para
+>Il teletrasporto funziona anche tra contenitori. Inizia come se volessi trasferire pezzi nel tavoliere, ma tieni premuto il tasto &Shift; e fai clic sul &LMB; all'interno di uno spazio vuoto di un altro contenitore. Per invertire l'azione, torna al contenitore originale e tieni di nuovo premuto il tasto &Shift; e fai clic sul &LMB;. </para>
+      </sect2>
+      <sect2 id="large-puzzle-sorting">
+      <title
+>Ordinare i pezzi</title>
+      <para
+>Per ordinare in modo efficiente i pezzi all'interno dei contenitori durante la tua ricerca attraverso un puzzle di grandi dimensioni, usa la tecnica di scorrere il puzzle una <quote
+>pagina</quote
+> alla volta, <link linkend="large-puzzle-navigating"
+>come descritto in precedenza</link
+>, combinata con i contenitori e il teletrasporto per la raccolta dei pezzi man mano che procedi. Dopo aver analizzato l'intero tavoliere, esegui un ingrandimento della tua area di soluzione e sistema i pezzi che hai raccolto. Oppure puoi pre-assemblare i pezzi nei contenitori. </para>
+      </sect2>
+      <sect2 id="large-puzzle-otherholderactions">
+      <title
+>Altre azioni nei contenitori</title>
+      <para
+>I contenitori pezzi supportano tutte le funzioni del tavoliere (vedi <link linkend="puzzletable-moves"
+>Mosse fondamentali</link
+>), tranne che puoi ingrandire la vista tramite la <mousebutton
+>rotella</mousebutton
+> del mouse o il &MMB;. </para>
+      <para
+>Ciò significa che puoi usare un contenitore come tavoliere aggiuntivo, se vuoi. Puoi trascinare e rilasciare pezzi, unirli, spostare i limiti dell'area, &etc;. Puoi anche teletrasportare pezzi assemblati di qualsiasi dimensione dentro o fuori un contenitore, facendo però attenzione a non creare sovrapposizioni o non nascondere pezzi piccoli. </para>
+      <para
+>Infine, puoi usare l'elemento di menu <menuchoice
+><shortcut
+> <keycap
+>A</keycap
+></shortcut
+><guimenu
+>Sposta</guimenu
+> <guimenuitem
+>Seleziona tutto in un contenitore</guimenuitem
+> </menuchoice
+>, seguito dall'elemento di menu <menuchoice
+><shortcut
+> <keycap
+>R</keycap
+></shortcut
+><guimenu
+>Sposta</guimenu
+> <guimenuitem
+>Riordina i pezzi</guimenuitem
+> </menuchoice
+>, oppure mantieni premuto il tasto &Shift; e fai clic sul &LMB; per risistemare tutti i pezzi nel contenitore o spostarli tutti fuori nel tavoliere. Oppure puoi usare semplicemente i tasti <keycap
+>A</keycap
+> o <keycap
+>R</keycap
+> sul contenitore correntemente selezionato. </para>
+      </sect2>
+    </sect1>
+  </chapter>
+
+  <chapter id="interface">
+    <title
+>Panoramica dell'interfaccia</title>
+    <para
+>I seguenti fanno parte degli elementi di menu di &palapeli;, alcuni dei quali sono disponibili anche come icone delle azioni nella barra degli strumenti e come tasti scorciatoia.</para>
+    <variablelist>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Partita</guimenu
+> <guimenuitem
+>Crea un nuovo puzzle...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Apre una finestra che permette di creare un puzzle da un'immagine sul disco.</action
+> Vedi <link linkend="create-puzzles"
+>la relativa sezione</link
+> per i dettagli e pure <link linkend="large-puzzle-creation"
+>gli accorgimenti speciali</link
+>, se stai per creare un puzzle di trecento o più pezzi.</para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Partita</guimenu
+><guimenuitem
+>Importa da file...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Al ricevimento di un file puzzle &palapeli; (normalmente riconoscibile dall'estensione di file <literal role="extension"
+>.puzzle</literal
+>), puoi utilizzare questa azione per importarlo nella tua raccolta locale.</action
+> I file puzzle possono essere anche eseguiti facendovi semplicemente sopra clic all'interno del tuo gestore di file preferito, ma dopo l'importazione; il puzzle apparirà nella tua raccolta locale e sarà possibile eliminare il file scaricato.</para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Partita</guimenu
+><guimenuitem
+>Esporta su file...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Questa azione esporterà i puzzle correntemente selezionati in file, per permetterti di regalarli ai tuoi amici, pubblicarli nel web o eseguire copie di sicurezza della tua raccolta.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Partita</guimenu
+><guimenuitem
+>Elimina puzzle</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Tutti i puzzle che hai selezionato nell'elenco saranno eliminati definitivamente dalla tua raccolta.</action
+></para
+><warning
+><para
+>Questa azione non può essere annullata.</para
+></warning
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Partita</guimenu
+><guimenuitem
+>Riavvia il puzzle...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Rimescola tutti i pezzi e tralascia i progressi salvati per il puzzle attivo.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Partita</guimenu
+> <guimenuitem
+>Esci</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Esce</action
+> da &palapeli;.</para
+></listitem>
+      </varlistentry
+>    
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycap
+>C</keycap
+></shortcut
+><guimenu
+>Sposta</guimenu
+><guimenuitem
+>Crea contenitore pezzi...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Crea un contenitore temporaneo per la memorizzazione o l'ordinamento dei pezzi. Per dettagli su come usare un contenitore, consulta <link linkend="large-puzzle-holders"
+>Usare i contenitori pezzi</link
+>.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycap
+>D</keycap
+></shortcut
+><guimenu
+>Sposta</guimenu
+><guimenuitem
+>Elimina il contenitore pezzi</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Elimina un contenitore pezzi temporaneo selezionato, se vuoto.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycap
+>A</keycap
+></shortcut
+><guimenu
+>Sposta</guimenu
+><guimenuitem
+>Seleziona tutto nel contenitore pezzi</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Seleziona tutti i pezzi all'interno del contenitore pezzi selezionato attivo (contornato in blu).</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+><guimenu
+>Sposta</guimenu
+><guimenuitem
+>Riordina i pezzi</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Riordina i pezzi selezionati all'interno di un qualsiasi contenitore o del tavoliere, sistemandoli all'interno di una griglia.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Vista</guimenu
+><guimenuitem
+>Indietro alla raccolta</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Torna alla raccolta per scegliere un altro puzzle.</action
+> Può essere utilizzato quando stai risolvendo un puzzle.</para
+></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Vista</guimenu
+><guimenuitem
+>Anteprima</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Mostra o nasconde la visualizzazione dell'immagine di anteprima del puzzle completato.</action
+> Passaci sopra il puntatore del mouse per ingrandire l'immagine.</para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+></shortcut
+><guimenu
+>Vista</guimenu
+><guimenuitem
+>Ingrandisci</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Aumenta la scala.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+></shortcut
+><guimenu
+>Vista</guimenu
+><guimenuitem
+>Riduci</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Diminuisce la scala.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Impostazioni</guimenu
+><guimenuitem
+>Abilita tutti i messaggi</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Ti permette di attivare tutti i messaggi disabilitati selezionando l'opzione <guilabel
+>Non mostrare più questo messaggio</guilabel
+> nelle finestre di conferma di &palapeli;.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Impostazioni</guimenu
+><guimenuitem
+>Mostra la barra di stato del tavoliere</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Mostra o nasconde la visualizzazione della barra di avanzamento e i pulsanti sotto il tavoliere.</action
+> Questa azione non modificherà nulla nella raccolta di puzzle.</para
+></listitem>
+      </varlistentry>
+      <varlistentry id="settings-menu-configure">
+        <term
+><menuchoice
+><guimenu
+>Impostazioni</guimenu
+><guimenuitem
+>Configura &palapeli;...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+>Apre una finestra di configurazione del gioco. Consulta la sezione <link linkend="configuration"
+>Configurazione del gioco</link
+> per ulteriori dettagli.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <para
+>In aggiunta, &palapeli; contiene gli elementi di menu <guimenu
+>Impostazioni</guimenu
+> e <guimenu
+>Aiuto</guimenu
+>, comuni di &kde;, per ulteriori informazioni leggi le sezioni relative al <ulink url="help:/fundamentals/menus.html#menus-settings"
+>menu Impostazioni</ulink
+> e <ulink url="help:/fundamentals/menus.html#menus-help"
+>menu Aiuto</ulink
+> dei Fondamentali di &kde;. </para>
+  </chapter>
+
+  <chapter id="configuration">
+    <title
+>Configurazione del gioco</title>
+    <para
+>Per aprire la finestra di configurazione, usa l'elemento di menu: <menuchoice
+><guimenu
+>Impostazioni</guimenu
+><guimenuitem
+>Configura &palapeli;...</guimenuitem
+></menuchoice
+></para>
+    <sect1 id="configuration-general">
+      <title
+>Impostazioni generali</title>
+      <variablelist>
+        <varlistentry>
+          <term
+><guilabel
+>Tavoliere del puzzle</guilabel
+></term>
+          <listitem>
+            <para
+>Ti consente di scegliere alcuni parametri per il tavoliere.</para>
+          <variablelist>
+            <varlistentry>
+              <term
+><guilabel
+>Sfondo:</guilabel
+></term>
+              <listitem
+><para
+><action
+>Ti permette di scegliere un'altra trama di sfondo per il tavoliere.</action
+> Se scegli un colore singolo anziché una trama, il pulsante dietro la casella di selezione può essere usato per definire il colore.</para
+></listitem>
+            </varlistentry>
+            <varlistentry>
+              <term
+><guilabel
+>Colore per i pezzi selezionati evidenziati:</guilabel
+></term>
+              <listitem
+><para
+><action
+>Ti permette di scegliere il colore di evidenziazione dei pezzi quando sono selezionati.</action
+> Per aprire la finestra <ulink url="help:/fundamentals/colors.html"
+>Scelta dei colori</ulink
+>, fai clic sul pulsante alla destra dell'etichetta.</para
+></listitem>
+            </varlistentry>
+            <varlistentry>
+              <term
+><guilabel
+>Spazio per la soluzione:</guilabel
+></term>
+              <listitem
+><para
+><action
+>Ti permette di scegliere dove riservare dello spazio sul tavoliere in cui costruire la soluzione.</action
+> Non viene fornito alcuno spazio se selezioni l'opzione <guilabel
+>Nessuno</guilabel
+> o il puzzle contiene meno di 20 pezzi. Le modifiche avranno effetto alla creazione di un puzzle o al suo riavvio.</para
+></listitem>
+            </varlistentry>
+            <varlistentry>
+              <term
+><guilabel
+>Distanza dei pezzi nelle griglie (1.0-1.5):</guilabel
+></term>
+              <listitem
+><para
+><action
+>Ti permette di scegliere la distanza tra le griglie del puzzle.</action
+> Le modifiche alla distanza complessiva del puzzle avranno effetto solo alla creazione di un puzzle o al suo riavvio.</para
+></listitem>
+            </varlistentry>
+          </variablelist>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Aspetto del pezzo</guilabel
+></term>
+          <listitem
+><para
+><action
+>Controlla l'aspetto dei pezzi nel tavoliere del puzzle.</action
+> Se &palapeli; funziona in modo lento o i puzzle ci mettono molto a caricare, puoi disattivare gli effetti grafici in questa categoria e aumentare la velocità generale. Se scegli l'ombreggiatura, l'evidenziazione viene implementata cambiando il colore dell'ombra.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Precisione aggancio</guilabel
+></term>
+          <listitem
+><para
+><action
+>Ti consente di scegliere quanto vicino uno all'altro i pezzi contigui debbano essere posizionati prima che si aggancino assieme.</action
+> Se sposti il regolatore verso destra, i pezzi si agganceranno anche se non sono molto vicino. Ciò rende il gioco un po' più semplice da usare.</para
+></listitem>
+        </varlistentry>
+      </variablelist>
+    </sect1>
+    <sect1 id="configuration-mouseactions">
+      <title
+>Interazione del mouse</title>
+      <para
+>Questa pagina della finestra di dialogo della configurazione ti permette di cambiare le assegnazioni dei pulsanti del mouse e dei tasti modificatori riguardo le azioni descritte in <link linkend="puzzletable-mouseactions"
+>Giocare sul tavoliere del puzzle, interazioni col mouse</link
+>. Devi prestare attenzione a evitare assegnazioni poco chiare. Delle assegnazioni predefinite, tre possono essere destinate al &LMB; dato che il puntatore risulta in aree diverse quando le usi, ma le altre assegnazioni devono essere diverse.</para>
+      <para
+>Le interazioni sono divise tra quelle che possono essere assegnate ai pulsanti del mouse (&eg; <action
+>Sposta l'area di visualizzazione col trascinamento</action
+>) e quelle che possono essere assegnate alla <mousebutton
+>rotella</mousebutton
+> del mouse (&eg; <action
+>Scorri orizzontalmente l'area di visualizzazione</action
+>).</para>
+      <sect2>
+        <title
+>Scheda Pulsanti del mouse</title>
+        <para
+>Alla destra del nome di ciascuna interazione è presente un pulsante con l'immagine di un mouse che mostra l'azione attualmente assegnata. Puoi configurare l'interazione facendo clic su quel pulsante col &LMB; e poi col pulsante del mouse cui vuoi assegnare l'interazione. Se mantieni premuti i tasti modificatori mentre fai clic per una seconda volta, il tavoliere permetterà l'interazione solo se questi tasti modificatori vengono mantenuti premuti.</para>
+        <tip
+><para
+>Anziché fare clic, puoi anche premere &Space; per assegnare a questa interazione il pulsante speciale <guilabel
+>Nessun pulsante</guilabel
+>. Ciò viene permesso solo se i tasti modificatori vengono mantenuti premuti. <guilabel
+>Nessun pulsante</guilabel
+> significa che i tasti modificatori assumono il ruolo di pulsante del mouse: l'interazione inizia quando i tasti modificatori vengono premuti e di ferma quando uno di essi viene rilasciato.</para
+></tip>
+      </sect2>
+      <sect2>
+        <title
+>Scheda Rotella del mouse</title>
+        <para
+>Questa scheda funziona in modo simile alla precedente. Quando il pulsante alla destra richiede un'azione di immissione, anziché premere il pulsante devi girare la <mousebutton
+>rotella</mousebutton
+> del mouse. È consentito pure premere i tasti modificatori, con gli stessi effetti del caso precedente.</para>
+        <tip
+><para
+>Se il tuo mouse possiede una <mousebutton
+>rotella</mousebutton
+> bidirezionale (come comunemente avviene nei touchpad dei notebook), ne puoi trarre vantaggi: il pulsante riconoscerà se hai girato la <mousebutton
+>rotella</mousebutton
+> orizzontalmente o verticalmente.</para
+></tip>
+      </sect2>
+    </sect1>
+  </chapter>
+
+  <chapter id="credits">
+    <title
+>Riconoscimenti e licenza</title>
+    <para
+>&palapeli; intende portare il tranquillo divertimento e la sfida dei puzzle nella tua scrivania.</para>
+    <para
+>L'idea è stata inizialmente sviluppata da Bernhard Schiffner, insieme con Stefan Majewsky, che era lo sviluppatore principale di &palapeli;.</para>
+    <para
+>Il &i18n-psc; è fornito da Johannes L&#xF6;hnert.</para>
+    <para
+>Gli strumenti per i puzzle grandi sono stati forniti da Ian Wadham.</para>
+    <para
+>Copyright della documentazione 2009, 2010 Johannes L&#xF6;hnert, Stefan Majewsky e Copyright 2014 Ian Wadham.</para>
+    <para
+>Valter Mura <email
+>valtermura@gmail.com</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+  &documentation.index;
+</book>

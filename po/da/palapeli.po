@@ -1,0 +1,1290 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# Martin Schlander <mschlander@opensuse.org>, 2010, 2011, 2012.
+# scootergrisen, 2017.
+msgid ""
+msgstr ""
+"Project-Id-Version: palapeli\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-28 00:44+0000\n"
+"PO-Revision-Date: 2017-11-11 15:25+0200\n"
+"Last-Translator: scootergrisen\n"
+"Language-Team: Danish\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Martin Schlander"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "mschlander@opensuse.org"
+
+#: libpala/slicerpropertyset.cpp:74
+#, kde-format
+msgid "Piece count"
+msgstr "Antal brikker"
+
+#: libpala/slicerpropertyset.cpp:78
+#, kde-format
+msgid "Piece aspect ratio"
+msgstr "Aspektforhold for brikker"
+
+#: slicers/goldberg/grid.h:27
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Predefined settings"
+msgstr "Prædefinerede indstillinger"
+
+#: slicers/goldberg/grid.h:34
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Cairo (pentagonal) grid"
+msgstr "Cairo-gitter (femkantet)"
+
+#: slicers/goldberg/grid.h:41
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Hexagonal grid"
+msgstr "Sekskantet gitter"
+
+#: slicers/goldberg/grid.h:48
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Rectangular grid"
+msgstr "Firkantet gitter"
+
+#: slicers/goldberg/grid.h:55
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Rotrex (rhombi-trihexagonal) grid"
+msgstr "Rotrex-gitter (rhombitrihexagonal)"
+
+#: slicers/goldberg/grid.h:62
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Irregular grid"
+msgstr "Uregelmæssigt gitter"
+
+#: slicers/goldberg/slicer-goldberg.cpp:39
+#, kde-format
+msgid "Approx. piece count"
+msgstr "Omtrentligt antal brikker"
+
+#: slicers/goldberg/slicer-goldberg.cpp:45
+#, kde-format
+msgid "Quick preset"
+msgstr "Hurtig forudindstilling"
+
+#: slicers/goldberg/slicer-goldberg.cpp:47
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Ordinary"
+msgstr "Almindelig"
+
+#: slicers/goldberg/slicer-goldberg.cpp:48
+#: slicers/goldberg/slicer-goldberg.cpp:124
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Very regular"
+msgstr "Meget ensartet"
+
+#: slicers/goldberg/slicer-goldberg.cpp:49
+#: slicers/goldberg/slicer-goldberg.cpp:125
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Very diverse"
+msgstr "Meget forskelligartet"
+
+#: slicers/goldberg/slicer-goldberg.cpp:50
+#: slicers/goldberg/slicer-goldberg.cpp:126
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Large plugs"
+msgstr "Store tapper"
+
+#: slicers/goldberg/slicer-goldberg.cpp:57
+#, kde-format
+msgid "Flipped edge percentage"
+msgstr "Procentdel med vendt kant"
+
+#: slicers/goldberg/slicer-goldberg.cpp:64
+#, kde-format
+msgid "Edge curviness"
+msgstr "Kurvethed af kanter"
+
+#: slicers/goldberg/slicer-goldberg.cpp:70
+#, kde-format
+msgid "Plug size"
+msgstr "Størrelse på tapper"
+
+#: slicers/goldberg/slicer-goldberg.cpp:77
+#, kde-format
+msgid "Diversity of curviness"
+msgstr "Forskellighed i kurvethed"
+
+#: slicers/goldberg/slicer-goldberg.cpp:84
+#, kde-format
+msgid "Diversity of plug position"
+msgstr "Forskellighed af placering af tapper"
+
+#: slicers/goldberg/slicer-goldberg.cpp:91
+#, kde-format
+msgid "Diversity of plugs"
+msgstr "Forskellighed af tapper"
+
+#: slicers/goldberg/slicer-goldberg.cpp:98
+#, kde-format
+msgid "Diversity of piece size"
+msgstr "Forskellighed i brikstørrelse"
+
+#: slicers/goldberg/slicer-goldberg.cpp:107
+#, kde-format
+msgid "Dump grid image"
+msgstr "Dump gitterbillede"
+
+#: src/config/configdialog.cpp:62
+#, fuzzy, kde-format
+#| msgid "General settings"
+msgid "General Settings"
+msgstr "Generelle indstillinger"
+
+#: src/config/configdialog.cpp:65
+#, fuzzy, kde-format
+#| msgid "Mouse interaction"
+msgid "Mouse Interaction"
+msgstr "Museinteraktion"
+
+#: src/config/configdialog.cpp:112
+#, kde-format
+msgid "Center"
+msgstr "I midten"
+
+#: src/config/configdialog.cpp:113
+#, kde-format
+msgid "None"
+msgstr "Ingen"
+
+#: src/config/configdialog.cpp:114
+#, kde-format
+msgid "Top Left"
+msgstr "Øverst til venstre"
+
+#: src/config/configdialog.cpp:115
+#, kde-format
+msgid "Top Right"
+msgstr "Øverst til højre"
+
+#: src/config/configdialog.cpp:116
+#, kde-format
+msgid "Bottom Left"
+msgstr "Nederst til venstre"
+
+#: src/config/configdialog.cpp:117
+#, kde-format
+msgid "Bottom Right"
+msgstr "Nederst til højre"
+
+#: src/config/mouseinputbutton.cpp:45
+#, kde-format
+msgid "Remove this trigger"
+msgstr "Fjern denne udløser"
+
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#, kde-format
+msgid "Input here..."
+msgstr "Input her..."
+
+#: src/config/mouseinputbutton.cpp:120
+#, kde-format
+msgid ""
+"Hold down the modifier keys you want, then click a mouse button or scroll a "
+"mouse wheel here"
+msgstr ""
+"Hold de ændringstaster du ønsker nede, klik så på en museknap eller rul med "
+"et musehjul her"
+
+#: src/config/mouseinputbutton.cpp:224
+#, kde-format
+msgctxt ""
+"This is used for describing that no mouse action has been assigned to this "
+"interaction plugin."
+msgid "None"
+msgstr "Ingen"
+
+#: src/config/mouseinputbutton.cpp:230
+#, kde-format
+msgid "Click to change how an action is triggered"
+msgstr "Klik for at ændre hvordan en handling udløses"
+
+#: src/config/triggerconfigwidget.cpp:20
+#, fuzzy, kde-format
+#| msgid "Mouse buttons"
+msgid "Mouse Buttons"
+msgstr "Museknapper"
+
+#: src/config/triggerconfigwidget.cpp:21
+#, fuzzy, kde-format
+#| msgid "Mouse wheel"
+msgid "Mouse Wheel"
+msgstr "Musehjul"
+
+#: src/config/triggerlistview.cpp:17
+#, kde-format
+msgid "Interaction with pieces"
+msgstr "Interaktion med brikker"
+
+#: src/config/triggerlistview.cpp:19
+#, kde-format
+msgid "Interaction with the puzzle table"
+msgstr "Interaktion med puslespilsbordet"
+
+#: src/config/triggerlistview.cpp:21
+#, kde-format
+msgid "Interaction with the viewport"
+msgstr "Interaktion med visningsfeltet"
+
+#: src/creator/puzzlecreator.cpp:38
+#, fuzzy, kde-format
+#| msgctxt "@title:window"
+#| msgid "Create new puzzle"
+msgctxt "@title:window"
+msgid "Create New Puzzle"
+msgstr "Opret nyt puslespil"
+
+#: src/creator/puzzlecreator.cpp:51
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Image file:"
+msgstr "Billedfil:"
+
+#: src/creator/puzzlecreator.cpp:52
+#, kde-format
+msgctxt "@info"
+msgid "Please describe below the image which you have chosen."
+msgstr "Skriv beskrivelse nedenunder det billede du har valgt."
+
+#: src/creator/puzzlecreator.cpp:53
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Image name:"
+msgstr "Billednavn:"
+
+#: src/creator/puzzlecreator.cpp:54
+#, kde-format
+msgctxt "@label:textbox (like in: This comment is optional.)"
+msgid "Optional comment:"
+msgstr "Valgfri kommentar:"
+
+#: src/creator/puzzlecreator.cpp:55
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Name of image author:"
+msgstr "Navn på billedets ophavsmand:"
+
+#: src/creator/puzzlecreator.cpp:63
+#, kde-format
+msgctxt "@item:inlistbox (page name in an assistant dialog)"
+msgid "Choose image"
+msgstr "Vælg billede"
+
+#: src/creator/puzzlecreator.cpp:64
+#, kde-format
+msgctxt "@title:tab (page header in an assistant dialog)"
+msgid "Specify the source image to be sliced into pieces"
+msgstr "Angiv kildebilledet der skal skæres ud som brikker"
+
+#: src/creator/puzzlecreator.cpp:66
+#, kde-format
+msgctxt "@item:inlistbox (page name in an assistant dialog)"
+msgid "Choose slicer"
+msgstr "Vælg udskærer"
+
+#: src/creator/puzzlecreator.cpp:67
+#, kde-format
+msgctxt "@title:tab (page header in an assistant dialog)"
+msgid "Choose a slicing method"
+msgstr "Vælg udskæringsmetode"
+
+#: src/creator/puzzlecreator.cpp:68
+#, kde-format
+msgctxt "@item:inlistbox (page name in an assistant dialog)"
+msgid "Configure slicer"
+msgstr "Indstil udskærer"
+
+#: src/creator/puzzlecreator.cpp:69
+#, kde-format
+msgctxt "@title:tab (page header in an assistant dialog)"
+msgid "Tweak the parameters of the chosen slicing method"
+msgstr "Tilpas den valgte udskæringsmetodes parametre"
+
+#: src/creator/puzzlecreator.cpp:112
+#, kde-format
+msgid "Puzzle cannot be created: The slicer plugin could not be loaded."
+msgstr "Puslespillet kan ikke oprettes: Udskærer-pluginet kunne ikke indlæses."
+
+#: src/creator/puzzlecreator.cpp:119
+#, kde-format
+msgid "Puzzle cannot be created: The file you selected is not an image."
+msgstr "Puslespillet kan ikke oprettes: Den fil du valgte er ikke et billede."
+
+#: src/creator/puzzlecreator.cpp:127
+#, kde-format
+msgid ""
+"Puzzle cannot be created: Slicing failed because of undetermined problems."
+msgstr ""
+"Puslespillet kan ikke oprettes: Udskæring mislykkedes pga. ukendte problemer."
+
+#: src/engine/constraintinteractor.cpp:15
+#, kde-format
+msgid "Change size of puzzle table area by dragging its edges"
+msgstr "Ændr størrelse på puslespilsområdet ved at trække i kanterne"
+
+#: src/engine/gameplay.cpp:179 src/engine/gameplay.cpp:1136
+#, kde-format
+msgid "You have finished the puzzle. Do you want to restart it now?"
+msgstr "Du gennemførte puslespillet. Vil du genstarte det nu?"
+
+#: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
+#, kde-format
+msgctxt "@action:button"
+msgid "Restart"
+msgstr ""
+
+#: src/engine/gameplay.cpp:295
+#, kde-format
+msgid "The following puzzles will be deleted. This action cannot be undone."
+msgstr ""
+"Følgende puslespil vil blive slettet. Denne handling kan ikke fortrydes."
+
+#: src/engine/gameplay.cpp:314 src/engine/gameplay.cpp:340
+#, kde-format
+msgctxt "Filter for a file dialog"
+msgid "Palapeli puzzles (*.puzzle)"
+msgstr "Palapeli-puslespil (*.puzzle)"
+
+#: src/engine/gameplay.cpp:316
+#, fuzzy, kde-format
+#| msgid "Import Palapeli puzzles"
+msgctxt "@title:window"
+msgid "Import Palapeli Puzzles"
+msgstr "Importér Palapeli-puslespil"
+
+#: src/engine/gameplay.cpp:342
+#, fuzzy, kde-format
+#| msgid "Save Palapeli puzzles"
+msgctxt "@title:window"
+msgid "Save Palapeli Puzzles"
+msgstr "Gem Palapeli-puslespil"
+
+#: src/engine/gameplay.cpp:357
+#, kde-format
+msgid "Create a piece holder"
+msgstr "Opret en brikholder"
+
+#: src/engine/gameplay.cpp:358
+#, kde-format
+msgid "Enter a short name (optional):"
+msgstr "Indtast et kort navn (valgfrit):"
+
+#: src/engine/gameplay.cpp:404
+#, kde-format
+msgid ""
+"You need to click on a piece holder to select it before you can delete it, "
+"or you can just click on its Close button."
+msgstr ""
+"Du skal klikke på en brikholder for at vælge den inden du sletter den, eller "
+"du kan blot klikke på dens Luk-knap."
+
+#: src/engine/gameplay.cpp:423
+#, kde-format
+msgid "The selected piece holder must be empty before you can delete it."
+msgstr "Den valgte brikholder skal være tom inden du kan slette den."
+
+#: src/engine/gameplay.cpp:442
+#, kde-format
+msgid ""
+"The selected piece holder must contain some pieces for 'Select all' to use."
+msgstr ""
+"Den valgte brikholder skal indeholde nogle brikker for at \"Vælg alle\" skal "
+"virke."
+
+#: src/engine/gameplay.cpp:448
+#, kde-format
+msgid ""
+"You need to click on a piece holder to select it before you can select all "
+"the pieces in it."
+msgstr ""
+"Du skal klikke på en brikholder for at vælge den inden du kan vælge alle "
+"brikkerne på den."
+
+#: src/engine/gameplay.cpp:468
+#, kde-format
+msgid ""
+"To rearrange pieces, either the puzzle table must have some selected pieces "
+"or there must be a selected holder with some selected pieces in it."
+msgstr ""
+"For at omarrangere brikker skal puslespillets bord enten have nogle valgte "
+"brikker eller der skal være en valgt holder med nogle valgte brikker i."
+
+#: src/engine/gameplay.cpp:530
+#, kde-format
+msgid ""
+"You need to have a piece holder and click it to select it before you can "
+"transfer pieces into or out of it."
+msgstr ""
+"Du skal have en brikholder og klikke på den for at vælge den inden du kan "
+"overfører brikker ind i eller ud af den."
+
+#: src/engine/gameplay.cpp:550
+#, kde-format
+msgid ""
+"You have selected to transfer a large piece containing more than six small "
+"pieces to a holder. Do you really wish to do that?"
+msgstr ""
+"Du har valgt at overfører en stor brik som indeholder mere end seks små "
+"brikker til en holder. Vil du virkelig gøre det?"
+
+#: src/engine/gameplay.cpp:555
+#, kde-format
+msgctxt "@action:button"
+msgid "Transfer"
+msgstr ""
+
+#: src/engine/gameplay.cpp:574
+#, kde-format
+msgid ""
+"You need to select one or more pieces to be transferred out of the selected "
+"holder or select pieces from the puzzle table to be transferred into it."
+msgstr ""
+"Du skal vælge én eller flere brikker for at overfører ud af den valgte "
+"holder eller vælge brikker fra puslespillets bord som skal overføres til det."
+
+#: src/engine/gameplay.cpp:592
+#, kde-format
+msgid ""
+"You need to select one or more pieces to be transferred from the previous "
+"holder into the newly selected holder."
+msgstr ""
+"Du skal vælge én eller flere brikker som skal overføres fra den forrige "
+"holder ind i holderen som er valgt for nyligt."
+
+#: src/engine/gameplay.cpp:600
+#, kde-format
+msgid ""
+"You need to have at least two holders, one of them selected and with "
+"selected pieces inside it, before you can transfer pieces to a second holder."
+msgstr ""
+"Du skal have mindst to holdere, en som er valgt med valgte brikker i, inden "
+"du kan overføre brikker til en anden holder."
+
+#: src/engine/gameplay.cpp:1077
+#, kde-format
+msgctxt "For holding pieces"
+msgid "Hand"
+msgstr "Hånd"
+
+#: src/engine/gameplay.cpp:1080
+#, kde-format
+msgctxt "Hints for solving large puzzles"
+msgid ""
+"You have just created a large puzzle: Palapeli has several features to help "
+"you solve it within the limited space on the desktop. They are described in "
+"detail in the Palapeli Handbook (on the Help menu). Here are just a few "
+"quick tips.\n"
+"\n"
+"Before beginning, it may be best not to use bevels or shadowing with large "
+"puzzles (see the Settings dialog), because they make loading slower and "
+"highlighting harder to see when the pieces in the view are very small.\n"
+"\n"
+"The first feature is the puzzle Preview (a picture of the completed puzzle) "
+"and a toolbar button to turn it on or off. If you hover over it with the "
+"mouse, it magnifies parts of the picture, so the window size you choose for "
+"the Preview can be quite small.\n"
+"\n"
+"Next, there are close-up and distant views of the puzzle table, which you "
+"can switch quickly by using a mouse button (default Middle-Click). In close-"
+"up view, use the empty space in the scroll bars to search through the puzzle "
+"pieces a 'page' at a time. You can adjust the two views by zooming in or out "
+"and your changes will be remembered.\n"
+"\n"
+"Then there is a space on the puzzle table reserved for building up the "
+"solution.\n"
+"\n"
+"Last but not least, there are small windows called 'holders'. They are for "
+"sorting pieces into groups such as edges, sky or white house on left. You "
+"can have as many holders as you like and can give them names. You should "
+"already have one named 'Hand', for carrying pieces from wherever you find "
+"them to the solution area.\n"
+"\n"
+"You use a special mouse click to transfer pieces into or out of a holder "
+"(default Shift Left-Click). First make sure the holder you want to use is "
+"active: it should have a blue outline. If not, click on it. To transfer "
+"pieces into the holder, select them on the puzzle table then do the special "
+"click to 'teleport' them into the holder. Or you can just do the special "
+"click on one piece at a time.\n"
+"\n"
+"To transfer pieces out of a holder, make sure no pieces are selected on the "
+"puzzle table, go into the holder window and select some pieces, using normal "
+"Palapeli mouse operations, then go back to the puzzle table and do the "
+"special click on an empty space where you want the pieces to arrive. "
+"Transfer no more than a few pieces at a time, to avoid collisions of pieces "
+"on the puzzle table.\n"
+"\n"
+"By the way, holders can do almost all the things the puzzle table and its "
+"window can do, including joining pieces to build up a part of the solution."
+msgstr ""
+"Du har lige oprettet et stort puslespil: Palapeli har adskillige funktioner "
+"til at hjælpe dig med at løse det indenfor skrivebordet begrænsede plads. De "
+"er beskrevet i detaljer, i Palapeli-håndbogen (i Hjælp-menuen). Her er nogle "
+"få hurtige tips.\n"
+"\n"
+"Inden du begynder kan det være bedst ikke at bruge profiler eller skygger "
+"med store puslespil (se Indstillinger-dialogen), da de kan gøre indlæsningen "
+"langsommere og sværer at se fremhævning når brikkerne er meget små i "
+"visningen.\n"
+"\n"
+"Den første funktion er forhåndsvisning af puslespil (et billede af det "
+"færdige puslespil) og en værktøjslinjeknap til at slå den til og fra. Hvis "
+"du holder muse over det, så forstørres dele af billedet, så størrelsen du "
+"vælger til vinduet kan være ret lille.\n"
+"\n"
+"Så er der nær- og fjernvisninger af puslespillets bord, så du hurtigt kan "
+"skifte med musen (standard er midterklik). I nærvisning kan du bruge den "
+"tomme plads i rullebjælkerne til at gennemsøge puslespillets brikker en "
+"\"side\" af gangen. Du kan justere de to visninger ved at zomme ind og ud, "
+"og ændringerne vil blive husket.\n"
+"\n"
+"Så er der en plads på puslespillets bord som er reserveret til at bygge "
+"løsningen.\n"
+"\n"
+"Sidst men ikke mindst er der små vinduer kaldet \"holdere\". De er til at "
+"sortere brikker i grupper, såsom kanter, skyer eller hvidt hus til venstre. "
+"Du kan have lige så mange holdere som du ønsker og du kan give dem navne. Du "
+"burde allerede have en som hedder \"Hånd\", til at bære brikker fra der hvor "
+"du finder dem til løsningsområdet.\n"
+"\n"
+"Du bruger et særligt museklik til at overføre brikker ind i eller ud af en "
+"holder (standard er Skift+venstreklik). Sørg først for at holderen du vil "
+"bruge er aktiv: den skal have et blå omrids. Klik på den hvis det ikke er "
+"tilfældet. For at overføre brikker ind i holderen, skal du vælge brikkerne "
+"på puslespillets bord og så foretage et særligt klik for at 'teleportere' "
+"dem ind i holderen. Eller du kan bare foretage det særlige klik på én brik "
+"af gangen.\n"
+"\n"
+"For at overføre brikkerne ud af en holder, skal du sørge for at brikkerne er "
+"valgt på puslespillets bord, gå så ind i holdervinduet og vælg nogle brikker "
+"med normale Palapeli-musehandlinger, gå så tilbage til puslespillets bord og "
+"foretag et særligt klik på en tom plads hvor du vil have brikkerne til at "
+"være. Overfør ikke flere end nogle få brikker af gangen, for at undgå at "
+"brikkerne rør hinanden på puslespillets bord.\n"
+"\n"
+"Holdere kan forresten gøre næsten alle de samme ting som puslespillets bord "
+"og dets vindue, inklusiv sammensætning af brikker til at bygge en del af "
+"løsningen."
+
+#: src/engine/gameplay.cpp:1130
+#, kde-format
+msgctxt "Caption for hints"
+msgid "Solving Large Puzzles"
+msgstr "Løser stort puslespil"
+
+#: src/engine/gameplay.cpp:1194
+#, kde-format
+msgid "Great! You have finished the puzzle."
+msgstr "Fantastisk! Du har gennemført puslespillet."
+
+#: src/engine/interactors.cpp:25
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Move pieces by dragging"
+msgstr "Flyt brikker ved at trække"
+
+#: src/engine/interactors.cpp:140
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Select pieces by clicking"
+msgstr "Vælg brikker ved at klikke"
+
+#: src/engine/interactors.cpp:176
+#, kde-format
+msgctxt "Works instantly, without dragging"
+msgid "Teleport pieces to or from a holder"
+msgstr "Teleportér brikker til eller fra en holder"
+
+#: src/engine/interactors.cpp:201
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Move viewport by dragging"
+msgstr "Flyt visningsfeltet ved at trække"
+
+#: src/engine/interactors.cpp:227
+#, kde-format
+msgctxt "As in a movie scene"
+msgid "Switch to close-up or distant view"
+msgstr "Skift til nær- eller fjernvisning"
+
+#: src/engine/interactors.cpp:247
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Zoom viewport"
+msgstr "Zoom visningsfeltet"
+
+#: src/engine/interactors.cpp:266
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Scroll viewport horizontally"
+msgstr "Rul visningsfeltet vandret"
+
+#: src/engine/interactors.cpp:268
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Scroll viewport vertically"
+msgstr "Rul visningsfeltet lodret"
+
+#: src/engine/interactors.cpp:347
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Select multiple pieces at once"
+msgstr "Vælg flere brikker samtidig"
+
+#: src/engine/interactors.cpp:411
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Toggle lock state of the puzzle table area"
+msgstr "Slå låst tilstand af puslespilsområdet til/fra"
+
+#: src/engine/puzzlepreview.cpp:29
+#, fuzzy, kde-format
+#| msgctxt "Window title"
+#| msgid "Preview of completed puzzle"
+msgctxt "@title:window"
+msgid "Preview of completed puzzle"
+msgstr "Forhåndsvisning af det færdige puslespil"
+
+#: src/engine/puzzlepreview.cpp:36
+#, kde-format
+msgctxt "text in preview window"
+msgid "Image is not available."
+msgstr "Billede er ikke tilgængeligt."
+
+#: src/engine/puzzlepreview.cpp:64
+#, fuzzy, kde-format
+#| msgid "%1 - Preview"
+msgctxt "@title:window"
+msgid "%1 - Preview"
+msgstr "%1 - Forhåndsvisning"
+
+#: src/engine/texturehelper.cpp:52
+#, kde-format
+msgctxt "@item:inlistbox"
+msgid "Single color"
+msgstr "Enkel farve"
+
+#: src/engine/trigger.cpp:87
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Shift"
+msgstr "Skift"
+
+#: src/engine/trigger.cpp:88
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Ctrl"
+msgstr "Ctrl"
+
+#: src/engine/trigger.cpp:89
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Alt"
+msgstr "Alt"
+
+#: src/engine/trigger.cpp:90
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Meta"
+msgstr "Meta"
+
+#: src/engine/trigger.cpp:91
+#, kde-format
+msgctxt "a special keyboard modifier"
+msgid "GroupSwitch"
+msgstr "GruppeSkift"
+
+#: src/engine/trigger.cpp:92
+#, kde-format
+msgctxt "refers to no mouse buttons being pressed"
+msgid "No-Button"
+msgstr "Ingen knap"
+
+#: src/engine/trigger.cpp:95
+#, kde-format
+msgctxt "a mouse button"
+msgid "Left-Button"
+msgstr "Venstre knap"
+
+#: src/engine/trigger.cpp:96
+#, kde-format
+msgctxt "a mouse button"
+msgid "Right-Button"
+msgstr "Højre knap"
+
+#: src/engine/trigger.cpp:97
+#, kde-format
+msgctxt "a mouse button"
+msgid "Middle-Button"
+msgstr "Midterknap"
+
+#: src/engine/trigger.cpp:98
+#, kde-format
+msgctxt "a special mouse button"
+msgid "XButton1"
+msgstr "XButton1"
+
+#: src/engine/trigger.cpp:99
+#, kde-format
+msgctxt "a special mouse button"
+msgid "XButton2"
+msgstr "XButton2"
+
+#: src/engine/trigger.cpp:100
+#, kde-format
+msgid "Horizontal-Scroll"
+msgstr "Vandret rulning"
+
+#: src/engine/trigger.cpp:101
+#, kde-format
+msgid "Vertical-Scroll"
+msgstr "Lodret rulning"
+
+#: src/engine/view.cpp:337
+#, kde-format
+msgid "Your progress is saved automatically while you play."
+msgstr "Din fremgang gemmes automatisk mens du spiller."
+
+#: src/engine/view.cpp:337
+#, kde-format
+msgctxt "used as caption for a dialog that explains the autosave feature"
+msgid "Automatic saving"
+msgstr "Automatisk gemning"
+
+#: src/engine/zoomwidget.cpp:26
+#, kde-format
+msgid "Lock the puzzle table area"
+msgstr "Lås puslespilsområdet"
+
+#: src/file-io/collection-delegate.cpp:106
+#, kde-format
+msgid "[No name]"
+msgstr "[Intet navn]"
+
+#: src/file-io/collection-delegate.cpp:111
+#, kde-format
+msgctxt "Puzzle description, %2 = name string, %1 = piece count"
+msgid "%2 (%1 piece)"
+msgid_plural "%2 (%1 pieces)"
+msgstr[0] "%2 (%1 brik)"
+msgstr[1] "%2 (%1 brikker)"
+
+#: src/file-io/collection-delegate.cpp:132
+#, kde-format
+msgctxt "Author attribution, e.g. \"by Jack\""
+msgid "by %1"
+msgstr "af %1"
+
+#: src/file-io/collection-view.cpp:58
+#, fuzzy, kde-format
+#| msgctxt "@action:button that pops up sorting strategy selection menu"
+#| msgid "Sort list..."
+msgctxt "@action:button that pops up sorting strategy selection menu"
+msgid "Sort List..."
+msgstr "Sortér liste..."
+
+#: src/file-io/collection-view.cpp:61
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu selects sorting strategy for collection list"
+#| msgid "By title"
+msgctxt "@action:inmenu selects sorting strategy for collection list"
+msgid "By Title"
+msgstr "Efter titel"
+
+#: src/file-io/collection-view.cpp:62
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu selects sorting strategy for collection list"
+#| msgid "By piece count"
+msgctxt "@action:inmenu selects sorting strategy for collection list"
+msgid "By Piece Count"
+msgstr "Efter antal brikker"
+
+#: src/file-io/collection.cpp:36
+#, kde-format
+msgid "Loading puzzle..."
+msgstr "Indlæser puslespil..."
+
+#: src/file-io/collection.cpp:109
+#, fuzzy, kde-format
+#| msgid "Back to &collection"
+msgid "Loading collection"
+msgstr "Tilbage til &samling"
+
+#: src/importhelper.cpp:28
+#, kde-format
+msgctxt "command line message"
+msgid "Error: No puzzle file given."
+msgstr "Fejl: Ingen puslespilsfile angivet."
+
+#: src/importhelper.cpp:40
+#, kde-format
+msgid "Importing puzzle \"%1\" into your collection"
+msgstr "Importerer puslespillet \"%1\" til din samling"
+
+#: src/main.cpp:33
+#, kde-format
+msgctxt "The application's name"
+msgid "Palapeli"
+msgstr "Palapeli"
+
+#: src/main.cpp:35
+#, fuzzy, kde-format
+#| msgid "KDE Jigsaw Puzzle Game"
+msgid "Jigsaw Puzzle Game"
+msgstr "KDE puslespil"
+
+#: src/main.cpp:37
+#, kde-format
+msgid "Copyright 2009, 2010, Stefan Majewsky"
+msgstr "Ophavsret 2009, 2010, Stefan Majewsky"
+
+#: src/main.cpp:40
+#, kde-format
+msgid "Stefan Majewsky"
+msgstr "Stefan Majewsky"
+
+#: src/main.cpp:41
+#, kde-format
+msgid "Johannes Loehnert"
+msgstr "Johannes Loehnert"
+
+#: src/main.cpp:42
+#, kde-format
+msgid "The option to preview the completed puzzle"
+msgstr "Muligheden for at forhåndsvise det færdige puslespil"
+
+#: src/main.cpp:47
+#, kde-format
+msgid "Path to puzzle file (will be opened if -i is not given)"
+msgstr "Sti til puslespilsfil (vil blive åbnet hvis ikke -i angives)"
+
+#: src/main.cpp:48
+#, kde-format
+msgid ""
+"Import the given puzzle file into the local collection (does nothing if no "
+"puzzle file is given). The main window will not be shown after importing the "
+"given puzzle."
+msgstr ""
+"Importér den angivne puslespilsfil til den lokale samling (gør intet hvis "
+"ingen puslespil-fil angives). Hovedvinduet vises efter import af det angivne "
+"puslespil."
+
+#: src/main.cpp:61
+#, kde-format
+msgid "No file to import given"
+msgstr ""
+
+#. i18n: ectx: label, entry (SnappingPrecision), group (Puzzling)
+#: src/palapeli.kcfg:6
+#, kde-format
+msgid "Precision of snapping (as a percentage of piece size)."
+msgstr "Præcision af hægtning (som procentdel af brikstørrelse)."
+
+#. i18n: ectx: label, entry (ViewBackground), group (Appearance)
+#: src/palapeli.kcfg:12
+#, kde-format
+msgid ""
+"The filename of the background image to use for the View, or \"__color__\" "
+"if a solid color should be used (see key \"ViewBackgroundColor\")."
+msgstr ""
+"Filnavnet på baggrundsbilledet der skal bruges til visningen, eller "
+"\"__color__\" hvis der skal bruges en fyldfarve (se nøglen "
+"\"ViewBackgroundColor\")."
+
+#. i18n: ectx: label, entry (ViewBackgroundColor), group (Appearance)
+#: src/palapeli.kcfg:16
+#, kde-format
+msgid ""
+"The background color to use for the View (if the key \"ViewBackground\" is "
+"set to \"__color__\")."
+msgstr ""
+"Baggrundsfarven der skal bruges til visningen (hvis nøglen \"ViewBackground"
+"\" er sat til \"__color__\")."
+
+#. i18n: ectx: label, entry (ViewHighlightColor), group (Appearance)
+#: src/palapeli.kcfg:20
+#, kde-format
+msgid "The highlighting color to use for selecting pieces in the View."
+msgstr "Fremhævningsfarven som bruges til at vælge brikker i visningen."
+
+#. i18n: ectx: label, entry (SolutionArea), group (Appearance)
+#: src/palapeli.kcfg:24
+#, kde-format
+msgid ""
+"Where to reserve space on the puzzle table for the solution, when shuffling "
+"or re-shuffling the pieces."
+msgstr ""
+"Hvor der skal reserveres plads til løsningen, på puslespillets bord, når "
+"brikkerne blandes eller blandes igen."
+
+#. i18n: ectx: label, entry (PieceSpacing), group (Appearance)
+#: src/palapeli.kcfg:28
+#, kde-format
+msgid ""
+"Spacing of pieces in puzzle grids relative to the size of the largest piece "
+"(spacing factor is 1.0 + 0.05 * value)."
+msgstr ""
+"Afstand mellem brikker i puslespillets gitre, relativt til størrelsen af den "
+"største brik (afstandsfaktor er 1.0 + 0.05 * værdi)."
+
+#. i18n: ectx: label, entry (ShowStatusBar), group (Appearance)
+#: src/palapeli.kcfg:32
+#, kde-format
+msgid ""
+"Whether to show the status bar on the puzzle table. (It is not a real status "
+"bar, but the position and provided functionality is similar.)"
+msgstr ""
+"Om statuslinjen skal vises på puslespilsbordet. (Det er ikke en rigtig "
+"statuslinje, men placeringen og funktionaliteten ligner.)"
+
+#. i18n: ectx: label, entry (PieceShadowsEnabled), group (Appearance)
+#: src/palapeli.kcfg:36
+#, kde-format
+msgid ""
+"Whether to render shadows below the puzzle pieces. Turning this off might "
+"improve rendering performance."
+msgstr ""
+"Om der skal renderes skygger under puslespilsbrikkerne. At slå dette fra kan "
+"forbedre renderingsydelsen."
+
+#. i18n: ectx: label, entry (PieceBevelsEnabled), group (Appearance)
+#: src/palapeli.kcfg:40
+#, kde-format
+msgid ""
+"Whether to render bevels on the puzzle pieces. Turning this off might "
+"improve puzzle loading performance."
+msgstr ""
+"Om der skal renderes profiler på puslespilsbrikkerne. At slå dette fra kan "
+"forbedre ydelsen ved indlæsning af puslespil."
+
+#. i18n: ectx: label, entry (PuzzlePreviewVisible), group (PuzzlePreview)
+#: src/palapeli.kcfg:46
+#, kde-format
+msgid "Whether the preview window was switched on last time Palapeli was run."
+msgstr ""
+"Om forhåndsvisningsvinduet blev slået til, sidste gang Palapeli blev kørt."
+
+#. i18n: ectx: label, entry (PuzzlePreviewGeometry), group (PuzzlePreview)
+#: src/palapeli.kcfg:50
+#, kde-format
+msgid "Last position and size of puzzle preview."
+msgstr "Sidste placering og størrelse af puslespillets forhåndsvisning."
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: src/palapeliui.rc:35
+#, kde-format
+msgid "Main toolbar"
+msgstr "Hovedværktøjslinje"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: src/settings.ui:17
+#, kde-format
+msgctxt "@title:group"
+msgid "Puzzle table"
+msgstr "Puslespilsbord"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/settings.ui:25
+#, kde-format
+msgctxt "@label:chooser for different types of background textures"
+msgid "Background:"
+msgstr "Baggrund:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: src/settings.ui:55
+#, kde-format
+msgid "Color for highlighting selected pieces:"
+msgstr "Farve for fremhævning af valgte brikker:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: src/settings.ui:75
+#, kde-format
+msgid "Space for solution:"
+msgstr "Plads til løsning:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: src/settings.ui:94
+#, kde-format
+msgid ""
+"No space is provided with puzzles of less than 20 pieces. Changes will take "
+"effect when a puzzle is created or re-started."
+msgstr ""
+"Der gives ingen plads med puslespil på mindre end 20 brikker. Ændringerne "
+"træder i kraft når et puslespil oprettes eller genstartes."
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: src/settings.ui:106
+#, kde-format
+msgid "Spacing of pieces in puzzle grids (1.0-1.5):"
+msgstr "Afstad mellem brikker i puslespillets gitre (1.0-1.5):"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/settings.ui:156
+#, kde-format
+msgid "Piece appearance"
+msgstr "Udseende af brikker"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceBevelsEnabled)
+#: src/settings.ui:162
+#, kde-format
+msgid "Draw bevels to create a 3-dimensional appearance"
+msgstr "Tegn profiler for at oprette en 3D-fremtoning"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceShadowsEnabled)
+#: src/settings.ui:172
+#, kde-format
+msgid "Draw shadows below pieces"
+msgstr "Tegn skygger under brikker"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: src/settings.ui:182
+#, kde-format
+msgid ""
+"These options can be disabled when Palapeli is running very slowly. Changes "
+"will take effect only when a new puzzle is started."
+msgstr ""
+"Disse indstillinger kan deaktiveres når Palapeli kører meget langsomt. "
+"Ændringer vil først få virkning når der startes et nyt puslespil."
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: src/settings.ui:195
+#, kde-format
+msgctxt "@title:group"
+msgid "Piece behavior"
+msgstr "Brikkers opførsel"
+
+#. i18n: ectx: property (text), widget (QLabel, label_1)
+#: src/settings.ui:201
+#, kde-format
+msgctxt "@label:slider"
+msgid "Snapping precision:"
+msgstr "Præcision af hægtning:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/settings.ui:241
+#, kde-format
+msgctxt "@item:inrange description for the \"snapping precision\" setting"
+msgid "Very precise (harder)"
+msgstr "Meget præcis (sværere)"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/settings.ui:270
+#, kde-format
+msgctxt "@item:inrange description for the \"snapping precision\" setting"
+msgid "Unprecise (easier)"
+msgstr "Upræcis (nemmere)"
+
+#: src/window/mainwindow.cpp:53
+#, fuzzy, kde-format
+#| msgid "Show statusbar of puzzle table"
+msgid "Show Statusbar of Puzzle Table"
+msgstr "Vis puslespilsbordets statuslinje"
+
+#: src/window/mainwindow.cpp:56
+#, fuzzy, kde-format
+#| msgid "Back to &collection"
+msgid "Back to &Collection"
+msgstr "Tilbage til &samling"
+
+#: src/window/mainwindow.cpp:57
+#, kde-format
+msgid "Go back to the collection to choose another puzzle"
+msgstr "Gå tilbage til samlingen for at vælge et andet puslespil"
+
+#: src/window/mainwindow.cpp:63
+#, fuzzy, kde-format
+#| msgid "Create &new puzzle..."
+msgid "Create &New Puzzle..."
+msgstr "Opret &nyt puslespil..."
+
+#: src/window/mainwindow.cpp:64
+#, kde-format
+msgid "Create a new puzzle using an image file from your disk"
+msgstr "Opret et nyt puslespil ud fra en billedfil på din harddisk"
+
+#: src/window/mainwindow.cpp:70
+#, fuzzy, kde-format
+#| msgid "&Delete puzzle"
+msgid "&Delete Puzzle"
+msgstr "&Slet puslespil"
+
+#: src/window/mainwindow.cpp:72
+#, kde-format
+msgid "Delete the selected puzzle from your collection"
+msgstr "Slet det valgte puslespil fra din samling"
+
+#: src/window/mainwindow.cpp:78
+#, fuzzy, kde-format
+#| msgid "&Import from file..."
+msgid "&Import from File..."
+msgstr "&Importér fra fil..."
+
+#: src/window/mainwindow.cpp:79
+#, kde-format
+msgid "Import a new puzzle from a file into your collection"
+msgstr "Importér et nyt puslespil fra en fil til din samling"
+
+#: src/window/mainwindow.cpp:84
+#, fuzzy, kde-format
+#| msgid "&Export to file..."
+msgid "&Export to File..."
+msgstr "&Eksportér til fil..."
+
+#: src/window/mainwindow.cpp:86
+#, kde-format
+msgid "Export the selected puzzle from your collection into a file"
+msgstr "Eksportér det valgte puslespil fra din samling til en fil"
+
+#: src/window/mainwindow.cpp:92
+#, fuzzy, kde-format
+#| msgid "&Restart puzzle..."
+msgid "&Restart Puzzle..."
+msgstr "&Genstart puslespil..."
+
+#: src/window/mainwindow.cpp:93
+#, kde-format
+msgid "Delete the saved progress and reshuffle the pieces"
+msgstr "Slet den gemte fremgang og bland brikkerne igen"
+
+#: src/window/mainwindow.cpp:100
+#, fuzzy, kde-format
+#| msgid "&Create piece holder..."
+msgid "&Create Piece Holder..."
+msgstr "&Opret brikholder..."
+
+#: src/window/mainwindow.cpp:101
+#, kde-format
+msgid "Create a temporary holder for sorting pieces"
+msgstr "Opret en midlertidig holder til sortering af brikker"
+
+#: src/window/mainwindow.cpp:108
+#, fuzzy, kde-format
+#| msgid "&Delete piece holder"
+msgid "&Delete Piece Holder"
+msgstr "&Slet brikholder"
+
+#: src/window/mainwindow.cpp:109
+#, kde-format
+msgid "Delete a selected temporary holder when it is empty"
+msgstr "Slet en valgt midlertidig holder når den er tom"
+
+#: src/window/mainwindow.cpp:115
+#, fuzzy, kde-format
+#| msgid "&Select all in holder"
+msgid "&Select All in Holder"
+msgstr "&Vælg alle i holder"
+
+#: src/window/mainwindow.cpp:116
+#, kde-format
+msgid "Select all pieces in a selected piece holder"
+msgstr "Vælg alle brikker i en valgt brikholder"
+
+#: src/window/mainwindow.cpp:122
+#, fuzzy, kde-format
+#| msgid "&Rearrange pieces"
+msgid "&Rearrange Pieces"
+msgstr "&Omarranger brikker"
+
+#: src/window/mainwindow.cpp:123
+#, kde-format
+msgid ""
+"Rearrange all pieces in a selected piece holder or selected pieces in any "
+"window"
+msgstr ""
+"Omarranger alle brikker i en valgt brikholder eller valgte brikker i et "
+"vindue"
+
+#: src/window/mainwindow.cpp:130
+#, kde-format
+msgctxt "Preview is a noun here"
+msgid "&Preview"
+msgstr "&Forhåndsvis"
+
+#: src/window/mainwindow.cpp:132
+#, kde-format
+msgctxt "Preview is a noun here"
+msgid "Preview"
+msgstr "Forhåndsvis"
+
+#: src/window/mainwindow.cpp:133
+#, kde-format
+msgid "Show or hide the image of the completed puzzle"
+msgstr "Vis eller skjul billedet af det færdige puslespil"
+
+#: src/window/mainwindow.cpp:147
+#, fuzzy, kde-format
+#| msgid "Enable all messages"
+msgid "Enable All Messages"
+msgstr "Aktivér alle meddelelser"
+
+#: src/window/mainwindow.cpp:156
+#, fuzzy, kde-format
+#| msgid "Enable all messages"
+msgid "Enable all messages again?"
+msgstr "Aktivér alle meddelelser"
+
+#: src/window/mainwindow.cpp:157
+#, kde-format
+msgctxt "@action:button"
+msgid "Enable"
+msgstr ""
+
+#: src/window/puzzletablewidget.cpp:49
+#, kde-format
+msgid "No puzzle loaded"
+msgstr "Intet puslespil indlæst"
+
+#: src/window/puzzletablewidget.cpp:118
+#, kde-format
+msgid "You finished the puzzle."
+msgstr "Du har gennemført puslespillet."
+
+#: src/window/puzzletablewidget.cpp:122
+#, kde-format
+msgctxt "Progress display"
+msgid "%1% finished"
+msgstr "%1% gennemført"
+
+#~ msgid ""
+#~ "If the -i/--import option is specified, the main window will not be shown "
+#~ "after importing the given puzzle."
+#~ msgstr ""
+#~ "Hvis tilvalget -i/--import angives, vil hovedvinduet ikke blive vist "
+#~ "efter import af det angivne puslespil."
+
+#~ msgctxt "description for a command line switch"
+#~ msgid "Configuration file"
+#~ msgstr "Konfigurationsfil"
+
+#~ msgctxt "description for a command line switch"
+#~ msgid "Output file"
+#~ msgstr "Output-fil"
+
+#~ msgid "Puzzle type:"
+#~ msgstr "Type af puslespil:"
+
+#~ msgid "Puzzle name:"
+#~ msgstr "Navn på puslespil:"

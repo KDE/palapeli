@@ -1,0 +1,1192 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: kdeorg\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-28 00:44+0000\n"
+"PO-Revision-Date: 2022-09-20 01:56\n"
+"Last-Translator: \n"
+"Language-Team: Chinese Simplified\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: kdeorg\n"
+"X-Crowdin-Project-ID: 269464\n"
+"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-File: /kf5-trunk/messages/palapeli/palapeli.pot\n"
+"X-Crowdin-File-ID: 6428\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "KDE 中国"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kde-china@kde.org"
+
+#: libpala/slicerpropertyset.cpp:74
+#, kde-format
+msgid "Piece count"
+msgstr "拼图块数"
+
+#: libpala/slicerpropertyset.cpp:78
+#, kde-format
+msgid "Piece aspect ratio"
+msgstr "拼图块纵横比"
+
+#: slicers/goldberg/grid.h:27
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Predefined settings"
+msgstr "预设设置"
+
+#: slicers/goldberg/grid.h:34
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Cairo (pentagonal) grid"
+msgstr "开罗 (五边形) 网格"
+
+#: slicers/goldberg/grid.h:41
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Hexagonal grid"
+msgstr "六边形网格"
+
+#: slicers/goldberg/grid.h:48
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Rectangular grid"
+msgstr "矩形网格"
+
+#: slicers/goldberg/grid.h:55
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Rotrex (rhombi-trihexagonal) grid"
+msgstr "Rotrex (小斜方截半六边形镶嵌) 网格"
+
+#: slicers/goldberg/grid.h:62
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Irregular grid"
+msgstr "不规则网格"
+
+#: slicers/goldberg/slicer-goldberg.cpp:39
+#, kde-format
+msgid "Approx. piece count"
+msgstr "大致拼图块数"
+
+#: slicers/goldberg/slicer-goldberg.cpp:45
+#, kde-format
+msgid "Quick preset"
+msgstr "快速预设"
+
+#: slicers/goldberg/slicer-goldberg.cpp:47
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Ordinary"
+msgstr "普通"
+
+#: slicers/goldberg/slicer-goldberg.cpp:48
+#: slicers/goldberg/slicer-goldberg.cpp:124
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Very regular"
+msgstr "非常规整"
+
+#: slicers/goldberg/slicer-goldberg.cpp:49
+#: slicers/goldberg/slicer-goldberg.cpp:125
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Very diverse"
+msgstr "非常多样"
+
+#: slicers/goldberg/slicer-goldberg.cpp:50
+#: slicers/goldberg/slicer-goldberg.cpp:126
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Large plugs"
+msgstr "大接头"
+
+#: slicers/goldberg/slicer-goldberg.cpp:57
+#, kde-format
+msgid "Flipped edge percentage"
+msgstr "翻转边缘百分比"
+
+#: slicers/goldberg/slicer-goldberg.cpp:64
+#, kde-format
+msgid "Edge curviness"
+msgstr "边缘弯曲度"
+
+#: slicers/goldberg/slicer-goldberg.cpp:70
+#, kde-format
+msgid "Plug size"
+msgstr "接头大小"
+
+#: slicers/goldberg/slicer-goldberg.cpp:77
+#, kde-format
+msgid "Diversity of curviness"
+msgstr "曲线多样性"
+
+#: slicers/goldberg/slicer-goldberg.cpp:84
+#, kde-format
+msgid "Diversity of plug position"
+msgstr "接头位置多样性"
+
+#: slicers/goldberg/slicer-goldberg.cpp:91
+#, kde-format
+msgid "Diversity of plugs"
+msgstr "接头多样性"
+
+#: slicers/goldberg/slicer-goldberg.cpp:98
+#, kde-format
+msgid "Diversity of piece size"
+msgstr "拼图大小多样性"
+
+#: slicers/goldberg/slicer-goldberg.cpp:107
+#, kde-format
+msgid "Dump grid image"
+msgstr "导出网格图像"
+
+#: src/config/configdialog.cpp:62
+#, kde-format
+msgid "General Settings"
+msgstr ""
+
+#: src/config/configdialog.cpp:65
+#, kde-format
+msgid "Mouse Interaction"
+msgstr ""
+
+#: src/config/configdialog.cpp:112
+#, kde-format
+msgid "Center"
+msgstr "中间对齐"
+
+#: src/config/configdialog.cpp:113
+#, kde-format
+msgid "None"
+msgstr "未分组"
+
+#: src/config/configdialog.cpp:114
+#, kde-format
+msgid "Top Left"
+msgstr "左上"
+
+#: src/config/configdialog.cpp:115
+#, kde-format
+msgid "Top Right"
+msgstr "右上"
+
+#: src/config/configdialog.cpp:116
+#, kde-format
+msgid "Bottom Left"
+msgstr "左下"
+
+#: src/config/configdialog.cpp:117
+#, kde-format
+msgid "Bottom Right"
+msgstr "右下"
+
+#: src/config/mouseinputbutton.cpp:45
+#, kde-format
+msgid "Remove this trigger"
+msgstr "删除此触发器"
+
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#, kde-format
+msgid "Input here..."
+msgstr "在此输入..."
+
+#: src/config/mouseinputbutton.cpp:120
+#, kde-format
+msgid ""
+"Hold down the modifier keys you want, then click a mouse button or scroll a "
+"mouse wheel here"
+msgstr "按住您想要用的修饰键，随后在此点击或滚动鼠标"
+
+#: src/config/mouseinputbutton.cpp:224
+#, kde-format
+msgctxt ""
+"This is used for describing that no mouse action has been assigned to this "
+"interaction plugin."
+msgid "None"
+msgstr "未分组"
+
+#: src/config/mouseinputbutton.cpp:230
+#, kde-format
+msgid "Click to change how an action is triggered"
+msgstr "点击可更改的操作的触发方式"
+
+#: src/config/triggerconfigwidget.cpp:20
+#, kde-format
+msgid "Mouse Buttons"
+msgstr ""
+
+#: src/config/triggerconfigwidget.cpp:21
+#, kde-format
+msgid "Mouse Wheel"
+msgstr ""
+
+#: src/config/triggerlistview.cpp:17
+#, kde-format
+msgid "Interaction with pieces"
+msgstr "与拼图互动"
+
+#: src/config/triggerlistview.cpp:19
+#, kde-format
+msgid "Interaction with the puzzle table"
+msgstr "与拼图板互动"
+
+#: src/config/triggerlistview.cpp:21
+#, kde-format
+msgid "Interaction with the viewport"
+msgstr "与视点互动"
+
+#: src/creator/puzzlecreator.cpp:38
+#, kde-format
+msgctxt "@title:window"
+msgid "Create New Puzzle"
+msgstr ""
+
+#: src/creator/puzzlecreator.cpp:51
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Image file:"
+msgstr "镜像文件："
+
+#: src/creator/puzzlecreator.cpp:52
+#, kde-format
+msgctxt "@info"
+msgid "Please describe below the image which you have chosen."
+msgstr "请在下方描述您所选的图像。"
+
+#: src/creator/puzzlecreator.cpp:53
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Image name:"
+msgstr "图像名："
+
+#: src/creator/puzzlecreator.cpp:54
+#, kde-format
+msgctxt "@label:textbox (like in: This comment is optional.)"
+msgid "Optional comment:"
+msgstr "可选注释："
+
+#: src/creator/puzzlecreator.cpp:55
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Name of image author:"
+msgstr "图像作者名字："
+
+#: src/creator/puzzlecreator.cpp:63
+#, kde-format
+msgctxt "@item:inlistbox (page name in an assistant dialog)"
+msgid "Choose image"
+msgstr "选择图像"
+
+#: src/creator/puzzlecreator.cpp:64
+#, kde-format
+msgctxt "@title:tab (page header in an assistant dialog)"
+msgid "Specify the source image to be sliced into pieces"
+msgstr "指定要切分为拼块的来源图像"
+
+#: src/creator/puzzlecreator.cpp:66
+#, kde-format
+msgctxt "@item:inlistbox (page name in an assistant dialog)"
+msgid "Choose slicer"
+msgstr "选择切分器"
+
+#: src/creator/puzzlecreator.cpp:67
+#, kde-format
+msgctxt "@title:tab (page header in an assistant dialog)"
+msgid "Choose a slicing method"
+msgstr "选择切分方式"
+
+#: src/creator/puzzlecreator.cpp:68
+#, kde-format
+msgctxt "@item:inlistbox (page name in an assistant dialog)"
+msgid "Configure slicer"
+msgstr "配置切分器"
+
+#: src/creator/puzzlecreator.cpp:69
+#, kde-format
+msgctxt "@title:tab (page header in an assistant dialog)"
+msgid "Tweak the parameters of the chosen slicing method"
+msgstr "微调所选切分方式的参数"
+
+#: src/creator/puzzlecreator.cpp:112
+#, kde-format
+msgid "Puzzle cannot be created: The slicer plugin could not be loaded."
+msgstr "无法创建拼图：无法加载切分器插件。"
+
+#: src/creator/puzzlecreator.cpp:119
+#, kde-format
+msgid "Puzzle cannot be created: The file you selected is not an image."
+msgstr "无法创建拼图：您所选择的文件不是图像。"
+
+#: src/creator/puzzlecreator.cpp:127
+#, kde-format
+msgid ""
+"Puzzle cannot be created: Slicing failed because of undetermined problems."
+msgstr "无法创建拼图：因无法判断的问题而切分失败。"
+
+#: src/engine/constraintinteractor.cpp:15
+#, kde-format
+msgid "Change size of puzzle table area by dragging its edges"
+msgstr "拖动解谜板的边框可改变其区域的大小"
+
+#: src/engine/gameplay.cpp:179 src/engine/gameplay.cpp:1136
+#, kde-format
+msgid "You have finished the puzzle. Do you want to restart it now?"
+msgstr "您上次已经完成了拼图。您现在想要重新开始吗？"
+
+#: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
+#, kde-format
+msgctxt "@action:button"
+msgid "Restart"
+msgstr ""
+
+#: src/engine/gameplay.cpp:295
+#, kde-format
+msgid "The following puzzles will be deleted. This action cannot be undone."
+msgstr "以下拼图将被删除，此操作无法撤销。"
+
+#: src/engine/gameplay.cpp:314 src/engine/gameplay.cpp:340
+#, kde-format
+msgctxt "Filter for a file dialog"
+msgid "Palapeli puzzles (*.puzzle)"
+msgstr "Palapeli 拼图 (*.puzzle)"
+
+#: src/engine/gameplay.cpp:316
+#, kde-format
+msgctxt "@title:window"
+msgid "Import Palapeli Puzzles"
+msgstr ""
+
+#: src/engine/gameplay.cpp:342
+#, kde-format
+msgctxt "@title:window"
+msgid "Save Palapeli Puzzles"
+msgstr ""
+
+#: src/engine/gameplay.cpp:357
+#, kde-format
+msgid "Create a piece holder"
+msgstr "创建暂存区"
+
+#: src/engine/gameplay.cpp:358
+#, kde-format
+msgid "Enter a short name (optional):"
+msgstr "输入短名称 (可选)："
+
+#: src/engine/gameplay.cpp:404
+#, kde-format
+msgid ""
+"You need to click on a piece holder to select it before you can delete it, "
+"or you can just click on its Close button."
+msgstr ""
+"在您删除它之前，您需要点击一个暂存区来选中它，或者您也可以点击关闭按钮。"
+
+#: src/engine/gameplay.cpp:423
+#, kde-format
+msgid "The selected piece holder must be empty before you can delete it."
+msgstr "在删除选中的暂存区之前，它必须被清空。"
+
+#: src/engine/gameplay.cpp:442
+#, kde-format
+msgid ""
+"The selected piece holder must contain some pieces for 'Select all' to use."
+msgstr "选中的暂存区需要有一些拼片才能被“选择所有”所选中。"
+
+#: src/engine/gameplay.cpp:448
+#, kde-format
+msgid ""
+"You need to click on a piece holder to select it before you can select all "
+"the pieces in it."
+msgstr "在选择其中的所有拼图片之前，您需要先点击一个暂存区来选中它。"
+
+#: src/engine/gameplay.cpp:468
+#, kde-format
+msgid ""
+"To rearrange pieces, either the puzzle table must have some selected pieces "
+"or there must be a selected holder with some selected pieces in it."
+msgstr ""
+"要重新排列拼图片，您需要在拼图板上选择一些拼图片，或者在一个选中的暂存区中选"
+"中一些拼图片。"
+
+#: src/engine/gameplay.cpp:530
+#, kde-format
+msgid ""
+"You need to have a piece holder and click it to select it before you can "
+"transfer pieces into or out of it."
+msgstr "要将拼图片移入或移出，您需要先点击一个暂存区来选中它。"
+
+#: src/engine/gameplay.cpp:550
+#, kde-format
+msgid ""
+"You have selected to transfer a large piece containing more than six small "
+"pieces to a holder. Do you really wish to do that?"
+msgstr ""
+"您选择了将包括超过六片拼图片的一大片拼图移动到一个暂存区。您真的想那么做吗？"
+
+#: src/engine/gameplay.cpp:555
+#, kde-format
+msgctxt "@action:button"
+msgid "Transfer"
+msgstr ""
+
+#: src/engine/gameplay.cpp:574
+#, kde-format
+msgid ""
+"You need to select one or more pieces to be transferred out of the selected "
+"holder or select pieces from the puzzle table to be transferred into it."
+msgstr ""
+"您需要选择一个或多个拼图片来从选中的暂存区中转移出来，或者选中拼图板中的一些"
+"拼图片来将它们转移到暂存区中。"
+
+#: src/engine/gameplay.cpp:592
+#, kde-format
+msgid ""
+"You need to select one or more pieces to be transferred from the previous "
+"holder into the newly selected holder."
+msgstr ""
+"您需要选择一个或多个拼图片才能将它们从前一个暂存区中转移到新选择的暂存区中。"
+
+#: src/engine/gameplay.cpp:600
+#, kde-format
+msgid ""
+"You need to have at least two holders, one of them selected and with "
+"selected pieces inside it, before you can transfer pieces to a second holder."
+msgstr ""
+"您需要有至少两个暂存区，选中其中一个，并且在其中选中了一些拼图片，才能将它们"
+"移动到第二个暂存区中。"
+
+#: src/engine/gameplay.cpp:1077
+#, kde-format
+msgctxt "For holding pieces"
+msgid "Hand"
+msgstr "手"
+
+#: src/engine/gameplay.cpp:1080
+#, kde-format
+msgctxt "Hints for solving large puzzles"
+msgid ""
+"You have just created a large puzzle: Palapeli has several features to help "
+"you solve it within the limited space on the desktop. They are described in "
+"detail in the Palapeli Handbook (on the Help menu). Here are just a few "
+"quick tips.\n"
+"\n"
+"Before beginning, it may be best not to use bevels or shadowing with large "
+"puzzles (see the Settings dialog), because they make loading slower and "
+"highlighting harder to see when the pieces in the view are very small.\n"
+"\n"
+"The first feature is the puzzle Preview (a picture of the completed puzzle) "
+"and a toolbar button to turn it on or off. If you hover over it with the "
+"mouse, it magnifies parts of the picture, so the window size you choose for "
+"the Preview can be quite small.\n"
+"\n"
+"Next, there are close-up and distant views of the puzzle table, which you "
+"can switch quickly by using a mouse button (default Middle-Click). In close-"
+"up view, use the empty space in the scroll bars to search through the puzzle "
+"pieces a 'page' at a time. You can adjust the two views by zooming in or out "
+"and your changes will be remembered.\n"
+"\n"
+"Then there is a space on the puzzle table reserved for building up the "
+"solution.\n"
+"\n"
+"Last but not least, there are small windows called 'holders'. They are for "
+"sorting pieces into groups such as edges, sky or white house on left. You "
+"can have as many holders as you like and can give them names. You should "
+"already have one named 'Hand', for carrying pieces from wherever you find "
+"them to the solution area.\n"
+"\n"
+"You use a special mouse click to transfer pieces into or out of a holder "
+"(default Shift Left-Click). First make sure the holder you want to use is "
+"active: it should have a blue outline. If not, click on it. To transfer "
+"pieces into the holder, select them on the puzzle table then do the special "
+"click to 'teleport' them into the holder. Or you can just do the special "
+"click on one piece at a time.\n"
+"\n"
+"To transfer pieces out of a holder, make sure no pieces are selected on the "
+"puzzle table, go into the holder window and select some pieces, using normal "
+"Palapeli mouse operations, then go back to the puzzle table and do the "
+"special click on an empty space where you want the pieces to arrive. "
+"Transfer no more than a few pieces at a time, to avoid collisions of pieces "
+"on the puzzle table.\n"
+"\n"
+"By the way, holders can do almost all the things the puzzle table and its "
+"window can do, including joining pieces to build up a part of the solution."
+msgstr ""
+"您刚创建了一个大型拼图：Palapeli 有一些功能能够帮助您在桌面上的有限空间中解决"
+"它。它们在 Palapeli 手册中有详细说明（在帮助菜单中）。这里为您提供几条简短的"
+"建议。\n"
+"\n"
+"首先，最好不要对大型拼图启用斜角或阴影（参见设置对话框），因为它们会使加载更"
+"慢，并在视图中拼片很小时很难看见高亮。\n"
+"\n"
+"第一个功能是拼图预览（完整拼图的图片），有个工具栏按钮可以打开或关闭它。如果"
+"您用鼠标悬停在其上，它会放大图片的局部。因此，您选择的用于预览的窗口大小可以"
+"比较小。\n"
+"\n"
+"接下来，拼图版提供了近看视图与远看视图，您可以使用一个鼠标按键来快速切换（默"
+"认为鼠标中键）。在近看视图中，您可以使用滚动条中的空白处来一次检阅一整页的拼"
+"图片。您可以通过放大或者缩小来调整这两个视图，这些改动会被保存下来。\n"
+"\n"
+"此外，拼图版上还有一个区域是留着用来拼出结果的。\n"
+"\n"
+"最后，我们还提供了一些小窗口，称为“暂存区”。它们可用于将拼图片分组，例如边缘"
+"组，天空组，或者左侧的白色屋子组。您可以有任意多个暂存区，并且可以命名它们。"
+"您应该已经有了一个称为“手”的暂存区，用于将拼图片从您找到它们的地方移动到结果"
+"区域。\n"
+"\n"
+"您可以使用一个特殊的鼠标点击来将拼图片移入或移出暂存区（默认为 Shift 左键点"
+"击）。首先，请确保您要使用的暂存区是活动的：它应该有个蓝色的边框。如若不然，"
+"请点击它。要将拼图片移入暂存区中，请在拼图板上选中它们，随后用那个特殊的鼠标"
+"点击来将它们“传送”到暂存区中。或者您也可以用特殊的点击来一次移动一片。\n"
+"\n"
+"要将它们移出暂存区，请确保拼图板上没有选中的拼图片，随后用一般的 Palapeli 鼠"
+"标操作在暂存区窗口中选中几片，再回到拼图板上，在一个您想要放置这些拼图片的空"
+"白区域上使用那个特殊的鼠标操作。一次不要转移太多片，以免和现有的拼图板上的拼"
+"图片重叠。\n"
+"\n"
+"顺便说一句，暂存区可以进行几乎所有拼图板及其窗口可以进行的操作，包括将拼图片"
+"拼在一起来构造出一部分的结果。"
+
+#: src/engine/gameplay.cpp:1130
+#, kde-format
+msgctxt "Caption for hints"
+msgid "Solving Large Puzzles"
+msgstr "解决大型拼图"
+
+#: src/engine/gameplay.cpp:1194
+#, kde-format
+msgid "Great! You have finished the puzzle."
+msgstr "太棒了！您完成了拼图。"
+
+#: src/engine/interactors.cpp:25
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Move pieces by dragging"
+msgstr "用拖曳来移动拼图片"
+
+#: src/engine/interactors.cpp:140
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Select pieces by clicking"
+msgstr "点击可选择拼图片"
+
+#: src/engine/interactors.cpp:176
+#, kde-format
+msgctxt "Works instantly, without dragging"
+msgid "Teleport pieces to or from a holder"
+msgstr "将拼片传送进或出一个暂存区。"
+
+#: src/engine/interactors.cpp:201
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Move viewport by dragging"
+msgstr "用拖曳来移动视点"
+
+#: src/engine/interactors.cpp:227
+#, kde-format
+msgctxt "As in a movie scene"
+msgid "Switch to close-up or distant view"
+msgstr "切换到近景或远景"
+
+#: src/engine/interactors.cpp:247
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Zoom viewport"
+msgstr "缩放视点"
+
+#: src/engine/interactors.cpp:266
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Scroll viewport horizontally"
+msgstr "水平滚动视点"
+
+#: src/engine/interactors.cpp:268
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Scroll viewport vertically"
+msgstr "垂直滚动视点"
+
+#: src/engine/interactors.cpp:347
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Select multiple pieces at once"
+msgstr "一次选择多个拼图片"
+
+#: src/engine/interactors.cpp:411
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Toggle lock state of the puzzle table area"
+msgstr "切换解谜板锁定状态"
+
+#: src/engine/puzzlepreview.cpp:29
+#, kde-format
+msgctxt "@title:window"
+msgid "Preview of completed puzzle"
+msgstr "预览完成的拼图"
+
+#: src/engine/puzzlepreview.cpp:36
+#, kde-format
+msgctxt "text in preview window"
+msgid "Image is not available."
+msgstr "图像不可用。"
+
+#: src/engine/puzzlepreview.cpp:64
+#, kde-format
+msgctxt "@title:window"
+msgid "%1 - Preview"
+msgstr "%1 - 预览"
+
+#: src/engine/texturehelper.cpp:52
+#, kde-format
+msgctxt "@item:inlistbox"
+msgid "Single color"
+msgstr "单色"
+
+#: src/engine/trigger.cpp:87
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Shift"
+msgstr "Shift"
+
+#: src/engine/trigger.cpp:88
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Ctrl"
+msgstr "Ctrl"
+
+#: src/engine/trigger.cpp:89
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Alt"
+msgstr "Alt"
+
+#: src/engine/trigger.cpp:90
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Meta"
+msgstr "Meta"
+
+#: src/engine/trigger.cpp:91
+#, kde-format
+msgctxt "a special keyboard modifier"
+msgid "GroupSwitch"
+msgstr "分组切换"
+
+#: src/engine/trigger.cpp:92
+#, kde-format
+msgctxt "refers to no mouse buttons being pressed"
+msgid "No-Button"
+msgstr "无按键"
+
+#: src/engine/trigger.cpp:95
+#, kde-format
+msgctxt "a mouse button"
+msgid "Left-Button"
+msgstr "左键"
+
+#: src/engine/trigger.cpp:96
+#, kde-format
+msgctxt "a mouse button"
+msgid "Right-Button"
+msgstr "右键"
+
+#: src/engine/trigger.cpp:97
+#, kde-format
+msgctxt "a mouse button"
+msgid "Middle-Button"
+msgstr "中键"
+
+#: src/engine/trigger.cpp:98
+#, kde-format
+msgctxt "a special mouse button"
+msgid "XButton1"
+msgstr "特殊键 1"
+
+#: src/engine/trigger.cpp:99
+#, kde-format
+msgctxt "a special mouse button"
+msgid "XButton2"
+msgstr "特殊键 2"
+
+#: src/engine/trigger.cpp:100
+#, kde-format
+msgid "Horizontal-Scroll"
+msgstr "水平滚轮"
+
+#: src/engine/trigger.cpp:101
+#, kde-format
+msgid "Vertical-Scroll"
+msgstr "垂直滚轮"
+
+#: src/engine/view.cpp:337
+#, kde-format
+msgid "Your progress is saved automatically while you play."
+msgstr "您的进度会在游戏时自动保存。"
+
+#: src/engine/view.cpp:337
+#, kde-format
+msgctxt "used as caption for a dialog that explains the autosave feature"
+msgid "Automatic saving"
+msgstr "自动保存"
+
+#: src/engine/zoomwidget.cpp:26
+#, kde-format
+msgid "Lock the puzzle table area"
+msgstr "锁定拼图板区域"
+
+#: src/file-io/collection-delegate.cpp:106
+#, kde-format
+msgid "[No name]"
+msgstr "[无名称]"
+
+#: src/file-io/collection-delegate.cpp:111
+#, kde-format
+msgctxt "Puzzle description, %2 = name string, %1 = piece count"
+msgid "%2 (%1 piece)"
+msgid_plural "%2 (%1 pieces)"
+msgstr[0] "%2 (%1块)"
+
+#: src/file-io/collection-delegate.cpp:132
+#, kde-format
+msgctxt "Author attribution, e.g. \"by Jack\""
+msgid "by %1"
+msgstr "设计人 %1"
+
+#: src/file-io/collection-view.cpp:58
+#, kde-format
+msgctxt "@action:button that pops up sorting strategy selection menu"
+msgid "Sort List..."
+msgstr ""
+
+#: src/file-io/collection-view.cpp:61
+#, kde-format
+msgctxt "@action:inmenu selects sorting strategy for collection list"
+msgid "By Title"
+msgstr ""
+
+#: src/file-io/collection-view.cpp:62
+#, kde-format
+msgctxt "@action:inmenu selects sorting strategy for collection list"
+msgid "By Piece Count"
+msgstr ""
+
+#: src/file-io/collection.cpp:36
+#, kde-format
+msgid "Loading puzzle..."
+msgstr "正在加载拼图..."
+
+#: src/file-io/collection.cpp:109
+#, kde-format
+msgid "Loading collection"
+msgstr ""
+
+#: src/importhelper.cpp:28
+#, kde-format
+msgctxt "command line message"
+msgid "Error: No puzzle file given."
+msgstr "错误：未给定拼图文件。"
+
+#: src/importhelper.cpp:40
+#, kde-format
+msgid "Importing puzzle \"%1\" into your collection"
+msgstr "正在将拼图“%1”导入到您的收藏"
+
+#: src/main.cpp:33
+#, kde-format
+msgctxt "The application's name"
+msgid "Palapeli"
+msgstr "Palapeli"
+
+#: src/main.cpp:35
+#, kde-format
+msgid "Jigsaw Puzzle Game"
+msgstr ""
+
+#: src/main.cpp:37
+#, kde-format
+msgid "Copyright 2009, 2010, Stefan Majewsky"
+msgstr "版权所有 2009，2010，Stefan Majewsky"
+
+#: src/main.cpp:40
+#, kde-format
+msgid "Stefan Majewsky"
+msgstr "Stefan Majewsky"
+
+#: src/main.cpp:41
+#, kde-format
+msgid "Johannes Loehnert"
+msgstr "Johannes Loehnert"
+
+#: src/main.cpp:42
+#, kde-format
+msgid "The option to preview the completed puzzle"
+msgstr "预览完成的拼图的选项"
+
+#: src/main.cpp:47
+#, kde-format
+msgid "Path to puzzle file (will be opened if -i is not given)"
+msgstr "拼图文件的路径(未给定 -i 时打开)"
+
+#: src/main.cpp:48
+#, kde-format
+msgid ""
+"Import the given puzzle file into the local collection (does nothing if no "
+"puzzle file is given). The main window will not be shown after importing the "
+"given puzzle."
+msgstr ""
+"将给定的拼图文件导入本地收藏 (如果未给定拼图则什么都不做)。导入给定拼图之后，"
+"不会显示主窗口。"
+
+#: src/main.cpp:61
+#, kde-format
+msgid "No file to import given"
+msgstr ""
+
+#. i18n: ectx: label, entry (SnappingPrecision), group (Puzzling)
+#: src/palapeli.kcfg:6
+#, kde-format
+msgid "Precision of snapping (as a percentage of piece size)."
+msgstr "吸附时的精确度 (相对于拼图片大小的百分比)。"
+
+#. i18n: ectx: label, entry (ViewBackground), group (Appearance)
+#: src/palapeli.kcfg:12
+#, kde-format
+msgid ""
+"The filename of the background image to use for the View, or \"__color__\" "
+"if a solid color should be used (see key \"ViewBackgroundColor\")."
+msgstr ""
+"视图背景图像的文件名。也可用“__color__”指定使用纯色(参考“视图背景颜色”)。"
+
+#. i18n: ectx: label, entry (ViewBackgroundColor), group (Appearance)
+#: src/palapeli.kcfg:16
+#, kde-format
+msgid ""
+"The background color to use for the View (if the key \"ViewBackground\" is "
+"set to \"__color__\")."
+msgstr "视图背景图像(“视图背景”为“__color__”时有效)。"
+
+#. i18n: ectx: label, entry (ViewHighlightColor), group (Appearance)
+#: src/palapeli.kcfg:20
+#, kde-format
+msgid "The highlighting color to use for selecting pieces in the View."
+msgstr "在视图中选中拼图片时使用的高亮颜色。"
+
+#. i18n: ectx: label, entry (SolutionArea), group (Appearance)
+#: src/palapeli.kcfg:24
+#, kde-format
+msgid ""
+"Where to reserve space on the puzzle table for the solution, when shuffling "
+"or re-shuffling the pieces."
+msgstr "当打乱或重新打乱拼图片时，在拼图板的哪个位置给解答留出空间。"
+
+#. i18n: ectx: label, entry (PieceSpacing), group (Appearance)
+#: src/palapeli.kcfg:28
+#, kde-format
+msgid ""
+"Spacing of pieces in puzzle grids relative to the size of the largest piece "
+"(spacing factor is 1.0 + 0.05 * value)."
+msgstr ""
+"相对于最大拼图片来说，拼图片在拼图网格中的间距 (间距系数为 1.0 + 0.05 * 数"
+"值)。"
+
+#. i18n: ectx: label, entry (ShowStatusBar), group (Appearance)
+#: src/palapeli.kcfg:32
+#, kde-format
+msgid ""
+"Whether to show the status bar on the puzzle table. (It is not a real status "
+"bar, but the position and provided functionality is similar.)"
+msgstr "是否在拼图板上显示状态栏。(不是真正的状态栏，但位置和功能类似)"
+
+#. i18n: ectx: label, entry (PieceShadowsEnabled), group (Appearance)
+#: src/palapeli.kcfg:36
+#, kde-format
+msgid ""
+"Whether to render shadows below the puzzle pieces. Turning this off might "
+"improve rendering performance."
+msgstr "是否在拼片下面渲染阴影。关闭此项可能会提高渲染性能。"
+
+#. i18n: ectx: label, entry (PieceBevelsEnabled), group (Appearance)
+#: src/palapeli.kcfg:40
+#, kde-format
+msgid ""
+"Whether to render bevels on the puzzle pieces. Turning this off might "
+"improve puzzle loading performance."
+msgstr "是否在拼片上渲染斜角。关闭此项可能会提高拼图加载性能。"
+
+#. i18n: ectx: label, entry (PuzzlePreviewVisible), group (PuzzlePreview)
+#: src/palapeli.kcfg:46
+#, kde-format
+msgid "Whether the preview window was switched on last time Palapeli was run."
+msgstr "上次 Palapeli 运行时预览窗口是否打开。"
+
+#. i18n: ectx: label, entry (PuzzlePreviewGeometry), group (PuzzlePreview)
+#: src/palapeli.kcfg:50
+#, kde-format
+msgid "Last position and size of puzzle preview."
+msgstr "拼图预览的最后位置与大小。"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: src/palapeliui.rc:35
+#, kde-format
+msgid "Main toolbar"
+msgstr "主工具栏"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: src/settings.ui:17
+#, kde-format
+msgctxt "@title:group"
+msgid "Puzzle table"
+msgstr "拼图板"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/settings.ui:25
+#, kde-format
+msgctxt "@label:chooser for different types of background textures"
+msgid "Background:"
+msgstr "背景色："
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: src/settings.ui:55
+#, kde-format
+msgid "Color for highlighting selected pieces:"
+msgstr "选中拼片的高亮颜色："
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: src/settings.ui:75
+#, kde-format
+msgid "Space for solution:"
+msgstr "留给解答的空间："
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: src/settings.ui:94
+#, kde-format
+msgid ""
+"No space is provided with puzzles of less than 20 pieces. Changes will take "
+"effect when a puzzle is created or re-started."
+msgstr ""
+"对于少于20块的拼图，不会留出空间。当拼图被创建或重新开始时，改动会生效。"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: src/settings.ui:106
+#, kde-format
+msgid "Spacing of pieces in puzzle grids (1.0-1.5):"
+msgstr "拼图片在拼图网格中的间距 (1.0-1.5)："
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/settings.ui:156
+#, kde-format
+msgid "Piece appearance"
+msgstr "拼图块外观"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceBevelsEnabled)
+#: src/settings.ui:162
+#, kde-format
+msgid "Draw bevels to create a 3-dimensional appearance"
+msgstr "绘制三维外观的斜角效果"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceShadowsEnabled)
+#: src/settings.ui:172
+#, kde-format
+msgid "Draw shadows below pieces"
+msgstr "拼块下绘制阴影"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: src/settings.ui:182
+#, kde-format
+msgid ""
+"These options can be disabled when Palapeli is running very slowly. Changes "
+"will take effect only when a new puzzle is started."
+msgstr ""
+"您可以在 Palapeli 运行非常迟缓时禁用这些选项。这些更改仅在开启新拼图时生效。"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: src/settings.ui:195
+#, kde-format
+msgctxt "@title:group"
+msgid "Piece behavior"
+msgstr "拼图块行为"
+
+#. i18n: ectx: property (text), widget (QLabel, label_1)
+#: src/settings.ui:201
+#, kde-format
+msgctxt "@label:slider"
+msgid "Snapping precision:"
+msgstr "吸附精度："
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/settings.ui:241
+#, kde-format
+msgctxt "@item:inrange description for the \"snapping precision\" setting"
+msgid "Very precise (harder)"
+msgstr "非常精确(困难)"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/settings.ui:270
+#, kde-format
+msgctxt "@item:inrange description for the \"snapping precision\" setting"
+msgid "Unprecise (easier)"
+msgstr "不精确(简单)"
+
+#: src/window/mainwindow.cpp:53
+#, kde-format
+msgid "Show Statusbar of Puzzle Table"
+msgstr ""
+
+#: src/window/mainwindow.cpp:56
+#, kde-format
+msgid "Back to &Collection"
+msgstr ""
+
+#: src/window/mainwindow.cpp:57
+#, kde-format
+msgid "Go back to the collection to choose another puzzle"
+msgstr "回到收藏选择其他拼图"
+
+#: src/window/mainwindow.cpp:63
+#, kde-format
+msgid "Create &New Puzzle..."
+msgstr ""
+
+#: src/window/mainwindow.cpp:64
+#, kde-format
+msgid "Create a new puzzle using an image file from your disk"
+msgstr "使用您磁盘上的图像文件创建新拼图"
+
+#: src/window/mainwindow.cpp:70
+#, kde-format
+msgid "&Delete Puzzle"
+msgstr ""
+
+#: src/window/mainwindow.cpp:72
+#, kde-format
+msgid "Delete the selected puzzle from your collection"
+msgstr "从您的收藏中删除选中的拼图"
+
+#: src/window/mainwindow.cpp:78
+#, kde-format
+msgid "&Import from File..."
+msgstr ""
+
+#: src/window/mainwindow.cpp:79
+#, kde-format
+msgid "Import a new puzzle from a file into your collection"
+msgstr "将新拼图从文件导入到您的收藏"
+
+#: src/window/mainwindow.cpp:84
+#, kde-format
+msgid "&Export to File..."
+msgstr ""
+
+#: src/window/mainwindow.cpp:86
+#, kde-format
+msgid "Export the selected puzzle from your collection into a file"
+msgstr "将选中的拼图从您的收藏导出到文件"
+
+#: src/window/mainwindow.cpp:92
+#, kde-format
+msgid "&Restart Puzzle..."
+msgstr ""
+
+#: src/window/mainwindow.cpp:93
+#, kde-format
+msgid "Delete the saved progress and reshuffle the pieces"
+msgstr "删除已保存的进度并打乱拼图片"
+
+#: src/window/mainwindow.cpp:100
+#, kde-format
+msgid "&Create Piece Holder..."
+msgstr ""
+
+#: src/window/mainwindow.cpp:101
+#, kde-format
+msgid "Create a temporary holder for sorting pieces"
+msgstr "建立一个用于给拼片分类的暂时放置区域"
+
+#: src/window/mainwindow.cpp:108
+#, kde-format
+msgid "&Delete Piece Holder"
+msgstr ""
+
+#: src/window/mainwindow.cpp:109
+#, kde-format
+msgid "Delete a selected temporary holder when it is empty"
+msgstr "在其为空时删除选中的暂时存储区域"
+
+#: src/window/mainwindow.cpp:115
+#, kde-format
+msgid "&Select All in Holder"
+msgstr ""
+
+#: src/window/mainwindow.cpp:116
+#, kde-format
+msgid "Select all pieces in a selected piece holder"
+msgstr "选中当前暂存区中的所有拼片"
+
+#: src/window/mainwindow.cpp:122
+#, kde-format
+msgid "&Rearrange Pieces"
+msgstr ""
+
+#: src/window/mainwindow.cpp:123
+#, kde-format
+msgid ""
+"Rearrange all pieces in a selected piece holder or selected pieces in any "
+"window"
+msgstr "重新排列选中暂存区中的所有拼片或者任何窗口中的选中拼片"
+
+#: src/window/mainwindow.cpp:130
+#, kde-format
+msgctxt "Preview is a noun here"
+msgid "&Preview"
+msgstr "预览(&P)"
+
+#: src/window/mainwindow.cpp:132
+#, kde-format
+msgctxt "Preview is a noun here"
+msgid "Preview"
+msgstr "Preview"
+
+#: src/window/mainwindow.cpp:133
+#, kde-format
+msgid "Show or hide the image of the completed puzzle"
+msgstr "显示或隐藏完整拼图的图像"
+
+#: src/window/mainwindow.cpp:147
+#, kde-format
+msgid "Enable All Messages"
+msgstr ""
+
+#: src/window/mainwindow.cpp:156
+#, kde-format
+msgid "Enable all messages again?"
+msgstr ""
+
+#: src/window/mainwindow.cpp:157
+#, kde-format
+msgctxt "@action:button"
+msgid "Enable"
+msgstr ""
+
+#: src/window/puzzletablewidget.cpp:49
+#, kde-format
+msgid "No puzzle loaded"
+msgstr "未加载拼图"
+
+#: src/window/puzzletablewidget.cpp:118
+#, kde-format
+msgid "You finished the puzzle."
+msgstr "您完成了拼图。"
+
+#: src/window/puzzletablewidget.cpp:122
+#, kde-format
+msgctxt "Progress display"
+msgid "%1% finished"
+msgstr "已完成 %1%"

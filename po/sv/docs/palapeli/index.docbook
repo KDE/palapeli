@@ -1,0 +1,1522 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+<!ENTITY i18n-psc "<application
+>Palapeli delningsverktygssamling</application
+>">
+<!ENTITY % Swedish "INCLUDE">
+<!ENTITY % addindex "IGNORE">
+]>
+
+<book id="palapeli" lang="&language;">
+  <bookinfo>
+    <title
+>Handbok &palapeli;</title>
+    <authorgroup>
+      <author
+><firstname
+>Johannes</firstname
+> <surname
+>L&#xF6;hnert</surname
+> <affiliation
+><address
+><email
+>loehnert_kde@gmx.de</email
+></address
+></affiliation>
+      </author>
+      <author
+><firstname
+>Stefan</firstname
+> <surname
+>Majewsky</surname
+> <affiliation
+><address
+><email
+>majewsky@gmx.net</email
+></address
+></affiliation>
+      </author>
+      <author
+><firstname
+>Ian</firstname
+> <surname
+>Wadham</surname
+> <affiliation
+><address
+><email
+>iandw.au@gmail.com</email
+></address
+></affiliation>
+      </author>
+      <othercredit role="translator"
+> <firstname
+>Stefan</firstname
+> <surname
+>Asserhäll</surname
+> <affiliation
+><address
+><email
+>stefan.asserhall@bredband.net</email
+></address
+></affiliation
+> <contrib
+>Översättare</contrib
+></othercredit
+> 
+    </authorgroup>
+
+    <copyright>
+      <year
+>2009, 2010</year>
+      <holder
+>Johannes L&#xF6;hnert, Stefan Majewsky</holder>
+    </copyright>
+    <copyright>
+      <year
+>2014</year>
+      <holder
+>Ian Wadham</holder>
+    </copyright>
+    <legalnotice
+>&FDLNotice;</legalnotice>
+    <date
+>2021-10-06</date>
+    <releaseinfo
+>2.1 (KDE Gear 21.08)</releaseinfo>
+
+    <abstract>
+      <para
+>Detta är handboken för &palapeli;, ett pusselspel.</para>
+    </abstract>
+    <keywordset>
+      <keyword
+>KDE</keyword>
+      <keyword
+>kdegames</keyword>
+      <keyword
+>spel</keyword>
+      <keyword
+>pussel</keyword>
+      <keyword
+>pussel</keyword>
+      <keyword
+>Palapeli</keyword>
+    </keywordset>
+  </bookinfo>
+
+  <chapter id="introduction">
+    <title
+>Inledning</title>
+    <para
+>&palapeli; är ett pusselspel för en ensam spelare. Man kan skapa och lägga pussel från 4 till 10 000 bitar med det. Den här versionen innehåller funktioner för att hjälpa till att lägga stora pussel (300 eller fler bitar) inom storleksgränserna hos en datorskärm.</para>
+    <para
+>&palapeli;s huvudfönster är uppdelat i två områden, pusselsamlingen och pusselbordet.</para>
+    <para
+>Handboken fortsätter nu med att beskriva dessa två områden.</para>
+  </chapter>
+
+  <chapter id="collection">
+    <title
+>Bläddra i pusselsamlingen</title>
+    <sect1 id="play-maintain-collection">
+      <title
+>Lägga pussel och uppdatera samlingen</title>
+    <para
+>När &palapeli; startas för första gången, laddas pusselsamlingen i förväg med några exempelpussel som levereras med &palapeli;. Klicka på ett av dem för att omedelbart börja lägga det. Senare, när du har skapat några egna pussel (se nedan), kan du också klicka på dem för att börja lägga dem.</para>
+    <para
+>Man lägger pusslet på pusselbordet. Se <link linkend="puzzletable"
+> nästnästa avsnitt</link
+> om hur pusselbordet används.</para>
+    <note
+><para
+>Man kan välja och markera pussel i pussellistan genom att hålla nere tangenten &Ctrl; och klicka med vänster musknapp. Genom att trycka på vänster eller höger musknapp utan tangenten &Ctrl;, öppnas det specifika pusslet på pusselbordet.</para>
+    <para
+>På &macOS; måste man dubbelklicka med vänster musknapp för att börja lägga pusslet. Ett enkelklick väljer och markerar bara ett alternativ i pussellistan.</para
+></note>
+    <para
+>Förutom att lägga ett pussel, kan pusselsamlingen användas för följande åtgärder:</para>
+    <itemizedlist>
+      <listitem
+><para
+><emphasis
+>skapa</emphasis
+> nya pussel från bilder på disken</para
+></listitem>
+      <listitem
+><para
+><emphasis
+>importera</emphasis
+> pussel skapade av andra</para
+></listitem>
+      <listitem
+><para
+><emphasis
+>exportera</emphasis
+> pussel för att dela dem med dina vänner och resten av världen</para
+></listitem>
+      <listitem
+><para
+><emphasis
+>ta bort</emphasis
+> pussel du inte behöver längre</para
+></listitem>
+    </itemizedlist>
+    <para
+>Följande avsnitt visar hur man utför dessa åtgärder med åtgärdsikonerna på verktygsraden.</para>
+      </sect1>
+    <sect1 id="toolbar-collection">
+      <title
+>Översikt av verktygsraden</title>
+      <variablelist>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Skapa nytt pussel...</guiicon
+></term>
+          <listitem>
+            <para
+><action
+>Visar en dialogruta so låter dig skapa ett pussel från en bild på hårddisken.</action
+> Se <link linkend="create-puzzles"
+>nästa kapitel</link
+> för detaljinformation.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="edit-delete.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Ta bort pussel</guiicon
+></term>
+          <listitem
+><para
+><action
+>Alla pussel som du har markerat i pussellistan kommer att tas bort permanent från samlingen. </action
+></para
+><warning
+><para
+>Åtgärden kan inte ångras.</para
+></warning
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="document-import.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Importera från fil...</guiicon
+></term>
+          <listitem
+><para
+><action
+>När du har tagit emot en &palapeli; pusselfil (som oftast känns igen på filändelsen <literal role="extension"
+>.puzzle</literal
+>), kan du använda den här åtgärden för att importera den i din lokala samling.</action
+> Pusselfiler kan också spelas genom att helt enkelt klicka på dem i filhanteraren du föredrar, men efter import visas pusslet i din lokala samling, och du kan ta bort den nerladdade pusselfilen utan problem.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="document-export.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Exportera till fil...</guiicon
+></term>
+          <listitem
+><para
+><action
+>Detta exporterar pusslen som för närvarande är markerade till filer, för att göra det möjligt för dig att ge dem till dina vänner, publicera dem på webben, eller skapa säkerhetskopior av din samling.</action
+></para
+></listitem>
+        </varlistentry>
+      </variablelist>
+    </sect1>
+  </chapter>
+
+  <chapter id="create-puzzles">
+    <title
+>Skapa nya pussel</title>
+    <sect1 id="creation-dialog">
+    <title
+>Dialogrutan för att skapa pussel</title>
+    <para
+>Som beskrivs i <link linkend="toolbar-collection"
+>föregående avsnitt</link
+>, kan man skapa nya pussel genom att klicka på åtgärdsikonen <inlinemediaobject
+><imageobject
+><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Skapa nytt pussel...</guiicon
+> i pusselsamlingen.</para>
+    <para
+>Genom att klicka på den här åtgärdsikonen visas dialogrutan för att skapa pussel, som består av tre sidor:</para>
+    <procedure>
+      <step
+><para
+>Välj en bildfil som ska delas i bitar på första sidan. Försäkra dig om att du skriver in rätt metadata för bilden: Du bör ge erkännande till bildens skapare (t.ex. fotografen eller konstnären). Var vänlig respektera upphovsrätten som innehas av bildens skapare.</para
+></step>
+      <step
+><para
+>På andra sidan kan du välja typ av bitar som bilden ska delas i. &palapeli; levereras med en samling förinstallerade delningsverktyg, men delningsprogram från tredje part kan också vara tillgängliga.</para
+></step>
+      <step
+><para
+>På den sista sidan i dialogrutan, kan det valda delningsverktyget anpassas, t.ex. genom att välja ett annat antal bitar eller genom att justera parametrar för bitarnas form. De tillgängliga alternativen beror på vilket delningsprogram som har valts.</para
+></step>
+    </procedure>
+    <para
+>Den här handboken fortsätter med att beskriva de delningsverktyg som följer med &palapeli;. Om du har laddad ner ett delningsinsticksprogram från tredje part för &palapeli;, se dokumentationen för insticksprogrammet om du har problem med att installera eller använda det på ditt system.</para>
+    </sect1>
+    <sect1 id="simple-slicers">
+      <title
+>Enkla delningsverktyg</title>
+      <para
+>&palapeli; har två enkla delningsverktyg, <guilabel
+>Klassiska pusselbitar</guilabel
+> och <guilabel
+>Rektangulära bitar</guilabel
+>. Dessa delningsverktyg skapar enkla rektangulära bitar, antingen med eller utan anslutande pluggar.</para>
+      <para
+>Båda delningsverktygen tillåter att antal bitar och proportion justeras. Att dra reglaget <guilabel
+>Bitarnas proportion:</guilabel
+> åt vänster ger höga bitar, medan att justera det åt höger ger breda bitar. Normalvärdet ger ungefär fyrkantiga bitar.</para>
+    </sect1>
+    <sect1 id="psc">
+      <title
+>Avancerad &i18n-psc;</title>
+      <para
+>&i18n-psc; skapar realistiska pusselbitar med diverse grundformer:</para>
+      <variablelist>
+        <varlistentry>
+            <term
+><guilabel
+>Rektangulärt rutnät</guilabel
+></term>
+          <listitem
+><para
+>Innehåller de välkända rektangulära bitarna.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Kairo-rutnät</guilabel
+></term>
+          <listitem
+><para
+>Med pentagonala bitar och olika kantvinklar är det ganska svårt att lägga, eftersom bitarna passar ihop på ett mindre välbekant sätt.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Hexagonalt rutnät</guilabel
+></term>
+          <listitem
+><para
+>Skapar hexagonala bitar, arrangerade som cellerna i en bikaka.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Rotrex-rutnät</guilabel
+></term>
+          <listitem
+><para
+>Genom en speciell sammansättning av triangulära, hexagonala och rektangulära bitar, formar bitarna ett mönster som påminner om en stor mängd överlappande cirklar.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Oregelbundet rutnät</guilabel
+></term>
+          <listitem
+><para
+>Rutnätet är bara tillgängligt om <application
+>qvoronoi</application
+> från paketet <ulink url="https://www.qhull.org"
+>l<application
+>qhul</application
+></ulink
+> är installerat. <application
+>qvoronoi</application
+> används för att beräkna oregelbundet formade bitar från slumpmässigt placerade punkter.</para
+></listitem>
+        </varlistentry>
+      </variablelist>
+      <para
+>&i18n-psc; har diverse parametrar som bestämmer hur bitarnas kanter ser ut, särskilt deras pluggar. Standardinställningar tillhandahålls för alla dessa parametrar. Ett ytterligare förinställt läge är tillgängligt som reducerar antal parametrar till bara de allra nödvändigaste. Följande parametrar är oftast tillgängliga:</para>
+      <variablelist>
+        <varlistentry>
+          <term
+><guilabel
+>Antal bitar:</guilabel
+></term>
+          <listitem
+><para
+>Ange det exakta antalet bitar som bilden kommer att delas upp i. Alternativet visas bara om den matematiska logiken i delningsverktyget som är valt tillåter ett godtyckligt antal.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Ungefärligt antal bitar:</guilabel
+></term>
+          <listitem
+><para
+>Ange det önskade antalet bitar som bilden kommer att delas upp i. Alternativet visas bara om den matematiska logiken i delningsverktyget som är valt kan justera antalet.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Procent vända kanter:</guilabel
+></term>
+          <listitem
+><para
+>Sannolikheten att varje plugg vänds. En plugg anses vara vänd om den pekar i motsatt riktning mot vad den skulle i ett fullständigt rektangulärt rutnät. I det rektangulära rutnätet ger det bitar med tre eller fyra pluggar som pekar inåt respektive utåt. Placera skjutreglaget längst åt vänster för att få det normala helt rektangulära rutnätet. I mitten är pluggarnas orientering slumpmässig. Längst till höger är rutnätet helt regelbundet igen, men med en <quote
+>alternativ</quote
+> regel. Det betyder <emphasis
+>inte</emphasis
+> att alla pluggar vänds: I det alternativa regelbundna rutnätet, har exempelvis varje del fyra inåtpekande eller fyra utåtpekande pluggar. Inställningen får ingen effekt i det oregelbundna rutnätet.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Kanternas kurvighet:</guilabel
+></term>
+          <listitem
+><para
+>Bestämmer hur kurviga kanterna är, dvs. hur starkt kanterna trycks in eller buktar ut. Flytta reglaget längst åt vänster för att erhålla raka kantlinjer (förutom pluggarna).</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Pluggstorlek:</guilabel
+></term>
+          <listitem
+><para
+>Bestämmer storleken hos pluggdelen på varje kant. Normalinställningen (reglagets mittposition) är vald för att se ut som ett riktigt pussel. Skjutreglaget går från 50 % till 150 % av denna storlek, vilket redan det ser obscent stort ut. Programmet försöker verkligt hårt att undvika kollision mellan pluggar. Kanter som kolliderar formas om flertalet gånger och krymps i små steg. Det finns dock ändå kvar fall där ingen lösning går att hitta, särskilt för stora pluggstorlekar.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Kurvighetens variation:</guilabel
+></term>
+          <listitem
+><para
+>Bestämmer hur mycket kurvigheten (se ovan) varierar mellan kanter. Flytta skjutreglaget åt vänster för att få alla inbuktningar och utbuktningar att se likadana ut. Placeras reglaget åt höger kan både mycket kurviga och mycket raka kanter uppträda.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Pluggpositionens variation:</guilabel
+></term>
+          <listitem
+><para
+>Bestämmer hur mycket pluggens position på kanten varierar. Placeras reglaget längst åt vänster är pluggarna fästa mitt på sina kanter.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Pluggarnas variation:</guilabel
+></term>
+          <listitem
+><para
+>Bestämmer hur säregna pluggarna ser ut. Placeras reglaget längst åt vänster ser alla pluggar likadana ut. Längst åt höger är varje plugg ett unikt konstverk skapat särskilt åt dig.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Bitstorlekarnas variation:</guilabel
+></term>
+          <listitem
+><para
+>Bara för oregelbundet rutnät: Bestämmer hur bitarnas storlek varierar. En mycket liten inställning betyder nästan ingen variation, och kristallitliknande strukturer uppstår. Större inställningar skapar både mycket små och mycket stora bitar.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Lagra rutnätsbild:</guilabel
+></term>
+          <listitem
+><para
+>Spara en bild av rutnätet (svarta kanter på vit bakgrund) som <filename
+>~/goldberg-slicer-dump.png</filename
+>. Om en tidigare bild finns, skrivs den över.</para
+></listitem>
+        </varlistentry>
+      </variablelist>
+    </sect1>
+  </chapter>
+
+  <chapter id="puzzletable">
+    <title
+>Lägga pussel på pusselbordet</title>
+
+    <sect1 id="puzzletable-moves">
+    <title
+>Grundförflyttningar</title>
+    <screenshot
+><mediaobject>
+      <imageobject
+><imagedata fileref="puzzletable1.png" format="PNG"/></imageobject>
+      <textobject
+><phrase
+>Pusselbordet (i detalj)</phrase
+></textobject>
+    </mediaobject
+></screenshot>
+    <para
+>Spelets mål är att lägga de givna pusselbitarna för att skapa en bild.</para>
+    <para
+>Det fristående förhandsgranskningsfönstret visar hur bilden ska se ut. Använd en verktygsrad eller menyalternativ för att visa eller dölja fönstret. Se <link linkend="puzzletable-preview"
+>Förhandsgranskningsfönstret</link
+> för en detaljerad beskrivning.</para>
+    <para
+>Om du vill försöka med ett pussel som har 300 eller flera bitar, läs gärna kapitlet om <link linkend="large-puzzles"
+>Funktioner för att lägga stora pussel</link
+>, efter att ha läst det här kapitlet.</para>
+    <para
+>Det går att flytta en enstaka bit genom att klicka på den och dra den med vänster musknapp. Det lämnar biten markerad och färglagd. För att flytta flera bitar på en gång, markera och färglägg dem först, klicka därefter på en av bitarna och dra den. De övriga följer med.</para>
+    <para
+>Du kan markera och färglägga fler bitar genom att hålla nere &Ctrl; och klicka på dem, eller genom att dra en linje runt dem med vänster musknapp. Du kan också hålla nere tangenten &Ctrl; och klicka med vänster musknapp för att öka eller minska den nuvarande markeringen en bit åt gången.</para>
+    <para
+>För att ta bort markering och färgläggning, klicka bara på ett tomt utrymme på pusselbordet eller på en bit som inte redan är markerad.</para>
+    <para
+>När du placerar en bit  intill en angränsande bit, läggs bitarna automatiskt ihop och sammanfogas (1). Efter att ha lagts ihop kan inte bitar längre dras isär. En annan skillnad mellan &palapeli; och verkliga pussel är att du inte kan kombinera två bitar som inte verkligen är grannar.</para>
+    <para
+>Förloppsraden under pusselbordet visar dina framsteg genom att räkna antal sammanfogade bitar (2). &palapeli; sparar automatiskt det du gjort efter varje förflyttning, så du behöver aldrig bekymra dig om att spara.</para>
+    <para
+>Du kan zooma in visningen av pusselbordet med <mousebutton
+>mushjulet</mousebutton
+>, och längst ner till höger (3) med knapparna och skjutreglaget.</para>
+    <para
+>Du kan flytta det som visas på pusselbordet i vilken riktning som helst genom att klicka och dra med höger musknapp.</para>
+    <para
+>Förflyttningen av bitarna begränsas av <emphasis
+>pusselbordets yta</emphasis
+>. Ytan representeras av en ljusare skuggad rektangel på pusselbordets bakgrund. När du flyttar bitar till kanten (4) på pusselbordets yta, utökas ytan automatiskt för att ge dig mer utrymme att flytta pusselbitarna. Nära de skuggade kanterna ändras muspekaren till en pil med två spetsar, vilket anger att du kan justera pusselbordets yta genom att klicka där och dra med vänster musknapp.</para>
+    <para
+>Du kan låsa pusselbordets yta med den lilla knappen (5) till höger om förloppsraden. Skuggan (4) omkring pusselbordet blir mörkare, och bitar slutar nu förflyttas vid kanterna på pusselbordets yta. Det är fortfarande möjligt att justera storleken på pusselbordets yta för hand.</para>
+    </sect1>
+
+    <sect1 id="puzzletable-preview">
+      <title
+>Förhandsgranskningsfönstret</title>
+      <para
+>Förhandsgranskningen är ett litet fönster som visas fristående ovanför eller på ena sidan om pusselbordet. Det innehåller en bild av det färdiga pusslet: Bilden som skulle visas på asken om detta var ett verkligt pussel. </para>
+      <para
+>Fönstret kan visas eller döljas genom att använda åtgärdsikonen <inlinemediaobject
+><imageobject
+><imagedata fileref="view-preview.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Förhandsgranska</guiicon
+> på verktygsraden eller menyalternativet <menuchoice
+><guimenu
+>Visa</guimenu
+> <guimenuitem
+>Förhandsgranska</guimenuitem
+></menuchoice
+>. Dess storlek, position och inställningen att vara synligt eller osynligt sparas och återställs mellan körningar av &palapeli;. </para>
+      <para
+>Eftersom det är ett fönster, kan det flyttas omkring fritt på skrivbordet, och dess storlek kan ändras. Knappen <guibutton
+>Stäng</guibutton
+> döljer det och knappen <guibutton
+>Maximera</guibutton
+> förstorar eller förminskar bilden snabbt. </para>
+      <para
+>Förhandsgranskningsfönstret har en förstoringsfunktion, så det behöver inte använda så mycket utrymme. Om musen flyttas över fönstret zoomar det snabbt in för att avslöja en förstorad bild av området under musen och vad som motsvarar några få bitar omkring det. Det är mycket användbart för att visa detaljer på pusslet och identifiera bitar som har hittats, men det kan vara besvärligt att kontrollera, särskilt nära bildens kanter. </para>
+    </sect1>
+
+    <sect1 id="puzzletable-mouseactions">
+      <title
+>Användning av musen</title>
+      <para
+>Som beskrivet i föregående avsnitt, finns det flertalet sätt att påverka &palapeli;s pusselbord med musen. Man kan fritt ställa in vilka åtgärder som utförs med vilka musknappar. (Se avsnittet <link linkend="configuration-mouseactions"
+>Spelanpassning</link
+> för mer information om hur det ställs in.) Följande lista sammanfattar alla möjliga musåtgärder:</para>
+      <variablelist>
+        <varlistentry>
+          <term
+><action
+>Ändra storlek på pusselbordets yta genom att dra dess kanter</action
+></term>
+          <listitem
+><para
+>Normalt är åtgärden tilldelad till vänster musknapp.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Flytta bitar genom att dra</action
+></term>
+          <listitem
+><para
+>När du klickar och drar en pusselbit, flyttas biten. Om flera bitar har blivit markerade och du klickar och drar en av bitarna, flyttas alla bitar. Normalt är åtgärden tilldelad till vänster musknapp.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Flytta visningsområdet genom att dra</action
+></term>
+          <listitem
+><para
+>Åtgärden flyttar det som visas av hela pusselbordet i någon riktning. Normalt är den tilldelad till höger musknapp.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Markera flera bitar med en linje</action
+></term>
+          <listitem
+><para
+>När du klickar på ett ledigt område på pusselbordet istället för på en pusselbit, kan du dra en linje. När musknappen släpps, markeras alla bitar inom linjen. Alla andra bitar avmarkeras. Normalt är åtgärden tilldelad till vänster musknapp.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Välj flera bitar samtidigt</action
+></term>
+          <listitem
+><para
+>När du klickar på en pusselbit markeras den, eller om den redan var markerad, avmarkeras den. Det kan också användas för att justera en linjemarkering. Normalt är åtgärden tilldelad till vänster musknapp och bara tillgänglig när &Ctrl; är nedtryckt.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Rensa markeringar och färgläggning</action
+></term>
+          <listitem
+><para
+>Klicka på ett tomt utrymme på pusselbordet eller på en bit som inte redan är markerad.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Zooma visningen av pusselbordet in eller ut</action
+></term>
+          <listitem
+><para
+>Åtgärden är identisk med att klicka på knapparna på var sin sida om skjutreglaget (3) på statusraden.  Den är normalt tilldelad till <mousebutton
+>mushjulet</mousebutton
+>.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Byt mellan närbild och översikt</action
+></term>
+          <listitem
+><para
+>Åtgärden växlar (byter) mellan en närbild och översiktsvy vid muspekarens position. Den är i huvudsak avsedd att tillhandahålla snabb zoomning i stora pussel (300 eller fler bitar). För mer detaljerad information, se <link linkend="large-puzzle-fast-zooming"
+>Snabb zoom mellan närbild och översikt</link
+>. Normalt är åtgärden tilldelad till musens mittenknapp.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Teleportera bitar till eller från en behållare</action
+></term>
+          <listitem
+><para
+>Åtgärden hjälper till att snabbt samla, sortera och flytta bitar i stora pussel (300 bitar eller fler) utan att dra och släppa. Du kan använda den i mindre pussel om du vill. Se <link linkend="large-puzzle-holders"
+>Använda bitbehållare</link
+> för mer detaljerad information. Normalt är åtgärden tilldelad till vänster musknapp och bara tillgänglig när tangenten &Shift; är nedtryckt.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Ändra låstillstånd för pusselbordets område</action
+></term>
+          <listitem
+><para
+>Åtgärden är identisk med att klicka på knappen (5) på statusraden. Normalt är åtgärden inte tilldelad till någon musknapp, men du kan aktivera den från <link linkend="configuration-mouseactions"
+>inställningsdialogrutan</link
+>.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Rulla visningsområdet horisontellt</action
+> och <action
+>Rulla visningsområdet vertikalt</action
+></term>
+          <listitem
+><para
+>Normalt är åtgärden inte tilldelad till <mousebutton
+>mushjulet</mousebutton
+>, men du kan aktivera den från <link linkend="configuration-mouseactions"
+>inställningsdialogrutan</link
+>.</para
+></listitem>
+        </varlistentry>
+      </variablelist>
+    </sect1>
+
+    <sect1 id="toolbars-puzzletable">
+      <title
+>Översikt av verktygsraden</title>
+      <variablelist>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="go-previous.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Tillbaka till samling</guiicon
+></term>
+          <listitem
+><para
+><action
+>Gå tillbaka till samlingen och välj ett annat pussel.</action
+> Kan bara användas när du lägger ett pussel.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="view-preview.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Förhandsgranskning</guiicon
+></term>
+          <listitem
+><para
+><action
+>Ändra visning av förhandsgranskningsfönstret med det fullständiga pusslet.</action
+></para
+></listitem>
+        </varlistentry>
+      </variablelist>
+    </sect1>
+  </chapter>
+
+  <chapter id="large-puzzles">
+    <title
+>Funktioner för att lägga stora pussel</title>
+
+    <sect1 id="large-puzzle-general">
+      <title
+>Allmänna principer</title>
+      <para
+>&palapeli; kan hantera stora pussel från 300 till 10 000 bitar, men några särskilda funktioner behövs för att hjälpa till att arbeta med dem på en liten bildskärm. </para>
+      <para
+>Man kan skapa ett stort pussel på exakt samma sätt som ett mindre pussel, se kapitlet <link linkend="create-puzzles"
+>Skapa nya pussel</link
+>, men det är några saker att tänka på innan man börjar. Se <link linkend="large-puzzle-creation"
+>Skapa stora pussel: särskilda hänsynstaganden</link
+> för detaljerad information. </para>
+      <para
+>Förhandsgranskningsfönstret är mycket användbart för stora pussel: Se avsnittet om det för en <link linkend="puzzletable-preview"
+>detaljerad beskrivning</link
+>. </para>
+      <para
+>Att hantera utrymme och flytta runt är det nästa man måste ta hänsyn till. När man zoomar ut för att visa hela pusselbordet, blir det svårt att se enskilda bitar. Om man zoomar in och hittar en bit som man letar efter, är det inte troligt att stället dit den ska är synligt. Se avsnittet <link linkend="large-puzzle-space"
+>Hantera utrymme och flytta runt</link
+> för några lösningar på dessa och andra problem. </para>
+      <para
+>Slutligen behöver man samla bitar och förflytta dem till lösningsområdet på något effektivare sätt än att dra och släppa upprepade gånger över långa avstånd. Det är här bitbehållare kommer in. </para>
+      <para
+>När man påbörjar ett stor pussel, får man en behållare (ett litet fristående fönster) som kallas <quote
+>Hand</quote
+> där man kan placera bitar när som helst och varhelst man ser dem. Därefter kan man släppa dem nära läggningen och räkna ut var varje bit ska placeras. Det är som att samla bitar i ena handen medan man letar igenom ett stort verkligt pussel. </para>
+      <para
+>Det kan behövas något systematiskt sätt att samla och sortera bitar enligt gemensamma egenskaper (t.ex. kantbitar, himmel, horisont, etc.), och därför kan man använda hur många behållare som man vill och ge dem namn. Behållare sparas hela tiden, samtidigt som pusselbordet, vilket betyder att man kan använda dem för att bygga upp delar av läggningen och lagra dem, eller till och med lagra bitar som man vill lägga bland <quote
+>för svåra</quote
+> till senare. För detaljerad information om hur man använder behållare, se avsnittet <link linkend="large-puzzle-holders"
+>Använda bitbehållare</link
+>. </para>
+      <para
+>Till sist, listar avsnittet <link linkend="puzzletable-mouseactions"
+>Användning av musen</link
+> de två särskilda musåtgärder som gör det snabbare och enklare att arbeta med stora pussel: teleportera bitar och zooma till en närbild eller översikt. </para>
+    </sect1>
+
+    <sect1 id="large-puzzle-creation">
+      <title
+>Skapa stora pussel: särskilda hänsynstaganden</title>
+      <para
+>Innan man skapar ett stort pussel bör man försäkra sig om att källbilden innehåller tillräckligt mycket detaljer (dvs. har tillräckligt många megapixlar). Man kan använda ett filverktyg, fotovisare eller fotoeditor för att ta reda på hur många bildpunkter bred och hög bilden är när den inte är komprimerad av JPEG eller något annat bildformat. Som en grov tumregel bör man ha en megapixel per 1000 bitar. Det ger varje bit omkring 1000 bildpunkter, eller mer än 30 gånger 30 bildpunkter, vilket gör bitarna rimligt skarpa längs kanterna och lätta att se när man zoomar in. Man kan arbeta med färre megapixlar, men det kan vara svårt att skilja på och känna igen bitarna under läggningen. </para>
+      <para
+>När man skapar eller börjar om med ett stort pussel kan det vara bäst att undvika användning av funktioner för fasade kanter och skuggor i &palapeli; (se avsnittet <link linkend="configuration-general"
+>Allmänna inställningar</link
+>), eftersom de gör inläsning långsammare och färgläggning svårare att se när bitarna som visas är mycket små. Mer framträdande färgläggning visas när skuggning inte används. </para>
+    </sect1>
+
+    <sect1 id="large-puzzle-space">
+      <title
+>Hantera utrymme och flytta runt</title>
+      <sect2 id="large-puzzle-space-allocation">
+      <title
+>Reservera utrymme på pusselbordet</title>
+      <para
+>När ett pussel skapas eller börjas om, blandas bitarna och placeras slumpmässigt i ett rutnät på pusselbordet. Två inställningar påverkar nödvändigt utrymme. Se <link linkend="configuration"
+>Spelanpassning</link
+> för en lista över inställningar som tillhandahålls via <menuchoice
+><guimenu
+>Inställningar</guimenu
+> <guimenuitem
+>Anpassa &palapeli;...</guimenuitem
+></menuchoice
+> eller på &macOS;, <menuchoice
+><guimenu
+>&palapeli;</guimenu
+> <guimenuitem
+>Inställningar...</guimenuitem
+></menuchoice
+>. </para>
+      <para
+>Mellanrummet mellan bitar i pusslets rutnät kan ställas in från 1,0 till 1,5 gånger höjden och bredden på de högsta och bredaste bitarna. Mindre inställningar packar ihop bitarna bättre när de visas, medan större tillåter mer utrymme för att dra, släppa och markera linjer. Normalvärdet är 1,3, men 1,1 är fullt användbart för stora pussel. Inställningen gäller pussel av alla storlekar, och påverkar också rutnätet som används för bitbehållare (se <link linkend="large-puzzle-holders"
+>Använda bitbehållare</link
+>), eller när bitar automatiskt ordnas om på pusselbordet, genom att använda menyalternativet <menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+> <guimenu
+>Flytta</guimenu
+> <guimenuitem
+>Arrangera om bitar</guimenuitem
+></menuchoice
+>. </para>
+      <para
+>Den andra inställningen tillhandahåller utrymme på pusselbordet av exakt rätt storlek för att lägga pusslet. Normalt visas det i mitten, med bitarna jämt distribuerade omkring utsidan. I medeltal placerar det bitarna närmast stället där de slutligen måste läggas. Det går också att använda vilket som helst av de fyra hörnen eller inte ha någon plats (alternativet <guilabel
+>Ingen</guilabel
+>), då man istället måste frigöra utrymme manuellt, kanske genom att expandera pusselbordets område (se <link linkend="puzzletable-moves"
+>Grundförflyttningar</link
+>). Lösningsområdet påverkar pussel ner till 20 bitar, men med färre än 20 bitar är lösningsområden meningslösa. </para>
+      <para
+>Medan läggningen av pusslet fortskrider, flyttas bitar till läggningsområdet och lämnar tomrum på andra ställen. Det kan vara till hjälp att packa ihop återstående bitar. Om så är fallet, markera några bitar med markeringslinjer eller hålla nere tangenten &Ctrl; och klicka med vänster musknapp, och använd därefter <menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+> <guimenu
+>Flytta</guimenu
+> <guimenuitem
+>Arrangera om bitar</guimenuitem
+></menuchoice
+> eller helt enkelt snabbtangenten (normalt tangenten <keycap
+>R</keycap
+>). Bitarna packas i ett rutnät och förblir markerade, så att de enkelt kan flyttas till en bättre plats om det behövs. Det är också ett sätt att samla ihop bitar med någon gemensam egenskap, men det är mer kraftfullt att använda bitbehållare. </para>
+      </sect2>
+      <sect2 id="large-puzzle-fast-zooming">
+      <title
+>Snabb zoom mellan närbild och översikt.</title>
+      <para
+>När pusslet är inläst, beräknar &palapeli; översikt och närbild och visar översikten, som återger hela pusselbordet. Närbilden visar bitar med en lämplig storlek för ögonen givet bildskärm och skrivbord. Använd musens mittenknapp för att snabbt byta mellan de två vyerna, på stället där musen pekar. Då går det att snabbt rikta in sig på vilken bit som helst på pusselbordet och se vilken form den har och vilken del av bilden den innehåller. </para>
+      <para
+>Det går att justera skalan på vilken av vyerna som helst manuellt och inställningen koms ihåg nästa gång man byter mellan vyerna med musens mittenknapp. Pussel av alla storlekar har funktionen för snabbzoomning, men för pussel med mindre än 100 bitar är vyerna nästan likadana. Med andra ord är bitarna enkla att se när man tittar på hela pusselbordet. </para>
+      </sect2>
+      <sect2 id="large-puzzle-navigating">
+      <title
+>Flytta runt i stora pussel</title>
+      <para
+>Det svåra sättet att flytta bitar i ett stort pussel är att markera dem och därefter antingen dra bitarna eller pusselbordet (vänster och höger musknapp) till man kommer till målet. Ett mycket enklare sätt att göra samma sak är att markera bitarna, zooma till översiktsvyn (mittenknappen, se ovan), dra bitarna till målet med en förflyttning (vänster musknapp) och därefter zooma till närbilden (mittenknappen). det är också ett bra sätt att hämta en ensam förflugen bit, men att dra den mycket lilla biten över pusselbordet utan att markeringen går förlorad kan vara knepigt om det finns tusentals bitar. </para>
+      <para
+>Ett annat sätt att systematiskt förflytta sig och söka på pusselbordet är att zooma in på övre vänstra hörnet (mittenknappen) och därefter använda de tomma delarna av rullningslisterna för att stega igenom bordet horisontellt och vertikalt en <quote
+>sida</quote
+> med en viss storlek åt gången. Tekniken är mycket effektiv när man använder bitbehållare för att samla bitar som man letar efter. Om man håller närbildens skala likadan och alltid startar på samma ställe, får man alltid <quote
+>sidor</quote
+> med en viss storlek och ett visst innehåll. </para>
+      </sect2>
+      <sect2 id="large-puzzle-visibility">
+      <title
+>Bitarnas synlighet i stora pussel</title>
+      <para
+>Med stora pussel på en liten bildskärm kan det vara svårt att se vad man håller på med. Med exempelvis ett 10000 bitars pussel på en 1440 x 900 skärm, är bitarna omkring 7 bildpunkter tvärsöver med pusselbordets översiktsvy. Med en sådan skala är det svårt att se bilden, färgen, bitarnas form och till och med färgläggning. </para>
+      <para
+>&palapeli; har alltid haft ett val av bakgrunder och bakgrundsfärger, och det hjälper till med synligheten. Till detta har lagts till en mer framträdande färgläggningsmetod, som visas om man inte väljer skuggning, och en inställning för att välja färgläggningens nyans, för att ge kontrast med bakgrunden och de flesta bitarna. Inställningarna sparas och återställs nu också med varje pussel. Varje pussel kan alltså ha bakgrund och färgläggning som bäst passar dess övergripande bild. Det är värt att experimentera med inställningarna när ett stort pussel skapas, men man kan behöva läsa in eller starta om pusslet innan alla ändringar får effekt. </para>
+      </sect2>
+    </sect1>
+
+    <sect1 id="large-puzzle-holders">
+      <title
+>Använda bitbehållare</title>
+      <sect2 id="large-puzzle-whatareholders">
+      <title
+>Vad är bitbehållare?</title>
+      <para
+>Bitbehållare är kanske den mest användbara funktionen i &palapeli; för att hjälpa till att lösa stora pussel. De är små, fristående fönster där man kan sortera grupper av bitar, så som <quote
+>kanter</quote
+>, <quote
+>himmel</quote
+>, <quote
+>horisont</quote
+> eller <quote
+>det vita huset till vänster</quote
+>. Från början visas de med en minimal storlek, som är just stor nog att visa fyra bitar i närbild, så de är mycket enkla att passa in intill huvudfönstret med pusselbordet. </para>
+      <para
+>Eftersom de är fönster kan behållare flyttas runt fritt på skrivbordet och deras storlek kan ändras. Knappen <guibutton
+>Stäng</guibutton
+> tar bort behållaren, men bara om den inte innehåller några bitar. Knappen <guibutton
+>Maximera</guibutton
+> ökar eller minskar snabbt behållarens storlek. Behållaren kan innehålla ett godtyckligt antal bitar (kanske hundratals). En maximering kan vara användbart när innehållet granskas eller en delenhet konstrueras inne i behållaren. </para>
+      <para
+>Du kan ha hur många behållare som helst. Oftast finns det en som är aktiv, med blå kontur. Den är målet för åtgärder som att förflytta bitar eller ta bort behållare. </para>
+      </sect2>
+      <sect2 id="large-puzzle-createholders">
+      <title
+>Skapa och ta bort behållare</title>
+      <para
+>När ett stort pussel påbörjas skapas en behållare som kallas <quote
+>Hand</quote
+> automatiskt. Den kan vara den enda behållare som behövs med pussel på 300 till 750 bitar, men man kan ha hur många behållare som man vill, också för pussel med färre än 300 bitar. </para>
+      <para
+>Använd menyalternativen <menuchoice
+><shortcut
+><keycap
+>C</keycap
+></shortcut
+> <guimenu
+>Flytta</guimenu
+><guimenuitem
+> Skapa bitbehållare...</guimenuitem
+></menuchoice
+> eller <menuchoice
+><shortcut
+><keycap
+>D</keycap
+></shortcut
+> <guimenu
+>Flytta</guimenu
+><guimenuitem
+> Ta bort bitbehållare</guimenuitem
+></menuchoice
+> för att skapa eller ta bort en behållare, eller använd helt enkelt snabbtangenterna <keycap
+>C</keycap
+> och <keycap
+>D</keycap
+>, eller knappen <guibutton
+>Stängning</guibutton
+> för att ta bort den. När en behållare skapas blir man ombedd att ge den ett namn, men det är inte väsentligt. Oftast använder behållaren närbild och det går lätt att se vilka sorters bitar som finns i den. </para>
+      <para
+>När en behållare tas bort måste den vara aktiv (med blå kontur) och tom på bitar. Om behållaren som ska tas bort inte är aktiv, klicka då på den. Efter borttagning finns ingen aktiv behållare, så klicka på en av dem som är kvar. </para>
+      </sect2>
+      <sect2 id="large-puzzle-teleporting">
+      <title
+>Flytta bitar till och från behållare</title>
+      <para
+>Att överföra bitar genom att dra och släppa är inte möjligt med behållare, och behövs inte heller. Istället kan man överföra bitar omedelbart med <quote
+>teleportering</quote
+>, som i <quote
+>Star Trek</quote
+>. Teleportering fungerar genom att hålla nere tangenten &Shift; och klicka med vänster musknapp. </para>
+      <para
+>För att flytta bitar till en behållare, försäkra dig om att målbehållaren är aktiv (med blå kontur), markera därefter några bitar på pusselbordet och hålla nere tangenten &Shift; och klicka med vänster musknapp. Annars kan man bara klicka på en bit åt gången genom att hålla nere tangenten &Shift; och klicka med vänster musknapp. De förflyttade bitarna försvinner från pusselbordet och dyker upp igen, färglagda, i behållaren. När de anländer packas de automatiskt i ett rutnät, och den senast förflyttande biten centreras i vyn. </para>
+      <para
+>För att flytta bitar från en behållare, markera en bit eller flera bitar inne i behållaren, gå därefter tillbaka till pusselbordet och klicka på en tom plats där du vill att biten eller bitarna ska dyka upp, genom att hålla nere tangenten &Shift; och klicka med vänster musknapp. Undvik att klicka på en bit som redan finns på pusselbordet: Det skickar biten till behållaren, vilket är inte vad du vill. Om du gör det av misstag med en stor sammanfogad del (dvs. en del av läggningen), visas ett varningsmeddelande med en möjlighet att avbryta. </para>
+      <para
+>Bitar förblir färglagda efter teleportering. Det gör det möjligt att snabbt återställa om man flyttar fel bitar eller använder fel behållare av misstag. Dessutom kan man lätt justera positionen för en bit eller flera bitar som just har dykt upp, eller flytta en del till läggningen. </para>
+      <para
+>Teleportering fungerar också mellan behållare. Börja som om du ska överföra bitar till pusselbordet, men håll sedan ner tangenten &Shift; och klicka med vänster musknapp på ett tomt ställe i en annan behållare. För att vända på processen, gå tillbaka till den ursprungliga behållaren och håll nere tangenten &Shift; och klicka med vänster musknapp igen. </para>
+      </sect2>
+      <sect2 id="large-puzzle-sorting">
+      <title
+>Sortera bitar</title>
+      <para
+>För att effektivt sortera bitar i behållare när du söker igenom ett stort pussel, använd tekniken med att stega igenom ett pussel <quote
+>sida för sida</quote
+>, <link linkend="large-puzzle-navigating"
+>som beskrivits tidigare</link
+>, kombinerat med behållare och teleportering för att samla bitar medan du håller på. När du har sök igenom hela pusselbordet zooma till en närbild av lösningsområdet och placera ut bitarna du har samlat ihop. Du kan också sätta ihop bitarna i behållare. </para>
+      </sect2>
+      <sect2 id="large-puzzle-otherholderactions">
+      <title
+>Övriga åtgärder för behållare</title>
+      <para
+>Bitbehållare stöder alla funktionerna hos pusselbordet (se <link linkend="puzzletable-moves"
+>Grundförflyttningar</link
+>), utom att det bara går att zooma genom att använda <mousebutton
+>mushjulet</mousebutton
+> eller musens mittenknapp. </para>
+      <para
+>Det betyder att du kan använda en behållare som ett extra pusselbord om du vill. Du kan dra och släppa, sätta ihop bitar, flytta områdets gränser, etc. Du kan också teleportera sammanfogade bitar av vilken storlek som helst in i eller ut från en behållare, men se upp med överlappningar och små bitar som döljs. </para>
+      <para
+>Till sist, kan man använda menyalternativet <menuchoice
+><shortcut
+> <keycap
+>A</keycap
+></shortcut
+><guimenu
+>Flytta</guimenu
+> <guimenuitem
+>Markera alla i bitbehållare</guimenuitem
+> </menuchoice
+>, följt av menyalternativet <menuchoice
+><shortcut
+> <keycap
+>R</keycap
+></shortcut
+><guimenu
+>Flytta</guimenu
+> <guimenuitem
+>Arrangera om bitar</guimenuitem
+> </menuchoice
+> eller håll nere tangenten &Shift; och klicka med vänster musknapp, för att packa alla bitar i behållaren igen eller flytta ut alla bitarna på pusselbordet. Eller bara använda tangenterna <keycap
+>A</keycap
+> eller <keycap
+>R</keycap
+> i behållaren som för närvarande är markerad. </para>
+      </sect2>
+    </sect1>
+  </chapter>
+
+  <chapter id="interface">
+    <title
+>Översikt av gränssnittet</title>
+    <para
+>De följande är &palapeli;s menyalternativ, där vissa också är tillgängliga som åtgärdsikoner på verktygsraden och snabbtangenter.</para>
+    <variablelist>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+></shortcut
+><guimenu
+>Spel</guimenu
+><guimenuitem
+>Skapa nytt pussel...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Visar en dialogruta so låter dig skapa ett pussel från en bild på hårddisken.</action
+> Se <link linkend="create-puzzles"
+>motsvarande avsnitt</link
+> för detaljerad information, och dessutom <link linkend="large-puzzle-creation"
+>särskilda hänsynstaganden</link
+> om du ska skapa ett pussel med 300 eller flera bitar.</para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Spel</guimenu
+> <guimenuitem
+>Importera från fil...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>När du har tagit emot en &palapeli; pusselfil (som oftast känns igen på filändelsen <literal role="extension"
+>.puzzle</literal
+>), kan du använda den här åtgärden för att importera den i din lokala samling.</action
+> Pusselfiler kan också spelas genom att helt enkelt klicka på dem i filhanteraren du föredrar, men efter import visas pusslet i din lokala samling, och du kan ta bort den nerladdade pusselfilen utan problem.</para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Spel</guimenu
+> <guimenuitem
+>Exportera till fil...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Detta exporterar pusslen som för närvarande är markerade till filer, för att göra det möjligt för dig att ge dem till dina vänner, publicera dem på webben, eller skapa säkerhetskopior av din samling.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Spel</guimenu
+> <guimenuitem
+>Ta bort pussel</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Alla pussel som du har markerat i pussellistan kommer att tas bort permanent från samlingen.</action
+></para
+><warning
+><para
+>Åtgärden kan inte ångras.</para
+></warning
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Spel</guimenu
+> <guimenuitem
+>Börja om pussel...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Blandar om alla bitar och tar bort den sparade läggningen för det aktuella pusslet.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Spel</guimenu
+> <guimenuitem
+>Avsluta</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Avsluta</action
+> &palapeli;.</para
+></listitem>
+      </varlistentry
+>    
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycap
+>C</keycap
+></shortcut
+><guimenu
+>Flytta</guimenu
+><guimenuitem
+>Skapa bitbehållare...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Skapa en tillfällig behållare för att lagra och sortera bitar. Se <link linkend="large-puzzle-holders"
+>Använda bitbehållare</link
+> för detaljerad information om hur en behållare används.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycap
+>D</keycap
+></shortcut
+><guimenu
+>Flytta</guimenu
+><guimenuitem
+>Ta bort bitbehållare</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Ta bort en tillfällig behållare när den är tom.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycap
+>A</keycap
+></shortcut
+><guimenu
+>Flytta</guimenu
+><guimenuitem
+>Markera alla i behållare</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Markera alla bitar i bitbehållaren som för närvarande är markerad (med blå kontur).</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+><guimenu
+>Flytta</guimenu
+><guimenuitem
+>Arrangera om bitar</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Arrangera om markerade bitar in någon behållare eller på pusselbordet genom att packa dem i ett rutnät.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Visa</guimenu
+> <guimenuitem
+>Tillbaka till samling</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Gå tillbaka till samlingen och välj ett annat pussel.</action
+> Kan bara användas när du lägger ett pussel.</para
+></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Visa</guimenu
+> <guimenuitem
+>Förhandsgranskning</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Ändra visning av förhandsgranskningsfönstret med det fullständiga pusslet.</action
+> Håll musen över det för att zooma i bilden.</para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Visa</guimenu
+> <guimenuitem
+>Zooma in</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Öka skalan.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Visa</guimenu
+> <guimenuitem
+>Zooma ut</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Minska skalan.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Inställningar</guimenu
+><guimenuitem
+>Aktivera alla meddelanden</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Låter dig aktivera alla meddelanden som inaktiverats genom att markera alternativet <guilabel
+>Visa inte det här meddelandet igen</guilabel
+> i &palapeli;s bekräftelsedialogrutor.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Inställningar</guimenu
+><guimenuitem
+>Visa pusselbordets statusrad</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Växlar visning av förloppsraden och knapparna under pusselbordet.</action
+> Åtgärden ändrar ingenting i pusselsamlingen.</para
+></listitem>
+      </varlistentry>
+      <varlistentry id="settings-menu-configure">
+        <term
+><menuchoice
+><guimenu
+>Inställningar</guimenu
+><guimenuitem
+>Anpassa &palapeli;...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+>Öppna spelets inställningsdialogruta. Se avsnittet <link linkend="configuration"
+>Spelanpassning</link
+> för mer information.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <para
+>Dessutom har &palapeli; de vanliga menyalternativen <guimenu
+>Inställningar</guimenu
+> och <guimenu
+>Hjälp</guimenu
+> i &kde;. För mer information, läs avsnitten <ulink url="help:/fundamentals/menus.html#menus-settings"
+>Menyn Inställningar</ulink
+> och <ulink url="help:/fundamentals/menus.html#menus-help"
+>Menyn Hjälp</ulink
+> i &kde;:s Grunder. </para>
+  </chapter>
+
+  <chapter id="configuration">
+    <title
+>Spelanpassning</title>
+    <para
+>Använd menyalternativet <menuchoice
+><guimenu
+>Inställningar</guimenu
+><guimenuitem
+>Anpassa &palapeli;...</guimenuitem
+></menuchoice
+> för att öppna inställningsdialogrutan.</para>
+    <sect1 id="configuration-general">
+      <title
+>Allmänna inställningar</title>
+      <variablelist>
+        <varlistentry>
+          <term
+><guilabel
+>Pusselbord</guilabel
+></term>
+          <listitem>
+            <para
+>Låter dig välja vissa parametrar för pusselbordet.</para>
+          <variablelist>
+            <varlistentry>
+              <term
+><guilabel
+>Bakgrund:</guilabel
+></term>
+              <listitem
+><para
+><action
+>Låter dig välja en annan bakgrundsstruktur för pusselbordet.</action
+> Om du väljer en enkel färg istället för en struktur, kan knappen intill urvalsrutan väljas för att definiera färgen.</para
+></listitem>
+            </varlistentry>
+            <varlistentry>
+              <term
+><guilabel
+>Färg för att färglägga markerade bitar:</guilabel
+></term>
+              <listitem
+><para
+><action
+>Låter dig välja bitarnas färg när de är markerade.</action
+> Klicka på knappen till höger om texten för att visa fönstret <ulink url="help:/fundamentals/colors.html"
+>Färgväljare</ulink
+>.</para
+></listitem>
+            </varlistentry>
+            <varlistentry>
+              <term
+><guilabel
+>Utrymme för lösning:</guilabel
+></term>
+              <listitem
+><para
+><action
+>Låter dig välja var ett visst utrymme på pusselbordet ska reserveras för lösningen.</action
+> Inget tomt utrymme tillhandahålls om alternativet <guilabel
+>Inget</guilabel
+> väljes eller pusslet har färre än 20 bitar. Ändringar får effekt när ett pussel skapas eller läggningen börjas om.</para
+></listitem>
+            </varlistentry>
+            <varlistentry>
+              <term
+><guilabel
+>Mellanrum mellan bitar i pusslets rutnät (1,0 - 1,5):</guilabel
+></term>
+              <listitem
+><para
+><action
+>Låter dig välja mellanrummet i pusslets rutnät.</action
+> Ändringar av pusslets övergripande mellanrum får bara effekt när ett pussel skapas eller läggningen börjas om.</para
+></listitem>
+            </varlistentry>
+          </variablelist>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Bitarnas utseende</guilabel
+></term>
+          <listitem
+><para
+><action
+>Bestämmer utseendet hos bitarna på pusselbordet.</action
+> Om &palapeli; kör långsamt, eller om det tar väldigt lång tid att öppna pussel, kan de grafiska effekterna i den här kategorin inaktiveras för att snabba upp allting. Om du väljer skuggning, utförs markering genom att ändra skuggans färg.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Läggprecision</guilabel
+></term>
+          <listitem
+><para
+><action
+>Låter dig välja hur nära varandra grannbitar måste vara placerade för att läggas ihop.</action
+>Om du flyttar skjutreglaget åt höger, läggs bitar ihop även om de inte är så nära varandra. Det gör det något enklare att hantera spelet.</para
+></listitem>
+        </varlistentry>
+      </variablelist>
+    </sect1>
+    <sect1 id="configuration-mouseactions">
+      <title
+>Användning av musen</title>
+      <para
+>Den här sidan av inställningsdialogrutan låter dig tilldela musknappar och väljartangenter till åtgärderna som beskrivs i avsnittet <link linkend="puzzletable-mouseactions"
+>Lägga pussel på pusselbordet, Användning av musen</link
+>. Var noga med att undvika tvetydiga tilldelningar. Tre av standardtilldelningarna kan gälla vänster musknapp eftersom pekaren befinner sig över olika områden när de används, men de övriga tilldelningarna måste vara åtskilda.</para>
+      <para
+>Åtgärderna är uppdelade i de som kan tilldelas till musknappar (t.ex. <action
+>Flytta visningsområdet genom att dra</action
+>), och de som kan tilldelas till <mousebutton
+>mushjulet</mousebutton
+> (t.ex. <action
+>Rulla visningsområdet horisontellt</action
+>).</para>
+      <sect2>
+        <title
+>Fliken Musknappar</title>
+        <para
+>Till höger om namnet på varje åtgärd finns en knapp med en bild av en datormus, som visar åtgärden som för närvarande är aktiv. Du kan ställa in åtgärden genom att klicka på knappen med vänster musknapp och därefter med musknappen du vill tilldela till åtgärden. Om du håller nere väljartangenter medan du klickar den andra gången, tillåter pusselbordet bara åtgärden när väljartangenterna hålls nere.</para>
+        <tip
+><para
+>Istället för att klicka kan du också trycka på <keycap
+>Mellanslag</keycap
+> för att tilldela <guilabel
+>Ingen knapp</guilabel
+> till åtgärden. Det tillåts bara om väljartangenter hålls nere. <guilabel
+>Ingen knapp</guilabel
+> betyder att väljartangenterna får musknappens roll. Åtgärden påbörjas när väljartangenterna trycks ner, och stoppar när någon av väljartangenterna släpps.</para
+></tip>
+      </sect2>
+      <sect2>
+        <title
+>Fliken Mushjul</title>
+        <para
+>Den här fliken fungerar på ett liknande sätt som den föregående. När knappen till höger begär indata, måste du röra på <mousebutton
+>mushjulet</mousebutton
+> istället för att klicka på en musknapp. Det är också tillåtet att hålla nere väljartangenter, med samma konsekvenser som i föregående fall.</para>
+        <tip
+><para
+>Om musen har ett <mousebutton
+>mushjul</mousebutton
+> med två riktningar (som vanligtvis finns på tryckplattor till bärbara datorer), kan du dra nytta av det: Knappen känner av om <mousebutton
+>mushjulet</mousebutton
+> rörs horisontellt eller vertikalt.</para
+></tip>
+      </sect2>
+    </sect1>
+  </chapter>
+
+  <chapter id="credits">
+    <title
+>Tack till och licens</title>
+    <para
+>&palapeli;s syfte är att bringa det och utmaningen hos pussel till skrivbordet.</para>
+    <para
+>Idén utvecklades först av  Bernhard Schiffner, tillsammans med Stefan Majewsky, som var huvudutvecklare av &palapeli;.</para>
+    <para
+>&i18n-psc; bidrogs av Johannes L&#xF6;hnert.</para>
+    <para
+>Funktionerna för stora pussel bidrogs av Ian Wadham.</para>
+    <para
+>Dokumentation Copyright 2009, 2010 Johannes L&#xF6;hnert, Stefan Majewsky och Copyright 2014 Ian Wadham.</para>
+    <para
+>Översättning Stefan Asserhäll <email
+>stefan.asserhall@bredband.net</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+  &documentation.index;
+</book>

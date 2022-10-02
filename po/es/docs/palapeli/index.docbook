@@ -1,0 +1,1441 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+<!ENTITY palapeli "<application
+>Palapeli</application
+>">
+<!ENTITY i18n-psc "<application
+>Palapeli Slicer Collection</application
+>">
+<!ENTITY kappname "&palapeli;">
+<!ENTITY package "kdegames">
+<!ENTITY % Spanish "INCLUDE">
+<!ENTITY % addindex "IGNORE">
+]>
+
+<book id="palapeli" lang="&language;">
+	<bookinfo>
+		<title
+>Manual de &palapeli;</title>
+		<authorgroup>
+			<author
+><firstname
+>Johannes</firstname
+> <surname
+>L&#xF6;hnert</surname
+> <affiliation
+><address
+><email
+>loehnert_kde@gmx.de</email
+></address
+></affiliation>
+			</author>
+			<author
+><firstname
+>Stefan</firstname
+> <surname
+>Majewsky</surname
+> <affiliation
+><address
+><email
+>majewsky@gmx.net</email
+></address
+></affiliation>
+			</author>
+			<author
+><firstname
+>Ian</firstname
+> <surname
+>Wadham</surname
+> <affiliation
+><address
+><email
+>iandw.au@gmail.com</email
+></address
+></affiliation>
+			</author>
+			<othercredit role="translator"
+> <firstname
+>Rocío</firstname
+> <surname
+>Gallego</surname
+> <affiliation
+><address
+><email
+>traducciones@rociogallego.com</email
+></address
+></affiliation
+> <contrib
+>Traducción</contrib
+> </othercredit
+><othercredit role="translator"
+><firstname
+>Kira</firstname
+><surname
+>J. Fernández</surname
+><affiliation
+><address
+><email
+>kirajfdez@gmail.com</email
+></address
+></affiliation
+><contrib
+>Traductora</contrib
+></othercredit
+> <othercredit role="translator"
+> <firstname
+>David</firstname
+> <surname
+>Paul Peña</surname
+> <affiliation
+><address
+><email
+>eodos0@gmail.com</email
+></address
+></affiliation
+> <contrib
+>Traductor</contrib
+> </othercredit
+> 
+		</authorgroup>
+
+		<copyright>
+			<year
+>2009, 2010</year>
+			<holder
+>Johannes L&#xF6;hnert, Stefan Majewsky</holder>
+		</copyright>
+		<copyright>
+			<year
+>2014</year>
+			<holder
+>Ian Wadham</holder>
+		</copyright>
+		<legalnotice
+>&FDLNotice;</legalnotice>
+		<date
+>2014-03-09</date>
+		<releaseinfo
+>2.0 (&kde; 4.13)</releaseinfo>
+
+		<abstract>
+			<para
+>Este es el manual de &palapeli;, un juego de armar rompecabezas basado en la tecnología &kde;.</para>
+		</abstract>
+		<keywordset>
+			<keyword
+>KDE</keyword>
+			<keyword
+>kdegames</keyword>
+			<keyword
+>juego</keyword>
+			<keyword
+>juego de rompecabezas</keyword>
+			<keyword
+>rompecabezas</keyword>
+			<keyword
+>palapeli</keyword>
+		</keywordset>
+	</bookinfo>
+
+	<chapter id="introduction">
+		<title
+>Introducción</title>
+		<para
+>&palapeli; es un juego de rompecabezas para un único jugador con el que puede crear y jugar con rompecabezas de entre 4 y 10.000 piezas. Esta versión incluye asistencia para resolver grandes rompecabezas (con 300 piezas o más) teniendo en cuenta la limitación de espacio de la pantalla del ordenador.</para>
+		<para
+>La ventana principal de &palapeli; está dividida en dos áreas: la colección de rompecabezas y el tablero del rompecabezas.</para>
+		<para
+>Este manual continuará describiendo estas dos áreas.</para>
+	</chapter>
+
+	<chapter id="collection">
+		<title
+>Explorando la colección de rompecabezas.</title>
+		<sect1 id="play-maintain-collection">
+			<title
+>Jugando con los rompecabezas y actualizando la colección</title>
+		<para
+>Cuando inicia &palapeli; por primera vez, su colección de rompecabezas se carga con unos rompecabezas predeterminados que vienen con &palapeli;. Haga clic en uno de ellos para empezar a jugar inmediatamente. Después, cuando haya creado algunos rompecabezas (ver denajo), podrá acceder a ellos para empezar a jugar.</para>
+		<para
+>El juego tiene lugar en el tablero del rompecabezas; vea <link linkend="puzzletable"
+>la siguiente sección</link
+> para aprender cómo usarlo.</para>
+		<note
+><para
+>Puede seleccionar y marcar rompecabezas de la lista presionando &Ctrl; y &LMB; al mismo tiempo. Presionando &LMB; o &RMB; sin &Ctrl; abre el rompecabezas especificado en el tablero.</para>
+		      <para
+>En Apple OS X necesita hacer doble-click con &LMB; para empezar a jugar. Un único click seleccionará y marcará un rompecabezas de la lista.</para
+></note>
+		<para
+>Además de para seleccionar un rompecabezas, la colección se puede usar para las siguientes acciones: </para>
+		<itemizedlist>
+			<listitem
+><para
+><emphasis
+>crear</emphasis
+> nuevos rompecabezas a partir de imágenes en su disco duro.</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>importar</emphasis
+> rompecabezas hechos por otros.</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>exportar</emphasis
+> rompecabezas para compartirlos con sus amigos y el resto del mundo.</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>eliminar</emphasis
+> rompecabezas que ya no necesita.</para
+></listitem>
+		</itemizedlist>
+		<para
+>La siguiente sección le enseñará cómo realizar estas tareas con los botones de la barra de herramientas.</para>
+	    </sect1>
+		<sect1 id="toolbar-collection">
+			<title
+>Vista general de la barra de herramientas</title>
+			<variablelist>
+				<varlistentry>
+					<term
+><guiicon
+>Crear nuevo rompecabezas</guiicon
+></term>
+					<listitem>
+						<para
+><action
+>Abre un diálogo que le permite crear un rompecabezas a partir de una imagen en su disco.</action
+> Vea <link linkend="create-puzzles"
+>la siguiente sección</link
+> para más detalles.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Eliminar rompecabezas</guiicon
+></term>
+					<listitem
+><para
+><action
+>Cualquier rompecabezas que haya seleccionado de la lista, será permanentemente eliminado de su biblioteca. </action
+></para
+><warning
+><para
+>Esta acción no se puede deshacer.</para
+></warning
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Importar desde archivo</guiicon
+></term>
+					<listitem
+><para
+><action
+>Cuando recibe un rompecabezas de &palapeli; (que normalmente se reconoce por la extensión de archivo <literal role="extension"
+>*.puzzle</literal
+>), puede usar esta acción para importarlo a su colección local.</action
+> Los archivos de rompecabezas también se pueden jugar simplemente haciendo clic en ellos en el administrador de archivos que elija, pero después de importarlo, el rompecabezas aparecerá en su colección local y puede eliminar con seguridad el archivo descargado.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Exportar a archivo</guiicon
+></term>
+					<listitem
+><para
+><action
+>Esto exportará los rompecabezas actualmente seleccionados a archivos, con el fin de permitirle enviárselos a sus amigos, publicarlos en la web o hacer copias de seguridad de su colección.</action
+></para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="create-puzzles">
+		<title
+>Crear nuevos rompecabezas</title>
+		<sect1 id="creation-dialog">
+		<title
+>El diálogo de creación de un rompecabezas</title>
+		<para
+>Como se describe en <link linkend="collection"
+>la sección anterior</link
+>, puede crear nuevos rompecabezas haciendo clic en el botón <guiicon
+>Crear  nuevo rompecabezas</guiicon
+> en la colección de rompecabezas.</para>
+		<para
+>Hacer clic en este botón abre el diálogo de creación de rompecabezas, que consiste en tres páginas:</para>
+		<procedure>
+			<step
+><para
+>En la primera página, seleccione un archivo de imagen que será cortado en piezas. Asegúrese de introducir los metadatos correctos para la imagen:debería darle atribución al autor de la imagen (&eg; el fotógrafo o el pintor); por favor, respete el copyright del autor de la imagen.</para
+></step>
+			<step
+><para
+>En la segunda página, puede seleccionar el tipo de piezas en las que se dividirá la imagen. &palapeli; viene con una colección de herramientas de corte preinstaladas, pero también están disponibles otras herramientas de terceros.</para
+></step>
+			<step
+><para
+>En la última página del diálogo, la herramienta de corte seleccionada se puede personalizar, &eg; eligiendo un número diferente de piezas o ajustando los parámetros de la forma de las piezas. El conjunto de opciones disponibles depende de qué herramienta de corte se seleccione.</para
+></step>
+		</procedure>
+		<para
+>Este manual continuará hablando de las herramientas de corte que vienen con &palapeli;. Si ha descargado algún complemento de terceros para &palapeli;, por favor consulte la documentación de este complemento si ha tenido problemas instalándolo o usándolo en su sistema.</para>
+		</sect1>
+		<sect1 id="simple-slicers">
+			<title
+>Herramientas de corte sencillas</title>
+			<para
+>&palapeli; tiene dos herramientas de corte sencillas, <quote
+>Piezas de rompecabezas  clásicas</quote
+> y <quote
+>Piezas rectangulares</quote
+>. Estas herramientas crearán piezas rectangulares sencillas con o sin clavijas de conexión.</para>
+			<para
+>Ambas herramientas permiten que se ajuste el número de piezas y la relación de aspecto. Arrastrar el deslizador de la relación de aspecto hacia la izquierda  tiene como resultado que las piezas sean altas; ajustarlo hacia la derecha  muestra piezas anchas. La selección predeterminada muestra piezas aproximadamente cuadradas.</para>
+		</sect1>
+		<sect1 id="psc">
+			<title
+>El &i18n-psc; avanzado</title>
+			<para
+>El &i18n-psc; muestra piezas realistas de rompecabezas con varios patrones básicos: </para>
+			<variablelist>
+				<varlistentry>
+					<term
+>Rejilla rectangular</term>
+					<listitem
+><para
+>Contiene las bien conocidas piezas rectangulares.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Rejilla Cairo</term>
+					<listitem
+><para
+>Con sus piezas pentagonales y sus ángulos desiguales, es bastante difícil de armar, porque las piezas encajan de una manera poco familiar.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Rejilla hexagonal</term>
+					<listitem
+><para
+>Muestra piezas hexagonales, dispuestas como las celdas de una colmena.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Rejilla Rotrex</term>
+					<listitem
+><para
+>Mediante una composición especial de piezas triangulares, hexagonales y rectangulares, las piezas forman un patrón que se asemeja a varios círculos que interseccionan.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Rejilla irregular</term>
+					<listitem
+><para
+>Esta rejilla solo está disponible si ha instalado <application
+>qvoronoi</application
+> desde el paquete <ulink url="http://www.qhull.org"
+><application
+>qhull</application
+></ulink
+>. <application
+>qvoronoi</application
+> se usa para calcular formas irregulares de piezas desde puntos situados al azar.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+			<para
+>El &i18n-psc; tiene varios parámetros que controlan la apariencia de los bordes de las piezas, especialmente las clavijas. Se proporciona una configuración predeterminada para todos estos parámetros. Está disponible un modo adicional preestablecido, lo que reduce la cantidad de parámetros al mínimo. Los siguientes parámetros están disponibles habitualmente:</para>
+			<variablelist>
+				<varlistentry>
+					<term
+>Cantidad de piezas aprox.</term>
+					<listitem
+><para
+><!--FIXME add missing description here--></para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Porcentaje de bordes girados</term>
+					<listitem
+><para
+>La probabilidad de que cada clavija esté girada. Una clavija se considera girada si apunta a la dirección opuesta a la que lo haría en una rejilla totalmente regular. En la rejilla rectangular, esto resulta en piezas de 3 o 4 clavijas apuntando hacia dentro en lugar de hacia afuera. Sitúe el deslizador a la izquierda del todo para obtener una rejilla normal totalmente regular. En el medio, la orientación de las clavijas es aleatoria. A la derecha, la rejilla es de nuevo totalmente regular, pero con una regla <quote
+>alternativa</quote
+>. Esto <emphasis
+>no</emphasis
+> significa que se giren todas las clavijas: en la rejilla regular alternativa, pro ejemplo, cada pieza tiene cuatro clavijas vueltas hacia adentro o cuatro clavijas vueltas hacia fuera. Esta configuración no tiene efecto en la rejilla irregular.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Curvatura del borde</term>
+					<listitem
+><para
+>Determina cómo de curvados están los bordes, &ie; con cuánta intensidad los bordes se hunden o sobresalen. Mueva el deslizador totalmente hacia la izquierda para obtener bordes rectos (excepto para las clavijas).</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Tamaño de las clavijas</term>
+					<listitem
+><para
+>Determina el tamaño de la clavija de cada borde. La configuración por defecto (posición central del deslizador) se elige para que parezca un rompecabezas real. El deslizador cubre desde el 50% al 150% de este tamaño, lo que ya parece ridículamente grande. El programa intenta por todos los medios evitar colisiones entre clavijas. Los bordes que chocan se redimensionan múltiples veces y se encogen en pasos pequeños. Sin embargo, todavía quedan casos en los que no se puede encontrar una solución, sobre todo para tamaños grandes de las clavijas.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Diversidad de la curvatura</term>
+					<listitem
+><para
+>Determina cuánto varía la curvatura (ver arriba) entre los bordes. Mueva el deslizador hacia la izquierda para que todas las abolladuras y protuberancias parezcan iguales. A la derecha, pueden aparecer tanto bordes muy rectos como muy curvados.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Diversidad de la posición de las clavijas</term>
+					<listitem
+><para
+>Determina cuánto varía la posición de la clavija en el borde. Más a la izquierda, las clavijas se fijan hacia la mitad de su borde.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Diversidad de clavijas</term>
+					<listitem
+><para
+>Determina cómo de único es el aspecto de cada clavija. Más a la izquierda, las clavijas parecen todas iguales. Más a la derecha, cada clavija será una obra de arte única creada especialmente para usted.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Irr.: Diversidad del tamaño de las piezas</term>
+					<listitem
+><para
+>Solo para la rejilla irregular: determina cuánto varía el tamaño de las piezas. Una configuración pequeña significa que casi no hay variación; surgen estructuras parecidas a las cristalinas. Configuraciones más altas producen piezas muy pequeñas y muy grandes.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Volcado de la imagen de la rejilla</term>
+					<listitem
+><para
+>Guarde una imagen de la rejilla (bordes negros  sobre fondo blanco) en <filename
+>~/goldberg-slicer-dump.png</filename
+>. Si existe algún volcado anterior, se sobreescribe.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="puzzletable">
+		<title
+>Jugar en el tablero del rompecabezas</title>
+
+		<sect1 id="puzzletable-moves">
+		<title
+>Movimientos básicos</title>
+		<screenshot
+><mediaobject>
+			<imageobject
+><imagedata fileref="puzzletable1.png" format="PNG"/></imageobject>
+			<textobject
+><phrase
+>El tablero del rompecabezas (detalle)</phrase
+></textobject>
+		</mediaobject
+></screenshot>
+		<para
+>El objeto de este juego es unir las piezas dadas para formar una imagen.</para>
+		<para
+>La ventana de vista preliminar le muestra cómo es solución. Use la barra de herramientas o el menú para mostrar u ocultar esta ventana. Para una descripción más detallada, vea <link linkend="puzzletable-preview"
+>La ventana de vista preliminar</link
+>.</para>
+		<para
+>Si quiere intentar un rompecabezas que tiene 300 piezas o más, por favor lea el capítulo <link linkend="large-puzzles"
+>Facilidades para resolver grandes rompecabezas</link
+>, al finalizar este capítulo.</para>
+		<para
+>Puede mover una única pieza seleccionándola y arrastrándola con &LMB;, lo cual marcará la pieza. Para mover varias a la vez, primero seleccionelas, y luego haga clic y arrastre una de las piezas. El resto la seguirá.</para>
+		<para
+>Puede sleccionar y marcar varias piezas pulsando &Ctrl; y haciendo clic en ellas, o creando un rectángulo de selección alrededor de ellas con &LMB;. Puede también usar &Ctrl; y &LMB; para aumentar o disminuir la selección actual pieza a pieza.</para>
+		<para
+>Para deshacer la selección y resaltado, haga clic en un espacio en blanco en el tablero o en una pieza que no esté selccionada.</para>
+		<para
+>Cuando coloque una pieza al lado de la que le corresponde, ambas se unirán automáticamente (1). Tras haberse unido, las piezas ya no se pueden separar. Otra diferencia entre &palapeli; y la vida real, es que no puede combinar dos piezas que no se correspondan.</para>
+		<para
+>La barra de progreso bajo el tablero del rompecabezas le indica el número de piezas unidas (2). &palapeli; guardará automáticamente su progreso después de cada movimiento, así que normalmente no se tendrá que preocupar de guardarlo usted. </para>
+		<para
+>Puede ampliar el tablero con la rueda del ratón, la barra de desplazamiento en la parte inferior derecha o los botones situados en ese lugar (3).</para>
+		<para
+>Puede mover el tablero en cualquier dirección haciendo click y arrastrando con &RMB;.</para>
+		<para
+>El movimiento de las piezas está limitado por el <emphasis
+>área de el tablero del rompecabezas</emphasis
+>. Este área está representada en el fondo de la mesa por una sombra clara rectangular. Cuando mueve las piezas hacia el borde (4) del área de el tablero, el área se expandirá automáticamente para darle más espacio donde mover las piezas. Cerca de los bordes sombreados, el cursor del ratón cambia a una flecha de dos puntas, indicando que puede ajustar el área de el tablero haciendo clic ahí con el &LMB; y arrastrando.</para>
+		<para
+>Puede bloquear el área de el tablero del rompecabezas con el botón pequeño (5) a la derecha de la barra de progreso. La sombra (4) alrededor de el tablero se oscurecerá, y las piezas dejarán de moverse al llegar a los bordes del área de el tablero. Todavía será posible ajustar manualmente el tamaño del área del tablero del rompecabezas.</para>
+		</sect1>
+
+		<sect1 id="puzzletable-preview">
+			<title
+>La ventana de vista preliminar</title>
+			<para
+>La vista preliminar es una pequeña ventana que está encima o a uno de los lados del tablero. Contiene una imagen de la solución: la imagen que aparecería en la caja de un juego de rompecabezas real. </para>
+			<para
+>La ventana puede ser mostradau ocultada usando el botón de la barra de herramientas <guiicon
+>Vista preliminar</guiicon
+> o la opción del menú <menuchoice
+><guimenu
+>Ver</guimenu
+><guimenuitem
+>Vista preliminar</guimenuitem
+></menuchoice
+>. Su tamaño, posición y visibilidad se guardan al cerrar &palapeli;. </para>
+			<para
+>Como es una ventana, puede moverse libremente por el escritorio y cambiar su tamaño. El botón Cerrar la ocultará y el botón Maximizar la expandirá o contraerá rápidamente. </para>
+			<para
+>La ventana de vista previa tiene una opción de lupa, por lo que no requiere mucho espacio. Si mueve el ratón por la ventana, se ampliará rápidamente para mostrar una vista ampliada del área sobre la que está el ratón y algunas piezas a su alrededor. Es muy útil para ver detalles del rompecabezas e identificar las piezas que ha encontrado, pero en ocasiones puede ser complicado de utilizar, especialmente en las zonas cercanas a las esquinas de la imagen. </para>
+		</sect1>
+
+		<sect1 id="puzzletable-mouseactions">
+			<title
+>Interacciones del ratón</title>
+			<para
+>Como se describe en la sección anterior, hay muchas maneras de interactuar con el tablero del rompecabezas de &palapeli; usando el ratón. Puede configurar libremente qué acciones se activan mediante qué botones del ratón (vea la sección <link linkend="configuration-mouseactions"
+>Configuración del juego</link
+> para más información sobre cómo configurar esto). La siguiente lista resume todas las posibles acciones del ratón:</para>
+			<variablelist>
+				<varlistentry>
+					<term
+><action
+>Cambiar el tamaño del área del tablero del rompecabezas arrastrando sus bordes.</action
+></term>
+					<listitem
+><para
+>Por defecto, esta acción se le asigna al &LMB;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Mover las piezas mediante el arrastre</action
+></term>
+					<listitem
+><para
+>Cuando hace clic y arrastra una pieza del rompecabezas, esta pieza se moverá. Si selecciona múltiples piezas y usted hace clic y arrastra una de ellas, todas las piezas se moverán. Por omisión, esta acción está asignada al &LMB;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Mover el punto de vista mediante el arrastre</action
+></term>
+					<listitem
+><para
+>Esta acción mueve todo el tablero en cualquier dirección. Por defecto, está asignada al &RMB;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Seleccionar varias piezas por equivocación</action
+></term>
+					<listitem
+><para
+>Cuando hace clic en un área libre del tablero del rompecabezas en lugar de en una pieza, puede arrastrar una banda elástica. Cuando suelta el botón del ratón, todas las piezas dentro de la banda elástica quedan seleccionadas. Por defecto, esta acción está asignada al &LMB;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Seleccionar varias piezas con un clic</action
+></term>
+					<listitem
+><para
+>Cuando hace clic sobre una pieza del rompecabezas, esta será seleccionada. Si ya estaba seleccionada, se deseleccionará. Puede ser utilizada para ajustar una selección errónea. Por defecto, esta acción está asignada al &LMB; y solo está disponible cuando se presiona &Ctrl;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Deshacer la selección y resaltado</action
+></term>
+					<listitem
+><para
+>Haga clic en una espacio vacío del tablero o en una pieza que no esté seleccionada.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Ampliar o reducir el tablero</action
+></term>
+					<listitem
+><para
+>Esta acción es idéntica a hacer click en los botones a los lados de la barra de desplazamiento que se encuentra en la barra de estado. Está asignada de forma predeterminada a la rueda del ratón.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Cambiar a primer plano o vista lejana</action
+></term>
+					<listitem
+><para
+>Esta acción alterna entre el primer plano y la vista lejana, a la posición del puntero del ratón. Está prevista para permitir ampliar rápidamente el tablero en rompecabezas grandes (300 piezas o más). Para más detalles, vea <link linkend="large-puzzle-fast-zooming"
+>Ampliando rápidamente entre el primer plano y la vista lejana</link
+>. Por defecto, la acción está asignada al &MMB;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Teletransportar piezas de, o a un porta-piezas</action
+></term>
+					<listitem
+><para
+>Esta acción le ayuda a recoger, ordenar y mover rápidamente las piezas en rompecabezas grandes (300 piezas o más) sin tener que arrastraslas. Puede usarla en rompecabezas pequeños si lo desea. Para más detalle, vea <link linkend="large-puzzle-holders"
+>Usando porta-piezas</link
+>. Por defecto, la acción está asignada al &LMB; mientras mantiene pulsado &Shift;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Activar o desactivar el estado del área del tablero del rompecabezas</action
+></term>
+					<listitem
+><para
+>Esta acción es idéntica a presionar el botón (5) de la barra de estado. Por defecto, esta acción no está asignada a ningún botón del ratón, pero puede habilitarlo desde el <link linkend="configuration-mouseactions"
+>diálogo de configuración</link
+>.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Desplazar el punto de vista horizontalmente</action
+> y <action
+>Desplazar el punto de vista verticalmente</action
+></term>
+					<listitem
+><para
+>Por defecto, esta acción no está asignada a la rueda del ratón, pero puede habilitarla desde el <link linkend="configuration-mouseactions"
+>diálogo de configuración</link
+>.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+
+		<sect1 id="toolbars-puzzletable">
+			<title
+>Vista general de la barra de herramientas</title>
+			<variablelist>
+				<varlistentry>
+					<term
+><guiicon
+>Volver a la colección</guiicon
+></term>
+					<listitem
+><para
+><action
+>Volver a la colección y escoger otro rompecabezas.</action
+> solo puede ser usado mientras está resolviendo un rompecabezas.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Vista previa</guiicon
+></term>
+					<listitem
+><para
+><action
+>Conmutar la pantalla de vista previa con el rompecabezas completado.</action
+></para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="large-puzzles">
+		<title
+>Ayudas para resolver un rompecabezas grande</title>
+
+		<sect1 id="large-puzzle-general">
+			<title
+>Principios generales</title>
+			<para
+>&palapeli; puede manejar rompecabezas grandes de entre 300 y 10.000 piezas, pero necesitará algunas ayudas para poder resolverlos en una pantalla pequeña. </para>
+			<para
+>Puede crear un rompecabezas grandes de la misma forma que crea uno pequeño. Vea el capítulo <link linkend="create-puzzles"
+>Creando nuevos rompecabezas</link
+>, pero hay algunas cosas en las que debe pensar antes de comenzar. Para más detalles vea <link linkend="large-puzzle-creation"
+>Creando rompecabezas grandes - asuntos de interés especiales</link
+>. </para>
+			<para
+>La ventana de vista previa es muy útil en rompecabezas grandes: vez la sección sobre ella para una <link linkend="puzzletable-preview"
+> descripción detallada</link
+>. </para>
+			<para
+>Sus próximas preocupaciones serán administrar el espacio y moverse sobre él. Cuando aleja la vista para ver todo el tablero, resulta complicado visualizar las piezas individualmente. Si amplía y encuentra una pieza que estaba buscando, es probable que no pueda ver el lugar en el que va. Vea la sección <link linkend="large-puzzle-space"
+>Administrando el espacio y moviendose sobre él</link
+> para encontrar algunas soluciones a estos y otros problemas. </para>
+			<para
+>Finalmente, necesita juntar varias piezas y unirlas en el área de solución de alguna manera más eficiente que arrastrar y soltar las piezas durante largas distancia. Aquí es donde entran en juego los porta-piezas. </para>
+			<para
+>Cuando empieza un gran rompecabezas, se le crea un porta-piezas (una ventana pequeña flotante) llamada <quote
+>Mano</quote
+> en la cual puede poner piezas cuando las vea. Entonces podrá moverla hasta estar cerca del área de solución y trabajar con ella en esa zona. Es como lo haría en un rompecabezas de verdad. </para>
+			<para
+>Puede necesitar algunos métodos sistemáticos para ordenar las piezas que tengan alguna caracterísitca en común (&eg; esquinas, el cielo, horiontes, etc.) por lo que puede usar tantos porta-piezas como requiera y darles nombre. Los porta-piezas se guardan continuamente, junto con el tablero, lo que significa que puede usarlos para construir parte de la solución y almacenarla o para almacenar piezas para más tarde. Para más detalles acerca de como usar los porta-piezas vea la sección <link linkend="large-puzzle-holders"
+>Usando porta-piezas</link
+>. </para>
+			<para
+>Por último, la sección <link linkend="puzzletable-mouseactions"
+>Interacciones con el ratón</link
+> muestra las dos acciones especiales de ratón que facilitan la resolución de los rompecabezas grandes: teletransportar piezas y ampliar a la vista de primer plano o vista lejana. </para>
+		</sect1>
+
+		<sect1 id="large-puzzle-creation">
+			<title
+>Creando rompecabezas grandes - consideraciones especiales</title>
+			<para
+>Antes de que cree un rompecabezas grandes, debe asegurarse de que la imagen fuente tiene suficiente detalles (&ie; suficientes megapíxeles). Puede usar un editor o visor de fotos o un programa de gestión de archivos para ver cuántos píxeles tiene de ancho y alto y si la imagen está comprimida en JPEG u otro formato similar. De forma orientativa debe saber que un megapixel se corresponde aproximadamente con 1000 piezas. Eso hará que las piezas tengan aproximadamente 1000 píxeles, de 30 píxeles de lado, haciendo que se vean desde lejos y tengan la suficiente claridad cuando las amplía. Puede trabajar con menos megapíxeles, pero puede ser difícil distinguir y reconocer las piezas cuando intenta resolverlo. </para>
+			<para
+>Cuando crea o reinicia un gran rompecabezas, puede ser mejor evitar el uso de las caracterísitcas de &palapeli; de sombreado (vea la sección <link linkend="configuration-general"
+>Opciones generales</link
+>), al ralentizar la carga y hacer que el resaltado de las piezas sea más dificil de ver cuando las piezas son muy pequeñas. Cuando no se usa el sombreado, las piezas resaltadas se aprecian mucho mejor. </para>
+		</sect1>
+
+		<sect1 id="large-puzzle-space">
+			<title
+>Manejando el espacio y moviéndose alrededor</title>
+			<sect2 id="large-puzzle-space-allocation">
+			<title
+>Distribuyendo el espacio en el tablero</title>
+			<para
+>Cuando crea o reinicia un rompecabezas, las piezas se mezclan y reparten aleatoriamente en las posiciones de la rejilla del tablero. Hay dos opciones que afectan al espacio que se necesita, vea <link linkend="configuration"
+>Configuración del juego</link
+> para obtener una lista de las opciones que hay en<menuchoice
+><guimenu
+>Opciones</guimenu
+> <guimenuitem
+>Configurar &palapeli;...</guimenuitem
+> </menuchoice
+> o, en Apple OS X, <menuchoice
+><guimenu
+>&palapeli;</guimenu
+> <guimenuitem
+>Preferencias...</guimenuitem
+></menuchoice
+>. </para>
+			<para
+>Puede establecer el espaciado de las rejillas entre 1.0 y 1.5 veces la altura y anchura de la pieza más grande. Si usa un espaciado menor las piezas se comprimirán más en la rejilla y si usa uno mayor tendrá más sitio para arrastrarlas y soltarlas. La opción elegida se usará para todo los rompecabezas de todos los tamaños, así como a los porta-piezas (vea <link linkend="large-puzzle-holders"
+>Usando porta-piezas</link
+>) o cuando reordene las piezas de forma automática, usando <menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+> <guimenu
+>Mover</guimenu
+><guimenuitem
+>Reordenar piezas</guimenuitem
+></menuchoice
+>. </para>
+			<para
+>La otra opción proporciona espacio en el tablero del tamaño exacto que necesitará para construir la solución. Por defecto aparecerá en el centro, con las piezas distribuidas a su alrededor. También puede usar cualquiera de las cuatroe squinas o no tener sitio para resolver el rompecabezas (opción Ninguno), en cuyo caso tendrá que hacer un hueco para resolverlo. Puede hacerlo ampliando el tablero (vea <link linkend="puzzletable-moves"
+>Movimientos básicos</link
+>). La opción del espacio de solución afectará a los rompecabezas a partir de 20 piezas, ya que en los que tengan menos no tiene sentido crearlo. </para>
+			<para
+>A medida que va construyendo la solucion, se va dejando espacio a su alrededor. Puede ser útil reagrupar las piezas que van quedando para que queden más cerca. Para ello, seleccione varias piezas creando un rectángulo de selección o con &Ctrl; y &LMB;, entonces use <menuchoice
+><shortcut
+> <keycap
+>R</keycap
+></shortcut
+> <guimenu
+>Mover</guimenu
+> <guimenuitem
+>Reordenar piezas</guimenuitem
+></menuchoice
+> o simplemente use el atajod e teclado (por defecto <keycap
+>R</keycap
+>). Las piezas se ajustarán a la rejilla y permanecerán seleccionadas, por lo que puede moverse fácilmente a una posición mejor si lo necesita. Puede ser un truco para justan las piezas que tengan alguna característica en común, pero es mejor usar los porta-piezas. </para>
+			</sect2>
+			<sect2 id="large-puzzle-fast-zooming">
+			<title
+>Ampliando rápidamente entre la vista de primer plano y la lejana</title>
+			<para
+>Cuando carga un rompecabezas, &palapeli; calcula las vistas de primer plano y lejana y la muestra la lejana, que mostrará todo el tablero. La vista de primer plano mostrará las piezas con un tamaño adecuado para verlas teniendo en cuenta el tamaño de su pantalla. Use el &MMB; para cambiar rápidamente entre las dos vistas, ampliando la zona en la que se encuentre el ratón. Entonces puede analizar una pieza para ver su forma y averiguar a qué zona de la solución se corresponde. </para>
+			<para
+>Puede ajustar la escala de cualquier vista manualmente y se recordará para la próxima vez que vuelva a esa vista usando el &MMB;. Las rompecabezas tienen la opción de ampliar rápidamente, pero en aquellos que tengan menos de 100 piezas las dos vistas serán la misma. Dicho de otra forma, las piezas serán fáciles de ver incluso cuando esté viendo el tablero entero. </para>
+			</sect2>
+			<sect2 id="large-puzzle-navigating">
+			<title
+>Moviéndose sobre un rompecabezas grande</title>
+			<para
+>La manera más difícil de mover las piezas en un rompecabezas grandes es seleccionarlas y arrastrarlas hasta su destino (&LMB; y &RMB;). Una manera mucho más fácil de hacer lo mismo es seleccionarlas, cambiar a la vista lejana (&MMB;, vea arriba), arrastrarlas hasta el destino en un movimiento (&LMB;) y entonces ampliar a la vista de primer plano (&MMB;). Puede ser una buena forma de encontrar una única pieza perdida, pero arrastrarla a través de todo el tablero sin perderla puede ser complicado si hay miles de piezas. </para>
+			<para
+>Otra manera de navegar y buscar por el tablero de forma sistemática es ampliar en la esquina superior izquierda (&MMB;), y entonces usar los espacios vacíos de las barras de desplazamiento para moverse por el tablero horizontal y verticalmente, viendo una <quote
+>página</quote
+> a la vez. Esta técnica es muy efectiva cuando usa porta-piezas para almacenar las que vaya viendo. Si mantiene la vista de primer plano y siempre empieza en el mismo sitio, obtendrá <quote
+>páginas</quote
+> que tengan siempre el mismo tamaño y contenido. </para>
+			</sect2>
+			<sect2 id="large-puzzle-visibility">
+			<title
+>Visibilidad de piezas en rompecabezas grandes</title>
+			<para
+>Cuando resuelve rompecabezas grandes en pantallas pequeñas puede ser difícil ver qué está hacendo.. Por ejemplo, en un rompecabezas de 10.000 piezas siendo resuleto en una pantalla de 1440 por 900, en la vista lejana las piezas tendrán un tamaño de 7 píxeles, lo cual hará que sea difícil ver la forma, color o incluso si están seleccionadas. </para>
+			<para
+>&palapeli; tiene una selección de fondos de pantalla y colores para ayudar con la visibilidad del rompecabezas. Además tiene varias colores de resaltados de las piezas que tenga seleccionado, que aparecerá si no tiene activado el sombreado. Estas opciones se guardan y restauran con cada rompecabezas. Por lo que cada uno tendrá el fondo y color que permita un mejor contraste con la imagen que resuelve. Puede ser útil experimentar con estas opciones cuando crea un gran rompecabezas, pero puede que necesite recarga o reiniciar el rompecabezas para que los cambios tomen efecto. </para>
+			</sect2>
+		</sect1>
+
+		<sect1 id="large-puzzle-holders">
+			<title
+>Usando porta-piezas</title>
+			<sect2 id="large-puzzle-whatareholders">
+			<title
+>¿Qué son los porta-piezas?</title>
+			<para
+>Puede que los porta-piezas sean la característica más útil de &palapeli; para ayudarle a resolver rompecabezas de muchas piezas. Son ventanas pequeñas en las que puede reunir varias piezas, como <quote
+>esquinas</quote
+>, <quote
+>cielo</quote
+>, <quote
+>horizonte</quote
+> o <quote
+>la casa blanca de la izquierda</quote
+>. Inicialmente aparecerán con un tamaño pequeño que valga para almacenar cuatro piezas usando la vista de primer plano, lo que permitirá que sea sencillo ubicarlo en la ventana del tablero. </para>
+			<para
+>Como son ventanas, los porta-piezas pueden ser movidos libremente por el escritorio y ser modificadas de tamaño. El botón Cerrar eliminará el porta-piezas únicamente si no contiene piezas. El botón Maximizar expanderá o contraerá la ventana rápidamente. El porta-piezas puede contener cualquier número de piezas (incluso cientos de ellas). La acción de maximizar puede ser útil cuando revise las piezas o construya parte de la solución en su interior. </para>
+			<para
+>Puede tener tantos porta-piezas como desee. Normalmente hay uno activo (resaltado en azul). Será el objetivo para las acciones que pueda realizar como transferir piezas, o eliminar el porta-piezas. </para>
+			</sect2>
+			<sect2 id="large-puzzle-createholders">
+			<title
+>Creando y eliminando porta-piezas</title>
+			<para
+>Cuando empieza un rompecabezas grande, se crea automáticamente un porta-piezas llamado <quote
+>Mano</quote
+>. Puede que sea el único porta-pieza que necesite si está resolviendo un rompecabezas de entre 300 y 750 piezas, pero puede tener tantos como quiera, aunque el rompecabezas tenga menos de 300 piezas. </para>
+			<para
+>Para crear o eliminar un porta-piezas, puede usar <menuchoice
+><shortcut
+><keycap
+>C</keycap
+></shortcut
+> <guimenu
+>Mover</guimenu
+><guimenuitem
+> Crear porta-piezas...</guimenuitem
+></menuchoice
+> o <menuchoice
+><shortcut
+><keycap
+>D</keycap
+></shortcut
+> <guimenu
+>Mover</guimenu
+><guimenuitem
+> Eliminar porta-piezas</guimenuitem
+></menuchoice
+>, usar el atajo de teclado <keycap
+>C</keycap
+> y <keycap
+>D</keycap
+>, o usar el boton Cerrar para eliminarlo. Cuando crea un porta-piezas, se le pide que le de un nombre, pero no es importante. Normalmente el porta-piezas se usa en la vista de primer plano para que pueda ver que tipo de pieza contiene. </para>
+			<para
+>Cuando elimina un porta-piezas, debe estar activo (resaltado en azul) y no contener ninguna pieza. Si el porta-piezas que desea eliminar no está activo, haga clic sobre él. Tras borrarlo se deseleccionará, por lo que puede hacer clic en otro libre. </para>
+			</sect2>
+			<sect2 id="large-puzzle-teleporting">
+			<title
+>Moviendo piezas dentro y fuera de los porta-piezas</title>
+			<para
+>No es posible transferir piezas arrastrando y soltando cuando trabaja con porta-piezas. En su lugar, puede hacerlo de forma instantánea <quote
+>teletransportándolas</quote
+>, como en <quote
+>Star Trek</quote
+>. La acción funciona usando las teclas &Shift; y &LMB; a la vez. </para>
+			<para
+>Para transferir piezas a un porta-piezas, asegúrese de que el porta-piezas destino está seleccionado (resaltado en azul), entonces seleccione varias piezas en el tablero y haga clic con &Shift; y &LMB;. O bien puede hacer clic en una pieza a la vez con &Shift; y &LMB;. Las piezas transferidas desaparecerán del tablero y aparecerán resaltadas en el porta-piezas. Cuando lleguen, automáticamente se ajustarán a la rejilla y la vista se centrará sobre la última pieza transferida. </para>
+			<para
+>Para transferir piezas fuera de un portapiezas, seleccione una o varias, vuelva al tablero y haga clic en un espacio vacío donde quiera que aparezcan, usando &Shift; y &LMB;. Evite hacer clic en una pieza que ya esté en el tablero: la enviará al portapiezas (que no es lo que desea). Si, accidentalmente, hace esto sobre un grupo de piezas unidas (&ie;, una parte de la solución), aparecerá un mensaje de advertencia con la opción de cancelar la acción. </para>
+			<para
+>Las piezas permanecen resaltadas tras teletransportarlas. Esto permite que deshaga la acción rápidamente si transfiere accidentalmente las piezas equivocadas o usar como destino un porta-piezas equivocado. Además, en el tablero, puede ajustar fácilmente la posición de una o varias piezas que acaban de llegar para moverlas a la solución. </para>
+			<para
+>También puede teletransportar entre distintos porta-piezas. Empiece como si fuera a transferir las piezas al tablero, pero cuando use &Shift; y &LMB; hágalo en un espacio vacío del otro porta-piezas. Para deshacer la transferencia, vuelva al porta-piezas original y vuelva a hacer click con &Shift; y &LMB;. </para>
+			</sect2>
+			<sect2 id="large-puzzle-sorting">
+			<title
+>Ordenando las piezas</title>
+			<para
+>Para ordenar piezas en porta-piezas de forma eficiente cuando las busca en rompecabezas grandes, puede usar la técnica de ir viendo el rompecabezas dividido en <quote
+>páginas</quote
+>, <link linkend="large-puzzle-navigating"
+>como se ha descrito antes</link
+>, combinada con los porta-piezas y teletransportando las piezas conforme las va viendo. Una vez ha visto todo el rompecabezas, puede ampliar a una vista de primer plano sobre el área de solución para colocar las piezas que ha ido guardando. O incluso puede ir uniendo las piezas en los porta-piezas. </para>
+			</sect2>
+			<sect2 id="large-puzzle-otherholderactions">
+			<title
+>Otras acciones con el porta-piezas</title>
+			<para
+>Los porta-piezas permiten realizar todas las funciones del tablero (vea <link linkend="puzzletable-moves"
+>Movimientos básicos</link
+>), excepto que únicamente puede hacer zoom con la rueda del ratón o el &MMB;. </para>
+			<para
+>Esto significa que puede usar un porta-piezas como si fuera un tablero adicional. Si lo desea, puede arrastrar y soltar, unir piezas, &etc;. También puede teletransportar piezas unidas de cualquier tamaño dentro o fuera de un porta-piezas, pero tenga cuidado de que no tapen piezas más pequeñas al soltarlas. </para>
+			<para
+>Por último, puede usar <menuchoice
+><shortcut
+> <keycap
+>A</keycap
+></shortcut
+><guimenu
+>Mover</guimenu
+> <guimenuitem
+>Seleccionar todo en el porta-piezas</guimenuitem
+> </menuchoice
+>, seguido de <menuchoice
+><shortcut
+> <keycap
+>R</keycap
+></shortcut
+><guimenu
+>Mover</guimenu
+> <guimenuitem
+>Reordenar piezas</guimenuitem
+> </menuchoice
+> o &Shift; y &LMB;, para reordenar las piezas en el porta-piezas o devolverlas al tablero. O simplemente usar el atajo de teclado <keycap
+>A</keycap
+> o <keycap
+>R</keycap
+> en el porta-piezas actualmente seleccionado. </para>
+			</sect2>
+		</sect1>
+	</chapter>
+
+	<chapter id="interface">
+		<title
+>Vista general de la interfaz</title>
+		<para
+>Las siguientes son acciones del menú de &palapeli;, algunas de las cuales también están disponibles desde los botones de la barra de herramientas y atajos de teclado.</para>
+		<variablelist>
+		        <varlistentry>
+			  <term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+></shortcut
+><guimenu
+>Juego</guimenu
+><guimenuitem
+>Crear nuevo rompecabezas...</guimenuitem
+></menuchoice
+></term>
+			  <listitem
+><para
+><action
+>Abre un diálogo que le permite crear un rompecabezas a partir de una imagen en su disco.</action
+> Vea <link linkend="create-puzzles"
+>la siguiente sección</link
+> para más detalles además de las siguientes<link linkend="large-puzzle-creation"
+>consideraciones especiales</link
+> si va a crear un rompecabezas con 300 piezas o más.</para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Juego</guimenu
+><guimenuitem
+>Importar desde archivo...</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Cuando recibe un rompecabezas de &palapeli; (que normalmente se reconoce por la extensión de archivo <literal role="extension"
+>*.puzzle</literal
+>), puede usar esta acción para importarlo a su colección local.</action
+> Los archivos de rompecabezas también se pueden jugar simplemente haciendo clic en ellos en el administrador de archivos que elija, pero después de importarlo, el rompecabezas aparecerá en su colección local y puede eliminar con seguridad el archivo descargado.</para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Juego</guimenu
+><guimenuitem
+>Exportar a archivo...</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Esto exportará los rompecabezas actualmente seleccionados a archivos, con el fin de permitirle enviárselos a sus amigos, publicarlos en la web o hacer copias de seguridad de su colección.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Juego</guimenu
+><guimenuitem
+>Eliminar rompecabezas</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Cualquier rompecabezas que haya seleccionado de la lista, será permanentemente eliminado de su biblioteca.</action
+></para
+><warning
+><para
+>Esta acción no se puede deshacer.</para
+></warning
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Juego</guimenu
+><guimenuitem
+>Reiniciar rompecabezas</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Baraja todas las piezas y descarta el progreso guardado para este rompecabezas.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>C</keycap
+></shortcut
+><guimenu
+>Mover</guimenu
+><guimenuitem
+>Crear porta-piezas...</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Crea un porta-piezas temporal para almacenar u ordenar piezas. Para más información acerca de cómo usar un porta-piezas vea <link linkend="large-puzzle-holders"
+>Usando porta-piezas</link
+>.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>D</keycap
+></shortcut
+><guimenu
+>Mover</guimenu
+><guimenuitem
+>Eliminar porta-piezas</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Eliminar un porta-piezas temporal seleccionado cuando esté vacío.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>A</keycap
+></shortcut
+><guimenu
+>Mover</guimenu
+><guimenuitem
+>Seleccionar todo en el porta-piezas</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Selecciona todas las piezas en el porta-piezas seleccionado (resaltado en azul).</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+><guimenu
+>Mover</guimenu
+><guimenuitem
+>Reordenar piezas</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Reordena las piezas selccionadas en cualquier porta-piezas o en el tablero montándolas en una rejilla.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Ver</guimenu
+><guimenuitem
+>Volver a la colección</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Volver a la colección y escoger otro rompecabezas.</action
+> solo puede ser usado mientras está resolviendo un rompecabezas.</para
+></listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Ver</guimenu
+><guimenuitem
+>Vista previa</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Conmuta si se debe mostrar la imagen de vista previa del rompecabezas completado.</action
+> Sitúe el puntero del ratón sobre la imagen para ampliarla.</para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+></shortcut
+><guimenu
+>Ver</guimenu
+><guimenuitem
+>Ampliar</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Incrementar la escala.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+></shortcut
+><guimenu
+>Ver</guimenu
+><guimenuitem
+>Alejar</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Reducir la escala.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Preferencias</guimenu
+><guimenuitem
+>Mostrar todos los mensajes</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Le permite mostrar todos los mensajes que han sido desactivados marcando la casilla <guilabel
+>No mostrar este mensaje de nuevo</guilabel
+> en las ventanas de confirmación de &palapeli;.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Preferencias</guimenu
+><guimenuitem
+>Mostrar barra de estado  del tablero</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Muestra u oculta la barra de progreso y los botones de debajo de la mesa del rompecabezas.</action
+> Esta acción no cambiará nada en la colección de rompecabezas.</para
+></listitem>
+			</varlistentry>
+			<varlistentry id="settings-menu-configure">
+				<term
+><menuchoice
+><guimenu
+>Preferencias</guimenu
+><guimenuitem
+>Configurar &palapeli;...</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+>Abre un diálogo de configuración del juego. Consulte la sección <link linkend="configuration"
+>Configuración del juego</link
+> para más detalles.</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		<para
+>Además &palapeli; tiene las opciones de menú <guimenu
+>Preferencias</guimenu
+> y <guimenu
+>Ayuda</guimenu
+> comunes de &kde;. Para obtener más información, consulte las secciones sobre el <ulink url="help:/fundamentals/menus.html#menus-settings"
+>Menú «Preferencias»</ulink
+> y <ulink url="help:/fundamentals/menus.html#menus-help"
+>Menú «Ayuda» </ulink
+> de «Aspectos básicos de &kde;». </para>
+	</chapter>
+
+	<chapter id="configuration">
+		<title
+>Configuración del juego</title>
+		<para
+>Para abrir el diálogo de configuración, use la opción de la barra de menús <menuchoice
+><guimenu
+>Preferencias</guimenu
+><guimenuitem
+> Configurar &palapeli;...</guimenuitem
+></menuchoice
+></para>
+		<sect1 id="configuration-general">
+			<title
+>Preferencias generales</title>
+			<variablelist>
+				<varlistentry>
+				        <term
+><guilabel
+>Tablero del rompecabezas</guilabel
+></term>
+					<listitem>
+					  <para
+>Le permite escoger algunos parámetros del tablero. </para>
+					  <variablelist>
+					<varlistentry>
+					<term
+><guilabel
+>Fondo</guilabel
+></term>
+					<listitem
+><para
+><action
+>Le permite elegir otra textura de fondo para el tablero del rompecabezas.</action
+> Si elige un color sencillo en lugar de una textura, el botón junto al recuadro de selección se puede usar para definir este color.</para
+></listitem>
+				      </varlistentry>
+				      <varlistentry>
+					<term
+><guilabel
+>Color usado para marcar las piezas seleccionadas.</guilabel
+></term>
+					<listitem
+><para
+><action
+>Le permite escoger el color de resaltado de las piezas cuando están seleccionada</action
+> Haga clic en el botón a la derecha de la etiqueta para abrir la ventana del <ulink url="help:/fundamentals/colors.html"
+>Selector de color</ulink
+>.</para
+></listitem>
+				      </varlistentry>
+				      <varlistentry>
+					<term
+><guilabel
+>Espacio para la solución</guilabel
+></term>
+					<listitem
+><para
+><action
+>Le permite escoger donde reservar espacio en el tablero para construir la solución.</action
+> No se proporcionará espacio si escoge la opción Ninguno o si el rompecabezas tiene menos de 20 piezas. Los cambios se aplicarán cuando cree o reinicie un rompecabezas.</para
+></listitem>
+				      </varlistentry>
+				      <varlistentry>
+					<term
+><guilabel
+>Espaciado para las piezas en la rejilla (1.0-1.5)</guilabel
+></term>
+					<listitem
+><para
+><action
+>Le permite escoger el espaciado en la rejilla del rompecabezas.</action
+> Los cambios en el espaciado del rompecabezas se aplicarán cuando cree o reinicie un rompecabezas.</para
+></listitem>
+				      </varlistentry>
+				    </variablelist>
+				  </listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guilabel
+>Apariencia de las piezas</guilabel
+></term>
+					<listitem
+><para
+><action
+>Controla la apariencia de las piezas sobre la mesa del rompecabezas.</action
+> Si &palapeli; se ejecuta con lentitud, o los rompecabezas tardan mucho en abrirse, puede desactivar los efectos gráficos de esta categoría para acelerar todo. Si escoge sombreado, se usará un resaltado para cambiar el color de la sombra.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guilabel
+>Precisión del corte</guilabel
+></term>
+					<listitem
+><para
+><action
+>Le permite elegir lo cerca que deben situarse las piezas vecinas para que se unan.</action
+> Si mueve el deslizador más hacia la derecha, las piezas se unirán incluso si no están demasiado cerca. Esto hace que el juego sea un poco más fácil de manejar.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="configuration-mouseactions">
+			<title
+>Interacción del ratón</title>
+			<para
+>Esta página del diálogo de configuración le permite cambiar las asignaciones de los botones del ratón y las teclas modificadoras a las interacciones descritas en la sección <link linkend="puzzletable-mouseactions"
+>Jugar sobre el tablero del rompecabezas, interacciones con el ratón</link
+>. Tenga cuidado en evitar asignaciones ambituas. Tres de las asignaciones por defecto pueden ir con &LMB; porque el puntero estará sobre distintas áreas del teclado cuando lo use, pero otras asignaciones deben ser distintas.</para>
+			<para
+>Las interacciones se dividen en las que se pueden asignar a los botones del ratón (&eg; <action
+>Mover el punto de vista mediante arrastre</action
+>, y las que se pueden asignar a la rueda del ratón (&eg; <action
+>Desplazar punto de vista horizontalmente</action
+>).</para>
+			<sect2>
+				<title
+>Pestañas de los botones del ratón</title>
+				<para
+>A la derecha del nombre de cada interacción hay un botón con la imagen de un ratón que le muestra la acción asignada actualmente. Puede configurar la interacción haciendo clic en ese botón con el &LMB;, y después con el botón del ratón que desee asignar a esa interacción. Si mantiene pulsada alguna tecla modificadora mientras hace clic por segunda vez, el tablero del rompecabezas permitirá esta interacción solo mientras esta tecla modificadora se mantenga pulsada.</para>
+				<tip
+><para
+>En lugar de hacer clic, también puede presionar la <keycap
+>barra espaciadora</keycap
+> para no asignar <guilabel
+>ningún botón</guilabel
+> a esta interacción. <guilabel
+>Ningún botón</guilabel
+> significa que las teclas modificadoras desempeñan el papel del botón del ratón: la interacción comienza cuando se pulsan las teclas modificadoras, y se detiene cuando se liberan.</para
+></tip>
+			</sect2>
+			<sect2>
+				<title
+>Pestaña de la rueda del ratón</title>
+				<para
+>Esta pestaña funciona de manera similar a la anterior. Cuando el botón de la derecha le pide una pulsación, debe girar la rueda del ratón en lugar de pulsar uno de los botones. Se permite mantener pulsadas teclas modificadoras, con las mismas consecuencias que en el caso anterior.</para>
+				<tip
+><para
+>Si su ratón dispone de una rueda bidireccional (como se encuentra comúnmente en los touchpad de los portátiles), puede sacar partido de esto: el botón reconocerá si ha girado la rueda del ratón horizontal o verticalmente.</para
+></tip>
+			</sect2>
+		</sect1>
+	</chapter>
+
+	<chapter id="credits">
+		<title
+>Créditos y licencia</title>
+		<para
+>&palapeli; está orientado a traerle la tranquila diversión y el desafío de los rompecabezas a su escritorio.</para>
+		<para
+>La idea fue desarrollada por primera vez por Bernhard Schiffner, junto con Stefan Majewsky, que en la actualidad es el desarrollador jefe de &palapeli;.</para>
+		<para
+>El &i18n-psc; ha sido aportado por Johannes L&#xF6;hnert.</para>
+		<para
+>Las ayudas para resolver rompecabezas grandes han sido aportadas por Ian Wadham.</para>
+		<para
+>Copyright de la documentación 2009, 2010 Johannes L&#xF6;hnert, Stefan Majewsky y Copyright 2014 Ian Wadham.</para>
+		<para
+>Traducido por Rocío Gallego <email
+>traducciones@rociogallego.com</email
+>, Kira J. Fernández <email
+>kirajfdez@gmail.com</email
+> y David Paul Peña <email
+>eodos0@gmail.com</email
+>.</para
+> &underFDL; &underGPL; </chapter>
+
+	<appendix id="installation">
+		<title
+>Instalación</title>
+		&install.intro.documentation;
+		<sect1 id="Compilation">
+			<title
+>Compilación e instalación</title
+>&install.compile.documentation; </sect1>
+	</appendix>
+	&documentation.index;
+</book>

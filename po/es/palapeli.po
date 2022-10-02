@@ -1,0 +1,1263 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Sofia Priego <spriego@darksylvania.net>, %Y.
+# Sofía Priego <spriego@darksylvania.net>, %Y.
+# Ignacio Poggi <ignaciop.3@gmail.com>, 2009.
+# Kira J. Fernandez <kirajfdez@gmail.com>, 2010, 2011.
+# Huever, 2010.
+# Kira J. Fernandez <kirajfdez@gmail.es>, 2011.
+# Eloy Cuadra <ecuadra@eloihr.net>, 2014, 2015, 2017, 2020, 2021, 2022.
+# David Paul <eodos0@gmail.com>, 2014.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-28 00:44+0000\n"
+"PO-Revision-Date: 2022-08-14 18:20+0100\n"
+"Last-Translator: Sofía Priego <spriego@darksylvania.net>\n"
+"Language-Team: Spanish <kde-l10n-es@kde.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 22.04.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Sofía Priego,Ignacio Poggi,David Paul Peña"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "spriego@darksylvania.net,ignaciop.3@gmail.com,eodos0@gmail.com"
+
+#: libpala/slicerpropertyset.cpp:74
+#, kde-format
+msgid "Piece count"
+msgstr "Número de piezas"
+
+#: libpala/slicerpropertyset.cpp:78
+#, kde-format
+msgid "Piece aspect ratio"
+msgstr "Proporciones de las piezas"
+
+#: slicers/goldberg/grid.h:27
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Predefined settings"
+msgstr "Configuración predefinida"
+
+#: slicers/goldberg/grid.h:34
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Cairo (pentagonal) grid"
+msgstr "Cuadrícula de El Cairo (pentagonal)"
+
+#: slicers/goldberg/grid.h:41
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Hexagonal grid"
+msgstr "Cuadrícula hexagonal"
+
+#: slicers/goldberg/grid.h:48
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Rectangular grid"
+msgstr "Cuadrícula rectangular"
+
+#: slicers/goldberg/grid.h:55
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Rotrex (rhombi-trihexagonal) grid"
+msgstr "Cuadrícula Rotrex (rombotrihexagonal)"
+
+#: slicers/goldberg/grid.h:62
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Irregular grid"
+msgstr "Cuadrícula irregular"
+
+#: slicers/goldberg/slicer-goldberg.cpp:39
+#, kde-format
+msgid "Approx. piece count"
+msgstr "Número aproximado de piezas"
+
+#: slicers/goldberg/slicer-goldberg.cpp:45
+#, kde-format
+msgid "Quick preset"
+msgstr "Preajuste rápido"
+
+#: slicers/goldberg/slicer-goldberg.cpp:47
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Ordinary"
+msgstr "Común"
+
+#: slicers/goldberg/slicer-goldberg.cpp:48
+#: slicers/goldberg/slicer-goldberg.cpp:124
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Very regular"
+msgstr "Muy regular"
+
+#: slicers/goldberg/slicer-goldberg.cpp:49
+#: slicers/goldberg/slicer-goldberg.cpp:125
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Very diverse"
+msgstr "Muy diverso"
+
+#: slicers/goldberg/slicer-goldberg.cpp:50
+#: slicers/goldberg/slicer-goldberg.cpp:126
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Large plugs"
+msgstr "Conexiones grandes"
+
+#: slicers/goldberg/slicer-goldberg.cpp:57
+#, kde-format
+msgid "Flipped edge percentage"
+msgstr "Porcentaje de bordes girados"
+
+#: slicers/goldberg/slicer-goldberg.cpp:64
+#, kde-format
+msgid "Edge curviness"
+msgstr "Curvatura del borde"
+
+#: slicers/goldberg/slicer-goldberg.cpp:70
+#, kde-format
+msgid "Plug size"
+msgstr "Tamaño de las conexiones"
+
+#: slicers/goldberg/slicer-goldberg.cpp:77
+#, kde-format
+msgid "Diversity of curviness"
+msgstr "Diversidad de la curvatura"
+
+#: slicers/goldberg/slicer-goldberg.cpp:84
+#, kde-format
+msgid "Diversity of plug position"
+msgstr "Diversidad de la posición de las conexiones"
+
+#: slicers/goldberg/slicer-goldberg.cpp:91
+#, kde-format
+msgid "Diversity of plugs"
+msgstr "Diversidad de las conexiones"
+
+#: slicers/goldberg/slicer-goldberg.cpp:98
+#, kde-format
+msgid "Diversity of piece size"
+msgstr "Diversidad del tamaño de las piezas"
+
+#: slicers/goldberg/slicer-goldberg.cpp:107
+#, kde-format
+msgid "Dump grid image"
+msgstr "Volcar la imagen de la cuadrícula"
+
+#: src/config/configdialog.cpp:62
+#, kde-format
+msgid "General Settings"
+msgstr "Preferencias generales"
+
+#: src/config/configdialog.cpp:65
+#, kde-format
+msgid "Mouse Interaction"
+msgstr "Interacción con el ratón"
+
+#: src/config/configdialog.cpp:112
+#, kde-format
+msgid "Center"
+msgstr "Centrar"
+
+#: src/config/configdialog.cpp:113
+#, kde-format
+msgid "None"
+msgstr "Ninguna"
+
+#: src/config/configdialog.cpp:114
+#, kde-format
+msgid "Top Left"
+msgstr "Superior izquierda"
+
+#: src/config/configdialog.cpp:115
+#, kde-format
+msgid "Top Right"
+msgstr "Superior derecha"
+
+#: src/config/configdialog.cpp:116
+#, kde-format
+msgid "Bottom Left"
+msgstr "Inferior izquierda"
+
+#: src/config/configdialog.cpp:117
+#, kde-format
+msgid "Bottom Right"
+msgstr "Inferior derecha"
+
+#: src/config/mouseinputbutton.cpp:45
+#, kde-format
+msgid "Remove this trigger"
+msgstr "Eliminar este activador"
+
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#, kde-format
+msgid "Input here..."
+msgstr "Introduzca aquí..."
+
+#: src/config/mouseinputbutton.cpp:120
+#, kde-format
+msgid ""
+"Hold down the modifier keys you want, then click a mouse button or scroll a "
+"mouse wheel here"
+msgstr ""
+"Mantenga pulsadas las teclas modificadoras que desee y haga clic con un "
+"botón del ratón o desplace la rueda del ratón aquí"
+
+#: src/config/mouseinputbutton.cpp:224
+#, kde-format
+msgctxt ""
+"This is used for describing that no mouse action has been assigned to this "
+"interaction plugin."
+msgid "None"
+msgstr "Ninguna"
+
+#: src/config/mouseinputbutton.cpp:230
+#, kde-format
+msgid "Click to change how an action is triggered"
+msgstr "Haga clic para cambiar cómo se activa una acción"
+
+#: src/config/triggerconfigwidget.cpp:20
+#, kde-format
+msgid "Mouse Buttons"
+msgstr "Botones del ratón"
+
+#: src/config/triggerconfigwidget.cpp:21
+#, kde-format
+msgid "Mouse Wheel"
+msgstr "Rueda del ratón"
+
+#: src/config/triggerlistview.cpp:17
+#, kde-format
+msgid "Interaction with pieces"
+msgstr "Interacción con las piezas"
+
+#: src/config/triggerlistview.cpp:19
+#, kde-format
+msgid "Interaction with the puzzle table"
+msgstr "Interacción con el tablero del rompecabezas"
+
+#: src/config/triggerlistview.cpp:21
+#, kde-format
+msgid "Interaction with the viewport"
+msgstr "Interacción con la ventana de visualización"
+
+#: src/creator/puzzlecreator.cpp:38
+#, kde-format
+msgctxt "@title:window"
+msgid "Create New Puzzle"
+msgstr "Crear nuevo rompecabezas"
+
+#: src/creator/puzzlecreator.cpp:51
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Image file:"
+msgstr "Archivo de imagen:"
+
+#: src/creator/puzzlecreator.cpp:52
+#, kde-format
+msgctxt "@info"
+msgid "Please describe below the image which you have chosen."
+msgstr "Describa a continuación la imagen que ha elegido."
+
+#: src/creator/puzzlecreator.cpp:53
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Image name:"
+msgstr "Nombre de la imagen:"
+
+#: src/creator/puzzlecreator.cpp:54
+#, kde-format
+msgctxt "@label:textbox (like in: This comment is optional.)"
+msgid "Optional comment:"
+msgstr "Comentario opcional:"
+
+#: src/creator/puzzlecreator.cpp:55
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Name of image author:"
+msgstr "Nombre del autor de la imagen:"
+
+#: src/creator/puzzlecreator.cpp:63
+#, kde-format
+msgctxt "@item:inlistbox (page name in an assistant dialog)"
+msgid "Choose image"
+msgstr "Elegir imagen"
+
+#: src/creator/puzzlecreator.cpp:64
+#, kde-format
+msgctxt "@title:tab (page header in an assistant dialog)"
+msgid "Specify the source image to be sliced into pieces"
+msgstr "Especificar la imagen original que se cortará en piezas"
+
+#: src/creator/puzzlecreator.cpp:66
+#, kde-format
+msgctxt "@item:inlistbox (page name in an assistant dialog)"
+msgid "Choose slicer"
+msgstr "Elegir la herramienta de corte"
+
+#: src/creator/puzzlecreator.cpp:67
+#, kde-format
+msgctxt "@title:tab (page header in an assistant dialog)"
+msgid "Choose a slicing method"
+msgstr "Elegir un método de corte"
+
+#: src/creator/puzzlecreator.cpp:68
+#, kde-format
+msgctxt "@item:inlistbox (page name in an assistant dialog)"
+msgid "Configure slicer"
+msgstr "Configurar la herramienta de corte"
+
+#: src/creator/puzzlecreator.cpp:69
+#, kde-format
+msgctxt "@title:tab (page header in an assistant dialog)"
+msgid "Tweak the parameters of the chosen slicing method"
+msgstr "Ajustar los parámetros del método de corte elegido"
+
+#: src/creator/puzzlecreator.cpp:112
+#, kde-format
+msgid "Puzzle cannot be created: The slicer plugin could not be loaded."
+msgstr ""
+"No se puede crear el rompecabezas: el complemento de corte no se puede "
+"cargar."
+
+#: src/creator/puzzlecreator.cpp:119
+#, kde-format
+msgid "Puzzle cannot be created: The file you selected is not an image."
+msgstr ""
+"No se puede crear el rompecabezas: el archivo que ha seleccionado no es una "
+"imagen."
+
+#: src/creator/puzzlecreator.cpp:127
+#, kde-format
+msgid ""
+"Puzzle cannot be created: Slicing failed because of undetermined problems."
+msgstr ""
+"No se puede crear el rompecabezas: el corte ha fallado debido a problemas no "
+"determinados."
+
+#: src/engine/constraintinteractor.cpp:15
+#, kde-format
+msgid "Change size of puzzle table area by dragging its edges"
+msgstr ""
+"Cambiar el tamaño del área del tablero del rompecabezas arrastrando los "
+"bordes"
+
+#: src/engine/gameplay.cpp:179 src/engine/gameplay.cpp:1136
+#, kde-format
+msgid "You have finished the puzzle. Do you want to restart it now?"
+msgstr "Ha completado el rompecabezas. ¿Desea reiniciarlo ahora?"
+
+#: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
+#, kde-format
+msgctxt "@action:button"
+msgid "Restart"
+msgstr "Reiniciar"
+
+#: src/engine/gameplay.cpp:295
+#, kde-format
+msgid "The following puzzles will be deleted. This action cannot be undone."
+msgstr ""
+"Se van a borrar los siguientes rompecabezas. Esta acción no se puede "
+"deshacer."
+
+#: src/engine/gameplay.cpp:314 src/engine/gameplay.cpp:340
+#, kde-format
+msgctxt "Filter for a file dialog"
+msgid "Palapeli puzzles (*.puzzle)"
+msgstr "Rompecabezas de Palapeli (*.puzzle)"
+
+#: src/engine/gameplay.cpp:316
+#, kde-format
+msgctxt "@title:window"
+msgid "Import Palapeli Puzzles"
+msgstr "Importar rompecabezas de Palapeli"
+
+#: src/engine/gameplay.cpp:342
+#, kde-format
+msgctxt "@title:window"
+msgid "Save Palapeli Puzzles"
+msgstr "Guardar rompecabezas de Palapeli"
+
+#: src/engine/gameplay.cpp:357
+#, kde-format
+msgid "Create a piece holder"
+msgstr "Crear un portapiezas"
+
+#: src/engine/gameplay.cpp:358
+#, kde-format
+msgid "Enter a short name (optional):"
+msgstr "Introduzca un nombre corto (opcional):"
+
+#: src/engine/gameplay.cpp:404
+#, kde-format
+msgid ""
+"You need to click on a piece holder to select it before you can delete it, "
+"or you can just click on its Close button."
+msgstr ""
+"Debe hacer clic en un portapiezas para seleccionarlo antes de poder "
+"borrarlo, o pulsar el botón «Cerrar»."
+
+#: src/engine/gameplay.cpp:423
+#, kde-format
+msgid "The selected piece holder must be empty before you can delete it."
+msgstr "El portapiezas seleccionado debe estar vacío para poder borrarlo."
+
+#: src/engine/gameplay.cpp:442
+#, kde-format
+msgid ""
+"The selected piece holder must contain some pieces for 'Select all' to use."
+msgstr ""
+"El portapiezas seleccionado debe contener algunas piezas para poder usar "
+"«Seleccionar todo»."
+
+#: src/engine/gameplay.cpp:448
+#, kde-format
+msgid ""
+"You need to click on a piece holder to select it before you can select all "
+"the pieces in it."
+msgstr ""
+"Debe hacer clic sobre un portapiezas para seleccionarlo antes de poder "
+"seleccionar todas las piezas que contiene."
+
+#: src/engine/gameplay.cpp:468
+#, kde-format
+msgid ""
+"To rearrange pieces, either the puzzle table must have some selected pieces "
+"or there must be a selected holder with some selected pieces in it."
+msgstr ""
+"Para reordenar las piezas debe seleccionar algunas en el tablero, o "
+"seleccionar un portapiezas con algunas piezas seleccionadas en su interior."
+
+#: src/engine/gameplay.cpp:530
+#, kde-format
+msgid ""
+"You need to have a piece holder and click it to select it before you can "
+"transfer pieces into or out of it."
+msgstr ""
+"Debe tener un portapiezas y seleccionarlo antes de poder transferir piezas "
+"dentro o fuera de él."
+
+#: src/engine/gameplay.cpp:550
+#, kde-format
+msgid ""
+"You have selected to transfer a large piece containing more than six small "
+"pieces to a holder. Do you really wish to do that?"
+msgstr ""
+"Ha seleccionado una gran pieza que contiene más de 6 piezas pequeñas para "
+"transferirlas a un portapiezas. ¿Seguro que quiere hacer eso?"
+
+#: src/engine/gameplay.cpp:555
+#, kde-format
+msgctxt "@action:button"
+msgid "Transfer"
+msgstr "Transferir"
+
+#: src/engine/gameplay.cpp:574
+#, kde-format
+msgid ""
+"You need to select one or more pieces to be transferred out of the selected "
+"holder or select pieces from the puzzle table to be transferred into it."
+msgstr ""
+"Debe seleccionar una o más piezas para transferirlas fuera del portapiezas "
+"seleccionado o seleccionar piezas del tablero para transferirlas a él."
+
+#: src/engine/gameplay.cpp:592
+#, kde-format
+msgid ""
+"You need to select one or more pieces to be transferred from the previous "
+"holder into the newly selected holder."
+msgstr ""
+"Debe seleccionar una o más piezas para transferirlas del portapiezas "
+"anterior al nuevo que acaba de seleccionar."
+
+#: src/engine/gameplay.cpp:600
+#, kde-format
+msgid ""
+"You need to have at least two holders, one of them selected and with "
+"selected pieces inside it, before you can transfer pieces to a second holder."
+msgstr ""
+"Debe tener al menos dos portapiezas, uno de los cuales debe contener algunas "
+"piezas seleccionadas, antes de poder transferirlas a otro portapiezas."
+
+#: src/engine/gameplay.cpp:1077
+#, kde-format
+msgctxt "For holding pieces"
+msgid "Hand"
+msgstr "Mano"
+
+#: src/engine/gameplay.cpp:1080
+#, kde-format
+msgctxt "Hints for solving large puzzles"
+msgid ""
+"You have just created a large puzzle: Palapeli has several features to help "
+"you solve it within the limited space on the desktop. They are described in "
+"detail in the Palapeli Handbook (on the Help menu). Here are just a few "
+"quick tips.\n"
+"\n"
+"Before beginning, it may be best not to use bevels or shadowing with large "
+"puzzles (see the Settings dialog), because they make loading slower and "
+"highlighting harder to see when the pieces in the view are very small.\n"
+"\n"
+"The first feature is the puzzle Preview (a picture of the completed puzzle) "
+"and a toolbar button to turn it on or off. If you hover over it with the "
+"mouse, it magnifies parts of the picture, so the window size you choose for "
+"the Preview can be quite small.\n"
+"\n"
+"Next, there are close-up and distant views of the puzzle table, which you "
+"can switch quickly by using a mouse button (default Middle-Click). In close-"
+"up view, use the empty space in the scroll bars to search through the puzzle "
+"pieces a 'page' at a time. You can adjust the two views by zooming in or out "
+"and your changes will be remembered.\n"
+"\n"
+"Then there is a space on the puzzle table reserved for building up the "
+"solution.\n"
+"\n"
+"Last but not least, there are small windows called 'holders'. They are for "
+"sorting pieces into groups such as edges, sky or white house on left. You "
+"can have as many holders as you like and can give them names. You should "
+"already have one named 'Hand', for carrying pieces from wherever you find "
+"them to the solution area.\n"
+"\n"
+"You use a special mouse click to transfer pieces into or out of a holder "
+"(default Shift Left-Click). First make sure the holder you want to use is "
+"active: it should have a blue outline. If not, click on it. To transfer "
+"pieces into the holder, select them on the puzzle table then do the special "
+"click to 'teleport' them into the holder. Or you can just do the special "
+"click on one piece at a time.\n"
+"\n"
+"To transfer pieces out of a holder, make sure no pieces are selected on the "
+"puzzle table, go into the holder window and select some pieces, using normal "
+"Palapeli mouse operations, then go back to the puzzle table and do the "
+"special click on an empty space where you want the pieces to arrive. "
+"Transfer no more than a few pieces at a time, to avoid collisions of pieces "
+"on the puzzle table.\n"
+"\n"
+"By the way, holders can do almost all the things the puzzle table and its "
+"window can do, including joining pieces to build up a part of the solution."
+msgstr ""
+"Acaba de crear un gran rompecabezas: Palapeli tiene varias características "
+"para ayudarle a resolverlo en el espacio limitado del escritorio. Se "
+"describen con detalle en el manual de Palapeli (en el menú de ayuda). Aquí "
+"tiene algunos trucos rápidos.\n"
+"\n"
+"Antes de empezar, es recomendable no usar biseles ni sombreados en "
+"rompecabezas grandes (vea el diálogo de configuración), ya que ralentizan la "
+"carga y dificultan la visualización cuando las piezas son muy pequeñas.\n"
+"\n"
+"La primera característica es la vista previa del rompecabezas (una imagen "
+"del rompecabezas completo) y un botón en la barra de herramientas para "
+"activarla o desactivarla. Si desplaza el ratón sobre él, puede ver aumentada "
+"una parte de la imagen, así que puede hacer que el tamaño de la pantalla de "
+"vista previa sea pequeño.\n"
+"\n"
+"A continuación hay un primer plano y una vista lejana del tablero, que puede "
+"intercambiar rápidamente usando un botón del ratón (de forma predeterminada "
+"es el botón central). En la vista cercana, use las barras de desplazamiento "
+"para buscar las piezas en una «página». Puede ajustar las dos vistas usando "
+"la ampliación, y estos cambios se recordarán. \n"
+"\n"
+"En el tablero existe un espacio reservado para construir la solución.\n"
+"\n"
+"Por último, pero no menos importante, hay pequeñas ventanas llamadas "
+"«portapiezas». Sirven para ordenar las piezas en grupos según sean esquinas, "
+"piezas del cielo o una casa blanca que aparece a la izquierda. Ya debería "
+"tener una llamada «Mano» para llevar las piezas que vaya encontrando a la "
+"zonas de solución.\n"
+"\n"
+"Puede use un clic especial del ratón para transferir las piezas dentro o "
+"fuera de un portapiezas (por omisión, Mayúsculas + Clic izquierdo). Primero "
+"debe asegurarse de que el portapiezas que quiere usar está activo: debe "
+"tener un contorno azul. En caso contrario, haga clic en él. Para transferir "
+"piezas al portapiezas, selecciónelas en el tablero y use el clic especial "
+"para «teletransportarlas» al portapiezas. También puede usar este clic "
+"especial con piezas sueltas.\n"
+"\n"
+"Para transferir piezas fuera del portapiezas, asegúrese de que no tiene "
+"seleccionada ninguna pieza, vaya al portapiezas y seleccione algunas usando "
+"las operaciones de ratón habituales. A continuación, vuelva al tablero y use "
+"el citado clic especial en un espacio vacío donde quiera que aparezcan las "
+"piezas. No transfiera más que unas pocas piezas cada vez para evitar "
+"colisiones con las piezas que ya estaban en el tablero.\n"
+"\n"
+"Por cierto, en el portapiezas puede realizar las mismas operaciones que en "
+"el tablero, como unir varias piezas para ir formando la solución."
+
+#: src/engine/gameplay.cpp:1130
+#, kde-format
+msgctxt "Caption for hints"
+msgid "Solving Large Puzzles"
+msgstr "Resolución de rompecabezas grandes"
+
+#: src/engine/gameplay.cpp:1194
+#, kde-format
+msgid "Great! You have finished the puzzle."
+msgstr "¡Estupendo! Ha completado el rompecabezas."
+
+#: src/engine/interactors.cpp:25
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Move pieces by dragging"
+msgstr "Mover piezas arrastrándolas"
+
+#: src/engine/interactors.cpp:140
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Select pieces by clicking"
+msgstr "Seleccionar piezas con un clic"
+
+#: src/engine/interactors.cpp:176
+#, kde-format
+msgctxt "Works instantly, without dragging"
+msgid "Teleport pieces to or from a holder"
+msgstr "Teletransportar piezas desde o hasta un portapiezas"
+
+#: src/engine/interactors.cpp:201
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Move viewport by dragging"
+msgstr "Mover la ventana de visualización arrastrándola"
+
+#: src/engine/interactors.cpp:227
+#, kde-format
+msgctxt "As in a movie scene"
+msgid "Switch to close-up or distant view"
+msgstr "Cambiar a la vista cercana o lejana"
+
+#: src/engine/interactors.cpp:247
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Zoom viewport"
+msgstr "Ampliar la ventana de visualización"
+
+#: src/engine/interactors.cpp:266
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Scroll viewport horizontally"
+msgstr "Desplazar la ventana de visualización horizontalmente"
+
+#: src/engine/interactors.cpp:268
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Scroll viewport vertically"
+msgstr "Desplazar la ventana de visualización verticalmente"
+
+#: src/engine/interactors.cpp:347
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Select multiple pieces at once"
+msgstr "Seleccionar varias piezas a la vez"
+
+#: src/engine/interactors.cpp:411
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Toggle lock state of the puzzle table area"
+msgstr "Conmutar el bloqueo del área del tablero"
+
+#: src/engine/puzzlepreview.cpp:29
+#, kde-format
+msgctxt "@title:window"
+msgid "Preview of completed puzzle"
+msgstr "Vista previa del rompecabezas completado"
+
+#: src/engine/puzzlepreview.cpp:36
+#, kde-format
+msgctxt "text in preview window"
+msgid "Image is not available."
+msgstr "Imagen no disponible."
+
+#: src/engine/puzzlepreview.cpp:64
+#, kde-format
+msgctxt "@title:window"
+msgid "%1 - Preview"
+msgstr "Vista previa de %1"
+
+#: src/engine/texturehelper.cpp:52
+#, kde-format
+msgctxt "@item:inlistbox"
+msgid "Single color"
+msgstr "Color sencillo"
+
+#: src/engine/trigger.cpp:87
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Shift"
+msgstr "Mayúsculas"
+
+#: src/engine/trigger.cpp:88
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Ctrl"
+msgstr "Ctrl"
+
+#: src/engine/trigger.cpp:89
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Alt"
+msgstr "Alt"
+
+#: src/engine/trigger.cpp:90
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Meta"
+msgstr "Meta"
+
+#: src/engine/trigger.cpp:91
+#, kde-format
+msgctxt "a special keyboard modifier"
+msgid "GroupSwitch"
+msgstr "GroupSwitch"
+
+#: src/engine/trigger.cpp:92
+#, kde-format
+msgctxt "refers to no mouse buttons being pressed"
+msgid "No-Button"
+msgstr "Ningún botón"
+
+#: src/engine/trigger.cpp:95
+#, kde-format
+msgctxt "a mouse button"
+msgid "Left-Button"
+msgstr "Botón izquierdo"
+
+#: src/engine/trigger.cpp:96
+#, kde-format
+msgctxt "a mouse button"
+msgid "Right-Button"
+msgstr "Botón derecho"
+
+#: src/engine/trigger.cpp:97
+#, kde-format
+msgctxt "a mouse button"
+msgid "Middle-Button"
+msgstr "Botón central"
+
+#: src/engine/trigger.cpp:98
+#, kde-format
+msgctxt "a special mouse button"
+msgid "XButton1"
+msgstr "XButton1"
+
+#: src/engine/trigger.cpp:99
+#, kde-format
+msgctxt "a special mouse button"
+msgid "XButton2"
+msgstr "XButton2"
+
+#: src/engine/trigger.cpp:100
+#, kde-format
+msgid "Horizontal-Scroll"
+msgstr "Desplazamiento horizontal"
+
+#: src/engine/trigger.cpp:101
+#, kde-format
+msgid "Vertical-Scroll"
+msgstr "Desplazamiento vertical"
+
+#: src/engine/view.cpp:337
+#, kde-format
+msgid "Your progress is saved automatically while you play."
+msgstr "El avance se guarda automáticamente durante el juego."
+
+#: src/engine/view.cpp:337
+#, kde-format
+msgctxt "used as caption for a dialog that explains the autosave feature"
+msgid "Automatic saving"
+msgstr "Guardar automáticamente"
+
+#: src/engine/zoomwidget.cpp:26
+#, kde-format
+msgid "Lock the puzzle table area"
+msgstr "Bloquear el área del tablero del rompecabezas"
+
+#: src/file-io/collection-delegate.cpp:106
+#, kde-format
+msgid "[No name]"
+msgstr "[Sin nombre]"
+
+#: src/file-io/collection-delegate.cpp:111
+#, kde-format
+msgctxt "Puzzle description, %2 = name string, %1 = piece count"
+msgid "%2 (%1 piece)"
+msgid_plural "%2 (%1 pieces)"
+msgstr[0] "%2 (%1 pieza)"
+msgstr[1] "%2 (%1 piezas)"
+
+#: src/file-io/collection-delegate.cpp:132
+#, kde-format
+msgctxt "Author attribution, e.g. \"by Jack\""
+msgid "by %1"
+msgstr "por %1"
+
+#: src/file-io/collection-view.cpp:58
+#, kde-format
+msgctxt "@action:button that pops up sorting strategy selection menu"
+msgid "Sort List..."
+msgstr "Ordenar la lista..."
+
+#: src/file-io/collection-view.cpp:61
+#, kde-format
+msgctxt "@action:inmenu selects sorting strategy for collection list"
+msgid "By Title"
+msgstr "Por título"
+
+#: src/file-io/collection-view.cpp:62
+#, kde-format
+msgctxt "@action:inmenu selects sorting strategy for collection list"
+msgid "By Piece Count"
+msgstr "Por número de piezas"
+
+#: src/file-io/collection.cpp:36
+#, kde-format
+msgid "Loading puzzle..."
+msgstr "Cargando rompecabezas..."
+
+#: src/file-io/collection.cpp:109
+#, kde-format
+msgid "Loading collection"
+msgstr "Cargando la colección"
+
+#: src/importhelper.cpp:28
+#, kde-format
+msgctxt "command line message"
+msgid "Error: No puzzle file given."
+msgstr "Error: no se ha indicado un archivo de rompecabezas."
+
+#: src/importhelper.cpp:40
+#, kde-format
+msgid "Importing puzzle \"%1\" into your collection"
+msgstr "Importando el rompecabezas «%1» a su colección"
+
+#: src/main.cpp:33
+#, kde-format
+msgctxt "The application's name"
+msgid "Palapeli"
+msgstr "Palapeli"
+
+#: src/main.cpp:35
+#, kde-format
+msgid "Jigsaw Puzzle Game"
+msgstr "Juego de rompecabezas"
+
+#: src/main.cpp:37
+#, kde-format
+msgid "Copyright 2009, 2010, Stefan Majewsky"
+msgstr "Copyright 2009, 2010, Stefan Majewsky"
+
+#: src/main.cpp:40
+#, kde-format
+msgid "Stefan Majewsky"
+msgstr "Stefan Majewsky"
+
+#: src/main.cpp:41
+#, kde-format
+msgid "Johannes Loehnert"
+msgstr "Johannes Loehnert"
+
+#: src/main.cpp:42
+#, kde-format
+msgid "The option to preview the completed puzzle"
+msgstr "Opción para la vista previa de los rompecabezas completados"
+
+#: src/main.cpp:47
+#, kde-format
+msgid "Path to puzzle file (will be opened if -i is not given)"
+msgstr "Ruta al archivo del rompecabezas (se abrirá si no se usa -i)"
+
+#: src/main.cpp:48
+#, kde-format
+msgid ""
+"Import the given puzzle file into the local collection (does nothing if no "
+"puzzle file is given). The main window will not be shown after importing the "
+"given puzzle."
+msgstr ""
+"Importar el archivo de rompecabezas indicado en la colección local (no hace "
+"nada si no se indica un archivo de rompecabezas). No se mostrará la ventana "
+"principal tras importar el rompecabezas indicado."
+
+#: src/main.cpp:61
+#, kde-format
+msgid "No file to import given"
+msgstr "No se ha indicado ningún archivo para importar"
+
+#. i18n: ectx: label, entry (SnappingPrecision), group (Puzzling)
+#: src/palapeli.kcfg:6
+#, kde-format
+msgid "Precision of snapping (as a percentage of piece size)."
+msgstr "Precisión del ajuste (como porcentaje del tamaño de las piezas)."
+
+#. i18n: ectx: label, entry (ViewBackground), group (Appearance)
+#: src/palapeli.kcfg:12
+#, kde-format
+msgid ""
+"The filename of the background image to use for the View, or \"__color__\" "
+"if a solid color should be used (see key \"ViewBackgroundColor\")."
+msgstr ""
+"El nombre del archivo de la imagen del fondo que se usará, o «__color__» si "
+"se debe utilizar un color sólido (consulte la clave «ViewBackgroundColor»)."
+
+#. i18n: ectx: label, entry (ViewBackgroundColor), group (Appearance)
+#: src/palapeli.kcfg:16
+#, kde-format
+msgid ""
+"The background color to use for the View (if the key \"ViewBackground\" is "
+"set to \"__color__\")."
+msgstr ""
+"El color de fondo que se usará (si la clave «ViewBackground» está definida "
+"como «__color__»)."
+
+#. i18n: ectx: label, entry (ViewHighlightColor), group (Appearance)
+#: src/palapeli.kcfg:20
+#, kde-format
+msgid "The highlighting color to use for selecting pieces in the View."
+msgstr "El color de contorno a usar para seleccionar las piezas en la vista."
+
+#. i18n: ectx: label, entry (SolutionArea), group (Appearance)
+#: src/palapeli.kcfg:24
+#, kde-format
+msgid ""
+"Where to reserve space on the puzzle table for the solution, when shuffling "
+"or re-shuffling the pieces."
+msgstr ""
+"En qué lugar del tablero se reserva un espacio para la solución cuando se "
+"barajan las piezas."
+
+#. i18n: ectx: label, entry (PieceSpacing), group (Appearance)
+#: src/palapeli.kcfg:28
+#, kde-format
+msgid ""
+"Spacing of pieces in puzzle grids relative to the size of the largest piece "
+"(spacing factor is 1.0 + 0.05 * value)."
+msgstr ""
+"El espacio entre piezas en la cuadrícula relativo al tamaño de la pieza más "
+"grande (el factor de espaciado es 1,0 + 0,05 * valor)."
+
+#. i18n: ectx: label, entry (ShowStatusBar), group (Appearance)
+#: src/palapeli.kcfg:32
+#, kde-format
+msgid ""
+"Whether to show the status bar on the puzzle table. (It is not a real status "
+"bar, but the position and provided functionality is similar.)"
+msgstr ""
+"Si se muestra la barra de estado en el tablero del rompecabezas. (No es una "
+"barra de estado real, aunque la posición y la funcionalidad son similares)."
+
+#. i18n: ectx: label, entry (PieceShadowsEnabled), group (Appearance)
+#: src/palapeli.kcfg:36
+#, kde-format
+msgid ""
+"Whether to render shadows below the puzzle pieces. Turning this off might "
+"improve rendering performance."
+msgstr ""
+"Si se muestran las sombras bajo las piezas del rompecabezas. Si desactiva "
+"esta opción puede mejorar el rendimiento."
+
+#. i18n: ectx: label, entry (PieceBevelsEnabled), group (Appearance)
+#: src/palapeli.kcfg:40
+#, kde-format
+msgid ""
+"Whether to render bevels on the puzzle pieces. Turning this off might "
+"improve puzzle loading performance."
+msgstr ""
+"Si se muestran los biseles en las piezas del rompecabezas. Si se desactiva "
+"puede mejorar el rendimiento de la carga del rompecabezas."
+
+#. i18n: ectx: label, entry (PuzzlePreviewVisible), group (PuzzlePreview)
+#: src/palapeli.kcfg:46
+#, kde-format
+msgid "Whether the preview window was switched on last time Palapeli was run."
+msgstr ""
+"Indica si la ventana de la vista previa estaba activada la última vez que se "
+"ejecutó Palapeli."
+
+#. i18n: ectx: label, entry (PuzzlePreviewGeometry), group (PuzzlePreview)
+#: src/palapeli.kcfg:50
+#, kde-format
+msgid "Last position and size of puzzle preview."
+msgstr "Última posición y tamaño de la vista previa del rompecabezas."
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: src/palapeliui.rc:35
+#, kde-format
+msgid "Main toolbar"
+msgstr "Barra de herramientas principal"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: src/settings.ui:17
+#, kde-format
+msgctxt "@title:group"
+msgid "Puzzle table"
+msgstr "Tablero del rompecabezas"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/settings.ui:25
+#, kde-format
+msgctxt "@label:chooser for different types of background textures"
+msgid "Background:"
+msgstr "Fondo:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: src/settings.ui:55
+#, kde-format
+msgid "Color for highlighting selected pieces:"
+msgstr "Color para el contorno de las piezas seleccionadas:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: src/settings.ui:75
+#, kde-format
+msgid "Space for solution:"
+msgstr "Espacio para la solución:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: src/settings.ui:94
+#, kde-format
+msgid ""
+"No space is provided with puzzles of less than 20 pieces. Changes will take "
+"effect when a puzzle is created or re-started."
+msgstr ""
+"No se ha dispuesto ningún espacio para rompecabezas con menos de 20 piezas. "
+"Los cambios tendrán efecto cuando se cree o reinicie un rompecabezas."
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: src/settings.ui:106
+#, kde-format
+msgid "Spacing of pieces in puzzle grids (1.0-1.5):"
+msgstr "Espaciado de las piezas en la cuadrícula (1,0-1,5):"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/settings.ui:156
+#, kde-format
+msgid "Piece appearance"
+msgstr "Aspecto de las piezas"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceBevelsEnabled)
+#: src/settings.ui:162
+#, kde-format
+msgid "Draw bevels to create a 3-dimensional appearance"
+msgstr "Dibujar biseles para crear una apariencia tridimensional"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceShadowsEnabled)
+#: src/settings.ui:172
+#, kde-format
+msgid "Draw shadows below pieces"
+msgstr "Dibujar sombras debajo de las piezas"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: src/settings.ui:182
+#, kde-format
+msgid ""
+"These options can be disabled when Palapeli is running very slowly. Changes "
+"will take effect only when a new puzzle is started."
+msgstr ""
+"Estas opciones se pueden desactivar cuando Palapeli está funcionando muy "
+"lentamente. Los cambios tendrán efecto solo cuando se inicie un nuevo "
+"rompecabezas."
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: src/settings.ui:195
+#, kde-format
+msgctxt "@title:group"
+msgid "Piece behavior"
+msgstr "Comportamiento de las piezas"
+
+#. i18n: ectx: property (text), widget (QLabel, label_1)
+#: src/settings.ui:201
+#, kde-format
+msgctxt "@label:slider"
+msgid "Snapping precision:"
+msgstr "Precisión del ajuste:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/settings.ui:241
+#, kde-format
+msgctxt "@item:inrange description for the \"snapping precision\" setting"
+msgid "Very precise (harder)"
+msgstr "Muy preciso (más difícil)"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/settings.ui:270
+#, kde-format
+msgctxt "@item:inrange description for the \"snapping precision\" setting"
+msgid "Unprecise (easier)"
+msgstr "Poco preciso (más fácil)"
+
+#: src/window/mainwindow.cpp:53
+#, kde-format
+msgid "Show Statusbar of Puzzle Table"
+msgstr "Mostrar la barra de estado del tablero del rompecabezas"
+
+#: src/window/mainwindow.cpp:56
+#, kde-format
+msgid "Back to &Collection"
+msgstr "Volver a la &colección"
+
+#: src/window/mainwindow.cpp:57
+#, kde-format
+msgid "Go back to the collection to choose another puzzle"
+msgstr "Volver a la colección para elegir otro rompecabezas"
+
+#: src/window/mainwindow.cpp:63
+#, kde-format
+msgid "Create &New Puzzle..."
+msgstr "Crear &nuevo rompecabezas..."
+
+#: src/window/mainwindow.cpp:64
+#, kde-format
+msgid "Create a new puzzle using an image file from your disk"
+msgstr "Crear un nuevo rompecabezas usando un archivo de imagen del disco"
+
+#: src/window/mainwindow.cpp:70
+#, kde-format
+msgid "&Delete Puzzle"
+msgstr "&Borrar el rompecabezas"
+
+#: src/window/mainwindow.cpp:72
+#, kde-format
+msgid "Delete the selected puzzle from your collection"
+msgstr "Borrar el rompecabezas seleccionado de la colección"
+
+#: src/window/mainwindow.cpp:78
+#, kde-format
+msgid "&Import from File..."
+msgstr "&Importar de archivo..."
+
+#: src/window/mainwindow.cpp:79
+#, kde-format
+msgid "Import a new puzzle from a file into your collection"
+msgstr "Importar un nuevo rompecabezas desde un archivo a la colección"
+
+#: src/window/mainwindow.cpp:84
+#, kde-format
+msgid "&Export to File..."
+msgstr "&Exportar a archivo..."
+
+#: src/window/mainwindow.cpp:86
+#, kde-format
+msgid "Export the selected puzzle from your collection into a file"
+msgstr "Exportar el rompecabezas seleccionado de la colección a un archivo"
+
+#: src/window/mainwindow.cpp:92
+#, kde-format
+msgid "&Restart Puzzle..."
+msgstr "&Reiniciar el rompecabezas..."
+
+#: src/window/mainwindow.cpp:93
+#, kde-format
+msgid "Delete the saved progress and reshuffle the pieces"
+msgstr "Borrar el progreso guardado y barajar las piezas"
+
+#: src/window/mainwindow.cpp:100
+#, kde-format
+msgid "&Create Piece Holder..."
+msgstr "Crear un &nuevo portapiezas..."
+
+#: src/window/mainwindow.cpp:101
+#, kde-format
+msgid "Create a temporary holder for sorting pieces"
+msgstr "Crear un portapiezas temporal para ordenar piezas"
+
+#: src/window/mainwindow.cpp:108
+#, kde-format
+msgid "&Delete Piece Holder"
+msgstr "&Borrar portapiezas"
+
+#: src/window/mainwindow.cpp:109
+#, kde-format
+msgid "Delete a selected temporary holder when it is empty"
+msgstr "Borrar un portapiezas temporal seleccionado si está vacío"
+
+#: src/window/mainwindow.cpp:115
+#, kde-format
+msgid "&Select All in Holder"
+msgstr "&Seleccionar todo en el portapiezas"
+
+#: src/window/mainwindow.cpp:116
+#, kde-format
+msgid "Select all pieces in a selected piece holder"
+msgstr "Seleccionar todas las piezas del portapiezas seleccionado"
+
+#: src/window/mainwindow.cpp:122
+#, kde-format
+msgid "&Rearrange Pieces"
+msgstr "&Reordenar las piezas"
+
+#: src/window/mainwindow.cpp:123
+#, kde-format
+msgid ""
+"Rearrange all pieces in a selected piece holder or selected pieces in any "
+"window"
+msgstr ""
+"Reordenar todas las piezas en un portapiezas seleccionado o las piezas "
+"seleccionadas en cualquier ventana"
+
+#: src/window/mainwindow.cpp:130
+#, kde-format
+msgctxt "Preview is a noun here"
+msgid "&Preview"
+msgstr "Vista &previa"
+
+#: src/window/mainwindow.cpp:132
+#, kde-format
+msgctxt "Preview is a noun here"
+msgid "Preview"
+msgstr "Vista previa"
+
+#: src/window/mainwindow.cpp:133
+#, kde-format
+msgid "Show or hide the image of the completed puzzle"
+msgstr "Muestra u oculta la imagen del rompecabezas completado"
+
+#: src/window/mainwindow.cpp:147
+#, kde-format
+msgid "Enable All Messages"
+msgstr "Activar todos los mensajes"
+
+#: src/window/mainwindow.cpp:156
+#, kde-format
+msgid "Enable all messages again?"
+msgstr "¿Volver a activar todos los mensajes?"
+
+#: src/window/mainwindow.cpp:157
+#, kde-format
+msgctxt "@action:button"
+msgid "Enable"
+msgstr "Activar"
+
+#: src/window/puzzletablewidget.cpp:49
+#, kde-format
+msgid "No puzzle loaded"
+msgstr "No se ha cargado ningún rompecabezas"
+
+#: src/window/puzzletablewidget.cpp:118
+#, kde-format
+msgid "You finished the puzzle."
+msgstr "Ha completado el rompecabezas."
+
+#: src/window/puzzletablewidget.cpp:122
+#, kde-format
+msgctxt "Progress display"
+msgid "%1% finished"
+msgstr "%1% completado"
+
+#~ msgid ""
+#~ "If the -i/--import option is specified, the main window will not be shown "
+#~ "after importing the given puzzle."
+#~ msgstr ""
+#~ "Si se usa la opción -i/--import, no se mostrará la ventana principal tras "
+#~ "importar el rompecabezas indicado."
+
+#~ msgctxt "As in a movie close-up scene"
+#~ msgid "Close-up View"
+#~ msgstr "Vista en primer plano"

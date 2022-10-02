@@ -1,0 +1,706 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+<!ENTITY palapeli "<application
+>Palapeli</application
+>">
+<!ENTITY psc "<application
+>Palapeli Slicer Collection</application
+>">
+<!ENTITY kappname "&palapeli;">
+<!ENTITY package "kdegames">
+<!ENTITY % French "INCLUDE">
+<!ENTITY % addindex "IGNORE">
+]>
+
+<book id="palapeli" lang="&language;">
+	<bookinfo>
+		<title
+>Le manuel de &palapeli;</title>
+		<authorgroup>
+			<author
+><firstname
+>Johannes</firstname
+> <surname
+>L&#xF6;hnert</surname
+> <affiliation
+><address
+><email
+>loehnert_kde@gmx.de</email
+></address
+></affiliation>
+			</author>
+			<author
+><firstname
+>Stefan</firstname
+> <surname
+>Majewsky</surname
+> <affiliation
+><address
+><email
+>majewsky@gmx.net</email
+></address
+></affiliation>
+			</author>
+			&traducteurFrederickAngelique;&relecteurLudovicGrossard; 
+		</authorgroup>
+
+		<copyright>
+			<year
+>2009, 2010</year>
+			<holder
+>Johannes L&#xF6;hnert, Stefan Majewsky</holder>
+		</copyright>
+		<legalnotice
+>&FDLNotice;</legalnotice>
+		<date
+>29/11/2010</date>
+		<releaseinfo
+>1.2</releaseinfo>
+
+		<abstract>
+			<para
+>Ceci est le manuel de &palapeli;, un jeu de puzzle fondé sur la technologie de &kde;.</para>
+		</abstract>
+		<keywordset>
+			<keyword
+>KDE</keyword>
+			<keyword
+>jeux de kde</keyword>
+			<keyword
+>jeu</keyword>
+			<keyword
+>jeu de puzzle</keyword>
+			<keyword
+>puzzle</keyword>
+			<keyword
+>palapeli</keyword>
+		</keywordset>
+	</bookinfo>
+
+	<chapter id="introduction">
+		<title
+>Introduction</title>
+		<para
+>&palapeli; est un jeu de puzzle à un seul joueur.</para>
+		<para
+>La fenêtre de &palapeli; est divisée en deux zones, la collection de puzzles et le plateau du puzzle. Ce manuel va maintenant continuer sur la description de ces deux zones.</para>
+	</chapter>
+
+	<chapter id="collection">
+		<title
+>Parcourir la collection de puzzles</title>
+		<para
+>Quand vous lancez &palapeli; pour la première fois, votre collection de puzzles est préchargée avec quelques puzzles par défaut fournis avec &palapeli;. Cliquez sur l'un des puzzles pour commencer à jouer immédiatement. Le jeu a lieu sur le plateau du puzzle ; rendez-vous <link linkend="puzzletable"
+>deux sections plus tard</link
+> pour savoir comment utiliser le plateau du puzzle.</para>
+		<para
+>En dehors de la sélection du puzzle, la collection de puzzles peut être utilisée pour les actions suivantes :</para>
+		<itemizedlist>
+			<listitem
+><para
+><emphasis
+>créer</emphasis
+> de nouveaux puzzles à partir d'images stockées sur votre ordinateur</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>importer</emphasis
+> des puzzles créés par d'autres personnes</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>exporter</emphasis
+> des puzzles pour les partager avec vos amis et le monde entier</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>supprimer</emphasis
+> des puzzles dont vous n'avez plus besoin</para
+></listitem>
+		</itemizedlist>
+		<para
+>La section suivante décrit comment réaliser ces actions avec les boutons de la barre d'outils.</para>
+		<sect1 id="toolbars-collection">
+			<title
+>Tour d'horizon sur la barre d'outils</title>
+			<note
+><para
+>Vous pouvez choisir des puzzles dans la liste en appuyant sur &Ctrl; et le &BGS; en même temps. Appuyer sur le &BGS; ou le &BDS; sans appuyer sur &Ctrl; ouvre ce puzzle dans le plateau de puzzle.</para
+></note>
+			<variablelist>
+				<varlistentry>
+					<term
+><guiicon
+>Créer un nouveau puzzle</guiicon
+></term>
+					<listitem>
+						<para
+><action
+>Ouvre une boîte de dialogue qui vous permet de créer un puzzle à partir d'une image stockée sur votre ordinateur.</action
+> Allez à la <link linkend="create-puzzles"
+>section suivante</link
+> pour plus de détails.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Supprimer</guiicon
+></term>
+					<listitem
+><para
+><action
+>N'importe quel puzzle que vous avez choisi dans la liste des puzzles, sera définitivement supprimé de votre collection. </action
+></para
+><warning
+><para
+>Cette action est irréversible.</para
+></warning
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Importer depuis un fichier</guiicon
+></term>
+					<listitem
+><para
+><action
+>Quand vous recevez un fichier de puzzle &palapeli; (qui peut habituellement être reconnu par l'extension de fichier <literal role="extension"
+>*.puzzle</literal
+>), vous pouvez utiliser cette fonction pour l'importer dans votre collection locale.</action
+> Les fichiers de puzzle peuvent aussi être lancés en cliquant dessus dans le gestionnaire de fichiers de votre choix, mais après l'importation, le puzzle apparaîtra dans votre collection locale, et vous pouvez supprimer le fichier du puzzle téléchargé sans risque.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Exporter vers un fichier</guiicon
+></term>
+					<listitem
+><para
+><action
+>Cela exportera les puzzles actuellement choisis vers des fichiers, dans le but de vous permettre de les partager avec vos amis, les publier sur le web, ou créer une copie de secours de votre collection.</action
+></para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="create-puzzles">
+		<title
+>Créer de nouveaux puzzles</title>
+		<para
+>Comme décrit dans <link linkend="collection"
+>la section précédente</link
+>, vous pouvez créer de nouveaux puzzles en appuyant sur le bouton <guiicon
+>Créer un nouveau puzzle</guiicon
+> dans la collection de puzzles.</para>
+		<para
+>Appuyer sur ce bouton ouvre la boîte de dialogue de création de puzzle, qui est composée de trois pages :</para>
+		<procedure>
+			<step
+><para
+>À la première page, choisissez un fichier image qui sera découpé en morceaux. Soyez vigilant à saisir des méta-données correctes pour l'image : vous devriez renseigner l'auteur de l'image (&pex; le photographe ou le peintre) ; veillez à respecter les droits d'auteur de l'auteur de l'image s'il vous plaît.</para
+></step>
+			<step
+><para
+>À la seconde page, vous pouvez choisir le type de pièces dans lesquelles l'image sera découpée. &palapeli; fournit une collection de découpeurs installés par défaut, mais des découpeurs tiers peuvent aussi être installés.</para
+></step>
+			<step
+><para
+>À la dernière page de la fenêtre de dialogue, le découpeur choisi peut être personnalisé &pex; en choisissant un nombre de pièces différent ou en modifiant les paramètres de forme de la pièce. Le jeu d'options disponible dépend du découpeur choisi.</para
+></step>
+		</procedure>
+		<para
+>Ce manuel va continuer à s'intéresser aux découpeurs fournis avec &palapeli;. Si vous avez téléchargé un module externe de découpage tiers pour &palapeli;, consultez la documentation de ce module externe si vous avez des problèmes en l'installant ou en l'utilisant sur votre système.</para>
+		<sect1 id="psc">
+			<title
+>collection de découpeurs &palapeli;</title>
+			<para
+>La collection de découpeurs de &palapeli; crée des pièces de puzzle réalistes avec des modèles de base variés.</para>
+			<variablelist>
+				<varlistentry>
+					<term
+>Grille rectangulaire</term>
+					<listitem
+><para
+>Contient les célèbres pièces rectangulaires.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Grille pentagonale (Cairo)</term>
+					<listitem
+><para
+>Avec ses pièces pentagonales et ses angles de pointe inégaux, elle est assez difficile à déchiffrer, puisque les pièces s'emboîtent de manière inhabituelle.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Grille hexagonale</term>
+					<listitem
+><para
+>Crée des pièces hexagonales, organisées à la façon des alvéoles d'un nid d'abeilles.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Grille rotrex (rhombi-tri-hexagonale)</term>
+					<listitem
+><para
+>Grâce à une composition spéciale de pièces triangulaires, hexagonales et rectangulaires, les pièces forment un motif qui ressemble à de nombreux cercles qui se croisent.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Grille irrégulière</term>
+					<listitem
+><para
+>Cette grille est disponible si vous avez installé <application
+>qvoronoi</application
+> depuis le paquet <ulink url="http://www.qhull.org"
+><application
+>qhull</application
+></ulink
+>. <application
+>qvoronoi</application
+> est utilisé pour calculer les formes des pièces irrégulières à partir de points placés aléatoirement.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+			<para
+>La collection de découpeurs de &palapeli; possède de nombreux paramètres qui contrôlent l'aspect des bords de la pièce, notamment leur excroissance à emboîter. Des paramètres par défaut sont donnés pour tous ces paramètres. Un mode supplémentaire de préconfiguration est disponible, ce qui réduit le nombre de paramètres au strict minimum. Les paramètres suivants sont habituellement disponibles :</para>
+			<variablelist>
+				<varlistentry>
+					<term
+>Nombre de pièces approximatif</term>
+					<listitem
+><para
+></para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Pourcentage des bordures inversées</term>
+					<listitem
+><para
+>La probabilité pour chaque excroissance d'être inversée. Une excroissance est considérée inversée si elle pointe vers la direction opposée comme elle le ferait dans une grille complètement régulière. Dans la grille rectangulaire, cela donne des pièces avec 3 ou 4 excroissances pointant vers l'intérieur ou l'extérieur de la pièce. Positionnez le curseur tout au bout à gauche pour obtenir la grille normale complètement régulière. Au milieu, l'orientation des excroissances est aléatoire. À droite, la grille est complètement régulière à nouveau, mais avec une règle &quot;alternative&quot;. Cela <emphasis
+>ne</emphasis
+> signifie <emphasis
+>pas</emphasis
+> que toutes les excroissances sont inversées : dans la grille régulière alternative, par exemple, chaque pièce possède quatre excroissances pointant vers l'intérieur ou quatre excroissances pointant vers l'extérieur. Ce paramètre n'a aucun effet dans la grille irrégulière.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Courbure des bords</term>
+					<listitem
+><para
+>Détermine la courbure des bords, &cad; à quel point les bords sont dentés ou simplement bombés. Déplacez le curseur tout à gauche pour obtenir des bords dentés avec des lignes droites (sauf pour les excroissances).</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Taille de l'excroissance</term>
+					<listitem
+><para
+>Détermine la taille de l'excroissance de chaque bord. La configuration par défaut (curseur au milieu) est choisie pour ressembler à un puzzle réel. La gamme du curseur varie de 50 % à 150 % de cette taille, ce qui semble être extraordinairement grand. Le programme essaye vraiment d'éviter les collisions entre les excroissances. Les bords en collision sont remodelés plusieurs fois et rétrécis petit à petit. Cependant il reste encore des cas où aucune solution ne peut être trouvée, notamment pour les grandes tailles de l'excroissance.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Diversité de la courbure</term>
+					<listitem
+><para
+>Détermine à quel point la courbure (voir ci-dessus) varie entre les bords. Déplacer le curseur à gauche donne le même rendu que les bords soient dentés ou bombés. À droite, cela donne des bords très courbés et droits.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Diversité de la position de l'excroissance</term>
+					<listitem
+><para
+>Détermine à quel point la position de l'excroissance sur le bord varie. Tout à gauche, les excroissances sont fixées au milieu de leur bord.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Diversité des excroissances</term>
+					<listitem
+><para
+>Détermine à quel point les excroissances semblent uniques. Tout à gauche, les excroissances se ressemblent toutes. Tout à droite, chaque excroissance sera une œuvre d'art unique spécialement créée pour vous.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Diversité de la taille des pièces</term>
+					<listitem
+><para
+>Uniquement pour la grille irrégulière : détermine à quel point la taille des pièces varie. Une très petite valeur signifie qu'il n'y a presque pas de variation, telle une structure cristalline. Une grande valeur donne de très petites et très grandes pièces.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Enregistrer la grille en image</term>
+					<listitem
+><para
+>Enregistre une image de la grille (bords noirs sur fond blanc) à l'emplacement <filename
+>~/goldberg-slicer-dump.png</filename
+>. Si un enregistrement précédent existe, il sera écrasé.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="legacy-slicers">
+			<title
+>Les découpeurs hérités</title>
+			<para
+>Pour des raisons historiques, &palapeli; inclut aussi des découpeurs &quot;Pièces classiques de puzzle&quot; et &quot;Pièces rectangulaires&quot;. Ces découpeurs créent de simple pièces rectangulaires avec ou sans excroissances à connecter. Ces découpeurs permettent le comptage des pièces et d'ajuster la proportion des pièces. Déplacer le curseur de la proportion des pièces à gauche crée de grandes pièces, le déplacer vers la droite crée des pièces larges. Le choix par défaut crée des pièces approximativement carrées.</para>
+		</sect1>
+	</chapter>
+
+	<chapter id="puzzletable">
+		<title
+>Jouer sur le plateau du puzzle</title>
+		<screenshot
+><mediaobject>
+			<imageobject
+><imagedata fileref="puzzletable1.png" format="PNG"/></imageobject>
+			<textobject
+><phrase
+>le plateau du puzzle (détail)</phrase
+></textobject>
+		</mediaobject
+></screenshot>
+		<para
+>Le but du jeu est d'assembler les pièces données pour former une image.</para>
+		<para
+>Les pièces peuvent être déplacées librement en cliquant dessus et en les déplaçant avec le &BGS;. Vous pouvez choisir plusieurs pièces en une fois en maintenant la touche &Ctrl; et en cliquant sur les pièces, ou en déplaçant une sélection rectangulaire des pièces avec le &BGS;. </para>
+		<para
+>Quand vous placez une pièce auprès d'une pièce voisine, les deux pièces vont automatiquement s'emboîter. Après s'être assemblées, les pièces ne peuvent plus être détachées. Contrairement à la réalité, vous ne pouvez pas assembler deux pièces qui ne sont pas de vraies voisines.</para>
+		<para
+>La barre de progression sous le plateau du puzzle indique votre progression(2). &palapeli; enregistrera automatiquement votre progression après chaque mouvement, donc vous n'avez normalement pas à vous soucier d'enregistrer votre progression.</para>
+		<para
+>Avec la molette de la souris, ou avec le curseur en bas à droite (3), vous pouvez modifier le niveau de zoom de l'affichage du plateau du puzzle. En cliquant et déplaçant avec le &BDS;, vous pouvez déplacer l'affichage du plateau du puzzle.</para>
+		<para
+>Le déplacement des pièces est limité par <emphasis
+>l'espace du plateau du puzzle</emphasis
+>. Cet espace est représenté sur l'arrière-plan du plateau du puzzle par une forme rectangulaire peu accentuée. Quand vous déplacez des pièces vers le bord de l'espace du plateau du puzzle, l'espace s'agrandira automatiquement pour vous donner plus d'espace pour déplacer vos pièces de puzzle. Près des bords ombragés, le curseur de la souris change en une flèche à double têtes, indiquant que vous pouvez ajuster l'espace du plateau du puzzle en cliquant sur le bord et en le déplaçant avec le &BGS;.</para>
+		<para
+>Vous pouvez verrouiller l'espace du plateau du puzzle avec le petit bouton (5) juste à droite de la barre de progression. L'ombrage autour du plateau du puzzle s'assombrira davantage, et le déplacement des pièces s'arrêtera maintenant aux bords de l'espace du plateau du puzzle. Il est toujours possible d'ajuster la taille de l'espace du plateau du puzzle manuellement.</para>
+		<sect1 id="puzzletable-mouseactions">
+			<title
+>Interactions de la souris</title>
+			<para
+>Comme décrit dans la section précédente, il existe plusieurs façons d'interagir avec le plateau du puzzle de &palapeli; en utilisant la souris. Vous pouvez configurer librement quelles actions sont activées par quel bouton de la souris (consultez la section de la <link linkend="configuration-mouseactions"
+>Configuration du jeu</link
+> pour plus d'informations sur la manière de le configurer). La liste suivante résume toutes les actions possibles avec la souris :</para>
+			<variablelist>
+				<varlistentry>
+					<term
+><action
+>Modifier la taille de l'espace du plateau du puzzle en déplaçant ses bords.</action
+></term>
+					<listitem
+><para
+>Par défaut, cette action est assignée au &BGS;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Déplacer des pièces en les glissant</action
+></term>
+					<listitem
+><para
+>Quand vous cliquez et faites glisser une pièce de puzzle, cette pièce sera déplacée. Si plusieurs pièces sont choisies et que vous cliquez et faites glisser une de ces pièces, alors toutes les pièces sont déplacées. Par défaut, cette action est assignée au &BGS;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Déplacer l'affichage de la fenêtre en glissant</action
+></term>
+					<listitem
+><para
+>Par défaut, cette action est assignée au &BDS;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Choisir plusieurs pièces en une seule fois</action
+></term>
+					<listitem
+><para
+>Quand vous cliquez dans un espace libre du plateau du puzzle au lieu d'une pièce de puzzle, vous pouvez dessiner une sélection rectangulaire. Quand vous relâchez le bouton de la souris, toutes les pièces à l'intérieur de la sélection rectangulaire sont sélectionnées. Toutes les autres sont dé-sélectionnées. Par défaut, cette action est assignée au &BGS;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Choisir des pièces en cliquant dessus</action
+></term>
+					<listitem
+><para
+>Quand vous cliquez sur une seule pièce de puzzle, elle sera sélectionnée. Si elle l'était déjà, elle sera désélectionnée. Par défaut, cette action est assignée au &BGS; et seulement disponible quand la touche &Ctrl; est appuyée.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Faire basculer l'état du verrou de l'espace du plateau du puzzle</action
+></term>
+					<listitem
+><para
+>Cette action revient à appuyer sur le bouton (5) dans la barre d'état. Par défaut, cette action n'est assignée à aucun bouton de la souris, mais vous pouvez l'assigner depuis <link linkend="configuration-mouseactions"
+>la boîte de dialogue de configuration</link
+>.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Faire défiler l'affichage horizontalement</action
+> et <action
+>Faire défiler l'affichage verticalement</action
+></term>
+					<listitem
+><para
+>Par défaut, cette action n'est pas assignée à la molette de la souris, mais vous pouvez l'activer à partir de la <link linkend="configuration-mouseactions"
+>boîte de dialogue de configuration</link
+>.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Agrandir l'affichage</action
+></term>
+					<listitem
+><para
+>Cette action revient à déplacer le curseur (3) dans la barre d'état. Cette action est assignée à la molette de la souris par défaut.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="toolbars-puzzletable">
+			<title
+>Tour d'horizon sur la barre d'outils</title>
+			<variablelist>
+				<varlistentry>
+					<term
+><guiicon
+>Recommencer le puzzle</guiicon
+></term>
+					<listitem
+><para
+><action
+>Annule la progression enregistrée pour ce puzzle.</action
+></para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="interface">
+		<title
+>Tour d'horizon sur l'interface</title>
+		<para
+>Les deux zones de &palapeli;, la collection de puzzle et le plateau du puzzle, sont intégrées à la barre de menu comme onglets. Il y a aussi deux menus avec des actions standards qui sont décrites ci-dessous.</para>
+		<sect1 id="settings-menu">
+			<title
+>Le menu <guimenu
+>Configuration</guimenu
+></title>
+			<variablelist>
+				<varlistentry>
+					<term
+><menuchoice
+><guimenu
+>Configuration</guimenu
+><guimenuitem
+>Afficher la barre d'état du plateau de puzzle</guimenuitem
+></menuchoice
+></term>
+					<listitem
+><para
+><action
+>Fait basculer l'affichage de la barre de progression et les boutons sous le plateau du puzzle.</action
+> Cette action ne modifiera rien dans la collection de puzzles.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><menuchoice
+><guimenu
+>Configuration</guimenu
+><guimenuitem
+>Configurer les raccourcis clavier...</guimenuitem
+></menuchoice
+></term>
+					<listitem
+><para
+><action
+>Ouvre une boîte de dialogue dans laquelle vous pouvez configurer les raccourcis clavier</action
+> pour &palapeli;</para
+></listitem>
+				</varlistentry>
+				<varlistentry id="settings-menu-configure">
+					<term
+><menuchoice
+><guimenu
+>Configuration</guimenu
+><guimenuitem
+>Configurer &palapeli;...</guimenuitem
+></menuchoice
+></term>
+					<listitem
+><para
+>Ouvre la boîte de configuration du jeu. Consultez la section <link linkend="configuration"
+>Configuration du jeu</link
+> pour plus de détails.</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="help">
+			<title
+>Le menu <guimenu
+>Aide</guimenu
+></title>
+&help.menu.documentation; </sect1>
+	</chapter>
+
+	<chapter id="configuration">
+		<title
+>Configuration du jeu</title>
+		<para
+>Pour ouvrir la boîte de dialogue de configuration, utilisez l'option de la barre de menu : <menuchoice
+><guimenu
+>Configuration</guimenu
+><guimenuitem
+>Configurer &palapeli;...</guimenuitem
+></menuchoice
+></para>
+		<sect1 id="configuration-general">
+			<title
+><guilabel
+>Configuration générale</guilabel
+></title>
+			<variablelist>
+				<varlistentry>
+					<term
+><guilabel
+>Arrière-plan</guilabel
+></term>
+					<listitem
+><para
+><action
+>Vous permet de choisir une autre texture d'arrière-plan pour le plateau du puzzle.</action
+> Si vous choisissez une couleur unique au lieu d'une texture, le bouton à côté de la boîte de sélection peut être utilisé pour définir la couleur.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guilabel
+>Apparence des pièces</guilabel
+></term>
+					<listitem
+><para
+><action
+>Contrôle l'aspect des pièces sur le plateau du puzzle.</action
+> Si &palapeli; s'exécute lentement, ou quand les puzzles mettent beaucoup de temps à s'ouvrir, vous pouvez désactiver les effets graphiques dans cette catégorie pour accélérer l'application.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guilabel
+>Précision de l'emboîtement</guilabel
+></term>
+					<listitem
+><para
+><action
+>Vous permet de choisir à quel point des pièces voisines l'une de l'autre doivent être proches pour qu'elles s'emboîtent.</action
+> Si vous déplacez le curseur plus à droite, les pièces s'emboîteront ensemble même si elles ne sont pas très proches. Cela rend le jeu un peu plus simple à faire.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="configuration-mouseactions">
+			<title
+><guilabel
+>Interaction de la souris</guilabel
+></title>
+			<para
+>Cette page de la boîte de configuration vous permet d'assigner les interactions de la souris décrites dans la section <link linkend="puzzletable-mouseactions"
+>Jouer sur le plateau du puzzle</link
+> aux différents boutons de la souris. Les interactions sont classées par celles qui peuvent être assignées aux boutons de la souris (&pex; <action
+>Déplacer la zone d'affichage en la faisant glisser</action
+>), et celles qui peuvent être assignées à la molette de la souris (&pex; <action
+>Faire défiler la zone d'affichage horizontalement</action
+>).</para>
+			<sect2>
+				<title
+>onglet des <guilabel
+>boutons de la souris</guilabel
+></title>
+				<para
+>Après le nom de chaque interaction, se situe un bouton avec l'image d'une souris qui montre l'action actuellement assignée. Vous pouvez configurer l'interaction en appuyant sur ce bouton avec le &BGS; et ensuite avec le bouton de la souris auquel vous voulez assigner l'interaction. Si vous maintenez enfoncées les touches modificatrices pendant que vous cliquez pour la seconde fois, le plateau du puzzle autorisera cette interaction uniquement quand ces touches modificatrices sont maintenues enfoncées.</para>
+				<tip
+><para
+>Au lieu de cliquer, vous pouvez aussi appuyer sur la touche <keycap
+>Espace</keycap
+> pour n'assigner <guilabel
+>Aucune</guilabel
+> touche à cette interaction. C'est seulement permis si les touches modificatrices sont maintenues enfoncées. Le bouton <guilabel
+>Aucune</guilabel
+> signifie que les touches modificatrices prennent la fonction du bouton de la souris : l'interaction commence quand les touches modificatrices sont enfoncées, et s'arrête quand l'une des touches modificatrices est relâchée.</para
+></tip>
+			</sect2>
+			<sect2>
+				<title
+>onglet de la <guilabel
+>molette de la souris</guilabel
+></title>
+				<para
+>Cet onglet fonctionne de manière similaire aux précédents. Quand le bouton à droite vous demande &quot;saisissez ici...&quot;, vous devez faire tourner la molette de la souris au lieu de cliquer avec un bouton de la souris. Maintenir les touches modificatrices est permis , également avec les mêmes conséquences que pour le cas précédent. </para>
+				<tip
+><para
+>Si votre souris possède une molette bi-directionnelle (habituellement comme la plupart des pavés tactiles des ordinateurs portables), vous pouvez en tirer parti : le bouton reconnaîtra quand vous tournerez la molette de la souris horizontalement ou verticalement.</para
+></tip>
+			</sect2>
+		</sect1>
+	</chapter>
+
+	<chapter id="credits">
+		<title
+>Remerciements et licence</title>
+		<para
+>&palapeli; a pour but de vous apporter le plaisir et le défi posé des puzzles sur votre ordinateur.</para>
+		<para
+>Le concept a été d'abord développé par Bernhard Schiffner et Stefan Majewsky, qui est le principal développeur actuel de &palapeli;. La collection de découpeurs de &palapeli; a été développée par Johannes L&#xF6;hnert.</para>
+		<para
+>Documentation sous Copyright 2009, 2010 Johannes L&#xF6;hnert, Stefan Majewsky.</para>
+		<para
+>Traduction française par &traducteurFrederickAngelique;, relecture par &LudovicGrossard;.</para
+> 
+&underFDL; &underGPL; </chapter>
+
+	<appendix id="installation">
+		<title
+>Installation</title>
+		&install.intro.documentation;
+		<sect1 id="Compilation">
+			<title
+>Compilation and installation</title>
+&install.compile.documentation; </sect1>
+	</appendix>
+	&documentation.index;
+</book>

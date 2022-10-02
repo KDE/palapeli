@@ -1,0 +1,1432 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+<!ENTITY palapeli "<application
+>Palapeli</application
+>">
+<!ENTITY i18n-psc "<application
+>Palapeli-Schneidewerkzeug-Sammlung</application
+>">
+<!ENTITY kappname "&palapeli;">
+<!ENTITY package "kdegames">
+<!ENTITY % German "INCLUDE">
+<!ENTITY % addindex "IGNORE">
+]>
+
+<book id="palapeli" lang="&language;">
+	<bookinfo>
+		<title
+>Das Handbuch zu &palapeli;</title>
+		<authorgroup>
+			<author
+><firstname
+>Johannes</firstname
+> <surname
+>L&#xF6;hnert</surname
+> <affiliation
+><address
+><email
+>loehnert_kde@gmx.de</email
+></address
+></affiliation>
+			</author>
+			<author
+><firstname
+>Stefan</firstname
+><surname
+>Majewsky</surname
+> <affiliation
+><address
+><email
+>majewsky@gmx.net</email
+></address
+></affiliation>
+			</author>
+			<author
+><firstname
+>Ian</firstname
+> <surname
+>Wadham</surname
+> <affiliation
+><address
+><email
+>iandw.au@gmail.com</email
+></address
+></affiliation>
+			</author>
+			<othercredit role="translator"
+><firstname
+>Johannes</firstname
+><surname
+>Obermayr</surname
+><affiliation
+><address
+><email
+>johannesobermayr@gmx.de</email
+></address
+></affiliation
+><contrib
+>Übersetzung</contrib
+></othercredit
+> 
+		</authorgroup>
+
+		<copyright>
+			<year
+>2009, 2010</year>
+			<holder
+>Johannes L&#xF6;hnert, Stefan Majewsky</holder>
+		</copyright>
+		<copyright>
+			<year
+>2014</year>
+			<holder
+>Ian Wadham</holder>
+		</copyright>
+		<legalnotice
+>&FDLNotice;</legalnotice>
+		<date
+>2014-03-09</date>
+		<releaseinfo
+>2.0 (&kde; 4.13)</releaseinfo>
+
+		<abstract>
+			<para
+>Dieses Handbuch beschreibt &palapeli;, ein Bilderpuzzle-Spiel für &kde;</para>
+		</abstract>
+		<keywordset>
+			<keyword
+>KDE</keyword>
+			<keyword
+>kdegames</keyword>
+			<keyword
+>Spiel</keyword>
+			<keyword
+>Puzzlespiel</keyword>
+			<keyword
+>Bilderpuzzle</keyword>
+			<keyword
+>Palapeli</keyword>
+		</keywordset>
+	</bookinfo>
+
+	<chapter id="introduction">
+		<title
+>Einleitung</title>
+		<para
+>&palapeli; ist ein Bilderpuzzle-Spiel für einen Spieler. Sie können damit Puzzles mit 4 bis 10.000 Teilen erstellen. Diese Version kann Ihnen - soweit der Bildschirm reicht- beim Lösen großer Puzzles (300 Teile oder mehr) helfen.</para>
+		<para
+>Das Hauptfenster von &palapeli; ist in die beiden Bereiche <guilabel
+>Sammlung</guilabel
+> und <guilabel
+>Puzzletisch</guilabel
+> unterteilt.</para>
+		<para
+>Dieses Handbuch beschreibt diese beiden Bereiche.</para>
+	</chapter>
+
+	<chapter id="collection">
+		<title
+>Sammlung durchsuchen</title>
+		<sect1 id="play-maintain-collection">
+			<title
+>Puzzle spielen und die Sammlung aktualisieren</title>
+		<para
+>Beim erstmaligen Start von &palapeli; enthält die <guilabel
+>Sammlung</guilabel
+> bereits ein paar standardmäßig mit &palapeli; ausgelieferten Puzzle. Sobald Sie auf eines dieser Puzzle klicken, startet das Spiel unverzüglich. Wenn Sie später eigene Puzzle erstellt haben, können Sie diese durch Klicken darauf starten.</para>
+		<para
+>Das Spiel findet auf dem <guilabel
+>Puzzletisch</guilabel
+> statt. Weitere Informationen zur Bedienung des <emphasis
+>Puzzletisches</emphasis
+> werden im <link linkend="puzzletable"
+>übernächsten Abschnitt</link
+> gegeben.</para>
+		<note
+><para
+>Die Puzzle in der Liste können Sie mit Drücken der &Ctrl;-Taste und gleichzeitigem Klicken mit der &LMBn; auswählen. Das Klicken mit der &LMBn; oder &RMBn; ohne Drücken der &Ctrl;-Taste öffnet das jeweils angeklickte Puzzle zum Spielen auf dem Puzzletisch.</para>
+		      <para
+>Unter Apple OS X müssen Sie mit der &LMBn; doppelklicken, um ein Spiel zu beginnen. Ein einfacher Klick wählt nur einen Eintrag in der Puzzleliste und hebt ihn hervor.</para
+></note>
+		<para
+>Zusätzlich zur Auswahl des Puzzles kann die <emphasis
+>Sammlung</emphasis
+> für folgende weitere Aktionen verwendet werden:</para>
+		<itemizedlist>
+			<listitem
+><para
+><emphasis
+>Erstellen</emphasis
+> neuer Puzzle aus auf der Festplatte befindlichen Bilder</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>Importieren</emphasis
+> von anderen erstellten Puzzle</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>Exportieren</emphasis
+> von Puzzle zur Weitergabe an andere</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>Entfernen</emphasis
+> von nicht weiter benötigten Puzzle</para
+></listitem>
+		</itemizedlist>
+		<para
+>Der folgende Abschnitt zeigt, wie diese Aufgaben mit den Knöpfen der Werkzeugleiste bewerkstelligt werden.</para>
+	    </sect1>
+		<sect1 id="toolbar-collection">
+			<title
+>Werkzeugleiste</title>
+			<variablelist>
+				<varlistentry>
+					<term
+><guiicon
+>Neues Puzzle erstellen</guiicon
+></term>
+					<listitem>
+						<para
+><action
+>Öffnet einen Dialog zum Erstellen eines neuen Puzzles aus einem Bild auf der lokalen Festplatte</action
+>. Weitere Informationen finden Sie im <link linkend="create-puzzles"
+>nächsten Kapitel</link
+>.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Puzzle löschen</guiicon
+></term>
+					<listitem
+><para
+><action
+>Die ausgewählten Puzzles werden endgültig aus der Sammlung gelöscht. </action
+></para
+><warning
+><para
+>Diese Aktion kann nicht rückgängig gemacht werden.</para
+></warning
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Aus Datei importieren</guiicon
+></term>
+					<listitem
+><para
+>&palapeli;-Puzzle (meist <filename
+>*.puzzle</filename
+>-Dateien) können hierdurch in die lokale Sammlung aufgenommen werden. Die Puzzledateien werden aber auch mittels entsprechendem Klick in der Dateiverwaltung geöffnet werden. Jedoch erscheinen sie nur nach dem Importieren in der Sammlung und die ursprüngliche Puzzledatei kann danach ohne weitere Auswirkungen auf &palapeli; gelöscht werden.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>In Datei exportieren</guiicon
+></term>
+					<listitem
+><para
+><action
+>Exportiert die ausgewählten Puzzles in Dateien, damit sie an Freunde weitergegeben, im Internet veröffentlicht oder als Sicherungskopie der Sammlung gespeichert werden können.</action
+></para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="create-puzzles">
+		<title
+>Neue Puzzle erstellen</title>
+		<sect1 id="creation-dialog">
+		<title
+>Der Dialog zum Erstellen eines Puzzles</title>
+		<para
+>Wie im <link linkend="toolbar-collection"
+>vorherigen Abschnitt</link
+> beschrieben, können Sie durch Klicken auf den Knopf <guiicon
+>Neues Puzzle erstellen</guiicon
+> in der Puzzle-Sammlung neue Puzzles erstellen.</para>
+		<para
+>Damit öffnen Sie einen Dialog, der aus drei Seiten besteht:</para>
+		<procedure>
+			<step
+><para
+>Auf der ersten Seite wählen Sie ein Bild aus, das in Puzzleteile zerschnitten werden soll. Achten Sie darauf, die richtigen Metadaten für das Bild einzutragen: den Autor des Bildes (&eg; der Maler oder Fotograf). Bitte respektieren Sie das Copyright des Bildautors.</para
+></step>
+			<step
+><para
+>Auf der zweiten Seite können Sie die Art der Teile auswählen, in die das Bild zerschnitten werden soll. &palapeli; enthält bereits einige Schnittprogramme, aber Programme von anderen sind möglicherweise auch vorhanden.</para
+></step>
+			<step
+><para
+>Auf der letzten Seite des Dialogs richten Sie das ausgewählte Schnittprogramm ein. Dazu wählen Sie &eg; eine andere Anzahl von Teilen oder verändern die Parameter der Objekte. Die vorhandenen Einstellungen werden durch das verwendete Schnittprogramm vorgegeben.</para
+></step>
+		</procedure>
+		<para
+>In diesem Handbuch werden im folgenden die mit &palapeli; gelieferten Schnittprogramme erläutert. Haben Sie andere Schnittmodule für &palapeli; installiert, lesen Sie bei Problemen mit der Installation oder Benutzung die Dokumentation zu diesen Modulen.</para>
+		</sect1>
+		<sect1 id="simple-slicers">
+			<title
+>Einfache Schnittprogramme</title>
+			<para
+>In &palapeli; sind auch die einfachen Schnittmuster für <quote
+>klassische Puzzleteile</quote
+> und für <quote
+>Rechteckige Teile</quote
+> enthalten. Diese Schnittprogramme erzeugen einfache rechteckige Teile mit oder ohne Verbindungen. </para>
+			<para
+>Bei beiden Muster können Sie die Anzahl der Teile und das Seitenverhältnis einstellen. Ziehen Sie den Schieberegler nach links, dann entstehen schmale Teile, ganz rechts dann breite Teile. In der Standardeinstellung entstehen etwa quadratische Teile.</para>
+		</sect1>
+		<sect1 id="psc">
+			<title
+>Die fortgeschrittenen &i18n-psc;</title>
+			<para
+>Die &i18n-psc; erzeugt realistische Puzzleteile aus unterschiedlichen Grundmustern:</para>
+			<variablelist>
+				<varlistentry>
+					<term
+>Rechteckige Grundform</term>
+					<listitem
+><para
+>Erzeugt die bekannten rechteckigen Puzzleteile.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Fünfeckige Grundform</term>
+					<listitem
+><para
+>Die fünfeckigen Teile mit ungleichen Kantenwinkeln ergeben ein schwer zu spielendes Puzzle, weil die Teile auf ungewohnte Art zusammenpassen. </para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Sechseckige Grundform</term>
+					<listitem
+><para
+>Erzeugt sechseckige Teile, angeordnet wie Honigwaben.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Rhombentrihexagonale Grundform</term>
+					<listitem
+><para
+>Durch eine besondere Kombination von dreieckigen, sechseckigen und rechteckigen Teilen bilden sie ein Muster, das viele sich überschneidende Kreise erinnert.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Zufällige Grundform</term>
+					<listitem
+><para
+>Dieses Muster steht nur zur Verfügung, wenn Sie das Programm <application
+>qvoronoi</application
+> aus dem <ulink url="http://www.qhull.org"
+>Paket <application
+>qhull</application
+></ulink
+> installiert haben. <application
+>qvoronoi</application
+> wird benutzt, um die irreguläre Formen der Puzzleteile aus zufällig gesetzten Punkten zu berechnen.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+			<para
+>Für die &i18n-psc; gibt es mehrere Parameter, die die Form der Teilekanten, insbesondere der Verbindungen beeinflussen. Für alle Parameter gibt es bereits sinnvolle Standardeinstellungen. Außerdem können Sie „Vordefinierte Einstellung“ verwenden, damit ist die Anzahl der Parameter auf ein Minimum  reduziert. Folgende Parameter sind normalerweise vorhanden:</para>
+			<variablelist>
+				<varlistentry>
+					<term
+>Ungefähre Anzahl der Teile</term>
+					<listitem
+><para
+><!--FIXME add missing description here--></para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Prozentsatz umgedrehter Kanten</term>
+					<listitem
+><para
+>Die Wahrscheinlichkeit für das Umdrehen jedes Verbindung. Eine Verbindung ist umgedreht, wenn sie in die entgegengesetzte Richtung als in einem regelmäßigen Gitter zeigt. Bei rechteckigen Mustern führt dies zu Teilen mit 3 oder 4 Verbindungen nach innen beziehungsweise außen. Mit dem Schieberegler ganz links erhalten Sie normale regelmäßige Gitter. In der Mitte ist die Richtung der Verbinder zufällig. Ganz rechts ergibt wieder ein regelmäßige Gitter, aber mit einer <quote
+>veränderlichen</quote
+> Regel. Das führt <emphasis
+>nicht</emphasis
+> zur Umkehrung aller Verbinder. Im <quote
+>veränderlichen</quote
+> regelmäßigen Gitter hat jedes Teil zum Beispiel vier nach innen oder vier nach außen zeigende Verbinder. Bei irregulären Gitter hat diese Einstellung keine Wirkung.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Kantenabrundung</term>
+					<listitem
+><para
+>Legt fest, wie kurvig die Kanten sind, &ie; wie stark die Ränder ein- und ausgebeult werden. Steht der Schieberegler ganz links, dann erhalten Sie mit Ausnahme der Verbindungen gerade Kanten.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Größe der Verbindungen</term>
+					<listitem
+><para
+>Bestimmt die Größe der Verbindungsteils jeder Kante. Die Voreinstellung (Schieberegler mittig) erzeugt Formen wie im echten Puzzle. Mit dem Schieberegler können Sie die Größe von 50 % bis 150 % ändern. Mit 150 % erhalten Sie ungewöhnlich große Verbindungsteile. Das Programm versucht mit mehreren schritten Kollisionen zu vermeiden. Zuerst wird die Form mehrfach verändert und in kleinen Schritten geschrumpft. Trotzdem gibt es besonders bei großen Verbindungsteilen Fälle, in denen dies Problem nicht gelöst werden kann.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Abrundungen</term>
+					<listitem
+><para
+>Legt fest, wie stark die Abrundung zwischen den Kanten variiert. Ist der Schieberegler ganz links, so sind Dellen und Ausbeulungen alle gleich. Schieben Sie den Regler ganz nach recht, werden sowohl sehr gerade als auch sehr stark gewölbte Ränder erzeugt. </para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Verbindungsstellen</term>
+					<listitem
+><para
+>Gibt an, wie stark die Position der Verbinder auf der Kante variiert. Steht der Schieberegler ganz links, werden die Verbindungen mittig auf der Kante angeordnet.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Verbindungen</term>
+					<listitem
+><para
+>Gibt an, wie unterschiedlich die Form der Verbindungen ist. Steht der Regler ganz links, sehen die Verbinder alle gleich aus. Ganz rechts ist jeder Verbinder ein Einzelstück.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Stückgröße</term>
+					<listitem
+><para
+>Nur für irreguläre Gitter: Bestimmt den Größenunterschied der Puzzleteile. Mit einem kleinen Wert sind die Größen fast gleich, es entstehen Strukturen wie Kristalle. Höhere Werte erzeugen sowohl sehr kleine wie auch sehr große Puzzleteile.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Schneidemuster anlegen</term>
+					<listitem
+><para
+>Speichert ein Bild des Schnittmusters mit schwarzen Schnittkanten auf weißem Hintergrund unter <filename
+>~/goldberg-slicer-dump.png</filename
+>. Ist bereits eine Datei mit diesem Namen vorhanden, wird Sie überschrieben.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="puzzletable">
+		<title
+>Spielen auf dem Puzzletisch</title>
+
+		<sect1 id="puzzletable-moves">
+		<title
+>Einfache Bewegungen</title>
+		<screenshot
+><mediaobject>
+			<imageobject
+><imagedata fileref="puzzletable1.png" format="PNG"/></imageobject>
+			<textobject
+><phrase
+>Aufbau des Puzzletisches</phrase
+></textobject>
+		</mediaobject
+></screenshot>
+		<para
+>Das Ziel besteht darin, die vorhandenen Stücke zu einem Bild zusammenzusetzen.</para>
+		<para
+>Das frei schwebende Vorschaufenster zeigt das fertige Bild. Sie können die Vorschau aus der Werkzeugleiste oder dem Menü ein- bzw. ausblenden. Weitere Informationen finden Sie im Abschnitt <link linkend="puzzletable-preview"
+>Das Vorschaufenster</link
+>.</para>
+		<para
+>Wenn Sie Puzzles mit mehr als 300 Teilen lösen möchten, lesen Sie bitte nach diesem Kapitel das Kapitel <link linkend="large-puzzles"
+>Funktionen zum Lösen großer Puzzle</link
+>.</para>
+		<para
+>Einzelne Teile bewegen Sie, indem Sie sie mit der &LMBn; anklicken uns ziehen. Dabei bleibt das Puzzleteil ausgewählt und hervorgehoben. Um mehrere Teile gleichzeitig zu bewegen, wählen Sie sie zuerst aus und bewegen dann eines dieser Teile. So werden alle ausgewählten Teile bewegt.</para>
+		<para
+>Sie können mehrere Teile auswählen, indem Sie die &Ctrl;-Taste gedrückt halten und die Teile anklicken oder indem Sie mit der &LMBn; ein Auswahlrechteck ziehen. Sie können mit &Ctrl; und &LMB; ebenfalls einzelne Teile zur aktuellen Auswahl hinzufügen, bzw. daraus entfernen.</para>
+		<para
+>Um eine Auswahl und Hervorhebung zu entfernen, klicken Sie nur auf eine leere Stelle auf dem Puzzletisch oder auf ein Puzzleteil, das bisher noch nicht ausgewählt war.</para>
+		<para
+>Werden zusammengehörige Puzzleteile nebeneinander gelegt, so werden sie automatisch eingerastet und miteinander verbunden (1). Verbundene Puzzleteile können nicht wieder getrennt werden. Anders als beim realen Puzzle können hier keine Puzzleteile miteinander verbunden werden, die nicht tatsächlich zusammengehören.</para>
+		<para
+>Die <emphasis
+>Fortschrittsanzeige</emphasis
+> unterhalb des Puzzletisches zeigt den aktuellen Fortschritt als Anzahl der verbundenen Teile an (2). &palapeli; speichert den Fortschritt automatisch nach jedem Spielzug, sodass sich darum nicht mehr gekümmert werden muss.</para>
+		<para
+>Mit dem Mausrad, dem Schieberegler oder den Knöpfen in der unteren rechten Ecke können Sie die Ansicht auf den Puzzletisch vergrößern und verkleinern (3).</para>
+		<para
+>Sie können die Ansicht des Puzzletischs in jede beliebige durch Klicken und Ziehen mit der &RMBn; verschieben.</para>
+		<para
+>Die Puzzleteile können nur innerhalb des <emphasis
+>Puzzlebereiches</emphasis
+> auf dem Puzzletisch bewegt werden. Dieser wird durch ein leicht erhelltes Rechteck dargestellt. Werden die Puzzlesteile an den Rand (4) bewegt, so vergrößert sich der Puzzletisch, um mehr Platz zu schaffen. In der Nähe des schattierten Rahmens verwandelt sich der Mauszeiger in einen Doppelpfeil und die Größe des Puzzlebereiches kann sodann mit gedrückter Maustaste angepasst werden.</para>
+		<para
+>Die Größe des Puzzlebereichs kann mit dem kleinen Knopf (5) rechts neben der Fortschrittsanzeige festgestellt werden. Die Schattierung um den Puzzlebereich (4) wird dunkler, der Puzzlebereich vergrößert sich nicht mehr automatisch und die Puzzleteile können nur noch innerhalb des erhellten Bereiches bewegt werden. Die manuelle Anpassung der Größe des Puzzlebereiches ist weiterhin möglich.</para>
+		</sect1>
+
+		<sect1 id="puzzletable-preview">
+			<title
+>Das Vorschaufenster</title>
+			<para
+>Die Vorschau besteht aus einem kleinen frei schwebendem Fenster, das über oder neben dem Puzzle angezeigt wird. Es enthält ein Bild des fertigen Puzzles: das Bild, das bei einem echten Bilderpuzzle auf dem Deckel angezeigt wird. </para>
+			<para
+>Das Fenster kann mit dem <guiicon
+>Vorschau</guiicon
+>-Knopf in der Werkzeugleiste oder dem Menü <menuchoice
+><guimenu
+>Ansicht</guimenu
+><guimenuitem
+>Vorschau</guimenuitem
+></menuchoice
+> ein- und ausgeblendet werden. Einstellungen zur Größe, Position und ob das Fenster angezeigt wird, werden gespeichert und bei einem Neustart von &palapeli; wieder hergestellt. </para>
+			<para
+>Wie jedes andere Fenster kann es beliebig auf der Arbeitsfläche verschoben und in der Größe verändert werden. Der Schließen-Knopf blendet das Fenster aus und der Maximieren-Knopf maximiert es, bzw. stellt seine vorherige Größe wieder her. </para>
+			<para
+>Das Vorschaufenster bietet eine Lupenfunktion, sodass es nicht viel Platz einnehmen muss. Wenn Sie den Mauszeiger über das Fenster bewegen, wird eine vergrößerte Ansicht des Bereichs unter dem Mauszeiger angezeigt. Das ist nützlich, um Details des Bildes zu betrachten und um gefundene Puzzleteile zuzuordnen. In den Kantenbereichen ist diese Funktion etwas schwierig zu benutzen. </para>
+		</sect1>
+
+		<sect1 id="puzzletable-mouseactions">
+			<title
+>Maus-Funktionen</title>
+			<para
+>Wie im letzten Abschnitt beschrieben kann &palapeli;s Puzzletisch durch Verwenden der Maus auf verschiedene Arten bedient werden. Welche Maustaste welche Aktion auslösen soll kann frei festgelegt werden (siehe <link linkend="configuration-mouseactions"
+>Spieleinstellungen</link
+>). Die nachstehende Zusammenstellung zeigt alle möglichen Mausaktionen:</para>
+			<variablelist>
+				<varlistentry>
+					<term
+><action
+>Größe des Puzzlebereiches durch Ziehen der Kanten ändern</action
+></term>
+					<listitem
+><para
+>Standardmäßig ist diese Aktion der linken Maustaste zugeordnet.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Teile durch Ziehen bewegen</action
+></term>
+					<listitem
+><para
+>Nachdem ein Puzzleteil ausgewählt wurde kann dieses durch ständiges Drücken der entsprechenden Taste bewegt werden. Sofern mehrere Puzzleteile ausgewählt wurden und eines davon bewegt wird, bewegen sich alle ausgewählten Teile. Standardmäßig ist diese Aktion der linken Maustaste zugeordnet.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Ansicht durch Ziehen verschieben</action
+></term>
+					<listitem
+><para
+>Diese Aktion verschiebt die Ansicht des gesamten Puzzletischs in eine beliebige Richtung. In der Voreinstellung ist der &RMBn; diese Aktion zugewiesen.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Mehrere Teile durch ein Fangband auswählen</action
+></term>
+					<listitem
+><para
+>Sofern in den freien Bereich des Puzzletisches geklickt wird, kann ein Fangband gezogen werden. Beim Lösen der Maustaste werden dann alle Puzzleteile innerhalb des Fangbandes ausgewählt. Alle anderen Stücke sind nicht ausgewählt. Standardmäßig ist diese Aktion der linken Maustaste zugeordnet.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Mehrere Teile durch Anklicken auswählen</action
+></term>
+					<listitem
+><para
+>Sofern auf ein einzelnes Puzzleteil geklickt wird, ist nur dieses ausgewählt. War es bereits ausgewählt, wird die Auswahl aufgehoben. Sie kann auch zu einer Auswahl mit dem Fangband benutzt werden.Standardmäßig ist diese Aktion der &LMBn; bei gedrückter &Ctrl;-Taste zugeordnet.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Auswahl und Hervorhebung löschen</action
+></term>
+					<listitem
+><para
+>Klicken Sie auf eine leere Stelle auf dem Puzzletisch oder auf ein Puzzleteil, das bisher noch nicht ausgewählt war.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Vergrößerung oder Verkleinerung der Ansicht des Puzzletischs</action
+></term>
+					<listitem
+><para
+>Diese Aktion ist identisch mit dem Klicken die Knöpfe auf jeder Seite des Schiebereglers (3) in der Statusleiste. Standardmäßig ist dieser Aktion das Mausrad zugeordnet.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Zwischen Detailansicht und Übersicht wechseln</action
+></term>
+					<listitem
+><para
+>Diese Aktion schaltet an der aktuellen Position des Mauszeigers zwischen Detailansicht und Übersicht um. Dies dient dem schnellen Vergrößern in sehr großen Puzzles (300 oder mehr Teile). Weitere Details erhalten Sie im Abschnitt <link linkend="large-puzzle-fast-zooming"
+>Wechsel zwischen Detailansicht und Übersicht</link
+>. Voreingestellt ist diese Aktion der &MMBn; zugewiesen.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Teile in oder aus einer Ablage teleportieren</action
+></term>
+					<listitem
+><para
+>Diese Aktion hilft dabei, Teile in großen Puzzles mit mehr als 300 Teilen ohne Ziehen und Ablegen schnell zu sammeln, sortieren und verschieben. Sie können die Aktion natürlich bei kleineren Puzzles angewendet werden. Weitere Details finden Sie im Abschnitt <link linkend="large-puzzle-holders"
+>Teileablagen verwenden</link
+>. In der Voreinstellung ist diese Aktion der &LMBn; zugewiesen und funktioniert nur, wenn dabei die &Shift;taste gedrückt wird.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Sperre für Größe des Puzzlebereiches umschalten</action
+></term>
+					<listitem
+><para
+>Diese Aktion ist mit dem Drücken des Knopfes (5) in der Statusleiste vergleichbar. Standardmäßig ist diese Aktion nicht zugeordnet und kann im <link linkend="configuration-mouseactions"
+>Einrichtungsdialog</link
+> entsprechend zugeordnet werden.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Ansicht waagerecht verschieben</action
+> und <action
+>Ansicht senkrecht verschieben</action
+></term>
+					<listitem
+><para
+>Standardmäßig ist diese Aktion nicht dem Mausrad zugeordnet. Über den <link linkend="configuration-mouseactions"
+>Einrichtungsdialog</link
+> ist eine entsprechende Zuordnung möglich.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+
+		<sect1 id="toolbars-puzzletable">
+			<title
+>Werkzeugleiste</title>
+			<variablelist>
+				<varlistentry>
+					<term
+><guiicon
+>Zurück zur Sammlung</guiicon
+></term>
+					<listitem
+><para
+><action
+>Geht zurück zur Sammlung um ein anderes Puzzle auszuwählen.</action
+> Kann nur verwendet werden, wenn Sie ein Puzzle lösen.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Vorschau</guiicon
+></term>
+					<listitem
+><para
+><action
+>Schaltet die Anzeige des Vorschaufensters mit dem fertigen Puzzle ein oder aus.</action
+></para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="large-puzzles">
+		<title
+>Funktionen zum Lösen großer Puzzle</title>
+
+		<sect1 id="large-puzzle-general">
+			<title
+>Allgemeine Grundsätze</title>
+			<para
+>&palapeli; hat keine Probleme mit Puzzles mit 10.000 Teilen, aber Sie benötigen ein paar besondere Funktionen, um ein solches Puzzle auf einem kleinen Bildschirm zu bearbeiten. </para>
+			<para
+>Sie können ein großes Puzzle auf genau die gleiche Weise wie ein kleineres Puzzle erstellen. Lesen Sie das Kapitel <link linkend="create-puzzles"
+>Neue Puzzle erstellen</link
+>, aber es gibt vorher einiges zu bedenken. Lesen Sie dazu den Abschnitt <link linkend="large-puzzle-creation"
+>Große Puzzle erstellen - spezielle Hinweise</link
+>. </para>
+			<para
+>Das Vorschaufenster ist bei großen Puzzles nützlich. Im entsprechenden Abschnitt erhalten Sie eine <link linkend="puzzletable-preview"
+>ausführliche Beschreibung</link
+>. </para>
+			<para
+>Platzverwaltung und Bewegungen sind die nächsten Gesichtspunkte. Wenn Sie die Ansicht verkleinern, um den ganzen Puzzletisch anzusehen, sind einzelne Teile schwer zu erkennen. Wenn Sie die Ansicht vergrößern und ein gesuchtes Teil finden, ist es sehr unwahrscheinlich, dass der Platz im Puzzle, an den es angelegt werden musst, im Ausschnitt der gesamten Ansicht angezeigt wird. Lesen Sie den Abschnitt <link linkend="large-puzzle-space"
+>Platzverwaltung und Bewegungen</link
+> mit einigen Lösungen für dieses und andere Probleme. </para>
+			<para
+>Schließlich müssen Sie Teile zusammenfassen und sie in den Lösungsbereich in effizienterer Weise als durch wiederholtes Ziehen und Ablegen über große Entfernungen übertragen. Hier kommen Teileablagen ins Spiel. </para>
+			<para
+>Wenn Sie ein großes Puzzle beginnen, erhalten Sie eine Teileablage, ein kleines freischwebendes Fenster, mit dem Titel <quote
+>Ablage</quote
+>, in der Sie Teile ablegen können, wann immer Sie sie finden. Dann können Sie sie in der Nähe des bereits zusammengesetzten Puzzlebereichs verschieben und dann jedes einzelne Teil an den passenden Platz anlegen. Diese Methode ist wie das Sammeln von Teilen in einer Ablage oder Hand, wenn Sie reales Puzzle durchsuchen. </para>
+			<para
+>Sie brauchen einen systematischen Weg, um Teile zu sammeln und nach üblichen Merkmalen wie &eg; Rand, Himmel, Horizont usw. zu sortieren. Sie können beliebig viele Ablagen verwenden und ihnen Namen geben. Ablagen werden kontinuierlich zusammen mit dem Puzzletisch gespeichert. Sie können eine Ablage also dazu verwenden, einen Teil des Puzzles fertigzustellen und ihn zu speichern oder sogar Teile zu speichern, die Sie für später in eine Ablage für <quote
+>zu schwierige Teile</quote
+> ablegen. Weitere Einzelheiten zur Verwendung von Teileablagen lesen Sie den Abschnitt <link linkend="large-puzzle-holders"
+>Teileablagen verwenden</link
+>. </para>
+			<para
+>Schließlich finden Sie im Abschnitt <link linkend="puzzletable-mouseactions"
+>Maus-Funktionen</link
+> zwei spezielle Mausaktionen. die das Spielen von großen Puzzles einfacher und schneller machen: Teleportieren von Puzzleteilen und das Wechseln zwischen Detailansicht und Übersicht. </para>
+		</sect1>
+
+		<sect1 id="large-puzzle-creation">
+			<title
+>Große Puzzle erstellen - spezielle Hinweise</title>
+			<para
+>Ehe Sie in großes Puzzle erstellen, sollten Sie überprüfen, ob das als Quelle verwendet Bild genügend Details enthält, &ie; genügend Megapixel. Sie können ein Dateiverwaltungsprogramm oder Programm zum Ansehen oder Bearbeiten von Fotos verwenden, um die Breite und Höhe des Bilds in Pixeln festzustellen, wenn es nicht in als JPEG oder in einem anderen Format komprimiert ist. Als Faustregel brauchen Sie ungefähr 1 Megapixel je 1000 Puzzleteile. Damit erhalten Sie Teile mit etwa 1000 Pixeln oder mehr als 30 x 30 Pixeln. Damit sind die Teile an den Rändern ausreichend scharf und in der Vergrößerung gut zu erkennen. Sie können auch wenige Megapixel benutzen, aber dann kann es sehr schwer sein, beim Spielen die Teile zu unterscheiden oder zu erkennen. </para>
+			<para
+>Wenn Sie ein großes Puzzle erstellen oder neu starten, sollten Sie die Funktionen zur Abrundung und Schattierung in &palapeli; abschalten, lesen Sie dazu den Abschnitt <link linkend="configuration-general"
+>Allgemeine Einstellungen</link
+>. Diese Funktionen verlängern das Laden und erschweren das Erkennen der Hervorhebung, wenn Puzzleteile in der Ansicht klein dargestellt werden. Weitere markante Hervorhebungen erscheinen, wenn die Schattierung nicht benutzt wird. </para>
+		</sect1>
+
+		<sect1 id="large-puzzle-space">
+			<title
+>Platzverwaltung und Bewegungen</title>
+			<sect2 id="large-puzzle-space-allocation">
+			<title
+>Auf dem Puzzletisch Platz schaffen</title>
+			<para
+>Wenn Sie ein Puzzle erstellen oder neu starten, werden die Teile des Puzzles gemischt in zufällig in einem Gitter auf dem Puzzletisch angeordnet. Zwei Einstellungen beeinflussen den nötigen Platz, bitte lesen Sie den Abschnitt <link linkend="configuration"
+>Spieleinstellungen</link
+> mit einer Liste aller Einstellungen, die Sie über <menuchoice
+><guimenu
+>Einstellungen</guimenu
+> <guimenuitem
+>&palapeli; einrichten ...</guimenuitem
+> </menuchoice
+> oder unter Apple OS X über <menuchoice
+><guimenu
+>&palapeli;</guimenu
+> <guimenuitem
+>Voreinstellung ...</guimenuitem
+></menuchoice
+> erreichen. </para>
+			<para
+>Der Abstand der Teile im Puzzlegitter kann zwischen dem 1,0- und 1,5-fachen der Höhe und Breite des größten Puzzleteils eingestellt werden. Mit einem kleineren Faktor werden die Teile in der Ansicht enger zusammengepackt, mit einem größeren Faktor haben Sie mehr Platz zum Verschieben und zur das Markieren von Teilen im Auswahlrechteck ist einfacher. Als Standard wird ein Faktor von 1,3 verwendet, aber mit dem Faktor 1,1 kann man in großen Puzzlen auch noch arbeiten. Dieser Faktor wird für alle Puzzlegrößen und auch für das Gitter in Ablagen verwendet, siehe <link linkend="large-puzzle-holders"
+>Teileablagen verwenden</link
+>. Auch beim automatischen Anordnen der Teile auf dem Puzzletisch mit der Aktion <menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+> <guimenu
+>Zug</guimenu
+><guimenuitem
+>Teile neu anordnen</guimenuitem
+></menuchoice
+> wird diese Einstellung berücksichtigt. </para>
+			<para
+>Mit der anderen Einstellung wird auf dem Puzzletisch genau der erforderliche Bereich für das Zusammensetzen des Puzzles freigemacht. Dieser Bereich befindet sich in der Voreinstellung in der Mitte des Tischs und die Puzzleteile werden darum herum angeordnet. Im Durchschnitt sollten dann die Teile so dicht wie möglich an der späteren Platzierung im Puzzle abgelegt werden. Dieser freie Bereich kann auch in den vier Ecken des Puzzletischs liegen oder kein Platz bereitgestellt werden. In diesem Fall müssen Sie diesen Platz von Hand freimachen, zum Beispiel durch Erweiterung der Puzzlefläche, siehe <link linkend="puzzletable-moves"
+>Einfache Bewegungen</link
+>. Diese Einstellung beeinflusst Puzzle mit mehr als 20 Teilen, bei einem kleineren Puzzle hat diese Einstellung keinen Effekt. </para>
+			<para
+>Bei Lösen des Puzzles werden Teile im Lösungsbereich angelegt und dadurch anderweitig Platz geschaffen. Es kann dann sinnvoll sein, die verbleibenden Teile enger zusammen zupacken. Wählen Sie dazu einige Teile mit einem Auswahlrechteck oder mit der &Ctrl;-Taste zusammen mit der &LMB; aus und benutzen Sie dann <menuchoice
+><shortcut
+> <keycap
+>R</keycap
+></shortcut
+><guimenu
+>Zug</guimenu
+> <guimenuitem
+>Teile neu anordnen</guimenuitem
+></menuchoice
+> oder einfach den Kurzbefehl <keycap
+>R</keycap
+>. Die Teile werden dann in einem Gitter zusammengepackt und bleiben ausgewählten, so dass Sie sie, falls nötig, leicht an eine bessere Position schieben können. Diese Methode kann auch verwendet werden, um Teile mit gemeinsamen Attributen zu sammeln, aber dafür sind Ablagen besser geeignet. </para>
+			</sect2>
+			<sect2 id="large-puzzle-fast-zooming">
+			<title
+>Schnelles Wechseln zwischen Detailansicht und Übersicht</title>
+			<para
+>Wenn ein Puzzle geladen wird, berechnet &palapeli; den Abstand und die Detailansichten und zeigt die Übersicht mit dem gesamten Puzzlebereich. Die Detailansicht zeigt die Teileablage in einer vernünftigen Ansichtsgröße für Ihre Augen, Bildschirm und die Arbeitsfläche. Benutzen Sie die die &MMB;, um schnell zwischen den beiden Ansichten an dem Ort, auf die der Mauszeiger liegt, zu wechseln. Dann können Sie schnell zu jedem beliebigen Teil auf dem Puzzletisch zurückgehen und die Form und den Teil des Gesamtbilds darauf erkennen. </para>
+			<para
+>Sie können den Maßstab jeder Ansicht durch manuelles Ändern der Vergrößerung anpassen. Diese Einstellung wird gespeichert und beim nächsten Wechsel der Ansicht mit der &MMB; wieder verwendet. Diese Funktion existiert für Puzzle in allen Größen, aber in Puzzle mit weniger als 100 Teilen sind die beiden Ansichten fast identisch. Anders ausgedrückt, Sie können die Teile auch in der Ansicht des ganzen Puzzletischs gut erkennen. </para>
+			</sect2>
+			<sect2 id="large-puzzle-navigating">
+			<title
+>Navigation in einem großen Puzzle</title>
+			<para
+>Es ist sehr mühselig, Teile in einem großen Puzzle zu verschieben, indem Sie sie auswählen und dann abwechseln mit der &LMBn; und &RMBn; die Teile und den Puzzletisch zu bewegen, bis Sie die Zielposition erreichen. Viel einfache ist es, Teile auszuwählen, mit der &MMBn; zur Übersicht zu wechseln, die Teile in einem Zug mit der &LMBn; zum Ziel zu verschieben und dann mit der &MMBn; wieder zurück zur Detailansicht zu gehen. Die ist auch eine gute Methode, ein einzelnes übriggebliebenes Puzzleteil an die richtige Stelle zurückzuholen, da das Ziehen eines kleines Puzzleteils quer über den Puzzletisch bei tausenden von Teilen sehr schwierig ist, ohne die Auswahl zu verlieren. </para>
+			<para
+>Eine andere Möglichkeit zur Navigation und zur Suche auf dem Puzzletisch besteht darin, zuerst zur linken oberen Ecke mit der &MMB; zu vergrößern, und dann durch klicken auf die freien Bereiche der Bildlaufleisten waagerecht und senkrechte <quote
+>seitenweise</quote
+> durch das Bild zu gehen. Diese Technik ist sehr effektiv, wenn Sie Ablagen beim Zusammenstellen von gesuchten Teilen verwenden. Wenn Sie immer die gleiche feste Vergrößerungsstufe verwenden und immer an der gleichen Stelle beginnen, sehen Sie immer <quote
+>Seiten</quote
+> mit fester Größe und Inhalt. </para>
+			</sect2>
+			<sect2 id="large-puzzle-visibility">
+			<title
+>Sichtbarkeit von Teilen in großen Puzzles</title>
+			<para
+>Spielen Sie ein großes Puzzle auf einem kleinen Bildschirm, dann sind Details auf dem Puzzletisch kaum mehr zu erkennen. Zum Beispiel bei einem Puzzle mit 10000 Teilen auf einem Bildschirm mit einer Größe von 1440 x 900 Punkten haben die Puzzleteile eine Diagonale von etwa 7 Pixeln. In diesem Maßstab ist das Bild, die Farbe, die Form der Teile und sogar eine Hervorhebung fast nicht mehr zu erkennen. </para>
+			<para
+>In &palapeli; konnte immer schon der Hintergrund und die Hintergrundfarbe ausgewählt werden, um das Erkennen zu erleichtern. Hinzugekommen sind jetzt Schemata für die Hervorhebung, die Sie benutzen können, wenn keine Schattierung gewählt ist, und eine Einstellung für die Farbe der Hervorhebung, um einen ausreichenden Kontrast zum Hintergrund und zu den Puzzleteilen zu haben. Diese Einstellungen werden jetzt für jedes Puzzle getrennt gespeichert und wieder geladen. So können Sie für jedes Puzzle einen eigenen Hintergrund und Hervorhebung einstellen, die am besten zum Bild passen. Sie sollten diese Einstellung ausprobieren, wenn Sie ein großes Puzzle erstellen. Das Puzzle muss aber neu geladen bzw. gestartet werden, damit alle Änderungen angewendet werden. </para>
+			</sect2>
+		</sect1>
+
+		<sect1 id="large-puzzle-holders">
+			<title
+>Teileablagen verwenden</title>
+			<sect2 id="large-puzzle-whatareholders">
+			<title
+>Was sind Teileablagen?</title>
+			<para
+>Teileablagen sind wahrscheinlich die nützlichste Funktion in &palapeli; zum Lösen großer Puzzles. Es sind kleine frei schwebende Fenster, in die Sie Gruppen von Puzzleteilen einordnen können. Beispielsweise <quote
+>Kanten</quote
+>, <quote
+>Himmel</quote
+>, <quote
+>Horizont</quote
+> oder <quote
+>weißes Haus auf der linken Seite</quote
+>. Die Fenster erscheinen zuerst in Minimalgröße zur Anzeige von vier Teilen in Detailansicht, sodass sie neben dem Puzzle angeordnet werden können. </para>
+			<para
+>Teileablagen sind normale Fenster und können daher beliebig auf der Arbeitsfläche hergeschobenen und in der Größe geändert werden. Klicken Sie auf den Knopf <guibutton
+>Schließen</guibutton
+>, dann wird die Ablage gelöscht, aber nur wenn sie leer ist und keine Teile mehr enthält. Mit den Knöpfen <guibutton
+>Wiederherstellen</guibutton
+> und <guibutton
+>Maximieren</guibutton
+> kann eine Ablage schnell verkleinert oder vergrößert werden. Jede Ablage kann hunderte von Teilen enthalten. Das Maximieren kann nützlich sein, um einen Überblick des Inhalts zu gewinnen oder Teilegruppen in einer Ablage zusammenzufügen. </para>
+			<para
+>Sie können beliebig viele Ablagen verwenden. Es gibt aber normalerweise nur eine aktive Ablage, die durch einen blauen Rahmen gekennzeichnet ist. Sie ist das Ziel von Aktionen wie die Übertragung von Teilen oder das Löschen einer Ablage. </para>
+			</sect2>
+			<sect2 id="large-puzzle-createholders">
+			<title
+>Teileablagen erstellen und löschen</title>
+			<para
+>Wenn Sie ein großes Puzzle beginnen, wird automatisch eine Teileablage mit dem Titel <quote
+>Ablage</quote
+> erstellt. Dies ist wahrscheinlich die einzige Ablage, die Sie für Puzzle mit 300 bis 750 Teilen brauchen. Sie können jedoch beliebig viele Ablagen verwenden, auch für Puzzle mit weniger als 300 Teilen. </para>
+			<para
+>Um eine Teileablage zu erstellen oder zu löschen, verwenden Sie die Menüeinträge <menuchoice
+><shortcut
+><keycap
+>C</keycap
+></shortcut
+> <guimenu
+>Zug</guimenu
+><guimenuitem
+>Teileablage erstellen</guimenuitem
+></menuchoice
+> oder <menuchoice
+><shortcut
+><keycap
+>D</keycap
+></shortcut
+> <guimenu
+>Zug</guimenu
+><guimenuitem
+> Teileablage löschen</guimenuitem
+></menuchoice
+> beziehungsweise die Kurzbefehle <keycap
+>C</keycap
+> und <keycap
+>D</keycap
+>. Zum Schließen können Sie auch auf das Kreuzsymbol rechts oben im Fenster klicken. Wenn Sie eine Teileablage erstellen, können Sie ihm einen Namen geben. Der Name kann aber auch weggelassen werden. Normalerweise wird eine Ablage in Detailansicht angezeigt, so dass Sie die Art der Teile darin gut erkennen können. </para>
+			<para
+>Wenn Sie eine Ablage löschen möchten, muss sie aktiv sein, also einen blauen Rahmen haben, und darf keine Teile mehr enthalten. Ist die Ablage, die Sie löschen möchten, nicht aktiviert, klicken Sie darauf. Nach dem Löschen gibt es keine aktive Ablage, daher klicken Sie auf eine der verbliebenen Ablagen, um sie zu aktivieren. </para>
+			</sect2>
+			<sect2 id="large-puzzle-teleporting">
+			<title
+>Puzzleteile in und aus Ablagen übertragen</title>
+			<para
+>Die Übertragung von Teilen durch Ziehen und Ablegen ist mit Teileablagen nicht möglich und auch nicht erforderlich. Stattdessen können Sie Teile sofort durch <quote
+>Teleportieren</quote
+> wie in <quote
+>Star Trek</quote
+> übertragen. Dazu drücken Sie gleichzeitig die &Shift;taste und die &LMB;. </para>
+			<para
+>Um Teile in eine Ablage zu übertragen, aktivieren Sie die Zielablage, die dann einen blauen Rahmen hat. Wählen Sie dann mehrere Teile auf dem Puzzletisch aus und klicken bei gedrückter &Shift;taste mit der &LMBn;. Diese Methode können Sie auch bei einzelnen Teilen anwenden. Die Teile verschwinden dann vom Puzzletisch und erscheinen wieder hervorgehoben ein der Ablage. Dort werden Sie automatisch in einem Gitter angeordnet und das letzte übertragene Teil befindet sich in der Mitte der Ansicht. </para>
+			<para
+>Um Teile aus einer Ablage herauszuholen, wählen Sie ein oder mehrere Teile darin aus, gehen dann zum Puzzletisch zurück und klicken bei gedrückter &Shift;taste mit der &LMBn; auf einen leeren Platz, an dem die Teile erscheinen sollen. Vermeiden Sie es, auf ein Teil auf dem Puzzletisch zu klicken, denn damit wird dieses Teil im Gegenteil in die Ablage befördert. Wenn dies aus Versehen mit einem großen Stück aus verbundenen Puzzleteilen, &ie; ein Teil Ihrer Lösung, erhalten Sie eine Nachricht mit einer Warnung und der Möglichkeit, diese Aktion abzubrechen. </para>
+			<para
+>Teile bleiben nach dem Teleportieren hervorgehoben. Das ermöglicht es Ihnen, eine Aktion schnell wieder zurückzunehmen, falls Sie aus Versehen die falschen Teile übertragen oder die falsche Ablage verwendet haben. Außerdem können Sie die Position von Teilen leicht korrigieren oder ein Teil an der richtigen Stelle anlegen. </para>
+			<para
+>Teleportieren funktioniert auch zwischen Teileablagen. Beginnen Sie wie der der Übertragung zum Puzzletisch, aber verwenden Sie dann die &Shift;taste und die &LMB; an einer freien Stelle in der anderen Ablage. Um die Übertragung rückgängig zu machen, gehen Sie zurück zur ursprünglichen Ablage und klicken Sie wieder mit der &Shift;taste und der &LMBn;. </para>
+			</sect2>
+			<sect2 id="large-puzzle-sorting">
+			<title
+>Puzzleteile sortieren</title>
+			<para
+>Um bei der Suche in einem großen Puzzle Teile effizient in Ablagen zu sortieren, sollten Sie <quote
+>seitenweise</quote
+> durch das ganze Puzzle gehen, wie <link linkend="large-puzzle-navigating"
+>hier</link
+> beschrieben. Benutzen Sie dabei Ablegen und das Teleportieren. Wenn den gesamten Puzzletisch angesucht haben, wechseln Sie zur Detailansicht im Lösungsbereich und legen Sie die gesammelten Teile an. Sie können auch vorher Gruppen von Teilen in Ablagen zusammensetzen. </para>
+			</sect2>
+			<sect2 id="large-puzzle-otherholderactions">
+			<title
+>Weitere Aktionen für Teileablagen</title>
+			<para
+>Teileablagen unterstützen alle Funktionen des Puzzletischs, siehe <link linkend="puzzletable-moves"
+>Einfache Bewegungen</link
+>, außer der Änderung der Vergrößerung, die nur mit dem Mausrad oder der &MMBn; ausgeführt werden kann. </para>
+			<para
+>Damit können Sie eine Teileablage wie einen zusätzlichen Puzzletisch verwenden. Sie können Teile ziehen und ablegen, sie zusammenfügen, die Grenzen des Bereichs ändern &etc; Zusammengefügte Puzzleteile in beliebiger Größe können Sie in oder aus Ablagen teleportieren. Beachten Sie dabei aber, dass kleine Teile nicht verdeckt werden. </para>
+			<para
+>Schließlich können Sie noch <menuchoice
+><shortcut
+> <keycap
+>A</keycap
+></shortcut
+><guimenu
+>Zug</guimenu
+> <guimenuitem
+>Alle Teile in der Ablage auswählen</guimenuitem
+> </menuchoice
+> gefolgt von <menuchoice
+><shortcut
+> <keycap
+>R</keycap
+></shortcut
+><guimenu
+>Zug</guimenu
+> <guimenuitem
+>Teile neu anordnen</guimenuitem
+> </menuchoice
+> wählen oder die &Shift;taste zusammen mit der &LMB; verwenden, um alle Teile neu anzuordnen oder auf den Puzzletisch zu verschieben. Sie können auch die Kurzbefehle <keycap
+>A</keycap
+> oder <keycap
+>R</keycap
+> für die aktuell ausgewählte Ablage drücken. </para>
+			</sect2>
+		</sect1>
+	</chapter>
+
+	<chapter id="interface">
+		<title
+>Benutzeroberfläche</title>
+		<para
+>Im Folgenden werden die Menüpunkte von &palapeli; beschrieben. Einige dieser Aktionen sind auch als Werkzeugleistenknöpfe oder Kurzbefehle verfügbar.</para>
+		<variablelist>
+		        <varlistentry>
+			  <term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+></shortcut
+><guimenu
+>Spiel</guimenu
+><guimenuitem
+>Neues Puzzle erstellen ...</guimenuitem
+></menuchoice
+></term>
+			  <listitem
+><para
+><action
+>Öffnet einen Dialog zum Erstellen eines neuen Puzzles aus einem Bild auf der lokalen Festplatte</action
+>. Weitere Informationen finden Sie im Abschnitt<link linkend="create-puzzles"
+>Neue Puzzle erstellen</link
+> und auch in <link linkend="large-puzzle-creation"
+>Spezielle Hinweise</link
+>, wenn Sie ein Puzzle mit mehr als 300 Teile erstellen.</para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Spiel</guimenu
+><guisubmenu
+>Aus Datei importieren ...</guisubmenu
+></menuchoice
+></term>
+				<listitem
+><para
+>&palapeli;-Puzzle (meist <filename
+>*.puzzle</filename
+>-Dateien) können hierdurch in die lokale Sammlung aufgenommen werden. Die Puzzledateien werden aber auch mittels entsprechendem Klick in der Dateiverwaltung geöffnet werden. Jedoch erscheinen sie nur nach dem Importieren in der Sammlung und die ursprüngliche Puzzledatei kann danach ohne weitere Auswirkungen auf &palapeli; gelöscht werden.</para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Spiel</guimenu
+><guisubmenu
+>In Datei exportieren ...</guisubmenu
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Exportiert die ausgewählten Puzzles in Dateien, damit sie an Freunde weitergegeben, im Internet veröffentlicht oder als Sicherungskopie der Sammlung gespeichert werden können.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Spiel</guimenu
+><guisubmenu
+>Puzzle löschen</guisubmenu
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Die ausgewählten Puzzles werden endgültig aus der Sammlung gelöscht.</action
+></para
+><warning
+><para
+>Diese Aktion kann nicht rückgängig gemacht werden.</para
+></warning
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Spiel</guimenu
+><guisubmenu
+>Puzzle neu starten</guisubmenu
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Der bisher gespeicherte Fortschritt wird verworfen und das aktuelle Puzzle von neuem begonnen.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>C</keycap
+></shortcut
+><guimenu
+>Zug</guimenu
+><guimenuitem
+>Teileablage erstellen ...</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Erstellt eine temporäre Ablage für die Aufnahme und Sortierung von Teilen. Im Abschnitt <link linkend="large-puzzle-holders"
+>Teileablagen verwenden</link
+> finden Sie weitere Informationen.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>D</keycap
+></shortcut
+><guimenu
+>Zug</guimenu
+><guimenuitem
+>Teileablage löschen</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Löscht eine ausgewählte temporäre Ablage, wenn sie leer ist.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>A</keycap
+></shortcut
+><guimenu
+>Zug</guimenu
+><guimenuitem
+>Alle Teile in der Ablage auswählen</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Wählt alle Teile in einer ausgewählten Teileablage (blau umrandet).</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+><guimenu
+>Zug</guimenu
+><guimenuitem
+>Teile neu anordnen</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Ordnet alle Teile in einer ausgewählten Teileablage oder ausgewählte Teile in jedem Fenster, indem sie an einem Raster ausgerichtet werden.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Ansicht</guimenu
+><guisubmenu
+>Zurück zur Sammlung</guisubmenu
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Geht zurück zur Sammlung um ein anderes Puzzle auszuwählen.</action
+> Kann nur verwendet werden, wenn Sie ein Puzzle lösen.</para
+></listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Ansicht</guimenu
+><guisubmenu
+>Vorschau</guisubmenu
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Schaltet die Anzeige des Vorschaufensters mit dem fertigen Puzzle ein oder aus.</action
+> Bewegen Sie den Mauszeiger in das Bild, um es zu vergrößern.</para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+></shortcut
+><guimenu
+>Ansicht</guimenu
+><guimenuitem
+>Vergrößern</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Vergrößert die Ansicht.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+></shortcut
+><guimenu
+>Ansicht</guimenu
+><guimenuitem
+>Verkleinern</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Verkleinert die Ansicht.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Einstellungen</guimenu
+><guimenuitem
+>Alle Meldungen wieder anzeigen</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Aktiviert die Anzeige aller Meldungen, die durch Ankreuzen von <guilabel
+>Diese Meldung nicht mehr anzeigen</guilabel
+> in den Bestätigungsdialogen von &palapeli; abgeschaltet wurden.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Einstellungen</guimenu
+><guimenuitem
+>Statusleiste anzeigen</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+>Zeigt die Fortschrittsanzeige und Knöpfe im unteren Bereich des <emphasis
+>Puzzletisches</emphasis
+> an bzw. blendet sie aus. In der <guimenu
+>Sammlung</guimenu
+> hat diese Einstellung keine Auswirkungen.</para
+></listitem>
+			</varlistentry>
+			<varlistentry id="settings-menu-configure">
+				<term
+><menuchoice
+><guimenu
+>Einstellungen</guimenu
+><guimenuitem
+>&palapeli; einrichten ...</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+>Öffnet einen Dialog für die Spieleinstellungen. Eine nähere Beschreibung hierzu ist im Abschnitt <link linkend="configuration"
+>Spieleinstellungen</link
+> enthalten.</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		<para
+>Zusätzlich hat &palapeli;  die bekannten &kde;-Einträge im Menü <guimenu
+>Einstellungen</guimenu
+> und <guimenu
+>Hilfe</guimenu
+>, weitere Informationen dazu finden Sie in den Abschnitten über die Menüs <ulink url="help:/fundamentals/menus.html#menus-settings"
+>Einstellungen</ulink
+> und <ulink url="help:/fundamentals/menus.html#menus-help"
+>Hilfe</ulink
+> der &kde;-Grundlagen. </para>
+	</chapter>
+
+	<chapter id="configuration">
+		<title
+>Spieleinstellungen</title>
+		<para
+>Der Einrichtungsdialog wird über das Menü <menuchoice
+><guimenu
+>Einstellungen</guimenu
+><guimenuitem
+>&palapeli; einrichten ...</guimenuitem
+></menuchoice
+> aufgerufen.</para>
+		<sect1 id="configuration-general">
+			<title
+>Allgemeine Einstellungen</title>
+			<variablelist>
+				<varlistentry>
+				        <term
+><guilabel
+>Puzzletisch</guilabel
+></term>
+					<listitem>
+					  <para
+>Ermöglicht die Auswahl einiger Parameter für den Spieltisch. </para>
+					  <variablelist>
+					<varlistentry>
+					<term
+><guilabel
+>Hintergrund</guilabel
+></term>
+					<listitem
+><para
+><action
+>Ein anderer Hintergrund für den Puzzletisch kann gewählt werden.</action
+> Bei Auswahl von <guilabel
+>Einfarbig</guilabel
+> kann die Farbe rechts neben dem Auswahlfeld festgelegt werden.</para
+></listitem>
+				      </varlistentry>
+				      <varlistentry>
+					<term
+><guilabel
+>Farbe für die Hervorhebung ausgewählter Teile</guilabel
+></term>
+					<listitem
+><para
+><action
+>Auswahl der Farbe zur Hervorhebung von ausgewählten Teilen</action
+>. Klicken Sie auf den Knopf rechts dieser Einstellung, um den Dialog <ulink url="help:/fundamentals/colors.html"
+>Farbauswahldialog</ulink
+> zu öffnen.</para
+></listitem>
+				      </varlistentry>
+				      <varlistentry>
+					<term
+><guilabel
+>Platz für die Lösung</guilabel
+></term>
+					<listitem
+><para
+><action
+>Auswahl für den Bereich auf dem Puzzletisch, um das Puzzle zusammenzusetzen.</action
+> Es wird für Puzzle mit weniger als 20 Teilen kein Platz bereitgestellt. Änderungen werden erst dann wirksam, wenn ein Puzzle erstellt oder neu gestartet wird.</para
+></listitem>
+				      </varlistentry>
+				      <varlistentry>
+					<term
+><guilabel
+>Abstand der Teile im Puzzle-Gittern (1,0-1,5)</guilabel
+></term>
+					<listitem
+><para
+><action
+>Auswahl der Abstände in Puzzle-Gittern</action
+>. Änderungen werden erst dann wirksam, wenn ein Puzzle erstellt oder neu gestartet wird.</para
+></listitem>
+				      </varlistentry>
+				    </variablelist>
+				  </listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guilabel
+>Erscheinungsbild der Puzzleteile</guilabel
+></term>
+					<listitem
+><para
+><action
+>Legt das Erscheinungsbild von Puzzleteilen auf dem Puzzletisch fest.</action
+> Wenn &palapeli; sehr langsam läuft oder lange zum Öffnen von Puzzles braucht, können Sie die grafischen Effekte hier abschalten und dadurch das Spielverhalten beschleunigen. Ist die Anzeige von Schatten unter den Puzzleteilen eingeschaltet, erfolgt die Hervorhebung durch Änderung der Farbe des Schattens.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guilabel
+>Einrastgenauigkeit</guilabel
+></term>
+					<listitem
+><para
+><action
+>Legt fest, wie nahe die zusammenpassenden Teile beieinander sein müssen, damit sie miteinander verbunden werden (einrasten).</action
+> Wird der Schieberegler weiter nach rechts bewegt, so werden sie schon bei größerer Entfernung miteinander verbunden. Dadurch wird die Bedienung ein bisschen einfacher.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="configuration-mouseactions">
+			<title
+>Maus-Funktionen</title>
+			<para
+>Diese Seite des Einrichtungsdialoges ermöglicht die Zuordnung der Maustasten und Modifizierungstasten zu, die im Abschnitt <link linkend="puzzletable-mouseactions"
+>Spielen auf dem Puzzletisch</link
+> beschrieben werden. Vermeiden Sie mehrdeutige Zuweisungen. Drei der Standardzuweisungen betreffen die &LMB;, da der Mauszeiger sich bei der Anwendung über verschiedenen Bereichen befindet, aber die anderen Zuordnungen müssen eindeutig sein.</para>
+			<para
+>Die Funktionen sind unterteilt in solche, die den Maustasten (z. B. <action
+>Ansicht durch Ziehen verschieben</action
+>) und jenen, die dem Mausrad (&eg; <action
+>Ansicht waagerecht verschieben</action
+>) zugeordnet werden können.</para>
+			<sect2>
+				<title
+>Karteikarte Maustasten</title>
+				<para
+>Rechts neben dem Namen der jeweiligen Aktion befindet sich ein Knopf mit einem Bild einer Computermaus, welche die aktuell zugeordnete Aktion zeigt. Das Festlegen der Aktionen geschieht durch Klicken zunächst mit der &LMBn; auf diesen Knopf und nachfolgend der gewünschten Maustaste, welcher die Aktion zugeordnet werden soll. Sofern beim zweiten Klicken eine oder mehrere Modifizierungstasten (<keycap
+>Strg</keycap
+>, <keycap
+>Alt</keycap
+>, <keycap
+>Umschalt</keycap
+> oder <keycap
+>Windows</keycap
+>) gedrückt werden, können die Aktionen auf dem Puzzletisch nur ausgeführt werden, wenn auch die entsprechend festgelegten Modifizierungstasten gedrückt werden.</para>
+				<tip
+><para
+><guilabel
+>Keine Maustaste</guilabel
+> kann dieser Aktion auch durch Drücken der <keycap
+>Leertaste</keycap
+> zugeordnet werden (sofern Modifizierungstasten dabei gedrückt werden). Bei <guilabel
+>Keine Maustaste</guilabel
+> übernehmen die Modifizierungstasten die Aufgabe der Maustaste: Die Aktion beginnt sobald eine Modifizierungstaste gedrückt wird und endet beim Lösen der Modifizierungstaste.</para
+></tip>
+			</sect2>
+			<sect2>
+				<title
+>Karteikarte Mausrad</title>
+				<para
+>Diese Karteikarte ist mit der vorherigen vergleichbar. Wenn der Knopf auf der rechten Seite eine Eingabe erfordert muss hier das Mausrad betätigt werden. Auch hier können die Modifizierungstasten verwendet werden.</para>
+				<tip
+><para
+>Sofern eine Maus mit Mausrad für zwei Richtungen verfügbar ist (meist beim Touchpad von Laptops), kann von dieser Möglichkeit Gebrauch gemacht werden: &palapeli; unterscheidet zwischen waagerechter und senkrechter Bewegung des Mausrades.</para
+></tip>
+			</sect2>
+		</sect1>
+	</chapter>
+
+	<chapter id="credits">
+		<title
+>Danksagungen und Lizenz</title>
+		<para
+>&palapeli; soll den unaufgeregten Spaß und die Herausforderungen eines Bilderpuzzles auf die Arbeitsfläche von &kde; bringen.</para>
+		<para
+>Ursprünglich wurde die Idee von Bernhard Schiffner mit dem damaligen Hauptentwickler von &palapeli; Stefan Majewsky entwickelt.</para>
+		<para
+>Die &i18n-psc; wurde von Johannes L&#xF6;hnert beigesteuert.</para>
+		<para
+>Die Funktionen für große Puzzle wurden vom Ian Wadham entwickelt.</para>
+		<para
+>Dokumentation © 2009, 2010 Johannes L&#xF6;hnert, Stefan Majewsky und Copyright 2014 Ian Wadham.</para>
+		<para
+>Übersetzung: Johannes Obermayr <email
+>johannesobermayr@gmx.de</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+	&documentation.index;
+</book>

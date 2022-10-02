@@ -1,0 +1,1427 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+<!ENTITY palapeli "<application
+>Palapeli</application
+>">
+<!ENTITY i18n-psc "<application
+>Coleção de peças do Palapeli</application
+>">
+<!ENTITY kappname "&palapeli;">
+<!ENTITY package "kdegames">
+<!ENTITY % Brazilian-Portuguese "INCLUDE">
+<!ENTITY % addindex "IGNORE">
+]>
+
+<book id="palapeli" lang="&language;">
+	<bookinfo>
+		<title
+>Manual do &palapeli;</title>
+		<authorgroup>
+			<author
+><firstname
+>Johannes</firstname
+> <surname
+>L&#xF6;hnert</surname
+> <affiliation
+><address
+><email
+>loehnert_kde@gmx.de</email
+></address
+></affiliation>
+			</author>
+			<author
+><firstname
+>Stefan</firstname
+> <surname
+>Majewsky</surname
+> <affiliation
+><address
+><email
+>majewsky@gmx.net</email
+></address
+></affiliation>
+			</author>
+			<author
+><firstname
+>Ian</firstname
+> <surname
+>Wadham</surname
+> <affiliation
+><address
+><email
+>iandw.au@gmail.com</email
+></address
+></affiliation>
+			</author>
+			<othercredit role="translator"
+><firstname
+>Luiz Fernando</firstname
+><surname
+>Ranghetti</surname
+><affiliation
+><address
+><email
+>elchevive@opensuse.org</email
+></address
+></affiliation
+><contrib
+>Tradução</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>André Marcelo</firstname
+><surname
+>Alvarenga</surname
+><affiliation
+><address
+><email
+>alvarenga@kde.org</email
+></address
+></affiliation
+><contrib
+>Tradução</contrib
+></othercredit
+> 
+		</authorgroup>
+
+		<copyright>
+			<year
+>2009, 2010</year>
+			<holder
+>Johannes L&#xF6;hnert, Stefan Majewsky</holder>
+		</copyright>
+		<copyright>
+			<year
+>2014</year>
+			<holder
+>Ian Wadham</holder>
+		</copyright>
+		<legalnotice
+>&FDLNotice;</legalnotice>
+		<date
+>09/03/2014</date>
+		<releaseinfo
+>2.0 (&kde; 4.13)</releaseinfo>
+
+		<abstract>
+			<para
+>Este é o manual do &palapeli;, um jogo de quebra-cabeça baseado na tecnologia &kde;.</para>
+		</abstract>
+		<keywordset>
+			<keyword
+>KDE</keyword>
+			<keyword
+>kdegames</keyword>
+			<keyword
+>jogo</keyword>
+			<keyword
+>jogo de quebra-cabeça</keyword>
+			<keyword
+>quebra-cabeça</keyword>
+			<keyword
+>palapeli</keyword>
+		</keywordset>
+	</bookinfo>
+
+	<chapter id="introduction">
+		<title
+>Introdução</title>
+		<para
+>&palapeli; é um jogo de quebra-cabeça para um único jogador. Com ele você poderá criar e montar quebra-cabeças de 4 a 10.000 peças. Esta versão inclui funcionalidades que o ajudam a montar quebra-cabeças grandes (com 300 ou mais peças), dentro dos limites de tamanho da tela de um computador.</para>
+		<para
+>A janela principal do &palapeli; é separada em duas áreas, a coleção de quebra-cabeças e o tabuleiro.</para>
+		<para
+>Este manual irá agora continuar com a descrição dessas duas áreas.</para>
+	</chapter>
+
+	<chapter id="collection">
+		<title
+>Navegando na coleção de quebra-cabeças</title>
+		<sect1 id="play-maintain-collection">
+			<title
+>Montando quebra-cabeças e atualizando a coleção</title>
+		<para
+>Quando você inicia o &palapeli; pela primeira vez, a sua coleção de quebra-cabeças já conterá alguns quebra-cabeças que vêm com o &palapeli;. Clique em um deles para começar a jogar imediatamente. Mais tarde, quando tiver criado alguns dos seus próprios quebra-cabeças, também poderá clicar sobre eles para começar a jogar.</para>
+		<para
+>O jogo acontece no tabuleiro do quebra-cabeça; veja a <link linkend="puzzletable"
+>seção após a seguinte</link
+> para saber como usar o tabuleiro do quebra-cabeça.</para>
+		<note
+><para
+>Você poderá selecionar e realçar quebra-cabeças na lista, pressionando a tecla &Ctrl; e o &LMB; em conjunto. Pressionar o botão esquerdo ou direito do mouse sem a tecla &Ctrl; irá abrir o quebra-cabeça no tabuleiro.</para>
+		      <para
+>No OS X da Apple você precisa usar o clique duplo com o &LMB; para começar a jogar. Um clique simples irá apenas selecionar e realçar um elemento na lista de quebra-cabeças.</para
+></note>
+		<para
+>Além de jogar, você poderá usar a coleção de quebra-cabeças para as seguintes ações:</para>
+		<itemizedlist>
+			<listitem
+><para
+><emphasis
+>criar</emphasis
+> novos quebra-cabeças a partir de imagens no seu disco</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>importar</emphasis
+> quebra-cabeças criados por outras pessoas</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>exportar</emphasis
+> quebra-cabeças para compartilhar com seus amigos e com o mundo</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>excluir</emphasis
+> quebra-cabeças que você não precisa mais</para
+></listitem>
+		</itemizedlist>
+		<para
+>A seguinte seção mostra como fazer estas tarefas com os botões da barra de ferramentas.</para>
+	    </sect1>
+		<sect1 id="toolbar-collection">
+			<title
+>Resumo da barra de ferramentas</title>
+			<variablelist>
+				<varlistentry>
+					<term
+><guiicon
+>Criar novo quebra-cabeça</guiicon
+></term>
+					<listitem>
+						<para
+><action
+>Abre uma janela que lhe permite criar um quebra-cabeça a partir de uma imagem no seu disco.</action
+> Consulte o <link linkend="create-puzzles"
+>próximo capítulo</link
+> para obter mais detalhes.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Excluir quebra-cabeça</guiicon
+></term>
+					<listitem
+><para
+><action
+>Qualquer quebra-cabeça que você selecionou na lista será excluído permanentemente da sua coleção. </action
+></para
+><warning
+><para
+>Esta ação não pode ser desfeita.</para
+></warning
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Importar do arquivo</guiicon
+></term>
+					<listitem
+><para
+><action
+>Quando você receber um arquivo de quebra-cabeça do &palapeli; (que geralmente pode ser reconhecido pela extensão de arquivo <literal role="extension"
+>*.puzzle</literal
+>), você pode usar esta ação para importá-lo para sua coleção local.</action
+> Os arquivos de quebra-cabeça também podem ser jogados clicando sobre eles no gerenciador de arquivos de sua escolha, mas após a importação, o quebra-cabeça irá aparecer na sua coleção local, e você poderá apagar com segurança o arquivo de quebra-cabeça baixado.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Exportar para arquivo</guiicon
+></term>
+					<listitem
+><para
+><action
+>Isto irá exportar os quebra-cabeças atualmente selecionados para arquivos, para poder habilitar você a enviá-los a seus amigos, publicá-los na Internet ou fazer um backup de sua coleção.</action
+></para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="create-puzzles">
+		<title
+>Criando novos quebra-cabeças</title>
+		<sect1 id="creation-dialog">
+		<title
+>Janela de criação de quebra-cabeças</title>
+		<para
+>Como descrito na <link linkend="toolbar-collection"
+>seção anterior</link
+>, você poderá criar novos quebra-cabeças clicando no botão <guiicon
+>Criar novo quebra-cabeça</guiicon
+> na janela da coleção de quebra-cabeças.</para>
+		<para
+>Clicar neste botão, irá abrir a janela de criação de quebra-cabeças, que consiste de três páginas:</para>
+		<procedure>
+			<step
+><para
+>Na primeira página, selecione o arquivo da imagem que será dividida em peças. Verifique se os metadados da imagem estão corretos: Você deve atribuir os créditos ao autor da imagem (&eg;, o fotógrafo ou o pintor); por favor, respeite os direitos autorais do autor da imagem.</para
+></step>
+			<step
+><para
+>Na segunda página, você poderá selecionar o tipo de peças na qual a imagem será dividida. O &palapeli; vem com uma coleção de divisões pré-instaladas, mas você poderá usar as divisões criadas por terceiros.</para
+></step>
+			<step
+><para
+>Na página final da janela, a divisão selecionada poderá ser ainda personalizada &eg; ao escolher um número de peças diferentes ou ajustando os parâmetros da forma da peça. O conjunto de peças disponível depende da divisão que tiver sido selecionada.</para
+></step>
+		</procedure>
+		<para
+>Este manual irá continuar a descrever as divisões que vêm com o &palapeli;. Se você tiver baixado um plugin de divisão de terceiros para o &palapeli;, veja por favor a documentação deste plugin caso tenha problemas ao instalá-lo ou usá-lo no seu sistema.</para>
+		</sect1>
+		<sect1 id="simple-slicers">
+			<title
+>Divisões simples</title>
+			<para
+>O &palapeli; tem duas divisões simples, as <quote
+>peças de quebra-cabeça clássicas</quote
+> e as <quote
+>peças retangulares</quote
+>. Essas divisões criam peças retangulares simples com ou sem encaixes.</para>
+			<para
+>Ambas as divisões permitem ajustar o número de peças e as proporções. Arrastar a barra da proporção para a esquerda irá resultar em peças altas, enquanto arrastar para a direita produz peças largas. A seleção padrão produz peças aproximadamente quadradas.</para>
+		</sect1>
+		<sect1 id="psc">
+			<title
+>O &i18n-psc; avançado</title>
+			<para
+>O &i18n-psc; produz peças de quebra-cabeças realistas com diversos padrões básicos:</para>
+			<variablelist>
+				<varlistentry>
+					<term
+>Grade retangular</term>
+					<listitem
+><para
+>Contém as peças retangulares, já bastante conhecidas.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Grade Cairo</term>
+					<listitem
+><para
+>Com as suas peças pentagonais e ângulos de arestas irregulares, é relativamente difícil de montar, uma vez que as peças se encaixam em conjunto de uma forma não-familiar.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Grade hexagonal</term>
+					<listitem
+><para
+>Produz peças hexagonais, organizadas como células em favos.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Grade Rotrex</term>
+					<listitem
+><para
+>Através de uma composição especial de peças triangulares, hexagonais e retangulares, as peças formam um padrão que faz lembrar vários círculos em intersecção.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Grade irregular</term>
+					<listitem
+><para
+>Esta grade está disponível apenas se tiver instalado o <application
+>qvoronoi</application
+> do <ulink url="http://www.qhull.org"
+>pacote <application
+>qhull</application
+></ulink
+>. O <application
+>qvoronoi</application
+> é usado para calcular formas de peças irregulares a partir de vários pontos colocados de forma aleatória.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+			<para
+>O &i18n-psc; possui vários parâmetros que controlam a aparência das arestas das peças, especialmente os encaixes nas mesmas. São fornecidos valores padrão para todos estes parâmetros. Está disponível um modo de predefinição adicional que reduz a quantidade de parâmetros ao mínimo necessário. Normalmente, estão disponíveis os seguintes parâmetros:</para>
+			<variablelist>
+				<varlistentry>
+					<term
+>Quantidade aproximada de peças</term>
+					<listitem
+><para
+><!--FIXME add missing description here--></para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Porcentagem de lados invertidos</term>
+					<listitem
+><para
+>A probabilidade de cada encaixe ficar invertido. Um encaixe é considerado invertido se apontar na direção oposta a que deveria apontar numa grade completamente regular. Na grade retangular, isso resulta em peças com 3 ou 4 encaixes que apontam para dentro ou para fora, respectivamente. Posicione a barra à esquerda para obter uma grade perfeitamente regular. No meio, a orientação dos encaixes é aleatória. À direita, a grade fica regular de novo, mas com uma regra <quote
+>alternada</quote
+>. Isto <emphasis
+>não</emphasis
+> significa uma inversão de todos os encaixes: Na grade regular alternada, por exemplo, cada peça tem quatro encaixes que apontam para dentro ou para fora. Essa opção não tem efeito na grade irregular.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Curvatura das arestas</term>
+					<listitem
+><para
+>Define quão curvilíneas são as peças, &ie; com que força os contornos sobressaem ou se recolhem. Mova a barra para o extremo esquerdo para obter linhas de arestas retas (exceto nos encaixes).</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Tamanho do encaixe</term>
+					<listitem
+><para
+>Define o tamanho da parte do encaixe de cada aresta. A opção padrão (no meio da barra) é escolhida de forma para parecer um quebra-cabeça real. A barra vai de 50% até 150% deste tamanho, o que irá parecer desmesuradamente grande. O programa tenta ao máximo evitar as colisões entre encaixes. As arestas em colisão são reorganizadas várias vezes e encolhidas em pequenos passos. Contudo, existem ainda alguns casos em que não seja possível achar uma solução, especialmente no caso de tamanhos de encaixes grandes.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Diversidade das curvas</term>
+					<listitem
+><para
+>Define como a curvatura (ver acima) varia entre arestas. Mova a barra para a esquerda para fazer com que as reentrâncias se pareçam todas iguais entre si. À direita, poderão existir alguns contornos muito retos ou muito curvilíneos.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Diversidade da posição do encaixe</term>
+					<listitem
+><para
+>Define como a posição do encaixe na aresta varia. No extremo esquerdo, os encaixes ficam fixos no meio da sua aresta.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Diversidade dos encaixes</term>
+					<listitem
+><para
+>Define quão individuais ficam os encaixes. No extremo esquerdo, os encaixes parecem todos iguais. No extremo direito, cada encaixe será uma peça de arte única desenhada especialmente para você.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Irr.: Diversidade do tamanho das peças</term>
+					<listitem
+><para
+>Apenas na grade irregular: Define como o tamanho da peça varia. Uma opção muito baixa corresponde a uma variação praticamente nula, onde poderá aparecer uma estrutura ligeiramente cristalizada. Os valores mais altos produzem peças muito grandes e muito pequenas.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Apresentar a imagem da grade</term>
+					<listitem
+><para
+>Salva uma imagem da grade (arestas pretas num fundo branco) em <filename
+>~/goldberg-slicer-dump.png</filename
+>. Se já existir uma gravação anterior, será sobreposta.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="puzzletable">
+		<title
+>Jogando no tabuleiro do quebra-cabeça</title>
+
+		<sect1 id="puzzletable-moves">
+		<title
+>Movimentos básicos</title>
+		<screenshot
+><mediaobject>
+			<imageobject
+><imagedata fileref="puzzletable1.png" format="PNG"/></imageobject>
+			<textobject
+><phrase
+>O tabuleiro do quebra-cabeça (detalhe)</phrase
+></textobject>
+		</mediaobject
+></screenshot>
+		<para
+>O objetivo do jogo é juntar as peças para formar uma imagem.</para>
+		<para
+>A janela flutuante de visualização mostra-lhe como essa imagem deverá ficar. Use a ação do menu ou da barra de ferramentas para mostrar ou ocultar a janela. Para uma descrição detalhada, consulte a <link linkend="puzzletable-preview"
+>janela de Visualização</link
+>.</para>
+		<para
+>Se quiser experimentar um quebra-cabeça com 300 ou mais peças, leia o capítulo sobre as <link linkend="large-puzzles"
+>Facilidades para montar quebra-cabeças grandes</link
+>, depois ler este capítulo.</para>
+		<para
+>Poderá movimentar uma única peça clicando sobre ela e arrastando-a com o &LMB;. Isso deixará a peça selecionada e realçada. Para mover várias peças de uma vez, selecione-as e realce-as primeiro, para então clicar e arrastar apenas uma delas. As demais a seguirão com ela.</para>
+		<para
+>Você poderá selecionar e realçar várias peças se manter pressionada a tecla &Ctrl; e clicar sobre elas, ou então arrastando um elástico em torno delas com o &LMB;. Poderá também usar a tecla &Ctrl; e o &LMB; para aumentar ou diminuir a seleção atual em uma peça de cada vez.</para>
+		<para
+>Para remover a seleção e o realce, basta clicar em um ponto vazio do tabuleiro do quebra-cabeça ou em uma peça que não esteja selecionada.</para>
+		<para
+>Quando você colocar uma peça próximo a uma peça vizinha, ambas serão automaticamente encaixadas (1). Após ter encaixado as peças, não será possível separá-las. Outra diferença entre o &palapeli; e um quebra-cabeça do mundo real é que você não pode combinar duas peças que não são verdadeiramente vizinhas.</para>
+		<para
+>A barra de progresso abaixo do tabuleiro do quebra-cabeça indica o seu progresso, pela contagem das peças encaixadas (2). O &palapeli; irá salvar automaticamente o seu progresso após cada movimento, não sendo necessário salvar o jogo.</para>
+		<para
+>Você pode ampliar ou reduzir o tabuleiro do quebra-cabeça com a roda do mouse, com a barra deslizante ou com os botões existentes no canto inferior direito da janela (3).</para>
+		<para
+>Poderá mover a visualização do tabuleiro do quebra-cabeça em qualquer direção clicando e arrastando com o &RMB;.</para>
+		<para
+>O movimento das peças é limitado pela <emphasis
+>área do tabuleiro do quebra-cabeça</emphasis
+>. Esta área é representada no plano de fundo do tabuleiro do quebra-cabeça por uma sombra clara retangular. Quando você mover as peças para a borda (4) da área do tabuleiro do quebra-cabeça, a área irá automaticamente expandir, para dar a você mais espaço para mover suas peças de quebra-cabeça. Perto dos contornos sombreados, o cursor do mouse muda para uma seta de duas pontas, a qual indica que você poderá ajustar a área do tabuleiro do quebra-cabeça clicando e arrastando com o &LMB;.</para>
+		<para
+>Você pode bloquear a área do tabuleiro do quebra-cabeça com o botão pequeno (5) à direita da barra de progresso. A sombra (4) ao redor do tabuleiro do quebra-cabeça irá escurecer e as peças vão parar de se mover nas bordas da área do tabuleiro. Ainda continua sendo possível ajustar manualmente a área do tabuleiro do quebra-cabeça.</para>
+		</sect1>
+
+		<sect1 id="puzzletable-preview">
+			<title
+>A janela de visualização</title>
+			<para
+>A Visualização é uma pequena janela que flutua sobre a janela do tabuleiro do quebra-cabeça ou fica em um dos seus lados. Contém uma imagem do quebra-cabeça montado: A imagem que iria aparecer no topo da caixa, se fosse um quebra-cabeça do mundo real. </para>
+			<para
+>A janela poderá ficar visível ou oculta, usando o botão <guiicon
+>Visualização</guiicon
+> da barra de ferramentas ou o item do menu <menuchoice
+><guimenu
+>Exibir</guimenu
+><guimenuitem
+>Visualização</guimenuitem
+></menuchoice
+>. O seu tamanho, posição e estado de visibilidade são armazenados restaurados entre as execuções do &palapeli;. </para>
+			<para
+>Sendo uma janela, poderá ser redimensionada e movimentada por toda a área de trabalho. O botão Fechar irá ocultá-la e o de maximização irá expandir ou recolher a imagem rapidamente. </para>
+			<para
+>A janela Visualização tem uma funcionalidade de ampliação, não sendo necessário ocupar muito espaço. Se mover o mouse pela janela, a mesma amplia-se rapidamente para revelar uma visão ampliada da área sob o mouse, bem como algumas peças em torno dela. Isso é muito útil para ver os detalhes do quebra-cabeça e identificar as peças que você encontrou, mas poderá ser complicado controlar, especialmente próximo aos cantos da imagem. </para>
+		</sect1>
+
+		<sect1 id="puzzletable-mouseactions">
+			<title
+>Interações com o mouse</title>
+			<para
+>Como foi descrito na seção anterior, existem diversas formas de interagir com o tabuleiro do quebra-cabeça do &palapeli;, usando para isso o mouse. Você poderá configurar à vontade as ações que são disparadas por determinados botões do mouse. (Veja a seção de <link linkend="configuration-mouseactions"
+>Configuração do Jogo</link
+> para obter mais informações sobre a configuração). A seguinte lista resume todas as ações possíveis do mouse:</para>
+			<variablelist>
+				<varlistentry>
+					<term
+><action
+>Alterar a área do tabuleiro arrastando suas bordas</action
+></term>
+					<listitem
+><para
+>Por padrão, esta ação está associada ao &LMB;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Mover as peças ao arrastar</action
+></term>
+					<listitem
+><para
+>Quando você clicar e arrastar uma peça do quebra-cabeça, esta peça será movida. Se várias peças estiverem selecionadas e você clicar e arrastar uma delas, então todas as peças se moverão. Por padrão, essa ação está associada ao &LMB;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Mover a área de visualização ao arrastar</action
+></term>
+					<listitem
+><para
+>Esta ação move a visualização do tabuleiro do quebra-cabeça por inteiro em qualquer direção. Por padrão, ela está associada ao &RMB;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Selecionar várias peças com o elástico</action
+></term>
+					<listitem
+><para
+>Quando você clica em uma área vazia do tabuleiro do quebra-cabeça, em vez de clicar numa peça, você poderá arrastar uma área inteira. Quando soltar o botão do mouse, todas as peças dentro dessa área ficarão selecionadas. Todas as outras peças ficarão desmarcadas. Por padrão, esta ação está associada ao &LMB;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Selecionar várias peças ao clicar</action
+></term>
+					<listitem
+><para
+>Ao clicar em uma única peça do quebra-cabeça, ela será selecionada. Caso já esteja selecionada, deixará de estar. Também poderá ser usado para ajustar a seleção com elástico. Por padrão, esta ação é atribuída ao &LMB; e só fica disponível ao pressionar a tecla &Ctrl;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Limpar as seleções e o realce</action
+></term>
+					<listitem
+><para
+>Clique em um espaço vazio do tabuleiro do quebra-cabeça ou em uma peça que não esteja selecionada.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Ampliar ou reduzir a visualização do tabuleiro do quebra-cabeça</action
+></term>
+					<listitem
+><para
+>Esta ação é idêntica a do clicar nos botões lateral da barra deslizante (3), localizada na barra de status. Por padrão, ela está atribuída à roda do mouse.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Mudar para uma visão aproximada ou distante</action
+></term>
+					<listitem
+><para
+>Esta ação alterna (muda) entre uma visão aproximada e uma distante, na posição do ponteiro do mouse. Destina-se principalmente a oferecer uma ampliação rápida de quebra-cabeças grandes (300 ou mais peças). Para mais detalhes, veja como <link linkend="large-puzzle-fast-zooming"
+>Alternar rapidamente entre a visão aproximada e a distante</link
+>. Por padrão, a ação está atribuída ao &MMB;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Transportar as peças de ou para um recipiente</action
+></term>
+					<listitem
+><para
+>Esta ação ajuda-o a recolher, organizar e mover peças rapidamente em quebra-cabeças grandes (300 ou mais peças) sem as arrastar e soltar. Você também pode usá-la em quebra-cabeças menores, se quiser. Para mais detalhes, veja como <link linkend="large-puzzle-holders"
+>Usando recipientes de peças</link
+>. Por padrão, a ação está associada ao &LMB; e só fica disponível quando pressionar a tecla &Shift;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Alterar status de bloqueio da área do tabuleiro</action
+></term>
+					<listitem
+><para
+>Esta ação é idêntica a pressionar no botão (5) da barra de estado. Por padrão, esta ação não está associada a nenhum botão do mouse, mas você poderá ativá-la com a <link linkend="configuration-mouseactions"
+>janela de configuração</link
+>.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Deslocar a área de visualização na horizontal</action
+> e <action
+>Deslocar a área de visualização na vertical</action
+></term>
+					<listitem
+><para
+>Por padrão, esta ação está associada à roda do mouse, mas você poderá ativá-la com a <link linkend="configuration-mouseactions"
+>janela de configuração</link
+>.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+
+		<sect1 id="toolbars-puzzletable">
+			<title
+>Resumo da barra de ferramentas</title>
+			<variablelist>
+				<varlistentry>
+					<term
+><guiicon
+>Voltar à coleção</guiicon
+></term>
+					<listitem
+><para
+><action
+>Retorna à coleção para escolher outro quebra-cabeça.</action
+> Só pode ser usado quando estiver montando um quebra-cabeça.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Visualização</guiicon
+></term>
+					<listitem
+><para
+><action
+>Ativa ou desativa a janela de visualização com o quebra-cabeça completo.</action
+></para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="large-puzzles">
+		<title
+>Facilidades para montagem de quebra-cabeças grandes</title>
+
+		<sect1 id="large-puzzle-general">
+			<title
+>Princípios gerais</title>
+			<para
+>O &palapeli; consegue lidar com quebra-cabeças grandes, de 300 a 10.000 peças, mas precisará de algumas facilidades especiais para ajudá-lo a trabalhar com eles em uma tela pequena. </para>
+			<para
+>Você pode criar um quebra-cabeça grande exatamente da mesma forma que cria um pequeno. Veja o capítulo <link linkend="create-puzzles"
+>Criando novos quebra-cabeças</link
+>, mas existem algumas coisas que você deve considerar antes de começar. Para mais detalhes, veja <link linkend="large-puzzle-creation"
+>Criando quebra-cabeças grandes - preocupações especiais</link
+>. </para>
+			<para
+>A janela Visualização é bastante útil com quebra-cabeças grandes: Veja a seção sobre a mesma para uma <link linkend="puzzletable-preview"
+>descrição detalhada</link
+>. </para>
+			<para
+>Gerenciar o espaço e o movimento são as suas próximas preocupações. Quando reduzir a área de visualização para ver todo o tabuleiro do quebra-cabeça, torna-se difícil de ver as peças individuais. Se ampliar e encontrar uma peça você estava procurando, é pouco provável que o local para onde ela vai esteja visível. Veja a seção <link linkend="large-puzzle-space"
+>Gerenciar o espaço e o movimento</link
+> para descobrir algumas soluções para esses e outros problemas. </para>
+			<para
+>Finalmente, você precisa coletar as peças e remetê-las para a área de montagem de uma forma mais eficiente do que arrastar e soltar de forma repetida em grandes distâncias. Essa é a função dos recipientes. </para>
+			<para
+>Ao iniciar um quebra-cabeça grande, você recebe um recipiente (uma pequena janela flutuante) chamado <quote
+>Mão</quote
+>, dentro do qual poderá colocar peças quando e onde quiser. Depois poderá arrastá-las para perto da sua montagem e descobrir onde cada peça deve ser encaixada. Isto é como pegar as peças na mão, à medida em que analisar um quebra-cabeça real grande. </para>
+			<para
+>Você pode precisar de alguma forma sistemática para recolher e organizar as peças de acordo com atributos comuns (&eg;, cantos, céu, horizonte, etc.), podendo usar tantos recipientes quantos quiser e atribuir-lhes nomes. Os recipientes são salvos de forma contínua, em conjunto com o tabuleiro do quebra-cabeça, significando que poderá usá-los para compor partes da montagem e guardá-las ou mesmo para guardar peças que deseja colocar num <quote
+>cesto de peças difíceis</quote
+> para depois. Para mais detalhes sobre a utilização dos recipientes, veja a seção <link linkend="large-puzzle-holders"
+>Usando recipientes de peças</link
+>. </para>
+			<para
+>Finalmente, a seção <link linkend="puzzletable-mouseactions"
+>Interações com o mouse</link
+> apresenta as duas ações especiais do mouse que simplificam e agilizam o tratamento de quebra-cabeças grandes: o teletransporte de peças e o zoom para aproximação ou distanciamento. </para>
+		</sect1>
+
+		<sect1 id="large-puzzle-creation">
+			<title
+>Criação de quebra-cabeças grandes - preocupações especiais</title>
+			<para
+>Antes de criar um quebra-cabeça grande, você deve verificar se a imagem de origem contém detalhes suficientes (&ie;, megapixels suficientes). Poderá usar um utilitário de arquivos ou um visualizador/editor de imagens para descobrir quantos pixels tem de tamanho e se a sua imagem não está comprimida com JPEG ou outro formato de imagem. Como regra prática, permita um megapixel por 1.000 peças. Isso dará a cada peça cerca de 1.000 pixels, ou aproximadamente 30 por 30 pixels, tornando as peças com cantos razoavelmente definidos e fáceis de ver quando ampliadas. Você pode trabalhar com definições menores, mas pode ficar difícil distinguir as peças e reconhecê-las durante o jogo. </para>
+			<para
+>Quando criar ou reiniciar um quebra-cabeça grande, pode ser melhor evitar o uso da funcionalidade de relevo e sombras do &palapeli; (veja a seção <link linkend="configuration-general"
+>Configurações gerais</link
+>), porque tornam mais lento o carregamento e mais difícil de ver quando as peças forem muito pequenas. Um realce mais proeminente aparece quando não for usado sombreamento. </para>
+		</sect1>
+
+		<sect1 id="large-puzzle-space">
+			<title
+>Gerenciar o espaço e o movimento</title>
+			<sect2 id="large-puzzle-space-allocation">
+			<title
+>Reservando espaço no tabuleiro do quebra-cabeça</title>
+			<para
+>Quando você cria ou reinicia um quebra-cabeça, as peças estarão embaralhadas e colocadas de forma aleatória na grade do tabuleiro do quebra-cabeça. Duas configurações afetam o espaço necessário; consulte a <link linkend="configuration"
+>Configuração do jogo</link
+> para mostrar as configurações oferecidas com a opção <menuchoice
+><guimenu
+>Configuração</guimenu
+> <guimenuitem
+>Configurar o &palapeli;...</guimenuitem
+> </menuchoice
+> ou, no OS X da Apple, <menuchoice
+><guimenu
+>&palapeli;</guimenu
+> <guimenuitem
+>Preferências...</guimenuitem
+></menuchoice
+>. </para>
+			<para
+>O espaçamento das peças na grade dos quebra-cabeças poderá ser configurado entre 1,0 e 1,5 vezes da largura e altura das peças mais altas ou mais largas. As definições mais reduzidas compactam melhor as peças na janela, mas os valores maiores permitem mais espaço para arrastar, soltar e juntar as peças. O valor padrão omissão é 1,3, mas o valor 1,1 é muito útil em quebra-cabeças grandes. A opção se aplica aos quebra-cabeças de todos os tamanhos, mas também afeta as grades usadas com os recipientes de peças (consulte <link linkend="large-puzzle-holders"
+>Usando os recipientes de peças</link
+>) ou quando reorganizar as peças automaticamente no tabuleiro do quebra-cabeça, usando a opção <menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+> <guimenu
+>Mover</guimenu
+><guimenuitem
+>Reorganizar as peças</guimenuitem
+></menuchoice
+>. </para>
+			<para
+>A outra opção oferece espaço no tabuleiro com o tamanho exato para montagem do quebra-cabeça. Por padrão, esta aparece no centro, com as peças distribuídas de forma uniforme na parte externa. Em média, as peças são colocadas em um local próximo onde serão encaixadas. Você também pode optar por usar qualquer um dos quatro cantos ou por não ter qualquer espaço (opção Nenhum). Nesse caso, você precisa limpar manualmente o espaço, talvez aumentando a área do tabuleiro do quebra-cabeça (consulte <link linkend="puzzletable-moves"
+>Movimentos básicos</link
+>). A definição do espaço de montagem afeta os quebra-cabeças com o mínimo de 20 peças, mas para valores inferiores é completamente inútil. </para>
+			<para
+>À medida que a montagem evolui, as peças são movimentadas para a área de montagem e deixam espaços vazios. Pode ser útil aproximar as peças restantes. Se for o caso, selecione algumas peças usando o 'elástico' ou com &Ctrl; e &LMB;, usando depois a opção <menuchoice
+><shortcut
+> <keycap
+>R</keycap
+></shortcut
+> <guimenu
+>Mover</guimenu
+> <guimenuitem
+>Reorganizar as peças</guimenuitem
+></menuchoice
+> ou a tecla de atalho (<keycap
+>R</keycap
+>, por padrão). As peças são dispostas em uma grade e permanecerão selecionadas, para que possam ser movimentadas facilmente para uma posição melhor, se necessário. Essa é também uma forma de juntar as peças com alguns atributos comuns, mas, para esse caso, serão mais poderosos os recipientes de peças. </para>
+			</sect2>
+			<sect2 id="large-puzzle-fast-zooming">
+			<title
+>Ampliação/redução rápidas entre a exibição aproximada e a distante</title>
+			<para
+>Quando um quebra-cabeça é carregado, o &palapeli; calcula as exibições aproximada e distante, apresentando depois a exibição distante, que mostra toda a área do tabuleiro do quebra-cabeça. A exibição aproximada mostra as peças com um tamanho de visualização adequado para seus olhos e área de trabalho. Use o &MMB; para mudar rapidamente entre as duas formas de exibição, em um local onde o mouse está apontando. Depois você poderá voltar rapidamente para qualquer peça do tabuleiro e ver qual a forma e a parte da imagem ele contém. </para>
+			<para
+>Você pode ajustar a escala de qualquer uma das janelas se ampliar/reduzir manualmente, sendo que a sua configuração será lembrada da próxima vez que voltar para a janela, usando o &MMB;. Os quebra-cabeças de todos os tamanhos têm a funcionalidade de ampliação/redução rápida, mas em quebra-cabeças com menos de 100 peças, as duas janelas são muito parecidas. Em outras palavras, as peças são fáceis de ver quando observar o tabuleiro do quebra-cabeça por inteiro. </para>
+			</sect2>
+			<sect2 id="large-puzzle-navigating">
+			<title
+>Movimentando-se em um quebra-cabeça grande</title>
+			<para
+>A forma difícil de mover peças em um quebra-cabeça grande é selecioná-las e arrastá-las de forma alternada, bem como o seu tabuleiro (&LMB; e &RMB;), até que chegue ao seu destino. Uma forma muito mais simples de fazer o mesmo é selecionar as peças e reduzir para a exibição distante (&MMB;, veja acima), arrastar as peças para o destino em uma única jogada (&LMB;) e depois voltar para a exibição aproximada (&MMB;). Esta também é uma boa forma de recolher uma peça dispersa, arrastando-a por todo o tabuleiro do quebra-cabeça, sem perder a seleção, o que poderá ser difícil se existirem milhares de peças. </para>
+			<para
+>Outra forma de navegar e pesquisar pelo tabuleiro do quebra-cabeça de forma sistemática é ampliar no canto superior esquerdo (&MMB;), usando depois os espaços vazios para percorrer o tabuleiro na horizontal ou na vertical, deslocando-se uma <quote
+>página</quote
+> de tamanho fixo de cada vez. Essa técnica é bastante efetiva quando estiver usando recipientes de peças para agrupar as peças que estiver procurando. Se manter a escala aproximada fixa e iniciar sempre no mesmo local, você obterá sempre <quote
+>páginas</quote
+> de tamanho e conteúdo fixos. </para>
+			</sect2>
+			<sect2 id="large-puzzle-visibility">
+			<title
+>Visibilidade das peças em quebra-cabeças grandes</title>
+			<para
+>Com quebra-cabeças grandes em telas pequenas, pode ser difícil ver o que está fazendo. Por exemplo, com um quebra-cabeça de 10.000 peças em uma tela de 1.440 por 900 pixels, as peças na exibição distante do tabuleiro do quebra-cabeça terão cerca de 7 pixels de comprimento. Nessa escala, é difícil ver a imagem, cor, forma da peça ou mesmo o seu realce. </para>
+			<para
+>O &palapeli; sempre teve uma seleção de cores de fundo que ajudam na visibilidade. Além disso, existe um esquema de realce mais profundo, que aparece se você não escolher o sombreamento, bem como uma opção para escolher a cor do realce, em contraste com a cor de fundo e a maioria das peças. Da mesma forma, essas definições são agora salvas e restauradas com cada quebra-cabeça. Como tal, cada quebra-cabeça poderá ter o fundo e o realce que mais se adequar à imagem como um todo. Também é interessante experimentar as configurações quando criar um quebra-cabeça grande, mas pode ser necessário recarregar ou reiniciar o quebra-cabeça para que todas as alterações sejam aplicadas. </para>
+			</sect2>
+		</sect1>
+
+		<sect1 id="large-puzzle-holders">
+			<title
+>Usando os recipientes de peças</title>
+			<sect2 id="large-puzzle-whatareholders">
+			<title
+>O que são recipientes de peças?</title>
+			<para
+>Recipientes de peças são, provavelmente, a funcionalidade mais útil do &palapeli;, para ajudar na montagem de quebra-cabeças grandes. Eles são pequenas janelas flutuantes nas quais você poderá organizar grupos de peças, como os <quote
+>cantos</quote
+>, o <quote
+>céu</quote
+>, o <quote
+>horizonte</quote
+> ou a <quote
+>casa à esquerda</quote
+>. Inicialmente, aparecem com um tamanho mínimo que será grande o suficiente para mostrar quatro peças em uma escala aproximada, mas podem ser facilmente ajustados ao lado da janela do tabuleiro do quebra-cabeça. </para>
+			<para
+>Com são janelas, os recipientes podem ser redimensionados e movidos por toda a área de trabalho. O botão Fechar irá excluir o recipiente, mas só se ele não tiver peças. O botão Maximizar irá expandir ou recolher rapidamente o recipiente. O recipiente poderá ter qualquer número de peças (talvez centenas). A ação Maximizar pode ser útil quando estiver revisando o conteúdo ou construindo um sub-bloco dentro do recipiente. </para>
+			<para
+>Você pode ter os quantos recipientes desejar. Normalmente, apenas um deles está ativo - realçado a azul. Ele será o destinatário de ações, como a transferência de peças ou a exclusão de um recipiente. </para>
+			</sect2>
+			<sect2 id="large-puzzle-createholders">
+			<title
+>Criando e excluindo recipientes</title>
+			<para
+>Quando iniciar um quebra-cabeça grande, será criado automaticamente um recipiente chamado <quote
+>Mão</quote
+>. Ele pode ser o único recipiente necessário com quebra-cabeças de 300 a 750 peças, mas você pode ter quantos recipientes desejar, mesmo com quebra-cabeças com menos de 300 peças. </para>
+			<para
+>Para criar ou excluir um recipiente, use as opções <menuchoice
+><shortcut
+><keycap
+>C</keycap
+></shortcut
+> <guimenu
+>Mover</guimenu
+><guimenuitem
+>Criar um recipiente de peças...</guimenuitem
+></menuchoice
+> ou <menuchoice
+><shortcut
+><keycap
+>D</keycap
+></shortcut
+> <guimenu
+>Mover</guimenu
+><guimenuitem
+>Excluir o recipiente de peças</guimenuitem
+></menuchoice
+>, ou simplesmente as teclas de atalho <keycap
+>C</keycap
+> e <keycap
+>D</keycap
+>, ou ainda, o botão Fechar para excluir. Quando criar um recipiente, será solicitado um nome para ele, mas isso não é essencial. Normalmente, o recipiente fica com uma escala aproximada e você poderá ver facilmente o tipo de peça que ele contém. </para>
+			<para
+>Quando for excluir um recipiente, ele deverá estar ativo (realçado a azul) e sem peças. Se o recipiente a ser excluído não estiver ativo, clique nele para ativá-lo. Depois da exclusão, nenhum recipiente ficará ativo, sendo necessário clicar em um dos restantes. </para>
+			</sect2>
+			<sect2 id="large-puzzle-teleporting">
+			<title
+>Transferindo peças de e para recipientes</title>
+			<para
+>Não é possível, e nem necessário, usar a ação de arrastar e soltar para transferir peças para os recipientes. Em vez disso, você pode transferir as peças de forma instantânea se as <quote
+>transportar</quote
+>, como um teletransporte do filme <quote
+>Jornada nas Estrelas</quote
+>. O teletransporte funciona com a utilização das teclas &Shift; e &LMB; em conjunto. </para>
+			<para
+>Para transferir peças para um recipiente, verifique se o recipiente de destino está ativo (realçado a azul), então selecione algumas peças no tabuleiro do quebra-cabeça, clicando com &Shift; e &LMB;. Você também poderá clicar em uma peça de cada vez com &Shift; e &LMB;. As peças transferidas desaparecem do tabuleiro do quebra-cabeça e reaparecem com realce no recipiente. À medida que chegam, são distribuídas automaticamente em uma grade, sendo que a última peça transferida fica centralizada na janela. </para>
+			<para
+>Para retirar peças de um recipiente, selecione uma ou várias peças que estão dentro dele, clique sobre um espaço vazio do tabuleiro do quebra-cabeça onde as peças deverão aparecer e, então, use &Shift; e &LMB;. Evite clicar em uma peça que já esteja no tabuleiro do quebra-cabeça: isso irá enviá-la para o recipiente, mas não é o que se deseja. Se fizer isso acidentalmente com um grande bloco de peças juntas (&ie;, parte da sua montagem), aparecerá uma mensagem de aviso e a possibilidade de cancelar a ação. </para>
+			<para
+>As peças ficam realçadas mesmo após o teletransporte. Isso permite-lhe reverter a ação rapidamente, se tiver transferido as peças erradas ou usado o recipiente incorreto. Da mesma forma, no tabuleiro do quebra-cabeça, você poderá ajustar facilmente a posição de uma ou várias peças que acabaram de chegar ou usar uma peça na montagem. </para>
+			<para
+>O teletransporte também funciona entre recipientes. Comece como se fosse transferir peças para o tabuleiro do quebra-cabeça, mas depois use &Shift; e &LMB; sobre uma área vazia do outro recipiente. Para reverter o processo, retorne ao recipiente de origem e clique com &Shift; e &LMB; novamente. </para>
+			</sect2>
+			<sect2 id="large-puzzle-sorting">
+			<title
+>Organizar as peças</title>
+			<para
+>Para organizar de forma eficiente as peças nos recipientes, à medida que procura em um quebra-cabeça grande, use a técnica para se movimentar pelo quebra-cabeça uma <quote
+>página</quote
+> de cada vez, como <link linkend="large-puzzle-navigating"
+>descrito anteriormente</link
+>, em conjunto com os recipientes e o teletransporte, para recolher as peças quando as encontrar. Quando tiver verificado todo o tabuleiro do quebra-cabeça, mude para uma exibição aproximada da área de montagem e coloque as peças que tiver recolhido. Também poderá reunir previamente as peças em recipientes. </para>
+			</sect2>
+			<sect2 id="large-puzzle-otherholderactions">
+			<title
+>Outras ações do recipiente</title>
+			<para
+>Os recipientes de peças tem suporte a todas as funções do tabuleiro do quebra-cabeça (consulte <link linkend="puzzletable-moves"
+>Movimentos básicos</link
+>), exceto que a ampliação/redução só pode ser feita com a roda ou o &MMB;. </para>
+			<para
+>Isso significa que poderá usar um recipiente como um tabuleiro extra, se assim desejar. Poderá arrastar e soltar peças, juntá-las, mover os limites da área, &etc;. Poderá também teletransportar as peças reunidas de qualquer tamanho para dentro ou para fora de um recipiente, mas lembre-se das sobreposições e das peças pequenas que ficam escondidas. </para>
+			<para
+>Finalmente, você poderá usar a opção <menuchoice
+><shortcut
+> <keycap
+>A</keycap
+></shortcut
+><guimenu
+>Mover</guimenu
+> <guimenuitem
+>Selecionar tudo no recipiente</guimenuitem
+> </menuchoice
+>, seguido de <menuchoice
+><shortcut
+> <keycap
+>R</keycap
+></shortcut
+><guimenu
+>Mover</guimenu
+> <guimenuitem
+>Reorganizar as peças</guimenuitem
+> </menuchoice
+> ou ainda &Shift; e &LMB;, para reorganizar todas as peças no recipiente ou mover todas as peças de volta ao tabuleiro do quebra-cabeça. Você pode também usar teclas de atalho <keycap
+>A</keycap
+> ou <keycap
+>R</keycap
+> sobre o recipiente que estiver selecionado. </para>
+			</sect2>
+		</sect1>
+	</chapter>
+
+	<chapter id="interface">
+		<title
+>Resumo da interface</title>
+		<para
+>As ações seguintes são do menu do &palapeli;, sendo que algumas também estão disponíveis como botões da barra de ferramentas e através de teclas de atalho.</para>
+		<variablelist>
+		        <varlistentry>
+			  <term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+></shortcut
+><guimenu
+>Jogo</guimenu
+><guimenuitem
+>Criar novo quebra-cabeça...</guimenuitem
+></menuchoice
+></term>
+			  <listitem
+><para
+><action
+>Abre uma janela que lhe permite criar um quebra-cabeça a partir de uma imagem no seu disco.</action
+> Veja <link linkend="create-puzzles"
+>a seção correspondente</link
+> para obter mais detalhes e também as <link linkend="large-puzzle-creation"
+>preocupações especiais</link
+> se for criar um quebra-cabeça com 300 ou mais peças.</para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Jogo</guimenu
+><guimenuitem
+>Importar do arquivo...</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Quando você receber um arquivo de quebra-cabeça do &palapeli; (que geralmente pode ser reconhecido pela extensão de arquivo <literal role="extension"
+>*.puzzle</literal
+>), você pode usar esta ação para importá-lo para sua coleção local.</action
+> Os arquivos de quebra-cabeça também podem ser jogados clicando sobre eles no gerenciador de arquivos de sua escolha, mas após a importação, o quebra-cabeça irá aparecer na sua coleção local, e você poderá apagar com segurança o arquivo de quebra-cabeça baixado.</para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Game</guimenu
+><guimenuitem
+>Exportar para arquivo...</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Isto irá exportar os quebra-cabeças atualmente selecionados para arquivos, para poder habilitar você a enviá-los a seus amigos, publicá-los na Internet ou fazer um backup de sua coleção.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Jogo</guimenu
+><guimenuitem
+>Excluir quebra-cabeça</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Qualquer quebra-cabeça que você selecionou na lista será excluído permanentemente da sua coleção.</action
+></para
+><warning
+><para
+>Esta ação não pode ser desfeita.</para
+></warning
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Jogo</guimenu
+><guimenuitem
+>Reiniciar o quebra-cabeça</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Embaralha novamente todas as peças e descarta o progresso salvo para o quebra-cabeça atual.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>C</keycap
+></shortcut
+><guimenu
+>Mover</guimenu
+><guimenuitem
+>Criar um recipiente de peças...</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Cria um recipiente temporário para armazenar ou organizar as peças. Consulte <link linkend="large-puzzle-holders"
+>Usando recipientes de peças</link
+> para conhecer mais detalhes sobre sua utilização.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>D</keycap
+></shortcut
+><guimenu
+>Mover</guimenu
+><guimenuitem
+>Excluir o recipiente de peças</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Excluir um recipiente temporário selecionado quando estiver vazio.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>A</keycap
+></shortcut
+><guimenu
+>Mover</guimenu
+><guimenuitem
+>Selecionar tudo no recipiente</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Seleciona todas as peças do recipiente selecionado (realçado a azul).</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+><guimenu
+>Mover</guimenu
+><guimenuitem
+>Reorganizar peças</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Reorganiza as peças selecionadas em qualquer recipiente ou no tabuleiro do quebra-cabeça, distribuindo-as em uma grade.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Exibir</guimenu
+><guimenuitem
+>Voltar à coleção</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Retorna à coleção para escolher outro quebra-cabeça.</action
+> Só pode ser usado quando estiver montando um quebra-cabeça.</para
+></listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Exibir</guimenu
+> <guimenuitem
+>Visualização</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Ativa ou desativa a exibição de uma prévia da imagem do quebra-cabeça montado.</action
+> Passe o cursor do mouse sobre ela para ampliar a imagem.</para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+></shortcut
+><guimenu
+>Exibir</guimenu
+> <guimenuitem
+>Ampliar</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Aumenta a escala.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+></shortcut
+><guimenu
+>Exibir</guimenu
+> <guimenuitem
+>Reduzir</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Diminui a escala.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Ativar todas as mensagens</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Permite-lhe ativar todas as mensagens desativadas por assinalar a opção <guilabel
+>Não mostrar esta mensagem novamente</guilabel
+> nas caixas de diálogo de confirmação do &palapeli;.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Mostrar barra de status do tabuleiro do quebra-cabeça</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Alterna a exibição da barra de progresso e botões abaixo do tabuleiro do quebra-cabeça.</action
+> Esta ação não irá mudar em nada a coleção de quebra-cabeças.</para
+></listitem>
+			</varlistentry>
+			<varlistentry id="settings-menu-configure">
+				<term
+><menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Configurar &palapeli;...</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+>Abre um diálogo de configuração do jogo. Veja a seção <link linkend="configuration"
+>Configuração do jogo</link
+> para mais detalhes.</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		<para
+>O &palapeli; possui os itens de menu normais do &kde; para a <guimenu
+>Configurações</guimenu
+> e <guimenu
+>Ajuda</guimenu
+>; para mais informações, leia as seções sobre o <ulink url="help:/fundamentals/menus.html#menus-settings"
+>Menu Configurações</ulink
+> e o <ulink url="help:/fundamentals/menus.html#menus-help"
+>Menu Ajuda</ulink
+> dos Fundamentos do &kde;. </para>
+	</chapter>
+
+	<chapter id="configuration">
+		<title
+>Configuração do jogo</title>
+		<para
+>Para abrir o diálogo de configuração, use a opção da barra de menu: <menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Configurar &palapeli;...</guimenuitem
+></menuchoice
+></para>
+		<sect1 id="configuration-general">
+			<title
+>Configurações gerais</title>
+			<variablelist>
+				<varlistentry>
+				        <term
+><guilabel
+>Tabuleiro do quebra-cabeça</guilabel
+></term>
+					<listitem>
+					  <para
+>Permite-lhe escolher alguns parâmetros do tabuleiro do quebra-cabeça. </para>
+					  <variablelist>
+					<varlistentry>
+					<term
+><guilabel
+>Plano de fundo</guilabel
+></term>
+					<listitem
+><para
+><action
+>Permite-lhe escolher outra textura de fundo para o tabuleiro do quebra-cabeça.</action
+> Se escolher uma única cor, em vez de uma textura, o botão abaixo da área de seleção poderá ser usado para definir a cor.</para
+></listitem>
+				      </varlistentry>
+				      <varlistentry>
+					<term
+><guilabel
+>Cor de realce das peças selecionadas</guilabel
+></term>
+					<listitem
+><para
+><action
+>Permite-lhe escolher a cor de realce das peças quando estiverem selecionadas.</action
+> Clique no botão à direita da legenda para abrir a janela do <ulink url="help:/fundamentals/colors.html"
+>Seletor de cores</ulink
+>.</para
+></listitem>
+				      </varlistentry>
+				      <varlistentry>
+					<term
+><guilabel
+>Espaço para montagem</guilabel
+></term>
+					<listitem
+><para
+><action
+>Permite-lhe escolher onde reservar algum espaço para montagem no tabuleiro do quebra-cabeça.</action
+> Não é oferecido qualquer espaço nos quebra-cabeças com menos de 20 peças. As alterações serão aplicadas quando você criar ou reiniciar um quebra-cabeça.</para
+></listitem>
+				      </varlistentry>
+				      <varlistentry>
+					<term
+><guilabel
+>Espaço entre as peças nas grade do quebra-cabeça (1,0-1,5)</guilabel
+></term>
+					<listitem
+><para
+><action
+>Permite-lhe escolher o espaçamento das grades do quebra-cabeça.</action
+> As alterações no espaçamento global só serão efetivadas quando um quebra-cabeça for criado ou reiniciado.</para
+></listitem>
+				      </varlistentry>
+				    </variablelist>
+				  </listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guilabel
+>Aparência da peça</guilabel
+></term>
+					<listitem
+><para
+><action
+>Controla a aparência das peças na mesa do quebra-cabeça.</action
+> Se o &palapeli; estiver executando de forma lenta ou os quebra-cabeças levarem muito tempo para abrir, você poderá desativar os efeitos gráficos nesta categoria para obter maior velocidade. Se escolher o sombreamento, o realce será feito através da mudança da cor da sombra.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guilabel
+>Precisão no encaixe</guilabel
+></term>
+					<listitem
+><para
+><action
+>Permite-lhe escolher a proximidade em que as peças vizinhas devem estar para se encaixarem.</action
+> Se mover a barra deslizante mais para a direita, as peças se encaixarão mesmo que não estejam muito próximas. Isto torna o jogo um pouco mais fácil de jogar.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="configuration-mouseactions">
+			<title
+>Interação com o mouse</title>
+			<para
+>Esta página da caixa de diálogo de configuração permite-lhe atribuir as interações do mouse descritas em <link linkend="puzzletable-mouseactions"
+>Jogando no tabuleiro do quebra-cabeça, Interações do mouse</link
+>. Tenha cuidado para evitar atribuições ambíguas. Três das atribuições predefinidas podem ir para o &LMB;, porque o ponteiro está em diferentes áreas quando as usa, mas as outras atribuições devem ser diferentes.</para>
+			<para
+>As interações são divididas entre as que podem ser atribuídas aos botões do mouse (&eg;, <action
+>Mover a área de visualização por arrastamento</action
+>) e as que podem ser atribuídas à roda do mouse (&eg;, <action
+>Deslocar a área de visualização na horizontal</action
+>).</para>
+			<sect2>
+				<title
+>Aba Botões do mouse</title>
+				<para
+>À direita do nome de cada interação, existe um botão com uma imagem de um mouse de computador que mostra a ação atribuída no momento. Você poderá configurar a interação, clicando para isso nesse botão com o &LMB; e depois com o botão do mouse que deseja atribuir a essa interação. Se pressionar em teclas modificadoras, quando clicar pela segunda vez, o tabuleiro do quebra-cabeça irá permitir essa interação apenas quando estiver pressionando essas teclas.</para>
+				<tip
+><para
+>Em vez de clicar, você poderá também pressionar a tecla <keycap
+>Espaço</keycap
+>, de modo a atribuir o <guilabel
+>Sem-Botão</guilabel
+> especial a esta interação. Isto só é permitido caso as teclas modificadoras estejam sendo pressionadas. O <guilabel
+>Sem-Botão</guilabel
+> significa que as teclas modificadoras irão ocupar o papel do botão do mouse. A interação começa quando pressionar as teclas modificadoras, terminando quando uma delas for liberada.</para
+></tip>
+			</sect2>
+			<sect2>
+				<title
+>Aba Roda do mouse</title>
+				<para
+>Esta página funciona de forma semelhante à anterior. Quando o botão à direita pedir a inserção de dados, você terá que movimentar a roda do mouse em vez de clicar num botão do mesmo. Também é permitido manter pressionadas as teclas modificadoras, tendo a mesma consequência que o caso anterior.</para>
+				<tip
+><para
+>Se o seu mouse tiver uma roda bidirecional (como acontece normalmente nos touchpads dos notebooks), você poderá tirar partido desta característica: O botão irá reconhecer se o usuário moveu a roda na horizontal ou na vertical.</para
+></tip>
+			</sect2>
+		</sect1>
+	</chapter>
+
+	<chapter id="credits">
+		<title
+>Créditos e licença</title>
+		<para
+>O &palapeli; tem como objetivo trazer a diversão e o desafio dos quebra-cabeças para seu computador.</para>
+		<para
+>A ideia foi primeiramente desenvolvida por Bernhard Schiffner, junto com Stefan Majewsky, que era o desenvolvedor principal do &palapeli;.</para>
+		<para
+>O &i18n-psc; foi criado por Johannes L&#xF6;hnert.</para>
+		<para
+>As funcionalidades dos quebra-cabeças grandes foram contribuições de Ian Wadham.</para>
+		<para
+>Direitos autorais da documentação 2009, 2010 Johannes L&#xF6;hnert, Stefan Majewsky e 2014 de Ian Wadham.</para>
+		<para
+>Tradução de Luiz Fernando Ranghetti <email
+>elchevive@opensuse.org</email
+> e André Marcelo Alvarenga <email
+>alvarenga@kde.org</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+	<appendix id="installation">
+		<title
+>Instalação</title>
+		&install.intro.documentation;
+		<sect1 id="Compilation">
+			<title
+>Compilação e instalação</title
+>&install.compile.documentation; </sect1>
+	</appendix>
+	&documentation.index;
+</book>

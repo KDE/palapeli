@@ -1,0 +1,1410 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+<!ENTITY palapeli "<application
+>Palapeli</application
+>">
+<!ENTITY i18n-psc "<application
+>Palapeli tükeldajakogu</application
+>">
+<!ENTITY kappname "&palapeli;">
+<!ENTITY package "kdegames">
+<!ENTITY % Estonian  "INCLUDE">
+<!ENTITY % addindex "IGNORE">
+]>
+
+<book id="palapeli" lang="&language;">
+	<bookinfo>
+		<title
+>&palapeli; käsiraamat</title>
+		<authorgroup>
+			<author
+><firstname
+>Johannes</firstname
+> <surname
+>L&#xF6;hnert</surname
+> <affiliation
+><address
+><email
+>loehnert_kde@gmx.de</email
+></address
+></affiliation>
+			</author>
+			<author
+><firstname
+>Stefan</firstname
+> <surname
+>Majewsky</surname
+> <affiliation
+><address
+><email
+>majewsky@gmx.net</email
+></address
+></affiliation>
+			</author>
+			<author
+><firstname
+>Ian</firstname
+> <surname
+>Wadham</surname
+> <affiliation
+><address
+><email
+>iandw.au@gmail.com</email
+></address
+></affiliation>
+			</author>
+			<othercredit role="translator"
+><firstname
+>Marek</firstname
+><surname
+>Laane</surname
+><affiliation
+><address
+><email
+>bald@smail.ee</email
+></address
+></affiliation
+><contrib
+>Tõlge eesti keelde</contrib
+></othercredit
+> 
+		</authorgroup>
+
+		<copyright>
+			<year
+>2009, 2010</year>
+			<holder
+>Johannes L&#xF6;hnert, Stefan Majewsky</holder>
+		</copyright>
+		<copyright>
+			<year
+>2014</year>
+			<holder
+>Ian Wadham</holder>
+		</copyright>
+		<legalnotice
+>&FDLNotice;</legalnotice>
+		<date
+>2014-03-09</date>
+		<releaseinfo
+>2.0 (&kde; 4.13)</releaseinfo>
+
+		<abstract>
+			<para
+>See on &kde; tehnoloogial põhineva puslemängu &palapeli; käsiraamat.</para>
+		</abstract>
+		<keywordset>
+			<keyword
+>KDE</keyword>
+			<keyword
+>kdegames</keyword>
+			<keyword
+>mäng</keyword>
+			<keyword
+>pusle</keyword>
+			<keyword
+>pusle</keyword>
+			<keyword
+>palapeli</keyword>
+		</keywordset>
+	</bookinfo>
+
+	<chapter id="introduction">
+		<title
+>Sissejuhatus</title>
+		<para
+>&palapeli; on ühele mängijale mõeldud puslemäng. Sellega saab luua ja lahendada puslesid, mille tükkide arv ulatub neljast 10 000-ni. Käesolevas versioonis on ka abivahendid aitamaks kokku panna suuri puslesid (300 või rohkem tükki) arvutiekraani suuruse piiratust arvestades.</para>
+		<para
+>&palapeli; aken jaguneb kaheks alaks: puslekogu ja puslelaud.</para>
+		<para
+>Käsiraamat kirjeldab mõlemat ala.</para>
+	</chapter>
+
+	<chapter id="collection">
+		<title
+>Puslekogu sirvimine</title>
+		<sect1 id="play-maintain-collection">
+			<title
+>Puslede kokkupanemine ja kogu uuendamine</title>
+		<para
+>&palapeli; esmakordsel käivitamisel laaditakse sinu puslekogu mõningate juba &palapeli;ga kaasa tulnud vaikimisi pusledega. Klõps mõnel neist võimaldab kohe asuda valitud puslet kokku panema. Kui lood hiljem juba ise puslesid (vt. allpool), saad ka neid samamoodi klõpsates kokku panema hakata.</para>
+		<para
+>Kokkupanek toimub puslelaual, mille kasutamist selgitab lähemalt <link linkend="puzzletable"
+>ülejärgmine osa</link
+>.</para>
+		<note
+><para
+>Puslesid saab nimekirjast valida, kui vajutada korraga klahvi &Ctrl; ja hiire vasakut nuppu. Hiire vasaku või parema nupu vajutamine ilma klahvita &Ctrl; avab konkreetse pusle puslelaual.</para>
+		      <para
+>Apple OS X korral tuleb mängu alustamiseks teha topeltklõps &HVNga;. Ühekordne klõps lihtsalt valib pusle nimekirjas.</para
+></note>
+		<para
+>Lisaks pusle valimisele saab puslekogus ette võtta järgmisi toiminguid:</para>
+		<itemizedlist>
+			<listitem
+><para
+><emphasis
+>luua</emphasis
+> uusi puslesid kettal olevate piltide põhjal</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>importida</emphasis
+> teiste loodud puslesid</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>eksportida</emphasis
+> puslesid, et jagada neid oma sõprade ja kogu maailmaga</para
+></listitem>
+			<listitem
+><para
+><emphasis
+>kustutada</emphasis
+> puslesid, mida sa enam ei vaja</para
+></listitem>
+		</itemizedlist>
+		<para
+>Järgnevalt kirjeldatakse, kuidas neid ülesandeid ette võtta tööriistariba nuppude abil.</para>
+	    </sect1>
+		<sect1 id="toolbar-collection">
+			<title
+>Tööriistariba tutvustus</title>
+			<variablelist>
+				<varlistentry>
+					<term
+><guiicon
+>Loo uus pusle</guiicon
+></term>
+					<listitem>
+						<para
+><action
+>Avab dialoogi, mis võimaldab luua pusle kettal asuva pildi põhjal.</action
+> Vaata täpsemalt <link linkend="create-puzzles"
+>järgmist osa</link
+>.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Kustuta pusle</guiicon
+></term>
+					<listitem
+><para
+><action
+>Kõik pusleloendis valitud pusled kustutatakse lõplikult sinu kogust. </action
+></para
+><warning
+><para
+>Seda toimingut ei saa tagasi võtta.</para
+></warning
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Impordi failist</guiicon
+></term>
+					<listitem
+><para
+><action
+>Kui oled hankinud &palapeli; puslefaili (seda eristab tavaliselt laiend <literal role="extension"
+>*.puzzle</literal
+>), võid selle importida oma kohalikku kogusse.</action
+> Puslefaile saab mängimiseks avada ka neil failihalduris klõpsates, kuid importimise korral on see pusle näha ka sinu kohalikus kogus ning sa võid turvaliselt kustutada allalaaditud puslefaili.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Ekspordi failina</guiicon
+></term>
+					<listitem
+><para
+><action
+>Sellega saab valitud pusled salvestada failina, et neid siis jagada sõpradele, avaldada veebis või ka lihtsalt teha oma kogust varukoopia.</action
+></para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="create-puzzles">
+		<title
+>Uute puslede loomine</title>
+		<sect1 id="creation-dialog">
+		<title
+>Pusle loomise dialoog</title>
+		<para
+>Nagu mainitud <link linkend="toolbar-collection"
+>eelmises osas</link
+>, saab uusi puslesid luua, kui klõpsata puslekogu aknas nupule <guiicon
+>Loo uus pusle</guiicon
+>.</para>
+		<para
+>Sellele klõpsates avaneb pusle loomise dialoog, mis koosneb kolmest leheküljest:</para>
+		<procedure>
+			<step
+><para
+>Esimesel leheküljel saab valida pildifaili, mida hakatakse tükeldama. Kontrolli, et sisestaksid pildi korrektsed metaandmed: sul tuleb määrata pildi autor (&eg; fotograaf või joonistaja) ning sealjuures tuleks kindlasti arvestada pildi autori õigustega.</para
+></step>
+			<step
+><para
+>Teisel leheküljel saab valida tükkide tüübi, milleks pilt tükeldatakse. &palapeli; pakub mitmeid valmistükeldajaid, kuid saadaval on ka kolmanda poole tükeldajaid.</para
+></step>
+			<step
+><para
+>Dialoogi viimasel leheküljel saab kohandada valitud tükeldajat, näiteks valida teistsuguse tükkide arvu või muuta tükkide kuju parameetreid. Võimalikud valikud sõltuvad konkreetsest valitud tükeldajast.</para
+></step>
+		</procedure>
+		<para
+>Käsiraamatus tuleb edasi juttu &palapeli;ga kaasasolevatest tükeldaatest. Kui oled alla laadinud mõne &palapeli;le loodud kolmanda poole tükeldaja, uuri palun selle plugina dokumentatsiooni, kui sul tekib raskusi selle paigaldamise või kasutamisega.</para>
+		</sect1>
+		<sect1 id="simple-slicers">
+			<title
+>Lihtsad tükeldajad</title>
+			<para
+>&palapeli; pakub kaht lihtsat tükeldajat: <quote
+>Klassikalised pusletükid</quote
+> ja <quote
+>Ristkülikukujulised tükid</quote
+>. Nendega saab luua lihtsad ristkülikukujulised tükid kas ühendavate jalgadega või ilma.</para>
+			<para
+>Mõlemad tükeldajad võimaldavad kohandada tükkide arvu ja proportsiooni. Proportsiooniliuguri nihutamisel vasakule saadakse kõrgemad tükid, paremale laiemad tükid. Vaikevalik annab tulemuseks enam-vähem ruudukujulised tükid.</para>
+		</sect1>
+		<sect1 id="psc">
+			<title
+>Täiustatud &i18n-psc;</title>
+			<para
+>&i18n-psc; loob mitmesuguste lihtsate mustritega realistlikke pusletükke:</para>
+			<variablelist>
+				<varlistentry>
+					<term
+>Ristkülikuline võrgustik</term>
+					<listitem
+><para
+>Sisaldab levinud ristkülikukujulisi tükke.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Cairo võrgustik</term>
+					<listitem
+><para
+>Viisnurksete tükkide ja ebaühtlaste nurkadega pusle on üpris keeruline, sest tükid haakuvad väga harjumatul viisil.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Kuusnurkne võrgustik</term>
+					<listitem
+><para
+>Loob otsekui meekärgedena asetatavad kuusnurksed tükid.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Rotrexi (rombilis-triheksagonaalne) võrgustik</term>
+					<listitem
+><para
+>Kolmnurksete, kuusnurksete ja ristkülikukujuliste tükkide spetsiaalse seguna meenutab see paljusid omavahel lõikuvaid ringe.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Ebareeglipärane võrgustik</term>
+					<listitem
+><para
+>See võrgustik on saadaval ainult siis, kui on paigaldatud <application
+>qvoronoi</application
+> paketist <ulink url="http://www.qhull.org"
+><application
+>qhull</application
+></ulink
+>. <application
+>qvoronoi</application
+>d kasutatakse ebareeglipäraste tükkide kujude väljaarvutamiseks suvaliselt asetatud punktide põhjal.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+			<para
+>&i18n-psc;l on hulk parameetreid, mis määravad tükkide servade välimust, eriti just jalgade välimust. Kõigi parameetrite puhul on ette nähtud teatavad vaikeseadistused. On olemas ka täiendav valmisrežiim, mis kahandab parameetrite arvu miinimumini. Tavaliselt on saadaval järgmised parameetrid:</para>
+			<variablelist>
+				<varlistentry>
+					<term
+>Ligikaudne tükkide arv</term>
+					<listitem
+><para
+><!--FIXME add missing description here--></para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Peegeldatud servade protsent</term>
+					<listitem
+><para
+>Iga jala peegeldamise tõenäosus. Jalga peetakse peegeldatuks, kui see osutab võrreldes korrapärase võrgustikuga vastassuunda. Korrapärases võrgustikus on tulemuseks kolme või nelja jalaga tükid, mille jalad suunduvad vastavalt välja- või sissepoole. Täiesti korrapärase võrgustiku saamiseks nihuta liugur päris vasakusse serva. Keskel on jalgade suund juhuslik. Paremas servas on taas tegemist korrapärase võrgustikuga, ainult nüüd juba <quote
+>teistpidi</quote
+>. See <emphasis
+>ei tähenda</emphasis
+> kõigi jalgade teistpidi keeramist: alternatiivses korrapärases võrgustikus on igal tükil näiteks neli sisse- või neli väljapoole suunatud jalga. Ebakorrapärase võrgustiku puhul pole sel seadistusel tähendust.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Serva kõverus</term>
+					<listitem
+><para
+>Määrab servade kõveruse, s.t. selle, kui tugevasti piirded sisse- või väljapoole kalduvad. Täiesti sirgete servade saamiseks nihuta liugur päris vasakusse serva (see ei mõjuta jalgu).</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Jala suurus</term>
+					<listitem
+><para
+>Määrab iga serva jalaosa suuruse. Vaikeseadistus (liugur keskasendis) sarnaneb reaalsete pusledega. Liuguri vahemik on sellest suurusest 50% kuni 150%, mis on juba naeruväärselt suur. Programm püüab iga hinna eest vältida jalgade kokkupõrkamist. Kokkupõrkuvate servade kuju muudetakse korduvalt ning kahandatakse väikeste sammudega. Siiski leidub juhtumeid, kus lahendust ei leitagi, eriti just jalgade suure suuruse korral.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Kõveruse mitmekesisus</term>
+					<listitem
+><para
+>Määrab, kui suurel määrab varieerub eri servade kõverus (vt. eespool). Liugurit vasakule nihutades hakkavad sisse- ja väljapoole kumerused üha enam sarnanema. Paremale nihutades võivad tulemuseks olla väga kõverad ja väga sirged servad.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Jala asukoha mitmekesisus</term>
+					<listitem
+><para
+>Määrab, kui palju erineb jala asukoht servadel. Päris liuguri vasakus servas on jalad kinnitatud serva keskele.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Jalgade mitmekesisus</term>
+					<listitem
+><para
+>Määrab, kui eripärased on jalad. Päris vasakul on kõik jalad ühesugused. Päris paremal on kõik jalad spetsiaalselt sulle loodult unikaalsed.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Tükkide suuruse mitmekesisus</term>
+					<listitem
+><para
+>Ainult ebareeglipärase võrgustiku korral: määrab tükkide suuruse erinemise. Väga väike tähendab, et erinevusi pole, tekib kristallilaadne struktuur. Suuremad väärtused annavad tulemuseks nii väga väikeseid kui ka väga suuri tükke.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+>Võrgustiku pildi salvestamine</term>
+					<listitem
+><para
+>Võrgustiku pildi (mustad servad valgel taustal) salvestamine failina <filename
+>~/goldberg-slicer-dump.png</filename
+>. Kui on olemas varasem salvestus, siis kirjutatakse see üle.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="puzzletable">
+		<title
+>Mängimine puslelaual</title>
+
+		<sect1 id="puzzletable-moves">
+		<title
+>Põhikäigud</title>
+		<screenshot
+><mediaobject>
+			<imageobject
+><imagedata fileref="puzzletable1.png" format="PNG"/></imageobject>
+			<textobject
+><phrase
+>Puslelaud (detail)</phrase
+></textobject>
+		</mediaobject
+></screenshot>
+		<para
+>Mängu eesmärk on panna etteantud tükkidest kokku pilt.</para>
+		<para
+>Eelvaatlusaken näitab, milline peab pilt kokkupanduna välja nägema. Selle akna nägemiseks või peitmiseks kasuta tööriistariba või menüükäsku. Täpsemalt kõneleb sellest osa <link linkend="puzzletable-preview"
+>Eelvaatlusaken</link
+>.</para>
+		<para
+>Kui soovid jõudu katsuda 300 või enama tükiga puslega, loe palun pärast käesoleva peatüki läbimist osa <link linkend="large-puzzles"
+>Abivahendid suurte puslede kokkupanemisel</link
+>.</para>
+		<para
+>Tükki saab liigutada, kui sellel klõpsata ja seda lohistada &HVNga;. Mitme tüki korraga liigutamiseks vali nad kõigepealt, seejärel aga lohista üht tükki, teised liiguvad koos sellega.</para>
+		<para
+>Mitu tükki saab valida, kui hoida all klahv &Ctrl; ja klõpsata tükkidel või lohistada nende ümber &HVNga; valikujoon. &Ctrl; ja &HVN; korraga võimaldavad samuti suurendada või vähendada ühekaupa valitud tükkide arvu.</para>
+		<para
+>Valiku tühistamiseks klõpsa lihtsalt puslelaua tühjal alal või mõnel valimata tükil.</para>
+		<para
+>Kui asetad tüki selle naabertüki kõrvale, haakuvad nad automaatselt omavahel (1). Kui tükid on haakunud, ei saa neid enam lahutada. Erinevalt pärismaailmast ei saa &palapeli;s kokku asetada tükke, mis tegelikult kokku ei kuulu.</para>
+		<para
+>Puslelaua all olev edenemisriba näitab sinu edenemist, lugedes kokku ühendatud tükke (2). &palapeli; salvestab edenemise automaatselt iga käigu järel, mistõttu ei ole vaja muret tunda salvestamise pärast.</para>
+		<para
+>Puslelaua vaadet saab suurendada või vähendada hiirerattaga, all paremal oleva liuguriga või liuguri kõrval olevate nuppudega (3).</para>
+		<para
+>Puslelaua vaadet saab lohistada igas suunas, kui klõpsata ja lohistada &HPNga;.</para>
+		<para
+>Tükke saab liigutada vaid <emphasis
+>puslelaua alal</emphasis
+>. Seda näitab taustast eristuv heledam ristkülikukujuline ala. Kui liigutad tüki mänguala piirde (4) vastu, laiendatakse seda automaatselt, et sul oleks rohkem ruumi tükkidega majandada. Varjutatud piirete lähedal muutub hiirekursor kahe otsaga nooleks, andes märku, et mänguala on võimalik muuta &HVNga; klõpsates ja lohistades.</para>
+		<para
+>Pusleala võib lukustada pisikese nupuga (5) edenemisribast paremal. Vari (4) pusleala ümber tumeneb ning tükid jäävad nüüd liigutamisel piirde äärde lihtsalt seisma ega liigu enam edasi. Käsitsi on siiski võimalik pusleala suurust muuta.</para>
+		</sect1>
+
+		<sect1 id="puzzletable-preview">
+			<title
+>Eelvaatluse aken</title>
+			<para
+>Eelvaatluse aken on väike aken, mis hõljub vabalt puslelaua kohal või selle mõnel küljel. See sisaldab kokkupandud pusle pilti ehk pilti, mida päriselus võib enamasti näha puslekarbi peal. </para>
+			<para
+>Akent saab nähtavale tuua või peita tööriistariba nupuga <guiicon
+>Eelvaatlus</guiicon
+> või menüükäsuga <menuchoice
+><guimenu
+>Vaade</guimenu
+><guimenuitem
+>Eelvaatlus</guimenuitem
+></menuchoice
+>. Selle suurus, asukoht ning näitamine või mittenäitamine salvestatakse ning kehtivat seadistust kasutatakse ka &palapeli; järgmisel käivitamisel. </para>
+			<para
+>Et tegu on aknaga, saab seda töölaual liigutada kuhu vaja ning suurust muuta. Akna sulgemisnupp peidab selle, maksimeerimisnupp aga suurendab või vähendab akent järsult. </para>
+			<para
+>Eelvaatlusaknal on suurendamisomadused, mistõttu see ei vaja palju ruumi. Kui viia hiir akna kohale, siis suurendatakse kohe hiire all olev ala ja mõned tükid selle ümber. See on väga kasulik pusle üksikasjade ning parajasti sulle peamurdmist valmistava tüki võimaliku samasuse tuvastamisele, aga eriti pildi servade ääres võib see ka mõningaid raskusi valmistada. </para>
+		</sect1>
+
+		<sect1 id="puzzletable-mouseactions">
+			<title
+>Mängimine hiire abil</title>
+			<para
+>Nagu eespool kirjeldatud, saab &palapeli; puslelaual väga mitmel moel hiirega talitada. See, millised hiirenupud milliseid toiminguid käivitavad, on täielikult sinu enda määrata (vaata selle kohta täpsemalt osa <link linkend="configuration-mouseactions"
+>Mängu seadistamine</link
+>). Järgnevalt on kokku võetud kõik võimalikud hiiretoimingud:</para>
+			<variablelist>
+				<varlistentry>
+					<term
+><action
+>Puslelaua ala suuruse muutmine selle servi lohistades</action
+></term>
+					<listitem
+><para
+>Vaikimisi sooritatakse see toiming &HVNga;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Tükkide liigutamine lohistades</action
+></term>
+					<listitem
+><para
+>Pusletükile klõpsates ja seda lohistades tükki liigutatakse. Kui valitud on mitu tükki ning klõpsad ühele neist ja seda lohistad, liigutatakse kõiki tükke. Vaikimisi sooritatakse see &HVNga;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Vaate muutmine lohistades</action
+></term>
+					<listitem
+><para
+>See võimaldab liigutada terve puslelaua mis tahes suunas. Vaikimisi sooritatakse see &HPNga;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Mitme tüki valimine valikujoonega</action
+></term>
+					<listitem
+><para
+>Kui klõpsad pusletüki asemel puslelaua vabale alale, võid joonistada valikujoone. Kui vabastad hiirenupu, valitakse kõik selle sisse jäävad tükid. Kõigi ülejäänud tükkide varasem valitus eemaldatakse. Vaikimisi sooritatakse see &HPNga;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Mitme tüki valimine klõpsuga</action
+></term>
+					<listitem
+><para
+>Kui klõpsad ühele pusletükile, see valitakse või kui see oli juba valitud, valik tühistatakse. Samuti saab seda kasutada valikujoonega valimise täpsustamiseks. Vaikimisi sooritatakse see &HVNga; ning ainult siis, kui hoitakse all klahv &Ctrl;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Valiku tühistamine</action
+></term>
+					<listitem
+><para
+>Valikut saab tühistada klõpsuga puslelaua tühjale alale või mõnele valimata tükile.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Puslelaua suurendamine ja vähendamine</action
+></term>
+					<listitem
+><para
+>See toiming on samane klõpsamisega nuppudele liuguri (3) külgedel olekuribal. Vaikimisi sooritatakse see hiirerattaga.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Lülitumine lähi- või kaugvaatele</action
+></term>
+					<listitem
+><para
+>See võimaldab lülituda lähi- ja kaugvaate vahel hiirekursori asukohas. Peamiselt on see mõeldud kiireks suurendamiseks-vähendamiseks suurte puslede (300 või enam tükki) korral. Täpsemalt kõneldakse sellest osas <link linkend="large-puzzle-fast-zooming"
+>Suurenduse kiire muutmine lähi- ja kaugvaate vahel</link
+>. Vaikimisi sooritatakse see &HKNga;.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Tükkide teleport hoidikusse või hoidikust</action
+></term>
+					<listitem
+><para
+>See võimaldab kiiresti koguda, sortida ja liigutada tükke suurte puslede (300 või enam tükki) puhul ilma lohistamata. Soovi korral võib seda muidugi kasutada ka väiksemate puslede puhul. Täpsemalt kõneldakse sellest osas <link linkend="large-puzzle-holders"
+>Tükihoidikute kasutamine</link
+>. Vaikimisi sooritatakse see &HVNga; ja ainult siis, kui klahv &Shift; on alla vajutatud.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Puslelaua ala lukustuse lülitamine</action
+></term>
+					<listitem
+><para
+>See toiming on samane olekuribal nupu (5) klõpsamisega. Vaikimisi ei ole see omistatud ühelegi hiirenupule, kuid seda võib teha vastavas <link linkend="configuration-mouseactions"
+>seadistustedialoogis</link
+>.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><action
+>Vaate rõhtne kerimine</action
+> ja <action
+>vaate püstine kerimine</action
+></term>
+					<listitem
+><para
+>Vaikimisi ei ole see omistatud hiirerattale, kuid seda võib teha vastavas <link linkend="configuration-mouseactions"
+>seadistustedialoogis</link
+>.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+
+		<sect1 id="toolbars-puzzletable">
+			<title
+>Tööriistariba tutvustus</title>
+			<variablelist>
+				<varlistentry>
+					<term
+><guiicon
+>Tagasi kogusse</guiicon
+></term>
+					<listitem
+><para
+><action
+>Liigub tagasi kogusse uue pusle valimiseks.</action
+> Seda saab kasutada ainult pusle lahendamise ajal.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guiicon
+>Eelvaatlus</guiicon
+></term>
+					<listitem
+><para
+><action
+>Võimaldab lülitada valmis puslet kujutava eelvaatlusakna näitamist ja peitmist.</action
+></para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+	</chapter>
+
+	<chapter id="large-puzzles">
+		<title
+>Abivahendid suurte puslede kokkupanemisel</title>
+
+		<sect1 id="large-puzzle-general">
+			<title
+>Üldised põhimõtted</title>
+			<para
+>&palapeli; suudab toime tulla ka suurte pusledega, milles tükke on 300 kuni 10 000, kuid eriti väiksel ekraanil on selleks vaja teatavaid abivahendeid. </para>
+			<para
+>Suurte puslede loomine ei erine millegi poolest väikeste loomisest. Uuri selle kohta osa <link linkend="create-puzzles"
+>Uute puslede loomine</link
+>. Siiski tuleks enne alustamist pisut mõelda: sellest kõneldakse lähemalt osas <link linkend="large-puzzle-creation"
+>Suurte puslede loomine - mida silmas pidada?</link
+> </para>
+			<para
+>Suurte puslede puhul on eriliselt kasuks eelvaatlusaken, mille kohta eespool anti <link linkend="puzzletable-preview"
+>üksikasjalik kirjeldus</link
+>. </para>
+			<para
+>Järgmine mõttekoht on ruumi haldamine ja liikumine. Kui vähendada, nii et kogu puslelaud on näha, on raske eristada konkreetseid tükke. Kui suurendad ja leiad vajaliku tüki, on teisalt väheusutav, et samal ajal on näha ka koht, kuhu see tükk sobib. Mõningaid lahendusi neile ja teistele probleemidele pakub osa <link linkend="large-puzzle-space"
+>Ruumi haldamine ja liikumine</link
+>. </para>
+			<para
+>Viimaks on vaja koguda tükke ja viia nad kokkupanemisalale kuidagi tõhusamalt kui aina kuskilt kaugelt lohistades. Siinkohal on abiks tükihoidikud. </para>
+			<para
+>Kui alustad suure puslega, eraldatakse sulle hoidik (väike eraldiseisev aken) nimega <quote
+>Hoidik</quote
+>, kuhu saad paigutada tükke, kui seda vajalikuks pead. Seejärel saad lohistada tükid vajalikku kohta ja välja selgitada, mis kuhu läheb. Pärispusle puhul võrdub see enam-vähem tükkide hoidmisega käes, kui kaalud suure pusle puhul nende õiget kohta. </para>
+			<para
+>Võib juhtuda, et pead vajalikuks koondada tükke mõne ühise tunnuse järgi (&eg; servad, taevas, vesi jne.), mistõttu sul võib olla hoidikuid just nii palju, kui neid vajad, ning sa saad neile nimesid anda. Hoidikud ja nende sisu salvestatakse koos puslelauaga, niisiis võid neisse koguda teatavaid tükke kas või selleks, et hiljem, kui raskest kokkupanemisest tuhmunud mõistus ja silmad taas klaariks saavad, kokkupanemist jätkata. Täpsemalt kõneleb hoidikute tarvitamisest osa <link linkend="large-puzzle-holders"
+>Tükihoidikute kasutamine</link
+>. </para>
+			<para
+>Viimaks toob osa <link linkend="puzzletable-mouseactions"
+>Hiire käitumine</link
+> ära kaks erilist hiiretoimingut, mis muudavad suurte puslede kokkupanemise kiiremaks ja lihtsamaks: tükkide teleport ning lähi- ja kaugvaate kasutamine. </para>
+		</sect1>
+
+		<sect1 id="large-puzzle-creation">
+			<title
+>Suurte puslede loomine - mida silmas pidada?</title>
+			<para
+>Enne suure pusle loomist tuleks kontrollida, kas pilt, mille põhjal soovid pusle luua, on ikka piisavalt üksikasjalik (s.t. piisavalt suur megapikslites). Seda, kui palju piksleid pikuti ja laiuti sisaldab sinu pilt, mis ei ole tihendatud JPEG- või mõnes muus pildivormingus, saab teada kas mõne failitööriistaga või fotode näitamise või töötlemise rakendusega. Rusikareeglina võib arvestada ühe megapiksli 1000 tüki kohta. See jätab igale tükile umbes 1000 pikslit ehk veidi üle 30x30 piksli, muutes nad piisavalt teravaks servadel ning võimaldades suurendamise korral korralikku kujutist. Megapiksleid võib muidugi ka vähem olla, aga siis võib kokkupanemise ajal tükkide eristamine olla palju keerulisem. </para>
+			<para
+>Suure pusle loomisel või taasalustamisel on mõistlikum vältida &palapeli; servade ja varjude võimalusi (neist kõneldakse osas <link linkend="configuration-general"
+>Üldised seadistused</link
+>), sest need muudavad laadimise aeglasemaks ja valitud oleku nägemise raskemaks, kui tükid on vaates väga tillukesed. Varjude mittekasutamise korral on tükkide valitud olek palju paremini näha. </para>
+		</sect1>
+
+		<sect1 id="large-puzzle-space">
+			<title
+>Ruumi haldamine ja liikumine</title>
+			<sect2 id="large-puzzle-space-allocation">
+			<title
+>Ruumi eraldamine puslelaual</title>
+			<para
+>Puslet luues või taaskäivitades segatakse tükid ja asetatakse suvaliselt puslelaua võrgustikule. Vajaminevat ruumi mõjutavad kaks valikut, mille kohta vaata osast <link linkend="configuration"
+>Mängu seadistamine</link
+> valikuid, mida pakub dialoog, mille saab avada menüükäsuga <menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>&palapeli; seadistamine...</guimenuitem
+></menuchoice
+> (või Apple OS X korral <menuchoice
+><guimenu
+>&palapeli;</guimenu
+><guimenuitem
+>Eelistused...</guimenuitem
+></menuchoice
+>). </para>
+			<para
+>Tükkide vahe puslevõrgustikus võib määrata 1,0 kuni 1,5 korda suuremaks kõige kõrgema ja kõige laiema tüki kõrgusest ja laiusest. Väiksem valik paigutab tükid kompaktsemalt, kuid suurem jätab rohkem ruumi lohistamiseks ja valikujoone tõmbamiseks. Vaikevalik on 1,3, kuid suurte puslede puhul sobib paremini 1,1. See valik puudutab igas suuruses puslesid, samuti mõjutab see võrgustikke tükihoidikute korral (vt. osa <link linkend="large-puzzle-holders"
+>Tükihoidikute kasutamine</link
+>) ning tükkide automaatset ümberjagamist puslelaual menüükäsuga <menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+> <guimenu
+>Liikumine</guimenu
+><guimenuitem
+>Jaga tükid ümber</guimenuitem
+></menuchoice
+>. </para>
+			<para
+>Teine valik eraldab puslelaual täpselt vajaliku ruumi lahenduse leidmiseks. Vaikimisi on see tsentreeritud ning tükid on jaotatud võrdselt selle ümber. Üldiselt peaks see paigutus asetama tükid oma lõplikule asukohale kõige lähemale. Samuti võib kasutada ükspuha millist neljast nurgast või jätta lahendusruum üldse eraldamata (valik Puudub), millisel juhul pead ruumi käsitsi puhastama, näitekes puslelauda laiendades (vt osa <link linkend="puzzletable-moves"
+>Põhikäigud</link
+>. Lahendusruum puudutab puslesid, kus on vähemalt 20 tükki, sest vähemate tükkide korral ei ole sel mõtet. </para>
+			<para
+>Pusle kokkupanemise käigus liiguvad tükid lahendusalasse ning jätavad mujale maha tühikuid. Seepärast on mõttekas ülejäänud tükid umber paigutada, et nad taas üksteisele lähemal oleks. Kui soovid seda teha, vali mõned tükid valikujoonega või klahviga &Ctrl; ja &HVNga; ning kasuta siis menüükäsku <menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+><guimenu
+>Liikumine</guimenu
+><guimenuitem
+>Jaga tükid ümber</guimenuitem
+></menuchoice
+> või kiirklahvi (vaikimisi <keycap
+>R</keycap
+>). Tükid pakitakse võrgustikule kokku ja nad jäävad valituks, nii et neid saab vajaduse korral hõlpsasti liigutada paremasse asukohta. Sel moel saab koondada ka mingil moel ühte kuuluvaid tükke, kuid selleks on palju parem abivahend tükihoidik. </para>
+			</sect2>
+			<sect2 id="large-puzzle-fast-zooming">
+			<title
+>Suurenduse kiire muutmine lähi- ja kaugvaate vahel</title>
+			<para
+>Pusle laadimisel arvutab &palapeli; välja kaug- ja lähivaated ning avab kaugvaate, mis näitab tervet puslelauda. Lähivaade näitab tükke märksa selgemalt ja mugavamalt, arvestades ekraani ja töölaua suurusega. &HKNga; saab kiiresti lülitada kahe vaate vahel kohas, kus viibib hiirekursor. Nii saab kiiresti leida mis tahes tüki puslelaual ning näha, millise kuju ja pildiga see on. </para>
+			<para
+>Mõlema vaate suurendustaset saab käsitsi kohandada ning määrang jäetakse meelde järgmiseks korraks, mil &HKNga; klõpsad. Kiire suurendamise ja vähendamise võimalus on olemas kõigi puslede puhul, kui alla 100 tükiga pusle korral on kaks vaadet peaaegu eristamatud. </para>
+			</sect2>
+			<sect2 id="large-puzzle-navigating">
+			<title
+>Liikumine suures pusles</title>
+			<para
+>Raskem tee tükkide liigutamiseks suures pusles on need valida ning siis liigutada kas tükke või puslelauda (vastavalt &HVNga; ja &HPNga;), kuni jõuad sihtkohta. Palju hõlpsam on valida tükid, suurendada kaugvaatesse (&HKNga;, vt. eespool), lohistada tükid sihtkohta ühe liigutusega (&HVNga;) ja siis vähendada lähivaatesse (&HKNga;). See on ka hea võimalus kohale toimetada üksik kaugele jäänud tükk, kuid ühe tillukese tüki lohistamine üle puslelaua on tuhandete tükkide olemasolul ilma selle valitud olekut kaotamata omaette katsumus. </para>
+			<para
+>Teine viis liikuda ja puslelaual süstemaatiliselt otsida on suurendada üleval vasakus nurgas (&HKNga;), siis aga kasutada tühja ala kerimisribadel, et lasta laud enda silme eest püst. või rõhtsuunas läbi, üks kindla suurusega <quote
+>lehekülg</quote
+>korraga. See on väga tõhus meetod, kui kasutad ühtlasi tükihoidikuid ja otsid kokkukuuluvaid tükke. Kui hoiad lähivaate fikseerituna ja alustad alati samast kohast, saad ka alati fikseeritud suuruse ja sisuga <quote
+>leheküljed</quote
+>. </para>
+			</sect2>
+			<sect2 id="large-puzzle-visibility">
+			<title
+>Tükkide nähtavus suurtes pusledes</title>
+			<para
+>Suur pusle väiksel ekraanil muudab õige keeruliseks näha, mida sa üldse teed. Kui näiteks 1440x900 ekraanil on pusle 10 000 tükiga, on kaugvaate korral tükid umbes 7 piksli suurused. Nii väikese tüki pealt on peaaegu võimatu näha pilti, värvi, kuju või isegi seda, kas see on valitud või mitte. </para>
+			<para
+>&palapeli; pakub õige paljusid taustu ja taustavärve, nii et peaks olema võimalik leida selline kombinatsioon, mis nähtavusele kaasa aitab. Neile võib lisada klaarima esiletõstmise viisi, kui ei kasutata varje, ning esiletõstmise värvi valimise võimaluse, mille saab valida võimalikult erineva tausta ja enamiku tükkide värvist. Ka need määrangud salvestatakse koos puslega, mis muudab nad püsivaks. Sel moel võib igal puslel olla just selline taust ja esiletõstmine, mis antud pildiga kõige paremini sobib. Suure pusle loomisel tasub nende valikutega katsetada, kuid selle juures võib olla vajalik pusle uuesti laadida, et muudatused rakenduksid. </para>
+			</sect2>
+		</sect1>
+
+		<sect1 id="large-puzzle-holders">
+			<title
+>Tükihoidikute kasutamine</title>
+			<sect2 id="large-puzzle-whatareholders">
+			<title
+>Mis on tükihoidikud?</title>
+			<para
+>Tükihoidikud on võib-olla &palapeli; kõige tulusam abivahend suurte puslede kokkupanemisel. Need on väikesed eraldiseisvad aknad, millesse saab paigutada ühtekuuluvaid tükke, näiteks <quote
+>servi</quote
+> või <quote
+>taevast</quote
+> või <quote
+>merd</quote
+> või <quote
+>valget maja vasakul</quote
+>. Algul on nad minimaalse suurusega, millest piisab nelja tüki lähivaates nägemiseks. Nii on neid ka hõlpus asetada otse puslelaua kõrvale. </para>
+			<para
+>Et tegu on akendega, saab hoidikuid paigutada töölaual kuhu vaja ning nende suurust muuta. Sulgemisnupule klõpsamine kustutab hoidiku, aga ainult siis, kui selles pole ühtegi tükki. Maksimeerimisnupp võimaldab hoidikut kiiresti suurendada või vähendada. Hoidikus võib olla suvaline arv tükke (isegi sadu). Maksimeerimisest võib olla kasu eriti siis, kui pruugid hoidikut kogupildi mõne osa kokkupanemiseks. </para>
+			<para
+>Hoidikuid võib olla suvaline arv. Üldiselt on üks neist aktiivne - seda tähistatakse sinise kontuuriga. See on ühtlasi sihtkoht, kui soovid tükke hoidikusse paigutada, neid sealt välja võtta või hoidikut kustutada. </para>
+			</sect2>
+			<sect2 id="large-puzzle-createholders">
+			<title
+>Hoidikute loomine ja kustutamine</title>
+			<para
+>Suure pusle alustamisel luuakse automaatselt hoidik nimega <quote
+>Hoidik</quote
+>. See võib olla ka ainuke hoidik, kui sul on käsil 300 kuni 750 tükiga pusle, aga kui soovid, võid ka vähem kui 300 tükiga pusle puhul kasutada nii palju hoidikuid, kui süda lustib. </para>
+			<para
+>Hoidiku loomiseks või kustutamiseks vali <menuchoice
+><shortcut
+><keycap
+>C</keycap
+></shortcut
+> <guimenu
+>Liikumine</guimenu
+><guimenuitem
+> Loo tükihoidik...</guimenuitem
+></menuchoice
+> või <menuchoice
+><shortcut
+><keycap
+>D</keycap
+></shortcut
+> <guimenu
+>Liikumine</guimenu
+><guimenuitem
+> Kustuta tükihoidik</guimenuitem
+></menuchoice
+>, kasuta kiirklahve <keycap
+>C</keycap
+> või <keycap
+>D</keycap
+> või kustutamiseks hoidiku sulgemisnuppu. Hoidiku loomisel palutakse sellele ka nimi anda, aga see pole kohustuslik. Tavaliselt on hoidik lähivaates, nii et näeb kohe, millised tükid selles paiknevad. </para>
+			<para
+>Kui soovid hoidikut kustutada, peab see olema aktiivne (sinise kontuuriga) ja tükkidest tühi. Kui hoidik, mida soovid kustutada, pole aktiivne, klõpsa sellel. Kustutamise järel pole ükski hoidik aktiivne, nii et pead klõpsama sellel, mida soovid järgmisena kasutada. </para>
+			</sect2>
+			<sect2 id="large-puzzle-teleporting">
+			<title
+>Tükkide paigutamine hoidikusse ja sealt väljavõtmine</title>
+			<para
+>Tükkide lohistamine hoidikusse ja hoidikust ei ole võimalik ega tegelikult vajalikki. Selle asemel saab tükke liigutada viivitamatult samasuguse <quote
+>telepordi</quote
+> abil, millega on meid tutvustanud <quote
+>Star Trek</quote
+>. Teleport käib klahvi &Shift; vajutamise ja &HVNga; klõpsamise koostöös. </para>
+			<para
+>Tükkide paigutamiseks hoidkkusse kontrolli, kas vajalik hoidik on aktiivne (sinise kontuuriga), vali siis puslelaual vajalikud tükid ning vajuta alla klahv &Shift; ja klõpsa &HVNga;. Sama hästi võib vajutada alla klahv &Shift; ja klõpsata ka ühelainsal tükil &HVNga;. Teleporditud tükid kaovad puslelaualt ja ilmuvad esiletõstetuna hoidikusse. Seal paigutatakse nad automaatselt võrgustikule ning viimane teleporditud tükk seisab keskel. </para>
+			<para
+>Tükkide väljavõtmiseks hoidikust vali seal tükk või tükid, tule tagasi puslelauale ning klõpsa klahvi &Shift; all hoides &HVNga; tühjale kohale, kuhu soovid tükid asetada. Väldi klõpsamist juba puslelaual oleval tükid: sellega saadetakse too tükk hoidikusse, mis ei pruugi sugugi vastata sinu soovile. Kui see juhtub kogemata suurema ühendatud tükikogumi peal (mis on lahenduse osa), siis ilmub ka hoiatus ja saad võimaluse operatsioonist loobuda. </para>
+			<para
+>Tükid on telepordi järel esile tõstetud. See lubab toimingu kiiresti tagasi võtta, kui telepordid kogemata valed tükid või valesse hoidikusse. Samuti lubab see puslelaual vähese vaevaga kohandada äsja teleporditud tükkide asukohta või liigutada need lahendusse. </para>
+			<para
+>Teleportida saab ka hoidikute vahel. Alusta samamoodi nagu tükkide toimetamisel puslelauale, kuid seejärel kasuta klahvi &Shift; ja &HVNga; klõpsamist mõne teise hoidiku tühjal alal. Toimingu tagasivõtmiseks mine algsesse hoidikusse ning kasuta taas klahvi &Shift; ja &HVNga; klõpsamist. </para>
+			</sect2>
+			<sect2 id="large-puzzle-sorting">
+			<title
+>Tükkide sortimine</title>
+			<para
+>Tükkide tõhusaks sortimiseks hoidikutes suures pusles otsides kasuta pusles liikumist ühe <quote
+>lehekülje</quote
+> kaupa, mida <link linkend="large-puzzle-navigating"
+>kirjeldati eespool</link
+>, teleportides liikumise käigus vajalikke tükke. Kui oled kogu puslelaua läbi uurinud, suurenda lahendusalal lähivaatesse ja aseta kogutud tükid kohale. Soovi korral võib muidugi tükke hakata kokku panema ka hoidikutes. </para>
+			</sect2>
+			<sect2 id="large-puzzle-otherholderactions">
+			<title
+>Muud hoidiku toimingud</title>
+			<para
+>Tükihoidikutes saab kasutada kõiki samu toiminguid, mida kasutatakse puslelaual (vt. osa <link linkend="puzzletable-moves"
+>Põhikäigud</link
+>). Ainsa erandina saab suurendada-vähendada ainult hiireratta või &HKNga;. </para>
+			<para
+>See tähendab, et hoidikut võib pidada ka lisapuslelauaks. Seal saab tükke lohistada, neid omavahel ühendada, ala piire liigutada &etc; Samuti võib ükspuha millise suurusega ühendatud tükke teleportida hoidikutesse või hoidikutest, kuid selle juures tasub siiski olla ettevaatlik, et mitte suurema ühendatud tükiga ära varjata väiksemaid tükke. </para>
+			<para
+>Viimaks saab menüükäsuga <menuchoice
+><shortcut
+> <keycap
+>A</keycap
+></shortcut
+><guimenu
+>Liikumine</guimenu
+><guimenuitem
+>Vali hoidiku kõik tükid</guimenuitem
+></menuchoice
+> ja seejärel käsuga <menuchoice
+><shortcut
+> <keycap
+>R</keycap
+></shortcut
+><guimenu
+>Liikumine</guimenu
+><guimenuitem
+>Jaga tükid ümber</guimenuitem
+></menuchoice
+> või klahvi &Shift; all hoides ja &HVNga; klõpsates paigutada kõik hoidiku tükid ümber või toimetada nad kõik puslelauale. Samamoodi võib ka lihtsalt kasutada parajasti valitud hoidikus kiirklahve <keycap
+>A</keycap
+> või <keycap
+>R</keycap
+>. </para>
+			</sect2>
+		</sect1>
+	</chapter>
+
+	<chapter id="interface">
+		<title
+>Liidese tutvustus</title>
+		<para
+>Järgnevalt kirjeldatakse &palapeli; menüükäske, millest mõned on kasutatavad ka tööriistariba nuppude ja kiirklahvide abil.</para>
+		<variablelist>
+		        <varlistentry>
+			  <term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+></shortcut
+><guimenu
+>Mäng</guimenu
+><guimenuitem
+>Loo uus pusle...</guimenuitem
+></menuchoice
+></term>
+			  <listitem
+><para
+><action
+>Avab dialoogi, mis võimaldab luua pusle kettal asuva pildi põhjal.</action
+> Vaata täpsemalt <link linkend="create-puzzles"
+>vastavat osa</link
+> ning ka <link linkend="large-puzzle-creation"
+>asju, millega arvestada</link
+>, kui kavatsed luua pusle, milles on 300 või enam tükki.</para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Mäng</guimenu
+> <guimenuitem
+>Impordi failist...</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Kui oled hankinud &palapeli; puslefaili (seda eristab tavaliselt laiend <literal role="extension"
+>*.puzzle</literal
+>), võid selle importida oma kohalikku kogusse.</action
+> Puslefaile saab mängimiseks avada ka neil failihalduris klõpsates, kuid importimise korral on see pusle näha ka sinu kohalikus kogus ning sa võid turvaliselt kustutada allalaaditud puslefaili.</para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Mäng</guimenu
+> <guimenuitem
+>Ekspordi failina...</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Sellega saab valitud pusled salvestada failina, et neid siis jagada sõpradele, avaldada veebis või ka lihtsalt teha oma kogust varukoopia.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Mäng</guimenu
+> <guimenuitem
+>Kustuta pusle</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Kõik pusleloendis valitud pusled kustutatakse lõplikult sinu kogust.</action
+></para
+><warning
+><para
+>Seda toimingut ei saa tagasi võtta.</para
+></warning
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Mäng</guimenu
+> <guimenuitem
+>Alusta puslet uuesti</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Jagab kõik tükid uuesti ümber ja tühistab pusle salvestatud edenemise.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>C</keycap
+></shortcut
+><guimenu
+>Liikumine</guimenu
+><guimenuitem
+>Loo tükihoidik...</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Ajutise hoidiku loomine tükkide sortimiseks. Täpsemalt kõneldakse hoidikutest osas <link linkend="large-puzzle-holders"
+>Tükihoidikute kasutamine</link
+>.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>D</keycap
+></shortcut
+><guimenu
+>Liikumine</guimenu
+><guimenuitem
+>Kustuta tükihoidik</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Valitud ajutise hoidiku kustutamine, kui see on tühi.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>A</keycap
+></shortcut
+><guimenu
+>Liikumine</guimenu
+><guimenuitem
+>Vali hoidiku kõik tükid</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Kõigi parajasti valitud hoidiku (sinise kontuuriga) tükkide valimine.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+><guimenu
+>Liikumine</guimenu
+><guimenuitem
+>Jaga tükid ümber</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Valitud tükkide ümberjagamine hoidikus või puslelaual, neid uuesti võrgustikule asetades.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Vaade</guimenu
+> <guimenuitem
+>Tagasi kogusse</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Liigub tagasi kogusse uue pusle valimiseks.</action
+> Seda saab kasutada ainult pusle lahendamise ajal.</para
+></listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Vaade</guimenu
+><guimenuitem
+>Eelvaatlus</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Lülitab valmis pusle eelvaatluse näitamise sisse ja välja.</action
+> Hiirekursorit pildi kohale viies saab seda suurendada.</para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+></shortcut
+><guimenu
+>Vaade</guimenu
+> <guimenuitem
+>Suurenda</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Suurendab.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+></shortcut
+><guimenu
+>Vaade</guimenu
+> <guimenuitem
+>Vähenda</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Vähendab.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>Kõigi teadete lubamine</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Võimaldab lubada kõik teated, mis on keelatud &palapeli; kinnitusdialoogides kastikest <guilabel
+>Seda teadet rohkem ei näidata</guilabel
+> märkides.</action
+></para
+></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term
+><menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>Puslelaua olekuriba näitamine</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+><action
+>Lülitab puslelaua all oleva edenemisriba ja nuppude näitamise sisse või välja.</action
+> See ei muuda midagi puslekogu puhul.</para
+></listitem>
+			</varlistentry>
+			<varlistentry id="settings-menu-configure">
+				<term
+><menuchoice
+><guimenu
+>Seadistused</guimenu
+> <guimenuitem
+>&palapeli; seadistamine...</guimenuitem
+></menuchoice
+></term>
+				<listitem
+><para
+>Avab mängu seadistustedialoogi. Täpsemalt kõneleb sellest osa <link linkend="configuration"
+>Mängu seadistamine</link
+>.</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		<para
+>Lisaks on &palapeli;l tavapärased &kde; <guimenu
+>seadistuste</guimenu
+> ja <guimenu
+>abi</guimenu
+>menüü elemendid, mille kohta leiab rohkem teavet &kde; põhialuste käsiraamatu osadest <ulink url="help:/fundamentals/ui.html#menus-settings"
+>Menüü Seadistused</ulink
+> ja <ulink url="help:/fundamentals/ui.html#menus-help"
+>Menüü Abi</ulink
+>. </para>
+	</chapter>
+
+	<chapter id="configuration">
+		<title
+>Mängu seadistamine</title>
+		<para
+>Seadistustedialoogi saab avada menüükäsuga <menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>&palapeli; seadistamine...</guimenuitem
+></menuchoice
+></para>
+		<sect1 id="configuration-general">
+			<title
+>Üldised seadistused</title>
+			<variablelist>
+				<varlistentry>
+				        <term
+><guilabel
+>Puslelaud</guilabel
+></term>
+					<listitem>
+					  <para
+>Võimaldab määrata puslelaua mõningaid omadusi. </para>
+					  <variablelist>
+					<varlistentry>
+					<term
+><guilabel
+>Taust</guilabel
+></term>
+					<listitem
+><para
+><action
+>Võimaldab valida puslelauale teise taustatekstuuri.</action
+> Kui valid tekstuuri asemel konkreetse värvi, saab valikukasti kõrval asuvat nuppu kasutada värvi määramiseks.</para
+></listitem>
+				      </varlistentry>
+				      <varlistentry>
+					<term
+><guilabel
+>Valitud tükkide esiletõstmise värv</guilabel
+></term>
+					<listitem
+><para
+><action
+>Võimaldab valida valitud tükkide esiletõstmise värvi.</action
+> Klõps tekstist paremal asuvale nupule avab <ulink url="help:/fundamentals/colors.html"
+>värvivaliku</ulink
+> dialoogi.</para
+></listitem>
+				      </varlistentry>
+				      <varlistentry>
+					<term
+><guilabel
+>Lahendusruum</guilabel
+></term>
+					<listitem
+><para
+><action
+>Võimaldab määrata, kas reserveerida puslelaual teatav ruum lahenduse leidmiseks.</action
+> Ruumi ei eraldata, kui valid Puudud või kui puslel on alla 20 tüki. Muudatused rakenduvad pusle loomisel või taaskäivitamisel.</para
+></listitem>
+				      </varlistentry>
+				      <varlistentry>
+					<term
+><guilabel
+>Tükkide vahe puslevõrgustikus (1,0-1,5)</guilabel
+></term>
+					<listitem
+><para
+><action
+>Võimaldab valida tükkide vahe puslevõrgustikus.</action
+> Muudatused pusletükkide vahe osas rakenduvad alles pusle loomisel või taaskäivitamisel.</para
+></listitem>
+				      </varlistentry>
+				    </variablelist>
+				  </listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guilabel
+>Tüki välimus</guilabel
+></term>
+					<listitem
+><para
+><action
+>Tükkide välimuse määramine puslelaual.</action
+> Kui &palapeli; töötab aeglaselt või puslede avamine võtab väga kaua aega, võib siin graafilised efektid välja lülitada, et mängu oluliselt kiirendada. Kui valid varjude kasutamine, kasutatakse esiletõstmisel varje.</para
+></listitem>
+				</varlistentry>
+				<varlistentry>
+					<term
+><guilabel
+>Haarde täpsus</guilabel
+></term>
+					<listitem
+><para
+><action
+>Võimaldab valida, kui lähedal peavad naabertükid teineteisele asuma, enne kui nad haakuvad.</action
+> Kui liigutad liugurit paremale, haakuvad tükid isegi siis, kui nad ei ole väga lähedal. See muudab mängu veidi lihtsamaks.</para
+></listitem>
+				</varlistentry>
+			</variablelist>
+		</sect1>
+		<sect1 id="configuration-mouseactions">
+			<title
+>Hiire käitumine</title>
+			<para
+>See seadistustedialoogi lehekülg võimaldab omistada hiirenuppudele ja muuteklahvidele eri tegevusi, mida kirjeldati osas <link linkend="puzzletable-mouseactions"
+>Hiire käitumine</link
+>. Ole ettevaatlik, et sa ei omistaks eri tegevustele ühesuguseid kiirkorraldusi. Kolm tegevust on vaikimisi omistatud &HVNga; klõpsamisele, sest hiirekursor asub nende puhul eri piirkondades, kuid ülejäänud omistamised peavad neist erinema.</para>
+			<para
+>Toimingud on jagatud nendeks, mida saab omistada hiirenuppudele (nt. <action
+>Vaate liigutamine lohistades</action
+>), ja nendeks, mida saab omistada hiirerattale (nt. <action
+>Vaate rõhtne kerimine</action
+>).</para>
+			<sect2>
+				<title
+>Hiirenuppude kaart</title>
+				<para
+>Iga toimingu kõrval on nupp hiire pildiga, mis näitab parajasti omistatud toimingut. Seoseid võib määrata, kui klõpsata nupule &HVNga; ja seejärel vajutada hiirenuppu, millele soovid toimingu omistada. Kui hoiad teisel klõpsamisel all muuteklahvi, lubab puslelaud antud toimingut ainult juhul, kui all hoitakse ka muuteklahvi.</para>
+				<tip
+><para
+>Klõpsamise asemel võib vajutada ka <keycap
+>tühikuklahvi</keycap
+>, et omistada toimingule spetsiaalne väärtus <guilabel
+>Nuputa</guilabel
+>. See on lubatud ainult siis, kui all hoitakse muuteklahve. <guilabel
+>Nuputa</guilabel
+> tähendab, et hiirenupu rolli võtavad üle muuteklahvid. Toiming käivitub siis, kui vajutatakse muuteklahve, ja lõpeb siis, kui vabastatakse üks muuteklahvidest.</para
+></tip>
+			</sect2>
+			<sect2>
+				<title
+>Hiireratta kaart</title>
+				<para
+>See on samasugune nagu eelmine kaart. Kui paremal asuv nupp vajab sisendit, siis hiirenupuga klõpsamise asemel tuleb hoopis liigutada hiireratast. Siin on samuti lubatud muuteklahvide allhoidmine, mis avaldavad samasugust mõju nagu hiirenuppude korral.</para>
+				<tip
+><para
+>Kui sinu hiirel on kahesuunaline hiireratas (nagu leidub sageli sülearvutite puuteplaatidel), võib seda ära kasutada: nupp tunneb ära, kas hiireratast liigutati rõhtsalt või püstiselt.</para
+></tip>
+			</sect2>
+		</sect1>
+	</chapter>
+
+	<chapter id="credits">
+		<title
+>Autorid ja litsents</title>
+		<para
+>&palapeli; püüab pakkuda sinu töölaual sulaselget rõõmu ja nuputamislusti puslede kokkupanemisega.</para>
+		<para
+>Ideega alustas Bernhard Schiffner koos Stefan Majewskyga, kes on praegu &palapeli; juhtiv arendaja.</para>
+		<para
+>&i18n-psc; annetas Johannes L&#xF6;hnert.</para>
+		<para
+>Suurte puslede abivahendid annetas Ian Wadham.</para>
+		<para
+>Dokumentatsiooni autoriõigus 2009, 2010: Johannes L&#xF6;hnert, Stefan Majewsky, ja autoriõigus 2014: Ian Wadham.</para>
+		<para
+>Tõlge eesti keelde: Marek Laane <email
+>bald@smail.ee</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+	<appendix id="installation">
+		<title
+>Paigaldamine</title>
+		&install.intro.documentation;
+		<sect1 id="Compilation">
+			<title
+>Kompileerimine ja paigaldamine</title>
+&install.compile.documentation; </sect1>
+	</appendix>
+	&documentation.index;
+</book>

@@ -1,0 +1,1237 @@
+# Translation of palapeli.po into Serbian.
+# Chusslove Illich <caslav.ilic@gmx.net>, 2009, 2010, 2011, 2014, 2017.
+# Slobodan Simic <slsimic@gmail.com>, 2010.
+# Dalibor Djuric <daliborddjuric@gmail.com>, 2010, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: palapeli\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2020-05-12 03:25+0200\n"
+"PO-Revision-Date: 2017-09-28 17:59+0200\n"
+"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
+"Language: sr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+"X-Environment: kde, palapeli\n"
+"X-Associated-UI-Catalogs: kconfigwidgets5 kxmlgui5\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Часлав Илић,Слободан Симић"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "caslav.ilic@gmx.net,slsimic@gmail.com"
+
+#: libpala/slicerpropertyset.cpp:71
+#, kde-format
+msgid "Piece count"
+msgstr "Број делова"
+
+#: libpala/slicerpropertyset.cpp:75
+#, kde-format
+msgid "Piece aspect ratio"
+msgstr "Пропорција делова"
+
+#: slicers/goldberg/grid.h:39
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Predefined settings"
+msgstr "Предефинисане поставке"
+
+#: slicers/goldberg/grid.h:46
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Cairo (pentagonal) grid"
+msgstr "каиро-мрежа (петоугаона)"
+
+#: slicers/goldberg/grid.h:53
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Hexagonal grid"
+msgstr "шестоугаона мрежа"
+
+#: slicers/goldberg/grid.h:60
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Rectangular grid"
+msgstr "правоугаона мрежа"
+
+# |, no-check-spell
+#: slicers/goldberg/grid.h:67
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Rotrex (rhombi-trihexagonal) grid"
+msgstr "ротрекс-мрежа (ромби-тришестоугаона)"
+
+#: slicers/goldberg/grid.h:74
+#, kde-format
+msgctxt "Puzzle grid type"
+msgid "Irregular grid"
+msgstr "неправилна мрежа"
+
+# >> @item puzzle property
+#: slicers/goldberg/slicer-goldberg.cpp:51
+#, kde-format
+msgid "Approx. piece count"
+msgstr "приближан број делова"
+
+# >> @item puzzle property
+#: slicers/goldberg/slicer-goldberg.cpp:57
+#, kde-format
+msgid "Quick preset"
+msgstr "брзо претподешавање"
+
+#: slicers/goldberg/slicer-goldberg.cpp:59
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Ordinary"
+msgstr "обична"
+
+#: slicers/goldberg/slicer-goldberg.cpp:60
+#: slicers/goldberg/slicer-goldberg.cpp:136
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Very regular"
+msgstr "врло правилна"
+
+#: slicers/goldberg/slicer-goldberg.cpp:61
+#: slicers/goldberg/slicer-goldberg.cpp:137
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Very diverse"
+msgstr "врло разнолика"
+
+#: slicers/goldberg/slicer-goldberg.cpp:62
+#: slicers/goldberg/slicer-goldberg.cpp:138
+#, kde-format
+msgctxt "Puzzle shape preset"
+msgid "Large plugs"
+msgstr "велики чепови"
+
+# >> @item puzzle property
+#: slicers/goldberg/slicer-goldberg.cpp:69
+#, kde-format
+msgid "Flipped edge percentage"
+msgstr "удео преврнутих ивица"
+
+# >> @item puzzle property
+#: slicers/goldberg/slicer-goldberg.cpp:76
+#, kde-format
+msgid "Edge curviness"
+msgstr "закривљеност ивица"
+
+# >> @item puzzle property
+#: slicers/goldberg/slicer-goldberg.cpp:82
+#, kde-format
+msgid "Plug size"
+msgstr "величина чепова"
+
+# >> @item puzzle property
+#: slicers/goldberg/slicer-goldberg.cpp:89
+#, kde-format
+msgid "Diversity of curviness"
+msgstr "разноликост закривљености"
+
+# >> @item puzzle property
+#: slicers/goldberg/slicer-goldberg.cpp:96
+#, kde-format
+msgid "Diversity of plug position"
+msgstr "разноликост положаја чепова"
+
+# >> @item puzzle property
+#: slicers/goldberg/slicer-goldberg.cpp:103
+#, kde-format
+msgid "Diversity of plugs"
+msgstr "разноликост чепова"
+
+# >> @item puzzle property
+#: slicers/goldberg/slicer-goldberg.cpp:110
+#, kde-format
+msgid "Diversity of piece size"
+msgstr "разноликост величина делова"
+
+# >> @item puzzle property
+#: slicers/goldberg/slicer-goldberg.cpp:119
+#, kde-format
+msgid "Dump grid image"
+msgstr "приказ слике мреже"
+
+#: src/config/configdialog.cpp:73
+#, kde-format
+msgid "General settings"
+msgstr "Опште поставке"
+
+#: src/config/configdialog.cpp:76
+#, kde-format
+msgid "Mouse interaction"
+msgstr "Дејство миша"
+
+# >> @item:inlistbox
+#: src/config/configdialog.cpp:123
+#, kde-format
+msgid "Center"
+msgstr "средина"
+
+# >> @item:inlistbox
+#: src/config/configdialog.cpp:124
+#, kde-format
+msgid "None"
+msgstr "нигде"
+
+# >> @item:inlistbox
+#: src/config/configdialog.cpp:125
+#, kde-format
+msgid "Top Left"
+msgstr "горе лево"
+
+# >> @item:inlistbox
+#: src/config/configdialog.cpp:126
+#, kde-format
+msgid "Top Right"
+msgstr "горе десно"
+
+# >> @item:inlistbox
+#: src/config/configdialog.cpp:127
+#, kde-format
+msgid "Bottom Left"
+msgstr "доле лево"
+
+# >> @item:inlistbox
+#: src/config/configdialog.cpp:128
+#, kde-format
+msgid "Bottom Right"
+msgstr "доле десно"
+
+#: src/config/mouseinputbutton.cpp:57
+#, kde-format
+msgid "Remove this trigger"
+msgstr "Уклони овај окидач"
+
+#: src/config/mouseinputbutton.cpp:131 src/config/mouseinputbutton.cpp:261
+#, kde-format
+msgid "Input here..."
+msgstr "Унесите овде..."
+
+#: src/config/mouseinputbutton.cpp:132
+#, kde-format
+msgid ""
+"Hold down the modifier keys you want, then click a mouse button or scroll a "
+"mouse wheel here"
+msgstr ""
+"Држите жељене модификаторске тастере, па кликните на дугме или окрените "
+"точкић на мишу."
+
+#: src/config/mouseinputbutton.cpp:234
+#, kde-format
+msgctxt ""
+"This is used for describing that no mouse action has been assigned to this "
+"interaction plugin."
+msgid "None"
+msgstr "ниједно"
+
+#: src/config/mouseinputbutton.cpp:240
+#, kde-format
+msgid "Click to change how an action is triggered"
+msgstr "Кликните да измените начин окидања радње."
+
+# >> @title:tab
+#: src/config/triggerconfigwidget.cpp:32
+#, kde-format
+msgid "Mouse buttons"
+msgstr "Дугмад миша"
+
+# >> @title:tab
+#: src/config/triggerconfigwidget.cpp:33
+#, kde-format
+msgid "Mouse wheel"
+msgstr "Точкић миша"
+
+# >> @item
+#: src/config/triggerlistview.cpp:29
+#, kde-format
+msgid "Interaction with pieces"
+msgstr "интеракција са деловима"
+
+# >> @item
+#: src/config/triggerlistview.cpp:31
+#, kde-format
+msgid "Interaction with the puzzle table"
+msgstr "интеракција са слагачком таблом"
+
+# >> @item
+#: src/config/triggerlistview.cpp:33
+#, kde-format
+msgid "Interaction with the viewport"
+msgstr "интеракција са погледом"
+
+#: src/creator/puzzlecreator.cpp:48
+#, kde-format
+msgctxt "@title:window"
+msgid "Create new puzzle"
+msgstr "Нова слагалица"
+
+#: src/creator/puzzlecreator.cpp:54
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Image file:"
+msgstr "Фајл одраза:"
+
+#: src/creator/puzzlecreator.cpp:55
+#, kde-format
+msgctxt "@info"
+msgid "Please describe below the image which you have chosen."
+msgstr "Опишите испод слику коју сте изабрали."
+
+#: src/creator/puzzlecreator.cpp:56
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Image name:"
+msgstr "Име одраза:"
+
+#: src/creator/puzzlecreator.cpp:57
+#, kde-format
+msgctxt "@label:textbox (like in: This comment is optional.)"
+msgid "Optional comment:"
+msgstr "Опциони коментар:"
+
+#: src/creator/puzzlecreator.cpp:58
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Name of image author:"
+msgstr "Аутор слике:"
+
+# >! @title:window +
+#: src/creator/puzzlecreator.cpp:65
+#, kde-format
+msgctxt "@item:inlistbox (page name in an assistant dialog)"
+msgid "Choose image"
+msgstr "Избор слике"
+
+# >! @label +
+#: src/creator/puzzlecreator.cpp:66
+#, kde-format
+msgctxt "@title:tab (page header in an assistant dialog)"
+msgid "Specify the source image to be sliced into pieces"
+msgstr "Задајте изворну слику коју требе исећи на делове"
+
+# >! @title:window +
+#: src/creator/puzzlecreator.cpp:68
+#, kde-format
+msgctxt "@item:inlistbox (page name in an assistant dialog)"
+msgid "Choose slicer"
+msgstr "Избор секача"
+
+# >! @label +
+#: src/creator/puzzlecreator.cpp:69
+#, kde-format
+msgctxt "@title:tab (page header in an assistant dialog)"
+msgid "Choose a slicing method"
+msgstr "Изаберите метод сечења"
+
+# >! @title:window +
+#: src/creator/puzzlecreator.cpp:70
+#, kde-format
+msgctxt "@item:inlistbox (page name in an assistant dialog)"
+msgid "Configure slicer"
+msgstr "Подешавање секача"
+
+# >! @label +
+#: src/creator/puzzlecreator.cpp:71
+#, kde-format
+msgctxt "@title:tab (page header in an assistant dialog)"
+msgid "Tweak the parameters of the chosen slicing method"
+msgstr "Наштелујте параметре изабраног метода сечења"
+
+#: src/creator/puzzlecreator.cpp:114
+#, kde-format
+msgid "Puzzle cannot be created: The slicer plugin could not be loaded."
+msgstr "Слагалица не може да се направи: не може да се учита прикључак секача."
+
+#: src/creator/puzzlecreator.cpp:121
+#, kde-format
+msgid "Puzzle cannot be created: The file you selected is not an image."
+msgstr "Слагалица не може да се направи: фајл који сте изабрали није слика."
+
+#: src/creator/puzzlecreator.cpp:129
+#, kde-format
+msgid ""
+"Puzzle cannot be created: Slicing failed because of undetermined problems."
+msgstr ""
+"Слагалица не може да се направи: сечење је пропало због неодређених проблема."
+
+#: src/engine/constraintinteractor.cpp:27
+#, kde-format
+msgid "Change size of puzzle table area by dragging its edges"
+msgstr "Мењање величине површи слагачке табле превлачењем ивица"
+
+#: src/engine/gameplay.cpp:193 src/engine/gameplay.cpp:1140
+#, kde-format
+msgid "You have finished the puzzle. Do you want to restart it now?"
+msgstr "Завршили сте ову слагалицу. Желите ли да кренете из почетка?"
+
+#: src/engine/gameplay.cpp:307
+#, kde-format
+msgid "The following puzzles will be deleted. This action cannot be undone."
+msgstr "Следеће слагалице биће обрисане. Ова радња не може да се опозове."
+
+#: src/engine/gameplay.cpp:326 src/engine/gameplay.cpp:352
+#, kde-format
+msgctxt "Filter for a file dialog"
+msgid "Palapeli puzzles (*.puzzle)"
+msgstr "Палапелијеве слагалице (*.puzzle)"
+
+# >> @title:window
+#: src/engine/gameplay.cpp:328
+#, kde-format
+msgid "Import Palapeli puzzles"
+msgstr "Увоз Палапелијевих слагалица"
+
+# >> @title:window
+#: src/engine/gameplay.cpp:354
+#, kde-format
+msgid "Save Palapeli puzzles"
+msgstr "Уписивање Палапелијевих слагалица"
+
+# >> @title:window
+#: src/engine/gameplay.cpp:369
+#, kde-format
+msgid "Create a piece holder"
+msgstr "Стварање држача делова"
+
+#: src/engine/gameplay.cpp:370
+#, kde-format
+msgid "Enter a short name (optional):"
+msgstr "Кратко име (опционо):"
+
+#: src/engine/gameplay.cpp:418
+#, kde-format
+msgid ""
+"You need to click on a piece holder to select it before you can delete it, "
+"or you can just click on its Close button."
+msgstr ""
+"Морате да изаберете неки држач делова кликом на њега да бисте га обрисали "
+"(или просто кликните на његово дугме за затварање)."
+
+#: src/engine/gameplay.cpp:437
+#, kde-format
+msgid "The selected piece holder must be empty before you can delete it."
+msgstr "Изабран држач делова мора да буде празан да бисте га обрисали."
+
+#: src/engine/gameplay.cpp:456
+#, kde-format
+msgid ""
+"The selected piece holder must contain some pieces for 'Select all' to use."
+msgstr ""
+"Изабран држач делова мора да садржи неке делове да би „Изабери све у држачу“ "
+"радило."
+
+#: src/engine/gameplay.cpp:462
+#, kde-format
+msgid ""
+"You need to click on a piece holder to select it before you can select all "
+"the pieces in it."
+msgstr ""
+"Морате да изаберете неки држач делова кликом на њега да бисте изабрали "
+"делове у њему."
+
+#: src/engine/gameplay.cpp:482
+#, kde-format
+msgid ""
+"To rearrange pieces, either the puzzle table must have some selected pieces "
+"or there must be a selected holder with some selected pieces in it."
+msgstr ""
+"За прераспоређивање делова треба или да су изабрани неки делови на слагачкој "
+"табли, или да је изабран неки држач и неки делови у њему."
+
+#: src/engine/gameplay.cpp:544
+#, kde-format
+msgid ""
+"You need to have a piece holder and click it to select it before you can "
+"transfer pieces into or out of it."
+msgstr ""
+"Морате да постоји бар један држач делова, и да га изаберете кликом на њега, "
+"да бисте пренели неке делове у или ван њега."
+
+#: src/engine/gameplay.cpp:564
+#, kde-format
+msgid ""
+"You have selected to transfer a large piece containing more than six small "
+"pieces to a holder. Do you really wish to do that?"
+msgstr ""
+"Изабрали сте да пренесете велики део састављен од преко шест малих делова у "
+"држач. Желите ли заиста да урадите ово?"
+
+#: src/engine/gameplay.cpp:586
+#, kde-format
+msgid ""
+"You need to select one or more pieces to be transferred out of the selected "
+"holder or select pieces from the puzzle table to be transferred into it."
+msgstr ""
+"Морате да изаберете један или више делова за пренос ван изабраног држача, "
+"или да изаберете неке делове са слагачке табле за пренос у њега."
+
+#: src/engine/gameplay.cpp:604
+#, kde-format
+msgid ""
+"You need to select one or more pieces to be transferred from the previous "
+"holder into the newly selected holder."
+msgstr ""
+"Морате да изаберете један или више делова за пренос из претходно изабраног "
+"држача у тренутно изабрани."
+
+#: src/engine/gameplay.cpp:612
+#, kde-format
+msgid ""
+"You need to have at least two holders, one of them selected and with "
+"selected pieces inside it, before you can transfer pieces to a second holder."
+msgstr ""
+"Морате имати бар два држача, један од њих изабран и са неким изабраним "
+"деловима у њему, да бисте пренели делове у други држач."
+
+# >> @item name of the default piece holder
+#: src/engine/gameplay.cpp:1081
+#, kde-format
+msgctxt "For holding pieces"
+msgid "Hand"
+msgstr "рука"
+
+# skip-rule: t-space
+# rewrite-msgid: /Settings dialog/Settings menu/
+#: src/engine/gameplay.cpp:1084
+#, kde-format
+msgctxt "Hints for solving large puzzles"
+msgid ""
+"You have just created a large puzzle: Palapeli has several features to help "
+"you solve it within the limited space on the desktop. They are described in "
+"detail in the Palapeli Handbook (on the Help menu). Here are just a few "
+"quick tips.\n"
+"\n"
+"Before beginning, it may be best not to use bevels or shadowing with large "
+"puzzles (see the Settings dialog), because they make loading slower and "
+"highlighting harder to see when the pieces in the view are very small.\n"
+"\n"
+"The first feature is the puzzle Preview (a picture of the completed puzzle) "
+"and a toolbar button to turn it on or off. If you hover over it with the "
+"mouse, it magnifies parts of the picture, so the window size you choose for "
+"the Preview can be quite small.\n"
+"\n"
+"Next, there are close-up and distant views of the puzzle table, which you "
+"can switch quickly by using a mouse button (default Middle-Click). In close-"
+"up view, use the empty space in the scroll bars to search through the puzzle "
+"pieces a 'page' at a time. You can adjust the two views by zooming in or out "
+"and your changes will be remembered.\n"
+"\n"
+"Then there is a space on the puzzle table reserved for building up the "
+"solution.\n"
+"\n"
+"Last but not least, there are small windows called 'holders'. They are for "
+"sorting pieces into groups such as edges, sky or white house on left. You "
+"can have as many holders as you like and can give them names. You should "
+"already have one named 'Hand', for carrying pieces from wherever you find "
+"them to the solution area.\n"
+"\n"
+"You use a special mouse click to transfer pieces into or out of a holder "
+"(default Shift Left-Click). First make sure the holder you want to use is "
+"active: it should have a blue outline. If not, click on it. To transfer "
+"pieces into the holder, select them on the puzzle table then do the special "
+"click to 'teleport' them into the holder. Or you can just do the special "
+"click on one piece at a time.\n"
+"\n"
+"To transfer pieces out of a holder, make sure no pieces are selected on the "
+"puzzle table, go into the holder window and select some pieces, using normal "
+"Palapeli mouse operations, then go back to the puzzle table and do the "
+"special click on an empty space where you want the pieces to arrive. "
+"Transfer no more than a few pieces at a time, to avoid collisions of pieces "
+"on the puzzle table.\n"
+"\n"
+"By the way, holders can do almost all the things the puzzle table and its "
+"window can do, including joining pieces to build up a part of the solution."
+msgstr ""
+"Управо сте направили велику слагалицу. Палапели пружа неколико могућности за "
+"њено лакше решавање у ограниченом простору на површи. Ово је детаљно описано "
+"у приручнику Палапелија (мени „Помоћ“), а овде следи неколико кратких "
+"савета.\n"
+"\n"
+"Пре почетка, код великих слагалица је боље не користити закошења и сенке (в. "
+"мени „Подешавање“), јер успоравају учитавање и отежавају уочавање истакнутих "
+"делова у приказу када су врло мали.\n"
+"\n"
+"Прва од могућности је преглед слагалице (слика завршене слагалице) и дугме "
+"траке алатки за његово укључивање и искључивање. Део слике над којим лебдите "
+"мишем бива увеличан, тако да можете изабрати релативно малу величину прозора "
+"за преглед.\n"
+"\n"
+"Затим су ту прикази удаљеног и крупног плана слагачке табле, између којих се "
+"брзо пребацујете дугметом миша (подразумевано средњи клик). У крупном плану, "
+"користите празан простор у клизачким тракама за тражење делова слагалице "
+"„страницу по страницу“. Можете мењати појединачна увеличања ова два приказа, "
+"и те измене ће бити запамћене.\n"
+"\n"
+"Ту је и место на слагачкој табли резервисано за састављање решења.\n"
+"\n"
+"Коначно, постоје мали прозори „држачи“. Они служе за разврставање делова у "
+"групе, попут ивица, неба, или беле куће лево. Можете имати колико год држача "
+"желите, и давати им имена. Одмах би требало да имате један по имену „рука“, "
+"за преношење делова одакле год сте их нашли у зону решења.\n"
+"\n"
+"Делова се преносе у држач и из њега специјалним кликом миша (подразумевано "
+"Shift+леви клик). Прво се уверите да је држач активан: треба да има плаву "
+"контуру. Ако није, кликните на њега. За преношење делова у држач, изаберите "
+"их на слагачкој табли па извршите специјални клик. Или извршавајте "
+"специјални клик над једним по једним делом.\n"
+"\n"
+"За преношење делова из држача, уверите се да нема изабраних делова на "
+"слагачкој табли, у прозору држача изаберите жељене делове уобичајеним "
+"радњама мишем, затим се вратите на слагачку таблу и извршите специјални клик "
+"на празном месту где желите да се делови појаве. Немојте преносити више од "
+"неколико делова одједном, да бисте избегли сударање делова на слагачкој "
+"табли.\n"
+"\n"
+"Узгред, у прозору држача може се извести скоро све што и на слагачкој табли, "
+"укључујући и састављање делова у подеона решења."
+
+#: src/engine/gameplay.cpp:1134
+#, kde-format
+msgctxt "Caption for hints"
+msgid "Solving Large Puzzles"
+msgstr "Решавање великих слагалица"
+
+#: src/engine/gameplay.cpp:1198
+#, kde-format
+msgid "Great! You have finished the puzzle."
+msgstr "Сјајно! Завршили сте слагалицу."
+
+#: src/engine/interactors.cpp:37
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Move pieces by dragging"
+msgstr "Померање делова превлачењем"
+
+#: src/engine/interactors.cpp:152
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Select pieces by clicking"
+msgstr "Избор делова кликом на њих"
+
+#: src/engine/interactors.cpp:188
+#, kde-format
+msgctxt "Works instantly, without dragging"
+msgid "Teleport pieces to or from a holder"
+msgstr "Телепортуј делове у држач или из њега"
+
+#: src/engine/interactors.cpp:213
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Move viewport by dragging"
+msgstr "Померање погледа превлачењем"
+
+#: src/engine/interactors.cpp:239
+#, kde-format
+msgctxt "As in a movie scene"
+msgid "Switch to close-up or distant view"
+msgstr "Пребаци на крупни или удаљени план"
+
+#: src/engine/interactors.cpp:258
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Zoom viewport"
+msgstr "Увеличање погледа"
+
+#: src/engine/interactors.cpp:277
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Scroll viewport horizontally"
+msgstr "Клизање погледа водоравно"
+
+#: src/engine/interactors.cpp:279
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Scroll viewport vertically"
+msgstr "Клизање погледа усправно"
+
+#: src/engine/interactors.cpp:358
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Select multiple pieces at once"
+msgstr "Избор више делова одједном"
+
+# rewrite-msgid: /lock state/locking/
+#: src/engine/interactors.cpp:422
+#, kde-format
+msgctxt "Description (used like a name) for a mouse interaction method"
+msgid "Toggle lock state of the puzzle table area"
+msgstr "Промена закључаности површи слагачке табле"
+
+#: src/engine/puzzlepreview.cpp:41
+#, kde-format
+msgctxt "Window title"
+msgid "Preview of completed puzzle"
+msgstr "Преглед завршене слагалице"
+
+#: src/engine/puzzlepreview.cpp:48
+#, kde-format
+msgctxt "text in preview window"
+msgid "Image is not available."
+msgstr "Слика није доступна."
+
+#: src/engine/puzzlepreview.cpp:76
+#, kde-format
+msgid "%1 - Preview"
+msgstr "%1 — преглед"
+
+#: src/engine/texturehelper.cpp:64
+#, kde-format
+msgctxt "@item:inlistbox"
+msgid "Single color"
+msgstr "једна боја"
+
+#: src/engine/trigger.cpp:99
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Shift"
+msgstr "Shift"
+
+#: src/engine/trigger.cpp:100
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Ctrl"
+msgstr "Ctrl"
+
+#: src/engine/trigger.cpp:101
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Alt"
+msgstr "Alt"
+
+#: src/engine/trigger.cpp:102
+#, kde-format
+msgctxt "a keyboard modifier"
+msgid "Meta"
+msgstr "Meta"
+
+#: src/engine/trigger.cpp:103
+#, kde-format
+msgctxt "a special keyboard modifier"
+msgid "GroupSwitch"
+msgstr "Групно пребацивање"
+
+#: src/engine/trigger.cpp:104
+#, kde-format
+msgctxt "refers to no mouse buttons being pressed"
+msgid "No-Button"
+msgstr "без дугмета"
+
+#: src/engine/trigger.cpp:107
+#, kde-format
+msgctxt "a mouse button"
+msgid "Left-Button"
+msgstr "лево дугме"
+
+#: src/engine/trigger.cpp:108
+#, kde-format
+msgctxt "a mouse button"
+msgid "Right-Button"
+msgstr "десно дугме"
+
+#: src/engine/trigger.cpp:109
+#, kde-format
+msgctxt "a mouse button"
+msgid "Middle-Button"
+msgstr "средње дугме"
+
+#: src/engine/trigger.cpp:110
+#, kde-format
+msgctxt "a special mouse button"
+msgid "XButton1"
+msgstr "икс дугме 1"
+
+#: src/engine/trigger.cpp:111
+#, kde-format
+msgctxt "a special mouse button"
+msgid "XButton2"
+msgstr "икс дугме 2"
+
+#: src/engine/trigger.cpp:112
+#, kde-format
+msgid "Horizontal-Scroll"
+msgstr "водоравно клизање"
+
+#: src/engine/trigger.cpp:113
+#, kde-format
+msgid "Vertical-Scroll"
+msgstr "усправно клизање"
+
+#: src/engine/view.cpp:349
+#, kde-format
+msgid "Your progress is saved automatically while you play."
+msgstr "Ваш напредак се уписује аутоматски док играте."
+
+#: src/engine/view.cpp:349
+#, kde-format
+msgctxt "used as caption for a dialog that explains the autosave feature"
+msgid "Automatic saving"
+msgstr "Аутоматско уписивање"
+
+#: src/engine/zoomwidget.cpp:38
+#, kde-format
+msgid "Lock the puzzle table area"
+msgstr "Закључај површ слагачке табле"
+
+#: src/file-io/collection-delegate.cpp:118
+#, kde-format
+msgid "[No name]"
+msgstr "[безимена]"
+
+#: src/file-io/collection-delegate.cpp:123
+#, kde-format
+msgctxt "Puzzle description, %2 = name string, %1 = piece count"
+msgid "%2 (%1 piece)"
+msgid_plural "%2 (%1 pieces)"
+msgstr[0] "%2 (%1 део)"
+msgstr[1] "%2 (%1 дела)"
+msgstr[2] "%2 (%1 делова)"
+msgstr[3] "%2 (%1 део)"
+
+#: src/file-io/collection-delegate.cpp:144
+#, kde-format
+msgctxt "Author attribution, e.g. \"by Jack\""
+msgid "by %1"
+msgstr "начини %1"
+
+#: src/file-io/collection-view.cpp:70
+#, kde-format
+msgctxt "@action:button that pops up sorting strategy selection menu"
+msgid "Sort list..."
+msgstr "Поређај списак..."
+
+#: src/file-io/collection-view.cpp:73
+#, kde-format
+msgctxt "@action:inmenu selects sorting strategy for collection list"
+msgid "By title"
+msgstr "по наслову"
+
+#: src/file-io/collection-view.cpp:74
+#, kde-format
+msgctxt "@action:inmenu selects sorting strategy for collection list"
+msgid "By piece count"
+msgstr "по броју делова"
+
+#: src/file-io/collection.cpp:47
+#, kde-format
+msgid "Loading puzzle..."
+msgstr "Учитавам слагалицу..."
+
+#: src/importhelper.cpp:41
+#, kde-format
+msgctxt "command line message"
+msgid "Error: No puzzle file given."
+msgstr "Грешка: није дат фајл слагалице."
+
+#: src/importhelper.cpp:52
+#, kde-format
+msgid "Importing puzzle \"%1\" into your collection"
+msgstr "Увозим слагалицу „%1“ у вашу збирку"
+
+#: src/main.cpp:40
+#, kde-format
+msgctxt "The application's name"
+msgid "Palapeli"
+msgstr "Палапели"
+
+#: src/main.cpp:40
+#, kde-format
+msgid "KDE Jigsaw Puzzle Game"
+msgstr "КДЕ игра слагања делова"
+
+#: src/main.cpp:40
+#, kde-format
+msgid "Copyright 2009, 2010, Stefan Majewsky"
+msgstr "© 2009, 2010, Штефан Мајевски"
+
+#: src/main.cpp:41
+#, kde-format
+msgid "Stefan Majewsky"
+msgstr "Штефан Мајевски"
+
+#: src/main.cpp:42
+#, kde-format
+msgid "Johannes Loehnert"
+msgstr "Јоханес Ленерт"
+
+#: src/main.cpp:43
+#, kde-format
+msgid "The option to preview the completed puzzle"
+msgstr "Опција за преглед завршене слагалице"
+
+#: src/main.cpp:48
+#, kde-format
+msgid "Path to puzzle file (will be opened if -i is not given)"
+msgstr "Путања фајла слагалице (биће отворен ако се не зада -i)"
+
+#: src/main.cpp:49
+#, kde-format
+msgid ""
+"Import the given puzzle file into the local collection (does nothing if no "
+"puzzle file is given). The main window will not be shown after importing the "
+"given puzzle."
+msgstr ""
+"Увези дати фајл слагалице у локалну збирку (не ради ништа ако фајл није "
+"задат). Главни прозор неће бити приказан по увозу задате слагалице."
+
+#. i18n: ectx: label, entry (SnappingPrecision), group (Puzzling)
+#: src/palapeli.kcfg:6
+#, kde-format
+msgid "Precision of snapping (as a percentage of piece size)."
+msgstr "Тачност уклапања (као проценат величине дела)."
+
+#. i18n: ectx: label, entry (ViewBackground), group (Appearance)
+#: src/palapeli.kcfg:12
+#, kde-format
+msgid ""
+"The filename of the background image to use for the View, or \"__color__\" "
+"if a solid color should be used (see key \"ViewBackgroundColor\")."
+msgstr ""
+"Име фајла жељене позадинске слике у приказу, или „__color__“ за пуну боју "
+"(в. кључ „ViewBackgroundColor“)."
+
+#. i18n: ectx: label, entry (ViewBackgroundColor), group (Appearance)
+#: src/palapeli.kcfg:16
+#, kde-format
+msgid ""
+"The background color to use for the View (if the key \"ViewBackground\" is "
+"set to \"__color__\")."
+msgstr ""
+"Жељена боја позадине у приказу (ако је кључ „ViewBackgroundColor“ постављен "
+"на „__color__“)."
+
+#. i18n: ectx: label, entry (ViewHighlightColor), group (Appearance)
+#: src/palapeli.kcfg:20
+#, kde-format
+msgid "The highlighting color to use for selecting pieces in the View."
+msgstr "Боја истицања при бирању делова у приказу."
+
+# skip-rule: t-space
+#. i18n: ectx: label, entry (SolutionArea), group (Appearance)
+#: src/palapeli.kcfg:24
+#, kde-format
+msgid ""
+"Where to reserve space on the puzzle table for the solution, when shuffling "
+"or re-shuffling the pieces."
+msgstr "Где на слагачкој табли резервисати место за решење, при мешању делова."
+
+#. i18n: ectx: label, entry (PieceSpacing), group (Appearance)
+#: src/palapeli.kcfg:28
+#, kde-format
+msgid ""
+"Spacing of pieces in puzzle grids relative to the size of the largest piece "
+"(spacing factor is 1.0 + 0.05 * value)."
+msgstr ""
+"Размак делова у мрежи слагалице, у односу на величину највећег дела (фактор "
+"размака је 1,0 + 0,05 * вредност)."
+
+#. i18n: ectx: label, entry (ShowStatusBar), group (Appearance)
+#: src/palapeli.kcfg:32
+#, kde-format
+msgid ""
+"Whether to show the status bar on the puzzle table. (It is not a real status "
+"bar, but the position and provided functionality is similar.)"
+msgstr ""
+"Да ли приказати траку стања на слагачкој табли. (Не ради се о правој траци "
+"стања, али су положај и функционалност слични.)"
+
+# rewrite-msgid: /render/draw/
+#. i18n: ectx: label, entry (PieceShadowsEnabled), group (Appearance)
+#: src/palapeli.kcfg:36
+#, kde-format
+msgid ""
+"Whether to render shadows below the puzzle pieces. Turning this off might "
+"improve rendering performance."
+msgstr ""
+"Да ли исцртавати сенке испод делова слагалице. Искључивањем овога може се "
+"побољшати брзина исцртавања."
+
+# rewrite-msgid: /render/draw/
+#. i18n: ectx: label, entry (PieceBevelsEnabled), group (Appearance)
+#: src/palapeli.kcfg:40
+#, kde-format
+msgid ""
+"Whether to render bevels on the puzzle pieces. Turning this off might "
+"improve puzzle loading performance."
+msgstr ""
+"Да ли исцртавати закошења делова слагалице. Искључивањем овога може се "
+"побољшати брзина исцртавања."
+
+#. i18n: ectx: label, entry (PuzzlePreviewVisible), group (PuzzlePreview)
+#: src/palapeli.kcfg:46
+#, kde-format
+msgid "Whether the preview window was switched on last time Palapeli was run."
+msgstr "Да ли је прозор прегледа био укључен у последњем раду Палапелија."
+
+#. i18n: ectx: label, entry (PuzzlePreviewGeometry), group (PuzzlePreview)
+#: src/palapeli.kcfg:50
+#, kde-format
+msgid "Last position and size of puzzle preview."
+msgstr "Последња величина и положај прегледа слагалице."
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: src/palapeliui.rc:35
+#, kde-format
+msgid "Main toolbar"
+msgstr "Главна трака"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: src/settings.ui:17
+#, kde-format
+msgctxt "@title:group"
+msgid "Puzzle table"
+msgstr "Слагачка табла"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/settings.ui:25
+#, kde-format
+msgctxt "@label:chooser for different types of background textures"
+msgid "Background:"
+msgstr "Позадина:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: src/settings.ui:55
+#, kde-format
+msgid "Color for highlighting selected pieces:"
+msgstr "Боја истицања изабраних делова:"
+
+# skip-rule: t-space
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: src/settings.ui:75
+#, kde-format
+msgid "Space for solution:"
+msgstr "Место за решење:"
+
+# skip-rule: t-space
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: src/settings.ui:94
+#, kde-format
+msgid ""
+"No space is provided with puzzles of less than 20 pieces. Changes will take "
+"effect when a puzzle is created or re-started."
+msgstr ""
+"Место се не даје за слагалице са мање од 20 делова. Измене ће ступити на "
+"снагу по поновном стварању или покретању слагалице."
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: src/settings.ui:106
+#, kde-format
+msgid "Spacing of pieces in puzzle grids (1.0-1.5):"
+msgstr "Размак делова у мрежи слагалице (1,0–1,5):"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/settings.ui:156
+#, kde-format
+msgid "Piece appearance"
+msgstr "Изглед делова"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceBevelsEnabled)
+#: src/settings.ui:162
+#, kde-format
+msgid "Draw bevels to create a 3-dimensional appearance"
+msgstr "Закошене ивице ради тродимензионог изгледа"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceShadowsEnabled)
+#: src/settings.ui:172
+#, kde-format
+msgid "Draw shadows below pieces"
+msgstr "Сенке испод делова"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: src/settings.ui:182
+#, kde-format
+msgid ""
+"These options can be disabled when Palapeli is running very slowly. Changes "
+"will take effect only when a new puzzle is started."
+msgstr ""
+"Ове опције можете искључити ако Палапели ради врло споро. Измене ће ступити "
+"на снагу тек кад покренете нову слагалицу."
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: src/settings.ui:195
+#, kde-format
+msgctxt "@title:group"
+msgid "Piece behavior"
+msgstr "Понашање делова"
+
+#. i18n: ectx: property (text), widget (QLabel, label_1)
+#: src/settings.ui:201
+#, kde-format
+msgctxt "@label:slider"
+msgid "Snapping precision:"
+msgstr "Тачност уклапања:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/settings.ui:241
+#, kde-format
+msgctxt "@item:inrange description for the \"snapping precision\" setting"
+msgid "Very precise (harder)"
+msgstr "врло прецизно (теже)"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/settings.ui:270
+#, kde-format
+msgctxt "@item:inrange description for the \"snapping precision\" setting"
+msgid "Unprecise (easier)"
+msgstr "непрецизно (лакше)"
+
+#: src/window/mainwindow.cpp:65
+#, kde-format
+msgid "Show statusbar of puzzle table"
+msgstr "Прикажи траку стања слагачке табле"
+
+#: src/window/mainwindow.cpp:68
+#, kde-format
+msgid "Back to &collection"
+msgstr "Назад на &збирку"
+
+#: src/window/mainwindow.cpp:69
+#, kde-format
+msgid "Go back to the collection to choose another puzzle"
+msgstr "Вратите се назад на збирку и изаберите другу слагалицу."
+
+#: src/window/mainwindow.cpp:75
+#, kde-format
+msgid "Create &new puzzle..."
+msgstr "Направи &нову слагалицу..."
+
+#: src/window/mainwindow.cpp:76
+#, kde-format
+msgid "Create a new puzzle using an image file from your disk"
+msgstr "Направите слагалицу на основу фајла слике са диска."
+
+#: src/window/mainwindow.cpp:82
+#, kde-format
+msgid "&Delete puzzle"
+msgstr "&Обриши слагалицу"
+
+#: src/window/mainwindow.cpp:84
+#, kde-format
+msgid "Delete the selected puzzle from your collection"
+msgstr "Обришите изабрану слагалицу из своје збирке."
+
+#: src/window/mainwindow.cpp:90
+#, kde-format
+msgid "&Import from file..."
+msgstr "&Увези из фајла..."
+
+#: src/window/mainwindow.cpp:91
+#, kde-format
+msgid "Import a new puzzle from a file into your collection"
+msgstr "Увезите нову слагалицу из фајла у своју збирку."
+
+#: src/window/mainwindow.cpp:96
+#, kde-format
+msgid "&Export to file..."
+msgstr "&Извези у фајл..."
+
+#: src/window/mainwindow.cpp:98
+#, kde-format
+msgid "Export the selected puzzle from your collection into a file"
+msgstr "Извезите изабрану слагалицу из своје збирке у фајл."
+
+#: src/window/mainwindow.cpp:104
+#, kde-format
+msgid "&Restart puzzle..."
+msgstr "&Слажи из почетка..."
+
+# >> @info:tooltip
+#: src/window/mainwindow.cpp:105
+#, kde-format
+msgid "Delete the saved progress and reshuffle the pieces"
+msgstr "Обришите сачувани напредак и промешајте делове."
+
+#: src/window/mainwindow.cpp:112
+#, kde-format
+msgid "&Create piece holder..."
+msgstr "&Направи држач делова..."
+
+#: src/window/mainwindow.cpp:113
+#, kde-format
+msgid "Create a temporary holder for sorting pieces"
+msgstr "Направите привремени држач за ређање делова."
+
+#: src/window/mainwindow.cpp:119
+#, kde-format
+msgid "&Delete piece holder"
+msgstr "&Обриши држач делова"
+
+#: src/window/mainwindow.cpp:120
+#, kde-format
+msgid "Delete a selected temporary holder when it is empty"
+msgstr "Обришите изабрани привремени држач ако је празан."
+
+#: src/window/mainwindow.cpp:126
+#, kde-format
+msgid "&Select all in holder"
+msgstr "&Изабери све у држачу"
+
+#: src/window/mainwindow.cpp:127
+#, kde-format
+msgid "Select all pieces in a selected piece holder"
+msgstr "Изаберите све делове у изабраном држачу."
+
+#: src/window/mainwindow.cpp:133
+#, kde-format
+msgid "&Rearrange pieces"
+msgstr "&Прераспореди делове"
+
+#: src/window/mainwindow.cpp:134
+#, kde-format
+msgid ""
+"Rearrange all pieces in a selected piece holder or selected pieces in any "
+"window"
+msgstr ""
+"Прераспоредите све делове у изабраном држачу, или изабране делове у било ком "
+"прозору."
+
+#: src/window/mainwindow.cpp:141
+#, kde-format
+msgctxt "Preview is a noun here"
+msgid "&Preview"
+msgstr "&Преглед"
+
+#: src/window/mainwindow.cpp:143
+#, kde-format
+msgctxt "Preview is a noun here"
+msgid "Preview"
+msgstr "Преглед"
+
+#: src/window/mainwindow.cpp:144
+#, kde-format
+msgid "Show or hide the image of the completed puzzle"
+msgstr "Прикажите или сакријте слику завршене слагалице."
+
+#: src/window/mainwindow.cpp:158 src/window/mainwindow.cpp:167
+#, kde-format
+msgid "Enable all messages"
+msgstr "Укључи све поруке"
+
+#: src/window/puzzletablewidget.cpp:60
+#, kde-format
+msgid "No puzzle loaded"
+msgstr "Слагалица није учитана."
+
+#: src/window/puzzletablewidget.cpp:129
+#, kde-format
+msgid "You finished the puzzle."
+msgstr "Завршили сте слагалицу."
+
+#: src/window/puzzletablewidget.cpp:133
+#, kde-format
+msgctxt "Progress display"
+msgid "%1% finished"
+msgstr "%1% завршено"

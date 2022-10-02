@@ -1,0 +1,1502 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+<!ENTITY i18n-psc "<application
+>Snijverzameling van Palapeli</application
+>">
+<!ENTITY % Dutch "INCLUDE">
+<!ENTITY % addindex "IGNORE">
+]>
+
+<book id="palapeli" lang="&language;">
+  <bookinfo>
+    <title
+>Het handboek van &palapeli;</title>
+    <authorgroup>
+      <author
+><firstname
+>Johannes</firstname
+> <surname
+>L&#xF6;hnert</surname
+> <affiliation
+><address
+><email
+>loehnert_kde@gmx.de</email
+></address
+></affiliation>
+      </author>
+      <author
+><firstname
+>Stefan</firstname
+> <surname
+>Majewsky</surname
+> <affiliation
+><address
+><email
+>majewsky@gmx.net</email
+></address
+></affiliation>
+      </author>
+      <author
+><firstname
+>Ian</firstname
+> <surname
+>Wadham</surname
+> <affiliation
+><address
+><email
+>iandw.au@gmail.com</email
+></address
+></affiliation>
+      </author>
+      &Freek.de.Kruijf;&Ronald.Stroethoff; 
+    </authorgroup>
+
+    <copyright>
+      <year
+>2009, 2010</year>
+      <holder
+>Johannes L&#xF6;hnert, Stefan Majewsky</holder>
+    </copyright>
+    <copyright>
+      <year
+>2014</year>
+      <holder
+>Ian Wadham</holder>
+    </copyright>
+    <legalnotice
+>&FDLNotice;</legalnotice>
+    <date
+>2021-10-06</date>
+    <releaseinfo
+>2.1 (KDE Gear 21.08)</releaseinfo>
+
+    <abstract>
+      <para
+>Dit is de handleiding voor &palapeli;, een legpuzzelspel.</para>
+    </abstract>
+    <keywordset>
+      <keyword
+>KDE</keyword>
+      <keyword
+>kdegames</keyword>
+      <keyword
+>spel</keyword>
+      <keyword
+>puzzel</keyword>
+      <keyword
+>legpuzzelspel</keyword>
+      <keyword
+>Palapeli</keyword>
+    </keywordset>
+  </bookinfo>
+
+  <chapter id="introduction">
+    <title
+>Inleiding</title>
+    <para
+>&palapeli; is legpuzzelspel voor een enkele speler. Hiermee kunt u puzzels variërend van 4 tot 10.000 stukjes creëren en spelen. Deze versie heeft de mogelijkheid tot assistentie bij het oplossen van grote puzzels (300 stukjes of meer) binnen de beperkingen van een computer scherm.</para>
+    <para
+>Het hoofdvenster van &palapeli; is opgedeeld in twee gebieden, de verzameling puzzels en de puzzel tafel.</para>
+    <para
+>Deze handleiding zal nu verder deze twee gebieden beschrijven.</para>
+  </chapter>
+
+  <chapter id="collection">
+    <title
+>Door de verzameling puzzels bladeren</title>
+    <sect1 id="play-maintain-collection">
+      <title
+>Puzzelen en bijwerken van de verzameling</title>
+    <para
+>Wanneer u &palapeli; voor de eerste keer start bevat de verzameling puzzels al enige standaard puzzels die meekomen met &palapeli;. Klik op een van de puzzels om direct het spel te beginnen. Later, wanneer u sommige van uw eigen puzzels hebt gemaakt (zie verderop), kunt u op ze klikken om met spelen te beginnen.</para>
+    <para
+>Spelen wordt gedaan op de puzzeltafel; zie <link linkend="puzzletable"
+>het hoofdstuk na de volgende</link
+> over hoe de puzzeltafel te gebruiken.</para>
+    <note
+><para
+>U kunt in de lijst met puzzels selecteren en accentueren door &Ctrl; ingedrukt te houden en met &LMB; te klikken. Door op &LMB; of &RMB; zonder de toets &Ctrl; opent u die puzzel om te spelen in de puzzeltafel.</para>
+    <para
+>Bij &macOS; moet u met de &LMB; dubbelklikken om te beginnen met spelen. Een enkele klik zal alleen een item in de lijst met puzzels selecteren en markeren.</para
+></note>
+    <para
+>Naast het puzzelen, kunt u de verzameling puzzels gebruikt worden voor de volgende acties:</para>
+    <itemizedlist>
+      <listitem
+><para
+><emphasis
+>maken</emphasis
+> van nieuwe puzzels uit afbeeldingen op uw schijf</para
+></listitem>
+      <listitem
+><para
+><emphasis
+>importeer</emphasis
+> puzzels gemaakt door anderen</para
+></listitem>
+      <listitem
+><para
+><emphasis
+>exporteer</emphasis
+> puzzels om ze te delen met uw vrienden en de wereld</para
+></listitem>
+      <listitem
+><para
+><emphasis
+>verwijder</emphasis
+> puzzels die u niet meer nodig hebt</para
+></listitem>
+    </itemizedlist>
+    <para
+>Het volgende hoofdstuk toont hoe u deze taken met de actiepictogrammen op de werkbalk uitvoert.</para>
+      </sect1>
+    <sect1 id="toolbar-collection">
+      <title
+>Overzicht van de werkbalk</title>
+      <variablelist>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Nieuwe puzzel aanmaken...</guiicon
+></term>
+          <listitem>
+            <para
+><action
+>Opent een dialoogvenster waarin u een puzzel van een afbeelding op uw harde schijf kunt creëren.</action
+> Zie <link linkend="create-puzzles"
+>het volgende hoofdstuk</link
+> voor meer details.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="edit-delete.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Puzzel verwijderen</guiicon
+></term>
+          <listitem
+><para
+><action
+>Elke puzzel die u in de lijst met puzzels heeft geselecteerd, zal permanent uit uw verzameling worden verwijderd. </action
+></para
+><warning
+><para
+>Deze actie kan niet ongedaan worden gemaakt.</para
+></warning
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="document-import.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Uit bestand importeren...</guiicon
+></term>
+          <listitem
+><para
+><action
+>Als u een &palapeli; puzzel-bestand heeft ontvangen (die u normaal gesproken kan herkennen aan de bestand-extensie <literal role="extension"
+>.puzzle</literal
+>), dan kunt u deze actie gebruiken om het te importeren naar uw lokale collectie.</action
+> Puzzel-bestanden kunt u ook openen door er eenvoudig op te klikken in de bestandsbeheerder van uw keuze, maar na een import zal de puzzel in uw lokale collectie verschijnen, en kunt u de gedownloade puzzel veilig verwijderen.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="document-export.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Naar bestand exporteren...</guiicon
+></term>
+          <listitem
+><para
+><action
+>Dit zal de huidige geselecteerde puzzels naar bestanden exporteren, zodat u ze naar uw vrienden kunt versturen, ze op het web kunt publiceren, of om een backup van uw collectie te maken.</action
+></para
+></listitem>
+        </varlistentry>
+      </variablelist>
+    </sect1>
+  </chapter>
+
+  <chapter id="create-puzzles">
+    <title
+>Nieuwe puzzels aanmaken</title>
+    <sect1 id="creation-dialog">
+    <title
+>Het dialoogvenster voor aanmaak van puzzels</title>
+    <para
+>Zoals beschreven in <link linkend="toolbar-collection"
+>de vorige sectie</link
+>, kunt u nieuwe puzzels aanmaken door te klikken op het actiepictogram <inlinemediaobject
+><imageobject
+><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Nieuwe puzzel aanmaken...</guiicon
+> in het puzzelverzamelingsvenster.</para>
+    <para
+>Als u op dit actiepictogram klikt dan opent het dialoogvenster voor puzzel aanmaken, dat uit drie pagina's bestaat:</para>
+    <procedure>
+      <step
+><para
+>Op de eerste pagina selecteert u een afbeelding dat in stukken gesneden zal worden. Let op het vermelden van de correcte metadata van de afbeelding: U zou de naam van de auteur van de afbeelding moeten vermelden (&eg; de fotograaf of de schilder); Respecteer de auteursrecht van de auteur van de afbeelding.</para
+></step>
+      <step
+><para
+>Op de tweede pagina kunt u het model puzzelstukje selecteren waarin de afbeelding zal worden gesneden. &palapeli; komt met een verzameling van snijpatronen, maar er zijn ook snijpatronen van anderen beschikbaar.</para
+></step>
+      <step
+><para
+>Op de laatste pagina van het dialoogvenster kunt u het geselecteerde snijpatroon aanpassen &eg; door een ander aantal puzzelstukjes te kiezen, of door de parameters van model puzzelstukje te wijzigingen. Het aantal keuzemogelijkheden is afhankelijk van welk snijpatroon u heeft geselecteerd.</para
+></step>
+    </procedure>
+    <para
+>Deze handleiding gaat verder met het beschrijven van de snijpatronen die met &palapeli; meekomen. Als u een snijpatroon-plugin voor &palapeli; die door iemand anders is geschreven heeft gedownload, lees dan in het geval van problemen bij het installeren of gebruiken op uw systeem de documentatie door die bij die plugin hoort.</para>
+    </sect1>
+    <sect1 id="simple-slicers">
+      <title
+>Eenvoudige snijpatronen</title>
+      <para
+>&palapeli; heeft twee eenvoudige snijpatronen, <guilabel
+>Klassieke puzzelstukjes</guilabel
+> en <guilabel
+>Rechthoekig raster</guilabel
+>. Deze snijpatronen creëren eenvoudige rechthoekige stukjes met of zonder uitstulpingen voor verbinding.</para>
+      <para
+>Bij beide snijpatronen is het mogelijk om het aantal puzzelstukjes en de beeldverhouding te wijzigen. Het naar links verschuiven van de schuifknop voor <guilabel
+>Beeldverhouding stukjes</guilabel
+> zal resulteren in hoge puzzelstukjes, het verschuiven naar rechts geeft brede puzzelstukjes. De standaardinstelling geeft ongeveer vierkante stukjes.</para>
+    </sect1>
+    <sect1 id="psc">
+      <title
+>Het geavanceerde &i18n-psc;</title>
+      <para
+>De &i18n-psc; geeft realistische puzzelstukjes met de volgende standaard patronen:</para>
+      <variablelist>
+        <varlistentry>
+            <term
+><guilabel
+>Rechthoekig raster</guilabel
+></term>
+          <listitem
+><para
+>Met de bekende rechthoekige puzzelstukjes.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Cairo raster</guilabel
+></term>
+          <listitem
+><para
+>Met zijn vijfhoekige stukjes en ongelijke hoekpunten, is het nogal moeilijk om mee te puzzelen omdat de stukjes op een ongewone manier in elkaar passen.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Hexagonaal raster</guilabel
+></term>
+          <listitem
+><para
+>Met zijn zeshoekige stukjes, gearrangeerd zoals honingraatcellen.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Rotrex raster</guilabel
+></term>
+          <listitem
+><para
+>Door een speciale samenstelling van driehoekige, zeshoekige en rechthoekige stukjes vormen de stukjes een patroon met snijdende cirkels.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Onregelmatig raster</guilabel
+></term>
+          <listitem
+><para
+>Dit raster is alleen beschikbaar als u <application
+>qvoronoi</application
+> uit het <ulink url="https://www.qhull.org"
+><application
+>qhull</application
+> pakket</ulink
+> heeft geïnstalleerd. &palapeli; gebruikt <application
+>qvoronoi</application
+> voor de berekening van de onregelmatig gevormde puzzelstukjes uit willekeurig geplaatste punten.</para
+></listitem>
+        </varlistentry>
+      </variablelist>
+      <para
+>Het &i18n-psc; heeft verschillende mogelijkheden om de vorm van de puzzelstukjes in te stellen, met name de tongen daarvan. Alle instelmogelijkheden hebben standaard waarden. Een extra vooringestelde modus is beschikbaar waarin de hoeveelheid keuzemogelijkheden tot een absoluut minimum is beperkt. Meestal zijn de volgende instelmogelijkheden beschikbaar:</para>
+      <variablelist>
+        <varlistentry>
+          <term
+><guilabel
+>Aantal stukjes:</guilabel
+></term>
+          <listitem
+><para
+>Stel hier het exacte aantal in waarin de afbeelding in stukjes wordt gesneden. Deze optie verschijnt alleen als de mathematische logica van het geselecteerde mes elk aantal toestaat.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Ongeveer het aantal stukjes:</guilabel
+></term>
+          <listitem
+><para
+>Stel hier het gewenste aantal in waarin de afbeelding in stukjes wordt gesneden. Deze optie verschijnt alleen als de mathematische logica van het geselecteerde mes dit aantal kan aanpassen.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Percentage omgeslagen randen:</guilabel
+></term>
+          <listitem
+><para
+>De waarschijnlijkheid voor elke tong dat het omgekeerd wordt. Een tong wordt als omgekeerd beschouwt als het in de omgekeerde richting wijst van de situatie in een volledig regelmatig raster. In een rechthoekig raster resulteert dit in puzzelstukjes met 3 of 4 tongen naar binnen of naar buiten wijzend. Plaats de schuifknop helemaal naar links om een compleet regelmatig raster te krijgen. In het midden, is de oriëntatie van de plug willekeurig. Helemaal naar rechts is het raster weer volledig regelmatig, maar met een <quote
+>afwisselende</quote
+> regel. Dit houdt <emphasis
+>niet</emphasis
+> het omkeren van alle tongen in: In het afwisselende regelmatige raster, bijvoorbeeld, heeft elk puzzelstukje vier naar binnen wijzende of vier naar buiten wijzende tongen. Deze instelling heeft geen effect in het onregelmatige raster.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Kromming van randen:</guilabel
+></term>
+          <listitem
+><para
+>Bepaalt hoe bochtig de randen zijn, &ie; hoeveel de randen in en uit stulpen. Verplaats de schuif helemaal naar links om rechte randen aan de puzzelstukjes te geven (behalve voor de tongen).</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Grootte van uitstulping:</guilabel
+></term>
+          <listitem
+><para
+>Bepaalt de grootte van het tong-gedeelte van elke rand. De standaardinstelling (middelste positie van de schuif) is zodanig gekozen dat het op een echte puzzel lijkt. Het bereik van de schuif gaat van 50% tot 150% van dit formaat, wat er al obsceen groot uitziet. Het programma doet al erg zijn best om botsingen tussen tongen te vermijden. Botsende tongen worden meerdere keren vervormd en in kleine stapjes verkleint. Maar er blijven gevallen over waarvoor geen oplossing gevonden zijn, met name bij groot formaat tongen.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Diversiteit van kromming:</guilabel
+></term>
+          <listitem
+><para
+>Bepaalt hoeveel de kromming (zie hierboven) van de randen varieert. Verplaats de schuif helemaal naar links om de uitstulpingen allemaal hetzelfde eruit te laten zien. Verplaats de schuif naar rechts, dan zien ze er erg bochtig uit met erg rechte randen.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Diversiteit van uitstulpingpositie:</guilabel
+></term>
+          <listitem
+><para
+>Bepaalt hoeveel de positie van de uitstulping op de rand varieert. Verplaats de schuif helemaal naar links, dan zit de uitstulping vast in het midden van de rand.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Diversiteit van uitstulping:</guilabel
+></term>
+          <listitem
+><para
+>Bepaalt hoeveel de individuele tongen hetzelfde eruit zien. Verplaats de schuif helemaal naar links, dan zien de uitstulpingen er allemaal hetzelfde eruit. Helemaal naar rechts is iedere uitstulping een uniek stuk kunst speciaal voor u op maat gemaakt.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Diversiteit van stukjesgrootte:</guilabel
+></term>
+          <listitem
+><para
+>Alleen bij onregelmatig raster: Bepaalt hoeveel het formaat van de puzzelstukjes varieert. Een erg kleine instelling betekent bijna geen variatie ; kristalliet-achtige structuren ontstaan. Grotere instellingen geven erg kleine en erg grote puzzelstukjes.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Raster van afbeelding dumpen:</guilabel
+></term>
+          <listitem
+><para
+>Slaat een afbeelding van het snijpatroon (zwarte lijnen op witte achtergrond) met de naam <filename
+>~/goldberg-slicer-dump.png</filename
+>. Als een ouder bestand al bestaat, dan wordt het overschreven.</para
+></listitem>
+        </varlistentry>
+      </variablelist>
+    </sect1>
+  </chapter>
+
+  <chapter id="puzzletable">
+    <title
+>Spelen op de puzzeltafel</title>
+
+    <sect1 id="puzzletable-moves">
+    <title
+>Basis verplaatsingen</title>
+    <screenshot
+><mediaobject>
+      <imageobject
+><imagedata fileref="puzzletable1.png" format="PNG"/></imageobject>
+      <textobject
+><phrase
+>De puzzeltafel (standaard)</phrase
+></textobject>
+    </mediaobject
+></screenshot>
+    <para
+>Het doel van het spel is om een afbeelding samen te stellen met de gegeven puzzelstukjes.</para>
+    <para
+>Het voorbeeldvenster laat zien hoe de afbeelding moet worden. Gebruik een werkbalk of een item uit het menu om het voorbeeldvenster wel of niet te laten zien. Voor een gedetailleerde beschrijving, zie het hoofdstuk <link linkend="puzzletable-preview"
+>Het voorbeeldvenster</link
+>.</para>
+    <para
+>Als u een puzzel met meer dan 300 puzzelstukjes wilt proberen, lees dan eerst het hoofdstuk over <link linkend="large-puzzles"
+>Faciliteiten voor oplossen van grote puzzels</link
+>, nadat u eerst dit hoofdstuk heeft gelezen.</para>
+    <para
+>U kunt een enkel puzzelstukje verplaatsen door erop te klikken en te verslepen met de &LMB;. Dat zal het puzzelstukje selecteren en markeren. Om meerdere puzzelstukjes tegelijk te verplaatsen, selecteert u ze eerst, en klikt en versleept daarna er een van de puzzelstukjes. De rest zal volgen.</para>
+    <para
+>U kunt meerdere puzzelstukjes selecteren en accentueren door de &Ctrl; ingedrukt te houden terwijl u op de puzzelstukjes klikt, of door met de &LMB; een rubberband er om heen te slepen;. U kunt ook de &Ctrl; en de &LMB; gebruiken om de huidige selectie met een stuk tegelijk uit te breiden of te verminderen.</para>
+    <para
+>Om iets niet meer te selecteren of te markeren, klikt u op een lege plek van de puzzeltafel of op een puzzelstukje dat nog niet was geselecteerd.</para>
+    <para
+>Als u een puzzelstukje naast zijn buurman legt, dan zullen beide puzzelstukjes automatisch aan elkaar vastklikken (1). Nadat puzzelstukjes aan elkaar vastgeklikt zijn, dan kunnen ze niet meer losgemaakt worden. Een ander verschil tussen &palapeli; en een echt legpuzzelspel is dat niet twee puzzelstukjes kunt combineren die niet echt elkaars buren zijn.</para>
+    <para
+>De voortgangsbalk onder de puzzeltafel geeft uw voortgang aan door de vastgeklikte puzzelstukjes te tellen (2). &palapeli; zal na elke verplaatsing automatisch uw voortgang opslaan, over het opslaan hoeft u hoeft zich daarom geen zorgen te maken.</para>
+    <para
+>U kunt met het muis<mousebutton
+>wiel</mousebutton
+> en met de knoppen rechtsonder (3) en de schuif in- en uitzoomen.</para>
+    <para
+>U kunt de puzzeltafel in elke richting verplaatsen met behulp van verslepen met de &RMB;.</para>
+    <para
+>De verplaatsing van de puzzelstukjes is beperkt tot het <emphasis
+>puzzeltafel vlak</emphasis
+>. Dit vlak is zichtbaar op de achtergrond van de puzzeltafel door een lichter rechthoekig vlak. Als u uw puzzelstukjes naar de rand (4) van het puzzeltafel vlak verplaatst, dan zal het vlak automatisch worden vergroot om u meer ruimte te geven voor het verplaatsen van uw puzzelstukjes. In de buurt van de randen zal de muiscursor veranderen naar een dubbelzijdige pijl, wat aangeeft dat u het puzzeltafel vlak kan aanpassen door middel van het verslepen met de &LMB;.</para>
+    <para
+>U kunt het puzzeltafel vlak vastzetten met de kleine knop (5) rechts van de voortgangsbalk. De rand (4) rondom de puzzeltafel zal donkerder worden, en de puzzelstukjes zullen stoppen met verplaatsen bij de rand van het puzzeltafel vlak. Het blijft mogelijk om het formaat van het puzzeltafel vlak handmatig aan te passen.</para>
+    </sect1>
+
+    <sect1 id="puzzletable-preview">
+      <title
+>Het Voorbeeldvenster</title>
+      <para
+>De voorbeeld is een klein venstertje dat boven of aan de zijkant van het venster met de puzzeltafel zweeft. Het toont een afbeelding van de voltooide puzzel: de foto die boven op de doos te zien zou zijn als het een echte legpuzzelspel zou zijn. </para>
+      <para
+>U kunt het weergeven van het venster instellen door op het actiepictogram in de werkbalk <inlinemediaobject
+><imageobject
+><imagedata fileref="view-preview.png" format="PNG"/> </imageobject
+></inlinemediaobject
+> <guiicon
+>Voorbeeld</guiicon
+> in de werkbalk of op het menu item <menuchoice
+><guimenu
+>Beeld</guimenu
+> <guimenuitem
+>Voorbeeld</guimenuitem
+></menuchoice
+> te klikken. Het formaat, positie en het wel of niet zichtbaar zijn worden opgeslagen en weer geladen tijdens het gebruik van &palapeli;. </para>
+      <para
+>Omdat het een venster is, kunt u het vrij verplaatsen op het bureaublad en de grootte wijzigen. De knop <guibutton
+>Sluiten</guibutton
+> zal het verbergen en de knop <guibutton
+>Maximaliseren</guibutton
+> zal de afbeelding snel vergroten of verkleinen. </para>
+      <para
+>Het voorbeeldvenster heeft een vergrootglas, en heeft daarom niet veel ruimte nodig. Als u uw muis over het venster beweegt, dan zoomt het snel in zodat het een vergrootte weergave van het gebied onder de muis met een paar puzzelstukjes er om heem kan tonen. Dit is erg handig bij het bekijken van details van de puzzel en het identificeren van de door u gevonden puzzelstukjes, maar het kan ook moeilijk zijn om het onder controle te houden, met name vlakbij de randen van de afbeelding. </para>
+    </sect1>
+
+    <sect1 id="puzzletable-mouseactions">
+      <title
+>Muis interacties</title>
+      <para
+>Zoals beschreven in de vorige sectie, zijn er genoeg manieren om met gebruik van de muis interacties te hebben met de puzzeltafel van &palapeli;. Welke acties u triggert met welke muisknop is vrij instelbaar. (zie de sectie <link linkend="configuration-mouseactions"
+>Spelconfiguratie</link
+> voor meer informatie over hoe dit te configureren.) De volgende lijst geeft alle mogelijke acties met de muis:</para>
+      <variablelist>
+        <varlistentry>
+          <term
+><action
+>Wijzig de grootte van het gebied voor de puzzeltafel door de randen te verslepen</action
+></term>
+          <listitem
+><para
+>Standaard is deze handeling aan de &LMB; toegewezen.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Verplaats stukken door slepen</action
+></term>
+          <listitem
+><para
+>Als u een puzzelstukje versleept, dan zal dit puzzelstukje worden verplaatst. Als meerdere puzzelstukjes zijn geselecteerd en u versleept een van deze puzzelstukjes, dan worden alle puzzelstukjes verplaatst. Standaard is deze actie toegewezen aan de &LMB;.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Beeldgedeelte verplaatsen door te slepen</action
+></term>
+          <listitem
+><para
+>Dit kan het beeld van de gehele puzzel in elke richting verplaatsen. Standaard is deze actie toegewezen aan de &RMB;.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Verschillende stukken selecteren door er een elastiekje om te doen</action
+></term>
+          <listitem
+><para
+>Als u in plaats van op een puzzelstukje, op een leeg plekje van de puzzeltafel klikt, dan kunt u een elastiekje plaatsen. Als u de muisknop loslaat, dan selecteert u alle puzzelstukjes binnen het elastiekje. Alle ander puzzelstukjes zijn dan niet geselecteerd. Standaard is deze actie toegewezen aan de &LMB;.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Meerdere stukken in een keer selecteren</action
+></term>
+          <listitem
+><para
+>Als u op een puzzelstukje klikt, dan selecteert u het of, als het al was geselecteerd, dan deselecteert u het weer. U kunt het ook gebruiken om een selectie met het elastiek te wijzigen. Standaard is deze actie toegewezen aan de &LMB;. en alleen beschikbaar als &Ctrl; is ingedrukt.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Selectie en markering leegmaken</action
+></term>
+          <listitem
+><para
+>Klik op een leeg plekje van de puzzeltafel of op een puzzelstukje dat nog niet was geselecteerd.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Op de puzzeltafel IN- of UIT-zoomen</action
+></term>
+          <listitem
+><para
+>Deze actie komt overeen met het klikken op de knoppen weerszijden van de schuif (3) op de statusbalk. Standaard is deze actie toegewezen aan de muis<mousebutton
+>wiel</mousebutton
+>.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Wissel tussen weergave van dichtbij of veraf</action
+></term>
+          <listitem
+><para
+>Dit wisselt (omschakelen) op de locatie van de muiscursor tussen de weergave van dichtbij en van veraf. Het is hoofdzakelijk bedoelt voor snel inzoomen bij grote puzzels (300 puzzelstukjes of meer). Voor meer details, zie <link linkend="large-puzzle-fast-zooming"
+>Snel wisselen tussen dichtbij en veraf weergave.</link
+>. Standaard is deze actie toegewezen aan de &MMB;.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Stukken teleporteren naar of van een houder</action
+></term>
+          <listitem
+><para
+>deze actie helpt u met het snel verzamelen, sorteren en verplaatsen van puzzelstukjes bij grote puzzels (300 puzzelstukjes of meer) zonder verslepen. Als u het wilt dan kunt u het ook gebruiken bij kleinere puzzels. Voor meer details, zie <link linkend="large-puzzle-holders"
+>houders voor puzzelstukjes gebruiken</link
+>. Standaard is deze actie toegewezen aan de &LMB;. en alleen beschikbaar als toets &Shift; is ingedrukt.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Schakel de vergrendelstatus om van het tafelgebied van de puzzel</action
+></term>
+          <listitem
+><para
+>deze actie komt overeen met het indrukken van de knop (5) op de statusbalk. Standaard is deze actie niet toegewezen aan enige muisknop, maar u kunt het toewijzen in <link linkend="configuration-mouseactions"
+>het configuratiedialoog</link
+>.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><action
+>Beeldgedeelte horizontaal verschuiven</action
+> en <action
+>Beeldgedeelte verticaal verschuiven</action
+></term>
+          <listitem
+><para
+>Standaard is deze actie niet toegewezen aan de muis<mousebutton
+>wiel</mousebutton
+>, maar u kunt het toewijzen in <link linkend="configuration-mouseactions"
+>de configuratiedialoog</link
+>.</para
+></listitem>
+        </varlistentry>
+      </variablelist>
+    </sect1>
+
+    <sect1 id="toolbars-puzzletable">
+      <title
+>Overzicht van de werkbalk</title>
+      <variablelist>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="go-previous.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Terug naar de verzameling</guiicon
+></term>
+          <listitem
+><para
+><action
+>Terug gaan naar de verzameling om een andere puzzel uit te kiezen.</action
+> kunt u alleen gebruiken als u een puzzel heeft opgelost.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><inlinemediaobject
+><imageobject
+><imagedata fileref="view-preview.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guiicon
+>Voorbeeld</guiicon
+></term>
+          <listitem
+><para
+><action
+>Weergave van het voorbeeldvenster met de complete puzzel aan-/uitzetten.</action
+></para
+></listitem>
+        </varlistentry>
+      </variablelist>
+    </sect1>
+  </chapter>
+
+  <chapter id="large-puzzles">
+    <title
+>Faciliteiten voor oplossen van grote puzzels</title>
+
+    <sect1 id="large-puzzle-general">
+      <title
+>Algemene principes</title>
+      <para
+>&palapeli; kan grote puzzels met van 300 tot 10,000 puzzelstukjes hanteren, maar u heeft dan wel enkele speciale hulpmiddelen nodig zodat u ermee op een klein scherm kan werken. </para>
+      <para
+>U kunt een grote puzzel op dezelfde manier aanmaken als een kleine puzzel. Zie het hoofdstuk over <link linkend="create-puzzles"
+>Nieuwe puzzels aanmaken</link
+>, maar er zijn wel enkele aandachtspunten waaraan u moet denken voordat u begint. Voor de details zie <link linkend="large-puzzle-creation"
+>Grote puzzels aanmaken - bijzondere aandachtspunten</link
+>. </para>
+      <para
+>Het voorbeeldvenster is met name handig bij grote puzzels: zie de sectie daarover voor een <link linkend="puzzletable-preview"
+>gedetailleerde beschrijving</link
+>. </para>
+      <para
+>Ruimte beheer en verplaatsen zijn uw volgende aandachtspunten. Als u uit zoomt om de hele puzzeltafel te kunnen zien, dan kan het lastig zijn om de individuele puzzelstukjes te zien. Als u in zoomt om een puzzelstukje te vinden waarna u uitkijkt, dan is het onwaarschijnlijk dat de plek waar het naar toe moet, in het zicht zal zijn. Zie de sectie <link linkend="large-puzzle-space"
+>Ruimte beheer en verplaatsen</link
+> voor enkele oplossingen voor deze en andere problemen. </para>
+      <para
+>Tenslotte moet u stukken verzamelen en ze naar uw oplossingsgebied overbrengen op een andere meer efficiënte manier dan herhaald slepen en laten vallen over grote afstanden. Dit is waar houders van stukken in beeld komen. </para>
+      <para
+>Als u een grote puzzel start dan krijgt u een houder (een klein zwevend venster) genaamd <quote
+>Hand</quote
+> waarin u puzzelstukjes kan stoppen op het moment dat u ze tegenkomt. Daarna kunt u ze bij de plek waar u bezig bent weer loslaten om in detail te bepalen waar elk puzzelstukje naar toe moet. Dit lijkt op het in de hand verzamelen van puzzelstukjes tijdens het doorzoeken van de puzzelstukjes van een echte legpuzzelspel. </para>
+      <para
+>U heeft een systematische manier nodig voor het verzamelen en sorteren van puzzelstukjes die een overeenkomst hebben (&eg; randen, de lucht, horizon, &etc;) en daarom kunt u net zoveel houders gebruiken als u nodig heeft die u namen kunt geven. Houders worden continu met de puzzeltafel opgeslagen, wat betekent dat u ze kunt gebruiken voor het opbouwen en bewaren van gedeeltes van de oplossing en zelfs voor het bewaren van puzzelstukjes die u in een <quote
+>te moeilijk mandje</quote
+> voor later wilt stoppen. Voor details van het gebruik van houders leest u de sectie <link linkend="large-puzzle-holders"
+>houders voor puzzelstukjes gebruiken</link
+>. </para>
+      <para
+>Tenslotte toont de sectie <link linkend="puzzletable-mouseactions"
+>Muisinteracties</link
+> de twee speciale muisacties die het werken met grote puzzels sneller en gemakkelijker maakt: teleporteren van stukken wisselen tussen dichtbij en veraf bekijken. </para>
+    </sect1>
+
+    <sect1 id="large-puzzle-creation">
+      <title
+>Grote puzzels aanmaken - bijzondere aandachtspunten</title>
+      <para
+>Voordat u een grote puzzel creëert, moet u erop letten dat de bron van uw afbeelding genoeg details heeft (&ie; genoeg megapixels). U kunt een bestand- beheerder of foto weergever/bewerker gebruiken om uit te vinden hoeveel pixels breed en hoog uw afbeelding is als het niet gecomprimeerd door JPEG of ander afbeelding- formaat. Als ruwe vuistregel, gebruik een megapixel per 1,000 puzzelstukjes. Dat zal elk puzzelstukje ongeveer 1.000 pixels of meer dan 30 bij 30 pixels geven, wat de randen van de puzzelstukjes scherp genoeg maakt en herkenbaar bij het inzoomen. U kunt met minder megapixels werken, maar dan kan het moeilijk zijn om de puzzelstukjes tijdens het spelen te onderscheiden en te herkennen. </para>
+      <para
+>Als u een grote puzzel creëert of herstart, is het misschien beter om in &palapeli; geen afgeschuinde randen of schaduw te gebruiken (zie de sectie <link linkend="configuration-general"
+>algemene instellingen</link
+>), omdat laden langzamer is en accentuering moeilijker te zien kan zijn wanneer de stukken in het beeld erg klein zijn. De markering is duidelijker wanneer u schaduwen niet gebruikt. </para>
+    </sect1>
+
+    <sect1 id="large-puzzle-space">
+      <title
+>Ruimte beheer en verplaatsen</title>
+      <sect2 id="large-puzzle-space-allocation">
+      <title
+>Ruimte toekennen op de puzzeltafel</title>
+      <para
+>Als u een puzzel creëert of herstart, dan worden de puzzelstukjes door elkaar gehaald en willekeurig op een raster op de puzzeltafel geplaatst. Twee instellingen beïnvloeden de nodige ruimte, zie <link linkend="configuration"
+>Spelconfiguratie</link
+> voor een lijst met instellingen die instelbaar zijn via <menuchoice
+><guimenu
+>Instellingen</guimenu
+> <guimenuitem
+>&palapeli; instellen...</guimenuitem
+> </menuchoice
+> of op &macOS;, menu-item <menuchoice
+><guimenu
+>&palapeli;</guimenu
+> <guimenuitem
+>Voorkeuren...</guimenuitem
+></menuchoice
+>. </para>
+      <para
+>De ruimte tussen de puzzelstukjes is instelbaar van 1.0 tot 1.5 keer de hoogte en breedte van de grootste en breedste puzzelstukjes. Kleinere instellingen laten de puzzelstukjes minder ruimte nodig hebben, en bij grotere is er meer ruimte voor verslepen, laten vallen en elastiekjes. De standaardinstelling is 1.3, maar 1.1 is ook werkbaar bij grote puzzels. De instellingen zijn geldig voor puzzels van alle formaten, en gelden ook voor het gebruikte raster in puzzel-houders (zie <link linkend="large-puzzle-holders"
+>houders voor puzzelstukjes gebruiken</link
+>) of bij het automatisch puzzelstukjes op de puzzeltafel herschikken,  door gebruik van menu-item <menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+> <guimenu
+>Zet</guimenu
+><guimenuitem
+>Stukken herschikken</guimenuitem
+></menuchoice
+>. </para>
+      <para
+>De andere instelling geeft ruimte op de puzzeltafel van precies de juiste afmeting voor het oplossen van uw puzzel. De standaardinstelling is dat het in het midden verschijnt, met de puzzelstukjes gelijkmatig er om heen verspreidt. Gemiddeld zou dit de puzzelstukjes zo dicht mogelijk bij de plek moeten plaatsen waar ze uiteindelijk terecht moeten komen. U kunt ook ervoor kiezen om een van de vier hoekpunten te gebruiken of geen ruimte (Keuze <guilabel
+>Geen</guilabel
+>), in welk geval u handmatig de ruimte vrij moet maken, door misschien de puzzeltafel te vergroten (zie <link linkend="puzzletable-moves"
+>Basis verplaatsingen</link
+>). De instelling voor de neerlegruimte is van invloed op puzzels van minstens 20 puzzelstukjes, maar neerlegruimte is voor puzzels met minder dan 20 puzzelstukjes niet zinvol. </para>
+      <para
+>Naarmate het oplossen van de puzzel verder gaat, verplaatsen puzzelstukjes zich naar de neerlegruimte en laten lege ruimte elders achter. Het kan daarom zinvol zijn om de overblijvende puzzelstukjes dichter bij elkaar te leggen. Als u dat doet, selecteer dan enkele puzzelstukjes met elastiekjes of toets &Ctrl; en klik met de &LMB;, en gebruik vervolgens menu-item <menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+> <guimenu
+>Zet</guimenu
+> <guimenuitem
+>Stukken herschikken</guimenuitem
+></menuchoice
+> of eenvoudig de sneltoets (standaard <keycap
+>R</keycap
+>). De puzzelstukjes liggen op een raster en blijven geselecteerd, zodat indien nodig u ze makkelijker naar een betere plek kunt verplaatsen. Dit is ook een manier om puzzelstukjes met een gemeenschappelijke eigenschap te verzamelen, maar het gebruik van puzzelstukjeshouders is handiger. </para>
+      </sect2>
+      <sect2 id="large-puzzle-fast-zooming">
+      <title
+>Snel wisselen tussen dichtbij en veraf weergave.</title>
+      <para
+>Als een puzzel is geladen, dan berekent &palapeli; de dichtbij en veraf weergave en toont de veraf weergave, die een overzicht van de gehele puzzeltafel geeft. De dichtbij weergave laat de puzzelstukjes in een handig formaat zien wat betreft uw blikveld, uw scherm en uw desktop. U kunt de &MMB; gebruiken om op de locatie van uw muis makkelijk heen en weer te schakelen tussen de twee weergaven. Hierdoor kunt u makkelijk op elk gedeelte van de puzzeltafel inzoomen en bekijken welke vorm het heeft en welk gedeelte van de afbeelding het heeft. </para>
+      <para
+>U kunt de zoomfactor van beide weergaven handmatig aanpassen, waarna uw instellingen onthouden wordt als u de volgende keer tussen de weergaven omschakelt met behulp van de &MMB;. Puzzels van elk formaat hebben de mogelijkheid tot snel zoomen, maar bij puzzels met minder dan 100 puzzelstukjes zijn de twee weergaven bijna hetzelfde. Met andere woorden, de puzzelstukjes zijn goed zichtbaar als u de hele puzzeltafel bekijkt. </para>
+      </sect2>
+      <sect2 id="large-puzzle-navigating">
+      <title
+>Verplaatsen in een grote puzzel</title>
+      <para
+>De moeilijke manier van verplaatsen van puzzelstukjes in een grote puzzel is ze selecteren en daarna afwisselend de puzzelstukjes en de puzzeltafel verslepen (&LMB; en &RMB;) totdat u uw doelbestemmig heeft bereikt. Een makkelijker manier om hetzelfde te doen is het selecteren van de puzzelstukjes, uitzoomen naar de veraf weergave (&MMB;, zie hierboven), de puzzelstukjes in een beweging naar de doelbestemmig verslepen (&LMB;) en weer inzoomen naar de dichtbij weergave (&MMB;). Dit is ook een goede manier om zelfs een enkel puzzelstukje te verzamelen, maar dat kleine puzzelstukje over de puzzeltafel verslepen zonder het te verliezen, kan lastig zijn als er duizenden puzzelstukjes zijn. </para>
+      <para
+>Een andere manier om de puzzeltafel systematisch te doorzoeken is om linksboven in te zoomen met de &MMB;, en vervolgens door de lege ruimte in de schuifbalken horizontaal en verticaal te stappen, een vast formaat <quote
+>pagina</quote
+> tegelijk. Deze techniek is erg handig als u houders gebruikt voor het verzamelen van de puzzelstukjes waarna u uitkijkt. Als u de dichtbij weergave vast ingezoomd houd en altijd op dezelfde plaats start, dan krijgt u altijd <quote
+>pagina´s</quote
+> van de ingestelde grootte en inhoud. </para>
+      </sect2>
+      <sect2 id="large-puzzle-visibility">
+      <title
+>Zichtbaarheid van puzzelstukjes in grote puzzels</title>
+      <para
+>Bij grote legpuzzels op een klein scherm, kan het moeilijk zijn om te zien wat u doet. Bijvoorbeeld, bij 10.000 puzzelstukjes op een 1440 bij 900 scherm, zijn de puzzelstukjes in de veraf weergave van de puzzeltafel ongeveer 7 pixels doorsnede. Op deze schaal, is het moeilijk om de afbeelding, kleur, vorm van het puzzelstukje of zelfs de markering te herkennen. </para>
+      <para
+>&palapeli; heeft altijd een keuze aan achtergronden en achtergrondkleuren gehad die helpen bij de zichtbaarheid. Daarnaast is er een meer prominente accentueringschema, die verschijnt als u de schaduwwerking uitschakelt, en de kleur van de markering laat contrasteren met de achtergrond en de meeste puzzelstukjes. Deze instellingen zijn tegenwoordig bij elke puzzel opgeslagen en weer geladen. Hierdoor kan elke puzzel de achtergrond en markering hebben die er het beste bij past. Het kan zinvol zijn om te experimenteren met de instellingen als u een grote puzzel creëert, maar u moet waarschijnlijk de puzzel herladen of herstarten om alle wijzigingen toe te passen. </para>
+      </sect2>
+    </sect1>
+
+    <sect1 id="large-puzzle-holders">
+      <title
+>Houders voor puzzelstukjes gebruiken</title>
+      <sect2 id="large-puzzle-whatareholders">
+      <title
+>Wat houders voor puzzelstukjes zijn?</title>
+      <para
+>Puzzelstukjes-houders zijn misschien het meest handige onderdeel van &palapeli; voor hulp bij het oplossen van grote puzzels. Het zijn kleine zwevende venstertjes waarin u groepjes puzzelstukjes kunt sorteren, zoals <quote
+>hoekpunten</quote
+>, <quote
+>lucht</quote
+>, <quote
+>horizon</quote
+> of <quote
+>wit huis aan de linkerkant</quote
+>. ze starten met een minimum formaat die net groot genoeg is om vier puzzelstukjes van dichtbij te bekijken, ze passen daarom gemakkelijk naast het het hoofdvenster met de puzzeltafel. </para>
+      <para
+>Omdat het vensters zijn, kunt u houders vrij over het bureaublad verplaatsen en in grootte aanpassen. De knop <guibutton
+>Sluiten</guibutton
+> verwijdert de houder, maar alleen als deze leeg is. De knop <guibutton
+>Maximaliseren</guibutton
+> zal de houder snel vergroten of verkleinen. De houder kan een onbeperkt aantal puzzelstukjes bewaren (misschien honderden). De actie maximaliseren kan handig zijn bij het inspecteren van de inhoud of het in elkaar leggen van een gedeelte van de puzzel in de houder. </para>
+      <para
+>U kunt net zoveel puzzelstukjes-houders gebruiken als u wenst. Meestal is er een actief - blauw gemarkeerd. Het is het doelbestemming voor acties zoals het verplaatsen van puzzelstukjes of het verwijderen van een houder. </para>
+      </sect2>
+      <sect2 id="large-puzzle-createholders">
+      <title
+>Houder aanmaken en verwijderen</title>
+      <para
+>Als u begint aan een grote puzzel, dan wordt automatisch een houder genaamd <quote
+>Hand</quote
+> aangemaakt. Het kan dat dit kan de enige houder is die u nodig heeft bij puzzels van 300 tot 750 puzzelstukjes, maar u kunt net zoveel houders gebruiken als u wilt, zelfs bij bij puzzels met minder dan 300 puzzelstukjes. </para>
+      <para
+>Om een houder aan te maken of te verwijderen, gebruikt u menu-items <menuchoice
+><shortcut
+><keycap
+>C</keycap
+></shortcut
+> <guimenu
+>Zet</guimenu
+><guimenuitem
+>Houder voor stukjes maken...</guimenuitem
+></menuchoice
+> of <menuchoice
+><shortcut
+><keycap
+>D</keycap
+></shortcut
+> <guimenu
+>Zet</guimenu
+><guimenuitem
+>Houder voor stukjes verwijderen</guimenuitem
+></menuchoice
+> of eenvoudig de sneltoetsen <keycap
+>C</keycap
+> en <keycap
+>D</keycap
+> of de knop <guibutton
+>Sluiten</guibutton
+> voor het verwijderen. Bij het aanmaken van een houder wordt u gevraagd naar een naam, maar deze is niet essentieel. Gewoonlijk heeft de houder de dichtbij weergave en kunt u makkelijk zien welke puzzelstukjes er in aanwezig zijn. </para>
+      <para
+>Als u een houder wilt verwijderen, dan moet het geselecteerd (blauw gemarkeerd) zijn en leeg. Als de houder die u wilt verwijderen niet geselecteerd is, selecteer het dan eerst door erop te klikken. Na het verwijderen is er geen houder meer geselecteerd, klik daarom op een van overgebleven houders. </para>
+      </sect2>
+      <sect2 id="large-puzzle-teleporting">
+      <title
+>Stukjes overbrengen in en uit de houders</title>
+      <para
+>Het verplaatsen van puzzelstukjes door verslepen is bij houders niet mogelijk, en is ook niet nodig. In plaats daarvan kunt u de puzzelstukjes onmiddellijk verplaatsen door <quote
+>teleporteren</quote
+>, net zoals in <quote
+>Star Trek</quote
+>. Teleporteren doet u door de &Shift; indrukt te houden en met de &LMB;. </para>
+      <para
+>Voordat u puzzelstukjes naar een houder verplaatst, moet u erop letten dat de houder waar naar toe u wilt verplaatsen geselecteerd is (blauw gemarkeerd), selecteer dan enkele puzzelstukjes op de puzzeltafel en houd &Shift; ingedrukt en klik met de &LMB;. Maar u kunt ook op één puzzelstukje tegelijk klikken met &Shift; en &LMB;. De verplaatste puzzelstukjes verdwijnen van de puzzeltafel en verschijnen, gemarkeerd, in de houder. Ze worden onmiddellijk in een raster geplaatst waarbij de blik op de laatst geplaatste wordt gecentreerd. </para>
+      <para
+>Om een puzzelstukje uit de houder te verplaatsen, selecteert u een of meerdere puzzelstukjes in de houder, u gaat vervolgens naar de puzzeltafel en klikt op een leeg plekje waar u wilt dat dat de puzzelstukje(s) naar toe gaan, en houdt de &Shift; ingedrukt en klik met de &LMB;. Vermijdt het klikken op een puzzelstukje dat al op de puzzeltafel ligt: dit verplaatst het puzzelstukje naar de houder - en dat wilt u niet. Als u per ongeluk dit doet met een gedeelte van de puzzel dat u al heeft gelegd (&ie; gedeelte van uw oplossing), dan krijgt u een waarschuwing met de mogelijkheid om te annuleren. </para>
+      <para
+>Puzzelstukjes blijven na het teleporteren gemarkeerd. Hierdoor kunt u makkelijk de actie ongedaan maken als u per ongeluk de verkeerde puzzelstukjes of naar de verkeerde houder heeft geteleporteerd. Ook kunt u hierdoor makkelijker op de puzzeltafel de positie van een net gearriveerd puzzelstukje(s) aanpassen of vastklikken. </para>
+      <para
+>Teleporteren werkt ook tussen houders. Begin net zoals u het zou doen met het verplaatsen van puzzelstukjes naar de puzzeltafel, maar houd dan &Shift; ingedrukt en klik metde &LMB; in een lege plek in een andere houder. Om dit proces ongedaan te maken, gaat u terug naar de originele houder en houd opnieuw &Shift; ingedrukt en klik met de &LMB;. </para>
+      </sect2>
+      <sect2 id="large-puzzle-sorting">
+      <title
+>Stukjes sorteren</title>
+      <para
+>Om de puzzelstukjes efficiënt in de houders te sorteren als u een grote puzzel aan het doorzoeken bent, kunt u de techniek van het stappen door de puzzel een <quote
+>pagina</quote
+> per keer gebruiken, <link linkend="large-puzzle-navigating"
+> zoals eerder beschreven</link
+>, gecombineerd met houders en teleporteren voor het verzamelen van puzzelstukjes terwijl u bezig bent. Als u de hele puzzeltafel heeft doorzocht, zoomt u dichtbij in op een gedeelte van het neerlegruimte en plaatst de verzamelde puzzelstukjes. Maar u kunt ook gedeeltes al in elkaar zetten in de houders. </para>
+      </sect2>
+      <sect2 id="large-puzzle-otherholderactions">
+      <title
+>Andere acties van de houder</title>
+      <para
+>Houders van stukjes ondersteunen alle functies van de puzzeltafel (zie <link linkend="puzzletable-moves"
+>Basis verplaatsingen</link
+>), behalve dat u alleen kunt zoomen met het schuif<mousebutton
+>wiel</mousebutton
+> of de &MMB;. </para>
+      <para
+>Dit houdt in dat u als u dat wilt een houder kan gebruiken als extra puzzeltafel. U kunt verslepen, puzzelstukjes samenvoegen, de grenzen ervan verplaatsen, &etc; U kunt ook samenvoegde puzzelstukjes van enig formaat in en uit een houder teleporteren, maar let wel op dat kleine puzzelstukjes eronder verborgen kunnen raken. </para>
+      <para
+>Tenslotte kunt u het menu-item <menuchoice
+><shortcut
+> <keycap
+>A</keycap
+></shortcut
+><guimenu
+>Zet</guimenu
+> <guimenuitem
+>Alles in een houder selecteren</guimenuitem
+> </menuchoice
+> gebruiken, gevolgd door menu-item <menuchoice
+><shortcut
+> <keycap
+>R</keycap
+></shortcut
+><guimenu
+>Zet</guimenu
+> <guimenuitem
+>Stukken herschikken</guimenuitem
+> </menuchoice
+> of houd &Shift; ingedrukt en klik op de &LMB;, om alle puzzelstukjes in de houder te herpakken of alle puzzelstukjes naar de puzzeltafel te verplaatsen. Maar u kunt ook de toetsen <keycap
+>A</keycap
+> of <keycap
+>R</keycap
+> voor de geselecteerde houder gebruiken. </para>
+      </sect2>
+    </sect1>
+  </chapter>
+
+  <chapter id="interface">
+    <title
+>Overzicht van het interface</title>
+    <para
+>De volgenden zijn menu-items van &palapeli;, sommigen zijn ook beschikbaar als actiepictogrammen op de werkbalk en sneltoetsen.</para>
+    <variablelist>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+></shortcut
+><guimenu
+>Spel</guimenu
+><guimenuitem
+>Nieuwe puzzel aanmaken...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Opent een dialoogvenster waarin u een puzzel kunt aanmaken van een afbeelding op uw harde schijf.</action
+> Zie <link linkend="create-puzzles"
+>de bijbehorende sectie</link
+> voor details en ook de <link linkend="large-puzzle-creation"
+>bijzondere aandachtspunten</link
+>, als u een puzzel gaat aanmaken met 300 of meer puzzelstukjes.</para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Spel</guimenu
+><guimenuitem
+>Uit bestand importeren...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Als u een &palapeli; puzzel-bestand heeft ontvangen (die u normaal gesproken kan herkennen aan de bestand-extensie <literal role="extension"
+>.puzzle</literal
+>), dan kunt u deze actie gebruiken om het te importeren naar uw lokale collectie.</action
+> Puzzel-bestanden kunt u ook openen door er eenvoudig op te klikken in de bestandsbeheerder van uw keuze, maar na een import zal de puzzel in uw lokale collectie verschijnen, en kunt u de gedownloade puzzel veilig verwijderen.</para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Spel</guimenu
+><guimenuitem
+>Naar bestand exporteren...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Dit zal de huidige geselecteerde puzzels naar bestanden exporteren, zodat u ze naar uw vrienden kunt versturen, ze op het web kunt publiceren, of om een backup van uw collectie te maken.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Spel</guimenu
+><guimenuitem
+>Puzzel verwijderen</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Elke puzzel die u in de lijst met puzzels heeft geselecteerd, zal permanent uit uw verzameling worden verwijderd.</action
+></para
+><warning
+><para
+>Deze actie kan niet ongedaan worden gemaakt.</para
+></warning
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Spel</guimenu
+><guimenuitem
+>Puzzel herstarten</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Husselt alle puzzelstukjes door elkaar en verwijdert de opgeslagen voortgang van de huidige puzzel.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Spel</guimenu
+> <guimenuitem
+>Afsluiten</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+>Het spel &palapeli; <action
+>Afsluiten</action
+>.</para
+></listitem>
+      </varlistentry
+>    
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycap
+>C</keycap
+></shortcut
+><guimenu
+>Verplaats</guimenu
+><guimenuitem
+>Houder voor puzzelstukjes maken...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Een tijdelijke houder voor het sorteren van stukken maken. Zie <link linkend="large-puzzle-holders"
+>Houders voor puzzelstukjes gebruiken</link
+> voor details over hoe u een houder kunt gebruiken.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycap
+>D</keycap
+></shortcut
+><guimenu
+>Verplaats</guimenu
+><guimenuitem
+>Houder voor puzzelstukjes verwijderen</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>De geselecteerde tijdelijke houder verwijderen wanneer deze leeg is.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycap
+>A</keycap
+></shortcut
+><guimenu
+>Verplaats</guimenu
+><guimenuitem
+>Houder voor puzzelstukjes selecteren</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Alle stukken in een geselecteerde houder voor stukken selecteren (blauw gemarkeerd).</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycap
+>R</keycap
+></shortcut
+><guimenu
+>Verplaats</guimenu
+><guimenuitem
+>Puzzelstukjes herschikken</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Gemarkeerde puzzelstukjes in een houder of op de puzzeltafel in een raster herschikken.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Beeld</guimenu
+><guimenuitem
+>Terug naar verzameling</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Terug gaan naar de verzameling om een andere puzzel uit te kiezen.</action
+> kunt u alleen gebruiken als u een puzzel heeft opgelost.</para
+></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Beeld</guimenu
+><guimenuitem
+>Voorbeeld</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Weergave van het voorbeeldvenster met de complete puzzel aan-/uitzetten.</action
+> Zweef met de muis er boven om op de afbeelding in te zoomen.</para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+></shortcut
+><guimenu
+>Beeld</guimenu
+><guimenuitem
+>Inzoomen</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>De schaal verhogen.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+></shortcut
+><guimenu
+>Beeld</guimenu
+><guimenuitem
+>Uitzoomen</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>De schaal verlagen.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>Alle meldingen inschakelen</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Stelt u in staat om alle meldingen uitgeschakeld door activeren van de optie <guilabel
+>Dit bericht niet opnieuw tonen</guilabel
+> in de dialogen voor bevestiging in &palapeli;.</action
+></para
+></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term
+><menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>Statusbalk van puzzeltafel tonen</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+><action
+>Schakelt de weergave in en uit van de voortgangsbalk en de knoppen onder de puzzeltafel.</action
+> Deze actie wijzigt niets aan de puzzel.</para
+></listitem>
+      </varlistentry>
+      <varlistentry id="settings-menu-configure">
+        <term
+><menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>&palapeli; instellen...</guimenuitem
+></menuchoice
+></term>
+        <listitem
+><para
+>Opent een spel-configuratiedialoog. Zie de sectie <link linkend="configuration"
+>Spelconfiguratie</link
+> voor meer details.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <para
+>Bovendien heeft &palapeli; de gezamenlijke menu-items van &kde; <guimenu
+>Instellingen</guimenu
+> en <guimenu
+>Help</guimenu
+>, voor meer informatie lees de secties over de <ulink url="help:/fundamentals/menus.html#menus-settings"
+>Menu-instellingen</ulink
+> en <ulink url="help:/fundamentals/menus.html#menus-help"
+>Menu Help</ulink
+> van &kde;-fundamentals. </para>
+  </chapter>
+
+  <chapter id="configuration">
+    <title
+>Spelconfiguratie</title>
+    <para
+>Om de instellingendialoog van de menubalk te openen gebruikt u het menu-item <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>&palapeli; instellen...</guimenuitem
+></menuchoice
+>.</para>
+    <sect1 id="configuration-general">
+      <title
+>Algemene instellingen</title>
+      <variablelist>
+        <varlistentry>
+          <term
+><guilabel
+>Puzzeltafel</guilabel
+></term>
+          <listitem>
+            <para
+>Laat u enige parameters van de puzzeltafel kiezen</para>
+          <variablelist>
+            <varlistentry>
+              <term
+><guilabel
+>Achtergrond:</guilabel
+></term>
+              <listitem
+><para
+><action
+>Laat u een andere achtergrondafbeelding voor de puzzeltafel selecteren.</action
+> Als u een in plaats van een afbeelding een enkele kleur kiest, dan kunt u de knop naast het selectievak gebruiken om de kleur te selecteren.</para
+></listitem>
+            </varlistentry>
+            <varlistentry>
+              <term
+><guilabel
+>Kleur voor accentuering van geselecteerde stukken:</guilabel
+></term>
+              <listitem
+><para
+><action
+>Laat u voor puzzelstukjes als ze geselecteerd zijn de markering-kleur kiezen.</action
+> Klik op de knop rechts naast de label op een venster voor <ulink url="help:/fundamentals/colors.html"
+>Kleuren Selectie</ulink
+> te openen.</para
+></listitem>
+            </varlistentry>
+            <varlistentry>
+              <term
+><guilabel
+>Ruimte voor de oplossing:</guilabel
+></term>
+              <listitem
+><para
+><action
+>Laat u kiezen waar enige ruimte te reserveren op de puzzeltafel voor het oplossen.</action
+> Er is geen ruimte aanwezig als u de optie <guilabel
+>Geen</guilabel
+> kiest of de puzzel minder dan 20 stukken bevat. Wijzigingen zullen effect hebben wanneer een puzzel wordt gemaakt of opnieuw gestart.</para
+></listitem>
+            </varlistentry>
+            <varlistentry>
+              <term
+><guilabel
+>Afstand tussen de stukken in puzzelrasters (1.0-1.5):</guilabel
+></term>
+              <listitem
+><para
+><action
+>Laat u de afstand kiezen in het puzzelrooster.</action
+> Wijzigingen in de algemene ruimte tussen puzzelstukjes zullen alleen effect hebben wanneer een puzzel wordt gemaakt of opnieuw gestart.</para
+></listitem>
+            </varlistentry>
+          </variablelist>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Uiterlijk van stukken</guilabel
+></term>
+          <listitem
+><para
+><action
+>Stelt het uiterlijk van de puzzelstukjes op de puzzeltafel in.</action
+> Als &palapeli; langzaam werkt of puzzels hebben veel tijd nodig om te openen, dan kunt u in deze categorie de grafische effecten uitschakelen en alles sneller maken. Als u schaduwwerking inschakelt, dan werkt markeren door de kleur van de schaduw te wijzigen.</para
+></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term
+><guilabel
+>Precisie van in elkaar passen</guilabel
+></term>
+          <listitem
+><para
+><action
+>Laat u kiezen hoe dichtbij naast elkaar liggende puzzelstukjes moeten liggen om ze in elkaar te laten passen.</action
+> Als u de schuif naar helemaal naar rechts beweegt, dan passen puzzelstukjes in elkaar ook als ze niet zo dichtbij elkaar liggen. Dit maakt het spel een beetje makkelijker om te spelen.</para
+></listitem>
+        </varlistentry>
+      </variablelist>
+    </sect1>
+    <sect1 id="configuration-mouseactions">
+      <title
+>Muisinteractie</title>
+      <para
+>In deze pagina van het configuratievenster kunt u de muisknoppen en sneltoetsen toewijzen aan acties die beschreven zijn in <link linkend="puzzletable-mouseactions"
+>Spelen op de puzzeltafel, Muisinteracties</link
+>. Let er op dat u dubbelzinnige opdrachten vermijdt. Drie van de standaard toewijzingen kunnen naar de &LMB; gaan omdat het bij gebruik boven verschillende gebieden komt,maar de andere toewijzingen moeten verschillend zijn.</para>
+      <para
+>De interacties zijn verdeelt in diegene die kunnen worden toegewezen aan muisknopppen (&eg; <action
+>Beeldgedeelte verplaatsen door te slepen</action
+>), en diegene die kunnen worden toegewezen aan de muis<mousebutton
+>wiel</mousebutton
+> (&eg; <action
+>Beeldgedeelte horizontaal verschuiven</action
+>).</para>
+      <sect2>
+        <title
+>Tabblad voor muisknoppen</title>
+        <para
+>Rechts van elke interactie is een knop met een afbeelding van een computermuis die de op dit moment toegewezen actie toont. U kunt de actie instellen door op die knop te klikken met de &LMB; en daarna met de muisknop waaraan u deze actie wilt toewijzen. Als u sneltoetsen ingedrukt houd tijdens het voor de tweede keer indrukken, dan zal de puzzeltafel deze actie alleen uitvoeren als deze sneltoetsen ingedrukt zijn.</para>
+        <tip
+><para
+>In plaats van te klikken, kunt u ook &Space; indrukken om de speciale <guilabel
+>Nee-knop</guilabel
+> aan deze interactie toe te kennen. Dit is alleen toegestaan als modifier-toetsen zijn ingedrukt. De <guilabel
+>Nee-knop</guilabel
+> betekent dat de modifier-toetsen de rol van de muisknop innemen: de interactie start wanneer de modifier-toetsen zijn ingedrukt en stopt wanneer één van de modifier-toetsen wordt losgelaten.</para
+></tip>
+      </sect2>
+      <sect2>
+        <title
+>Tabblad voor muiswiel</title>
+        <para
+>Dit tabblad werkt gelijk aan het vorige. Wanneer de knop rechts om invoer vraagt, moet u het muiswiel draaien in plaats van op een muis<mousebutton
+>wiel</mousebutton
+> klikken. Modifier-toetsen indrukken is ook toegestaan, met dezelfde gevolgen als in het vorige geval.</para>
+        <tip
+><para
+>Als uw muis een muis<mousebutton
+>wiel</mousebutton
+> heeft die in twee richtingen beweegt (zoals de meesten op touchpads van notebooks), dan kunt u daar uw voordeel mee doen: de knop zal herkennen of u het muis<mousebutton
+>wiel</mousebutton
+> horizontaal of verticaal beweegt.</para
+></tip>
+      </sect2>
+    </sect1>
+  </chapter>
+
+  <chapter id="credits">
+    <title
+>Dankbetuiging en licentie</title>
+    <para
+>Het doel van &palapeli; om het ontspannende plezier en uitdaging van legpuzzels op uw bureaublad te brengen.</para>
+    <para
+>Het idee was eerst ontwikkeld door Bernhard Schiffner, samen met Stefan Majewsky, wie de huidige hoofdontwikkelaar van &palapeli; is.</para>
+    <para
+>De &i18n-psc; is bijgedragen door Johannes L&#xF6;hnert.</para>
+    <para
+>De mogelijkheden voor grote puzzels zijn bijgedragen door Ian Wadham.</para>
+    <para
+>Documentatie Copyright 2009, 2010 Johannes L&#xF6;hnert, Stefan Majewsky en Copyright 2014 Ian Wadham.</para>
+    &meld.fouten;&vertaling.freek;&vertaling.ronald; &underFDL; &underGPL; </chapter>
+
+  &documentation.index;
+</book>
