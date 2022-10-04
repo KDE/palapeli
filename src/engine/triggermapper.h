@@ -10,6 +10,7 @@
 #include "interactor.h"
 #include "trigger.h"
 
+#include <QObject>
 #include <QMap>
 class QKeyEvent;
 class QMouseEvent;
