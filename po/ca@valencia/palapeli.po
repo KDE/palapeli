@@ -418,7 +418,7 @@ msgstr ""
 msgid ""
 "The selected piece holder must contain some pieces for 'Select all' to use."
 msgstr ""
-"Cal que el contenidor de peces seleccionat tinga alguna peça a utilitzar "
+"Cal que el contenidor de peces seleccionat tinga alguna peça per a utilitzar "
 "«Selecciona-les totes»."
 
 #: src/engine/gameplay.cpp:448
@@ -911,7 +911,7 @@ msgid ""
 "The filename of the background image to use for the View, or \"__color__\" "
 "if a solid color should be used (see key \"ViewBackgroundColor\")."
 msgstr ""
-"El nom de fitxer de la imatge de fons a utilitzar per a la vista, o "
+"El nom de fitxer de la imatge de fons que s'utilitzarà per a la vista, o "
 "«__color__» si s'ha d'utilitzar un color sòlid (mira la clau "
 "«ViewBackgroundColor»)."
 
@@ -922,14 +922,15 @@ msgid ""
 "The background color to use for the View (if the key \"ViewBackground\" is "
 "set to \"__color__\")."
 msgstr ""
-"El color de fons a utilitzar per a la vista (si la clau «ViewBackground» "
-"està establida a «__color__»)."
+"El color de fons que s'utilitzarà per a la vista (si la clau "
+"«ViewBackground» està establida a «__color__»)."
 
 #. i18n: ectx: label, entry (ViewHighlightColor), group (Appearance)
 #: src/palapeli.kcfg:20
 #, kde-format
 msgid "The highlighting color to use for selecting pieces in the View."
-msgstr "El color de ressaltat a utilitzar per a seleccionar peces en la vista."
+msgstr ""
+"El color de ressaltat que s'utilitzarà per a seleccionar peces en la vista."
 
 #. i18n: ectx: label, entry (SolutionArea), group (Appearance)
 #: src/palapeli.kcfg:24
