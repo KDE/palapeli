@@ -19,6 +19,7 @@
   <name xml:lang="gl">Palapeli</name>
   <name xml:lang="id">Palapeli</name>
   <name xml:lang="it">Palapeli</name>
+  <name xml:lang="ka">Palapeli</name>
   <name xml:lang="ko">Palapeli</name>
   <name xml:lang="nl">Palapeli</name>
   <name xml:lang="nn">Palapeli</name>
@@ -52,6 +53,7 @@
   <summary xml:lang="gl">Xogo de quebracabezas jigsaw</summary>
   <summary xml:lang="id">Permainan teka-teki jigsaw</summary>
   <summary xml:lang="it">Gioco di puzzle</summary>
+  <summary xml:lang="ka">პაზლის თამაში</summary>
   <summary xml:lang="ko">조각 퍼즐 게임</summary>
   <summary xml:lang="nl">Legpuzzelspel</summary>
   <summary xml:lang="nn">Puslespelspel</summary>
@@ -122,6 +124,7 @@
     <p xml:lang="gl">Funcionalidades:</p>
     <p xml:lang="id">Fitur:</p>
     <p xml:lang="it">Caratteristiche:</p>
+    <p xml:lang="ka">თვისებები:</p>
     <p xml:lang="ko">기능:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="nn">Funksjonar:</p>
