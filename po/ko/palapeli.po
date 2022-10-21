@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-28 00:44+0000\n"
+"POT-Creation-Date: 2022-10-21 00:44+0000\n"
 "PO-Revision-Date: 2022-07-13 12:14+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -338,51 +338,51 @@ msgstr "조각을 만들 수 없음: 알 수 없는 오류로 조각을 나눌 �
 msgid "Change size of puzzle table area by dragging its edges"
 msgstr "퍼즐 테이블 크기를 변경하려면 모서리를 드래그하십시오"
 
-#: src/engine/gameplay.cpp:179 src/engine/gameplay.cpp:1136
+#: src/engine/gameplay.cpp:185 src/engine/gameplay.cpp:1158
 #, kde-format
 msgid "You have finished the puzzle. Do you want to restart it now?"
 msgstr "퍼즐을 끝냈습니다. 다시 해 보시겠습니까?"
 
-#: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
+#: src/engine/gameplay.cpp:186 src/engine/gameplay.cpp:1159
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
 msgstr "다시 시작"
 
-#: src/engine/gameplay.cpp:295
+#: src/engine/gameplay.cpp:305
 #, kde-format
 msgid "The following puzzles will be deleted. This action cannot be undone."
 msgstr "다음 퍼즐을 삭제합니다. 이 작업은 실행 취소할 수 없습니다."
 
-#: src/engine/gameplay.cpp:314 src/engine/gameplay.cpp:340
+#: src/engine/gameplay.cpp:324 src/engine/gameplay.cpp:350
 #, kde-format
 msgctxt "Filter for a file dialog"
 msgid "Palapeli puzzles (*.puzzle)"
 msgstr "Palapeli 퍼즐 (*.puzzle)"
 
-#: src/engine/gameplay.cpp:316
+#: src/engine/gameplay.cpp:326
 #, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
 msgstr "Palapeli 퍼즐 가져오기"
 
-#: src/engine/gameplay.cpp:342
+#: src/engine/gameplay.cpp:352
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
 msgstr "Palapeli 퍼즐 저장"
 
-#: src/engine/gameplay.cpp:357
+#: src/engine/gameplay.cpp:367
 #, kde-format
 msgid "Create a piece holder"
 msgstr "조각 모음통 만들기"
 
-#: src/engine/gameplay.cpp:358
+#: src/engine/gameplay.cpp:368
 #, kde-format
 msgid "Enter a short name (optional):"
 msgstr "짧은 이름 입력(선택 사항):"
 
-#: src/engine/gameplay.cpp:404
+#: src/engine/gameplay.cpp:414
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can delete it, "
@@ -391,26 +391,26 @@ msgstr ""
 "조각 모음통을 삭제하려면 조각 모음통을 클릭해서 선택하거나 닫기 단추를 눌러"
 "야 합니다."
 
-#: src/engine/gameplay.cpp:423
+#: src/engine/gameplay.cpp:433
 #, kde-format
 msgid "The selected piece holder must be empty before you can delete it."
 msgstr "조각 모음통을 삭제하려면 선택한 조각 모음통이 비어 있어야 합니다."
 
-#: src/engine/gameplay.cpp:442
+#: src/engine/gameplay.cpp:452
 #, kde-format
 msgid ""
 "The selected piece holder must contain some pieces for 'Select all' to use."
 msgstr ""
 "'모두 선택' 기능을 사용하려면 선택한 조각 모음통에 조각이 들어 있어야 합니다."
 
-#: src/engine/gameplay.cpp:448
+#: src/engine/gameplay.cpp:458
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can select all "
 "the pieces in it."
 msgstr "조각 모음통 내의 모든 조각을 선택하려면 먼저 모음통을 선택해야 합니다."
 
-#: src/engine/gameplay.cpp:468
+#: src/engine/gameplay.cpp:478
 #, kde-format
 msgid ""
 "To rearrange pieces, either the puzzle table must have some selected pieces "
@@ -418,7 +418,7 @@ msgid ""
 msgstr ""
 "조각을 재배열하려면 퍼즐 테이블이나 조각 모음통에서 조각을 선택해야 합니다."
 
-#: src/engine/gameplay.cpp:530
+#: src/engine/gameplay.cpp:540
 #, kde-format
 msgid ""
 "You need to have a piece holder and click it to select it before you can "
@@ -426,7 +426,7 @@ msgid ""
 msgstr ""
 "조각 모음통에 조각을 넣거나 꺼내려면 조각 모음통을 눌러서 선택해야 합니다."
 
-#: src/engine/gameplay.cpp:550
+#: src/engine/gameplay.cpp:564
 #, kde-format
 msgid ""
 "You have selected to transfer a large piece containing more than six small "
@@ -435,13 +435,13 @@ msgstr ""
 "일곱 개 이상의 조각이 들어 있는 큰 조각을 조각 모음통으로 보내려고 하고 있습"
 "니다. 계속 진행하시겠습니까?"
 
-#: src/engine/gameplay.cpp:555
+#: src/engine/gameplay.cpp:569
 #, kde-format
 msgctxt "@action:button"
 msgid "Transfer"
 msgstr "보내기"
 
-#: src/engine/gameplay.cpp:574
+#: src/engine/gameplay.cpp:592
 #, kde-format
 msgid ""
 "You need to select one or more pieces to be transferred out of the selected "
@@ -450,7 +450,7 @@ msgstr ""
 "새 조각 모음통으로 조각을 보내려면 선택한 조각 모음통이나 퍼즐 테이블에서 하"
 "나 이상의 조각을 선택해야 합니다."
 
-#: src/engine/gameplay.cpp:592
+#: src/engine/gameplay.cpp:610
 #, kde-format
 msgid ""
 "You need to select one or more pieces to be transferred from the previous "
@@ -459,7 +459,7 @@ msgstr ""
 "이전 조각 모음통에서 새 조각 모음통으로 조각을 보내려면 하나 이상의 조각을 선"
 "택해야 합니다."
 
-#: src/engine/gameplay.cpp:600
+#: src/engine/gameplay.cpp:618
 #, kde-format
 msgid ""
 "You need to have at least two holders, one of them selected and with "
@@ -468,13 +468,13 @@ msgstr ""
 "조각 모음통 두 개가 필요합니다. 두 번째 조각 모음통으로 조각을 보내려면 선택"
 "한 조각이 있는 조각 모음통 하나를 선택해야 합니다."
 
-#: src/engine/gameplay.cpp:1077
+#: src/engine/gameplay.cpp:1095
 #, kde-format
 msgctxt "For holding pieces"
 msgid "Hand"
 msgstr "손"
 
-#: src/engine/gameplay.cpp:1080
+#: src/engine/gameplay.cpp:1098
 #, kde-format
 msgctxt "Hints for solving large puzzles"
 msgid ""
@@ -564,13 +564,13 @@ msgstr ""
 "조각 모음통 안에서도 퍼즐 테이블 창에서 하는 것처럼 조각을 이어서 퍼즐을 풀 "
 "수 있습니다."
 
-#: src/engine/gameplay.cpp:1130
+#: src/engine/gameplay.cpp:1148
 #, kde-format
 msgctxt "Caption for hints"
 msgid "Solving Large Puzzles"
 msgstr "큰 퍼즐 풀기"
 
-#: src/engine/gameplay.cpp:1194
+#: src/engine/gameplay.cpp:1220
 #, kde-format
 msgid "Great! You have finished the puzzle."
 msgstr "축하합니다! 퍼즐을 맞추셨습니다."
@@ -1057,107 +1057,107 @@ msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Unprecise (easier)"
 msgstr "정밀하지 않음(쉬움)"
 
-#: src/window/mainwindow.cpp:53
+#: src/window/mainwindow.cpp:55
 #, kde-format
 msgid "Show Statusbar of Puzzle Table"
 msgstr "퍼즐 테이블 상태 표시줄 표시"
 
-#: src/window/mainwindow.cpp:56
+#: src/window/mainwindow.cpp:58
 #, kde-format
 msgid "Back to &Collection"
 msgstr "모음집으로 돌아가기(&C)"
 
-#: src/window/mainwindow.cpp:57
+#: src/window/mainwindow.cpp:59
 #, kde-format
 msgid "Go back to the collection to choose another puzzle"
 msgstr "모음집으로 돌아가서 다른 퍼즐 선택"
 
-#: src/window/mainwindow.cpp:63
+#: src/window/mainwindow.cpp:65
 #, kde-format
 msgid "Create &New Puzzle..."
 msgstr "새 퍼즐 만들기(&N)..."
 
-#: src/window/mainwindow.cpp:64
+#: src/window/mainwindow.cpp:66
 #, kde-format
 msgid "Create a new puzzle using an image file from your disk"
 msgstr "디스크에 있는 그림 파일에서 새 퍼즐 만들기"
 
-#: src/window/mainwindow.cpp:70
+#: src/window/mainwindow.cpp:72
 #, kde-format
 msgid "&Delete Puzzle"
 msgstr "퍼즐 삭제(&D)"
 
-#: src/window/mainwindow.cpp:72
+#: src/window/mainwindow.cpp:74
 #, kde-format
 msgid "Delete the selected puzzle from your collection"
 msgstr "모음집에서 선택한 퍼즐 삭제"
 
-#: src/window/mainwindow.cpp:78
+#: src/window/mainwindow.cpp:80
 #, kde-format
 msgid "&Import from File..."
 msgstr "파일에서 가져오기(&I)..."
 
-#: src/window/mainwindow.cpp:79
+#: src/window/mainwindow.cpp:81
 #, kde-format
 msgid "Import a new puzzle from a file into your collection"
 msgstr "파일에서 새 퍼즐을 모음집으로 가져옵니다"
 
-#: src/window/mainwindow.cpp:84
+#: src/window/mainwindow.cpp:86
 #, kde-format
 msgid "&Export to File..."
 msgstr "파일로 내보내기(&E)..."
 
-#: src/window/mainwindow.cpp:86
+#: src/window/mainwindow.cpp:88
 #, kde-format
 msgid "Export the selected puzzle from your collection into a file"
 msgstr "모음집에서 선택한 퍼즐을 파일로 내보냅니다"
 
-#: src/window/mainwindow.cpp:92
+#: src/window/mainwindow.cpp:94
 #, kde-format
 msgid "&Restart Puzzle..."
 msgstr "퍼즐 다시 시작(&R)..."
 
-#: src/window/mainwindow.cpp:93
+#: src/window/mainwindow.cpp:95
 #, kde-format
 msgid "Delete the saved progress and reshuffle the pieces"
 msgstr "진행 상황을 삭제하고 조각 다시 섞기"
 
-#: src/window/mainwindow.cpp:100
+#: src/window/mainwindow.cpp:102
 #, kde-format
 msgid "&Create Piece Holder..."
 msgstr "조각 모음통 만들기(&C)..."
 
-#: src/window/mainwindow.cpp:101
+#: src/window/mainwindow.cpp:103
 #, kde-format
 msgid "Create a temporary holder for sorting pieces"
 msgstr "조각을 분류하는 임시 조각 모음통 만들기"
 
-#: src/window/mainwindow.cpp:108
+#: src/window/mainwindow.cpp:110
 #, kde-format
 msgid "&Delete Piece Holder"
 msgstr "조각 모음통 삭제(&D)"
 
-#: src/window/mainwindow.cpp:109
+#: src/window/mainwindow.cpp:111
 #, kde-format
 msgid "Delete a selected temporary holder when it is empty"
 msgstr "선택한 임시 조각 모음통이 비어 있으면 삭제합니다"
 
-#: src/window/mainwindow.cpp:115
+#: src/window/mainwindow.cpp:117
 #, kde-format
 msgid "&Select All in Holder"
 msgstr "모음통의 조각 모두 선택(&S)"
 
-#: src/window/mainwindow.cpp:116
+#: src/window/mainwindow.cpp:118
 #, kde-format
 msgid "Select all pieces in a selected piece holder"
 msgstr "선택한 조각 모음통의 모든 조각 선택"
 
-#: src/window/mainwindow.cpp:122
+#: src/window/mainwindow.cpp:124
 #, kde-format
 msgid "&Rearrange Pieces"
 msgstr "조각 재배치(&R)"
 
-#: src/window/mainwindow.cpp:123
+#: src/window/mainwindow.cpp:125
 #, kde-format
 msgid ""
 "Rearrange all pieces in a selected piece holder or selected pieces in any "
@@ -1165,34 +1165,34 @@ msgid ""
 msgstr ""
 "선택한 조각 모음통의 모든 조각이나 임의 창에서 선택한 조각을 다시 배열하기"
 
-#: src/window/mainwindow.cpp:130
+#: src/window/mainwindow.cpp:132
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "&Preview"
 msgstr "미리 보기(&P)"
 
-#: src/window/mainwindow.cpp:132
+#: src/window/mainwindow.cpp:134
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "Preview"
 msgstr "미리 보기"
 
-#: src/window/mainwindow.cpp:133
+#: src/window/mainwindow.cpp:135
 #, kde-format
 msgid "Show or hide the image of the completed puzzle"
 msgstr "완성된 퍼즐 그림 표시/숨기기"
 
-#: src/window/mainwindow.cpp:147
+#: src/window/mainwindow.cpp:149
 #, kde-format
 msgid "Enable All Messages"
 msgstr "모든 메시지 사용"
 
-#: src/window/mainwindow.cpp:156
+#: src/window/mainwindow.cpp:162
 #, kde-format
 msgid "Enable all messages again?"
 msgstr "모든 메시지를 다시 활성화하시겠습니까?"
 
-#: src/window/mainwindow.cpp:157
+#: src/window/mainwindow.cpp:163
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"

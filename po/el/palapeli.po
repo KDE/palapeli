@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-28 00:44+0000\n"
+"POT-Creation-Date: 2022-10-21 00:44+0000\n"
 "PO-Revision-Date: 2021-10-08 08:29+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -351,52 +351,52 @@ msgstr ""
 msgid "Change size of puzzle table area by dragging its edges"
 msgstr "Αλλαγή μεγέθους της περιοχής του πίνακα παζλ με σύρσιμο των άκρων"
 
-#: src/engine/gameplay.cpp:179 src/engine/gameplay.cpp:1136
+#: src/engine/gameplay.cpp:185 src/engine/gameplay.cpp:1158
 #, kde-format
 msgid "You have finished the puzzle. Do you want to restart it now?"
 msgstr "Ολοκληρώσατε το παζλ. Επιθυμείτε να το λύσετε ξανά;"
 
-#: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
+#: src/engine/gameplay.cpp:186 src/engine/gameplay.cpp:1159
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
 msgstr ""
 
-#: src/engine/gameplay.cpp:295
+#: src/engine/gameplay.cpp:305
 #, kde-format
 msgid "The following puzzles will be deleted. This action cannot be undone."
 msgstr ""
 "Τα ακόλουθα παζλ θα διαγραφούν. Αυτή η ενέργεια δεν μπορεί να αναιρεθεί."
 
-#: src/engine/gameplay.cpp:314 src/engine/gameplay.cpp:340
+#: src/engine/gameplay.cpp:324 src/engine/gameplay.cpp:350
 #, kde-format
 msgctxt "Filter for a file dialog"
 msgid "Palapeli puzzles (*.puzzle)"
 msgstr "Palapeli παζλ (*.puzzle)"
 
-#: src/engine/gameplay.cpp:316
+#: src/engine/gameplay.cpp:326
 #, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
 msgstr "Εισαγωγή palapeli παζλ"
 
-#: src/engine/gameplay.cpp:342
+#: src/engine/gameplay.cpp:352
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
 msgstr "Αποθήκευση palapeli παζλ"
 
-#: src/engine/gameplay.cpp:357
+#: src/engine/gameplay.cpp:367
 #, kde-format
 msgid "Create a piece holder"
 msgstr "Δημιουργία βάσης για ένα κομμάτι"
 
-#: src/engine/gameplay.cpp:358
+#: src/engine/gameplay.cpp:368
 #, kde-format
 msgid "Enter a short name (optional):"
 msgstr "Εισαγωγή σύντομου ονόματος (προαιρετικό):"
 
-#: src/engine/gameplay.cpp:404
+#: src/engine/gameplay.cpp:414
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can delete it, "
@@ -405,12 +405,12 @@ msgstr ""
 "Πρέπει να κάνετε κλικ σε μια βάση κομματιού για να την επιλέξετε πριν τη "
 "διαγράψετε ή μπορείτε απλά να κάνετε κλικ στο κουμπί Κλείσιμο."
 
-#: src/engine/gameplay.cpp:423
+#: src/engine/gameplay.cpp:433
 #, kde-format
 msgid "The selected piece holder must be empty before you can delete it."
 msgstr "Η επιλεγμένη βάση κομματιού πρέπει να είναι κενή πριν τη διαγράψετε."
 
-#: src/engine/gameplay.cpp:442
+#: src/engine/gameplay.cpp:452
 #, kde-format
 msgid ""
 "The selected piece holder must contain some pieces for 'Select all' to use."
@@ -418,7 +418,7 @@ msgstr ""
 "Η επιλεγμένη βάση κομματιού πρέπει να περιέχει κάποια κομμάτια για 'Επιλογή "
 "όλων' για να χρησιμοποιηθεί."
 
-#: src/engine/gameplay.cpp:448
+#: src/engine/gameplay.cpp:458
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can select all "
@@ -427,7 +427,7 @@ msgstr ""
 "Πρέπει να κάνετε κλικ σε μια βάση κομματιού για να την επιλέξετε πριν "
 "επιλέξετε όλα τα κομμάτια σε αυτήν."
 
-#: src/engine/gameplay.cpp:468
+#: src/engine/gameplay.cpp:478
 #, kde-format
 msgid ""
 "To rearrange pieces, either the puzzle table must have some selected pieces "
@@ -437,7 +437,7 @@ msgstr ""
 "κάποια επιλεγμένα κομμάτια ή πρέπει να υπάρχει μια επιλεγμένη βάση που να "
 "περιέχει κάποια επιλεγμένα κομμάτια."
 
-#: src/engine/gameplay.cpp:530
+#: src/engine/gameplay.cpp:540
 #, kde-format
 msgid ""
 "You need to have a piece holder and click it to select it before you can "
@@ -446,7 +446,7 @@ msgstr ""
 "Πρέπει να έχετε μια βάση κομματιών και να κάνετε κλικ σε αυτήν για να την "
 "επιλέξετε πριν τοποθετήσετε σε αυτήν ή αφαιρέσετε κομμάτια."
 
-#: src/engine/gameplay.cpp:550
+#: src/engine/gameplay.cpp:564
 #, kde-format
 msgid ""
 "You have selected to transfer a large piece containing more than six small "
@@ -455,13 +455,13 @@ msgstr ""
 "Έχετε επιλέξει να μεταφέρετε σε μια βάση ένα μεγάλο κομμάτι που περιέχει "
 "περισσότερα από έξι μικρά κομμάτια. Θέλετε πράγματι να το κάνετε αυτό;"
 
-#: src/engine/gameplay.cpp:555
+#: src/engine/gameplay.cpp:569
 #, kde-format
 msgctxt "@action:button"
 msgid "Transfer"
 msgstr ""
 
-#: src/engine/gameplay.cpp:574
+#: src/engine/gameplay.cpp:592
 #, kde-format
 msgid ""
 "You need to select one or more pieces to be transferred out of the selected "
@@ -471,7 +471,7 @@ msgstr ""
 "επιλεγμένη βάση ή να επιλέξετε κομμάτια από τον πίνακα του παζλ για να τα "
 "τοποθετήσετε."
 
-#: src/engine/gameplay.cpp:592
+#: src/engine/gameplay.cpp:610
 #, kde-format
 msgid ""
 "You need to select one or more pieces to be transferred from the previous "
@@ -480,7 +480,7 @@ msgstr ""
 "Πρέπει να επιλέξετε ένα ή περισσότερα κομμάτια για να αφαιρεθούν από την "
 "προηγούμενη βάση σε μια βάση που μόλις έχετε επιλέξει."
 
-#: src/engine/gameplay.cpp:600
+#: src/engine/gameplay.cpp:618
 #, kde-format
 msgid ""
 "You need to have at least two holders, one of them selected and with "
@@ -489,13 +489,13 @@ msgstr ""
 "Πρέπει να έχετε τουλάχιστον δύο βάσεις, η μία επιλεγμένη και να περιέχει "
 "επιλεγμένα κομμάτια πριν τοποθετήσετε κομμάτια στη δεύτερη βάση."
 
-#: src/engine/gameplay.cpp:1077
+#: src/engine/gameplay.cpp:1095
 #, kde-format
 msgctxt "For holding pieces"
 msgid "Hand"
 msgstr "Χέρι"
 
-#: src/engine/gameplay.cpp:1080
+#: src/engine/gameplay.cpp:1098
 #, kde-format
 msgctxt "Hints for solving large puzzles"
 msgid ""
@@ -597,13 +597,13 @@ msgstr ""
 "του μπορούν να κάνουν και ακόμη να ενώνουν κομμάτια για να κατασκευαστεί "
 "μέρος του τελικού παζλ."
 
-#: src/engine/gameplay.cpp:1130
+#: src/engine/gameplay.cpp:1148
 #, kde-format
 msgctxt "Caption for hints"
 msgid "Solving Large Puzzles"
 msgstr "Επίλυση μεγάλων παζλ"
 
-#: src/engine/gameplay.cpp:1194
+#: src/engine/gameplay.cpp:1220
 #, kde-format
 msgid "Great! You have finished the puzzle."
 msgstr "Συγχαρητήρια! Ολοκληρώσατε το παζλ."
@@ -1097,107 +1097,107 @@ msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Unprecise (easier)"
 msgstr "Ανακριβής (εύκολο)"
 
-#: src/window/mainwindow.cpp:53
+#: src/window/mainwindow.cpp:55
 #, kde-format
 msgid "Show Statusbar of Puzzle Table"
 msgstr "Εμφάνιση γραμμής κατάστασης του πίνακα παζλ"
 
-#: src/window/mainwindow.cpp:56
+#: src/window/mainwindow.cpp:58
 #, kde-format
 msgid "Back to &Collection"
 msgstr "Πίσω στη &συλλογή"
 
-#: src/window/mainwindow.cpp:57
+#: src/window/mainwindow.cpp:59
 #, kde-format
 msgid "Go back to the collection to choose another puzzle"
 msgstr "Μετάβαση πίσω στη συλλογή για να επιλέξετε ένα άλλο παζλ"
 
-#: src/window/mainwindow.cpp:63
+#: src/window/mainwindow.cpp:65
 #, kde-format
 msgid "Create &New Puzzle..."
 msgstr "Δημιουργία &νέου παζλ..."
 
-#: src/window/mainwindow.cpp:64
+#: src/window/mainwindow.cpp:66
 #, kde-format
 msgid "Create a new puzzle using an image file from your disk"
 msgstr "Δημιουργία ενός νέου παζλ από μια εικόνα στο δίσκο σας"
 
-#: src/window/mainwindow.cpp:70
+#: src/window/mainwindow.cpp:72
 #, kde-format
 msgid "&Delete Puzzle"
 msgstr "&Διαγραφή παζλ"
 
-#: src/window/mainwindow.cpp:72
+#: src/window/mainwindow.cpp:74
 #, kde-format
 msgid "Delete the selected puzzle from your collection"
 msgstr "Διαγραφή του επιλεγμένου παζλ από τη βιβλιοθήκη"
 
-#: src/window/mainwindow.cpp:78
+#: src/window/mainwindow.cpp:80
 #, kde-format
 msgid "&Import from File..."
 msgstr "&Εισαγωγή από αρχείο..."
 
-#: src/window/mainwindow.cpp:79
+#: src/window/mainwindow.cpp:81
 #, kde-format
 msgid "Import a new puzzle from a file into your collection"
 msgstr "Εισαγωγή ενός νέου παζλ από ένα αρχείο στη συλλογή σας"
 
-#: src/window/mainwindow.cpp:84
+#: src/window/mainwindow.cpp:86
 #, kde-format
 msgid "&Export to File..."
 msgstr "&Εξαγωγή σε αρχείο..."
 
-#: src/window/mainwindow.cpp:86
+#: src/window/mainwindow.cpp:88
 #, kde-format
 msgid "Export the selected puzzle from your collection into a file"
 msgstr "Εξαγωγή του επιλεγμένου παζλ από τη συλλογή σας σε ένα αρχείο"
 
-#: src/window/mainwindow.cpp:92
+#: src/window/mainwindow.cpp:94
 #, kde-format
 msgid "&Restart Puzzle..."
 msgstr "&Επανεκκίνηση του παζλ..."
 
-#: src/window/mainwindow.cpp:93
+#: src/window/mainwindow.cpp:95
 #, kde-format
 msgid "Delete the saved progress and reshuffle the pieces"
 msgstr "Διαγραφή της αποθηκευμένης προόδου κα αναδιάταξη των κομματιών"
 
-#: src/window/mainwindow.cpp:100
+#: src/window/mainwindow.cpp:102
 #, kde-format
 msgid "&Create Piece Holder..."
 msgstr "Δημιουργία &βάσης παζλ..."
 
-#: src/window/mainwindow.cpp:101
+#: src/window/mainwindow.cpp:103
 #, kde-format
 msgid "Create a temporary holder for sorting pieces"
 msgstr "Δημιουργία προσωρινής βάσης για την ταξινόμηση των κομματιών"
 
-#: src/window/mainwindow.cpp:108
+#: src/window/mainwindow.cpp:110
 #, kde-format
 msgid "&Delete Piece Holder"
 msgstr "&Διαγραφή βάσης κομματιών"
 
-#: src/window/mainwindow.cpp:109
+#: src/window/mainwindow.cpp:111
 #, kde-format
 msgid "Delete a selected temporary holder when it is empty"
 msgstr "Διαγραφή μιας επλεγμένης προσωρινής βάσης όταν είναι κενή"
 
-#: src/window/mainwindow.cpp:115
+#: src/window/mainwindow.cpp:117
 #, kde-format
 msgid "&Select All in Holder"
 msgstr "Επιλογή όλων στη βά&ση"
 
-#: src/window/mainwindow.cpp:116
+#: src/window/mainwindow.cpp:118
 #, kde-format
 msgid "Select all pieces in a selected piece holder"
 msgstr "Επιλογή όλων των κομματιών σε μια επιλεγμένη βάση"
 
-#: src/window/mainwindow.cpp:122
+#: src/window/mainwindow.cpp:124
 #, kde-format
 msgid "&Rearrange Pieces"
 msgstr "Α&ναδιάταξη κομματιών"
 
-#: src/window/mainwindow.cpp:123
+#: src/window/mainwindow.cpp:125
 #, kde-format
 msgid ""
 "Rearrange all pieces in a selected piece holder or selected pieces in any "
@@ -1206,35 +1206,35 @@ msgstr ""
 "αναδιάταξη όλων των κομματιών σε μια επιλεγμένη βάση ή επιλεγμένα κομμαια σε "
 "οποιοδήποτε παράθυρο"
 
-#: src/window/mainwindow.cpp:130
+#: src/window/mainwindow.cpp:132
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "&Preview"
 msgstr "&Προεπισκόπηση"
 
-#: src/window/mainwindow.cpp:132
+#: src/window/mainwindow.cpp:134
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
-#: src/window/mainwindow.cpp:133
+#: src/window/mainwindow.cpp:135
 #, kde-format
 msgid "Show or hide the image of the completed puzzle"
 msgstr "Εμφάνιση ή απόκρυψη της εικόνας του συμπληρωμένου παζλ"
 
-#: src/window/mainwindow.cpp:147
+#: src/window/mainwindow.cpp:149
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Ενεργοποίηση όλων των μηνυμάτων"
 
-#: src/window/mainwindow.cpp:156
+#: src/window/mainwindow.cpp:162
 #, fuzzy, kde-format
 #| msgid "Enable all messages"
 msgid "Enable all messages again?"
 msgstr "Ενεργοποίηση όλων των μηνυμάτων"
 
-#: src/window/mainwindow.cpp:157
+#: src/window/mainwindow.cpp:163
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"

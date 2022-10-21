@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-28 00:44+0000\n"
+"POT-Creation-Date: 2022-10-21 00:44+0000\n"
 "PO-Revision-Date: 2022-08-14 23:05+0200\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -347,52 +347,52 @@ msgstr ""
 "Cambia la dimensione dell'area del tavoliere del puzzle trascinando i suoi "
 "bordi"
 
-#: src/engine/gameplay.cpp:179 src/engine/gameplay.cpp:1136
+#: src/engine/gameplay.cpp:185 src/engine/gameplay.cpp:1158
 #, kde-format
 msgid "You have finished the puzzle. Do you want to restart it now?"
 msgstr "Hai finito il puzzle. Vuoi riavviarlo ora?"
 
-#: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
+#: src/engine/gameplay.cpp:186 src/engine/gameplay.cpp:1159
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
 msgstr "Riavvia"
 
-#: src/engine/gameplay.cpp:295
+#: src/engine/gameplay.cpp:305
 #, kde-format
 msgid "The following puzzles will be deleted. This action cannot be undone."
 msgstr ""
 "I seguenti puzzle verranno eliminati. Questa azione non può essere annullata."
 
-#: src/engine/gameplay.cpp:314 src/engine/gameplay.cpp:340
+#: src/engine/gameplay.cpp:324 src/engine/gameplay.cpp:350
 #, kde-format
 msgctxt "Filter for a file dialog"
 msgid "Palapeli puzzles (*.puzzle)"
 msgstr "Puzzle Palapeli (*.puzzle)"
 
-#: src/engine/gameplay.cpp:316
+#: src/engine/gameplay.cpp:326
 #, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
 msgstr "Importa puzzle Palapeli"
 
-#: src/engine/gameplay.cpp:342
+#: src/engine/gameplay.cpp:352
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
 msgstr "Salva puzzle Palapeli"
 
-#: src/engine/gameplay.cpp:357
+#: src/engine/gameplay.cpp:367
 #, kde-format
 msgid "Create a piece holder"
 msgstr "Crea un contenitore pezzi"
 
-#: src/engine/gameplay.cpp:358
+#: src/engine/gameplay.cpp:368
 #, kde-format
 msgid "Enter a short name (optional):"
 msgstr "Digita un nome breve (facoltativo):"
 
-#: src/engine/gameplay.cpp:404
+#: src/engine/gameplay.cpp:414
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can delete it, "
@@ -401,12 +401,12 @@ msgstr ""
 "Per eliminare un contenitore pezzi, devi farci clic sopra per selezionarlo, "
 "o puoi semplicemente premere il pulsante Chiudi."
 
-#: src/engine/gameplay.cpp:423
+#: src/engine/gameplay.cpp:433
 #, kde-format
 msgid "The selected piece holder must be empty before you can delete it."
 msgstr "Il contenitore pezzi selezionato deve essere vuoto, per eliminarlo."
 
-#: src/engine/gameplay.cpp:442
+#: src/engine/gameplay.cpp:452
 #, kde-format
 msgid ""
 "The selected piece holder must contain some pieces for 'Select all' to use."
@@ -414,7 +414,7 @@ msgstr ""
 "Per utilizzare la funzione «Seleziona tutto», il contenitore selezionato "
 "deve contenere alcuni pezzi."
 
-#: src/engine/gameplay.cpp:448
+#: src/engine/gameplay.cpp:458
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can select all "
@@ -423,7 +423,7 @@ msgstr ""
 "Prima di poter selezionare tutti i pezzi al suo interno, devi fare clic e "
 "selezionare un contenitore pezzi."
 
-#: src/engine/gameplay.cpp:468
+#: src/engine/gameplay.cpp:478
 #, kde-format
 msgid ""
 "To rearrange pieces, either the puzzle table must have some selected pieces "
@@ -433,7 +433,7 @@ msgstr ""
 "selezionati oppure deve essere presente un contenitore con dei pezzi "
 "selezionati al suo interno."
 
-#: src/engine/gameplay.cpp:530
+#: src/engine/gameplay.cpp:540
 #, kde-format
 msgid ""
 "You need to have a piece holder and click it to select it before you can "
@@ -442,7 +442,7 @@ msgstr ""
 "Prima di poter trasferire pezzi dentro o fuori da un contenitore pezzi, devi "
 "averne uno e farci clic sopra per selezionarlo."
 
-#: src/engine/gameplay.cpp:550
+#: src/engine/gameplay.cpp:564
 #, kde-format
 msgid ""
 "You have selected to transfer a large piece containing more than six small "
@@ -451,13 +451,13 @@ msgstr ""
 "Hai scelto di trasferire in un contenitore pezzi un pezzo grande che "
 "contiene più di sei pezzi piccoli. Vuoi davvero farlo?"
 
-#: src/engine/gameplay.cpp:555
+#: src/engine/gameplay.cpp:569
 #, kde-format
 msgctxt "@action:button"
 msgid "Transfer"
 msgstr "Trasferisci"
 
-#: src/engine/gameplay.cpp:574
+#: src/engine/gameplay.cpp:592
 #, kde-format
 msgid ""
 "You need to select one or more pieces to be transferred out of the selected "
@@ -467,7 +467,7 @@ msgstr ""
 "selezionato, oppure seleziona i pezzi dal tavoliere per trasferirli al suo "
 "interno."
 
-#: src/engine/gameplay.cpp:592
+#: src/engine/gameplay.cpp:610
 #, kde-format
 msgid ""
 "You need to select one or more pieces to be transferred from the previous "
@@ -476,7 +476,7 @@ msgstr ""
 "Devi selezionare uno o più pezzi da trasferire dal contenitore precedente a "
 "quello selezionato di recente."
 
-#: src/engine/gameplay.cpp:600
+#: src/engine/gameplay.cpp:618
 #, kde-format
 msgid ""
 "You need to have at least two holders, one of them selected and with "
@@ -486,13 +486,13 @@ msgstr ""
 "almeno due, uno dei quali selezionato e con dei pezzi selezionati al suo "
 "interno."
 
-#: src/engine/gameplay.cpp:1077
+#: src/engine/gameplay.cpp:1095
 #, kde-format
 msgctxt "For holding pieces"
 msgid "Hand"
 msgstr "Mano"
 
-#: src/engine/gameplay.cpp:1080
+#: src/engine/gameplay.cpp:1098
 #, kde-format
 msgctxt "Hints for solving large puzzles"
 msgid ""
@@ -595,13 +595,13 @@ msgstr ""
 "e le relative finestre, fanno, incluso l'unione dei pezzi per la costruzione "
 "di una parte della soluzione."
 
-#: src/engine/gameplay.cpp:1130
+#: src/engine/gameplay.cpp:1148
 #, kde-format
 msgctxt "Caption for hints"
 msgid "Solving Large Puzzles"
 msgstr "Soluzione di puzzle grandi"
 
-#: src/engine/gameplay.cpp:1194
+#: src/engine/gameplay.cpp:1220
 #, kde-format
 msgid "Great! You have finished the puzzle."
 msgstr "Bravo! Hai finito il puzzle."
@@ -1096,108 +1096,108 @@ msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Unprecise (easier)"
 msgstr "Poco preciso (più facile)"
 
-#: src/window/mainwindow.cpp:53
+#: src/window/mainwindow.cpp:55
 #, kde-format
 msgid "Show Statusbar of Puzzle Table"
 msgstr "Mostra la barra di stato del tavoliere"
 
-#: src/window/mainwindow.cpp:56
+#: src/window/mainwindow.cpp:58
 #, kde-format
 msgid "Back to &Collection"
 msgstr "Indietro alla &raccolta"
 
-#: src/window/mainwindow.cpp:57
+#: src/window/mainwindow.cpp:59
 #, kde-format
 msgid "Go back to the collection to choose another puzzle"
 msgstr "Torna alla raccolta per scegliere un altro puzzle"
 
-#: src/window/mainwindow.cpp:63
+#: src/window/mainwindow.cpp:65
 #, kde-format
 msgid "Create &New Puzzle..."
 msgstr "Crea un &nuovo puzzle..."
 
-#: src/window/mainwindow.cpp:64
+#: src/window/mainwindow.cpp:66
 #, kde-format
 msgid "Create a new puzzle using an image file from your disk"
 msgstr "Crea un nuovo puzzle utilizzando un file immagine dal disco"
 
-#: src/window/mainwindow.cpp:70
+#: src/window/mainwindow.cpp:72
 #, kde-format
 msgid "&Delete Puzzle"
 msgstr "&Elimina puzzle"
 
-#: src/window/mainwindow.cpp:72
+#: src/window/mainwindow.cpp:74
 #, kde-format
 msgid "Delete the selected puzzle from your collection"
 msgstr "Elimina il puzzle selezionato dalla tua raccolta"
 
-#: src/window/mainwindow.cpp:78
+#: src/window/mainwindow.cpp:80
 #, kde-format
 msgid "&Import from File..."
 msgstr "&Importa da file..."
 
-#: src/window/mainwindow.cpp:79
+#: src/window/mainwindow.cpp:81
 #, kde-format
 msgid "Import a new puzzle from a file into your collection"
 msgstr "Importa un nuovo puzzle da un file all'interno della tua raccolta"
 
-#: src/window/mainwindow.cpp:84
+#: src/window/mainwindow.cpp:86
 #, kde-format
 msgid "&Export to File..."
 msgstr "&Esporta su file..."
 
-#: src/window/mainwindow.cpp:86
+#: src/window/mainwindow.cpp:88
 #, kde-format
 msgid "Export the selected puzzle from your collection into a file"
 msgstr "Esporta il puzzle selezionato dalla tua raccolta a un file"
 
-#: src/window/mainwindow.cpp:92
+#: src/window/mainwindow.cpp:94
 #, kde-format
 msgid "&Restart Puzzle..."
 msgstr "&Riavvia il puzzle..."
 
-#: src/window/mainwindow.cpp:93
+#: src/window/mainwindow.cpp:95
 #, kde-format
 msgid "Delete the saved progress and reshuffle the pieces"
 msgstr "Elimina i progressi salvati e rimescola i pezzi"
 
-#: src/window/mainwindow.cpp:100
+#: src/window/mainwindow.cpp:102
 #, kde-format
 msgid "&Create Piece Holder..."
 msgstr "&Crea contenitore pezzi..."
 
-#: src/window/mainwindow.cpp:101
+#: src/window/mainwindow.cpp:103
 #, kde-format
 msgid "Create a temporary holder for sorting pieces"
 msgstr "Crea un contenitore pezzi temporaneo per il riordino dei pezzi"
 
-#: src/window/mainwindow.cpp:108
+#: src/window/mainwindow.cpp:110
 #, kde-format
 msgid "&Delete Piece Holder"
 msgstr "&Elimina il contenitore pezzi"
 
-#: src/window/mainwindow.cpp:109
+#: src/window/mainwindow.cpp:111
 #, kde-format
 msgid "Delete a selected temporary holder when it is empty"
 msgstr "Elimina un contenitore pezzi temporaneo selezionato, se vuoto"
 
-#: src/window/mainwindow.cpp:115
+#: src/window/mainwindow.cpp:117
 #, kde-format
 msgid "&Select All in Holder"
 msgstr "&Seleziona tutto nel contenitore pezzi"
 
-#: src/window/mainwindow.cpp:116
+#: src/window/mainwindow.cpp:118
 #, kde-format
 msgid "Select all pieces in a selected piece holder"
 msgstr ""
 "Seleziona tutti i pezzi all'interno di un contenitore pezzi selezionato"
 
-#: src/window/mainwindow.cpp:122
+#: src/window/mainwindow.cpp:124
 #, kde-format
 msgid "&Rearrange Pieces"
 msgstr "&Riordina i pezzi"
 
-#: src/window/mainwindow.cpp:123
+#: src/window/mainwindow.cpp:125
 #, kde-format
 msgid ""
 "Rearrange all pieces in a selected piece holder or selected pieces in any "
@@ -1206,34 +1206,34 @@ msgstr ""
 "Riordina tutti i pezzi all'interno di un contenitore pezzi selezionato "
 "oppure i pezzi selezionati in qualsiasi finestra"
 
-#: src/window/mainwindow.cpp:130
+#: src/window/mainwindow.cpp:132
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "&Preview"
 msgstr "&Anteprima"
 
-#: src/window/mainwindow.cpp:132
+#: src/window/mainwindow.cpp:134
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "Preview"
 msgstr "Anteprima"
 
-#: src/window/mainwindow.cpp:133
+#: src/window/mainwindow.cpp:135
 #, kde-format
 msgid "Show or hide the image of the completed puzzle"
 msgstr "Mostra o nascondi l'immagine del puzzle completato"
 
-#: src/window/mainwindow.cpp:147
+#: src/window/mainwindow.cpp:149
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Abilita tutti i messaggi"
 
-#: src/window/mainwindow.cpp:156
+#: src/window/mainwindow.cpp:162
 #, kde-format
 msgid "Enable all messages again?"
 msgstr "Abilita di nuovo tutti i messaggi?"
 
-#: src/window/mainwindow.cpp:157
+#: src/window/mainwindow.cpp:163
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
