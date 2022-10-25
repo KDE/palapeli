@@ -470,8 +470,9 @@ msgid ""
 "You need to select one or more pieces to be transferred out of the selected "
 "holder or select pieces from the puzzle table to be transferred into it."
 msgstr ""
-"Cal seleccionar una o més peces a transferir fora del contenidor seleccionat "
-"o seleccionar peces des de la taula del trencaclosques per a transferir-les."
+"Cal seleccionar una o més peces que es transferiran fora del contenidor "
+"seleccionat o seleccionar peces des de la taula del trencaclosques per a "
+"transferir-les."
 
 #: src/engine/gameplay.cpp:610
 #, kde-format
@@ -479,8 +480,8 @@ msgid ""
 "You need to select one or more pieces to be transferred from the previous "
 "holder into the newly selected holder."
 msgstr ""
-"Cal seleccionar una o més peces a transferir des del contenidor anterior al "
-"nou contenidor seleccionat."
+"Cal seleccionar una o més peces que es transferiran des del contenidor "
+"anterior al nou contenidor seleccionat."
 
 #: src/engine/gameplay.cpp:618
 #, kde-format
