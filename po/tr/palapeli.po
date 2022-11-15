@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kdegames-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-21 00:44+0000\n"
-"PO-Revision-Date: 2022-11-09 13:22+0300\n"
+"PO-Revision-Date: 2022-11-14 14:25+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1034,13 +1034,13 @@ msgstr "Yapboz ızgaralarındaki parçaların boşluğu (1.0-1.5):"
 #: src/settings.ui:156
 #, kde-format
 msgid "Piece appearance"
-msgstr "Parça görünümü"
+msgstr "Parça görünüşü"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceBevelsEnabled)
 #: src/settings.ui:162
 #, kde-format
 msgid "Draw bevels to create a 3-dimensional appearance"
-msgstr "3 boyutlu bir görünüm elde etmek için eğimleri çiz"
+msgstr "3 boyutlu bir görünüş elde etmek için eğimleri çiz"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceShadowsEnabled)
 #: src/settings.ui:172
