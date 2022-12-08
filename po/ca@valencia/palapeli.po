@@ -844,7 +844,7 @@ msgstr ""
 #: src/importhelper.cpp:40
 #, kde-format
 msgid "Importing puzzle \"%1\" into your collection"
-msgstr "S'està important «%1» a la col·lecció"
+msgstr "S'està important «%1» a dins de la col·lecció"
 
 #: src/main.cpp:33
 #, kde-format
@@ -890,9 +890,9 @@ msgid ""
 "puzzle file is given). The main window will not be shown after importing the "
 "given puzzle."
 msgstr ""
-"Importa a la col·lecció local el fitxer de trencaclosques indicat (no fa res "
-"si no es proporciona cap fitxer de trencaclosques). La finestra principal no "
-"es mostrarà després d'importar el trencaclosques indicat."
+"Importa a dins de la col·lecció local el fitxer de trencaclosques indicat "
+"(no fa res si no es proporciona cap fitxer de trencaclosques). La finestra "
+"principal no es mostrarà després d'importar el trencaclosques indicat."
 
 #: src/main.cpp:61
 #, kde-format
@@ -1146,7 +1146,7 @@ msgstr "&Importa des d'un fitxer..."
 #: src/window/mainwindow.cpp:81
 #, kde-format
 msgid "Import a new puzzle from a file into your collection"
-msgstr "Importa un trencaclosques nou des d'un fitxer a la col·lecció"
+msgstr "Importa un trencaclosques nou des d'un fitxer cap a la col·lecció"
 
 #: src/window/mainwindow.cpp:86
 #, kde-format
