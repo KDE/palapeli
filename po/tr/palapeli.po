@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kdegames-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-21 00:44+0000\n"
-"PO-Revision-Date: 2022-11-14 14:25+0300\n"
+"PO-Revision-Date: 2022-12-10 18:15+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -956,7 +956,7 @@ msgid ""
 "improve rendering performance."
 msgstr ""
 "Yapboz parçalarının altında gölgeler oluşturulup oluşturulmayacağı. Bunu "
-"kapatmak, gerçekleme performansını artırabilir."
+"kapatmak, sunum başarımını artırabilir."
 
 #. i18n: ectx: label, entry (PieceBevelsEnabled), group (Appearance)
 #: src/palapeli.kcfg:40
@@ -966,7 +966,7 @@ msgid ""
 "improve puzzle loading performance."
 msgstr ""
 "Yapboz parçalarında eğimli çizgilerin olup olmayacağı. Bunu kapatmak, yapboz "
-"gerçekleme performansını artırabilir."
+"sunum başarımını artırabilir."
 
 #. i18n: ectx: label, entry (PuzzlePreviewVisible), group (PuzzlePreview)
 #: src/palapeli.kcfg:46
