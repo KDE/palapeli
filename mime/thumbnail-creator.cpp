@@ -4,49 +4,39 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-#include <KIO/ThumbCreator>
+#include "thumbnail-creator.h"
+#include <KIO/ThumbnailCreator>
+#include <KPluginFactory>
 #include <QImage>
 #include <QTemporaryDir>
 #include <KTar>
 
-namespace Palapeli
+K_PLUGIN_CLASS_WITH_JSON(PalapeliThumbCreator, "palathumbcreator.json")
+
+PalapeliThumbCreator::PalapeliThumbCreator(QObject *parent, const QVariantList &args)
+    : KIO::ThumbnailCreator(parent, args)
 {
-	class ThumbCreator : public ::ThumbCreator
-	{
-		public:
-			bool create(const QString& path, int width, int height, QImage& image) override;
-	};
 }
 
-extern "C"
-{
-	Q_DECL_EXPORT ThumbCreator* new_creator()
-	{
-		return new Palapeli::ThumbCreator;
-	}
-}
+PalapeliThumbCreator::~PalapeliThumbCreator() = default;
 
-class KIOPluginForMetaData : public QObject
+KIO::ThumbnailResult PalapeliThumbCreator::create(const KIO::ThumbnailRequest &request)
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID "KIOPluginForMetaData" FILE "palathumbcreator.json")
-};
-
-
-bool Palapeli::ThumbCreator::create(const QString& path, int width, int height, QImage& image)
-{
-	Q_UNUSED(width) Q_UNUSED(height) //NOTE: The ThumbCreator APIDOX says that these params should be ignored for images read from the disk.
 	//read archive
-	KTar tar(path, QStringLiteral("application/x-gzip"));
+    KTar tar(request.url().toLocalFile(), QStringLiteral("application/x-gzip"));
 	if (!tar.open(QIODevice::ReadOnly))
-		return false;
+        return KIO::ThumbnailResult::fail();
 	QTemporaryDir cache;
 	const QString cachePath = cache.path() + QLatin1Char('/');
 	tar.directory()->copyTo(cachePath);
 	tar.close();
 	//read image
-	image.load(cachePath + QLatin1String("image.jpg"));
-	return true;
+    QImage image;
+    image.load(cachePath + QLatin1String("image.jpg"));
+    if (!image.isNull()) {
+        return KIO::ThumbnailResult::pass(image);
+    }
+    return KIO::ThumbnailResult::fail();
 }
 
 #include "thumbnail-creator.moc"
