@@ -256,7 +256,7 @@ msgstr "Interacció amb l'àrea de visualització"
 #, kde-format
 msgctxt "@title:window"
 msgid "Create New Puzzle"
-msgstr "Creació d'un trencaclosques nou"
+msgstr "Creeu un trencaclosques nou"
 
 #: src/creator/puzzlecreator.cpp:51
 #, kde-format
@@ -380,13 +380,13 @@ msgstr "Trencaclosques de Palapeli (*.puzzle)"
 #, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
-msgstr "Importació d'un trencaclosques de Palapeli"
+msgstr "Importeu un trencaclosques de Palapeli"
 
 #: src/engine/gameplay.cpp:352
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
-msgstr "Guardada del trencaclosques de Palapeli"
+msgstr "Guardeu el trencaclosques de Palapeli"
 
 #: src/engine/gameplay.cpp:367
 #, kde-format
