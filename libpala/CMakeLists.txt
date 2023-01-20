@@ -12,11 +12,11 @@ set(libpala_INSTALL_INCLUDEDIR ${KDE_INSTALL_INCLUDEDIR}/Pala)
 add_library(pala SHARED)
 
 target_sources(pala PRIVATE
-    slicer.cpp
-    slicerjob.cpp
-    slicermode.cpp
-    slicerproperty.cpp
-    slicerpropertyset.cpp
+    slicer.cpp slicer.h
+    slicerjob.cpp slicerjob.h
+    slicermode.cpp slicermode.h
+    slicerproperty.cpp slicerproperty.h
+    slicerpropertyset.cpp slicerpropertyset.h
 )
 
 ecm_qt_declare_logging_category(pala

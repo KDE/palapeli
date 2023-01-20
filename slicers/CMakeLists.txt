@@ -19,25 +19,25 @@ endif(QVORONOI_EXECUTABLE)
 
 set(SLICER_LINK_LIBS KF5::CoreAddons KF5::I18n Qt${QT_MAJOR_VERSION}::Gui pala)
 
-add_library(palapeli_rectslicer MODULE slicer-rect.cpp)
+add_library(palapeli_rectslicer MODULE slicer-rect.cpp slicer-rect.h)
 target_link_libraries(palapeli_rectslicer ${SLICER_LINK_LIBS})
 
-add_library(palapeli_jigsawslicer MODULE slicer-jigsaw.cpp)
+add_library(palapeli_jigsawslicer MODULE slicer-jigsaw.cpp slicer-jigsaw.h)
 target_link_libraries(palapeli_jigsawslicer ${SLICER_LINK_LIBS})
 
 add_library(palapeli_goldbergslicer MODULE)
 target_link_libraries(palapeli_goldbergslicer ${SLICER_LINK_LIBS})
 target_sources(palapeli_goldbergslicer PRIVATE
-    goldberg/slicer-goldberg.cpp
-    goldberg/goldberg-engine.cpp
+    goldberg/slicer-goldberg.cpp goldberg/slicer-goldberg.h
+    goldberg/goldberg-engine.cpp goldberg/goldberg-engine.h
     goldberg/grid-preset.cpp
     goldberg/grid-cairo.cpp
     goldberg/grid-hex.cpp
     goldberg/grid-rect.cpp
     goldberg/grid-rotrex.cpp
     goldberg/grid-voronoi.cpp
-    goldberg/pointfinder.cpp
-    goldberg/utilities.cpp
+    goldberg/pointfinder.cpp goldberg/pointfinder.h
+    goldberg/utilities.cpp goldberg/utilities.h
 )
 
 install(TARGETS

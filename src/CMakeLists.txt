@@ -6,47 +6,47 @@ ecm_setup_version(${PROJECT_VERSION}
 add_executable(palapeli)
 
 target_sources(palapeli PRIVATE
-    config/configdialog.cpp
-    config/elidinglabel.cpp
-    config/mouseinputbutton.cpp
-    config/triggerconfigwidget.cpp
-    config/triggerlistview.cpp
-    creator/propertywidget.cpp
-    creator/puzzlecreator.cpp
-    creator/slicerconfwidget.cpp
-    creator/slicerselector.cpp
-    engine/gameplay.cpp
-    engine/constraintinteractor.cpp
-    engine/constraintvisualizer.cpp
+    config/configdialog.cpp config/configdialog.h
+    config/elidinglabel.cpp config/elidinglabel.h
+    config/mouseinputbutton.cpp config/mouseinputbutton.h
+    config/triggerconfigwidget.cpp config/triggerconfigwidget.h
+    config/triggerlistview.cpp config/triggerlistview.h
+    creator/propertywidget.cpp creator/propertywidget.h
+    creator/puzzlecreator.cpp creator/puzzlecreator.h
+    creator/slicerconfwidget.cpp creator/slicerconfwidget.h
+    creator/slicerselector.cpp creator/slicerselector.h
+    engine/gameplay.cpp engine/gameplay.h
+    engine/constraintinteractor.cpp engine/constraintinteractor.h
+    engine/constraintvisualizer.cpp engine/constraintvisualizer.h
     engine/interactor.cpp
-    engine/interactors.cpp
-    engine/interactormanager.cpp
-    engine/mergegroup.cpp
-    engine/piece.cpp
-    engine/piecevisuals.cpp
-    engine/puzzlepreview.cpp
-    engine/scene.cpp
-    engine/texturehelper.cpp
-    engine/trigger.cpp
-    engine/triggermapper.cpp
+    engine/interactors.cpp engine/interactors.h
+    engine/interactormanager.cpp engine/interactormanager.h
+    engine/mergegroup.cpp engine/mergegroup.h
+    engine/piece.cpp engine/piece.h
+    engine/piecevisuals.cpp engine/piecevisuals.h
+    engine/puzzlepreview.cpp engine/puzzlepreview.h
+    engine/scene.cpp engine/scene.h
+    engine/texturehelper.cpp engine/texturehelper.h
+    engine/trigger.cpp engine/trigger.h
+    engine/triggermapper.cpp engine/triggermapper.h
     engine/view.cpp
-    engine/zoomwidget.cpp
-    file-io/collection.cpp
-    file-io/collection-delegate.cpp
-    file-io/collection-view.cpp
+    engine/zoomwidget.cpp engine/zoomwidget.h
+    file-io/collection.cpp file-io/collection.h
+    file-io/collection-delegate.cpp file-io/collection-delegate.h
+    file-io/collection-view.cpp file-io/collection-view.h
     file-io/components-archivestorage.cpp
     file-io/components-collectionstorage.cpp
     file-io/components-copy.cpp
     file-io/components-creationcontext.cpp
     file-io/components-directorystorage.cpp
     file-io/components-retailstorage.cpp
-    file-io/puzzle.cpp
-    importhelper.cpp
+    file-io/puzzle.cpp file-io/puzzle.h
+    importhelper.cpp importhelper.h
     main.cpp
-    window/loadingwidget.cpp
-    window/mainwindow.cpp
-    window/puzzletablewidget.cpp
-    window/pieceholder.cpp
+    window/loadingwidget.cpp window/loadingwidget.h
+    window/mainwindow.cpp window/mainwindow.h
+    window/puzzletablewidget.cpp window/puzzletablewidget.h
+    window/pieceholder.cpp window/pieceholder.h
 
     palapeli.qrc
 )
