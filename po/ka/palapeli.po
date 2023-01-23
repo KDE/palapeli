@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-21 00:44+0000\n"
-"PO-Revision-Date: 2022-10-08 07:32+0200\n"
+"PO-Revision-Date: 2023-01-22 07:23+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -31,78 +31,78 @@ msgstr "Temuri.doghonadze@gmail.com"
 #: libpala/slicerpropertyset.cpp:74
 #, kde-format
 msgid "Piece count"
-msgstr ""
+msgstr "ნაწილების რაოდენობა"
 
 #: libpala/slicerpropertyset.cpp:78
 #, kde-format
 msgid "Piece aspect ratio"
-msgstr ""
+msgstr "ნაწილების გვერდების ფარდობა"
 
 #: slicers/goldberg/grid.h:27
 #, kde-format
 msgctxt "Puzzle grid type"
 msgid "Predefined settings"
-msgstr ""
+msgstr "წინასწარ განსაზღვრული პარამეტრები"
 
 #: slicers/goldberg/grid.h:34
 #, kde-format
 msgctxt "Puzzle grid type"
 msgid "Cairo (pentagonal) grid"
-msgstr ""
+msgstr "ხუთკუთხედი ბადე"
 
 #: slicers/goldberg/grid.h:41
 #, kde-format
 msgctxt "Puzzle grid type"
 msgid "Hexagonal grid"
-msgstr ""
+msgstr "ექვსკუთხა ბადე"
 
 #: slicers/goldberg/grid.h:48
 #, kde-format
 msgctxt "Puzzle grid type"
 msgid "Rectangular grid"
-msgstr ""
+msgstr "მართკუთხა ბადე"
 
 #: slicers/goldberg/grid.h:55
 #, kde-format
 msgctxt "Puzzle grid type"
 msgid "Rotrex (rhombi-trihexagonal) grid"
-msgstr ""
+msgstr "რომბოტრიჰექსაგონური ბადე"
 
 #: slicers/goldberg/grid.h:62
 #, kde-format
 msgctxt "Puzzle grid type"
 msgid "Irregular grid"
-msgstr ""
+msgstr "არასწორი ფორმის ბადე"
 
 #: slicers/goldberg/slicer-goldberg.cpp:39
 #, kde-format
 msgid "Approx. piece count"
-msgstr ""
+msgstr "ნაწილების დაახლ. რაოდენობა"
 
 #: slicers/goldberg/slicer-goldberg.cpp:45
 #, kde-format
 msgid "Quick preset"
-msgstr ""
+msgstr "სწრაფი პარამეტრები"
 
 #: slicers/goldberg/slicer-goldberg.cpp:47
 #, kde-format
 msgctxt "Puzzle shape preset"
 msgid "Ordinary"
-msgstr ""
+msgstr "ჩვეულებრივი"
 
 #: slicers/goldberg/slicer-goldberg.cpp:48
 #: slicers/goldberg/slicer-goldberg.cpp:124
 #, kde-format
 msgctxt "Puzzle shape preset"
 msgid "Very regular"
-msgstr ""
+msgstr "ძალიან მსგავსი"
 
 #: slicers/goldberg/slicer-goldberg.cpp:49
 #: slicers/goldberg/slicer-goldberg.cpp:125
 #, kde-format
 msgctxt "Puzzle shape preset"
 msgid "Very diverse"
-msgstr ""
+msgstr "განსხვავებული"
 
 #: slicers/goldberg/slicer-goldberg.cpp:50
 #: slicers/goldberg/slicer-goldberg.cpp:126
@@ -119,7 +119,7 @@ msgstr ""
 #: slicers/goldberg/slicer-goldberg.cpp:64
 #, kde-format
 msgid "Edge curviness"
-msgstr ""
+msgstr "წიბოების მოგლუვება"
 
 #: slicers/goldberg/slicer-goldberg.cpp:70
 #, kde-format
@@ -159,7 +159,7 @@ msgstr "ზოგადი პარამეტრები"
 #: src/config/configdialog.cpp:65
 #, kde-format
 msgid "Mouse Interaction"
-msgstr ""
+msgstr "თაგუნას მოქმედება"
 
 #: src/config/configdialog.cpp:112
 #, kde-format
@@ -169,7 +169,7 @@ msgstr "ცენტრი"
 #: src/config/configdialog.cpp:113
 #, kde-format
 msgid "None"
-msgstr ""
+msgstr "არაფერი"
 
 #: src/config/configdialog.cpp:114
 #, kde-format
@@ -194,12 +194,12 @@ msgstr "ქვედა მარჯვენა"
 #: src/config/mouseinputbutton.cpp:45
 #, kde-format
 msgid "Remove this trigger"
-msgstr ""
+msgstr "ქმედების წაშლა"
 
 #: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
 #, kde-format
 msgid "Input here..."
-msgstr ""
+msgstr "აქ შეიყვანეთ..."
 
 #: src/config/mouseinputbutton.cpp:120
 #, kde-format
@@ -214,7 +214,7 @@ msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
 "interaction plugin."
 msgid "None"
-msgstr ""
+msgstr "არაფერი"
 
 #: src/config/mouseinputbutton.cpp:230
 #, kde-format
@@ -234,23 +234,23 @@ msgstr "თაგუნას რგოლი"
 #: src/config/triggerlistview.cpp:17
 #, kde-format
 msgid "Interaction with pieces"
-msgstr ""
+msgstr "ნაწილებთან ურთიერთობა"
 
 #: src/config/triggerlistview.cpp:19
 #, kde-format
 msgid "Interaction with the puzzle table"
-msgstr ""
+msgstr "პაზლის მაგიდასთან ურთიერთობა"
 
 #: src/config/triggerlistview.cpp:21
 #, kde-format
 msgid "Interaction with the viewport"
-msgstr ""
+msgstr "ხედვის წერტილთან ურთიერთობა"
 
 #: src/creator/puzzlecreator.cpp:38
 #, kde-format
 msgctxt "@title:window"
 msgid "Create New Puzzle"
-msgstr ""
+msgstr "ახალი პაზლის შექმნა"
 
 #: src/creator/puzzlecreator.cpp:51
 #, kde-format
@@ -268,19 +268,19 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image name:"
-msgstr ""
+msgstr "გამოსახულების სახელი:"
 
 #: src/creator/puzzlecreator.cpp:54
 #, kde-format
 msgctxt "@label:textbox (like in: This comment is optional.)"
 msgid "Optional comment:"
-msgstr ""
+msgstr "არასავალდებულო კომენტარი:"
 
 #: src/creator/puzzlecreator.cpp:55
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Name of image author:"
-msgstr ""
+msgstr "სურათის ავტორის სახელი:"
 
 #: src/creator/puzzlecreator.cpp:63
 #, kde-format
@@ -298,19 +298,19 @@ msgstr ""
 #, kde-format
 msgctxt "@item:inlistbox (page name in an assistant dialog)"
 msgid "Choose slicer"
-msgstr ""
+msgstr "აირჩიეთ დამჭრელი"
 
 #: src/creator/puzzlecreator.cpp:67
 #, kde-format
 msgctxt "@title:tab (page header in an assistant dialog)"
 msgid "Choose a slicing method"
-msgstr ""
+msgstr "აირჩიეთ დაჭრის მეთოდი"
 
 #: src/creator/puzzlecreator.cpp:68
 #, kde-format
 msgctxt "@item:inlistbox (page name in an assistant dialog)"
 msgid "Configure slicer"
-msgstr ""
+msgstr "დამჭრელის მორგება"
 
 #: src/creator/puzzlecreator.cpp:69
 #, kde-format
@@ -359,29 +359,29 @@ msgstr ""
 #, kde-format
 msgctxt "Filter for a file dialog"
 msgid "Palapeli puzzles (*.puzzle)"
-msgstr ""
+msgstr "Palapeli პაზლები (*.puzzle)"
 
 #: src/engine/gameplay.cpp:326
 #, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
-msgstr ""
+msgstr "Palapeli პაზლების შემოტანა"
 
 #: src/engine/gameplay.cpp:352
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
-msgstr ""
+msgstr "Palapeli პაზლების შენახვა"
 
 #: src/engine/gameplay.cpp:367
 #, kde-format
 msgid "Create a piece holder"
-msgstr ""
+msgstr "ნაწილის დამჭერის შექმნა"
 
 #: src/engine/gameplay.cpp:368
 #, kde-format
 msgid "Enter a short name (optional):"
-msgstr ""
+msgstr "შეიყვანეთ მოკლე სახელი (არასავალდებულო):"
 
 #: src/engine/gameplay.cpp:414
 #, kde-format
@@ -528,13 +528,13 @@ msgstr ""
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Move pieces by dragging"
-msgstr ""
+msgstr "გადაიტანეთ ნაწილები გადათრევით"
 
 #: src/engine/interactors.cpp:140
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Select pieces by clicking"
-msgstr ""
+msgstr "აირჩიეთ ნაწილები მათზე დაწკაპუნებით"
 
 #: src/engine/interactors.cpp:176
 #, kde-format
@@ -558,25 +558,25 @@ msgstr ""
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Zoom viewport"
-msgstr ""
+msgstr "ხედის მასშტაბი"
 
 #: src/engine/interactors.cpp:266
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Scroll viewport horizontally"
-msgstr ""
+msgstr "ხედის ჰორიზონტალურად გაწევა"
 
 #: src/engine/interactors.cpp:268
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Scroll viewport vertically"
-msgstr ""
+msgstr "ხედის ვერტიკალურად გაწევა"
 
 #: src/engine/interactors.cpp:347
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Select multiple pieces at once"
-msgstr ""
+msgstr "ბევრი ნაწილის ერთდროული არჩევა"
 
 #: src/engine/interactors.cpp:411
 #, kde-format
@@ -588,25 +588,25 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Preview of completed puzzle"
-msgstr ""
+msgstr "დასრულებული პაზლის მინიატურა"
 
 #: src/engine/puzzlepreview.cpp:36
 #, kde-format
 msgctxt "text in preview window"
 msgid "Image is not available."
-msgstr ""
+msgstr "გამოსახულება ხელმიუწვდომელია."
 
 #: src/engine/puzzlepreview.cpp:64
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 - Preview"
-msgstr ""
+msgstr "%1 - მინიატურა"
 
 #: src/engine/texturehelper.cpp:52
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Single color"
-msgstr ""
+msgstr "ერთი ფერი"
 
 #: src/engine/trigger.cpp:87
 #, kde-format
@@ -642,7 +642,7 @@ msgstr ""
 #, kde-format
 msgctxt "refers to no mouse buttons being pressed"
 msgid "No-Button"
-msgstr ""
+msgstr "ღილაკის დაჭერის გარეშე"
 
 #: src/engine/trigger.cpp:95
 #, kde-format
@@ -666,13 +666,13 @@ msgstr "შუა ღილაკი"
 #, kde-format
 msgctxt "a special mouse button"
 msgid "XButton1"
-msgstr ""
+msgstr "დამატებითი ღილაკი1"
 
 #: src/engine/trigger.cpp:99
 #, kde-format
 msgctxt "a special mouse button"
 msgid "XButton2"
-msgstr ""
+msgstr "დამატებითი ღილაკი2"
 
 #: src/engine/trigger.cpp:100
 #, kde-format
@@ -693,7 +693,7 @@ msgstr ""
 #, kde-format
 msgctxt "used as caption for a dialog that explains the autosave feature"
 msgid "Automatic saving"
-msgstr ""
+msgstr "ავტომატური შენახვა"
 
 #: src/engine/zoomwidget.cpp:26
 #, kde-format
@@ -703,55 +703,55 @@ msgstr ""
 #: src/file-io/collection-delegate.cpp:106
 #, kde-format
 msgid "[No name]"
-msgstr ""
+msgstr "[უსახელო]"
 
 #: src/file-io/collection-delegate.cpp:111
 #, kde-format
 msgctxt "Puzzle description, %2 = name string, %1 = piece count"
 msgid "%2 (%1 piece)"
 msgid_plural "%2 (%1 pieces)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%2 (%1 ნაწილი)"
+msgstr[1] "%2 (%1 ნაწილი)"
 
 #: src/file-io/collection-delegate.cpp:132
 #, kde-format
 msgctxt "Author attribution, e.g. \"by Jack\""
 msgid "by %1"
-msgstr ""
+msgstr "ავტორი: %1"
 
 #: src/file-io/collection-view.cpp:58
 #, kde-format
 msgctxt "@action:button that pops up sorting strategy selection menu"
 msgid "Sort List..."
-msgstr ""
+msgstr "სიის დალაგება..."
 
 #: src/file-io/collection-view.cpp:61
 #, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Title"
-msgstr ""
+msgstr "სათაურის მიხედვით"
 
 #: src/file-io/collection-view.cpp:62
 #, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Piece Count"
-msgstr ""
+msgstr "ნაწილების რაოდენობის მიხედვით"
 
 #: src/file-io/collection.cpp:36
 #, kde-format
 msgid "Loading puzzle..."
-msgstr ""
+msgstr "პაზლის ჩატვირთვა..."
 
 #: src/file-io/collection.cpp:109
 #, kde-format
 msgid "Loading collection"
-msgstr ""
+msgstr "კოლექციის ჩატვირთვა"
 
 #: src/importhelper.cpp:28
 #, kde-format
 msgctxt "command line message"
 msgid "Error: No puzzle file given."
-msgstr ""
+msgstr "შეცდომა: პაზლის ფაილი მითითებული არაა."
 
 #: src/importhelper.cpp:40
 #, kde-format
@@ -805,7 +805,7 @@ msgstr ""
 #: src/main.cpp:61
 #, kde-format
 msgid "No file to import given"
-msgstr ""
+msgstr "შემოსატანი ფაილის გარეშე"
 
 #. i18n: ectx: label, entry (SnappingPrecision), group (Puzzling)
 #: src/palapeli.kcfg:6
@@ -891,14 +891,14 @@ msgstr ""
 #: src/palapeliui.rc:35
 #, kde-format
 msgid "Main toolbar"
-msgstr ""
+msgstr "ხელსაწყოთა მთავარი ზოლი"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/settings.ui:17
 #, kde-format
 msgctxt "@title:group"
 msgid "Puzzle table"
-msgstr ""
+msgstr "სათამაშო მაგიდა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/settings.ui:25
@@ -917,7 +917,7 @@ msgstr ""
 #: src/settings.ui:75
 #, kde-format
 msgid "Space for solution:"
-msgstr ""
+msgstr "ამოსახსნელი ადგილი:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: src/settings.ui:94
@@ -937,7 +937,7 @@ msgstr ""
 #: src/settings.ui:156
 #, kde-format
 msgid "Piece appearance"
-msgstr ""
+msgstr "ნაწილის გარეგნობა"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceBevelsEnabled)
 #: src/settings.ui:162
@@ -964,28 +964,28 @@ msgstr ""
 #, kde-format
 msgctxt "@title:group"
 msgid "Piece behavior"
-msgstr ""
+msgstr "ნაწილის ქცევა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_1)
 #: src/settings.ui:201
 #, kde-format
 msgctxt "@label:slider"
 msgid "Snapping precision:"
-msgstr ""
+msgstr "მიერთების სიზუსტე:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/settings.ui:241
 #, kde-format
 msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Very precise (harder)"
-msgstr ""
+msgstr "ძალიან ზუსტი (ძნელი)"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/settings.ui:270
 #, kde-format
 msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Unprecise (easier)"
-msgstr ""
+msgstr "უზუსტო (მარტივი)"
 
 #: src/window/mainwindow.cpp:55
 #, kde-format
@@ -995,7 +995,7 @@ msgstr ""
 #: src/window/mainwindow.cpp:58
 #, kde-format
 msgid "Back to &Collection"
-msgstr ""
+msgstr "&კოლექციაზე დაბრუნება"
 
 #: src/window/mainwindow.cpp:59
 #, kde-format
@@ -1005,7 +1005,7 @@ msgstr ""
 #: src/window/mainwindow.cpp:65
 #, kde-format
 msgid "Create &New Puzzle..."
-msgstr ""
+msgstr "&ახალი პაზლის შექმნა..."
 
 #: src/window/mainwindow.cpp:66
 #, kde-format
@@ -1015,7 +1015,7 @@ msgstr ""
 #: src/window/mainwindow.cpp:72
 #, kde-format
 msgid "&Delete Puzzle"
-msgstr ""
+msgstr "&პაზლის წაშლა"
 
 #: src/window/mainwindow.cpp:74
 #, kde-format
@@ -1025,7 +1025,7 @@ msgstr ""
 #: src/window/mainwindow.cpp:80
 #, kde-format
 msgid "&Import from File..."
-msgstr ""
+msgstr "&ფაილიდან შემოტანა..."
 
 #: src/window/mainwindow.cpp:81
 #, kde-format
@@ -1045,7 +1045,7 @@ msgstr ""
 #: src/window/mainwindow.cpp:94
 #, kde-format
 msgid "&Restart Puzzle..."
-msgstr ""
+msgstr "პაზლის &თავიდან დაწყება..."
 
 #: src/window/mainwindow.cpp:95
 #, kde-format
@@ -1055,7 +1055,7 @@ msgstr ""
 #: src/window/mainwindow.cpp:102
 #, kde-format
 msgid "&Create Piece Holder..."
-msgstr ""
+msgstr "ნაწილის დამჭერის &შექმნა..."
 
 #: src/window/mainwindow.cpp:103
 #, kde-format
@@ -1065,7 +1065,7 @@ msgstr ""
 #: src/window/mainwindow.cpp:110
 #, kde-format
 msgid "&Delete Piece Holder"
-msgstr ""
+msgstr "ნაჭრის დამჭერის &წაშლა"
 
 #: src/window/mainwindow.cpp:111
 #, kde-format
@@ -1075,7 +1075,7 @@ msgstr ""
 #: src/window/mainwindow.cpp:117
 #, kde-format
 msgid "&Select All in Holder"
-msgstr ""
+msgstr "დამჭერში &ყველაფრის მონიშვნა"
 
 #: src/window/mainwindow.cpp:118
 #, kde-format
@@ -1085,7 +1085,7 @@ msgstr ""
 #: src/window/mainwindow.cpp:124
 #, kde-format
 msgid "&Rearrange Pieces"
-msgstr ""
+msgstr "ნაწილების &თავიდან დალაგება"
 
 #: src/window/mainwindow.cpp:125
 #, kde-format
@@ -1098,7 +1098,7 @@ msgstr ""
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "&Preview"
-msgstr ""
+msgstr "&მინიატურა"
 
 #: src/window/mainwindow.cpp:134
 #, kde-format
@@ -1114,7 +1114,7 @@ msgstr ""
 #: src/window/mainwindow.cpp:149
 #, kde-format
 msgid "Enable All Messages"
-msgstr ""
+msgstr "ყველა შეტყობინების ჩართვა"
 
 #: src/window/mainwindow.cpp:162
 #, kde-format
@@ -1130,7 +1130,7 @@ msgstr "ჩართვა"
 #: src/window/puzzletablewidget.cpp:49
 #, kde-format
 msgid "No puzzle loaded"
-msgstr ""
+msgstr "პაზლი ჩატვირთული არაა"
 
 #: src/window/puzzletablewidget.cpp:118
 #, kde-format
@@ -1141,4 +1141,4 @@ msgstr ""
 #, kde-format
 msgctxt "Progress display"
 msgid "%1% finished"
-msgstr ""
+msgstr "%1% დასრულდა"
