@@ -10,4 +10,4 @@ install(PROGRAMS palapeli_servicemenu.desktop DESTINATION ${KDE_INSTALL_DATADIR}
 
 # thumbnail creator plugin
 kcoreaddons_add_plugin(palathumbcreator SOURCES thumbnail-creator.cpp thumbnail-creator.h INSTALL_NAMESPACE "kf${QT_MAJOR_VERSION}/thumbcreator")
-target_link_libraries(palathumbcreator KF5::KIOCore KF5::KIOGui KF5::Archive)
+target_link_libraries(palathumbcreator KF${KF_MAJOR_VERSION}::KIOCore KF${KF_MAJOR_VERSION}::KIOGui KF${KF_MAJOR_VERSION}::Archive)

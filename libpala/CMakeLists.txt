@@ -42,7 +42,7 @@ ecm_generate_headers(libpala_CamelCase_HEADERS
 )
 
 generate_export_header(pala BASE_NAME libpala)
-target_link_libraries(pala KF5::I18n Qt${QT_MAJOR_VERSION}::Gui)
+target_link_libraries(pala KF${KF_MAJOR_VERSION}::I18n Qt${QT_MAJOR_VERSION}::Gui)
 target_include_directories(pala
     INTERFACE
         "$<INSTALL_INTERFACE:${libpala_INSTALL_INCLUDEDIR}>"

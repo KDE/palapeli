@@ -69,14 +69,14 @@ ecm_add_app_icon(palapeli ICONS ${ICONS_SRCS})
 target_link_libraries(palapeli
     pala
     KF5KDEGames
-    KF5::Archive
-    KF5::ConfigWidgets
-    KF5::Crash
-    KF5::ItemViews
-    KF5::Notifications
-    KF5::KIOWidgets
-    KF5::WidgetsAddons
-    KF5::XmlGui
+    KF${KF_MAJOR_VERSION}::Archive
+    KF${KF_MAJOR_VERSION}::ConfigWidgets
+    KF${KF_MAJOR_VERSION}::Crash
+    KF${KF_MAJOR_VERSION}::ItemViews
+    KF${KF_MAJOR_VERSION}::Notifications
+    KF${KF_MAJOR_VERSION}::KIOWidgets
+    KF${KF_MAJOR_VERSION}::WidgetsAddons
+    KF${KF_MAJOR_VERSION}::XmlGui
     Qt${QT_MAJOR_VERSION}::Svg
 )
 
