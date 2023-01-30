@@ -116,7 +116,11 @@ namespace Palapeli
 				Q_UNUSED(index);
 				return QList<QWidget*>() << new Palapeli::TriggerListDelegateWidget(itemView());
 			}
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 			void updateItemWidgets(QList<QWidget*> widgets, const QStyleOptionViewItem& option, const QPersistentModelIndex& index) const override
+#else
+            void updateItemWidgets(const QList<QWidget*> &widgets, const QStyleOptionViewItem& option, const QPersistentModelIndex& index) const override
+#endif
 			{
 				Palapeli::TriggerListDelegateWidget* widget = qobject_cast<Palapeli::TriggerListDelegateWidget*>(widgets[0]);
 				//adjust widget contents
