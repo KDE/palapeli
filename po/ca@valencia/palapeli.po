@@ -1151,7 +1151,7 @@ msgstr "Importa un trencaclosques nou des d'un fitxer cap a la col·lecció"
 #: src/window/mainwindow.cpp:86
 #, kde-format
 msgid "&Export to File..."
-msgstr "&Exporta a un fitxer..."
+msgstr "&Exporta cap a un fitxer..."
 
 #: src/window/mainwindow.cpp:88
 #, kde-format
