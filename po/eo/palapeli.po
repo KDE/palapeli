@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-21 00:44+0000\n"
-"PO-Revision-Date: 2009-11-15 12:06+0100\n"
-"Last-Translator: Axel Rousseau <axel@esperanto-jeunes.org>\n"
+"PO-Revision-Date: 2023-03-25 16:19+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -37,10 +37,10 @@ msgid "Piece aspect ratio"
 msgstr ""
 
 #: slicers/goldberg/grid.h:27
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Puzzle grid type"
 msgid "Predefined settings"
-msgstr "Ĝenerale"
+msgstr ""
 
 #: slicers/goldberg/grid.h:34
 #, kde-format
@@ -150,9 +150,9 @@ msgid "Dump grid image"
 msgstr ""
 
 #: src/config/configdialog.cpp:62
-#, fuzzy, kde-format
+#, kde-format
 msgid "General Settings"
-msgstr "Ĝenerale"
+msgstr ""
 
 #: src/config/configdialog.cpp:65
 #, kde-format
@@ -595,12 +595,10 @@ msgid "Image is not available."
 msgstr ""
 
 #: src/engine/puzzlepreview.cpp:64
-#, fuzzy, kde-format
-#| msgctxt "Preview is a noun here"
-#| msgid "Preview"
+#, kde-format
 msgctxt "@title:window"
 msgid "%1 - Preview"
-msgstr "Antaŭrigardo"
+msgstr ""
 
 #: src/engine/texturehelper.cpp:52
 #, kde-format
@@ -770,10 +768,9 @@ msgid "Jigsaw Puzzle Game"
 msgstr ""
 
 #: src/main.cpp:37
-#, fuzzy, kde-format
-#| msgid "Copyright 2009, Stefan Majewsky"
+#, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
-msgstr "Copyright 2009, Stefan Majewsky"
+msgstr ""
 
 #: src/main.cpp:40
 #, kde-format
@@ -1014,10 +1011,9 @@ msgid "Create a new puzzle using an image file from your disk"
 msgstr ""
 
 #: src/window/mainwindow.cpp:72
-#, fuzzy, kde-format
-#| msgid "&Delete"
+#, kde-format
 msgid "&Delete Puzzle"
-msgstr "&Forigi"
+msgstr ""
 
 #: src/window/mainwindow.cpp:74
 #, kde-format
@@ -1144,10 +1140,3 @@ msgstr ""
 msgctxt "Progress display"
 msgid "%1% finished"
 msgstr ""
-
-#~ msgctxt "The application's name"
-#~ msgid "libpala-puzzlebuilder"
-#~ msgstr "libpala-puzzlebuilder"
-
-#~ msgid "Copyright 2009, Stefan Majewsky"
-#~ msgstr "Copyright 2009, Stefan Majewsky"
