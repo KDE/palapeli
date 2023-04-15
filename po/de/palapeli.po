@@ -1,13 +1,13 @@
 # Burkhard Lück <lueck@hube-lueck.de>, 2008, 2009, 2011, 2013, 2014, 2017, 2021.
 # Johannes Obermayr <johannesobermayr@gmx.de>, 2009, 2010.
-# Frederik Schwarzer <schwarzer@kde.org>, 2010, 2012, 2022.
+# Frederik Schwarzer <schwarzer@kde.org>, 2010, 2012, 2022, 2023.
 # Panagiotis Papadopoulos <pano_90@gmx.net>, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-21 00:44+0000\n"
-"PO-Revision-Date: 2022-07-24 15:17+0200\n"
+"PO-Revision-Date: 2023-04-11 23:12+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.07.70\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -675,9 +675,7 @@ msgid "Toggle lock state of the puzzle table area"
 msgstr "Sperre für Größe des Puzzlebereichs umschalten"
 
 #: src/engine/puzzlepreview.cpp:29
-#, fuzzy, kde-format
-#| msgctxt "Window title"
-#| msgid "Preview of completed puzzle"
+#, kde-format
 msgctxt "@title:window"
 msgid "Preview of completed puzzle"
 msgstr "Vorschau des fertigen Puzzles"
@@ -689,8 +687,7 @@ msgid "Image is not available."
 msgstr "Das Bild ist nicht verfügbar"
 
 #: src/engine/puzzlepreview.cpp:64
-#, fuzzy, kde-format
-#| msgid "%1 - Preview"
+#, kde-format
 msgctxt "@title:window"
 msgid "%1 - Preview"
 msgstr "%1 - Vorschau"
@@ -902,7 +899,7 @@ msgstr ""
 #: src/main.cpp:61
 #, kde-format
 msgid "No file to import given"
-msgstr ""
+msgstr "Keine zu importierende Datei angegeben"
 
 #. i18n: ectx: label, entry (SnappingPrecision), group (Puzzling)
 #: src/palapeli.kcfg:6
