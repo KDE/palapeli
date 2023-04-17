@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-21 00:44+0000\n"
-"PO-Revision-Date: 2023-04-11 23:12+0200\n"
+"PO-Revision-Date: 2023-04-16 13:52+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 22.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -156,10 +156,9 @@ msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
 #: src/config/configdialog.cpp:65
-#, fuzzy, kde-format
-#| msgid "Mouse interaction"
+#, kde-format
 msgid "Mouse Interaction"
-msgstr "Maus-Funktionen"
+msgstr "Maus-Bedienung"
 
 #: src/config/configdialog.cpp:112
 #, kde-format
@@ -462,7 +461,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Transfer"
-msgstr ""
+msgstr "Übertragen"
 
 #: src/engine/gameplay.cpp:592
 #, kde-format
@@ -1109,10 +1108,9 @@ msgid "Unprecise (easier)"
 msgstr "Ungenau (einfacher)"
 
 #: src/window/mainwindow.cpp:55
-#, fuzzy, kde-format
-#| msgid "Show statusbar of puzzle table"
+#, kde-format
 msgid "Show Statusbar of Puzzle Table"
-msgstr "Statusleiste anzeigen"
+msgstr "Statusleiste des Puzzletischs anzeigen"
 
 #: src/window/mainwindow.cpp:58
 #, kde-format
