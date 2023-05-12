@@ -1,26 +1,27 @@
 # translation of palapeli.po to galician
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # mvillarino <mvillarino@users.sourceforge.net>, 2008, 2009.
 # marce villarino <mvillarino@users.sourceforge.net>, 2009.
 # Xosé <xosecalvo@gmail.com>, 2012.
 # Adrian Chaves Fernandez <adriyetichaves@gmail.com>, 2012, 2015, 2017.
 # Marce Villarino <mvillarino@kde-espana.org>, 2013, 2014.
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018, 2019.
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018, 2019, 2023.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-21 00:44+0000\n"
-"PO-Revision-Date: 2019-03-28 12:13+0100\n"
+"PO-Revision-Date: 2023-05-12 00:03+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
-"Language-Team: Galician <kde-i18n-doc@kde.org>\n"
+"Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -86,7 +87,7 @@ msgstr "Número aproximado de pezas"
 #: slicers/goldberg/slicer-goldberg.cpp:45
 #, kde-format
 msgid "Quick preset"
-msgstr "Preconfiguración rápida"
+msgstr "Predefinición rápida"
 
 #: slicers/goldberg/slicer-goldberg.cpp:47
 #, kde-format
@@ -156,14 +157,12 @@ msgid "Dump grid image"
 msgstr "Deixar a imaxe da grade"
 
 #: src/config/configdialog.cpp:62
-#, fuzzy, kde-format
-#| msgid "General settings"
+#, kde-format
 msgid "General Settings"
 msgstr "Configuración xeral"
 
 #: src/config/configdialog.cpp:65
-#, fuzzy, kde-format
-#| msgid "Mouse interaction"
+#, kde-format
 msgid "Mouse Interaction"
 msgstr "Interacción co rato"
 
@@ -230,14 +229,12 @@ msgid "Click to change how an action is triggered"
 msgstr "Prema para cambiar o xeito de desencadear unha acción"
 
 #: src/config/triggerconfigwidget.cpp:20
-#, fuzzy, kde-format
-#| msgid "Mouse buttons"
+#, kde-format
 msgid "Mouse Buttons"
 msgstr "Botóns do rato"
 
 #: src/config/triggerconfigwidget.cpp:21
-#, fuzzy, kde-format
-#| msgid "Mouse wheel"
+#, kde-format
 msgid "Mouse Wheel"
 msgstr "Roda do rato"
 
@@ -257,12 +254,10 @@ msgid "Interaction with the viewport"
 msgstr "Interacción coa xanela"
 
 #: src/creator/puzzlecreator.cpp:38
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Create new puzzle"
+#, kde-format
 msgctxt "@title:window"
 msgid "Create New Puzzle"
-msgstr "Crear un quebracabezas novo"
+msgstr "Crear un novo quebracabezas"
 
 #: src/creator/puzzlecreator.cpp:51
 #, kde-format
@@ -310,7 +305,7 @@ msgstr "Indique a imaxe que queres recortar en pezas"
 #, kde-format
 msgctxt "@item:inlistbox (page name in an assistant dialog)"
 msgid "Choose slicer"
-msgstr "Escolle o recortador"
+msgstr "Escolle o cortador"
 
 #: src/creator/puzzlecreator.cpp:67
 #, kde-format
@@ -322,7 +317,7 @@ msgstr "Escolle un método de recorte"
 #, kde-format
 msgctxt "@item:inlistbox (page name in an assistant dialog)"
 msgid "Configure slicer"
-msgstr "Configuración do recortador"
+msgstr "Configuración do cortador"
 
 #: src/creator/puzzlecreator.cpp:69
 #, kde-format
@@ -335,7 +330,7 @@ msgstr "Axusta os parámetros do método de recorte escollido"
 msgid "Puzzle cannot be created: The slicer plugin could not be loaded."
 msgstr ""
 "Non se pode crear o quebracabezas: Non se puido cargar o complemento do "
-"recortador."
+"cortador."
 
 #: src/creator/puzzlecreator.cpp:119
 #, kde-format
@@ -366,7 +361,7 @@ msgstr "Remataches o quebracabezas. Quérelo reiniciar agora?"
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
-msgstr ""
+msgstr "Reiniciar"
 
 #: src/engine/gameplay.cpp:305
 #, kde-format
@@ -381,15 +376,13 @@ msgid "Palapeli puzzles (*.puzzle)"
 msgstr "Quebracabezas de Palapeli (*.puzzle)"
 
 #: src/engine/gameplay.cpp:326
-#, fuzzy, kde-format
-#| msgid "Import Palapeli puzzles"
+#, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
 msgstr "Importar quebracabezas de Palapeli."
 
 #: src/engine/gameplay.cpp:352
-#, fuzzy, kde-format
-#| msgid "Save Palapeli puzzles"
+#, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
 msgstr "Gardar quebracabezas de Palapeli."
@@ -469,7 +462,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Transfer"
-msgstr ""
+msgstr "Transferir"
 
 #: src/engine/gameplay.cpp:592
 #, kde-format
@@ -477,7 +470,7 @@ msgid ""
 "You need to select one or more pieces to be transferred out of the selected "
 "holder or select pieces from the puzzle table to be transferred into it."
 msgstr ""
-"Tes que seleciconar unha ou máis pezas para sacalas da caixa seleccionada ou "
+"Tes que seleccionar unha ou máis pezas para sacalas da caixa seleccionada ou "
 "seleccionar pezas da mesa do quebracabezas para introducilas na caixa."
 
 #: src/engine/gameplay.cpp:610
@@ -679,9 +672,7 @@ msgid "Toggle lock state of the puzzle table area"
 msgstr "Conmutar a situación de bloqueo do taboleiro do quebracabezas"
 
 #: src/engine/puzzlepreview.cpp:29
-#, fuzzy, kde-format
-#| msgctxt "Window title"
-#| msgid "Preview of completed puzzle"
+#, kde-format
 msgctxt "@title:window"
 msgid "Preview of completed puzzle"
 msgstr "Vista previa da solución"
@@ -693,8 +684,7 @@ msgid "Image is not available."
 msgstr "A imaxe non está dispoñíbel."
 
 #: src/engine/puzzlepreview.cpp:64
-#, fuzzy, kde-format
-#| msgid "%1 - Preview"
+#, kde-format
 msgctxt "@title:window"
 msgid "%1 - Preview"
 msgstr "%1 - Vista previa"
@@ -817,25 +807,19 @@ msgid "by %1"
 msgstr "por %1"
 
 #: src/file-io/collection-view.cpp:58
-#, fuzzy, kde-format
-#| msgctxt "@action:button that pops up sorting strategy selection menu"
-#| msgid "Sort list..."
+#, kde-format
 msgctxt "@action:button that pops up sorting strategy selection menu"
 msgid "Sort List..."
 msgstr "Ordenar a lista…"
 
 #: src/file-io/collection-view.cpp:61
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu selects sorting strategy for collection list"
-#| msgid "By title"
+#, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Title"
 msgstr "Polo título"
 
 #: src/file-io/collection-view.cpp:62
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu selects sorting strategy for collection list"
-#| msgid "By piece count"
+#, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Piece Count"
 msgstr "Polo número de pezas"
@@ -846,10 +830,9 @@ msgid "Loading puzzle..."
 msgstr "Estase a cargar o quebracabezas…"
 
 #: src/file-io/collection.cpp:109
-#, fuzzy, kde-format
-#| msgid "Back to &collection"
+#, kde-format
 msgid "Loading collection"
-msgstr "Volver á &colección"
+msgstr "Cargando a colección"
 
 #: src/importhelper.cpp:28
 #, kde-format
@@ -869,10 +852,9 @@ msgid "Palapeli"
 msgstr "Palapeli"
 
 #: src/main.cpp:35
-#, fuzzy, kde-format
-#| msgid "KDE Jigsaw Puzzle Game"
+#, kde-format
 msgid "Jigsaw Puzzle Game"
-msgstr "Xogo do quebracabezas de KDE"
+msgstr "Xogo de quebracabezas jigsaw"
 
 #: src/main.cpp:37
 #, kde-format
@@ -913,7 +895,7 @@ msgstr ""
 #: src/main.cpp:61
 #, kde-format
 msgid "No file to import given"
-msgstr ""
+msgstr "Non se indicou un ficheiro para importar"
 
 #. i18n: ectx: label, entry (SnappingPrecision), group (Puzzling)
 #: src/palapeli.kcfg:6
@@ -1117,14 +1099,12 @@ msgid "Unprecise (easier)"
 msgstr "Impreciso (máis doado)"
 
 #: src/window/mainwindow.cpp:55
-#, fuzzy, kde-format
-#| msgid "Show statusbar of puzzle table"
+#, kde-format
 msgid "Show Statusbar of Puzzle Table"
 msgstr "Mostrar a barra de estado do taboleiro do quebracabezas"
 
 #: src/window/mainwindow.cpp:58
-#, fuzzy, kde-format
-#| msgid "Back to &collection"
+#, kde-format
 msgid "Back to &Collection"
 msgstr "Volver á &colección"
 
@@ -1134,10 +1114,9 @@ msgid "Go back to the collection to choose another puzzle"
 msgstr "Volver á colección e escoller outro quebracabezas"
 
 #: src/window/mainwindow.cpp:65
-#, fuzzy, kde-format
-#| msgid "Create &new puzzle..."
+#, kde-format
 msgid "Create &New Puzzle..."
-msgstr "Crear un quebracabezas &novo…"
+msgstr "Crear un &novo quebracabezas…"
 
 #: src/window/mainwindow.cpp:66
 #, kde-format
@@ -1145,8 +1124,7 @@ msgid "Create a new puzzle using an image file from your disk"
 msgstr "Crear un novo quebracabezas usando un ficheiro de imaxe do disco"
 
 #: src/window/mainwindow.cpp:72
-#, fuzzy, kde-format
-#| msgid "&Delete puzzle"
+#, kde-format
 msgid "&Delete Puzzle"
 msgstr "&Eliminar o quebracabezas"
 
@@ -1156,10 +1134,9 @@ msgid "Delete the selected puzzle from your collection"
 msgstr "Eliminar o quebracabezas escollido da colección"
 
 #: src/window/mainwindow.cpp:80
-#, fuzzy, kde-format
-#| msgid "&Import from file..."
+#, kde-format
 msgid "&Import from File..."
-msgstr "&Importar desde un ficheiro…"
+msgstr "&Importar dun ficheiro…"
 
 #: src/window/mainwindow.cpp:81
 #, kde-format
@@ -1167,8 +1144,7 @@ msgid "Import a new puzzle from a file into your collection"
 msgstr "Importar á colección un quebracabezas desde un ficheiro"
 
 #: src/window/mainwindow.cpp:86
-#, fuzzy, kde-format
-#| msgid "&Export to file..."
+#, kde-format
 msgid "&Export to File..."
 msgstr "&Exportar a un ficheiro…"
 
@@ -1178,8 +1154,7 @@ msgid "Export the selected puzzle from your collection into a file"
 msgstr "Exportar o quebracabezas seleccionado desde a colección a un ficheiro"
 
 #: src/window/mainwindow.cpp:94
-#, fuzzy, kde-format
-#| msgid "&Restart puzzle..."
+#, kde-format
 msgid "&Restart Puzzle..."
 msgstr "&Reiniciar o quebracabezas…"
 
@@ -1189,8 +1164,7 @@ msgid "Delete the saved progress and reshuffle the pieces"
 msgstr "Eliminar o progreso gardado e barallar as pezas."
 
 #: src/window/mainwindow.cpp:102
-#, fuzzy, kde-format
-#| msgid "&Create piece holder..."
+#, kde-format
 msgid "&Create Piece Holder..."
 msgstr "&Crear unha caixa de pezas…"
 
@@ -1200,8 +1174,7 @@ msgid "Create a temporary holder for sorting pieces"
 msgstr "Crear unha caixa temporal na que organizar pezas."
 
 #: src/window/mainwindow.cpp:110
-#, fuzzy, kde-format
-#| msgid "&Delete piece holder"
+#, kde-format
 msgid "&Delete Piece Holder"
 msgstr "&Eliminar a caixa de pezas"
 
@@ -1211,8 +1184,7 @@ msgid "Delete a selected temporary holder when it is empty"
 msgstr "Eliminar a caixa de pezas temporal seleccionada cando estea baleira."
 
 #: src/window/mainwindow.cpp:117
-#, fuzzy, kde-format
-#| msgid "&Select all in holder"
+#, kde-format
 msgid "&Select All in Holder"
 msgstr "&Seleccionar todas as da caixa"
 
@@ -1222,8 +1194,7 @@ msgid "Select all pieces in a selected piece holder"
 msgstr "Seleccionar todas as pezas na caixa seleccionada."
 
 #: src/window/mainwindow.cpp:124
-#, fuzzy, kde-format
-#| msgid "&Rearrange pieces"
+#, kde-format
 msgid "&Rearrange Pieces"
 msgstr "&Cambiar a disposición das pezas"
 
@@ -1254,22 +1225,20 @@ msgid "Show or hide the image of the completed puzzle"
 msgstr "Mostrar ou agochar a imaxe da solución do quebracabezas."
 
 #: src/window/mainwindow.cpp:149
-#, fuzzy, kde-format
-#| msgid "Enable all messages"
+#, kde-format
 msgid "Enable All Messages"
-msgstr "Activar todas as mensaxes."
+msgstr "Activar todas as mensaxes"
 
 #: src/window/mainwindow.cpp:162
-#, fuzzy, kde-format
-#| msgid "Enable all messages"
+#, kde-format
 msgid "Enable all messages again?"
-msgstr "Activar todas as mensaxes."
+msgstr "Activar todas as mensaxes de novo?"
 
 #: src/window/mainwindow.cpp:163
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr ""
+msgstr "Activar"
 
 #: src/window/puzzletablewidget.cpp:49
 #, kde-format
