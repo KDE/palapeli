@@ -11,7 +11,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
@@ -727,7 +727,6 @@ msgctxt "Puzzle description, %2 = name string, %1 = piece count"
 msgid "%2 (%1 piece)"
 msgid_plural "%2 (%1 pieces)"
 msgstr[0] "%2 (ピース数: %1)"
-msgstr[1] "%2 (ピース数: %1)"
 
 #: src/file-io/collection-delegate.cpp:132
 #, kde-format
