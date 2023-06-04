@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kdegames-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-21 00:44+0000\n"
-"PO-Revision-Date: 2023-05-29 12:45+0300\n"
+"PO-Revision-Date: 2023-06-04 02:02+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -569,7 +569,7 @@ msgstr ""
 "taşımak için \"El\" adlı bir araca sahip olmalısınız.\n"
 "\n"
 "Parçaları bir tutucunun içine veya dışına aktarmak için özel bir fare "
-"tıklatması kullanabilirsiniz. (varsayılan Shift Sol Tık). İlk önce, "
+"tıklatması kullanabilirsiniz. (varsayılan Üst Karakter Sol Tık). İlk önce, "
 "kullanmak istediğiniz tutucunun etkin olduğundan emin olun: mavi bir dış "
 "çizgisi olmalıdır. Değilse üzerine tıklayın. Parçaları tutucuya aktarmak "
 "için, yapboz tahtasından parçayı seçin ve sonra onları tutucuya 'ışınlamak' "
@@ -686,19 +686,19 @@ msgstr "Tek renk"
 #, kde-format
 msgctxt "a keyboard modifier"
 msgid "Shift"
-msgstr "Shift"
+msgstr "Üst Karakter"
 
 #: src/engine/trigger.cpp:88
 #, kde-format
 msgctxt "a keyboard modifier"
 msgid "Ctrl"
-msgstr "Ctrl"
+msgstr "Kontrol"
 
 #: src/engine/trigger.cpp:89
 #, kde-format
 msgctxt "a keyboard modifier"
 msgid "Alt"
-msgstr "Alt"
+msgstr "Seçenek"
 
 #: src/engine/trigger.cpp:90
 #, kde-format
