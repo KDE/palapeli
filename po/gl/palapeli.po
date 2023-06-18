@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-21 00:44+0000\n"
-"PO-Revision-Date: 2023-05-12 00:03+0200\n"
+"PO-Revision-Date: 2023-06-17 09:14+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.0\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -251,7 +251,7 @@ msgstr "Interacción co taboleiro do quebracabezas"
 #: src/config/triggerlistview.cpp:21
 #, kde-format
 msgid "Interaction with the viewport"
-msgstr "Interacción coa xanela"
+msgstr "Interacción coa zona de vista"
 
 #: src/creator/puzzlecreator.cpp:38
 #, kde-format
@@ -633,7 +633,7 @@ msgstr "Mover pezas entre caixas"
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Move viewport by dragging"
-msgstr "Mover a xanela arrastrando"
+msgstr "Mover a zona de vista arrastrando"
 
 #: src/engine/interactors.cpp:227
 #, kde-format
@@ -645,19 +645,19 @@ msgstr "Cambiar á vista próxima ou á vista distante"
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Zoom viewport"
-msgstr "Ampliar a xanela"
+msgstr "Ampliar a zona de vista"
 
 #: src/engine/interactors.cpp:266
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Scroll viewport horizontally"
-msgstr "Mover a xanela horizontalmente"
+msgstr "Mover a zona de vista horizontalmente"
 
 #: src/engine/interactors.cpp:268
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Scroll viewport vertically"
-msgstr "Mover a xanela verticalmente"
+msgstr "Mover a zona de vista verticalmente"
 
 #: src/engine/interactors.cpp:347
 #, kde-format
