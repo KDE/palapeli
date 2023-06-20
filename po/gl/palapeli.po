@@ -890,7 +890,7 @@ msgid ""
 msgstr ""
 "Importar este ficheiro de quebracabezas á colección local (non fai nada se "
 "non se indica ningún ficheiro de quebracabezas). A xanela principal non se "
-"mostrará tras importar o quebracabezas indicado."
+"amosará tras importar o quebracabezas indicado."
 
 #: src/main.cpp:61
 #, kde-format
@@ -910,8 +910,8 @@ msgid ""
 "The filename of the background image to use for the View, or \"__color__\" "
 "if a solid color should be used (see key \"ViewBackgroundColor\")."
 msgstr ""
-"O nome de ficheiro da imaxe de fondo que se emprega na Vista, ou \"__color__"
-"\" se se emprega unha cor única (consulta a chave «ViewBackgroundColor»)."
+"O nome de ficheiro da imaxe de fondo que se usa na Vista, ou \"__color__\" "
+"se se usa unha cor única (consulta a chave «ViewBackgroundColor»)."
 
 #. i18n: ectx: label, entry (ViewBackgroundColor), group (Appearance)
 #: src/palapeli.kcfg:16
@@ -920,8 +920,8 @@ msgid ""
 "The background color to use for the View (if the key \"ViewBackground\" is "
 "set to \"__color__\")."
 msgstr ""
-"A cor de fondo que se emprega na Vista (se a chave «ViewBackground» se "
-"configura como «__color__»)."
+"A cor de fondo que se usa na Vista (se a chave «ViewBackground» se configura "
+"como «__color__»)."
 
 #. i18n: ectx: label, entry (ViewHighlightColor), group (Appearance)
 #: src/palapeli.kcfg:20
@@ -956,8 +956,8 @@ msgid ""
 "Whether to show the status bar on the puzzle table. (It is not a real status "
 "bar, but the position and provided functionality is similar.)"
 msgstr ""
-"Se mostrar a barra de estado no taboleiro do quebracabezas. (Non é unha "
-"barra de estado real, pero a posición e a funcionalidade que fornece son "
+"Se amosar a barra de estado no taboleiro do quebracabezas. (Non é unha barra "
+"de estado real, pero a posición e a funcionalidade que fornece son "
 "similares)."
 
 #. i18n: ectx: label, entry (PieceShadowsEnabled), group (Appearance)
@@ -967,8 +967,8 @@ msgid ""
 "Whether to render shadows below the puzzle pieces. Turning this off might "
 "improve rendering performance."
 msgstr ""
-"Se mostrar sombras por debaixo das pezas. Se non se activa isto pode "
-"mellorar o desempeño."
+"Se amosar sombras por debaixo das pezas. Se non se activa isto pode mellorar "
+"o desempeño."
 
 #. i18n: ectx: label, entry (PieceBevelsEnabled), group (Appearance)
 #: src/palapeli.kcfg:40
@@ -977,8 +977,8 @@ msgid ""
 "Whether to render bevels on the puzzle pieces. Turning this off might "
 "improve puzzle loading performance."
 msgstr ""
-"Se mostrar biseles por debaixo das pezas. Se non se activa isto pode "
-"mellorar a carga do quebracabezas."
+"Se amosar biseles por debaixo das pezas. Se non se activa isto pode mellorar "
+"a carga do quebracabezas."
 
 #. i18n: ectx: label, entry (PuzzlePreviewVisible), group (PuzzlePreview)
 #: src/palapeli.kcfg:46
@@ -1101,7 +1101,7 @@ msgstr "Impreciso (máis doado)"
 #: src/window/mainwindow.cpp:55
 #, kde-format
 msgid "Show Statusbar of Puzzle Table"
-msgstr "Mostrar a barra de estado do taboleiro do quebracabezas"
+msgstr "Amosar a barra de estado do taboleiro do quebracabezas"
 
 #: src/window/mainwindow.cpp:58
 #, kde-format
@@ -1222,7 +1222,7 @@ msgstr "Vista previa"
 #: src/window/mainwindow.cpp:135
 #, kde-format
 msgid "Show or hide the image of the completed puzzle"
-msgstr "Mostrar ou agochar a imaxe da solución do quebracabezas."
+msgstr "Amosar ou agochar a imaxe da solución do quebracabezas."
 
 #: src/window/mainwindow.cpp:149
 #, kde-format
