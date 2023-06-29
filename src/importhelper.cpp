@@ -50,3 +50,5 @@ void Palapeli::ImportHelper::doWork()
 		qApp->quit ();
 	}
 }
+
+#include "moc_importhelper.cpp"

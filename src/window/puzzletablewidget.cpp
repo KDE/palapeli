@@ -137,4 +137,4 @@ void Palapeli::PuzzleTableWidget::setZoomAdjustable(bool adjustable)
 	m_zoomWidget->setVisible(Settings::showStatusBar() && adjustable);
 }
 
-
+#include "moc_puzzletablewidget.cpp"

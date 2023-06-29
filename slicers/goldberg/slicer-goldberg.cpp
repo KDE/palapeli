@@ -157,6 +157,5 @@ bool GoldbergSlicer::run(Pala::SlicerJob* job) {
     return true;
 }
 
-
-
+#include "moc_slicer-goldberg.cpp"
 #include "slicer-goldberg.moc"

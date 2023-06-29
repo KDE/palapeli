@@ -118,4 +118,4 @@ void Palapeli::TextureHelper::removeScene(QObject* scene)
 	m_scenes.removeAll(scene);
 }
 
-
+#include "moc_texturehelper.cpp"

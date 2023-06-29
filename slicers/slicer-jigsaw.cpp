@@ -258,4 +258,5 @@ void JigsawSlicer::addPlugToPath(QPainterPath& path, qreal plugNormLength, const
 	path.cubicTo(r4, q5, p5);
 }
 
+#include "moc_slicer-jigsaw.cpp"
 #include "slicer-jigsaw.moc"

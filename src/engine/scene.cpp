@@ -242,4 +242,4 @@ void Palapeli::Scene::addToGrid(Palapeli::Piece* piece)
 	}
 }
 
-
+#include "moc_scene.cpp"

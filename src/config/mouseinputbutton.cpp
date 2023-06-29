@@ -253,3 +253,6 @@ void Palapeli::MouseInputButton::showModifiers(Qt::KeyboardModifiers modifiers)
 
 
 //
+
+#include "moc_mouseinputbutton.cpp"
+#include "moc_mouseinputbutton_p.cpp"

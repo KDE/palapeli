@@ -60,4 +60,5 @@ bool RectSlicer::run(Pala::SlicerJob* job)
 	return true;
 }
 
+#include "moc_slicer-rect.cpp"
 #include "slicer-rect.moc"

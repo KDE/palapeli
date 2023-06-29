@@ -39,4 +39,5 @@ KIO::ThumbnailResult PalapeliThumbCreator::create(const KIO::ThumbnailRequest &r
     return KIO::ThumbnailResult::fail();
 }
 
+#include "moc_thumbnail-creator.cpp"
 #include "thumbnail-creator.moc"

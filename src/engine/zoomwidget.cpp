@@ -60,4 +60,4 @@ void Palapeli::ZoomWidget::setLevel(int level)
 	m_slider->setValue(level);
 }
 
-
+#include "moc_zoomwidget.cpp"

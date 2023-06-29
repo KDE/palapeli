@@ -68,4 +68,4 @@ void Palapeli::TriggerConfigWidget::updateWidgetsDefault()
 	Q_EMIT associationsChanged();
 }
 
-
+#include "moc_triggerconfigwidget.cpp"

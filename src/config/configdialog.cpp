@@ -133,3 +133,6 @@ void Palapeli::ConfigDialog::solutionAreaChange(int index)
 
 
 //
+
+#include "moc_configdialog.cpp"
+#include "moc_configdialog_p.cpp"

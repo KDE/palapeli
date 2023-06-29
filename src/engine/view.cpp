@@ -348,4 +348,4 @@ void Palapeli::View::startVictoryAnimation()
 	Q_EMIT zoomAdjustable(false);
 }
 
-
+#include "moc_view.cpp"

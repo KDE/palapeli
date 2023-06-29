@@ -128,4 +128,4 @@ void Palapeli::CollectionView::sortMenuTriggered(QAction* action)
 	m_sortByPieceCount->setChecked(sortRole == Palapeli::Collection::PieceCountRole);
 }
 
-
+#include "moc_collection-view.cpp"

@@ -361,3 +361,6 @@ void Palapeli::Piece::endMove()
 
 
 //
+
+#include "moc_piece.cpp"
+#include "moc_piece_p.cpp"

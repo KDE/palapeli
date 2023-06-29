@@ -99,4 +99,4 @@ void Palapeli::SlicerSelector::slotSelectionChanged()
 	Q_EMIT currentSelectionChanged(currentSelection());
 }
 
-
+#include "moc_slicerselector.cpp"

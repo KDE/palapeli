@@ -161,4 +161,4 @@ void Palapeli::PuzzlePreview::updateViewport()
 	}
 }
 
-
+#include "moc_puzzlepreview.cpp"

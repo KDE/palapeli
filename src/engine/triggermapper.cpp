@@ -234,4 +234,4 @@ Palapeli::EventProcessingFlags Palapeli::TriggerMapper::testTrigger(const Palape
         return {};
 }
 
-
+#include "moc_triggermapper.cpp"

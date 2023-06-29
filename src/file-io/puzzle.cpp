@@ -146,3 +146,4 @@ Q_GLOBAL_STATIC(QList<QString>, g_usedIdentifiers)
 
 //END Palapeli::Puzzle
 
+#include "moc_puzzle.cpp"
