@@ -126,25 +126,25 @@
 ><para
 ><emphasis
 >Crear</emphasis
-> trencaclosques nous a partir d'imatges en el disc.</para
+> trencaclosques nous a partir d'imatges en el disc</para
 ></listitem>
       <listitem
 ><para
 ><emphasis
 >Importar</emphasis
-> trencaclosques creats per altres.</para
+> trencaclosques creats per altres</para
 ></listitem>
       <listitem
 ><para
 ><emphasis
 >Exportar</emphasis
-> trencaclosques per a compartir-los amb els amics i el món.</para
+> trencaclosques per a compartir-los amb els amics i el món</para
 ></listitem>
       <listitem
 ><para
 ><emphasis
 >Suprimir</emphasis
-> els trencaclosques que no necessiteu.</para
+> els trencaclosques que no necessiteu</para
 ></listitem>
     </itemizedlist>
     <para
@@ -1422,7 +1422,7 @@
         <varlistentry>
           <term
 ><guilabel
->Precisió de l'ajustament:</guilabel
+>Precisió de l'ajustament</guilabel
 ></term>
           <listitem
 ><para
