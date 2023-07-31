@@ -1,12 +1,12 @@
 # Translation of palapeli to Norwegian Nynorsk
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2010, 2016, 2017, 2020, 2021.
+# Karl Ove Hufthammer <karl@huftis.org>, 2010, 2016, 2017, 2020, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-21 00:44+0000\n"
-"PO-Revision-Date: 2021-02-06 13:44+0100\n"
+"PO-Revision-Date: 2023-07-30 22:09+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
-"X-Generator: Lokalize 21.03.70\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -157,12 +157,12 @@ msgstr "Lagra rutenettbilete"
 #: src/config/configdialog.cpp:62
 #, kde-format
 msgid "General Settings"
-msgstr ""
+msgstr "Generelle innstillingar"
 
 #: src/config/configdialog.cpp:65
 #, kde-format
 msgid "Mouse Interaction"
-msgstr ""
+msgstr "Musehandlingar"
 
 #: src/config/configdialog.cpp:112
 #, kde-format
@@ -229,12 +229,12 @@ msgstr "Trykk for å endra korleis handlinga vert utløyst"
 #: src/config/triggerconfigwidget.cpp:20
 #, kde-format
 msgid "Mouse Buttons"
-msgstr ""
+msgstr "Museknappar"
 
 #: src/config/triggerconfigwidget.cpp:21
 #, kde-format
 msgid "Mouse Wheel"
-msgstr ""
+msgstr "Musehjul"
 
 #: src/config/triggerlistview.cpp:17
 #, kde-format
@@ -255,7 +255,7 @@ msgstr "Interaksjon med visingsområdet"
 #, kde-format
 msgctxt "@title:window"
 msgid "Create New Puzzle"
-msgstr ""
+msgstr "Lag nytt puslespel"
 
 #: src/creator/puzzlecreator.cpp:51
 #, kde-format
@@ -355,7 +355,7 @@ msgstr "Du har lagt ferdig puslespelet. Vil du prøva å pusla det på nytt?"
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
-msgstr ""
+msgstr "Start på nytt"
 
 #: src/engine/gameplay.cpp:305
 #, kde-format
@@ -372,13 +372,13 @@ msgstr "Palapeli-puslespel (*.puzzle)"
 #, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
-msgstr ""
+msgstr "Importer Palapeli-puslespel"
 
 #: src/engine/gameplay.cpp:352
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
-msgstr ""
+msgstr "Lagra Palapeli-puslespel"
 
 #: src/engine/gameplay.cpp:367
 #, kde-format
@@ -452,7 +452,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Transfer"
-msgstr ""
+msgstr "Overfør"
 
 #: src/engine/gameplay.cpp:592
 #, kde-format
@@ -660,7 +660,7 @@ msgstr "Lås eller lås opp puslebrettet"
 #, kde-format
 msgctxt "@title:window"
 msgid "Preview of completed puzzle"
-msgstr ""
+msgstr "Førehandvising av fullført puslespel"
 
 #: src/engine/puzzlepreview.cpp:36
 #, kde-format
@@ -672,7 +672,7 @@ msgstr "Biletet er ikkje tilgjengeleg."
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 - Preview"
-msgstr ""
+msgstr "%1 – førehandsvising"
 
 #: src/engine/texturehelper.cpp:52
 #, kde-format
@@ -795,19 +795,19 @@ msgstr "av %1"
 #, kde-format
 msgctxt "@action:button that pops up sorting strategy selection menu"
 msgid "Sort List..."
-msgstr ""
+msgstr "Sorter liste …"
 
 #: src/file-io/collection-view.cpp:61
 #, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Title"
-msgstr ""
+msgstr "Etter namn"
 
 #: src/file-io/collection-view.cpp:62
 #, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Piece Count"
-msgstr ""
+msgstr "Etter talet på brikker"
 
 #: src/file-io/collection.cpp:36
 #, kde-format
@@ -880,7 +880,7 @@ msgstr ""
 #: src/main.cpp:61
 #, kde-format
 msgid "No file to import given"
-msgstr ""
+msgstr "Inga fil å importera er oppgjeven"
 
 #. i18n: ectx: label, entry (SnappingPrecision), group (Puzzling)
 #: src/palapeli.kcfg:6
@@ -1084,12 +1084,12 @@ msgstr "Upresist (lettare)"
 #: src/window/mainwindow.cpp:55
 #, kde-format
 msgid "Show Statusbar of Puzzle Table"
-msgstr ""
+msgstr "Vis statuslinja til puslebrettet"
 
 #: src/window/mainwindow.cpp:58
 #, kde-format
 msgid "Back to &Collection"
-msgstr ""
+msgstr "Tilbake til &samlinga"
 
 #: src/window/mainwindow.cpp:59
 #, kde-format
@@ -1099,7 +1099,7 @@ msgstr "Gå tilbake til samlinga for å velja eit anna puslespel"
 #: src/window/mainwindow.cpp:65
 #, kde-format
 msgid "Create &New Puzzle..."
-msgstr ""
+msgstr "Lag &nytt puslespel …"
 
 #: src/window/mainwindow.cpp:66
 #, kde-format
@@ -1109,7 +1109,7 @@ msgstr "Lag eit nytt puslespel med ei biletfil på disken"
 #: src/window/mainwindow.cpp:72
 #, kde-format
 msgid "&Delete Puzzle"
-msgstr ""
+msgstr "&Slett puslespel"
 
 #: src/window/mainwindow.cpp:74
 #, kde-format
@@ -1119,7 +1119,7 @@ msgstr "Slett det merkte puslespelet frå samlinga"
 #: src/window/mainwindow.cpp:80
 #, kde-format
 msgid "&Import from File..."
-msgstr ""
+msgstr "&Importer frå fil …"
 
 #: src/window/mainwindow.cpp:81
 #, kde-format
@@ -1129,7 +1129,7 @@ msgstr "Importer eit nytt puslespel til samlinga frå ei fil"
 #: src/window/mainwindow.cpp:86
 #, kde-format
 msgid "&Export to File..."
-msgstr ""
+msgstr "&Eksporter til fil …"
 
 #: src/window/mainwindow.cpp:88
 #, kde-format
@@ -1139,7 +1139,7 @@ msgstr "Eksporter det valde puslespelet frå samlinga til ei fil"
 #: src/window/mainwindow.cpp:94
 #, kde-format
 msgid "&Restart Puzzle..."
-msgstr ""
+msgstr "&Start puslespelet på nytt …"
 
 #: src/window/mainwindow.cpp:95
 #, kde-format
@@ -1149,7 +1149,7 @@ msgstr "Gløym kor langt du har komme på puslespelet og stokk om brikkene"
 #: src/window/mainwindow.cpp:102
 #, kde-format
 msgid "&Create Piece Holder..."
-msgstr ""
+msgstr "&Lag brikkehaldar …"
 
 #: src/window/mainwindow.cpp:103
 #, kde-format
@@ -1159,7 +1159,7 @@ msgstr "Lag ein brikkehaldar for sortering av brikker"
 #: src/window/mainwindow.cpp:110
 #, kde-format
 msgid "&Delete Piece Holder"
-msgstr ""
+msgstr "&Fjern brikkehaldar"
 
 #: src/window/mainwindow.cpp:111
 #, kde-format
@@ -1169,7 +1169,7 @@ msgstr "Fjern ein mellombels brikkehaldar når han er tom"
 #: src/window/mainwindow.cpp:117
 #, kde-format
 msgid "&Select All in Holder"
-msgstr ""
+msgstr "&Merk alt i haldaren"
 
 #: src/window/mainwindow.cpp:118
 #, kde-format
@@ -1179,7 +1179,7 @@ msgstr "Merk alle brikkene i vald brikkehaldar"
 #: src/window/mainwindow.cpp:124
 #, kde-format
 msgid "&Rearrange Pieces"
-msgstr ""
+msgstr "&Ordna brikkene"
 
 #: src/window/mainwindow.cpp:125
 #, kde-format
@@ -1208,18 +1208,18 @@ msgstr "Vis eller gøym eit bilete av det fullførte puslespelet"
 #: src/window/mainwindow.cpp:149
 #, kde-format
 msgid "Enable All Messages"
-msgstr ""
+msgstr "Vis alle meldingar"
 
 #: src/window/mainwindow.cpp:162
 #, kde-format
 msgid "Enable all messages again?"
-msgstr ""
+msgstr "Vil du visa alle meldingane att?"
 
 #: src/window/mainwindow.cpp:163
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr ""
+msgstr "Vis meldingane"
 
 #: src/window/puzzletablewidget.cpp:49
 #, kde-format
