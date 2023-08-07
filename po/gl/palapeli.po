@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-21 00:44+0000\n"
-"PO-Revision-Date: 2023-06-17 09:14+0200\n"
+"PO-Revision-Date: 2023-08-06 05:32+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1052,13 +1052,13 @@ msgstr "Aparencia das pezas"
 #: src/settings.ui:162
 #, kde-format
 msgid "Draw bevels to create a 3-dimensional appearance"
-msgstr "Debuxar biseles para crear unha aparencia tridimensional"
+msgstr "Debuxar biseles para crear unha aparencia tridimensional."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceShadowsEnabled)
 #: src/settings.ui:172
 #, kde-format
 msgid "Draw shadows below pieces"
-msgstr "Debuxar sombras por debaixo das pezas"
+msgstr "Debuxar sombras por debaixo das pezas."
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/settings.ui:182
