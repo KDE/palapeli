@@ -41,7 +41,7 @@ Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) c
 			return nullptr;
 		}
 		//initialize requested slicer plugin
-        QScopedPointer<Pala::Slicer> slicer;
+        std::unique_ptr<Pala::Slicer> slicer;
         if (auto plugin = KPluginFactory::instantiatePlugin<Pala::Slicer>(offers.first(), nullptr).plugin) {
             slicer.reset(plugin);
         } else {
