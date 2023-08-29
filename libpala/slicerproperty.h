@@ -57,7 +57,7 @@ namespace Pala
 			///\since libpala 1.2 (KDE SC 4.6)
 			void setKey(const QByteArray& key);
 			///\internal
-			QVariant::Type type() const;
+			QMetaType::Type type() const;
 
 			///Sets whether this property is advanced (false by default). If it is set, Palapeli is allowed to hide the property widget from the puzzle creation interface unless an "Advanced" button is pressed (or similar).
 			///\since libpala 1.2 (KDE SC 4.6)

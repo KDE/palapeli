@@ -16,13 +16,13 @@ Palapeli::PropertyWidget* Palapeli::createPropertyWidget(const Pala::SlicerPrope
 	Palapeli::PropertyWidget* pw;
 	switch (property->type())
 	{
-		case QVariant::Bool:
+		case QMetaType::Bool:
 			pw = new Palapeli::BooleanPropertyWidget;
 			break;
-		case QVariant::Int:
+		case QMetaType::Int:
 			pw = new Palapeli::IntegerPropertyWidget;
 			break;
-		case QVariant::String:
+		case QMetaType::QString:
 			pw = new Palapeli::StringPropertyWidget;
 			break;
 		default:

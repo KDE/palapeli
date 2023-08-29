@@ -13,13 +13,13 @@
 class Pala::SlicerPropertyPrivate
 {
 public:
-	SlicerPropertyPrivate(QVariant::Type type, const QString& caption)
+	SlicerPropertyPrivate(QMetaType::Type type, const QString& caption)
 	    : m_type(type)
 	    , m_caption(caption)
 	{
 	}
 
-	QVariant::Type const m_type;
+	QMetaType::Type const m_type;
 	QString m_caption;
 	QByteArray m_key;
 
@@ -33,7 +33,7 @@ public:
 class Pala::BooleanPropertyPrivate : public Pala::SlicerPropertyPrivate
 {
 public:
-	BooleanPropertyPrivate(QVariant::Type type, const QString& caption)
+	BooleanPropertyPrivate(QMetaType::Type type, const QString& caption)
 	    : SlicerPropertyPrivate(type, caption)
 	{
 	}
@@ -42,7 +42,7 @@ public:
 class Pala::IntegerPropertyPrivate : public Pala::SlicerPropertyPrivate
 {
 public:
-	IntegerPropertyPrivate(QVariant::Type type, const QString& caption)
+	IntegerPropertyPrivate(QMetaType::Type type, const QString& caption)
 	    : SlicerPropertyPrivate(type, caption)
 	{
 	}
@@ -54,7 +54,7 @@ public:
 class Pala::StringPropertyPrivate : public Pala::SlicerPropertyPrivate
 {
 public:
-	StringPropertyPrivate(QVariant::Type type, const QString& caption)
+	StringPropertyPrivate(QMetaType::Type type, const QString& caption)
 	    : SlicerPropertyPrivate(type, caption)
 	{
 	}
@@ -107,7 +107,7 @@ QByteArray Pala::SlicerProperty::key() const
 	return d->m_key;
 }
 
-QVariant::Type Pala::SlicerProperty::type() const
+QMetaType::Type Pala::SlicerProperty::type() const
 {
 	Q_D(const SlicerProperty);
 	return d->m_type;
@@ -125,14 +125,22 @@ void Pala::SlicerProperty::setChoices(const QVariantList& choices)
 	d->m_choices = choices;
 	QMutableListIterator<QVariant> iter(d->m_choices);
 	while (iter.hasNext())
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+		iter.next().convert(QMetaType(d->m_type));
+#else
 		iter.next().convert(d->m_type);
+#endif
 }
 
 void Pala::SlicerProperty::setDefaultValue(const QVariant& value)
 {
 	Q_D(SlicerProperty);
 	d->m_defaultValue = value;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	d->m_defaultValue.convert(QMetaType(d->m_type));
+#else
 	d->m_defaultValue.convert(d->m_type);
+#endif
 }
 
 void Pala::SlicerProperty::setEnabled(bool enabled)
@@ -152,14 +160,14 @@ void Pala::SlicerProperty::setKey(const QByteArray& key)
 //BEGIN concrete implementations
 
 Pala::BooleanProperty::BooleanProperty(const QString& caption)
-	: Pala::SlicerProperty(*new Pala::BooleanPropertyPrivate(QVariant::Bool, caption))
+	: Pala::SlicerProperty(*new Pala::BooleanPropertyPrivate(QMetaType::Bool, caption))
 {
 }
 
 Pala::BooleanProperty::~BooleanProperty() = default;
 
 Pala::IntegerProperty::IntegerProperty(const QString& caption)
-	: Pala::SlicerProperty(*new Pala::IntegerPropertyPrivate(QVariant::Int, caption))
+	: Pala::SlicerProperty(*new Pala::IntegerPropertyPrivate(QMetaType::Int, caption))
 {
 	Q_D(IntegerProperty);
 	d->m_range.first = d->m_range.second = 0;
@@ -194,7 +202,7 @@ void Pala::IntegerProperty::setRepresentation(Pala::IntegerProperty::Representat
 }
 
 Pala::StringProperty::StringProperty(const QString& caption)
-	: Pala::SlicerProperty(*new Pala::StringPropertyPrivate(QVariant::String, caption))
+	: Pala::SlicerProperty(*new Pala::StringPropertyPrivate(QMetaType::QString, caption))
 {
 }
 
