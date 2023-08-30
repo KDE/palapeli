@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:44+0000\n"
+"POT-Creation-Date: 2023-08-30 00:43+0000\n"
 "PO-Revision-Date: 2013-03-05 15:34+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -200,7 +200,7 @@ msgstr ""
 msgid "Remove this trigger"
 msgstr ""
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:255
 #, kde-format
 msgid "Input here..."
 msgstr ""
@@ -212,7 +212,7 @@ msgid ""
 "mouse wheel here"
 msgstr ""
 
-#: src/config/mouseinputbutton.cpp:224
+#: src/config/mouseinputbutton.cpp:228
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -220,7 +220,7 @@ msgctxt ""
 msgid "None"
 msgstr "काही नाही"
 
-#: src/config/mouseinputbutton.cpp:230
+#: src/config/mouseinputbutton.cpp:234
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr ""
@@ -691,12 +691,12 @@ msgstr ""
 msgid "Vertical-Scroll"
 msgstr ""
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgid "Your progress is saved automatically while you play."
 msgstr ""
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgctxt "used as caption for a dialog that explains the autosave feature"
 msgid "Automatic saving"

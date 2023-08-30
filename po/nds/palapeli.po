@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:44+0000\n"
+"POT-Creation-Date: 2023-08-30 00:43+0000\n"
 "PO-Revision-Date: 2014-06-19 22:23+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -198,7 +198,7 @@ msgstr "Nerrn rechts"
 msgid "Remove this trigger"
 msgstr "Dissen Utlöser wegmaken"
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:255
 #, kde-format
 msgid "Input here..."
 msgstr "Hier ingeven..."
@@ -212,7 +212,7 @@ msgstr ""
 "Holl de Sünnertasten, de Du utsöcht hest, daal un Klick mit en Muusknoop "
 "hier oder bruuk en Muusrad"
 
-#: src/config/mouseinputbutton.cpp:224
+#: src/config/mouseinputbutton.cpp:228
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -220,7 +220,7 @@ msgctxt ""
 msgid "None"
 msgstr "Keen"
 
-#: src/config/mouseinputbutton.cpp:230
+#: src/config/mouseinputbutton.cpp:234
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "Klick hier, wenn Du den Utlöser vun en Akschoon ännern wullt"
@@ -765,12 +765,12 @@ msgstr "Kimmrecht Rull"
 msgid "Vertical-Scroll"
 msgstr "Pielrecht Rull"
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgid "Your progress is saved automatically while you play."
 msgstr "Dien Vörankamen warrt bi't Spelen automaatsch sekert."
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgctxt "used as caption for a dialog that explains the autosave feature"
 msgid "Automatic saving"

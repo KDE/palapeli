@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:44+0000\n"
+"POT-Creation-Date: 2023-08-30 00:43+0000\n"
 "PO-Revision-Date: 2022-08-13 09:10+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -200,7 +200,7 @@ msgstr "внизу праворуч"
 msgid "Remove this trigger"
 msgstr "Вилучити цей перемикач"
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:255
 #, kde-format
 msgid "Input here..."
 msgstr "Введіть тут…"
@@ -214,7 +214,7 @@ msgstr ""
 "Тут ви можете натиснути бажані клавіші-модифікатори, а потім клацнути "
 "відповідною кнопкою миші або прокрутити коліщатко"
 
-#: src/config/mouseinputbutton.cpp:224
+#: src/config/mouseinputbutton.cpp:228
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -222,7 +222,7 @@ msgctxt ""
 msgid "None"
 msgstr "Немає"
 
-#: src/config/mouseinputbutton.cpp:230
+#: src/config/mouseinputbutton.cpp:234
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "Натисніть, щоб змінити спосіб вмикання дії"
@@ -768,12 +768,12 @@ msgstr "Горизонтальне гортання"
 msgid "Vertical-Scroll"
 msgstr "Вертикальне гортання"
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgid "Your progress is saved automatically while you play."
 msgstr "Поступ складання зберігається автоматично під час гри."
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgctxt "used as caption for a dialog that explains the autosave feature"
 msgid "Automatic saving"

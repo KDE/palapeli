@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:44+0000\n"
+"POT-Creation-Date: 2023-08-30 00:43+0000\n"
 "PO-Revision-Date: 2022-09-07 11:52+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -202,7 +202,7 @@ msgstr "Внизу справа"
 msgid "Remove this trigger"
 msgstr "Удалить действие"
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:255
 #, kde-format
 msgid "Input here..."
 msgstr "Введите здесь..."
@@ -216,7 +216,7 @@ msgstr ""
 "Зажмите нужные клавиши-модификаторы и нажмите здесь любую кнопку мыши или "
 "прокрутите колёсико мыши"
 
-#: src/config/mouseinputbutton.cpp:224
+#: src/config/mouseinputbutton.cpp:228
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -224,7 +224,7 @@ msgctxt ""
 msgid "None"
 msgstr "Нет"
 
-#: src/config/mouseinputbutton.cpp:230
+#: src/config/mouseinputbutton.cpp:234
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "Щёлкните, чтобы изменить обработку действия"
@@ -762,12 +762,12 @@ msgstr "Горизонтальная прокрутка"
 msgid "Vertical-Scroll"
 msgstr "Вертикальная прокрутка"
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgid "Your progress is saved automatically while you play."
 msgstr "Процесс выполнения игры сохраняется автоматически."
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgctxt "used as caption for a dialog that explains the autosave feature"
 msgid "Automatic saving"

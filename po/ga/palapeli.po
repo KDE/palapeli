@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: playground-games/palapeli.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:44+0000\n"
+"POT-Creation-Date: 2023-08-30 00:43+0000\n"
 "PO-Revision-Date: 2008-03-23 09:45-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -200,7 +200,7 @@ msgstr ""
 msgid "Remove this trigger"
 msgstr ""
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:255
 #, kde-format
 msgid "Input here..."
 msgstr "Ionchur anseo..."
@@ -214,7 +214,7 @@ msgstr ""
 "Coinnigh na heochracha mionathraithe atá tú ag iarraidh síos, ansin cliceáil "
 "cnaipe ar an luch nó scrollaigh roth luiche anseo"
 
-#: src/config/mouseinputbutton.cpp:224
+#: src/config/mouseinputbutton.cpp:228
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -222,7 +222,7 @@ msgctxt ""
 msgid "None"
 msgstr "Gan gníomh"
 
-#: src/config/mouseinputbutton.cpp:230
+#: src/config/mouseinputbutton.cpp:234
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "Cliceáil chun an tslí a gcuirtear gníomh ar siúl a athrú"
@@ -706,14 +706,14 @@ msgstr "Scrollú Cothrománach"
 msgid "Vertical-Scroll"
 msgstr "Scrollú Ingearach"
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgid "Your progress is saved automatically while you play."
 msgstr ""
 "Sábháiltear do dhul chun cinn go huathoibríoch le linn duit a bheith ag "
 "imirt."
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgctxt "used as caption for a dialog that explains the autosave feature"
 msgid "Automatic saving"

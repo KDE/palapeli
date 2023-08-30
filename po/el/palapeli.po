@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:44+0000\n"
+"POT-Creation-Date: 2023-08-30 00:43+0000\n"
 "PO-Revision-Date: 2021-10-08 08:29+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -201,7 +201,7 @@ msgstr "Κάτω δεξιά"
 msgid "Remove this trigger"
 msgstr "Αφαίρεση αυτής της ενεργοποίησης συμβάντων"
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:255
 #, kde-format
 msgid "Input here..."
 msgstr "Είσοδος εδώ..."
@@ -215,7 +215,7 @@ msgstr ""
 "Κρατήστε πατημένο το πλήκτρο τροποποίησης που θέλετε, έπειτα κάντε κλικ ένα "
 "κουμπί του ποντικιού ή κυλήστε το τροχό εδώ"
 
-#: src/config/mouseinputbutton.cpp:224
+#: src/config/mouseinputbutton.cpp:228
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -223,7 +223,7 @@ msgctxt ""
 msgid "None"
 msgstr "Καμία"
 
-#: src/config/mouseinputbutton.cpp:230
+#: src/config/mouseinputbutton.cpp:234
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "Κλικ για να αλλάξετε τον τρόπο που ενεργοποιείται μία ενέργεια"
@@ -768,12 +768,12 @@ msgstr "Οριζόντια κύλιση"
 msgid "Vertical-Scroll"
 msgstr "Κατακόρυφη κύλιση"
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgid "Your progress is saved automatically while you play."
 msgstr "Η πρόοδός σας αποθηκεύεται αυτόματα ενώ παίζετε."
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgctxt "used as caption for a dialog that explains the autosave feature"
 msgid "Automatic saving"

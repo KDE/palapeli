@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:44+0000\n"
+"POT-Creation-Date: 2023-08-30 00:43+0000\n"
 "PO-Revision-Date: 2022-08-14 23:05+0200\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -195,7 +195,7 @@ msgstr "In basso a destra"
 msgid "Remove this trigger"
 msgstr "Rimuovi questo attivatore"
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:255
 #, kde-format
 msgid "Input here..."
 msgstr "Scrivi qui..."
@@ -209,7 +209,7 @@ msgstr ""
 "Tieni premuto il tasto modificatore desiderato, poi premi qui un pulsante "
 "del mouse o scorri la rotella"
 
-#: src/config/mouseinputbutton.cpp:224
+#: src/config/mouseinputbutton.cpp:228
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -217,7 +217,7 @@ msgctxt ""
 msgid "None"
 msgstr "Nessuno"
 
-#: src/config/mouseinputbutton.cpp:230
+#: src/config/mouseinputbutton.cpp:234
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "Premi per cambiare il modo di attivare di un'azione"
@@ -766,12 +766,12 @@ msgstr "Scorrimento orizzontale"
 msgid "Vertical-Scroll"
 msgstr "Scorrimento verticale"
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgid "Your progress is saved automatically while you play."
 msgstr "I tuoi progressi vengono salvati automaticamente durante il gioco."
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgctxt "used as caption for a dialog that explains the autosave feature"
 msgid "Automatic saving"

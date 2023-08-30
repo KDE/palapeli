@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:44+0000\n"
+"POT-Creation-Date: 2023-08-30 00:43+0000\n"
 "PO-Revision-Date: 2022-08-14 07:28+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -198,7 +198,7 @@ msgstr "Spodaj desno"
 msgid "Remove this trigger"
 msgstr "Odstrani ta sprožilec"
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:255
 #, kde-format
 msgid "Input here..."
 msgstr "Vnesite sem ..."
@@ -212,7 +212,7 @@ msgstr ""
 "Če želite, pridržite spremenilne tipke in nato kliknite miškin gumb ali pa "
 "premaknite miškin kolešček"
 
-#: src/config/mouseinputbutton.cpp:224
+#: src/config/mouseinputbutton.cpp:228
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -220,7 +220,7 @@ msgctxt ""
 msgid "None"
 msgstr "Brez"
 
-#: src/config/mouseinputbutton.cpp:230
+#: src/config/mouseinputbutton.cpp:234
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "Kliknite, da spremenite način sproženja dejanja"
@@ -754,12 +754,12 @@ msgstr "Vodoravno drsenje"
 msgid "Vertical-Scroll"
 msgstr "Navpično drsenje"
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgid "Your progress is saved automatically while you play."
 msgstr "Vaš napredek se med igranjem samodejno shranjuje."
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgctxt "used as caption for a dialog that explains the autosave feature"
 msgid "Automatic saving"

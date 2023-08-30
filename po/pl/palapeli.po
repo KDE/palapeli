@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palipeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:44+0000\n"
+"POT-Creation-Date: 2023-08-30 00:43+0000\n"
 "PO-Revision-Date: 2022-08-16 18:35+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -201,7 +201,7 @@ msgstr "Prawy dolny"
 msgid "Remove this trigger"
 msgstr "Usuń ten wyzwalacz"
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:255
 #, kde-format
 msgid "Input here..."
 msgstr "Wprowadź tutaj..."
@@ -215,7 +215,7 @@ msgstr ""
 "Przytrzymaj klawisze wybrane modyfikujące, następnie naciśnij tutaj "
 "klawiszem myszy lub przewiń rolką myszy"
 
-#: src/config/mouseinputbutton.cpp:224
+#: src/config/mouseinputbutton.cpp:228
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -223,7 +223,7 @@ msgctxt ""
 msgid "None"
 msgstr "Brak"
 
-#: src/config/mouseinputbutton.cpp:230
+#: src/config/mouseinputbutton.cpp:234
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "Naciśnij, aby zmienić sposób wyzwolenia działania"
@@ -761,13 +761,13 @@ msgstr "Przewijanie poziome"
 msgid "Vertical-Scroll"
 msgstr "Przewijanie pionowe"
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgid "Your progress is saved automatically while you play."
 msgstr ""
 "Postęp w układaniu puzzli będzie samoczynnie zapisywany podczas układania."
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:341
 #, kde-format
 msgctxt "used as caption for a dialog that explains the autosave feature"
 msgid "Automatic saving"
