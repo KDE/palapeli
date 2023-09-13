@@ -890,9 +890,10 @@ msgid ""
 "puzzle file is given). The main window will not be shown after importing the "
 "given puzzle."
 msgstr ""
-"Importa a dins de la col·lecció local el fitxer de trencaclosques indicat "
-"(no fa res si no es proporciona cap fitxer de trencaclosques). La finestra "
-"principal no es mostrarà després d'importar el trencaclosques indicat."
+"Importa cap a dins de la col·lecció local el fitxer de trencaclosques "
+"indicat (no fa res si no es proporciona cap fitxer de trencaclosques). La "
+"finestra principal no es mostrarà després d'importar el trencaclosques "
+"indicat."
 
 #: src/main.cpp:61
 #, kde-format
