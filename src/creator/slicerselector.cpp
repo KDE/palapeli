@@ -87,11 +87,7 @@ Palapeli::SlicerSelection Palapeli::SlicerSelector::currentSelection() const
 	if (item)
 	{
 		const QVariant selIndex = item->data(0, Qt::UserRole);
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 		if (selIndex.metaType().id() == QMetaType::Int)
-#else
-		if (static_cast<QMetaType::Type>(selIndex.type()) == QMetaType::Int)
-#endif
 			return m_knownSelections.value(selIndex.toInt());
 	}
 	//empty or invalid selection

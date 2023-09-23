@@ -82,11 +82,7 @@ void Palapeli::PuzzlePreview::mouseMoveEvent(QMouseEvent* event)
 	QGraphicsView::mouseMoveEvent(event);
 }
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 void Palapeli::PuzzlePreview::enterEvent(QEnterEvent* event)
-#else
-void Palapeli::PuzzlePreview::enterEvent(QEvent* event)
-#endif
 {
 	setMouseTracking(true);
 	m_isZoomed = true;

@@ -106,11 +106,7 @@ void Palapeli::View::mouseMoveEvent(QMouseEvent* event)
 	event->accept();
 	//send a stripped QMouseEvent to base class to update resizeAnchor() etc.
 	QMouseEvent modifiedEvent(event->type(),
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 		event->pos(), event->globalPosition().toPoint(),
-#else
-		event->pos(), event->globalPos(),
-#endif
 		Qt::NoButton, Qt::NoButton, event->modifiers()
 	);
 	QGraphicsView::mouseMoveEvent(&modifiedEvent);

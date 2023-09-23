@@ -14,7 +14,6 @@
 #include "settings.h"
 #include <QAction>
 
-#include <kwidgetsaddons_version.h>
 #include <KActionCollection>
 #include <KLocalizedString>
 #include <KStandardGameAction>
@@ -154,19 +153,11 @@ void Palapeli::MainWindow::setupActions()
 void Palapeli::MainWindow::enableMessages()
 {
 	// Enable all messages that the user has marked "Do not show again".
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
 	int result = KMessageBox::questionTwoActions(this,
-#else
-	int result = KMessageBox::questionYesNo(this,
-#endif
 						i18n("Enable all messages again?"), {},
 						KGuiItem(i18nc("@action:button", "Enable"), QStringLiteral("dialog-ok")),
 						KStandardGuiItem::cancel());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
 	if (result == KMessageBox::PrimaryAction) {
-#else
-	if (result == KMessageBox::Yes) {
-#endif
 		qCDebug(PALAPELI_LOG) << "ENABLE ALL MESSAGES";
 		KMessageBox::enableAllMessages();
 		KSharedConfig::openConfig()->sync();	// Save the changes to disk.

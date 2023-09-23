@@ -66,23 +66,18 @@ ki18n_wrap_ui(palapeli settings.ui)
 file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/*-apps-palapeli.png")
 ecm_add_app_icon(palapeli ICONS ${ICONS_SRCS})
 
-if (QT_MAJOR_VERSION STREQUAL "6")
-    target_link_libraries(palapeli KDEGames6)
-else()
-    target_link_libraries(palapeli KF5KDEGames)
-endif()
-
 target_link_libraries(palapeli
     pala
-    KF${KF_MAJOR_VERSION}::Archive
-    KF${KF_MAJOR_VERSION}::ConfigWidgets
-    KF${KF_MAJOR_VERSION}::Crash
-    KF${KF_MAJOR_VERSION}::ItemViews
-    KF${KF_MAJOR_VERSION}::Notifications
-    KF${KF_MAJOR_VERSION}::KIOWidgets
-    KF${KF_MAJOR_VERSION}::WidgetsAddons
-    KF${KF_MAJOR_VERSION}::XmlGui
-    Qt${QT_MAJOR_VERSION}::Svg
+    KDEGames6
+    KF6::Archive
+    KF6::ConfigWidgets
+    KF6::Crash
+    KF6::ItemViews
+    KF6::Notifications
+    KF6::KIOWidgets
+    KF6::WidgetsAddons
+    KF6::XmlGui
+    Qt6::Svg
 )
 
 install(TARGETS palapeli ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

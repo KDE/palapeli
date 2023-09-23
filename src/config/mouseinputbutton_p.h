@@ -24,11 +24,7 @@ namespace Palapeli
 		Q_SIGNALS:
 			void clicked();
 		protected:
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
             void enterEvent(QEnterEvent* event) override
-#else
-            void enterEvent(QEvent* event) override
-#endif
 			{
 				//TODO: respect global icon size configuration
 				setPixmap(m_icon.pixmap(16, QIcon::Active));

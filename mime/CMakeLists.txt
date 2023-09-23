@@ -9,5 +9,14 @@ update_xdg_mimetypes(${KDE_INSTALL_MIMEDIR})
 install(PROGRAMS palapeli_servicemenu.desktop DESTINATION ${KDE_INSTALL_DATADIR}/kio/servicemenus)
 
 # thumbnail creator plugin
-kcoreaddons_add_plugin(palathumbcreator SOURCES thumbnail-creator.cpp thumbnail-creator.h INSTALL_NAMESPACE "kf${QT_MAJOR_VERSION}/thumbcreator")
-target_link_libraries(palathumbcreator KF${KF_MAJOR_VERSION}::KIOCore KF${KF_MAJOR_VERSION}::KIOGui KF${KF_MAJOR_VERSION}::Archive)
+kcoreaddons_add_plugin(palathumbcreator
+    SOURCES
+        thumbnail-creator.cpp
+        thumbnail-creator.h
+    INSTALL_NAMESPACE "kf6/thumbcreator"
+)
+target_link_libraries(palathumbcreator
+    KF6::KIOCore
+    KF6::KIOGui
+    KF6::Archive
+)

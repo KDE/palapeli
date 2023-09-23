@@ -194,11 +194,7 @@ bool Palapeli::MouseInputButton::event(QEvent* event)
 		const QMouseEvent* mEvent = static_cast<QMouseEvent*>(event);
 		//fake a tooltip event
 		//because otherwise they go away when you click and don't come back until you move the mouse
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 		QHelpEvent tip(QEvent::ToolTip, mEvent->pos(), mEvent->globalPosition().toPoint());
-#else
-		QHelpEvent tip(QEvent::ToolTip, mEvent->pos(), mEvent->globalPos());
-#endif
 		QApplication::sendEvent(this, &tip);
 	}
 	return ret;

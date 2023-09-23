@@ -35,7 +35,6 @@
 #include <QFileDialog>
 #include <QRandomGenerator>
 
-#include <kwidgetsaddons_version.h>
 #include <KActionCollection>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -176,20 +175,12 @@ void Palapeli::GamePlay::playPuzzle(Palapeli::Puzzle* puzzle)
 			// IDW TODO - Show piece-holders.
 			// Check if puzzle has been completed.
 			if (m_currentPieceCount == 1) {
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
 				int result = KMessageBox::questionTwoActions(
-#else
-				int result = KMessageBox::questionYesNo(
-#endif
 					m_mainWindow,
 					i18n("You have finished the puzzle. Do you want to restart it now?"), {},
 					KGuiItem(i18nc("@action:button", "Restart"), QStringLiteral("view-refresh")),
 					KStandardGuiItem::cont());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
 				if (result == KMessageBox::PrimaryAction) {
-#else
-				if (result == KMessageBox::Yes) {
-#endif
 					restartPuzzle();
 					return;
 				}
@@ -555,11 +546,7 @@ void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
 				if (piece->representedAtomicPieces().count()
 					> 6) {
 					int ans = 0;
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
 					ans = KMessageBox::questionTwoActions (
-#else
-					ans = KMessageBox::questionYesNo (
-#endif
 						m_mainWindow,
 						i18n("You have selected to "
 						"transfer a large piece "
@@ -568,11 +555,7 @@ void Palapeli::GamePlay::teleport(Palapeli::Piece* pieceUnderMouse,
 						"you really wish to do that?"), {},
 						KGuiItem(i18nc("@action:button", "Transfer"), QStringLiteral("dialog-ok")),
 						KStandardGuiItem::cancel());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
 					if (ans == KMessageBox::SecondaryAction) {
-#else
-					if (ans == KMessageBox::No) {
-#endif
 						return;
 					}
 				}
@@ -1150,19 +1133,11 @@ void Palapeli::GamePlay::finishLoading()
 	}
 	// Check if puzzle has been completed.
 	if (m_currentPieceCount == 1) {
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
 		int result = KMessageBox::questionTwoActions(m_mainWindow,
-#else
-		int result = KMessageBox::questionYesNo(m_mainWindow,
-#endif
 			i18n("You have finished the puzzle. Do you want to restart it now?"), {},
 			KGuiItem(i18nc("@action:button", "Restart"), QStringLiteral("view-refresh")),
 			KStandardGuiItem::cont());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
 		if (result == KMessageBox::PrimaryAction) {
-#else
-		if (result == KMessageBox::Yes) {
-#endif
 			restartPuzzle();
 			return;
 		}

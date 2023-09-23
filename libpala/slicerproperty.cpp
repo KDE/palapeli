@@ -125,22 +125,14 @@ void Pala::SlicerProperty::setChoices(const QVariantList& choices)
 	d->m_choices = choices;
 	QMutableListIterator<QVariant> iter(d->m_choices);
 	while (iter.hasNext())
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 		iter.next().convert(QMetaType(d->m_type));
-#else
-		iter.next().convert(d->m_type);
-#endif
 }
 
 void Pala::SlicerProperty::setDefaultValue(const QVariant& value)
 {
 	Q_D(SlicerProperty);
 	d->m_defaultValue = value;
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 	d->m_defaultValue.convert(QMetaType(d->m_type));
-#else
-	d->m_defaultValue.convert(d->m_type);
-#endif
 }
 
 void Pala::SlicerProperty::setEnabled(bool enabled)
