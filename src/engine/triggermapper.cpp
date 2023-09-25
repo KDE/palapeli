@@ -79,7 +79,7 @@ void Palapeli::TriggerMapper::readSettings()
 	{
 		const QByteArray interactorKey = configKey.toLatin1();
 		const QList<QByteArray> triggers = group.readEntry(configKey, QList<QByteArray>());
-		for (const Palapeli::Trigger& trigger : triggers) //implicit casts FTW
+		for (const Palapeli::Trigger trigger : triggers) //implicit casts FTW
 			if (trigger.isValid()) {
 				// Remove default and insert config value(s).
 				m_associations.insert(interactorKey, trigger);
