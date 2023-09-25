@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-30 00:43+0000\n"
+"POT-Creation-Date: 2023-09-25 01:40+0000\n"
 "PO-Revision-Date: 2017-11-11 15:25+0200\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish\n"
@@ -196,7 +196,7 @@ msgstr "Nederst til højre"
 msgid "Remove this trigger"
 msgstr "Fjern denne udløser"
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:255
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
 #, kde-format
 msgid "Input here..."
 msgstr "Input her..."
@@ -210,7 +210,7 @@ msgstr ""
 "Hold de ændringstaster du ønsker nede, klik så på en museknap eller rul med "
 "et musehjul her"
 
-#: src/config/mouseinputbutton.cpp:228
+#: src/config/mouseinputbutton.cpp:224
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -218,7 +218,7 @@ msgctxt ""
 msgid "None"
 msgstr "Ingen"
 
-#: src/config/mouseinputbutton.cpp:234
+#: src/config/mouseinputbutton.cpp:230
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "Klik for at ændre hvordan en handling udløses"
@@ -346,54 +346,54 @@ msgstr ""
 msgid "Change size of puzzle table area by dragging its edges"
 msgstr "Ændr størrelse på puslespilsområdet ved at trække i kanterne"
 
-#: src/engine/gameplay.cpp:185 src/engine/gameplay.cpp:1158
+#: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
 #, kde-format
 msgid "You have finished the puzzle. Do you want to restart it now?"
 msgstr "Du gennemførte puslespillet. Vil du genstarte det nu?"
 
-#: src/engine/gameplay.cpp:186 src/engine/gameplay.cpp:1159
+#: src/engine/gameplay.cpp:181 src/engine/gameplay.cpp:1138
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
 msgstr ""
 
-#: src/engine/gameplay.cpp:305
+#: src/engine/gameplay.cpp:296
 #, kde-format
 msgid "The following puzzles will be deleted. This action cannot be undone."
 msgstr ""
 "Følgende puslespil vil blive slettet. Denne handling kan ikke fortrydes."
 
-#: src/engine/gameplay.cpp:324 src/engine/gameplay.cpp:350
+#: src/engine/gameplay.cpp:315 src/engine/gameplay.cpp:341
 #, kde-format
 msgctxt "Filter for a file dialog"
 msgid "Palapeli puzzles (*.puzzle)"
 msgstr "Palapeli-puslespil (*.puzzle)"
 
-#: src/engine/gameplay.cpp:326
+#: src/engine/gameplay.cpp:317
 #, fuzzy, kde-format
 #| msgid "Import Palapeli puzzles"
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
 msgstr "Importér Palapeli-puslespil"
 
-#: src/engine/gameplay.cpp:352
+#: src/engine/gameplay.cpp:343
 #, fuzzy, kde-format
 #| msgid "Save Palapeli puzzles"
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
 msgstr "Gem Palapeli-puslespil"
 
-#: src/engine/gameplay.cpp:367
+#: src/engine/gameplay.cpp:358
 #, kde-format
 msgid "Create a piece holder"
 msgstr "Opret en brikholder"
 
-#: src/engine/gameplay.cpp:368
+#: src/engine/gameplay.cpp:359
 #, kde-format
 msgid "Enter a short name (optional):"
 msgstr "Indtast et kort navn (valgfrit):"
 
-#: src/engine/gameplay.cpp:414
+#: src/engine/gameplay.cpp:405
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can delete it, "
@@ -402,12 +402,12 @@ msgstr ""
 "Du skal klikke på en brikholder for at vælge den inden du sletter den, eller "
 "du kan blot klikke på dens Luk-knap."
 
-#: src/engine/gameplay.cpp:433
+#: src/engine/gameplay.cpp:424
 #, kde-format
 msgid "The selected piece holder must be empty before you can delete it."
 msgstr "Den valgte brikholder skal være tom inden du kan slette den."
 
-#: src/engine/gameplay.cpp:452
+#: src/engine/gameplay.cpp:443
 #, kde-format
 msgid ""
 "The selected piece holder must contain some pieces for 'Select all' to use."
@@ -415,7 +415,7 @@ msgstr ""
 "Den valgte brikholder skal indeholde nogle brikker for at \"Vælg alle\" skal "
 "virke."
 
-#: src/engine/gameplay.cpp:458
+#: src/engine/gameplay.cpp:449
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can select all "
@@ -424,7 +424,7 @@ msgstr ""
 "Du skal klikke på en brikholder for at vælge den inden du kan vælge alle "
 "brikkerne på den."
 
-#: src/engine/gameplay.cpp:478
+#: src/engine/gameplay.cpp:469
 #, kde-format
 msgid ""
 "To rearrange pieces, either the puzzle table must have some selected pieces "
@@ -433,7 +433,7 @@ msgstr ""
 "For at omarrangere brikker skal puslespillets bord enten have nogle valgte "
 "brikker eller der skal være en valgt holder med nogle valgte brikker i."
 
-#: src/engine/gameplay.cpp:540
+#: src/engine/gameplay.cpp:531
 #, kde-format
 msgid ""
 "You need to have a piece holder and click it to select it before you can "
@@ -442,7 +442,7 @@ msgstr ""
 "Du skal have en brikholder og klikke på den for at vælge den inden du kan "
 "overfører brikker ind i eller ud af den."
 
-#: src/engine/gameplay.cpp:564
+#: src/engine/gameplay.cpp:551
 #, kde-format
 msgid ""
 "You have selected to transfer a large piece containing more than six small "
@@ -451,13 +451,13 @@ msgstr ""
 "Du har valgt at overfører en stor brik som indeholder mere end seks små "
 "brikker til en holder. Vil du virkelig gøre det?"
 
-#: src/engine/gameplay.cpp:569
+#: src/engine/gameplay.cpp:556
 #, kde-format
 msgctxt "@action:button"
 msgid "Transfer"
 msgstr ""
 
-#: src/engine/gameplay.cpp:592
+#: src/engine/gameplay.cpp:575
 #, kde-format
 msgid ""
 "You need to select one or more pieces to be transferred out of the selected "
@@ -466,7 +466,7 @@ msgstr ""
 "Du skal vælge én eller flere brikker for at overfører ud af den valgte "
 "holder eller vælge brikker fra puslespillets bord som skal overføres til det."
 
-#: src/engine/gameplay.cpp:610
+#: src/engine/gameplay.cpp:593
 #, kde-format
 msgid ""
 "You need to select one or more pieces to be transferred from the previous "
@@ -475,7 +475,7 @@ msgstr ""
 "Du skal vælge én eller flere brikker som skal overføres fra den forrige "
 "holder ind i holderen som er valgt for nyligt."
 
-#: src/engine/gameplay.cpp:618
+#: src/engine/gameplay.cpp:601
 #, kde-format
 msgid ""
 "You need to have at least two holders, one of them selected and with "
@@ -484,13 +484,13 @@ msgstr ""
 "Du skal have mindst to holdere, en som er valgt med valgte brikker i, inden "
 "du kan overføre brikker til en anden holder."
 
-#: src/engine/gameplay.cpp:1095
+#: src/engine/gameplay.cpp:1078
 #, kde-format
 msgctxt "For holding pieces"
 msgid "Hand"
 msgstr "Hånd"
 
-#: src/engine/gameplay.cpp:1098
+#: src/engine/gameplay.cpp:1081
 #, kde-format
 msgctxt "Hints for solving large puzzles"
 msgid ""
@@ -589,13 +589,13 @@ msgstr ""
 "og dets vindue, inklusiv sammensætning af brikker til at bygge en del af "
 "løsningen."
 
-#: src/engine/gameplay.cpp:1148
+#: src/engine/gameplay.cpp:1131
 #, kde-format
 msgctxt "Caption for hints"
 msgid "Solving Large Puzzles"
 msgstr "Løser stort puslespil"
 
-#: src/engine/gameplay.cpp:1220
+#: src/engine/gameplay.cpp:1195
 #, kde-format
 msgid "Great! You have finished the puzzle."
 msgstr "Fantastisk! Du har gennemført puslespillet."
@@ -763,12 +763,12 @@ msgstr "Vandret rulning"
 msgid "Vertical-Scroll"
 msgstr "Lodret rulning"
 
-#: src/engine/view.cpp:341
+#: src/engine/view.cpp:337
 #, kde-format
 msgid "Your progress is saved automatically while you play."
 msgstr "Din fremgang gemmes automatisk mens du spiller."
 
-#: src/engine/view.cpp:341
+#: src/engine/view.cpp:337
 #, kde-format
 msgctxt "used as caption for a dialog that explains the autosave feature"
 msgid "Automatic saving"
@@ -844,44 +844,44 @@ msgstr "Fejl: Ingen puslespilsfile angivet."
 msgid "Importing puzzle \"%1\" into your collection"
 msgstr "Importerer puslespillet \"%1\" til din samling"
 
-#: src/main.cpp:33
+#: src/main.cpp:29
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
 msgstr "Palapeli"
 
-#: src/main.cpp:35
+#: src/main.cpp:31
 #, fuzzy, kde-format
 #| msgid "KDE Jigsaw Puzzle Game"
 msgid "Jigsaw Puzzle Game"
 msgstr "KDE puslespil"
 
-#: src/main.cpp:37
+#: src/main.cpp:33
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
 msgstr "Ophavsret 2009, 2010, Stefan Majewsky"
 
-#: src/main.cpp:40
+#: src/main.cpp:36
 #, kde-format
 msgid "Stefan Majewsky"
 msgstr "Stefan Majewsky"
 
-#: src/main.cpp:41
+#: src/main.cpp:37
 #, kde-format
 msgid "Johannes Loehnert"
 msgstr "Johannes Loehnert"
 
-#: src/main.cpp:42
+#: src/main.cpp:38
 #, kde-format
 msgid "The option to preview the completed puzzle"
 msgstr "Muligheden for at forhåndsvise det færdige puslespil"
 
-#: src/main.cpp:47
+#: src/main.cpp:43
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "Sti til puslespilsfil (vil blive åbnet hvis ikke -i angives)"
 
-#: src/main.cpp:48
+#: src/main.cpp:44
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -892,7 +892,7 @@ msgstr ""
 "ingen puslespil-fil angives). Hovedvinduet vises efter import af det angivne "
 "puslespil."
 
-#: src/main.cpp:61
+#: src/main.cpp:57
 #, kde-format
 msgid "No file to import given"
 msgstr ""
@@ -1097,118 +1097,118 @@ msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Unprecise (easier)"
 msgstr "Upræcis (nemmere)"
 
-#: src/window/mainwindow.cpp:55
+#: src/window/mainwindow.cpp:54
 #, fuzzy, kde-format
 #| msgid "Show statusbar of puzzle table"
 msgid "Show Statusbar of Puzzle Table"
 msgstr "Vis puslespilsbordets statuslinje"
 
-#: src/window/mainwindow.cpp:58
+#: src/window/mainwindow.cpp:57
 #, fuzzy, kde-format
 #| msgid "Back to &collection"
 msgid "Back to &Collection"
 msgstr "Tilbage til &samling"
 
-#: src/window/mainwindow.cpp:59
+#: src/window/mainwindow.cpp:58
 #, kde-format
 msgid "Go back to the collection to choose another puzzle"
 msgstr "Gå tilbage til samlingen for at vælge et andet puslespil"
 
-#: src/window/mainwindow.cpp:65
+#: src/window/mainwindow.cpp:64
 #, fuzzy, kde-format
 #| msgid "Create &new puzzle..."
 msgid "Create &New Puzzle..."
 msgstr "Opret &nyt puslespil..."
 
-#: src/window/mainwindow.cpp:66
+#: src/window/mainwindow.cpp:65
 #, kde-format
 msgid "Create a new puzzle using an image file from your disk"
 msgstr "Opret et nyt puslespil ud fra en billedfil på din harddisk"
 
-#: src/window/mainwindow.cpp:72
+#: src/window/mainwindow.cpp:71
 #, fuzzy, kde-format
 #| msgid "&Delete puzzle"
 msgid "&Delete Puzzle"
 msgstr "&Slet puslespil"
 
-#: src/window/mainwindow.cpp:74
+#: src/window/mainwindow.cpp:73
 #, kde-format
 msgid "Delete the selected puzzle from your collection"
 msgstr "Slet det valgte puslespil fra din samling"
 
-#: src/window/mainwindow.cpp:80
+#: src/window/mainwindow.cpp:79
 #, fuzzy, kde-format
 #| msgid "&Import from file..."
 msgid "&Import from File..."
 msgstr "&Importér fra fil..."
 
-#: src/window/mainwindow.cpp:81
+#: src/window/mainwindow.cpp:80
 #, kde-format
 msgid "Import a new puzzle from a file into your collection"
 msgstr "Importér et nyt puslespil fra en fil til din samling"
 
-#: src/window/mainwindow.cpp:86
+#: src/window/mainwindow.cpp:85
 #, fuzzy, kde-format
 #| msgid "&Export to file..."
 msgid "&Export to File..."
 msgstr "&Eksportér til fil..."
 
-#: src/window/mainwindow.cpp:88
+#: src/window/mainwindow.cpp:87
 #, kde-format
 msgid "Export the selected puzzle from your collection into a file"
 msgstr "Eksportér det valgte puslespil fra din samling til en fil"
 
-#: src/window/mainwindow.cpp:94
+#: src/window/mainwindow.cpp:93
 #, fuzzy, kde-format
 #| msgid "&Restart puzzle..."
 msgid "&Restart Puzzle..."
 msgstr "&Genstart puslespil..."
 
-#: src/window/mainwindow.cpp:95
+#: src/window/mainwindow.cpp:94
 #, kde-format
 msgid "Delete the saved progress and reshuffle the pieces"
 msgstr "Slet den gemte fremgang og bland brikkerne igen"
 
-#: src/window/mainwindow.cpp:102
+#: src/window/mainwindow.cpp:101
 #, fuzzy, kde-format
 #| msgid "&Create piece holder..."
 msgid "&Create Piece Holder..."
 msgstr "&Opret brikholder..."
 
-#: src/window/mainwindow.cpp:103
+#: src/window/mainwindow.cpp:102
 #, kde-format
 msgid "Create a temporary holder for sorting pieces"
 msgstr "Opret en midlertidig holder til sortering af brikker"
 
-#: src/window/mainwindow.cpp:110
+#: src/window/mainwindow.cpp:109
 #, fuzzy, kde-format
 #| msgid "&Delete piece holder"
 msgid "&Delete Piece Holder"
 msgstr "&Slet brikholder"
 
-#: src/window/mainwindow.cpp:111
+#: src/window/mainwindow.cpp:110
 #, kde-format
 msgid "Delete a selected temporary holder when it is empty"
 msgstr "Slet en valgt midlertidig holder når den er tom"
 
-#: src/window/mainwindow.cpp:117
+#: src/window/mainwindow.cpp:116
 #, fuzzy, kde-format
 #| msgid "&Select all in holder"
 msgid "&Select All in Holder"
 msgstr "&Vælg alle i holder"
 
-#: src/window/mainwindow.cpp:118
+#: src/window/mainwindow.cpp:117
 #, kde-format
 msgid "Select all pieces in a selected piece holder"
 msgstr "Vælg alle brikker i en valgt brikholder"
 
-#: src/window/mainwindow.cpp:124
+#: src/window/mainwindow.cpp:123
 #, fuzzy, kde-format
 #| msgid "&Rearrange pieces"
 msgid "&Rearrange Pieces"
 msgstr "&Omarranger brikker"
 
-#: src/window/mainwindow.cpp:125
+#: src/window/mainwindow.cpp:124
 #, kde-format
 msgid ""
 "Rearrange all pieces in a selected piece holder or selected pieces in any "
@@ -1217,36 +1217,36 @@ msgstr ""
 "Omarranger alle brikker i en valgt brikholder eller valgte brikker i et "
 "vindue"
 
-#: src/window/mainwindow.cpp:132
+#: src/window/mainwindow.cpp:131
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "&Preview"
 msgstr "&Forhåndsvis"
 
-#: src/window/mainwindow.cpp:134
+#: src/window/mainwindow.cpp:133
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "Preview"
 msgstr "Forhåndsvis"
 
-#: src/window/mainwindow.cpp:135
+#: src/window/mainwindow.cpp:134
 #, kde-format
 msgid "Show or hide the image of the completed puzzle"
 msgstr "Vis eller skjul billedet af det færdige puslespil"
 
-#: src/window/mainwindow.cpp:149
+#: src/window/mainwindow.cpp:148
 #, fuzzy, kde-format
 #| msgid "Enable all messages"
 msgid "Enable All Messages"
 msgstr "Aktivér alle meddelelser"
 
-#: src/window/mainwindow.cpp:162
+#: src/window/mainwindow.cpp:157
 #, fuzzy, kde-format
 #| msgid "Enable all messages"
 msgid "Enable all messages again?"
 msgstr "Aktivér alle meddelelser"
 
-#: src/window/mainwindow.cpp:163
+#: src/window/mainwindow.cpp:158
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"

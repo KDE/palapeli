@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-30 00:43+0000\n"
+"POT-Creation-Date: 2023-09-25 01:40+0000\n"
 "PO-Revision-Date: 2022-08-16 20:37+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -199,7 +199,7 @@ msgstr "Behean eskuinean"
 msgid "Remove this trigger"
 msgstr "Kendu kiskagailu hau"
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:255
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
 #, kde-format
 msgid "Input here..."
 msgstr "Sartu hemen..."
@@ -213,7 +213,7 @@ msgstr ""
 "Nahi dituzun tekla aldarazleak sakatu, ondoren klikatu saguaren botoi bat "
 "edo labaindu saguaren gurpil bat hemen"
 
-#: src/config/mouseinputbutton.cpp:228
+#: src/config/mouseinputbutton.cpp:224
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -221,7 +221,7 @@ msgctxt ""
 msgid "None"
 msgstr "Bat ere ez"
 
-#: src/config/mouseinputbutton.cpp:234
+#: src/config/mouseinputbutton.cpp:230
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "Klikatu ekintza bat nola kliskatzen den aldatzeko"
@@ -348,53 +348,53 @@ msgstr ""
 msgid "Change size of puzzle table area by dragging its edges"
 msgstr "Aldatu buruhauskarri taularen azalera bere ertzak arrastatuz"
 
-#: src/engine/gameplay.cpp:185 src/engine/gameplay.cpp:1158
+#: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
 #, kde-format
 msgid "You have finished the puzzle. Do you want to restart it now?"
 msgstr "Buru-hausgarria osatu duzu. Berriz hasi nahi duzu?"
 
-#: src/engine/gameplay.cpp:186 src/engine/gameplay.cpp:1159
+#: src/engine/gameplay.cpp:181 src/engine/gameplay.cpp:1138
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
 msgstr "Berrabiarazi"
 
-#: src/engine/gameplay.cpp:305
+#: src/engine/gameplay.cpp:296
 #, kde-format
 msgid "The following puzzles will be deleted. This action cannot be undone."
 msgstr ""
 "Ondoko buru-hausgarriak ezabatuko da. Ekintza honek ez dauka atzera "
 "bueltarik."
 
-#: src/engine/gameplay.cpp:324 src/engine/gameplay.cpp:350
+#: src/engine/gameplay.cpp:315 src/engine/gameplay.cpp:341
 #, kde-format
 msgctxt "Filter for a file dialog"
 msgid "Palapeli puzzles (*.puzzle)"
 msgstr "Palapeli buru-hausgarriak (*.puzzle)"
 
-#: src/engine/gameplay.cpp:326
+#: src/engine/gameplay.cpp:317
 #, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
 msgstr "Inportatu Palapeli buru-hausgarriak"
 
-#: src/engine/gameplay.cpp:352
+#: src/engine/gameplay.cpp:343
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
 msgstr "Gorde Palapeli buru-hausgarriak"
 
-#: src/engine/gameplay.cpp:367
+#: src/engine/gameplay.cpp:358
 #, kde-format
 msgid "Create a piece holder"
 msgstr "Sortu piezen euskarri bat"
 
-#: src/engine/gameplay.cpp:368
+#: src/engine/gameplay.cpp:359
 #, kde-format
 msgid "Enter a short name (optional):"
 msgstr "Sartu izen labur bat (hautazkoa):"
 
-#: src/engine/gameplay.cpp:414
+#: src/engine/gameplay.cpp:405
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can delete it, "
@@ -403,13 +403,13 @@ msgstr ""
 "Piezen euskarri bati klik egin behar diozu hura hautatzeko ezabatu aurretik, "
 "edo bestela haren ixteko botoiari klik egin."
 
-#: src/engine/gameplay.cpp:433
+#: src/engine/gameplay.cpp:424
 #, kde-format
 msgid "The selected piece holder must be empty before you can delete it."
 msgstr ""
 "Hautatutako piezen euskarria hutsik egon behar da ezabatu ahal izateko."
 
-#: src/engine/gameplay.cpp:452
+#: src/engine/gameplay.cpp:443
 #, kde-format
 msgid ""
 "The selected piece holder must contain some pieces for 'Select all' to use."
@@ -417,7 +417,7 @@ msgstr ""
 "Hautatutako piezen euskarriak pieza batzuk izan behar ditu 'Hautatu guztia' "
 "erabiltzeko."
 
-#: src/engine/gameplay.cpp:458
+#: src/engine/gameplay.cpp:449
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can select all "
@@ -426,7 +426,7 @@ msgstr ""
 "Piezen euskarri bati klik egin behar diozu hura hautatzeko dituen pieza "
 "guztiak hautatu ahal izateko."
 
-#: src/engine/gameplay.cpp:478
+#: src/engine/gameplay.cpp:469
 #, kde-format
 msgid ""
 "To rearrange pieces, either the puzzle table must have some selected pieces "
@@ -436,7 +436,7 @@ msgstr ""
 "izan behar ditu edo hautatutako piezak dituen hautatutako piezen euskarri "
 "bat egon behar da."
 
-#: src/engine/gameplay.cpp:540
+#: src/engine/gameplay.cpp:531
 #, kde-format
 msgid ""
 "You need to have a piece holder and click it to select it before you can "
@@ -445,7 +445,7 @@ msgstr ""
 "Piezen euskarri bat izan eta hura hautatzeko klik egin behar diozu hartatik "
 "edo hartara piezak eramateko."
 
-#: src/engine/gameplay.cpp:564
+#: src/engine/gameplay.cpp:551
 #, kde-format
 msgid ""
 "You have selected to transfer a large piece containing more than six small "
@@ -454,13 +454,13 @@ msgstr ""
 "Piezen euskarri batera sei pieza baino gehiago dituen zati handi bat "
 "eramatea hautatu duzu. Benetan egin nahi duzu?"
 
-#: src/engine/gameplay.cpp:569
+#: src/engine/gameplay.cpp:556
 #, kde-format
 msgctxt "@action:button"
 msgid "Transfer"
 msgstr "Transferentzia"
 
-#: src/engine/gameplay.cpp:592
+#: src/engine/gameplay.cpp:575
 #, kde-format
 msgid ""
 "You need to select one or more pieces to be transferred out of the selected "
@@ -469,7 +469,7 @@ msgstr ""
 "Pieza bat edo gehiago hautatu behar duzu piezen euskarri batera taulatik/"
 "batetik taulara eramateko."
 
-#: src/engine/gameplay.cpp:610
+#: src/engine/gameplay.cpp:593
 #, kde-format
 msgid ""
 "You need to select one or more pieces to be transferred from the previous "
@@ -478,7 +478,7 @@ msgstr ""
 "Pieza bat edo gehiago hautatu behar duzu aurreko piezen euskarritik berriki "
 "hautatutako euskarrira eramateko."
 
-#: src/engine/gameplay.cpp:618
+#: src/engine/gameplay.cpp:601
 #, kde-format
 msgid ""
 "You need to have at least two holders, one of them selected and with "
@@ -488,13 +488,13 @@ msgstr ""
 "hautatutako piezak dituena, piezak bigarren euskarri batera eraman ahal "
 "izateko."
 
-#: src/engine/gameplay.cpp:1095
+#: src/engine/gameplay.cpp:1078
 #, kde-format
 msgctxt "For holding pieces"
 msgid "Hand"
 msgstr "Eskua"
 
-#: src/engine/gameplay.cpp:1098
+#: src/engine/gameplay.cpp:1081
 #, kde-format
 msgctxt "Hints for solving large puzzles"
 msgid ""
@@ -591,13 +591,13 @@ msgstr ""
 "ditzaketen ia gauza guztiak egin ditzakete, ebazpenaren zati bat eraikitzeko "
 "piezak elkartzea barne."
 
-#: src/engine/gameplay.cpp:1148
+#: src/engine/gameplay.cpp:1131
 #, kde-format
 msgctxt "Caption for hints"
 msgid "Solving Large Puzzles"
 msgstr "Buru-hausgarri handiak ebaztea"
 
-#: src/engine/gameplay.cpp:1220
+#: src/engine/gameplay.cpp:1195
 #, kde-format
 msgid "Great! You have finished the puzzle."
 msgstr "Bikain! buru-hausgarria osatu duzu."
@@ -762,12 +762,12 @@ msgstr "Labainketa horizontala"
 msgid "Vertical-Scroll"
 msgstr "Labainketa bertikala"
 
-#: src/engine/view.cpp:341
+#: src/engine/view.cpp:337
 #, kde-format
 msgid "Your progress is saved automatically while you play."
 msgstr "Zure aurrerapena automatikoki gordetzen da jokatzen duzun bitartean."
 
-#: src/engine/view.cpp:341
+#: src/engine/view.cpp:337
 #, kde-format
 msgctxt "used as caption for a dialog that explains the autosave feature"
 msgid "Automatic saving"
@@ -836,44 +836,44 @@ msgstr "Errorea: Ez da buru-hausgarri fitxategirik eman."
 msgid "Importing puzzle \"%1\" into your collection"
 msgstr "\"%1\" buru-hausgarria zure bildumara inportatzea"
 
-#: src/main.cpp:33
+#: src/main.cpp:29
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
 msgstr "Palapeli"
 
-#: src/main.cpp:35
+#: src/main.cpp:31
 #, kde-format
 msgid "Jigsaw Puzzle Game"
 msgstr "koskadun buru-hausgarri jokoa"
 
-#: src/main.cpp:37
+#: src/main.cpp:33
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
 msgstr "Copyright 2009, 2010, Stefan Majewsky"
 
-#: src/main.cpp:40
+#: src/main.cpp:36
 #, kde-format
 msgid "Stefan Majewsky"
 msgstr "Stefan Majewsky"
 
-#: src/main.cpp:41
+#: src/main.cpp:37
 #, kde-format
 msgid "Johannes Loehnert"
 msgstr "Johannes Loehnert"
 
-#: src/main.cpp:42
+#: src/main.cpp:38
 #, kde-format
 msgid "The option to preview the completed puzzle"
 msgstr "Osatutako buru-hausgarria ikusteko aukera"
 
-#: src/main.cpp:47
+#: src/main.cpp:43
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr ""
 "Buru-hausgarri fitxategiaren bide-izena (ireki egingo da -i ipintzen ez bada)"
 
-#: src/main.cpp:48
+#: src/main.cpp:44
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -884,7 +884,7 @@ msgstr ""
 "egiten buru-hausgarri fitxategirik ematen ez bazaio). Leiho nagusia ez da "
 "erakutsiko buru-hausgarria inportatu ondoren."
 
-#: src/main.cpp:61
+#: src/main.cpp:57
 #, kde-format
 msgid "No file to import given"
 msgstr "Ez da eman inportatzeko fitxategirik"
@@ -1091,108 +1091,108 @@ msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Unprecise (easier)"
 msgstr "Zehaztasun gutxiago (errazago)"
 
-#: src/window/mainwindow.cpp:55
+#: src/window/mainwindow.cpp:54
 #, kde-format
 msgid "Show Statusbar of Puzzle Table"
 msgstr "Erakutsi buru-hausgarri taularen egoera-barra"
 
-#: src/window/mainwindow.cpp:58
+#: src/window/mainwindow.cpp:57
 #, kde-format
 msgid "Back to &Collection"
 msgstr "Itzuli &bildumara"
 
-#: src/window/mainwindow.cpp:59
+#: src/window/mainwindow.cpp:58
 #, kde-format
 msgid "Go back to the collection to choose another puzzle"
 msgstr "Itzuli bildumara beste buru-hausgarri bat aukeratzera"
 
-#: src/window/mainwindow.cpp:65
+#: src/window/mainwindow.cpp:64
 #, kde-format
 msgid "Create &New Puzzle..."
 msgstr "Sortu buru-hausgarri &berria..."
 
-#: src/window/mainwindow.cpp:66
+#: src/window/mainwindow.cpp:65
 #, kde-format
 msgid "Create a new puzzle using an image file from your disk"
 msgstr "Sortu buru-hausgarri berria zure diskoko irudi-fitxategi bat erabiliz"
 
-#: src/window/mainwindow.cpp:72
+#: src/window/mainwindow.cpp:71
 #, kde-format
 msgid "&Delete Puzzle"
 msgstr "E&zabatu buru-hausgarria"
 
-#: src/window/mainwindow.cpp:74
+#: src/window/mainwindow.cpp:73
 #, kde-format
 msgid "Delete the selected puzzle from your collection"
 msgstr "Ezabatu hautatutako buru-hausgarria zure bildumatik"
 
-#: src/window/mainwindow.cpp:80
+#: src/window/mainwindow.cpp:79
 #, kde-format
 msgid "&Import from File..."
 msgstr "&Inportatu fitxategitik..."
 
-#: src/window/mainwindow.cpp:81
+#: src/window/mainwindow.cpp:80
 #, kde-format
 msgid "Import a new puzzle from a file into your collection"
 msgstr "Inportatu buru-hausgarri berri bat fitxategi batetik zure bildumara"
 
-#: src/window/mainwindow.cpp:86
+#: src/window/mainwindow.cpp:85
 #, kde-format
 msgid "&Export to File..."
 msgstr "&Esportatu fitxategira..."
 
-#: src/window/mainwindow.cpp:88
+#: src/window/mainwindow.cpp:87
 #, kde-format
 msgid "Export the selected puzzle from your collection into a file"
 msgstr "Esportatu hautatutako buru-hausgarria zure bildumatik fitxategi batera"
 
-#: src/window/mainwindow.cpp:94
+#: src/window/mainwindow.cpp:93
 #, kde-format
 msgid "&Restart Puzzle..."
 msgstr "Be&rrabiarazi buru-hausgarria..."
 
-#: src/window/mainwindow.cpp:95
+#: src/window/mainwindow.cpp:94
 #, kde-format
 msgid "Delete the saved progress and reshuffle the pieces"
 msgstr "Ezabatu gordetako aurrerapena eta piezak berriz nahastu"
 
-#: src/window/mainwindow.cpp:102
+#: src/window/mainwindow.cpp:101
 #, kde-format
 msgid "&Create Piece Holder..."
 msgstr "&Sortu pieza-euskarria..."
 
-#: src/window/mainwindow.cpp:103
+#: src/window/mainwindow.cpp:102
 #, kde-format
 msgid "Create a temporary holder for sorting pieces"
 msgstr "Sortu aldi baterako piezen euskarri bat piezak ordenatzeko"
 
-#: src/window/mainwindow.cpp:110
+#: src/window/mainwindow.cpp:109
 #, kde-format
 msgid "&Delete Piece Holder"
 msgstr "E&zabatu pieza-euskarria"
 
-#: src/window/mainwindow.cpp:111
+#: src/window/mainwindow.cpp:110
 #, kde-format
 msgid "Delete a selected temporary holder when it is empty"
 msgstr ""
 "Ezabatu hautatutako aldi baterako piezen euskarri bat hura hutsik dagoenean"
 
-#: src/window/mainwindow.cpp:117
+#: src/window/mainwindow.cpp:116
 #, kde-format
 msgid "&Select All in Holder"
 msgstr "&Hautatu euskarriko guztia"
 
-#: src/window/mainwindow.cpp:118
+#: src/window/mainwindow.cpp:117
 #, kde-format
 msgid "Select all pieces in a selected piece holder"
 msgstr "Hautatu piezen euskarriko pieza guztiak"
 
-#: src/window/mainwindow.cpp:124
+#: src/window/mainwindow.cpp:123
 #, kde-format
 msgid "&Rearrange Pieces"
 msgstr "Be&rrantolatu piezak"
 
-#: src/window/mainwindow.cpp:125
+#: src/window/mainwindow.cpp:124
 #, kde-format
 msgid ""
 "Rearrange all pieces in a selected piece holder or selected pieces in any "
@@ -1201,34 +1201,34 @@ msgstr ""
 "Berrantolatu hautatutako piezen euskarri bateko pieza guztiak edo edozein "
 "leihotan hautatutako piezak"
 
-#: src/window/mainwindow.cpp:132
+#: src/window/mainwindow.cpp:131
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "&Preview"
 msgstr "&Aurreikusi"
 
-#: src/window/mainwindow.cpp:134
+#: src/window/mainwindow.cpp:133
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "Preview"
 msgstr "Aurreikusi"
 
-#: src/window/mainwindow.cpp:135
+#: src/window/mainwindow.cpp:134
 #, kde-format
 msgid "Show or hide the image of the completed puzzle"
 msgstr "Erakutsi edo ezkutatu osatutako buru-hausgarriaren irudia"
 
-#: src/window/mainwindow.cpp:149
+#: src/window/mainwindow.cpp:148
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Gaitu mezu guztiak"
 
-#: src/window/mainwindow.cpp:162
+#: src/window/mainwindow.cpp:157
 #, kde-format
 msgid "Enable all messages again?"
 msgstr "Mezu guztiak berriz gaitu?"
 
-#: src/window/mainwindow.cpp:163
+#: src/window/mainwindow.cpp:158
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"

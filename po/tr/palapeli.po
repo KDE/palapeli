@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdegames-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-30 00:43+0000\n"
+"POT-Creation-Date: 2023-09-25 01:40+0000\n"
 "PO-Revision-Date: 2023-06-04 02:02+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -202,7 +202,7 @@ msgstr "Sağ Alt"
 msgid "Remove this trigger"
 msgstr "Bu tetiği kaldır"
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:255
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
 #, kde-format
 msgid "Input here..."
 msgstr "Buraya girin..."
@@ -216,7 +216,7 @@ msgstr ""
 "İstediğiniz değiştirici düğmeleri basılı tutarken, burada bir fare düğmesine "
 "tıklayın veya fare tekerleğini sarın"
 
-#: src/config/mouseinputbutton.cpp:228
+#: src/config/mouseinputbutton.cpp:224
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -224,7 +224,7 @@ msgctxt ""
 msgid "None"
 msgstr "Hiçbiri"
 
-#: src/config/mouseinputbutton.cpp:234
+#: src/config/mouseinputbutton.cpp:230
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "Eylemlerin nasıl tetiklendiğini değiştirmek için tıklayın"
@@ -348,51 +348,51 @@ msgstr ""
 msgid "Change size of puzzle table area by dragging its edges"
 msgstr "Kenarlarını sürükleyerek yapmoz tahtası alanının boyutunu değiştir"
 
-#: src/engine/gameplay.cpp:185 src/engine/gameplay.cpp:1158
+#: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
 #, kde-format
 msgid "You have finished the puzzle. Do you want to restart it now?"
 msgstr "Yapbozu çözdünüz. Şimdi yeniden başlatmak istiyor musunuz?"
 
-#: src/engine/gameplay.cpp:186 src/engine/gameplay.cpp:1159
+#: src/engine/gameplay.cpp:181 src/engine/gameplay.cpp:1138
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
 msgstr "Yeniden Başlat"
 
-#: src/engine/gameplay.cpp:305
+#: src/engine/gameplay.cpp:296
 #, kde-format
 msgid "The following puzzles will be deleted. This action cannot be undone."
 msgstr "Aşağıdaki yapbozlar silinecek. Bu eylem geri alınamaz."
 
-#: src/engine/gameplay.cpp:324 src/engine/gameplay.cpp:350
+#: src/engine/gameplay.cpp:315 src/engine/gameplay.cpp:341
 #, kde-format
 msgctxt "Filter for a file dialog"
 msgid "Palapeli puzzles (*.puzzle)"
 msgstr "Palapeli yapbozları (*.puzzle)"
 
-#: src/engine/gameplay.cpp:326
+#: src/engine/gameplay.cpp:317
 #, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
 msgstr "Palapeli Yapbozlarını İçe Aktar"
 
-#: src/engine/gameplay.cpp:352
+#: src/engine/gameplay.cpp:343
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
 msgstr "Palapeli Yapbozlarını Kaydet"
 
-#: src/engine/gameplay.cpp:367
+#: src/engine/gameplay.cpp:358
 #, kde-format
 msgid "Create a piece holder"
 msgstr "Parça tutucu oluştur"
 
-#: src/engine/gameplay.cpp:368
+#: src/engine/gameplay.cpp:359
 #, kde-format
 msgid "Enter a short name (optional):"
 msgstr "Kısa bir ad girin (isteğe bağlı):"
 
-#: src/engine/gameplay.cpp:414
+#: src/engine/gameplay.cpp:405
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can delete it, "
@@ -401,19 +401,19 @@ msgstr ""
 "Bir parça tutucuyu, silmeden önce seçmek için tıklamanız gerekir;,aksi halde "
 "Kapat düğmesine basabilirsiniz."
 
-#: src/engine/gameplay.cpp:433
+#: src/engine/gameplay.cpp:424
 #, kde-format
 msgid "The selected piece holder must be empty before you can delete it."
 msgstr "Seçili parça tutucu, silmeden önce boş olmalıdır."
 
-#: src/engine/gameplay.cpp:452
+#: src/engine/gameplay.cpp:443
 #, kde-format
 msgid ""
 "The selected piece holder must contain some pieces for 'Select all' to use."
 msgstr ""
 "Seçili parça tutucu, Tümünü seç' için kullanılacak bazı parçalar içermelidir."
 
-#: src/engine/gameplay.cpp:458
+#: src/engine/gameplay.cpp:449
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can select all "
@@ -422,7 +422,7 @@ msgstr ""
 "İçindeki parçaları seçmeden önce seçmek için bir parça tutucusunu tıklamanız "
 "gerekir."
 
-#: src/engine/gameplay.cpp:478
+#: src/engine/gameplay.cpp:469
 #, kde-format
 msgid ""
 "To rearrange pieces, either the puzzle table must have some selected pieces "
@@ -431,7 +431,7 @@ msgstr ""
 "Parçaları yeniden düzenlemek için, yapboz tahtasında bazı seçilmiş parçalar "
 "olmalıdır veya seçilen bazı parçalar içeren seçilmiş bir tutucu olmalıdır."
 
-#: src/engine/gameplay.cpp:540
+#: src/engine/gameplay.cpp:531
 #, kde-format
 msgid ""
 "You need to have a piece holder and click it to select it before you can "
@@ -440,7 +440,7 @@ msgstr ""
 "Parça tutacağına sahip olmalısınız ve parçayı içine veya dışına "
 "aktarabilmeniz için bir parça tutucuya sahip olmanız gerekir."
 
-#: src/engine/gameplay.cpp:564
+#: src/engine/gameplay.cpp:551
 #, kde-format
 msgid ""
 "You have selected to transfer a large piece containing more than six small "
@@ -449,13 +449,13 @@ msgstr ""
 "Altı parçadan daha büyük bir parçayı bir tutucuya devretmeyi seçtiniz. "
 "Gerçekten bunu yapmak istiyor musun?"
 
-#: src/engine/gameplay.cpp:569
+#: src/engine/gameplay.cpp:556
 #, kde-format
 msgctxt "@action:button"
 msgid "Transfer"
 msgstr "Aktar"
 
-#: src/engine/gameplay.cpp:592
+#: src/engine/gameplay.cpp:575
 #, kde-format
 msgid ""
 "You need to select one or more pieces to be transferred out of the selected "
@@ -464,7 +464,7 @@ msgstr ""
 "Seçilen tutucunun dışına aktarılacak bir veya daha fazla parçayı seçmeniz "
 "veya içine aktarmak üzere yapboz tahtasından parçaları seçmeniz gerekir."
 
-#: src/engine/gameplay.cpp:610
+#: src/engine/gameplay.cpp:593
 #, kde-format
 msgid ""
 "You need to select one or more pieces to be transferred from the previous "
@@ -473,7 +473,7 @@ msgstr ""
 "Bir önceki sahibinden yeni seçilen tutucuya aktarılacak bir veya daha fazla "
 "parçayı seçmeniz gerekiyor."
 
-#: src/engine/gameplay.cpp:618
+#: src/engine/gameplay.cpp:601
 #, kde-format
 msgid ""
 "You need to have at least two holders, one of them selected and with "
@@ -482,13 +482,13 @@ msgstr ""
 "Parçaları ikinci bir tutucuya aktarabilmeniz için önce biri seçilmiş ve "
 "içinde seçilmiş parçalar bulunan en az iki tutacağınız olmalıdır."
 
-#: src/engine/gameplay.cpp:1095
+#: src/engine/gameplay.cpp:1078
 #, kde-format
 msgctxt "For holding pieces"
 msgid "Hand"
 msgstr "El"
 
-#: src/engine/gameplay.cpp:1098
+#: src/engine/gameplay.cpp:1081
 #, kde-format
 msgctxt "Hints for solving large puzzles"
 msgid ""
@@ -587,13 +587,13 @@ msgstr ""
 "hemen her şeyi yapabilir; çözümün bir bölümünü oluşturmak için parçaları "
 "birleştirebilirler."
 
-#: src/engine/gameplay.cpp:1148
+#: src/engine/gameplay.cpp:1131
 #, kde-format
 msgctxt "Caption for hints"
 msgid "Solving Large Puzzles"
 msgstr "Büyük Yapbozları Çözmek"
 
-#: src/engine/gameplay.cpp:1220
+#: src/engine/gameplay.cpp:1195
 #, kde-format
 msgid "Great! You have finished the puzzle."
 msgstr "Harika! Yapbozu tamamladınız."
@@ -758,12 +758,12 @@ msgstr "Yatay Sarma"
 msgid "Vertical-Scroll"
 msgstr "Dikey Sarma"
 
-#: src/engine/view.cpp:341
+#: src/engine/view.cpp:337
 #, kde-format
 msgid "Your progress is saved automatically while you play."
 msgstr "Siz oynarken oyundaki ilerleyişini otomatik olarak kaydedildi."
 
-#: src/engine/view.cpp:341
+#: src/engine/view.cpp:337
 #, kde-format
 msgctxt "used as caption for a dialog that explains the autosave feature"
 msgid "Automatic saving"
@@ -832,43 +832,43 @@ msgstr "Hata: Hiçbir yapboz dosyası verilmedi."
 msgid "Importing puzzle \"%1\" into your collection"
 msgstr "\"%1\" yapbozu koleksiyonuna aktarılıyor"
 
-#: src/main.cpp:33
+#: src/main.cpp:29
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
 msgstr "Palapeli"
 
-#: src/main.cpp:35
+#: src/main.cpp:31
 #, kde-format
 msgid "Jigsaw Puzzle Game"
 msgstr "Yapboz Oyunu"
 
-#: src/main.cpp:37
+#: src/main.cpp:33
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
 msgstr "Telif Hakkı 2009, 2010, Stefan Majewsky"
 
-#: src/main.cpp:40
+#: src/main.cpp:36
 #, kde-format
 msgid "Stefan Majewsky"
 msgstr "Stefan Majewsky"
 
-#: src/main.cpp:41
+#: src/main.cpp:37
 #, kde-format
 msgid "Johannes Loehnert"
 msgstr "Johannes Loehnert"
 
-#: src/main.cpp:42
+#: src/main.cpp:38
 #, kde-format
 msgid "The option to preview the completed puzzle"
 msgstr "Tamamlanan yapbozun önizleme seçeneği"
 
-#: src/main.cpp:47
+#: src/main.cpp:43
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "Yapboz dosyasının yolu (-i verilmezse, açılacaktır)"
 
-#: src/main.cpp:48
+#: src/main.cpp:44
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -879,7 +879,7 @@ msgstr ""
 "verilmezse hiçbir şey yapmaz). Verilen yapbozu içe aktardıktan sonra ana "
 "pencere gösterilmeyecektir."
 
-#: src/main.cpp:61
+#: src/main.cpp:57
 #, kde-format
 msgid "No file to import given"
 msgstr "İçe aktarılacak bir dosya verilmedi"
@@ -1085,108 +1085,108 @@ msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Unprecise (easier)"
 msgstr "Az hassas (kolay)"
 
-#: src/window/mainwindow.cpp:55
+#: src/window/mainwindow.cpp:54
 #, kde-format
 msgid "Show Statusbar of Puzzle Table"
 msgstr "Yapboz Tahtasının Durum Çubuğunu Göster"
 
-#: src/window/mainwindow.cpp:58
+#: src/window/mainwindow.cpp:57
 #, kde-format
 msgid "Back to &Collection"
 msgstr "&Koleksiyona Geri Dön"
 
-#: src/window/mainwindow.cpp:59
+#: src/window/mainwindow.cpp:58
 #, kde-format
 msgid "Go back to the collection to choose another puzzle"
 msgstr "Başka bir yapboz seçmek için koleksiyona geri dön"
 
-#: src/window/mainwindow.cpp:65
+#: src/window/mainwindow.cpp:64
 #, kde-format
 msgid "Create &New Puzzle..."
 msgstr "&Yeni Yapboz Oluştur..."
 
-#: src/window/mainwindow.cpp:66
+#: src/window/mainwindow.cpp:65
 #, kde-format
 msgid "Create a new puzzle using an image file from your disk"
 msgstr ""
 "Diskiniz üzerindeki bir resim dosyasını kullanarak yeni bir yapboz oluştur"
 
-#: src/window/mainwindow.cpp:72
+#: src/window/mainwindow.cpp:71
 #, kde-format
 msgid "&Delete Puzzle"
 msgstr "Yapbozu &Sil"
 
-#: src/window/mainwindow.cpp:74
+#: src/window/mainwindow.cpp:73
 #, kde-format
 msgid "Delete the selected puzzle from your collection"
 msgstr "Seçili yapbozu koleksiyonundan sil"
 
-#: src/window/mainwindow.cpp:80
+#: src/window/mainwindow.cpp:79
 #, kde-format
 msgid "&Import from File..."
 msgstr "&Dosyadan İçe Aktar..."
 
-#: src/window/mainwindow.cpp:81
+#: src/window/mainwindow.cpp:80
 #, kde-format
 msgid "Import a new puzzle from a file into your collection"
 msgstr "Yeni bir yapbozu dosyadan koleksiyonuna aktar"
 
-#: src/window/mainwindow.cpp:86
+#: src/window/mainwindow.cpp:85
 #, kde-format
 msgid "&Export to File..."
 msgstr "&Dosyaya Dışa Aktar..."
 
-#: src/window/mainwindow.cpp:88
+#: src/window/mainwindow.cpp:87
 #, kde-format
 msgid "Export the selected puzzle from your collection into a file"
 msgstr "Koleksiyonundan seçilen yapbozu bir dosyaya aktar"
 
-#: src/window/mainwindow.cpp:94
+#: src/window/mainwindow.cpp:93
 #, kde-format
 msgid "&Restart Puzzle..."
 msgstr "Yapbozu &Yeniden Başlat..."
 
-#: src/window/mainwindow.cpp:95
+#: src/window/mainwindow.cpp:94
 #, kde-format
 msgid "Delete the saved progress and reshuffle the pieces"
 msgstr "Kayıtlı işlemi sil ve parçaları yeniden karıştır"
 
-#: src/window/mainwindow.cpp:102
+#: src/window/mainwindow.cpp:101
 #, kde-format
 msgid "&Create Piece Holder..."
 msgstr "Parça Tutucu &Oluştur..."
 
-#: src/window/mainwindow.cpp:103
+#: src/window/mainwindow.cpp:102
 #, kde-format
 msgid "Create a temporary holder for sorting pieces"
 msgstr "Parçaları sıralamak için geçici bir tutucu oluştur"
 
-#: src/window/mainwindow.cpp:110
+#: src/window/mainwindow.cpp:109
 #, kde-format
 msgid "&Delete Piece Holder"
 msgstr "Parça Tutucuyu &Sil"
 
-#: src/window/mainwindow.cpp:111
+#: src/window/mainwindow.cpp:110
 #, kde-format
 msgid "Delete a selected temporary holder when it is empty"
 msgstr "Seçili bir geçici tutucu boşkensa, onu sil"
 
-#: src/window/mainwindow.cpp:117
+#: src/window/mainwindow.cpp:116
 #, kde-format
 msgid "&Select All in Holder"
 msgstr "Tutucudakilerin &Tümünü Seç"
 
-#: src/window/mainwindow.cpp:118
+#: src/window/mainwindow.cpp:117
 #, kde-format
 msgid "Select all pieces in a selected piece holder"
 msgstr "Seçili parça tutucudaki tüm parçaları seç"
 
-#: src/window/mainwindow.cpp:124
+#: src/window/mainwindow.cpp:123
 #, kde-format
 msgid "&Rearrange Pieces"
 msgstr "Parçaları &Yeniden Düzenle"
 
-#: src/window/mainwindow.cpp:125
+#: src/window/mainwindow.cpp:124
 #, kde-format
 msgid ""
 "Rearrange all pieces in a selected piece holder or selected pieces in any "
@@ -1195,34 +1195,34 @@ msgstr ""
 "Seçili parça tutucudaki tüm parçaları ya da herhangi bir penceredeki seçili "
 "parçaları yeniden düzenle"
 
-#: src/window/mainwindow.cpp:132
+#: src/window/mainwindow.cpp:131
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "&Preview"
 msgstr "&Önizleme"
 
-#: src/window/mainwindow.cpp:134
+#: src/window/mainwindow.cpp:133
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "Preview"
 msgstr "Önizleme"
 
-#: src/window/mainwindow.cpp:135
+#: src/window/mainwindow.cpp:134
 #, kde-format
 msgid "Show or hide the image of the completed puzzle"
 msgstr "Tamamlanmış yapbozun resmini göster veya gizle"
 
-#: src/window/mainwindow.cpp:149
+#: src/window/mainwindow.cpp:148
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Tüm İletileri Etkinleştir"
 
-#: src/window/mainwindow.cpp:162
+#: src/window/mainwindow.cpp:157
 #, kde-format
 msgid "Enable all messages again?"
 msgstr "Tüm iletiler yeniden etkinleştirilsin mi?"
 
-#: src/window/mainwindow.cpp:163
+#: src/window/mainwindow.cpp:158
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"

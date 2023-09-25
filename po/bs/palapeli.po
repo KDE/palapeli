@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-30 00:43+0000\n"
+"POT-Creation-Date: 2023-09-25 01:40+0000\n"
 "PO-Revision-Date: 2015-01-05 14:27+0000\n"
 "Last-Translator: Velid <velid.aljic@gmail.com>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -202,7 +202,7 @@ msgstr "Dolje desno"
 msgid "Remove this trigger"
 msgstr "Ukloni ovaj okidač"
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:255
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
 #, kde-format
 msgid "Input here..."
 msgstr "Unesite ovdje..."
@@ -216,7 +216,7 @@ msgstr ""
 "Držite željene modifikatorske tastere, pa kliknite na dugme ili okrenite "
 "točkić na mišu."
 
-#: src/config/mouseinputbutton.cpp:228
+#: src/config/mouseinputbutton.cpp:224
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -224,7 +224,7 @@ msgctxt ""
 msgid "None"
 msgstr "Nikakva"
 
-#: src/config/mouseinputbutton.cpp:234
+#: src/config/mouseinputbutton.cpp:230
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "Kliknite da izmijenite način okidanja radnje."
@@ -355,23 +355,23 @@ msgstr ""
 msgid "Change size of puzzle table area by dragging its edges"
 msgstr "Menjanje veličine površi slagačke table prevlačenjem ivica"
 
-#: src/engine/gameplay.cpp:185 src/engine/gameplay.cpp:1158
+#: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
 #, kde-format
 msgid "You have finished the puzzle. Do you want to restart it now?"
 msgstr "Prošli put ste završili zagonetku. Želite li da krenete iz početka?"
 
-#: src/engine/gameplay.cpp:186 src/engine/gameplay.cpp:1159
+#: src/engine/gameplay.cpp:181 src/engine/gameplay.cpp:1138
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
 msgstr ""
 
-#: src/engine/gameplay.cpp:305
+#: src/engine/gameplay.cpp:296
 #, kde-format
 msgid "The following puzzles will be deleted. This action cannot be undone."
 msgstr "Sljedeće zagonetke će biti obrisane. Ova akcija se ne može poništiti."
 
-#: src/engine/gameplay.cpp:324 src/engine/gameplay.cpp:350
+#: src/engine/gameplay.cpp:315 src/engine/gameplay.cpp:341
 #, fuzzy, kde-format
 #| msgctxt "Filter for a file dialog"
 #| msgid "*.puzzle|Palapeli puzzles (*.puzzle)"
@@ -379,13 +379,13 @@ msgctxt "Filter for a file dialog"
 msgid "Palapeli puzzles (*.puzzle)"
 msgstr "*.puzzle|Palapelijeve slagalice"
 
-#: src/engine/gameplay.cpp:326
+#: src/engine/gameplay.cpp:317
 #, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
 msgstr ""
 
-#: src/engine/gameplay.cpp:352
+#: src/engine/gameplay.cpp:343
 #, fuzzy, kde-format
 #| msgctxt "Filter for a file dialog"
 #| msgid "*.puzzle|Palapeli puzzles (*.puzzle)"
@@ -393,17 +393,17 @@ msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
 msgstr "*.puzzle|Palapelijeve slagalice"
 
-#: src/engine/gameplay.cpp:367
+#: src/engine/gameplay.cpp:358
 #, kde-format
 msgid "Create a piece holder"
 msgstr "Kreiraj držač dijelova"
 
-#: src/engine/gameplay.cpp:368
+#: src/engine/gameplay.cpp:359
 #, kde-format
 msgid "Enter a short name (optional):"
 msgstr "Unesi kratko ime (opciono):"
 
-#: src/engine/gameplay.cpp:414
+#: src/engine/gameplay.cpp:405
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can delete it, "
@@ -412,20 +412,20 @@ msgstr ""
 "Trebate kliknuti na držač komada da ga odaberete prije nego što ga možete "
 "brisati, ili samo kliknite na njegovo dugme Zatvori"
 
-#: src/engine/gameplay.cpp:433
+#: src/engine/gameplay.cpp:424
 #, kde-format
 msgid "The selected piece holder must be empty before you can delete it."
 msgstr ""
 "Držač izabranog komada mora biti prazan prije nego što ga možete brisati"
 
-#: src/engine/gameplay.cpp:452
+#: src/engine/gameplay.cpp:443
 #, kde-format
 msgid ""
 "The selected piece holder must contain some pieces for 'Select all' to use."
 msgstr ""
 "Izabrani držač mora sadržati neke dijelove za 'Izaberi sve' za upotrebu."
 
-#: src/engine/gameplay.cpp:458
+#: src/engine/gameplay.cpp:449
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can select all "
@@ -434,7 +434,7 @@ msgstr ""
 "Morate kliknuti na držača dijelova da ga izaberete prije nego izaberete sve "
 "dijelove u njemu."
 
-#: src/engine/gameplay.cpp:478
+#: src/engine/gameplay.cpp:469
 #, kde-format
 msgid ""
 "To rearrange pieces, either the puzzle table must have some selected pieces "
@@ -443,7 +443,7 @@ msgstr ""
 "Da preuredite dijelove, ili tabla zagonetke mora imati neke izabrane "
 "dijelove ili mora biti izabran držač s nekim izabranim komadima u njemu."
 
-#: src/engine/gameplay.cpp:540
+#: src/engine/gameplay.cpp:531
 #, kde-format
 msgid ""
 "You need to have a piece holder and click it to select it before you can "
@@ -452,7 +452,7 @@ msgstr ""
 "Morate imati držača dijelova i kliknuti na njega da ga odaberete prije nego "
 "možete prebaciti dijelove na njega ili iz njega."
 
-#: src/engine/gameplay.cpp:564
+#: src/engine/gameplay.cpp:551
 #, kde-format
 msgid ""
 "You have selected to transfer a large piece containing more than six small "
@@ -461,13 +461,13 @@ msgstr ""
 "Odabrali ste da prebacite veliki komad koji se sastoji od više od šest malih "
 "komada u držač. Da li to zaista želite?"
 
-#: src/engine/gameplay.cpp:569
+#: src/engine/gameplay.cpp:556
 #, kde-format
 msgctxt "@action:button"
 msgid "Transfer"
 msgstr ""
 
-#: src/engine/gameplay.cpp:592
+#: src/engine/gameplay.cpp:575
 #, kde-format
 msgid ""
 "You need to select one or more pieces to be transferred out of the selected "
@@ -476,7 +476,7 @@ msgstr ""
 "Morati izabrati jedan ili više dijelova koji se prebacuju iz izabranog "
 "držača ili izabrati dijelove iz table zagonetke da prebacite u nju."
 
-#: src/engine/gameplay.cpp:610
+#: src/engine/gameplay.cpp:593
 #, kde-format
 msgid ""
 "You need to select one or more pieces to be transferred from the previous "
@@ -485,7 +485,7 @@ msgstr ""
 "Morati izabrati jedan ili više dijelova koji se prebacuju iz prethodnog "
 "držača da budu prebačeni u novo-izabranog držača."
 
-#: src/engine/gameplay.cpp:618
+#: src/engine/gameplay.cpp:601
 #, kde-format
 msgid ""
 "You need to have at least two holders, one of them selected and with "
@@ -494,13 +494,13 @@ msgstr ""
 "Morate imati bar dva držača, jedan od njih izabran s izabranim dijelovima u "
 "njemu, prije nego možete prebaciti dijelove u drugi držač."
 
-#: src/engine/gameplay.cpp:1095
+#: src/engine/gameplay.cpp:1078
 #, kde-format
 msgctxt "For holding pieces"
 msgid "Hand"
 msgstr "Ruka"
 
-#: src/engine/gameplay.cpp:1098
+#: src/engine/gameplay.cpp:1081
 #, kde-format
 msgctxt "Hints for solving large puzzles"
 msgid ""
@@ -596,13 +596,13 @@ msgstr ""
 "prozor mogu da urade, uključujući spajanje komada za gradnju dijela  "
 "rješenja."
 
-#: src/engine/gameplay.cpp:1148
+#: src/engine/gameplay.cpp:1131
 #, kde-format
 msgctxt "Caption for hints"
 msgid "Solving Large Puzzles"
 msgstr "Rješavanje velikh zagonetki"
 
-#: src/engine/gameplay.cpp:1220
+#: src/engine/gameplay.cpp:1195
 #, kde-format
 msgid "Great! You have finished the puzzle."
 msgstr "Sjajno! Završili ste slagalicu."
@@ -770,12 +770,12 @@ msgstr "Vodoravno klizanje"
 msgid "Vertical-Scroll"
 msgstr "Uspravno klizanje"
 
-#: src/engine/view.cpp:341
+#: src/engine/view.cpp:337
 #, kde-format
 msgid "Your progress is saved automatically while you play."
 msgstr "Vaš napredak se upisuje automatski dok igrate."
 
-#: src/engine/view.cpp:341
+#: src/engine/view.cpp:337
 #, kde-format
 msgctxt "used as caption for a dialog that explains the autosave feature"
 msgid "Automatic saving"
@@ -852,44 +852,44 @@ msgstr "Greška: nije data datoteka slagalice."
 msgid "Importing puzzle \"%1\" into your collection"
 msgstr "Uvozim slagalicu „%1“ u vašu zbirku"
 
-#: src/main.cpp:33
+#: src/main.cpp:29
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
 msgstr "Palapeli"
 
-#: src/main.cpp:35
+#: src/main.cpp:31
 #, fuzzy, kde-format
 #| msgid "KDE Jigsaw Puzzle Game"
 msgid "Jigsaw Puzzle Game"
 msgstr "KDE igra slaganja delova"
 
-#: src/main.cpp:37
+#: src/main.cpp:33
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
 msgstr "Copyright 2009, 2010, Stefan Majewsky"
 
-#: src/main.cpp:40
+#: src/main.cpp:36
 #, kde-format
 msgid "Stefan Majewsky"
 msgstr "Stefan Majewsky"
 
-#: src/main.cpp:41
+#: src/main.cpp:37
 #, kde-format
 msgid "Johannes Loehnert"
 msgstr "Johannes Loehnert"
 
-#: src/main.cpp:42
+#: src/main.cpp:38
 #, kde-format
 msgid "The option to preview the completed puzzle"
 msgstr "Opcija za pregled završene zagonetke"
 
-#: src/main.cpp:47
+#: src/main.cpp:43
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "Staza do datoteke slagalice (biće otvoren ako se ne zada -i)"
 
-#: src/main.cpp:48
+#: src/main.cpp:44
 #, fuzzy, kde-format
 #| msgid ""
 #| "Import the given puzzle file into the local collection (does nothing if "
@@ -902,7 +902,7 @@ msgstr ""
 "Uvezi navedenu datoteku slagalice u lokalnu zbirku (ne radi ništa ako "
 "datoteka nije zadata)"
 
-#: src/main.cpp:61
+#: src/main.cpp:57
 #, kde-format
 msgid "No file to import given"
 msgstr ""
@@ -1106,118 +1106,118 @@ msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Unprecise (easier)"
 msgstr "Neprecizno (lakše)"
 
-#: src/window/mainwindow.cpp:55
+#: src/window/mainwindow.cpp:54
 #, fuzzy, kde-format
 #| msgid "Show statusbar of puzzle table"
 msgid "Show Statusbar of Puzzle Table"
 msgstr "Prikaži traku stanja slagačke table"
 
-#: src/window/mainwindow.cpp:58
+#: src/window/mainwindow.cpp:57
 #, fuzzy, kde-format
 #| msgid "Back to &collection"
 msgid "Back to &Collection"
 msgstr "Nazad u &zbirku"
 
-#: src/window/mainwindow.cpp:59
+#: src/window/mainwindow.cpp:58
 #, kde-format
 msgid "Go back to the collection to choose another puzzle"
 msgstr "Nazad do zbirke da se izabere druga zagonetka"
 
-#: src/window/mainwindow.cpp:65
+#: src/window/mainwindow.cpp:64
 #, fuzzy, kde-format
 #| msgid "Create &new puzzle..."
 msgid "Create &New Puzzle..."
 msgstr "Napravi &novu slagalicu..."
 
-#: src/window/mainwindow.cpp:66
+#: src/window/mainwindow.cpp:65
 #, kde-format
 msgid "Create a new puzzle using an image file from your disk"
 msgstr "Napravite slagalicu na osnovu datoteke slike sa diska."
 
-#: src/window/mainwindow.cpp:72
+#: src/window/mainwindow.cpp:71
 #, fuzzy, kde-format
 #| msgid "&Delete puzzle"
 msgid "&Delete Puzzle"
 msgstr "&Obriši zagoneku"
 
-#: src/window/mainwindow.cpp:74
+#: src/window/mainwindow.cpp:73
 #, kde-format
 msgid "Delete the selected puzzle from your collection"
 msgstr "Obrišite izabranu slagalicu iz svoje zbirke."
 
-#: src/window/mainwindow.cpp:80
+#: src/window/mainwindow.cpp:79
 #, fuzzy, kde-format
 #| msgid "&Import from file..."
 msgid "&Import from File..."
 msgstr "&Uvezi iz datoteke..."
 
-#: src/window/mainwindow.cpp:81
+#: src/window/mainwindow.cpp:80
 #, kde-format
 msgid "Import a new puzzle from a file into your collection"
 msgstr "Uvezite novu slagalicu iz datoteke u svoju zbirku."
 
-#: src/window/mainwindow.cpp:86
+#: src/window/mainwindow.cpp:85
 #, fuzzy, kde-format
 #| msgid "&Export to file..."
 msgid "&Export to File..."
 msgstr "&Izvezi u datoteku..."
 
-#: src/window/mainwindow.cpp:88
+#: src/window/mainwindow.cpp:87
 #, kde-format
 msgid "Export the selected puzzle from your collection into a file"
 msgstr "Izvezite izabranu slagalicu iz svoje zbirke u datoteku."
 
-#: src/window/mainwindow.cpp:94
+#: src/window/mainwindow.cpp:93
 #, fuzzy, kde-format
 #| msgid "&Restart puzzle..."
 msgid "&Restart Puzzle..."
 msgstr "&Slaži iz početka..."
 
-#: src/window/mainwindow.cpp:95
+#: src/window/mainwindow.cpp:94
 #, kde-format
 msgid "Delete the saved progress and reshuffle the pieces"
 msgstr "Obriši snimljeni napredak i ponovo izmješaj zakonetku"
 
-#: src/window/mainwindow.cpp:102
+#: src/window/mainwindow.cpp:101
 #, fuzzy, kde-format
 #| msgid "&Create piece holder..."
 msgid "&Create Piece Holder..."
 msgstr "&Kreiraj držač dijelova..."
 
-#: src/window/mainwindow.cpp:103
+#: src/window/mainwindow.cpp:102
 #, kde-format
 msgid "Create a temporary holder for sorting pieces"
 msgstr "Kreiraj privremeni držač za sortiranje dijelova"
 
-#: src/window/mainwindow.cpp:110
+#: src/window/mainwindow.cpp:109
 #, fuzzy, kde-format
 #| msgid "&Delete piece holder"
 msgid "&Delete Piece Holder"
 msgstr "&Obriši držač dijelova"
 
-#: src/window/mainwindow.cpp:111
+#: src/window/mainwindow.cpp:110
 #, kde-format
 msgid "Delete a selected temporary holder when it is empty"
 msgstr "Obriši privremeni držač kada je prazan"
 
-#: src/window/mainwindow.cpp:117
+#: src/window/mainwindow.cpp:116
 #, fuzzy, kde-format
 #| msgid "&Select all in holder"
 msgid "&Select All in Holder"
 msgstr "&Izaberi sve u držaču"
 
-#: src/window/mainwindow.cpp:118
+#: src/window/mainwindow.cpp:117
 #, kde-format
 msgid "Select all pieces in a selected piece holder"
 msgstr "Izaberi sve dijelove u izabranom držaču dijelova"
 
-#: src/window/mainwindow.cpp:124
+#: src/window/mainwindow.cpp:123
 #, fuzzy, kde-format
 #| msgid "&Rearrange pieces"
 msgid "&Rearrange Pieces"
 msgstr "&Rearanžiraj dijelove"
 
-#: src/window/mainwindow.cpp:125
+#: src/window/mainwindow.cpp:124
 #, kde-format
 msgid ""
 "Rearrange all pieces in a selected piece holder or selected pieces in any "
@@ -1226,36 +1226,36 @@ msgstr ""
 "Rearanžira dijelove u izabranom držaču dijelova ili izabrane dijelove u "
 "nekom prozoru"
 
-#: src/window/mainwindow.cpp:132
+#: src/window/mainwindow.cpp:131
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "&Preview"
 msgstr "&Pregled:"
 
-#: src/window/mainwindow.cpp:134
+#: src/window/mainwindow.cpp:133
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "Preview"
 msgstr "Pregled"
 
-#: src/window/mainwindow.cpp:135
+#: src/window/mainwindow.cpp:134
 #, kde-format
 msgid "Show or hide the image of the completed puzzle"
 msgstr "Prikaži ili sakrij sliku završene zagonetke"
 
-#: src/window/mainwindow.cpp:149
+#: src/window/mainwindow.cpp:148
 #, fuzzy, kde-format
 #| msgid "Enable all messages"
 msgid "Enable All Messages"
 msgstr "Omogući sve poruke"
 
-#: src/window/mainwindow.cpp:162
+#: src/window/mainwindow.cpp:157
 #, fuzzy, kde-format
 #| msgid "Enable all messages"
 msgid "Enable all messages again?"
 msgstr "Omogući sve poruke"
 
-#: src/window/mainwindow.cpp:163
+#: src/window/mainwindow.cpp:158
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
