@@ -24,7 +24,7 @@ namespace Palapeli
 		Q_SIGNALS:
 			void clicked();
 		protected:
-            void enterEvent(QEnterEvent* event) override
+            void enterEvent(QEnterEvent*) override
 			{
 				//TODO: respect global icon size configuration
 				setPixmap(m_icon.pixmap(16, QIcon::Active));
