@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-25 01:40+0000\n"
-"PO-Revision-Date: 2023-09-25 13:23+0200\n"
+"PO-Revision-Date: 2023-09-26 06:29+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -109,12 +109,12 @@ msgstr "განსხვავებული"
 #, kde-format
 msgctxt "Puzzle shape preset"
 msgid "Large plugs"
-msgstr ""
+msgstr "დიდი შვერილები"
 
 #: slicers/goldberg/slicer-goldberg.cpp:57
 #, kde-format
 msgid "Flipped edge percentage"
-msgstr ""
+msgstr "გადაბრუნებული წიბოების პროცენტულობა"
 
 #: slicers/goldberg/slicer-goldberg.cpp:64
 #, kde-format
@@ -124,32 +124,32 @@ msgstr "წიბოების მოგლუვება"
 #: slicers/goldberg/slicer-goldberg.cpp:70
 #, kde-format
 msgid "Plug size"
-msgstr ""
+msgstr "შვერილის ზომა"
 
 #: slicers/goldberg/slicer-goldberg.cpp:77
 #, kde-format
 msgid "Diversity of curviness"
-msgstr ""
+msgstr "მომრგვალების სხვაობის დონე"
 
 #: slicers/goldberg/slicer-goldberg.cpp:84
 #, kde-format
 msgid "Diversity of plug position"
-msgstr ""
+msgstr "შვერილების მდებარეობების სხვაობის დონე"
 
 #: slicers/goldberg/slicer-goldberg.cpp:91
 #, kde-format
 msgid "Diversity of plugs"
-msgstr ""
+msgstr "შვერილების სხვაობის დონე"
 
 #: slicers/goldberg/slicer-goldberg.cpp:98
 #, kde-format
 msgid "Diversity of piece size"
-msgstr ""
+msgstr "ნაწილების ზომის სხვაობის დონე"
 
 #: slicers/goldberg/slicer-goldberg.cpp:107
 #, kde-format
 msgid "Dump grid image"
-msgstr ""
+msgstr "ბადის გამოსახულების შენახვა"
 
 #: src/config/configdialog.cpp:62
 #, kde-format
@@ -834,7 +834,7 @@ msgstr ""
 #: src/palapeli.kcfg:20
 #, kde-format
 msgid "The highlighting color to use for selecting pieces in the View."
-msgstr ""
+msgstr "გამოკვეთილი ფერის გამოყენება ხედში ნაწილების ასარჩევად."
 
 #. i18n: ectx: label, entry (SolutionArea), group (Appearance)
 #: src/palapeli.kcfg:24
