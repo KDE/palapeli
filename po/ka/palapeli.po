@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-25 01:40+0000\n"
-"PO-Revision-Date: 2023-09-26 06:29+0200\n"
+"PO-Revision-Date: 2023-09-27 09:23+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -207,6 +207,8 @@ msgid ""
 "Hold down the modifier keys you want, then click a mouse button or scroll a "
 "mouse wheel here"
 msgstr ""
+"დააწექით და გეჭიროთ ის მოდიფიკატორი ღილაკი, რომელიც გნებავთ, შემდეგ კი ზედ "
+"თაგუნას ღილაკს დააწკაპუნეთ, ან თაგუნას ღილაკი დაატრიალეთ"
 
 #: src/config/mouseinputbutton.cpp:224
 #, kde-format
@@ -390,6 +392,8 @@ msgid ""
 "You need to click on a piece holder to select it before you can delete it, "
 "or you can just click on its Close button."
 msgstr ""
+"სანამ მისი წაშლა შეგეძლებათ, საჭიროა, ნაწილის დამჭერზე დააწკაპუნოთ, ან "
+"უბრალოდ დახურვის ღილაკს დააწვეთ."
 
 #: src/engine/gameplay.cpp:424
 #, kde-format
@@ -401,13 +405,15 @@ msgstr "მონიშნული ნაწილმჭერი წაშლ�
 msgid ""
 "The selected piece holder must contain some pieces for 'Select all' to use."
 msgstr ""
+"'ყველას მონიშვნის' გამოსაყენებლად მონიშნული ნაწილის დამჭერი ნაჭრებს უნდა "
+"შეიცავდეს."
 
 #: src/engine/gameplay.cpp:449
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can select all "
 "the pieces in it."
-msgstr ""
+msgstr "ნაწილების დამჭერში ყველა ნაწილის მონიშვნამდე ჯერ ზედ უნდა დააწკაპუნოთ."
 
 #: src/engine/gameplay.cpp:469
 #, kde-format
@@ -415,6 +421,8 @@ msgid ""
 "To rearrange pieces, either the puzzle table must have some selected pieces "
 "or there must be a selected holder with some selected pieces in it."
 msgstr ""
+"ნაწილების გადასალაგებლად ან მოზაიკის ცხრილს უნდა ჰქონდეს მონიშნული ნაწილები "
+"ან უნდა არსებობდეს მონიშნული დამჭერი, რომელშიც რამდენიმე მონიშნული ნაწილია."
 
 #: src/engine/gameplay.cpp:531
 #, kde-format
@@ -422,6 +430,8 @@ msgid ""
 "You need to have a piece holder and click it to select it before you can "
 "transfer pieces into or out of it."
 msgstr ""
+"საჭიროა გქონდეთ ნაწილის დამჭერი და დააწკაპუნოთ ზედ მოსანიშნად მანამდე, სანამ "
+"ნაწილების მასში ჩალაგება ან დამჭერიდან ამოღება შეგეძლებათ."
 
 #: src/engine/gameplay.cpp:551
 #, kde-format
@@ -429,6 +439,8 @@ msgid ""
 "You have selected to transfer a large piece containing more than six small "
 "pieces to a holder. Do you really wish to do that?"
 msgstr ""
+"აირჩიეთ, დამჭერში გადაიტანოთ დიდი ნაწილი, რომელიც ექვსზე მეტ პატარა ნაწილს "
+"შეიცავს. მართლა გნებავთ ამის გაკეთება?"
 
 #: src/engine/gameplay.cpp:556
 #, kde-format
@@ -829,6 +841,8 @@ msgid ""
 "The background color to use for the View (if the key \"ViewBackground\" is "
 "set to \"__color__\")."
 msgstr ""
+"ხედის ფონის ფერ (თუ პარამეტრ \"ViewBackground\"-ის მნიშვნელობაა \"__color__"
+"\")."
 
 #. i18n: ectx: label, entry (ViewHighlightColor), group (Appearance)
 #: src/palapeli.kcfg:20
@@ -880,7 +894,7 @@ msgstr ""
 #: src/palapeli.kcfg:46
 #, kde-format
 msgid "Whether the preview window was switched on last time Palapeli was run."
-msgstr ""
+msgstr "იყო თუ არა გადახედვის ფანჯარა ჩართული, ბოლოს, როცა Palapeli გაეშვა."
 
 #. i18n: ectx: label, entry (PuzzlePreviewGeometry), group (PuzzlePreview)
 #: src/palapeli.kcfg:50
@@ -944,7 +958,7 @@ msgstr "ნაწილის გარეგნობა"
 #: src/settings.ui:162
 #, kde-format
 msgid "Draw bevels to create a 3-dimensional appearance"
-msgstr ""
+msgstr "დაქანებების დახატვა 3D გამოსახულების მისაღებად"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceShadowsEnabled)
 #: src/settings.ui:172
