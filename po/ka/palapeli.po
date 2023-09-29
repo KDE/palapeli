@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-25 01:40+0000\n"
-"PO-Revision-Date: 2023-09-27 09:23+0200\n"
+"PO-Revision-Date: 2023-09-28 06:21+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -454,6 +454,8 @@ msgid ""
 "You need to select one or more pieces to be transferred out of the selected "
 "holder or select pieces from the puzzle table to be transferred into it."
 msgstr ""
+"საჭროა აირჩიოთ ერთი ან მეტი ნაწილი მონიშნული დამჭერიდან გადმოსატანად ან "
+"აირჩიეთ რამდენიმე ნაწილი მოზაიკიდან, რათა ისინი დამჭერში გადაიტანოთ."
 
 #: src/engine/gameplay.cpp:593
 #, kde-format
@@ -461,6 +463,7 @@ msgid ""
 "You need to select one or more pieces to be transferred from the previous "
 "holder into the newly selected holder."
 msgstr ""
+"საჭიროა აირჩიოთ ერთი ან მეტი ნაწილი წინა დამჭერიდან ახალში გადასატანად."
 
 #: src/engine/gameplay.cpp:601
 #, kde-format
@@ -468,6 +471,8 @@ msgid ""
 "You need to have at least two holders, one of them selected and with "
 "selected pieces inside it, before you can transfer pieces to a second holder."
 msgstr ""
+"საჭიროა, გქონდეთ სულ ცოტა, 2 დამჭერი. ერთი მათგანი მონიშნული და შიგნით "
+"ნაწილებით, სანამ ნაწილებს მეორე დამჭერში გადაიტანთ."
 
 #: src/engine/gameplay.cpp:1078
 #, kde-format
@@ -525,6 +530,55 @@ msgid ""
 "By the way, holders can do almost all the things the puzzle table and its "
 "window can do, including joining pieces to build up a part of the solution."
 msgstr ""
+"თქვენ ახლახან შექმენით დიდი თავსატეხი: Palapeli-ს აქვს რამდენიმე ფუნქცია, "
+"რომელიც დაგეხმარებათ მისი მოგვარებაში სამუშაო მაგიდაზე შეზღუდულ სივრცეში. "
+"ისინი დეტალურად არის აღწერილი პალაპელის სახელმძღვანელოში (დახმარების "
+"მენიუში). აქ არის მხოლოდ რამდენიმე სწრაფი რჩევა.\n"
+"\n"
+"დაწყებამდე, ეს შეიძლება იყოს საუკეთესო, რომ არ გამოიყენოთ bevels ან "
+"shadowing დიდი გამოცანები (იხილეთ პარამეტრების დიალოგი), რადგან ისინი "
+"დატვირთვის ნელა და ხაზს უსვამს რთული ვხედავ, როდესაც ცალი ხედი ძალიან "
+"მცირეა.\n"
+"\n"
+"პირველი ფუნქცია არის თავსატეხი გადახედვა (დასრულებული თავსატეხის სურათი) და "
+"პანელის ღილაკი, რომ ჩართოთ ან გამორთოთ. თუ მას მაუსის საშუალებით "
+"გადაფურცლავთ, ის ადიდებს სურათის ნაწილებს, ასე რომ, ფანჯრის ზომა, რომელსაც "
+"გადახედვისთვის აირჩევთ, შეიძლება საკმაოდ მცირე იყოს.\n"
+"\n"
+"შემდეგი, არსებობს close-up და შორეული ხედები თავსატეხი მაგიდა, რომელიც "
+"შეგიძლიათ გადახვიდეთ სწრაფად გამოყენებით მაუსის ღილაკს (default Middle-"
+"Click). ახლოდან ხედვისას, გამოიყენეთ ცარიელი სივრცე რგოლის ბარებში, რათა "
+"მოძებნოთ თავსატეხი ცალი \"გვერდი\" ერთდროულად. თქვენ შეგიძლიათ დაარეგულიროთ "
+"ორი შეხედულებები მასშტაბირება ან გარეთ და თქვენი ცვლილებები იქნება "
+"გაიხსენა.\n"
+"\n"
+"მაშინ არ არის სივრცე თავსატეხი მაგიდა დაცულია მშენებლობის გადაწყვეტა.\n"
+"\n"
+"ბოლო, მაგრამ არანაკლებ მნიშვნელოვანი, არსებობს პატარა ფანჯრები სახელწოდებით "
+"\"მფლობელები\". ისინი დახარისხება ცალი შევიდა ჯგუფები, როგორიცაა კიდეები, "
+"ცის ან თეთრი სახლი მარცხენა. თქვენ შეგიძლიათ გქონდეთ იმდენი მფლობელი, "
+"რამდენიც გსურთ და შეგიძლიათ მათ სახელები მიანიჭოთ. თქვენ უკვე უნდა გქონდეთ "
+"ერთი სახელწოდებით \"ხელი\", ნაჭრების გადასატანად იქიდან, სადაც არ უნდა "
+"იპოვოთ ისინი ხსნარის ზონაში.\n"
+"\n"
+"თქვენ იყენებთ მაუსის სპეციალურ დაწკაპუნებას, რომ გადაიტანოთ ნაჭრები დამჭერში "
+"ან მის გარეთ (ნაგულისხმევი ცვლა მარცხენა დაწკაპუნებით). ჯერ დარწმუნდით, რომ "
+"მფლობელი, რომლის გამოყენებაც გსურთ, აქტიურია: მას უნდა ჰქონდეს ლურჯი "
+"მონახაზი. თუ არა, დააჭირეთ მას. გადასცეს ცალი შევიდა მფლობელი, აირჩიეთ მათ "
+"თავსატეხი მაგიდა შემდეგ გავაკეთოთ სპეციალური click რომ \"teleport\" მათ "
+"მფლობელი. ან შეგიძლიათ უბრალოდ გააკეთოთ სპეციალური დაწკაპუნება ერთ ჯერზე.\n"
+"\n"
+"იმისათვის, რომ ცალი out of მფლობელი, დარწმუნდით, რომ არ ცალი შერჩეული "
+"თავსატეხი მაგიდა, წასვლას მფლობელი ფანჯარა და აირჩიეთ რამდენიმე ცალი, "
+"გამოყენებით ნორმალური Palapeli მაუსის ოპერაციების, შემდეგ დაბრუნდეს "
+"თავსატეხი მაგიდა და გავაკეთოთ სპეციალური click on ცარიელი სივრცე, სადაც "
+"გსურთ ცალი ჩამოვა. გადარიცხვა არაუმეტეს რამდენიმე ცალი დროს, რათა თავიდან "
+"ავიცილოთ collisions ცალი თავსატეხი მაგიდა.\n"
+"\n"
+"სხვათა შორის, მფლობელებს შეუძლიათ გააკეთონ თითქმის ყველა რამ თავსატეხი "
+"მაგიდა და მისი ფანჯარა შეუძლია გააკეთოს, მათ შორის გაწევრიანების ცალი "
+"დაამყარონ ნაწილი გადაწყვეტა. (ტექსტი ნათარგმნია ონლაინ მთარგმნელით, ძალიანაც "
+"ნუ გამლანძღავთ)."
 
 #: src/engine/gameplay.cpp:1131
 #, kde-format
@@ -814,6 +868,9 @@ msgid ""
 "puzzle file is given). The main window will not be shown after importing the "
 "given puzzle."
 msgstr ""
+"შემოიტანეთ მითითებული მოზაიკის ფაილი ლოკალურ კოლექციაში (არაფერს აკეთებს, თუ "
+"მოზაიკის ფაილი მითითებული არაა). მითითებული მოზაიკის შემოტანის შემდეგ "
+"მთავარი ფანჯარა ნაჩვენები არ იქნება."
 
 #: src/main.cpp:57
 #, kde-format
@@ -833,6 +890,8 @@ msgid ""
 "The filename of the background image to use for the View, or \"__color__\" "
 "if a solid color should be used (see key \"ViewBackgroundColor\")."
 msgstr ""
+"ფაილის სახელი ხედის ფონის სურათისთვის, ან, \"__color__\", თუ ის უბრალო ფერია "
+"(იხ. პარამეტრი \"ViewBackgroundColor\")."
 
 #. i18n: ectx: label, entry (ViewBackgroundColor), group (Appearance)
 #: src/palapeli.kcfg:16
@@ -857,6 +916,8 @@ msgid ""
 "Where to reserve space on the puzzle table for the solution, when shuffling "
 "or re-shuffling the pieces."
 msgstr ""
+"იქნება თუ არა მოზაიკის მაგიდაზე ადგილი გამოყოფილი ამოხსნისთვის, როცა "
+"ნაწილების არევა ახდება."
 
 #. i18n: ectx: label, entry (PieceSpacing), group (Appearance)
 #: src/palapeli.kcfg:28
@@ -865,6 +926,8 @@ msgid ""
 "Spacing of pieces in puzzle grids relative to the size of the largest piece "
 "(spacing factor is 1.0 + 0.05 * value)."
 msgstr ""
+"მოზაიკის ნაწილებს შორის დაშორება ბადეზე ყველაზე დიდ ნაწილთან შედარებით "
+"(დაშორებს ფაქტორია 1.0 + 0.05 * მნიშვნელობაზე)."
 
 #. i18n: ectx: label, entry (ShowStatusBar), group (Appearance)
 #: src/palapeli.kcfg:32
@@ -873,6 +936,8 @@ msgid ""
 "Whether to show the status bar on the puzzle table. (It is not a real status "
 "bar, but the position and provided functionality is similar.)"
 msgstr ""
+"გამოჩნდება თუ არა მოზაიკის მაგიდაზე სტატუსის ზოლი. (ის ნამდვილი სტატუსის "
+"ზოლი არაა, მაგრამ მდებარეობა და ფუნქციონალი წააგავს.)"
 
 #. i18n: ectx: label, entry (PieceShadowsEnabled), group (Appearance)
 #: src/palapeli.kcfg:36
@@ -881,6 +946,8 @@ msgid ""
 "Whether to render shadows below the puzzle pieces. Turning this off might "
 "improve rendering performance."
 msgstr ""
+"მოხდება თუ არა მოზაიკის ნაწილებს ქვემოთ ჩრდილების რენდერი. ამის გამორთვამ, "
+"შეიძლება, წარმადობა საკმაოდ გაზარდოს."
 
 #. i18n: ectx: label, entry (PieceBevelsEnabled), group (Appearance)
 #: src/palapeli.kcfg:40
@@ -889,6 +956,8 @@ msgid ""
 "Whether to render bevels on the puzzle pieces. Turning this off might "
 "improve puzzle loading performance."
 msgstr ""
+"მოხდება თუ არა მოზაიკის ნაწილებზე დახრების რენდერი. ამის გამორთვამ, "
+"შეიძლება, წარმადობა საკმაოდ გაზარდოს."
 
 #. i18n: ectx: label, entry (PuzzlePreviewVisible), group (PuzzlePreview)
 #: src/palapeli.kcfg:46
@@ -941,6 +1010,8 @@ msgid ""
 "No space is provided with puzzles of less than 20 pieces. Changes will take "
 "effect when a puzzle is created or re-started."
 msgstr ""
+"20 ნაწილზე ნაკლების მქონე მოზაიკისთვის ადგილი არა. ცვლილებები ძალაში მას "
+"შემდეგ შევა, როცა მოზაიკას შექმნით ან თავიდან დაიწყებთ."
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: src/settings.ui:106
@@ -1110,6 +1181,8 @@ msgid ""
 "Rearrange all pieces in a selected piece holder or selected pieces in any "
 "window"
 msgstr ""
+"მონიშნულ დამჭერში ყველა ნაწილის ან მონიშნული ნაწილების ნებისმიერ ფანჯარაში "
+"გადალაგება"
 
 #: src/window/mainwindow.cpp:131
 #, kde-format
