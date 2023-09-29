@@ -21,7 +21,7 @@ Palapeli::SlicerSelector::SlicerSelector(QWidget* parent)
 	setSelectionMode(QAbstractItemView::SingleSelection);
 	connect(this, &SlicerSelector::itemSelectionChanged, this, &SlicerSelector::slotSelectionChanged);
     //load slicer plugins
-    const QVector<KPluginMetaData> offers = KPluginMetaData::findPlugins(QStringLiteral("palapelislicers"));
+    const QList<KPluginMetaData> offers = KPluginMetaData::findPlugins(QStringLiteral("palapelislicers"));
 
 	for (const KPluginMetaData &offer : offers)
     {

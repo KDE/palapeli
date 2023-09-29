@@ -30,7 +30,7 @@ namespace Palapeli
 
 	// Note that width and height are not stored. For this one needs the original pixmap
 	// where the BevelMap belongs to.
-	typedef QVector<BevelPoint> BevelMap;
+	typedef QList<BevelPoint> BevelMap;
 
 	class PieceVisuals
 	{

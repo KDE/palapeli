@@ -32,7 +32,7 @@ Palapeli::PuzzleComponent* Palapeli::CreationContextComponent::cast(Type type) c
 		//TODO: move slicer instantiation to a location that is shared between
 		//      puzzle creator dialog and this function
 		//find slicer
-        const QVector<KPluginMetaData> offers = KPluginMetaData::findPlugins(QStringLiteral("palapelislicers"), [cc](const KPluginMetaData &m) {
+        const QList<KPluginMetaData> offers = KPluginMetaData::findPlugins(QStringLiteral("palapelislicers"), [cc](const KPluginMetaData &m) {
             return m.pluginId() == cc.slicer;
         });
 		if (offers.isEmpty())

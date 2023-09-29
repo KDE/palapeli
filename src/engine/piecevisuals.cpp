@@ -111,8 +111,8 @@ Palapeli::BevelMap Palapeli::calculateBevelMap(const QImage& source, int radius)
 	const int height = img.height();
 
 	// prepare the folding kernels (access order: x * radius + y)
-	QVector<qreal> kernel_bevel(radius * radius, 0.0);
-	QVector<qreal> kernel_outline(radius * radius, 0.0);
+	QList<qreal> kernel_bevel(radius * radius, 0.0);
+	QList<qreal> kernel_outline(radius * radius, 0.0);
 	for (int n_xf = 0, n_fIndex = 0; n_xf < radius; ++n_xf)
 	{
 		for (int n_yf = 0; n_yf < radius; ++n_yf, ++n_fIndex)
@@ -140,11 +140,11 @@ Palapeli::BevelMap Palapeli::calculateBevelMap(const QImage& source, int radius)
 	}
 
 	// stores the blurred "fallof" of the transparency at each point.
-	QVector<QPointF> vmap(width*height);
+	QList<QPointF> vmap(width*height);
 	// stores how much pixel shall be darkened (outline effect)
-	QVector<qreal> darkening(width*height);
+	QList<qreal> darkening(width*height);
 	// cache scanLine pointers (these are used very often from now on)
-	QVector<QRgb*> scanLinePointers(height);
+	QList<QRgb*> scanLinePointers(height);
 	for (int ny = 0; ny < height; ++ny)
 		scanLinePointers[ny] = (QRgb*) img.scanLine(ny);
 

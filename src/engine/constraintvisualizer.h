@@ -10,7 +10,7 @@
 #include "basics.h"
 
 class QPropertyAnimation;
-#include <QVector>
+#include <QList>
 
 namespace Palapeli
 {
@@ -55,7 +55,7 @@ namespace Palapeli
 			Palapeli::Scene* m_scene;
 			bool m_active;
 
-			QVector<QGraphicsRectItem*> m_shadowItems, m_handleItems;
+			QList<QGraphicsRectItem*> m_shadowItems, m_handleItems;
 			QGraphicsPathItem* m_indicatorItem;
 			QRectF m_sceneRect;
 			QPropertyAnimation* m_animator;
