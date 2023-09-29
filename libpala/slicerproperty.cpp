@@ -18,6 +18,7 @@ public:
 	    , m_caption(caption)
 	{
 	}
+	virtual ~SlicerPropertyPrivate() = default;
 
 	QMetaType::Type const m_type;
 	QString m_caption;
