@@ -108,7 +108,7 @@
       <title
 >Jugar amb els trencaclosques i actualitzar la col·lecció</title>
     <para
->Quan llanceu el &palapeli; per primera vegada, la col·lecció de trencaclosques ja contindrà alguns trencaclosques de mostra que venen amb el &palapeli;. Feu clic sobre un d'ells per començar a jugar immediatament. Més tard, quan hàgiu creat alguns trencaclosques (vegeu a continuació), també podreu fer clic sobre seu per començar a jugar.</para>
+>Quan llanceu el &palapeli; per primera vegada, la col·lecció de trencaclosques ja contindrà alguns trencaclosques de mostra que venen amb el &palapeli;. Feu clic sobre un d'ells per a començar a jugar immediatament. Més tard, quan hàgiu creat alguns trencaclosques (vegeu a continuació), també podreu fer clic sobre seu per a començar a jugar.</para>
     <para
 >El joc té lloc sobre la taula del trencaclosques, vegeu <link linkend="puzzletable"
 >la secció després de la següent</link
@@ -117,7 +117,7 @@
 ><para
 >Podeu seleccionar i ressaltar els trencaclosques en la llista de trencaclosques prement la tecla &Ctrl; i fent clic amb el &BER;. En prémer el &BER; o el &BDR; sense la tecla &Ctrl; s'obrirà aquest trencaclosques per a jugar-lo a la taula del trencaclosques.</para>
     <para
->A &macOS;, haureu de fer doble clic amb el &BER; per començar a jugar. Un sol clic només seleccionarà i ressaltarà una entrada a la llista de trencaclosques.</para
+>A &macOS;, haureu de fer doble clic amb el &BER; per a començar a jugar. Un sol clic només seleccionarà i ressaltarà una entrada a la llista de trencaclosques.</para
 ></note>
     <para
 >A més de jugar un trencaclosques, podeu utilitzar la col·lecció de trencaclosques per a les accions següents:</para>
@@ -493,7 +493,7 @@
     <para
 >Quan poseu una peça prop d'una peça veïna, ambdues peces s'encaixaran automàticament i s'uniran (1). Una vegada s'han unit, no es podran separar. Una altra diferència entre el &palapeli; i un trencaclosques del món real és que no podreu combinar dues peces que no són realment veïnes.</para>
     <para
->La barra de progrés a sota de la taula del trencaclosques indica el progrés comptant les peces unides (2). El &palapeli; desarà automàticament el progrés després de cada moviment, de manera que no haureu de preocupar-vos per desar.</para>
+>La barra de progrés a sota de la taula del trencaclosques indica el progrés comptant les peces unides (2). El &palapeli; desarà automàticament el progrés després de cada moviment, de manera que no haureu de preocupar-vos de desar.</para>
     <para
 >Podeu fer zoom a la vista de la taula del trencaclosques amb la <mousebutton
 >roda</mousebutton
@@ -785,7 +785,7 @@
 ></menuchoice
 >. </para>
       <para
->L'espaiat de les peces en la quadrícula del trencaclosques es pot establir des d'1,0 a 1,5 vegades l'alçada i l'amplada de les peces més altes i més amples. Les configuracions més petites envasen millor les peces a la vista, però les més grans permeten més espai per arrossegar, deixar anar i estirar la banda de goma. El valor predeterminat és 1,3, però 1,1 és molt viable en trencaclosques grans. La configuració s'aplicarà als trencaclosques de totes les mides i també afectarà les quadrícules utilitzades amb els contenidors de peces (vegeu <link linkend="large-puzzle-holders"
+>L'espaiat de les peces en la quadrícula del trencaclosques es pot establir des d'1,0 a 1,5 vegades l'alçada i l'amplada de les peces més altes i més amples. Les configuracions més petites envasen millor les peces a la vista, però les més grans permeten més espai per a arrossegar, deixar anar i estirar la banda de goma. El valor predeterminat és 1,3, però 1,1 és molt viable en trencaclosques grans. La configuració s'aplicarà als trencaclosques de totes les mides i també afectarà les quadrícules utilitzades amb els contenidors de peces (vegeu <link linkend="large-puzzle-holders"
 >Usar els contenidors de peces</link
 >) o en tornar a organitzar les peces automàticament a la taula del trencaclosques, emprant l'element de menú <menuchoice
 ><shortcut
@@ -934,7 +934,7 @@
       <title
 >Classificació de les peces</title>
       <para
->Per a ordenar de manera eficient les peces dins dels contenidors a mesura que se cerca a través d'un trencaclosques gran, empreu la tècnica per travessar el trencaclosques una <quote
+>Per a ordenar de manera eficient les peces dins dels contenidors a mesura que se cerca a través d'un trencaclosques gran, empreu la tècnica per a travessar el trencaclosques una <quote
 >pàgina</quote
 > alhora, <link linkend="large-puzzle-navigating"
 >com s'ha descrit anteriorment</link
@@ -972,7 +972,7 @@
 > <guimenuitem
 >Reordena les peces</guimenuitem
 > </menuchoice
-> o manteniu premuda la tecla &Maj; i feu clic amb el &BER;, per tornar a empacar totes les peces en el contenidor o buidar totes les peces en la taula del trencaclosques. O senzillament utilitzeu les tecles <keycap
+> o manteniu premuda la tecla &Maj; i feu clic amb el &BER;, per a tornar a empacar totes les peces en el contenidor o buidar totes les peces en la taula del trencaclosques. O senzillament utilitzeu les tecles <keycap
 >A</keycap
 > o <keycap
 >R</keycap
