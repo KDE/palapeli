@@ -17,8 +17,7 @@
 Palapeli::TriggerComboBox::TriggerComboBox(QWidget* parent)
 	: KComboBox(parent)
 {
-  connect(this, qOverload<int>(&QComboBox::currentIndexChanged), this,
-          &TriggerComboBox::handleCurrentIndexChanged);
+  connect(this, &QComboBox::currentIndexChanged, this, &TriggerComboBox::handleCurrentIndexChanged);
 }
 
 QString Palapeli::TriggerComboBox::backgroundKey() const
@@ -116,8 +115,7 @@ void Palapeli::ConfigDialog::setupSolutionAreaComboBox()
 	b->insertItem(BottomLeft,  i18n("Bottom Left"),  BottomLeft);
 	b->insertItem(BottomRight, i18n("Bottom Right"), BottomRight);
 	b->setCurrentIndex(Settings::solutionArea());
-        connect(b, qOverload<int>(&QComboBox::currentIndexChanged), this,
-                &ConfigDialog::solutionAreaChange);
+        connect(b, &QComboBox::currentIndexChanged, this, &ConfigDialog::solutionAreaChange);
 }
 
 void Palapeli::ConfigDialog::solutionAreaChange(int index)
