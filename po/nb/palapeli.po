@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-25 01:40+0000\n"
+"POT-Creation-Date: 2023-10-02 01:41+0000\n"
 "PO-Revision-Date: 2014-01-11 16:47+0100\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -152,42 +152,42 @@ msgstr "Variasjon i brikkestørrelse"
 msgid "Dump grid image"
 msgstr "Lagre rutenettbilde"
 
-#: src/config/configdialog.cpp:62
+#: src/config/configdialog.cpp:61
 #, kde-format
 msgid "General Settings"
 msgstr ""
 
-#: src/config/configdialog.cpp:65
+#: src/config/configdialog.cpp:64
 #, kde-format
 msgid "Mouse Interaction"
 msgstr ""
 
-#: src/config/configdialog.cpp:112
+#: src/config/configdialog.cpp:111
 #, kde-format
 msgid "Center"
 msgstr ""
 
-#: src/config/configdialog.cpp:113
+#: src/config/configdialog.cpp:112
 #, kde-format
 msgid "None"
 msgstr "Ingen"
 
-#: src/config/configdialog.cpp:114
+#: src/config/configdialog.cpp:113
 #, kde-format
 msgid "Top Left"
 msgstr "Øverst til venstre"
 
-#: src/config/configdialog.cpp:115
+#: src/config/configdialog.cpp:114
 #, kde-format
 msgid "Top Right"
 msgstr "Øverst til høyre"
 
-#: src/config/configdialog.cpp:116
+#: src/config/configdialog.cpp:115
 #, kde-format
 msgid "Bottom Left"
 msgstr "Nederst til venstre"
 
-#: src/config/configdialog.cpp:117
+#: src/config/configdialog.cpp:116
 #, kde-format
 msgid "Bottom Right"
 msgstr "Nederst til høyre"

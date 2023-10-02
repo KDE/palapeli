@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-25 01:40+0000\n"
+"POT-Creation-Date: 2023-10-02 01:41+0000\n"
 "PO-Revision-Date: 2011-08-09 23:35+0300\n"
 "Last-Translator: Remigijus Jarmalavičius <remigijus@jarmalavicius.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -154,24 +154,24 @@ msgstr ""
 msgid "Dump grid image"
 msgstr ""
 
-#: src/config/configdialog.cpp:62
+#: src/config/configdialog.cpp:61
 #, fuzzy, kde-format
 #| msgid "General settings"
 msgid "General Settings"
 msgstr "Bendrosios nuostatos"
 
-#: src/config/configdialog.cpp:65
+#: src/config/configdialog.cpp:64
 #, fuzzy, kde-format
 #| msgid "Mouse interaction"
 msgid "Mouse Interaction"
 msgstr "Sąveika su pele"
 
-#: src/config/configdialog.cpp:112
+#: src/config/configdialog.cpp:111
 #, kde-format
 msgid "Center"
 msgstr ""
 
-#: src/config/configdialog.cpp:113
+#: src/config/configdialog.cpp:112
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "This is used for describing that no mouse action has been assigned to "
@@ -180,22 +180,22 @@ msgstr ""
 msgid "None"
 msgstr "Jokio"
 
-#: src/config/configdialog.cpp:114
+#: src/config/configdialog.cpp:113
 #, kde-format
 msgid "Top Left"
 msgstr ""
 
-#: src/config/configdialog.cpp:115
+#: src/config/configdialog.cpp:114
 #, kde-format
 msgid "Top Right"
 msgstr ""
 
-#: src/config/configdialog.cpp:116
+#: src/config/configdialog.cpp:115
 #, kde-format
 msgid "Bottom Left"
 msgstr ""
 
-#: src/config/configdialog.cpp:117
+#: src/config/configdialog.cpp:116
 #, kde-format
 msgid "Bottom Right"
 msgstr ""

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-25 01:40+0000\n"
+"POT-Creation-Date: 2023-10-02 01:41+0000\n"
 "PO-Revision-Date: 2022-08-13 16:59+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -149,42 +149,42 @@ msgstr "Diversidade do tamanho das peças"
 msgid "Dump grid image"
 msgstr "Apresentar a imagem da grelha"
 
-#: src/config/configdialog.cpp:62
+#: src/config/configdialog.cpp:61
 #, kde-format
 msgid "General Settings"
 msgstr "Configuração Geral"
 
-#: src/config/configdialog.cpp:65
+#: src/config/configdialog.cpp:64
 #, kde-format
 msgid "Mouse Interaction"
 msgstr "Interacção do Rato"
 
-#: src/config/configdialog.cpp:112
+#: src/config/configdialog.cpp:111
 #, kde-format
 msgid "Center"
 msgstr "Centro"
 
-#: src/config/configdialog.cpp:113
+#: src/config/configdialog.cpp:112
 #, kde-format
 msgid "None"
 msgstr "Nenhuma"
 
-#: src/config/configdialog.cpp:114
+#: src/config/configdialog.cpp:113
 #, kde-format
 msgid "Top Left"
 msgstr "Superior-Esquerda"
 
-#: src/config/configdialog.cpp:115
+#: src/config/configdialog.cpp:114
 #, kde-format
 msgid "Top Right"
 msgstr "Superior-Direita"
 
-#: src/config/configdialog.cpp:116
+#: src/config/configdialog.cpp:115
 #, kde-format
 msgid "Bottom Left"
 msgstr "Inferior-Esquerda"
 
-#: src/config/configdialog.cpp:117
+#: src/config/configdialog.cpp:116
 #, kde-format
 msgid "Bottom Right"
 msgstr "Inferior-Direita"

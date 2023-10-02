@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-25 01:40+0000\n"
+"POT-Creation-Date: 2023-10-02 01:41+0000\n"
 "PO-Revision-Date: 2015-01-05 14:27+0000\n"
 "Last-Translator: Velid <velid.aljic@gmail.com>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -155,44 +155,44 @@ msgstr "Raznovrsnost veličine komada"
 msgid "Dump grid image"
 msgstr "Izdvoji sliku rešetke"
 
-#: src/config/configdialog.cpp:62
+#: src/config/configdialog.cpp:61
 #, fuzzy, kde-format
 #| msgid "General settings"
 msgid "General Settings"
 msgstr "Opšte postavke"
 
-#: src/config/configdialog.cpp:65
+#: src/config/configdialog.cpp:64
 #, fuzzy, kde-format
 #| msgid "Mouse interaction"
 msgid "Mouse Interaction"
 msgstr "Dejstvo miša"
 
-#: src/config/configdialog.cpp:112
+#: src/config/configdialog.cpp:111
 #, kde-format
 msgid "Center"
 msgstr "Centar"
 
-#: src/config/configdialog.cpp:113
+#: src/config/configdialog.cpp:112
 #, kde-format
 msgid "None"
 msgstr "Nikakva"
 
-#: src/config/configdialog.cpp:114
+#: src/config/configdialog.cpp:113
 #, kde-format
 msgid "Top Left"
 msgstr "Gore lijevo"
 
-#: src/config/configdialog.cpp:115
+#: src/config/configdialog.cpp:114
 #, kde-format
 msgid "Top Right"
 msgstr "Gore desno"
 
-#: src/config/configdialog.cpp:116
+#: src/config/configdialog.cpp:115
 #, kde-format
 msgid "Bottom Left"
 msgstr "Dolje lijevo"
 
-#: src/config/configdialog.cpp:117
+#: src/config/configdialog.cpp:116
 #, kde-format
 msgid "Bottom Right"
 msgstr "Dolje desno"

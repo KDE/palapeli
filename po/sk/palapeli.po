@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-25 01:40+0000\n"
+"POT-Creation-Date: 2023-10-02 01:41+0000\n"
 "PO-Revision-Date: 2021-01-26 11:54+0100\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -151,44 +151,44 @@ msgstr "Rozdielnosť veľkosti dielov"
 msgid "Dump grid image"
 msgstr "Výpis obrázka mriežky"
 
-#: src/config/configdialog.cpp:62
+#: src/config/configdialog.cpp:61
 #, fuzzy, kde-format
 #| msgid "General settings"
 msgid "General Settings"
 msgstr "Všeobecné nastavenie"
 
-#: src/config/configdialog.cpp:65
+#: src/config/configdialog.cpp:64
 #, fuzzy, kde-format
 #| msgid "Mouse interaction"
 msgid "Mouse Interaction"
 msgstr "Interakcia myši"
 
-#: src/config/configdialog.cpp:112
+#: src/config/configdialog.cpp:111
 #, kde-format
 msgid "Center"
 msgstr "Vycentrovať"
 
-#: src/config/configdialog.cpp:113
+#: src/config/configdialog.cpp:112
 #, kde-format
 msgid "None"
 msgstr "Žiadna"
 
-#: src/config/configdialog.cpp:114
+#: src/config/configdialog.cpp:113
 #, kde-format
 msgid "Top Left"
 msgstr "Vľavo hore"
 
-#: src/config/configdialog.cpp:115
+#: src/config/configdialog.cpp:114
 #, kde-format
 msgid "Top Right"
 msgstr "Vpravo hore"
 
-#: src/config/configdialog.cpp:116
+#: src/config/configdialog.cpp:115
 #, kde-format
 msgid "Bottom Left"
 msgstr "Vľavo dole"
 
-#: src/config/configdialog.cpp:117
+#: src/config/configdialog.cpp:116
 #, kde-format
 msgid "Bottom Right"
 msgstr "Vpravo dole"

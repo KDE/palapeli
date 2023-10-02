@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-25 01:40+0000\n"
+"POT-Creation-Date: 2023-10-02 01:41+0000\n"
 "PO-Revision-Date: 2020-11-23 10:04+0100\n"
 "Last-Translator: Kristóf Kiszel <kiszel.kristof@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -152,44 +152,44 @@ msgstr "Darabméret változatossága"
 msgid "Dump grid image"
 msgstr "Rácskép kiírása"
 
-#: src/config/configdialog.cpp:62
+#: src/config/configdialog.cpp:61
 #, fuzzy, kde-format
 #| msgid "General settings"
 msgid "General Settings"
 msgstr "Általános beállítások"
 
-#: src/config/configdialog.cpp:65
+#: src/config/configdialog.cpp:64
 #, fuzzy, kde-format
 #| msgid "Mouse interaction"
 msgid "Mouse Interaction"
 msgstr "Egérkezelés"
 
-#: src/config/configdialog.cpp:112
+#: src/config/configdialog.cpp:111
 #, kde-format
 msgid "Center"
 msgstr "Középre"
 
-#: src/config/configdialog.cpp:113
+#: src/config/configdialog.cpp:112
 #, kde-format
 msgid "None"
 msgstr "Nincs"
 
-#: src/config/configdialog.cpp:114
+#: src/config/configdialog.cpp:113
 #, kde-format
 msgid "Top Left"
 msgstr "Balra fent"
 
-#: src/config/configdialog.cpp:115
+#: src/config/configdialog.cpp:114
 #, kde-format
 msgid "Top Right"
 msgstr "Jobbra fent"
 
-#: src/config/configdialog.cpp:116
+#: src/config/configdialog.cpp:115
 #, kde-format
 msgid "Bottom Left"
 msgstr "Balra lent"
 
-#: src/config/configdialog.cpp:117
+#: src/config/configdialog.cpp:116
 #, kde-format
 msgid "Bottom Right"
 msgstr "Jobbra lent"

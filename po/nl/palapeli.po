@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-25 01:40+0000\n"
+"POT-Creation-Date: 2023-10-02 01:41+0000\n"
 "PO-Revision-Date: 2022-08-15 15:35+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -152,42 +152,42 @@ msgstr "Diversiteit van stukjesgrootte"
 msgid "Dump grid image"
 msgstr "Raster van afbeelding dumpen"
 
-#: src/config/configdialog.cpp:62
+#: src/config/configdialog.cpp:61
 #, kde-format
 msgid "General Settings"
 msgstr "Algemene instellingen"
 
-#: src/config/configdialog.cpp:65
+#: src/config/configdialog.cpp:64
 #, kde-format
 msgid "Mouse Interaction"
 msgstr "Muisinteractie"
 
-#: src/config/configdialog.cpp:112
+#: src/config/configdialog.cpp:111
 #, kde-format
 msgid "Center"
 msgstr "Midden"
 
-#: src/config/configdialog.cpp:113
+#: src/config/configdialog.cpp:112
 #, kde-format
 msgid "None"
 msgstr "Geen"
 
-#: src/config/configdialog.cpp:114
+#: src/config/configdialog.cpp:113
 #, kde-format
 msgid "Top Left"
 msgstr "Linksboven"
 
-#: src/config/configdialog.cpp:115
+#: src/config/configdialog.cpp:114
 #, kde-format
 msgid "Top Right"
 msgstr "Rechtsboven"
 
-#: src/config/configdialog.cpp:116
+#: src/config/configdialog.cpp:115
 #, kde-format
 msgid "Bottom Left"
 msgstr "Linksonder"
 
-#: src/config/configdialog.cpp:117
+#: src/config/configdialog.cpp:116
 #, kde-format
 msgid "Bottom Right"
 msgstr "Rechtsonder"

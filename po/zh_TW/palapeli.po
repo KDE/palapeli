@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-25 01:40+0000\n"
+"POT-Creation-Date: 2023-10-02 01:41+0000\n"
 "PO-Revision-Date: 2018-03-24 16:37+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <kde-i18n-doc@kde.org>\n"
@@ -152,44 +152,44 @@ msgstr "拼圖塊大小的多樣性"
 msgid "Dump grid image"
 msgstr "傾印格子影像"
 
-#: src/config/configdialog.cpp:62
+#: src/config/configdialog.cpp:61
 #, fuzzy, kde-format
 #| msgid "General settings"
 msgid "General Settings"
 msgstr "一般設定"
 
-#: src/config/configdialog.cpp:65
+#: src/config/configdialog.cpp:64
 #, fuzzy, kde-format
 #| msgid "Mouse interaction"
 msgid "Mouse Interaction"
 msgstr "滑鼠互動"
 
-#: src/config/configdialog.cpp:112
+#: src/config/configdialog.cpp:111
 #, kde-format
 msgid "Center"
 msgstr "置中"
 
-#: src/config/configdialog.cpp:113
+#: src/config/configdialog.cpp:112
 #, kde-format
 msgid "None"
 msgstr "無"
 
-#: src/config/configdialog.cpp:114
+#: src/config/configdialog.cpp:113
 #, kde-format
 msgid "Top Left"
 msgstr "左上方"
 
-#: src/config/configdialog.cpp:115
+#: src/config/configdialog.cpp:114
 #, kde-format
 msgid "Top Right"
 msgstr "右上方"
 
-#: src/config/configdialog.cpp:116
+#: src/config/configdialog.cpp:115
 #, kde-format
 msgid "Bottom Left"
 msgstr "左下方"
 
-#: src/config/configdialog.cpp:117
+#: src/config/configdialog.cpp:116
 #, kde-format
 msgid "Bottom Right"
 msgstr "右下方"
