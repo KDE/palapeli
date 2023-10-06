@@ -95,6 +95,7 @@
     <p xml:lang="gl">Palapeli é un xogo de quebracabezas jigsaw para un xogador. A diferenza doutros xogos do mesmo xénero, non estás limitado a aliñar pezas en grades imaxinarias. As pezas poden moverse libremente. Ademais, Palapeli fornece persistencia real, é dicir, todo o que fas gárdase no disco inmediatamente.</p>
     <p xml:lang="id">Palapeli adalah permainan teka-teki jigsaw pemain tunggal. tidak seperti permainan lain yang segenre, kamu enggak dibatasi untuk mensejajarkan potongan-potongan pada kisi secara khayal. Potongan-potongan secara bebas dapat dipindah-pindah. Juga, fitur Palapeli sungguh gigih, misal apa yang kamu lakukan akan disimpan ke disk-mu secara langsung.</p>
     <p xml:lang="it">Palapeli è un gioco di puzzle a giocatore singolo. A differenza di altri giochi di questo genere, non sei limitato ad allineare pezzi su griglie immaginarie. I pezzi possono essere spostati liberamente. Palapeli, inoltre, ha la caratteristica della persistenza, ossia tutto quello che fai viene salvato immediatamente sul disco.</p>
+    <p xml:lang="ka">Palapeli ერთი მოთამაშის მოზაიკის თამაშია. ამ ჟანრის სხვა თამაშებისგან განსხვავებით ის წარმოსახვით ბადეზე ნაწილების დალაგებაზე შეზღუდული არაა. ეს ნაწილები თავისუფლად-გადატანადია. ასევე Palapeli-ის ფუნქციებშია ნამდვილი მდგრადობა, ანუ, რასაც აკეთებთ, მომენტალურად ინახება.</p>
     <p xml:lang="ko">Palapeli는 1인용 조각 퍼즐 게임입니다. 단순히 조각을 그리드를 따라 맞추는 것이 아니라 자유롭게 이동할 수 있습니다. Palapeli는 즉시 자동 저장을 지원합니다.</p>
     <p xml:lang="nl">Palapeli is een legpuzzelspel voor één persoon. Anders dan in andere spellen in dit genre bent u niet gelimiteerd om stukjes op imaginaire rasters te plaatsen. De stukjes zijn vrij te verplaatsen. Palapeli heeft de echte blijvende functie, d.w.z. alles wat u doet wordt onmiddellijk opgeslagen op uw schijf.</p>
     <p xml:lang="nn">Palapeli er eit puslespelspel for éin spelar. I motsetning til liknande spel, treng du her ikkje plassera brikkene på eit fast rutenett; du kan flytta dei fritt rundt. Alt du gjer vert òg automatisk lagra, slik at du kan halda fram med puslespelet seinare.</p>
@@ -164,6 +165,7 @@
       <li xml:lang="gl">Crea e xoga quebracabezas de entre 4 e 10.000 pezas.</li>
       <li xml:lang="id">Menciptakan dan memainkan teka-teki mulai dari 4 hingga 10,000 potong</li>
       <li xml:lang="it">Crea e gioca con puzzle da 4 a 10.000 pezzi</li>
+      <li xml:lang="ka">შექმენით და ითამაშეთ მოზაიკა 4-10, 000 ნაწილით</li>
       <li xml:lang="ko">4조각부터 10,000조각까지 자유로운 퍼즐 생성 및 플레이</li>
       <li xml:lang="nl">Puzzels maken en spelen variërend van 4 tot 10.000 stukjes</li>
       <li xml:lang="nn">Lag og spel puslespel med alt frå 4 til 10 000 brikker</li>
