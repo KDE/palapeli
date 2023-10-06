@@ -42,7 +42,6 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     ItemViews
     KIO
     Notifications
-    Service
     WidgetsAddons
     XmlGui
 )

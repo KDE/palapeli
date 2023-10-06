@@ -16,7 +16,6 @@ Dependencies:
     'frameworks/kitemviews': '@latest-kf6'
     'frameworks/kio': '@latest-kf6'
     'frameworks/knotifications': '@latest-kf6'
-    'frameworks/kservice': '@latest-kf6'
     'frameworks/kwidgetsaddons': '@latest-kf6'
     'frameworks/kxmlgui': '@latest-kf6'
     'games/libkdegames': '@latest-kf6'
