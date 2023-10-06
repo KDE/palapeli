@@ -293,7 +293,7 @@
     <procedure>
       <step
 ><para
->En la primera página, seleccione un archivo de imagen que será cortado en piezas. Asegúrese de introducir los metadatos correctos para la imagen:debería darle atribución al autor de la imagen (&eg; el fotógrafo o el pintor); por favor, respete el copyright del autor de la imagen.</para
+>En la primera página, seleccione un archivo de imagen que será cortado en piezas. Asegúrese de introducir los metadatos correctos para la imagen:debería darle atribución al autor de la imagen (por ejemplo, el fotógrafo o el pintor). Respete los derechos del autor de la imagen.</para
 ></step>
       <step
 ><para
@@ -305,7 +305,7 @@
 ></step>
     </procedure>
     <para
->Este manual continuará hablando de las herramientas de corte que vienen con &palapeli;. Si ha descargado algún complemento de terceros para &palapeli;, por favor consulte la documentación de este complemento si ha tenido problemas instalándolo o usándolo en su sistema.</para>
+>Este manual continuará hablando de las herramientas de corte que vienen con &palapeli;. Si ha descargado algún complemento de terceros para &palapeli;, consulte la documentación de este complemento si ha tenido problemas instalándolo o usándolo en su sistema.</para>
     </sect1>
     <sect1 id="simple-slicers">
       <title
@@ -523,7 +523,7 @@
 >La ventana de vista preliminar</link
 >.</para>
     <para
->Si quiere intentar un rompecabezas que tiene 300 piezas o más, por favor lea el capítulo <link linkend="large-puzzles"
+>Si quiere intentar un rompecabezas que tiene 300 piezas o más, lea el capítulo <link linkend="large-puzzles"
 >Facilidades para resolver grandes rompecabezas</link
 >, al finalizar este capítulo.</para>
     <para
@@ -535,7 +535,7 @@
     <para
 >Cuando coloque una pieza al lado de la que le corresponde, ambas se unirán automáticamente (1). Tras haberse unido, las piezas ya no se pueden separar. Otra diferencia entre &palapeli; y la vida real, es que no puede combinar dos piezas que no se correspondan.</para>
     <para
->La barra de progreso bajo el tablero del rompecabezas le indica el número de piezas unidas (2). &palapeli; guardará automáticamente su progreso después de cada movimiento, así que normalmente no se tendrá que preocupar de guardarlo usted. </para>
+>La barra de progreso bajo el tablero del rompecabezas le indica el número de piezas unidas (2). &palapeli; guardará automáticamente su progreso después de cada movimiento, así que normalmente no se tendrá que preocupar de guardarlo. </para>
     <para
 >Puede ampliar el tablero con la <mousebutton
 >rueda</mousebutton
@@ -604,7 +604,7 @@
 ></term>
           <listitem
 ><para
->Cuando hace clic y arrastra una pieza del rompecabezas, esta pieza se moverá. Si selecciona múltiples piezas y usted hace clic y arrastra una de ellas, todas las piezas se moverán. Por omisión, esta acción está asignada al &LMB;.</para
+>Cuando hace clic y arrastra una pieza del rompecabezas, esta pieza se moverá. Si selecciona múltiples piezas y hace clic y arrastra una de ellas, todas las piezas se moverán. Por omisión, esta acción está asignada al &LMB;.</para
 ></listitem>
         </varlistentry>
         <varlistentry>
@@ -1023,7 +1023,7 @@
     <title
 >Vista general de la interfaz</title>
     <para
->Las siguientes son elementos del menú de &palapeli;. Algunos de ellos también están disponibles en los botones de la barra de herramientas y accesos rápidos de teclado.</para>
+>Las siguientes son elementos del menú de &palapeli;. Algunos de ellos también están disponibles en los botones de la barra de herramientas y atajos de teclado.</para>
     <variablelist>
       <varlistentry>
         <term
