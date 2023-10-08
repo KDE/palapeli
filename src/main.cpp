@@ -39,6 +39,7 @@ int main(int argc, char** argv)
             QStringLiteral("loehnert.kde@gmx.de"));
 
     KAboutData::setApplicationData(about);
+    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("palapeli")));
 
     KCrash::initialize();
 
@@ -70,6 +71,6 @@ int main(int argc, char** argv)
         //no import request, show main window
         (new Palapeli::MainWindow(path))->show();
     }
-    app.setWindowIcon(QIcon::fromTheme(QStringLiteral("palapeli")));
+
     return app.exec();
 }
