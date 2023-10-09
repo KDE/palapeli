@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-02 01:41+0000\n"
+"POT-Creation-Date: 2023-10-09 01:45+0000\n"
 "PO-Revision-Date: 2012-04-08 06:39+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -813,12 +813,12 @@ msgstr ""
 msgid "The option to preview the completed puzzle"
 msgstr ""
 
-#: src/main.cpp:43
+#: src/main.cpp:47
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "Басқатырғыш файлының жолы (-i келтірілмегенде ашылады)"
 
-#: src/main.cpp:44
+#: src/main.cpp:48
 #, fuzzy, kde-format
 #| msgid ""
 #| "Import the given puzzle file into the local collection (does nothing if "
@@ -831,7 +831,7 @@ msgstr ""
 "Келтрілген басқатырғышты осындағы жиыныңызға импорттау (басқатырғыш емес "
 "файлы келтірілсе - ештеңе істемейді)"
 
-#: src/main.cpp:57
+#: src/main.cpp:60
 #, kde-format
 msgid "No file to import given"
 msgstr ""

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-02 01:41+0000\n"
+"POT-Creation-Date: 2023-10-09 01:45+0000\n"
 "PO-Revision-Date: 2017-11-11 15:25+0200\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish\n"
@@ -876,12 +876,12 @@ msgstr "Johannes Loehnert"
 msgid "The option to preview the completed puzzle"
 msgstr "Muligheden for at forhåndsvise det færdige puslespil"
 
-#: src/main.cpp:43
+#: src/main.cpp:47
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "Sti til puslespilsfil (vil blive åbnet hvis ikke -i angives)"
 
-#: src/main.cpp:44
+#: src/main.cpp:48
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -892,7 +892,7 @@ msgstr ""
 "ingen puslespil-fil angives). Hovedvinduet vises efter import af det angivne "
 "puslespil."
 
-#: src/main.cpp:57
+#: src/main.cpp:60
 #, kde-format
 msgid "No file to import given"
 msgstr ""

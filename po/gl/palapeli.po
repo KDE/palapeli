@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-02 01:41+0000\n"
+"POT-Creation-Date: 2023-10-09 01:45+0000\n"
 "PO-Revision-Date: 2023-08-06 05:32+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -876,12 +876,12 @@ msgstr "Johannes Loehnert"
 msgid "The option to preview the completed puzzle"
 msgstr "A opción para obter unha vista previa da solución."
 
-#: src/main.cpp:43
+#: src/main.cpp:47
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "Ruta ao ficheiro do quebracabezas (ábrese se non se fornece -i)"
 
-#: src/main.cpp:44
+#: src/main.cpp:48
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -892,7 +892,7 @@ msgstr ""
 "non se indica ningún ficheiro de quebracabezas). A xanela principal non se "
 "amosará tras importar o quebracabezas indicado."
 
-#: src/main.cpp:57
+#: src/main.cpp:60
 #, kde-format
 msgid "No file to import given"
 msgstr "Non se indicou un ficheiro para importar"

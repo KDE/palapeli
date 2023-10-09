@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-02 01:41+0000\n"
+"POT-Creation-Date: 2023-10-09 01:45+0000\n"
 "PO-Revision-Date: 2017-09-28 17:59+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -913,12 +913,12 @@ msgstr "Johanes Lenert"
 msgid "The option to preview the completed puzzle"
 msgstr "Opcija za pregled završene slagalice"
 
-#: src/main.cpp:43
+#: src/main.cpp:47
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "Putanja fajla slagalice (biće otvoren ako se ne zada -i)"
 
-#: src/main.cpp:44
+#: src/main.cpp:48
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -928,7 +928,7 @@ msgstr ""
 "Uvezi dati fajl slagalice u lokalnu zbirku (ne radi ništa ako fajl nije "
 "zadat). Glavni prozor neće biti prikazan po uvozu zadate slagalice."
 
-#: src/main.cpp:57
+#: src/main.cpp:60
 #, kde-format
 msgid "No file to import given"
 msgstr ""

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-02 01:41+0000\n"
+"POT-Creation-Date: 2023-10-09 01:45+0000\n"
 "PO-Revision-Date: 2013-05-10 23:01-0700\n"
 "Last-Translator: Fumiaki Okushi <okushi@kde.gr.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -812,13 +812,13 @@ msgstr ""
 msgid "The option to preview the completed puzzle"
 msgstr ""
 
-#: src/main.cpp:43
+#: src/main.cpp:47
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr ""
 "パズルファイルのパス (もし -i オプションがない場合、このファイルが開かれます)"
 
-#: src/main.cpp:44
+#: src/main.cpp:48
 #, fuzzy, kde-format
 #| msgid ""
 #| "Import the given puzzle file into the local collection (does nothing if "
@@ -831,7 +831,7 @@ msgstr ""
 "パズルファイルをコレクションにインポートします。(もし、ファイルがない場合は何"
 "もしません)"
 
-#: src/main.cpp:57
+#: src/main.cpp:60
 #, kde-format
 msgid "No file to import given"
 msgstr ""

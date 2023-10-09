@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-02 01:41+0000\n"
+"POT-Creation-Date: 2023-10-09 01:45+0000\n"
 "PO-Revision-Date: 2023-09-16 10:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -830,12 +830,12 @@ msgstr "Johannes Loehnert"
 msgid "The option to preview the completed puzzle"
 msgstr "预览完成的拼图的选项"
 
-#: src/main.cpp:43
+#: src/main.cpp:47
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "拼图文件的路径(未给定 -i 时打开)"
 
-#: src/main.cpp:44
+#: src/main.cpp:48
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -845,7 +845,7 @@ msgstr ""
 "将给定的拼图文件导入本地收藏 (如果未给定拼图则什么都不做)。导入给定拼图之后，"
 "不会显示主窗口。"
 
-#: src/main.cpp:57
+#: src/main.cpp:60
 #, kde-format
 msgid "No file to import given"
 msgstr "未指定要导入的文件"

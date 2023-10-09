@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-02 01:41+0000\n"
+"POT-Creation-Date: 2023-10-09 01:45+0000\n"
 "PO-Revision-Date: 2020-11-23 10:04+0100\n"
 "Last-Translator: Kristóf Kiszel <kiszel.kristof@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -832,13 +832,13 @@ msgstr "Johannes Loehnert"
 msgid "The option to preview the completed puzzle"
 msgstr "A megoldott feladvány előnézetének lehetősége"
 
-#: src/main.cpp:43
+#: src/main.cpp:47
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr ""
 "A feladványfájl elérési útja (megnyílik, ha nincs megadva a -i paraméter)"
 
-#: src/main.cpp:44
+#: src/main.cpp:48
 #, fuzzy, kde-format
 #| msgid ""
 #| "Import the given puzzle file into the local collection (does nothing if "
@@ -851,7 +851,7 @@ msgstr ""
 "A kijelölt feladványfájl importálása helyi gyűjteménybe (semmi sem történik, "
 "ha nincs megadva fájl)"
 
-#: src/main.cpp:57
+#: src/main.cpp:60
 #, kde-format
 msgid "No file to import given"
 msgstr ""

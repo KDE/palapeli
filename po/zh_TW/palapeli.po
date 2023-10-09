@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-02 01:41+0000\n"
+"POT-Creation-Date: 2023-10-09 01:45+0000\n"
 "PO-Revision-Date: 2018-03-24 16:37+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <kde-i18n-doc@kde.org>\n"
@@ -847,12 +847,12 @@ msgstr "Johannes Loehnert"
 msgid "The option to preview the completed puzzle"
 msgstr "預覽完整謎題的選項"
 
-#: src/main.cpp:43
+#: src/main.cpp:47
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "謎題檔的路徑（若未指定 -i 選項，則會被開啟）"
 
-#: src/main.cpp:44
+#: src/main.cpp:48
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -862,7 +862,7 @@ msgstr ""
 "匯入指定的謎題檔到本地端收藏（若沒有提供指定檔案，則不做任何事）。這個主視窗"
 "將不會在匯入指定的拼圖後顯示"
 
-#: src/main.cpp:57
+#: src/main.cpp:60
 #, kde-format
 msgid "No file to import given"
 msgstr ""
