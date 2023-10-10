@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-09 01:45+0000\n"
+"POT-Creation-Date: 2023-10-10 01:46+0000\n"
 "PO-Revision-Date: 2023-08-06 05:32+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -201,7 +201,7 @@ msgstr "Abaixo á dereita"
 msgid "Remove this trigger"
 msgstr "Retirar este disparador"
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
 #, kde-format
 msgid "Input here..."
 msgstr "Escribir aquí…"
@@ -215,7 +215,7 @@ msgstr ""
 "Manteña premidas as teclas modificadoras que queira e logo prema un botón do "
 "rato ou desprace para aquí a roda do rato"
 
-#: src/config/mouseinputbutton.cpp:224
+#: src/config/mouseinputbutton.cpp:225
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -223,7 +223,7 @@ msgctxt ""
 msgid "None"
 msgstr "Ningún"
 
-#: src/config/mouseinputbutton.cpp:230
+#: src/config/mouseinputbutton.cpp:231
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "Prema para cambiar o xeito de desencadear unha acción"

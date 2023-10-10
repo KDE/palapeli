@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-09 01:45+0000\n"
+"POT-Creation-Date: 2023-10-10 01:46+0000\n"
 "PO-Revision-Date: 2022-09-24 16:01+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -196,7 +196,7 @@ msgstr "Nere till höger"
 msgid "Remove this trigger"
 msgstr "Ta bort utlösaren"
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
 #, kde-format
 msgid "Input here..."
 msgstr "Skriv in här..."
@@ -210,7 +210,7 @@ msgstr ""
 "Håll nere väljartangenterna du vill, klicka därefter här på en musknapp "
 "eller rör ett mushjul"
 
-#: src/config/mouseinputbutton.cpp:224
+#: src/config/mouseinputbutton.cpp:225
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -218,7 +218,7 @@ msgctxt ""
 msgid "None"
 msgstr "Ingen"
 
-#: src/config/mouseinputbutton.cpp:230
+#: src/config/mouseinputbutton.cpp:231
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "Klicka för att ändra hur en åtgärd utlöses"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-09 01:45+0000\n"
+"POT-Creation-Date: 2023-10-10 01:46+0000\n"
 "PO-Revision-Date: 2018-03-24 16:37+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <kde-i18n-doc@kde.org>\n"
@@ -199,7 +199,7 @@ msgstr "右下方"
 msgid "Remove this trigger"
 msgstr "移除此觸動器"
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
 #, kde-format
 msgid "Input here..."
 msgstr "在此輸入..."
@@ -211,7 +211,7 @@ msgid ""
 "mouse wheel here"
 msgstr "按住您要使用的變更鍵，然後點擊滑鼠按鍵或滾動滾輪"
 
-#: src/config/mouseinputbutton.cpp:224
+#: src/config/mouseinputbutton.cpp:225
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -219,7 +219,7 @@ msgctxt ""
 msgid "None"
 msgstr "無"
 
-#: src/config/mouseinputbutton.cpp:230
+#: src/config/mouseinputbutton.cpp:231
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "點擊以改變如何觸發動作"

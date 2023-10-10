@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-09 01:45+0000\n"
+"POT-Creation-Date: 2023-10-10 01:46+0000\n"
 "PO-Revision-Date: 2023-07-30 22:09+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -199,7 +199,7 @@ msgstr "Nede til høgre"
 msgid "Remove this trigger"
 msgstr "Fjern denne utløysaren"
 
-#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:251
+#: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
 #, kde-format
 msgid "Input here..."
 msgstr "Skriv her …"
@@ -213,7 +213,7 @@ msgstr ""
 "Hald nede valtastane du vil bruka, og klikk deretter med musa her, eller "
 "rull musehjulet hit."
 
-#: src/config/mouseinputbutton.cpp:224
+#: src/config/mouseinputbutton.cpp:225
 #, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
@@ -221,7 +221,7 @@ msgctxt ""
 msgid "None"
 msgstr "Ingen"
 
-#: src/config/mouseinputbutton.cpp:230
+#: src/config/mouseinputbutton.cpp:231
 #, kde-format
 msgid "Click to change how an action is triggered"
 msgstr "Trykk for å endra korleis handlinga vert utløyst"
