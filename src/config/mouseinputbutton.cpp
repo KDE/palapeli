@@ -180,7 +180,8 @@ bool Palapeli::MouseInputButton::event(QEvent* event)
 					event->accept();
 					return true;
 				}
-			}	//fall through
+				[[fallthrough]];
+			}
 			case QEvent::KeyRelease: {
 				const QKeyEvent* kEvent = static_cast<QKeyEvent*>(event);
 				showModifiers(kEvent->modifiers());
