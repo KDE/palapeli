@@ -589,9 +589,9 @@ msgstr ""
 "clic especial en una peça a la vegada.\n"
 "\n"
 "Per a transferir peces a fora d'un contenidor, assegura't que no hi ha cap "
-"peça seleccionada a la taula del trencaclosques, ves a dins la finestra del "
-"contenidor i selecciona algunes peces, utilitzant les operacions normals del "
-"ratolí de Palapeli, després torna a la taula del trencaclosques i fes el "
+"peça seleccionada a la taula del trencaclosques, ves fins a dins la finestra "
+"del contenidor i selecciona algunes peces, utilitzant les operacions normals "
+"del ratolí de Palapeli, després torna a la taula del trencaclosques i fes el "
 "clic especial en un espai buit a on vullgues que arriben les peces. No "
 "transferisques més d'algunes peces a la vegada, per a evitar col·lisions de "
 "peces a la taula del trencaclosques.\n"
@@ -1148,7 +1148,8 @@ msgstr "&Importa des d'un fitxer..."
 #: src/window/mainwindow.cpp:80
 #, kde-format
 msgid "Import a new puzzle from a file into your collection"
-msgstr "Importa un trencaclosques nou des d'un fitxer cap a la col·lecció"
+msgstr ""
+"Importa un trencaclosques nou des d'un fitxer cap a dins de la col·lecció"
 
 #: src/window/mainwindow.cpp:85
 #, kde-format
