@@ -63,7 +63,7 @@ void Palapeli::MainWindow::setupActions()
 	// Create new puzzle (FIXME: action should have a custom icon).
 	QAction * createAct = new QAction(QIcon::fromTheme(QStringLiteral("tools-wizard")), i18n("Create &New Puzzle..."), this);
 	createAct->setToolTip(i18n("Create a new puzzle using an image file from your disk"));
-	actionCollection()->setDefaultShortcuts(createAct, KStandardShortcut::openNew());
+	KActionCollection::setDefaultShortcuts(createAct, KStandardShortcut::openNew());
 	actionCollection()->addAction(QStringLiteral("game_new"), createAct);
 	connect(createAct, &QAction::triggered, m_game, &GamePlay::actionCreate);
 
@@ -100,7 +100,7 @@ void Palapeli::MainWindow::setupActions()
 	// Create piece-holder.
 	QAction * createHolderAct = new QAction(i18n("&Create Piece Holder..."), this);
 	createHolderAct->setToolTip(i18n("Create a temporary holder for sorting pieces"));
-	actionCollection()->setDefaultShortcut(createHolderAct, QKeySequence(Qt::Key_C));
+	KActionCollection::setDefaultShortcut(createHolderAct, QKeySequence(Qt::Key_C));
 	actionCollection()->addAction(QStringLiteral("move_create_holder"), createHolderAct);
         connect(createHolderAct, &QAction::triggered, m_game,
                 qOverload<>(&GamePlay::createHolder));
@@ -108,21 +108,21 @@ void Palapeli::MainWindow::setupActions()
         // Delete piece-holder.
 	QAction * deleteHolderAct = new QAction(QIcon::fromTheme(QStringLiteral("edit-delete")), i18n("&Delete Piece Holder"), this);
 	deleteHolderAct->setToolTip(i18n("Delete a selected temporary holder when it is empty"));
-	actionCollection()->setDefaultShortcut(deleteHolderAct, QKeySequence(Qt::Key_D));
+	KActionCollection::setDefaultShortcut(deleteHolderAct, QKeySequence(Qt::Key_D));
 	actionCollection()->addAction(QStringLiteral("move_delete_holder"), deleteHolderAct);
 	connect(deleteHolderAct, &QAction::triggered, m_game, &GamePlay::deleteHolder);
 
 	// Select all pieces in a piece-holder.
 	QAction * selectAllAct = new QAction(QIcon::fromTheme(QStringLiteral("edit-select-all")), i18n("&Select All in Holder"), this);
 	selectAllAct->setToolTip(i18n("Select all pieces in a selected piece holder"));
-	actionCollection()->setDefaultShortcut(selectAllAct, QKeySequence(Qt::Key_A));
+	KActionCollection::setDefaultShortcut(selectAllAct, QKeySequence(Qt::Key_A));
 	actionCollection()->addAction(QStringLiteral("move_select_all"), selectAllAct);
 	connect(selectAllAct, &QAction::triggered, m_game, &GamePlay::selectAll);
 
 	// Rearrange a selected piece-holder or selected pieces in any view.
 	QAction * rearrangeAct = new QAction(i18n("&Rearrange Pieces"), this);
 	rearrangeAct->setToolTip(i18n("Rearrange all pieces in a selected piece holder or selected pieces in any window"));
-	actionCollection()->setDefaultShortcut(rearrangeAct, QKeySequence(Qt::Key_R));
+	KActionCollection::setDefaultShortcut(rearrangeAct, QKeySequence(Qt::Key_R));
 	actionCollection()->addAction(QStringLiteral("move_rearrange"), rearrangeAct);
 	connect(rearrangeAct, &QAction::triggered, m_game, &GamePlay::rearrangePieces);
 
