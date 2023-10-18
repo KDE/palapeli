@@ -16,7 +16,7 @@
 
 #include <KActionCollection>
 #include <KLocalizedString>
-#include <KStandardGameAction>
+#include <KGameStandardAction>
 #include <KStandardAction>
 #include <KStandardShortcut>
 #include <KToggleAction>
@@ -96,7 +96,7 @@ void Palapeli::MainWindow::setupActions()
 	actionCollection()->addAction(QStringLiteral("game_restart"), restartPuzzleAct);
 	connect(restartPuzzleAct, &QAction::triggered, m_game, &GamePlay::restartPuzzle);
 	// Quit.
-	KStandardGameAction::quit (this, &QWidget::close, actionCollection());
+	KGameStandardAction::quit (this, &QWidget::close, actionCollection());
 	// Create piece-holder.
 	QAction * createHolderAct = new QAction(i18n("&Create Piece Holder..."), this);
 	createHolderAct->setToolTip(i18n("Create a temporary holder for sorting pieces"));
