@@ -2,6 +2,7 @@
 Type=Application
 Exec=palapeli %u
 Name=Palapeli
+Name[ast]=Palapeli
 Name[bs]=Palapeli
 Name[ca]=Palapeli
 Name[ca@valencia]=Palapeli
