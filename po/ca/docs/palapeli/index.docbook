@@ -374,9 +374,7 @@
 ></term>
           <listitem
 ><para
->La probabilitat que es capgiri cada pestanya. Es considerarà una pestanya capgirada si apunta en la direcció oposada, com ho faria en una quadrícula totalment regular. en la quadrícula rectangular, això resultarà en peces amb 3 o 4 pestanyes que apunten cap a dins respecte cap a fora. Feu anar el control lliscant cap a l'esquerra per a obtenir la quadrícula normal completament regular. Al mig, l'orientació de la pestanya serà aleatòria. A la dreta, la quadrícula serà de nou totalment regular, però amb una regla <quote
->alternativa</quote
->. Això <emphasis
+>La probabilitat que es capgiri cada pestanya. Es considerarà una pestanya capgirada si apunta en la direcció oposada, com ho faria en una quadrícula totalment regular. en la quadrícula rectangular, això resultarà en peces amb 3 o 4 pestanyes que apunten cap a dins respecte cap a fora. Feu anar el control lliscant cap a l'esquerra per a obtenir la quadrícula normal completament regular. Al mig, l'orientació de la pestanya serà aleatòria. A la dreta, la quadrícula serà de nou totalment regular, però amb una regla «alternativa». Això <emphasis
 >no</emphasis
 > significa la reversió de totes les pestanyes: a la quadrícula regular alternativa, per exemple, cada peça té quatre pestanyes de punta cap a dins o quatre apuntant cap a fora. Aquesta configuració no té efecte en la quadrícula irregular.</para
 ></listitem>
@@ -736,13 +734,9 @@
       <para
 >Finalment, haureu de recollir les peces i posar-les a l'àrea de solució d'una manera més eficient que arrossegant i deixant anar de forma repetitiva en distàncies grans. Aquí és on entren els contenidors de peces. </para>
       <para
->Quan s'inicia un trencaclosques gran, tindreu un contenidor (una finestra petita flotant) anomenada <quote
->Mà</quote
-> dins la qual podreu posar les peces quan i on les veieu. Després, podreu deixar-les anar a prop de la solució i esbrinar a on va cada peça. Això és com recollir les peces en una mà mentre inspeccioneu en un trencaclosques gran del món real. </para>
+>Quan s'inicia un trencaclosques gran, tindreu un contenidor (una finestra petita flotant) anomenada «Mà» dins la qual podreu posar les peces quan i on les veieu. Després, podreu deixar-les anar a prop de la solució i esbrinar a on va cada peça. Això és com recollir les peces en una mà mentre inspeccioneu en un trencaclosques gran del món real. </para>
       <para
->Potser necessitareu una manera sistemàtica de recollir i ordenar les peces per atributs comuns (&pex;, vores, cel, horitzó, &etc;), de manera que podreu utilitzar tants contenidors com vulgueu i donar-los noms. Els contenidors es desen contínuament, juntament amb la taula del trencaclosques, el qual vol dir que podeu emprar-los per a construir parts de la solució i emmagatzemar-les o fins i tot per a emmagatzemar les peces que voleu posar en una <quote
->cistella ben dura</quote
-> fins més tard. Per a obtenir detalls sobre com emprar els contenidors, vegeu la secció <link linkend="large-puzzle-holders"
+>Potser necessitareu una manera sistemàtica de recollir i ordenar les peces per atributs comuns (&pex;, vores, cel, horitzó, &etc;), de manera que podreu utilitzar tants contenidors com vulgueu i donar-los noms. Els contenidors es desen contínuament, juntament amb la taula del trencaclosques, el qual vol dir que podeu emprar-los per a construir parts de la solució i emmagatzemar-les o fins i tot per a emmagatzemar les peces que voleu posar en una «cistella ben dura» fins més tard. Per a obtenir detalls sobre com emprar els contenidors, vegeu la secció <link linkend="large-puzzle-holders"
 >Usar els contenidors de peces</link
 >. </para>
       <para
@@ -833,11 +827,7 @@
       <para
 >La forma difícil de moure les peces en un trencaclosques gran és seleccionar-les i després arrossegar alternativament les peces cap a la taula del trencaclosques (&BER; i &BDR;) fins a arribar a la seva destinació. Una forma molt més fàcil de fer el mateix és seleccionar-les i fer zoom a la vista (&BMR;, vegeu a dalt), arrossegar-les fins a la destinació en un moviment (&BER;) i després fer zoom a la vista (&BMR;). Aquesta també és una bona manera de recuperar una sola peça estranya, però arrossegar-la a través de la taula del trencaclosques, sense perdre la selecció, pot ser complicat si hi ha milers de peces. </para>
       <para
->Una altra forma de navegar i cercar a la taula del trencaclosques, sistemàticament és ampliar-la en la cantonada superior esquerra (&BMR;), després utilitzeu els espais buits en les barres de desplaçament per a passar horitzontalment o verticalment a través de la taula, una <quote
->pàgina</quote
-> de mida fixa alhora. Aquesta tècnica és molt efectiva quan utilitzeu contenidors de peces per a recollir les que esteu cercant. Si manté l'escala propera fixa i sempre comenceu en el mateix lloc, sempre obtindreu <quote
->pàgines</quote
-> de mida i contingut fix. </para>
+>Una altra forma de navegar i cercar a la taula del trencaclosques, sistemàticament és ampliar-la en la cantonada superior esquerra (&BMR;), després utilitzeu els espais buits en les barres de desplaçament per a passar horitzontalment o verticalment a través de la taula, una «pàgina» de mida fixa alhora. Aquesta tècnica és molt efectiva quan utilitzeu contenidors de peces per a recollir les que esteu cercant. Si manté l'escala propera fixa i sempre comenceu en el mateix lloc, sempre obtindreu «pàgines» de mida i contingut fix. </para>
       </sect2>
       <sect2 id="large-puzzle-visibility">
       <title
@@ -856,15 +846,7 @@
       <title
 >Què són els contenidors de peces?</title>
       <para
->Els contenidors de peces potser són la característica més útil del &palapeli;, per a ajudar-vos a resoldre els trencaclosques grans. Són finestres petites i flotants on podreu ordenar grups de peces, com les <quote
->vores</quote
->, <quote
->cel</quote
->, <quote
->horitzó</quote
-> o <quote
->casa blanca a l'esquerra</quote
->. Inicialment, apareixen amb una mida mínima, el qual és prou gran per a mostrar quatre peces a escala propera, de manera que són molt fàcils d'encaixar a la banda de la finestra principal de la taula del trencaclosques. </para>
+>Els contenidors de peces potser són la característica més útil del &palapeli;, per a ajudar-vos a resoldre els trencaclosques grans. Són finestres petites i flotants on podreu ordenar grups de peces, com les «vores», «cel», «horitzó» o «casa blanca a l'esquerra». Inicialment, apareixen amb una mida mínima, el qual és prou gran per a mostrar quatre peces a escala propera, de manera que són molt fàcils d'encaixar a la banda de la finestra principal de la taula del trencaclosques. </para>
       <para
 >En ser finestres, els contenidors es podran moure lliurement al voltant de l'escriptori així com redimensionar. El botó <guibutton
 >Tanca</guibutton
@@ -878,9 +860,7 @@
       <title
 >Crear i suprimir els contenidors</title>
       <para
->Quan inicieu un trencaclosques gran, es crearà automàticament un contenidor anomenat <quote
->Mà</quote
->. Aquest podria ser l'únic contenidor que necessiteu amb trencaclosques de 300 a 750 peces, però podreu tenir tants contenidors com vulgueu, fins i tot amb trencaclosques de menys de 300 peces. </para>
+>Quan inicieu un trencaclosques gran, es crearà automàticament un contenidor anomenat «Mà». Aquest podria ser l'únic contenidor que necessiteu amb trencaclosques de 300 a 750 peces, però podreu tenir tants contenidors com vulgueu, fins i tot amb trencaclosques de menys de 300 peces. </para>
       <para
 >Per a crear o suprimir un contenidor, utilitzeu els elements de menú <menuchoice
 ><shortcut
@@ -916,11 +896,7 @@
       <title
 >Transferir peces dins i fora dels contenidors</title>
       <para
->La transferència de peces arrossegant i deixant no és possible amb els contenidors, tampoc és necessari. En el seu lloc, podreu transferir les peces a l'instant mitjançant la <quote
->teletransportació</quote
->, com en <quote
->Star Trek</quote
->. La teletransportació funciona mantenint premuda la tecla &Maj; i fent clic amb el &BER;. </para>
+>La transferència de peces arrossegant i deixant no és possible amb els contenidors, tampoc és necessari. En el seu lloc, podreu transferir les peces a l'instant mitjançant la «teletransportació», com en «Star Trek». La teletransportació funciona mantenint premuda la tecla &Maj; i fent clic amb el &BER;. </para>
       <para
 >Per a transferir peces a un contenidor, assegureu-vos que el contenidor de destinació estigui actiu (contorn en blau), després seleccioneu algunes peces a la taula del trencaclosques i manteniu premuda la tecla &Maj; i feu clic amb el &BER;. O senzillament podeu fer clic sobre una peça a la vegada mantenint premuda la tecla &Maj; i fent clic amb el &BER;. Les peces transferides s'esvairan de la taula del trencaclosques i reapareixeran ressaltades en el contenidor. A mesura que hi arribin, s'empacaran automàticament dins d'una quadrícula i l'última peça transferida estarà centrada en la vista. </para>
       <para
@@ -934,9 +910,7 @@
       <title
 >Classificació de les peces</title>
       <para
->Per a ordenar de manera eficient les peces dins dels contenidors a mesura que se cerca a través d'un trencaclosques gran, empreu la tècnica per a travessar el trencaclosques una <quote
->pàgina</quote
-> alhora, <link linkend="large-puzzle-navigating"
+>Per a ordenar de manera eficient les peces dins dels contenidors a mesura que se cerca a través d'un trencaclosques gran, empreu la tècnica per a travessar el trencaclosques una «pàgina» alhora, <link linkend="large-puzzle-navigating"
 >com s'ha descrit anteriorment</link
 >, combinada amb els contenidors i el teletransportament per a recollir les peces a mesura que avanceu. Quan hàgiu explorat tota la taula del trencaclosques, feu zoom d'apropament sobre l'àrea de la solució i poseu-hi les peces que heu recollit. O podeu anar acoblant peces en els contenidors. </para>
       </sect2>
