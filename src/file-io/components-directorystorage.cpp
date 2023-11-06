@@ -40,12 +40,12 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 		metadata.name = manifest.readName();
 		metadata.author = manifest.desktopGroup().readEntry("X-KDE-PluginInfo-Author", QString());
 		metadata.comment = manifest.readComment();
-		metadata.modifyProtection = manifest.group("Collection").readEntry("ModifyProtection", false);
+		metadata.modifyProtection = manifest.group(QStringLiteral("Collection")).readEntry("ModifyProtection", false);
 		//read image
 		metadata.image.load(dir.absoluteFilePath(QStringLiteral("image.jpg")));
 		metadata.thumbnail = metadata.image.scaled(Palapeli::PuzzleMetadata::ThumbnailBaseSize, Qt::KeepAspectRatio);
 		//count pieces
-		const QStringList keys = manifest.group("PieceOffsets").keyList();
+		const QStringList keys = manifest.group(QStringLiteral("PieceOffsets")).keyList();
 		metadata.pieceCount = 0;
 		while (keys.contains(QString::number(metadata.pieceCount)))
 			++metadata.pieceCount;
@@ -57,9 +57,9 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 	{
 		Palapeli::PuzzleContents contents;
 		KDesktopFile manifest(dir.absoluteFilePath(QStringLiteral("pala.desktop")));
-		contents.imageSize = manifest.group("Job").readEntry("ImageSize", QSize());
+		contents.imageSize = manifest.group(QStringLiteral("Job")).readEntry("ImageSize", QSize());
 		//load piece offsets and images
-		KConfigGroup offsetGroup(&manifest, "PieceOffsets");
+		KConfigGroup offsetGroup(&manifest, QStringLiteral("PieceOffsets"));
 		const QStringList offsetKeys = offsetGroup.keyList();
 		for (int i = 0; i < offsetKeys.count(); ++i)
 		{
@@ -72,7 +72,7 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 			contents.pieces[pieceIndex].load(dir.absoluteFilePath(key + QLatin1String(".png")));
 		}
 		//load relations
-		KConfigGroup relationsGroup(&manifest, "Relations");
+		KConfigGroup relationsGroup(&manifest, QStringLiteral("Relations"));
 		for (int i = 0;; ++i)
 		{
 			QList<int> value = relationsGroup.readEntry(QString::number(i), QList<int>());
@@ -93,7 +93,7 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 		*((Palapeli::PuzzleMetadata*)&creationContext) = metadata;
 		//load slicer configuration
 		KDesktopFile manifest(dir.absoluteFilePath(QStringLiteral("pala.desktop")));
-		KConfigGroup jobGroup(&manifest, "Job");
+		KConfigGroup jobGroup(&manifest, QStringLiteral("Job"));
 		creationContext.slicer = jobGroup.readEntry("Slicer", QString());
 		creationContext.slicerMode = jobGroup.readEntry("SlicerMode", QByteArray());
 		//all the other entries in jobGroup belong into slicerArgs
@@ -136,14 +136,14 @@ Palapeli::DirectoryStorageComponent* Palapeli::DirectoryStorageComponent::fromDa
 	QDir dir(cmp->directory());
 	//write manifest
 	KConfig manifest(dir.absoluteFilePath(QStringLiteral("pala.desktop")));
-	KConfigGroup mainGroup(&manifest, "Desktop Entry");
+	KConfigGroup mainGroup(&manifest, QStringLiteral("Desktop Entry"));
 	mainGroup.writeEntry("Name", metadata.name);
 	mainGroup.writeEntry("Comment", metadata.comment);
 	mainGroup.writeEntry("X-KDE-PluginInfo-Author", metadata.author);
 	mainGroup.writeEntry("Type", "X-Palapeli-Puzzle");
-	KConfigGroup collectionGroup(&manifest, "Collection");
+	KConfigGroup collectionGroup(&manifest, QStringLiteral("Collection"));
 	collectionGroup.writeEntry("ModifyProtection", metadata.modifyProtection);
-	KConfigGroup jobGroup(&manifest, "Job");
+	KConfigGroup jobGroup(&manifest, QStringLiteral("Job"));
 	jobGroup.writeEntry("ImageSize", contents.imageSize);
 	if (cCreationContext)
 	{
@@ -169,7 +169,7 @@ Palapeli::DirectoryStorageComponent* Palapeli::DirectoryStorageComponent::fromDa
 	const QString imagePath = dir.absoluteFilePath(QStringLiteral("image.jpg"));
 	metadata.image.save(imagePath);
 	//write piece offsets into target manifest
-	KConfigGroup offsetGroup(&manifest, "PieceOffsets");
+	KConfigGroup offsetGroup(&manifest, QStringLiteral("PieceOffsets"));
 	QMapIterator<int, QPoint> iterOffsets(contents.pieceOffsets);
 	while (iterOffsets.hasNext())
 	{
@@ -177,7 +177,7 @@ Palapeli::DirectoryStorageComponent* Palapeli::DirectoryStorageComponent::fromDa
 		offsetGroup.writeEntry(QString::number(iterOffsets.key()), iterOffsets.value());
 	}
 	//write piece relations into target manifest
-	KConfigGroup relationsGroup(&manifest, "Relations");
+	KConfigGroup relationsGroup(&manifest, QStringLiteral("Relations"));
 	for (int index = 0; index < contents.relations.count(); ++index)
 	{
 		const QPair<int, int> relation = contents.relations[index];

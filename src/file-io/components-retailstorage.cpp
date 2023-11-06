@@ -29,12 +29,12 @@ Palapeli::PuzzleComponent* Palapeli::RetailStorageComponent::cast(Type type) con
 	//open manifest
 	QDir dir = QFileInfo(m_desktopFile).dir();
 	KDesktopFile manifest(m_desktopFile);
-	KConfigGroup jobGroup(&manifest, "Job");
+	KConfigGroup jobGroup(&manifest, QStringLiteral("Job"));
 	//read simple metadata
 	creationContext.name = manifest.readName();
 	creationContext.author = manifest.desktopGroup().readEntry("X-KDE-PluginInfo-Author", QString());
 	creationContext.comment = manifest.readComment();
-	creationContext.modifyProtection = manifest.group("Collection").readEntry("ModifyProtection", false);
+	creationContext.modifyProtection = manifest.group(QStringLiteral("Collection")).readEntry("ModifyProtection", false);
 	//read image
 	const QString imageName = jobGroup.readEntry("Image", QString());
 	creationContext.image.load(dir.absoluteFilePath(imageName));

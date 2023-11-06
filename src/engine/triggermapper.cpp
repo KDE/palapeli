@@ -73,7 +73,7 @@ void Palapeli::TriggerMapper::readSettings()
 	m_associations.clear();
 	m_associations = Palapeli::TriggerMapper::defaultAssociations();
 	//read config
-	KConfigGroup group(KSharedConfig::openConfig(), "Mouse Interaction");
+	KConfigGroup group(KSharedConfig::openConfig(), QStringLiteral("Mouse Interaction"));
 	const QStringList configKeys = group.keyList();
 	for (const QString& configKey : configKeys)
 	{
@@ -102,7 +102,7 @@ void Palapeli::TriggerMapper::setAssociations(const QMap<QByteArray, Palapeli::T
 			triggerSerializations[it1.key()] << it1.value().serialized();
 	}
 	//clear config
-	KConfigGroup group(KSharedConfig::openConfig(), "Mouse Interaction");
+	KConfigGroup group(KSharedConfig::openConfig(), QStringLiteral("Mouse Interaction"));
 	const auto keys = group.keyList();
 	for (const QString& key : keys)
 		group.deleteEntry(key);

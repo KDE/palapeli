@@ -100,7 +100,7 @@ static QString readPseudoUrl(const QString& path_, bool local)
 
 Palapeli::Collection::Collection(QWidget *parent)
 	: m_config(new KConfig(QStringLiteral("palapeli-collectionrc"), KConfig::CascadeConfig))
-	, m_group(new KConfigGroup(m_config, "Palapeli Collection"))
+	, m_group(new KConfigGroup(m_config, QStringLiteral("Palapeli Collection")))
 {
 	//read the puzzles
 	const QStringList puzzleIds = m_group->groupList();
