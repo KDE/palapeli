@@ -575,7 +575,7 @@ msgstr ""
 "Hi ha un espai en la taula del trencaclosques reservat per a construir la "
 "solució.\n"
 "\n"
-"Per acabar, però no menys important, hi ha algunes finestres xicotetes "
+"Per a acabar, però no menys important, hi ha algunes finestres xicotetes "
 "anomenades «contenidors». Estan per a ordenar les peces en grups com vores, "
 "cel o casa blanca a l'esquerra. Pots tindre tants contenidors com vullgues i "
 "donar-los-hi noms. Ja n'hauries de tindre un anomenat «Mà», per a portar les "
@@ -975,7 +975,7 @@ msgid ""
 "improve rendering performance."
 msgstr ""
 "Si s'han de renderitzar les ombres de davall de les peces del "
-"trencaclosques. Desactivant açò es millorarà el rendiment del renderitzat."
+"trencaclosques. Desseleccionant-la es millorarà el rendiment del renderitzat."
 
 #. i18n: ectx: label, entry (PieceBevelsEnabled), group (Appearance)
 #: src/palapeli.kcfg:40
@@ -985,7 +985,7 @@ msgid ""
 "improve puzzle loading performance."
 msgstr ""
 "Si s'han de renderitzar els bisells de les peces del trencaclosques. "
-"Desactivant açò es millorarà el rendiment del renderitzat."
+"Desseleccionant-la es millorarà el rendiment del renderitzat."
 
 #. i18n: ectx: label, entry (PuzzlePreviewVisible), group (PuzzlePreview)
 #: src/palapeli.kcfg:46
