@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Andrej Mernik <andrejm@ubuntu.si>, 2012, 2013, 2014, 2017.
-# Matjaž Jeran <matjaz.jeran@amis.net>, 2020, 2021, 2022.
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023 Matjaž Jeran <matjaz.jeran@amis.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-10 01:46+0000\n"
-"PO-Revision-Date: 2022-08-14 07:28+0200\n"
+"PO-Revision-Date: 2023-12-05 10:07+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -243,7 +243,7 @@ msgstr "Interakcija s kosi"
 #: src/config/triggerlistview.cpp:19
 #, kde-format
 msgid "Interaction with the puzzle table"
-msgstr "Interakcija z mizo s sestavljanko"
+msgstr "Interakcija z mizo z izrezljanko"
 
 #: src/config/triggerlistview.cpp:21
 #, kde-format
@@ -254,7 +254,7 @@ msgstr "Interakcija z vidnim poljem"
 #, kde-format
 msgctxt "@title:window"
 msgid "Create New Puzzle"
-msgstr "Ustvari novo sestavljanko"
+msgstr "Ustvari novo izrezljanko"
 
 #: src/creator/puzzlecreator.cpp:51
 #, kde-format
@@ -326,32 +326,32 @@ msgstr "Prilagodite parametre izbrane metode rezanja"
 #, kde-format
 msgid "Puzzle cannot be created: The slicer plugin could not be loaded."
 msgstr ""
-"Sestavljanke ni bilo mogoče ustvariti: vstavka rezalnika ni bilo mogoče "
+"Izrezljanke ni bilo mogoče ustvariti: vstavka rezalnika ni bilo mogoče "
 "naložiti."
 
 #: src/creator/puzzlecreator.cpp:119
 #, kde-format
 msgid "Puzzle cannot be created: The file you selected is not an image."
 msgstr ""
-"Sestavljanke ni bilo mogoče ustvariti: datoteka, ki ste jo izbrali, ni slika."
+"Izrezljanke ni bilo mogoče ustvariti: datoteka, ki ste jo izbrali, ni slika."
 
 #: src/creator/puzzlecreator.cpp:127
 #, kde-format
 msgid ""
 "Puzzle cannot be created: Slicing failed because of undetermined problems."
 msgstr ""
-"Sestavljanke ni bilo mogoče ustvariti: rezanje je spodletelo zaradi "
+"Izrezljanke ni bilo mogoče ustvariti: rezanje je spodletelo zaradi "
 "nedoločenih težav."
 
 #: src/engine/constraintinteractor.cpp:15
 #, kde-format
 msgid "Change size of puzzle table area by dragging its edges"
-msgstr "Spremeni velikost območja mize s sestavljanko z vlečenjem roba"
+msgstr "Spremeni velikost območja mize z izrezljanko z vlečenjem roba"
 
 #: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
 #, kde-format
 msgid "You have finished the puzzle. Do you want to restart it now?"
-msgstr "Sestavljanko ste že končali. Ali želite začeti znova?"
+msgstr "Izrezljanko ste že končali. Ali želite začeti znova?"
 
 #: src/engine/gameplay.cpp:181 src/engine/gameplay.cpp:1138
 #, kde-format
@@ -363,25 +363,25 @@ msgstr "Ponovno zaženi"
 #, kde-format
 msgid "The following puzzles will be deleted. This action cannot be undone."
 msgstr ""
-"Naslednje sestavljanke bodo izbrisane. Tega dejanja ni mogoče razveljaviti."
+"Naslednje izrezljanke bodo izbrisane. Tega dejanja ni mogoče razveljaviti."
 
 #: src/engine/gameplay.cpp:315 src/engine/gameplay.cpp:341
 #, kde-format
 msgctxt "Filter for a file dialog"
 msgid "Palapeli puzzles (*.puzzle)"
-msgstr "Sestavljanke Palapeli (*.puzzle)"
+msgstr "Izrezljanke Palapeli (*.puzzle)"
 
 #: src/engine/gameplay.cpp:317
 #, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
-msgstr "Uvozi sestavljanke Palapeli"
+msgstr "Uvozi izrezljanke Palapeli"
 
 #: src/engine/gameplay.cpp:343
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
-msgstr "Shrani sestavljanke Palapeli"
+msgstr "Shrani izrezljanke Palapeli"
 
 #: src/engine/gameplay.cpp:358
 #, kde-format
@@ -429,7 +429,7 @@ msgid ""
 "To rearrange pieces, either the puzzle table must have some selected pieces "
 "or there must be a selected holder with some selected pieces in it."
 msgstr ""
-"Da prerazporedite kose, mora imeti miza s sestavljanko izbrane kose ali pa "
+"Da prerazporedite kose, mora imeti miza z izrezljanko izbrane kose ali pa "
 "mora biti izbran vsebnik, ki vsebuje izbrane kose."
 
 #: src/engine/gameplay.cpp:531
@@ -463,7 +463,7 @@ msgid ""
 "holder or select pieces from the puzzle table to be transferred into it."
 msgstr ""
 "Za prenos kosov iz izbranega vsebnika morate izbrati enega ali več kosov, "
-"lahko pa izberete tudi kose iz mize s sestavljanko."
+"lahko pa izberete tudi kose iz mize z izrezljanko."
 
 #: src/engine/gameplay.cpp:593
 #, kde-format
@@ -539,7 +539,7 @@ msgid ""
 "By the way, holders can do almost all the things the puzzle table and its "
 "window can do, including joining pieces to build up a part of the solution."
 msgstr ""
-"Pravkar ste ustvarili veliko sestavljanko. Palapeli ima številne zmožnosti, "
+"Pravkar ste ustvarili veliko izrezljanko. Palapeli ima številne zmožnosti, "
 "ki vam jo pomagajo rešiti, kljub omejenemu prostoru na vašem namizju. "
 "Podrobnosti so opisane v Priročniku za Palapeli (v meniju s pomočjo). Tukaj "
 "je nekaj hitrih nasvetov.\n"
@@ -548,18 +548,18 @@ msgstr ""
 "ali senc, saj lahko to upočasni nalaganje in oteži poudarjanje, če se kosi v "
 "pogledu zelo majhni.\n"
 "\n"
-"Prva zmožnost je predogled sestavljanke (slika končane sestavljanke) in "
-"orodni gumb, ki ta predogled vklopi ali izklopi. Če se z miško premaknete "
-"nad ta predogled, bo povečal del slike, zato lahko velikost predoglednega "
-"okna nastavite na majhno.\n"
+"Prva zmožnost je predogled izrezljanke (slika končane izrezljanke) in orodni "
+"gumb, ki ta predogled vklopi ali izklopi. Če se z miško premaknete nad ta "
+"predogled, bo povečal del slike, zato lahko velikost predoglednega okna "
+"nastavite na majhno.\n"
 "\n"
-"Druga zmožnost so približani in oddaljeni pogledi na mizo s sestavljanko, "
-"med katerimi lahko preklapljate z uporabo miškinega gumba (privzeto je to "
+"Druga zmožnost so približani in oddaljeni pogledi na mizo z izrezljanko, med "
+"katerimi lahko preklapljate z uporabo miškinega gumba (privzeto je to "
 "srednji klik). V približanem pogledu, lahko uporabite prazen prostor na "
 "drsnikih za drsenje med kosi, stran za stranjo. Pogleda lahko prilagodite z "
 "približevanjem ali oddaljevanjem, vaše spremembe pa bodo shranjene.\n"
 "\n"
-"Tretja zmožnost je prostor na mizi s sestavljanko, ki je namenjen rešitvi.\n"
+"Tretja zmožnost je prostor na mizi z izrezljanko, ki je namenjen rešitvi.\n"
 "\n"
 "Zadnja stvar, ki obstaja so tako imenovani vsebniki. To so okna, ki so "
 "namenjena razvrščanju kosov v skupine, kot npr. robovi, nebo ali belina. "
@@ -574,25 +574,25 @@ msgstr ""
 "samodejno prenesejo v vsebnik. Lahko pa s posebnim klikom v vsebnik "
 "prenašate posamezne kose.\n"
 "\n"
-"Za prenos kosov iz vsebnika, se prepričajte, da na mizi s sestavljanko ni "
+"Za prenos kosov iz vsebnika, se prepričajte, da na mizi z izrezljanko ni "
 "izbranih kosov. Premaknite se v vsebnik in izberite nekaj kosov z običajnimi "
-"kliki, nato pa se premaknite na mizo s sestavljanko in izvedite poseben klik "
+"kliki, nato pa se premaknite na mizo z izrezljanko in izvedite poseben klik "
 "na praznem prostoru, kamor želite prestaviti kose. Za preprečitev prekrivanj "
 "med kosi, prenašajte manjše število kosov naenkrat.\n"
 "\n"
-"V vsebnikih lahko mimogrede tudi sestavljate dele sestavljanke, podobno kot "
-"je to mogoče na mizi s sestavljanko."
+"V vsebnikih lahko mimogrede tudi sestavljate dele izrezljanke, podobno kot "
+"je to mogoče na mizi z izrezljanko."
 
 #: src/engine/gameplay.cpp:1131
 #, kde-format
 msgctxt "Caption for hints"
 msgid "Solving Large Puzzles"
-msgstr "Reševanje večjih sestavljank"
+msgstr "Reševanje večjih izrezljank"
 
 #: src/engine/gameplay.cpp:1195
 #, kde-format
 msgid "Great! You have finished the puzzle."
-msgstr "Odlično! Končali ste sestavljanko."
+msgstr "Odlično! Končali ste izrezljanko."
 
 #: src/engine/interactors.cpp:25
 #, kde-format
@@ -652,13 +652,13 @@ msgstr "Izberi več kosov naenkrat"
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Toggle lock state of the puzzle table area"
-msgstr "Preklopi zaklep območja mize s sestavljanko"
+msgstr "Preklopi zaklep območja mize z izrezljanko"
 
 #: src/engine/puzzlepreview.cpp:29
 #, kde-format
 msgctxt "@title:window"
 msgid "Preview of completed puzzle"
-msgstr "Predogled končane sestavljanke"
+msgstr "Predogled končane izrezljanke"
 
 #: src/engine/puzzlepreview.cpp:36
 #, kde-format
@@ -768,7 +768,7 @@ msgstr "Samodejno shranjevanje"
 #: src/engine/zoomwidget.cpp:26
 #, kde-format
 msgid "Lock the puzzle table area"
-msgstr "Zakleni območje mize s sestavljanko"
+msgstr "Zakleni območje mize z izrezljanko"
 
 #: src/file-io/collection-delegate.cpp:106
 #, kde-format
@@ -812,7 +812,7 @@ msgstr "Po številu kosov"
 #: src/file-io/collection.cpp:36
 #, kde-format
 msgid "Loading puzzle..."
-msgstr "Nalaganje sestavljanke..."
+msgstr "Nalaganje izrezljanke..."
 
 #: src/file-io/collection.cpp:109
 #, kde-format
@@ -823,12 +823,12 @@ msgstr "Nalaganje zbirke"
 #, kde-format
 msgctxt "command line message"
 msgid "Error: No puzzle file given."
-msgstr "Napaka: sestavljanka ni bila podana."
+msgstr "Napaka: izrezljanka ni bila podana."
 
 #: src/importhelper.cpp:40
 #, kde-format
 msgid "Importing puzzle \"%1\" into your collection"
-msgstr "Uvažanje sestavljanke \"%1\" v vašo zbirko"
+msgstr "Uvažanje izrezljanke \"%1\" v vašo zbirko"
 
 #: src/main.cpp:29
 #, kde-format
@@ -839,7 +839,7 @@ msgstr "Palapeli"
 #: src/main.cpp:31
 #, kde-format
 msgid "Jigsaw Puzzle Game"
-msgstr "Igra sestavljank"
+msgstr "Igra izrezljanke"
 
 #: src/main.cpp:33
 #, kde-format
@@ -859,12 +859,12 @@ msgstr "Johannes Loehnert"
 #: src/main.cpp:38
 #, kde-format
 msgid "The option to preview the completed puzzle"
-msgstr "Možnost za predogled končane sestavljanke"
+msgstr "Možnost za predogled končane izrezljanke"
 
 #: src/main.cpp:47
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
-msgstr "Pot do datoteke s sestavljanko (bo odprta, če ni podan parameter -i)"
+msgstr "Pot do datoteke z izrezljanko (bo odprta, če ni podan parameter -i)"
 
 #: src/main.cpp:48
 #, kde-format
@@ -873,8 +873,8 @@ msgid ""
 "puzzle file is given). The main window will not be shown after importing the "
 "given puzzle."
 msgstr ""
-"Uvozi dano sestavljanko v krajevno zbirko (ne naredi nič, če ni podane "
-"sestavljanke). Po uvozu podane sestavljanke se ne bo prikazalo glavno okno."
+"Uvozi dano izrezljanko v krajevno zbirko (ne naredi nič, če ni podane "
+"izrezljanke). Po uvozu podane izrezljanke se ne bo prikazalo glavno okno."
 
 #: src/main.cpp:60
 #, kde-format
@@ -920,7 +920,7 @@ msgid ""
 "Where to reserve space on the puzzle table for the solution, when shuffling "
 "or re-shuffling the pieces."
 msgstr ""
-"Kje v na  mizi s sestavljanko bo zagotovljen prostor za rešitev, ko so kosi "
+"Kje v na  mizi z izrezljanko bo zagotovljen prostor za rešitev, ko so kosi "
 "premešani."
 
 #. i18n: ectx: label, entry (PieceSpacing), group (Appearance)
@@ -930,7 +930,7 @@ msgid ""
 "Spacing of pieces in puzzle grids relative to the size of the largest piece "
 "(spacing factor is 1.0 + 0.05 * value)."
 msgstr ""
-"Razmik med kosi v mreži sestavljanke relativno glede na največji kos (faktor "
+"Razmik med kosi v mreži izrezljanke relativno glede na največji kos (faktor "
 "razmika je 1,0 + 0,05 * vrednost)."
 
 #. i18n: ectx: label, entry (ShowStatusBar), group (Appearance)
@@ -940,7 +940,7 @@ msgid ""
 "Whether to show the status bar on the puzzle table. (It is not a real status "
 "bar, but the position and provided functionality is similar.)"
 msgstr ""
-"Ali naj bo prikazana vrstica stanja na mizi s sestavljanko (ne gre za pravo "
+"Ali naj bo prikazana vrstica stanja na mizi z izrezljanko (ne gre za pravo "
 "vrstico stanja, ima pa podoben položaj in zmožnosti.)"
 
 #. i18n: ectx: label, entry (PieceShadowsEnabled), group (Appearance)
@@ -950,7 +950,7 @@ msgid ""
 "Whether to render shadows below the puzzle pieces. Turning this off might "
 "improve rendering performance."
 msgstr ""
-"Ali naj bodo izrisane sence pod kosi sestavljanke. Če to izklopite, bo morda "
+"Ali naj bodo izrisane sence pod kosi izrezljanke. Če to izklopite, bo morda "
 "izboljšana zmogljivost izrisa."
 
 #. i18n: ectx: label, entry (PieceBevelsEnabled), group (Appearance)
@@ -960,7 +960,7 @@ msgid ""
 "Whether to render bevels on the puzzle pieces. Turning this off might "
 "improve puzzle loading performance."
 msgstr ""
-"Ali naj bodo izrisane izbokline na kosih sestavljanke. Če to izklopite, bo "
+"Ali naj bodo izrisane izbokline na kosih izrezljanke. Če to izklopite, bo "
 "morda izboljšana zmogljivost izrisa."
 
 #. i18n: ectx: label, entry (PuzzlePreviewVisible), group (PuzzlePreview)
@@ -973,7 +973,7 @@ msgstr "Ali je bilo predogledno okno ob zadnjem zagonu Palapeli vklopljeno."
 #: src/palapeli.kcfg:50
 #, kde-format
 msgid "Last position and size of puzzle preview."
-msgstr "Zadnji položaj in zadnja velikost predogleda sestavljanke."
+msgstr "Zadnji položaj in zadnja velikost predogleda izrezljanke."
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/palapeliui.rc:35
@@ -986,7 +986,7 @@ msgstr "Glavna orodna vrstica"
 #, kde-format
 msgctxt "@title:group"
 msgid "Puzzle table"
-msgstr "Miza s sestavljanko"
+msgstr "Miza z izrezljanko"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/settings.ui:25
@@ -1014,15 +1014,15 @@ msgid ""
 "No space is provided with puzzles of less than 20 pieces. Changes will take "
 "effect when a puzzle is created or re-started."
 msgstr ""
-"Za sestavljanke z manj kot 20 kosi ni zagotovljenega prostora za rešitev. "
-"Spremembe bodo stopile v veljavo, ko bo sestavljanka ustvarjena ali znova "
+"Za izrezljanke z manj kot 20 kosi ni zagotovljenega prostora za rešitev. "
+"Spremembe bodo stopile v veljavo, ko bo izrezljanka ustvarjena ali znova "
 "zagnana."
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: src/settings.ui:106
 #, kde-format
 msgid "Spacing of pieces in puzzle grids (1.0-1.5):"
-msgstr "Razmik med kosi v mreži sestavljanke (1,0-1,5):"
+msgstr "Razmik med kosi v mreži izrezljanke (1,0-1,5):"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/settings.ui:156
@@ -1050,7 +1050,7 @@ msgid ""
 "will take effect only when a new puzzle is started."
 msgstr ""
 "Te možnosti lahko onemogočite, če Palapeli teče zelo počasi. Spremembe bodo "
-"uveljavljene le, ko začnete novo sestavljanko."
+"uveljavljene le, ko začnete novo izrezljanko."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: src/settings.ui:195
@@ -1083,7 +1083,7 @@ msgstr "Ni natančna (lažje)"
 #: src/window/mainwindow.cpp:54
 #, kde-format
 msgid "Show Statusbar of Puzzle Table"
-msgstr "Pokaži vrstico stanja mize s sestavljanko"
+msgstr "Pokaži vrstico stanja mize z izrezljanko"
 
 #: src/window/mainwindow.cpp:57
 #, kde-format
@@ -1093,27 +1093,27 @@ msgstr "Nazaj na zbirko"
 #: src/window/mainwindow.cpp:58
 #, kde-format
 msgid "Go back to the collection to choose another puzzle"
-msgstr "Vrnite se nazaj na zbirko in izberite drugo sestavljanko"
+msgstr "Vrnite se nazaj na zbirko in izberite drugo izrezljanko"
 
 #: src/window/mainwindow.cpp:64
 #, kde-format
 msgid "Create &New Puzzle..."
-msgstr "Ustvari &novo sestavljanko..."
+msgstr "Ustvari &novo izrezljanko..."
 
 #: src/window/mainwindow.cpp:65
 #, kde-format
 msgid "Create a new puzzle using an image file from your disk"
-msgstr "Ustvari novo sestavljanko iz slike na vašem disku"
+msgstr "Ustvari novo izrezljanko iz slike na vašem disku"
 
 #: src/window/mainwindow.cpp:71
 #, kde-format
 msgid "&Delete Puzzle"
-msgstr "Izbriši sestavljanko"
+msgstr "Izbriši izrezljanko"
 
 #: src/window/mainwindow.cpp:73
 #, kde-format
 msgid "Delete the selected puzzle from your collection"
-msgstr "Izbriše izbrano sestavljanko iz vaše zbirke"
+msgstr "Izbriše izbrano izrezljanko iz vaše zbirke"
 
 #: src/window/mainwindow.cpp:79
 #, kde-format
@@ -1123,7 +1123,7 @@ msgstr "Uvozi iz datoteke..."
 #: src/window/mainwindow.cpp:80
 #, kde-format
 msgid "Import a new puzzle from a file into your collection"
-msgstr "Uvozi novo sestavljanko iz datoteke v vašo zbirko"
+msgstr "Uvozi novo izrezljanko iz datoteke v vašo zbirko"
 
 #: src/window/mainwindow.cpp:85
 #, kde-format
@@ -1133,12 +1133,12 @@ msgstr "Izvozi v datoteko..."
 #: src/window/mainwindow.cpp:87
 #, kde-format
 msgid "Export the selected puzzle from your collection into a file"
-msgstr "Izvozi izbrano sestavljanko iz vaše zbirke v datoteko"
+msgstr "Izvozi izbrano izrezljanko iz vaše zbirke v datoteko"
 
 #: src/window/mainwindow.cpp:93
 #, kde-format
 msgid "&Restart Puzzle..."
-msgstr "Znova zaženi sestavljanko..."
+msgstr "Znova zaženi izrezljanko..."
 
 #: src/window/mainwindow.cpp:94
 #, kde-format
@@ -1204,7 +1204,7 @@ msgstr "Predogled"
 #: src/window/mainwindow.cpp:134
 #, kde-format
 msgid "Show or hide the image of the completed puzzle"
-msgstr "Preklopi prikaz slike končane sestavljanke"
+msgstr "Preklopi prikaz slike končane izrezljanke"
 
 #: src/window/mainwindow.cpp:148
 #, kde-format
@@ -1225,12 +1225,12 @@ msgstr "Omogoči"
 #: src/window/puzzletablewidget.cpp:49
 #, kde-format
 msgid "No puzzle loaded"
-msgstr "Naložena ni nobena sestavljanka"
+msgstr "Naložena ni nobena izrezljanka"
 
 #: src/window/puzzletablewidget.cpp:118
 #, kde-format
 msgid "You finished the puzzle."
-msgstr "Končali ste sestavljanko."
+msgstr "Končali ste izrezljanko."
 
 #: src/window/puzzletablewidget.cpp:122
 #, kde-format
