@@ -1,21 +1,21 @@
 # translation of palapeli.po to Slovak
 # Richard Fric <Richard.Fric@kdemail.net>, 2009.
 # Michal Sulek <misurel@gmail.com>, 2010.
-# Roman Paholík <wizzardsk@gmail.com>, 2012, 2013, 2014.
+# SPDX-FileCopyrightText: 2012, 2013, 2014, 2023 Roman Paholík <wizzardsk@gmail.com>
 # Matej Mrenica <matejm98mthw@gmail.com>, 2019, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-21 00:44+0000\n"
-"PO-Revision-Date: 2021-01-26 11:54+0100\n"
-"Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
-"Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2023-12-07 17:36+0100\n"
+"Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
+"Language-Team: Slovak <kde-sk@linux.sk>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.12.1\n"
+"X-Generator: Lokalize 23.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #, kde-format
@@ -232,8 +232,7 @@ msgid "Mouse Buttons"
 msgstr "Tlačidlá myši"
 
 #: src/config/triggerconfigwidget.cpp:21
-#, fuzzy, kde-format
-#| msgid "Mouse wheel"
+#, kde-format
 msgid "Mouse Wheel"
 msgstr "Koliesko myši"
 
@@ -356,7 +355,7 @@ msgstr "Dokončili ste puzzle. Chcete teraz začať odznova?"
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
-msgstr ""
+msgstr "Reštartovať"
 
 #: src/engine/gameplay.cpp:305
 #, kde-format
@@ -456,7 +455,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Transfer"
-msgstr ""
+msgstr "Prevod"
 
 #: src/engine/gameplay.cpp:592
 #, kde-format
@@ -673,8 +672,7 @@ msgid "Image is not available."
 msgstr "Obrázok nie je k dispozícii."
 
 #: src/engine/puzzlepreview.cpp:64
-#, fuzzy, kde-format
-#| msgid "%1 - Preview"
+#, kde-format
 msgctxt "@title:window"
 msgid "%1 - Preview"
 msgstr "%1 - Náhľad"
@@ -1132,10 +1130,9 @@ msgid "Delete the selected puzzle from your collection"
 msgstr "Odstrániť vybrané puzzle z kolekcie"
 
 #: src/window/mainwindow.cpp:80
-#, fuzzy, kde-format
-#| msgid "&Import from file..."
+#, kde-format
 msgid "&Import from File..."
-msgstr "&Importovať zo súboru..."
+msgstr "Importovať zo súboru..."
 
 #: src/window/mainwindow.cpp:81
 #, kde-format
@@ -1143,8 +1140,7 @@ msgid "Import a new puzzle from a file into your collection"
 msgstr "Importovať nové puzzle zo súboru do vašej kolekcie"
 
 #: src/window/mainwindow.cpp:86
-#, fuzzy, kde-format
-#| msgid "&Export to file..."
+#, kde-format
 msgid "&Export to File..."
 msgstr "&Exportovať do súboru..."
 
@@ -1154,8 +1150,7 @@ msgid "Export the selected puzzle from your collection into a file"
 msgstr "Exportovať vybrané puzzle z kolekcie do súboru"
 
 #: src/window/mainwindow.cpp:94
-#, fuzzy, kde-format
-#| msgid "&Restart puzzle..."
+#, kde-format
 msgid "&Restart Puzzle..."
 msgstr "&Reštartovať puzzle..."
 
@@ -1230,10 +1225,9 @@ msgid "Show or hide the image of the completed puzzle"
 msgstr "Ukázať alebo skryť obrázok dokončenej puzzle"
 
 #: src/window/mainwindow.cpp:149
-#, fuzzy, kde-format
-#| msgid "Enable all messages"
+#, kde-format
 msgid "Enable All Messages"
-msgstr "Povoliť všetky správy"
+msgstr "Zapnúť všetky správy"
 
 #: src/window/mainwindow.cpp:162
 #, fuzzy, kde-format
@@ -1245,7 +1239,7 @@ msgstr "Povoliť všetky správy"
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr ""
+msgstr "Povoliť"
 
 #: src/window/puzzletablewidget.cpp:49
 #, kde-format
