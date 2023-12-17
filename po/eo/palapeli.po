@@ -211,8 +211,7 @@ msgstr ""
 "musradon ĉi tie"
 
 #: src/config/mouseinputbutton.cpp:224
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt ""
 "This is used for describing that no mouse action has been assigned to this "
 "interaction plugin."
@@ -1236,9 +1235,3 @@ msgstr "Vi finis la enigmon."
 msgctxt "Progress display"
 msgid "%1% finished"
 msgstr "%1% finiĝis"
-
-#~ msgctxt ""
-#~ "This is used for describing that no mouse action has been assigned to "
-#~ "this ¦interaction plugin."
-#~ msgid "None"
-#~ msgstr "Neniu"
