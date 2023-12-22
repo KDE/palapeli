@@ -5,7 +5,6 @@
 */
 
 #include "thumbnail-creator.h"
-#include <KIO/ThumbnailCreator>
 #include <KPluginFactory>
 #include <QImage>
 #include <QTemporaryDir>
