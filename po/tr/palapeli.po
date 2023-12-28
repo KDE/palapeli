@@ -6,13 +6,13 @@
 # Serdar Dalgıç <serdar@pardus.org.tr>, 2010.
 # obsoleteman <tulliana@gmail.com>, 2009.
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014.
-# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdegames-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-21 00:44+0000\n"
-"PO-Revision-Date: 2023-06-04 02:02+0300\n"
+"PO-Revision-Date: 2023-12-27 14:23+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.07.70\n"
+"X-Generator: Lokalize 24.01.85\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -88,7 +88,7 @@ msgstr "Tahmini parça sayısı"
 #: slicers/goldberg/slicer-goldberg.cpp:45
 #, kde-format
 msgid "Quick preset"
-msgstr "Hızlı önayar"
+msgstr "Tez önayar"
 
 #: slicers/goldberg/slicer-goldberg.cpp:47
 #, kde-format
@@ -213,7 +213,7 @@ msgid ""
 "Hold down the modifier keys you want, then click a mouse button or scroll a "
 "mouse wheel here"
 msgstr ""
-"İstediğiniz değiştirici düğmeleri basılı tutarken, burada bir fare düğmesine "
+"İstediğiniz niteleyici düğmeleri basılı tutarken, burada bir fare düğmesine "
 "tıklayın veya fare tekerleğini sarın"
 
 #: src/config/mouseinputbutton.cpp:224
@@ -541,7 +541,7 @@ msgstr ""
 "Az önce büyük bir yapboz oluşturdunuz: Palapeli, masaüstündeki sınırlı "
 "alanda çözmenize yardımcı olacak çeşitli özelliklere sahiptir. Bunlar "
 "Palapeli El Kitabı'nda (Yardım menüsünde) ayrıntılı olarak açıklanmıştır. "
-"İşte size birkaç hızlı ipucu.\n"
+"İşte size birkaç tez ipucu.\n"
 "\n"
 "Başlamadan önce, büyük yapbozlarda eğimler veya gölgelendirme (bkz. Ayarlar "
 "penceresi) kullanmamak daha yavaş olabilir; çünkü yükleme yavaşlar ve "
@@ -553,10 +553,10 @@ msgstr ""
 "parçalarını büyütür, böylece Önizleme için seçtiğiniz pencere boyutu oldukça "
 "küçük olabilir.\n"
 "\n"
-"Ardından, hızlı bir şekilde fare düğmesini kullanarak değiştirebileceğiniz "
-"yapboz tahtasının yakın ve uzak görüntüleri bulunur (varsayılan Orta Tık). "
-"Yakın çekim görünümünde, yapboz parçalarını bir kerede, 'sayfa' aramak için "
-"sarma çubuklarındaki boş alanı kullanın. İki görüntüyü yakınlaştırarak veya "
+"Ardından, tez fare düğmesini kullanarak değiştirebileceğiniz yapboz "
+"tahtasının yakın ve uzak görüntüleri bulunur (öntanımlı Orta Tık). Yakın "
+"çekim görünümünde, yapboz parçalarını bir kerede, 'sayfa' aramak için sarma "
+"çubuklarındaki boş alanı kullanın. İki görüntüyü yakınlaştırarak veya "
 "uzaklaştırarak ayarlayabilirsiniz, ayrıca değişiklikleriniz anımsanacaktır.\n"
 "\n"
 "Ardından, çözümü oluşturmak için ayrılmış olan yapboz tahtasında bir boşluk "
