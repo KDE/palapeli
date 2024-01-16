@@ -23,7 +23,7 @@ int main(int argc, char** argv)
 {
     QApplication app(argc, argv);
 
-    KLocalizedString::setApplicationDomain("palapeli");
+    KLocalizedString::setApplicationDomain(QByteArrayLiteral("palapeli"));
 
     KAboutData about(QStringLiteral("palapeli"),
                      i18nc("The application's name", "Palapeli"),
