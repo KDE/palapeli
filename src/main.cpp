@@ -11,6 +11,7 @@
 #include <ctime>
 #include <KAboutData>
 #include <KCrash>
+#include <KDBusService>
 
 #include <QApplication>
 #include <KLocalizedString>
@@ -51,6 +52,8 @@ int main(int argc, char** argv)
 
     parser.process(app);
     about.processCommandLine(&parser);
+
+    KDBusService service;
 
     //NOTE: Syntax errors are reported on stderr, while file errors are presented to the user.
     if (parser.isSet(importOption)) {

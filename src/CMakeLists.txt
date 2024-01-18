@@ -72,6 +72,7 @@ target_link_libraries(palapeli
     KF6::Archive
     KF6::ConfigWidgets
     KF6::Crash
+    KF6::DBusAddons
     KF6::ItemViews
     KF6::Notifications
     KF6::KIOWidgets
