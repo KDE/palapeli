@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 01:46+0000\n"
+"POT-Creation-Date: 2024-01-19 00:36+0000\n"
 "PO-Revision-Date: 2022-08-14 18:20+0100\n"
 "Last-Translator: Sofía Priego <spriego@darksylvania.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -840,43 +840,43 @@ msgstr "Error: no se ha indicado un archivo de rompecabezas."
 msgid "Importing puzzle \"%1\" into your collection"
 msgstr "Importando el rompecabezas «%1» a su colección"
 
-#: src/main.cpp:29
+#: src/main.cpp:30
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
 msgstr "Palapeli"
 
-#: src/main.cpp:31
+#: src/main.cpp:32
 #, kde-format
 msgid "Jigsaw Puzzle Game"
 msgstr "Juego de rompecabezas"
 
-#: src/main.cpp:33
+#: src/main.cpp:34
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
 msgstr "Copyright 2009, 2010, Stefan Majewsky"
 
-#: src/main.cpp:36
+#: src/main.cpp:37
 #, kde-format
 msgid "Stefan Majewsky"
 msgstr "Stefan Majewsky"
 
-#: src/main.cpp:37
+#: src/main.cpp:38
 #, kde-format
 msgid "Johannes Loehnert"
 msgstr "Johannes Loehnert"
 
-#: src/main.cpp:38
+#: src/main.cpp:39
 #, kde-format
 msgid "The option to preview the completed puzzle"
 msgstr "Opción para la vista previa de los rompecabezas completados"
 
-#: src/main.cpp:47
+#: src/main.cpp:48
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "Ruta al archivo del rompecabezas (se abrirá si no se usa -i)"
 
-#: src/main.cpp:48
+#: src/main.cpp:49
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -887,7 +887,7 @@ msgstr ""
 "nada si no se indica un archivo de rompecabezas). No se mostrará la ventana "
 "principal tras importar el rompecabezas indicado."
 
-#: src/main.cpp:60
+#: src/main.cpp:63
 #, kde-format
 msgid "No file to import given"
 msgstr "No se ha indicado ningún archivo para importar"

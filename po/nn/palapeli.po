@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 01:46+0000\n"
+"POT-Creation-Date: 2024-01-19 00:36+0000\n"
 "PO-Revision-Date: 2023-07-30 22:09+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -830,43 +830,43 @@ msgstr "Feil: Inga puslespelfil oppgjeven."
 msgid "Importing puzzle \"%1\" into your collection"
 msgstr "Legg puslespelet «%1» til samlinga"
 
-#: src/main.cpp:29
+#: src/main.cpp:30
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
 msgstr "Palapeli"
 
-#: src/main.cpp:31
+#: src/main.cpp:32
 #, kde-format
 msgid "Jigsaw Puzzle Game"
 msgstr "Puslespel"
 
-#: src/main.cpp:33
+#: src/main.cpp:34
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
 msgstr "© 2009–2010 Stefan Majewsky"
 
-#: src/main.cpp:36
+#: src/main.cpp:37
 #, kde-format
 msgid "Stefan Majewsky"
 msgstr "Stefan Majewsky"
 
-#: src/main.cpp:37
+#: src/main.cpp:38
 #, kde-format
 msgid "Johannes Loehnert"
 msgstr "Johannes Löhnert"
 
-#: src/main.cpp:38
+#: src/main.cpp:39
 #, kde-format
 msgid "The option to preview the completed puzzle"
 msgstr "Val for førehandvising av ferdig puslespel"
 
-#: src/main.cpp:47
+#: src/main.cpp:48
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "Adressa til puslespelfila (vert opna med mindre «-i» er oppgjeven)"
 
-#: src/main.cpp:48
+#: src/main.cpp:49
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -877,7 +877,7 @@ msgstr ""
 "ikkje noko puslespelfil er vald). Hovudvindauget vert ikkje vist etter "
 "importeringa av puslespelet."
 
-#: src/main.cpp:60
+#: src/main.cpp:63
 #, kde-format
 msgid "No file to import given"
 msgstr "Inga fil å importera er oppgjeven"

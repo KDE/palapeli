@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 01:46+0000\n"
+"POT-Creation-Date: 2024-01-19 00:36+0000\n"
 "PO-Revision-Date: 2012-07-10 15:56+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer\n"
@@ -782,44 +782,44 @@ msgstr "កំហុស​ ៖ គ្មាន​​ឯកសារ​ល្ប�
 msgid "Importing puzzle \"%1\" into your collection"
 msgstr "នាំ​ចូល​ល្បែង​ផ្គុំ​រូប​ \"%1\" ទៅ​ក្នុង​សម្រាំង​របស់​អ្នក​ "
 
-#: src/main.cpp:29
+#: src/main.cpp:30
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
 msgstr "Palapeli"
 
-#: src/main.cpp:31
+#: src/main.cpp:32
 #, fuzzy, kde-format
 #| msgid "KDE Jigsaw Puzzle Game"
 msgid "Jigsaw Puzzle Game"
 msgstr "ល្បែង​ផ្គុំ​រូប​  Jigsaw របស់ KDE"
 
-#: src/main.cpp:33
+#: src/main.cpp:34
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
 msgstr "រក្សា​សិទ្ធិ​ឆ្នាំ​ ២​០​០​៩ -២​០​១​០ ដោយ​ Stefan Majewsky"
 
-#: src/main.cpp:36
+#: src/main.cpp:37
 #, kde-format
 msgid "Stefan Majewsky"
 msgstr "Stefan Majewsky"
 
-#: src/main.cpp:37
+#: src/main.cpp:38
 #, kde-format
 msgid "Johannes Loehnert"
 msgstr ""
 
-#: src/main.cpp:38
+#: src/main.cpp:39
 #, kde-format
 msgid "The option to preview the completed puzzle"
 msgstr ""
 
-#: src/main.cpp:47
+#: src/main.cpp:48
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "URL នៃ​ឯក​សារ​ល្បែង​ផ្គុំ​រូប​ (នឹង​ត្រូវ​បើក​បើ​ -i មិន​ត្រូវ​បាន​ផ្ដល់​)"
 
-#: src/main.cpp:48
+#: src/main.cpp:49
 #, fuzzy, kde-format
 #| msgid ""
 #| "Import the given puzzle file into the local collection (does nothing if "
@@ -832,7 +832,7 @@ msgstr ""
 "នាំ​ចូល​ឯក​សារ​ល្បែង​ផ្គុំ​រូប​ដែល​បាន​ផ្ដល់​​ចូល​ទៅ​ក្នុង​សម្រាំង​មូលដ្ឋាន​​ (កុំ​ធ្វើ​អ្វី​ទាំង​អស់​ បើ​សិន​​ជា គ្មាន​ឯកសារ​"
 "ល្បែង​ផ្គុំ​រូប​​​ផ្ដល់​ឲ្យ​ទេ​)"
 
-#: src/main.cpp:60
+#: src/main.cpp:63
 #, kde-format
 msgid "No file to import given"
 msgstr ""

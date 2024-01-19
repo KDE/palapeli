@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 01:46+0000\n"
+"POT-Creation-Date: 2024-01-19 00:36+0000\n"
 "PO-Revision-Date: 2011-07-15 00:37+0300\n"
 "Last-Translator: Einars Sprugis <einars8@gmail.com>\n"
 "Language-Team: Latvian <locale@laka.lv>\n"
@@ -785,44 +785,44 @@ msgstr "Kļūda: nav norādīts mīklas fails."
 msgid "Importing puzzle \"%1\" into your collection"
 msgstr "Importē mīklu \"%1\" tavā kolekcijā"
 
-#: src/main.cpp:29
+#: src/main.cpp:30
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
 msgstr "Palapeli"
 
-#: src/main.cpp:31
+#: src/main.cpp:32
 #, fuzzy, kde-format
 #| msgid "KDE Jigsaw Puzzle Game"
 msgid "Jigsaw Puzzle Game"
 msgstr "KDE gabaliņu mīklas spēle"
 
-#: src/main.cpp:33
+#: src/main.cpp:34
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
 msgstr "Autortiesības 2009, 2010, Stefan Majewsky"
 
-#: src/main.cpp:36
+#: src/main.cpp:37
 #, kde-format
 msgid "Stefan Majewsky"
 msgstr "Stefan Majewsky"
 
-#: src/main.cpp:37
+#: src/main.cpp:38
 #, kde-format
 msgid "Johannes Loehnert"
 msgstr ""
 
-#: src/main.cpp:38
+#: src/main.cpp:39
 #, kde-format
 msgid "The option to preview the completed puzzle"
 msgstr ""
 
-#: src/main.cpp:47
+#: src/main.cpp:48
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "Mīklas faila ceļš (tiks atvērts, ja nav dots -i)"
 
-#: src/main.cpp:48
+#: src/main.cpp:49
 #, fuzzy, kde-format
 #| msgid ""
 #| "Import the given puzzle file into the local collection (does nothing if "
@@ -835,7 +835,7 @@ msgstr ""
 "Importēt doto mīklas failu vietējā kolekcijā (nedara neko, ja fails nav "
 "norādīts)"
 
-#: src/main.cpp:60
+#: src/main.cpp:63
 #, kde-format
 msgid "No file to import given"
 msgstr ""

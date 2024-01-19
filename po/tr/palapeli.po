@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdegames-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 01:46+0000\n"
+"POT-Creation-Date: 2024-01-19 00:36+0000\n"
 "PO-Revision-Date: 2023-12-27 14:23+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -832,43 +832,43 @@ msgstr "Hata: Hiçbir yapboz dosyası verilmedi."
 msgid "Importing puzzle \"%1\" into your collection"
 msgstr "\"%1\" yapbozu koleksiyonuna aktarılıyor"
 
-#: src/main.cpp:29
+#: src/main.cpp:30
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
 msgstr "Palapeli"
 
-#: src/main.cpp:31
+#: src/main.cpp:32
 #, kde-format
 msgid "Jigsaw Puzzle Game"
 msgstr "Yapboz Oyunu"
 
-#: src/main.cpp:33
+#: src/main.cpp:34
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
 msgstr "Telif Hakkı 2009, 2010, Stefan Majewsky"
 
-#: src/main.cpp:36
+#: src/main.cpp:37
 #, kde-format
 msgid "Stefan Majewsky"
 msgstr "Stefan Majewsky"
 
-#: src/main.cpp:37
+#: src/main.cpp:38
 #, kde-format
 msgid "Johannes Loehnert"
 msgstr "Johannes Loehnert"
 
-#: src/main.cpp:38
+#: src/main.cpp:39
 #, kde-format
 msgid "The option to preview the completed puzzle"
 msgstr "Tamamlanan yapbozun önizleme seçeneği"
 
-#: src/main.cpp:47
+#: src/main.cpp:48
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "Yapboz dosyasının yolu (-i verilmezse, açılacaktır)"
 
-#: src/main.cpp:48
+#: src/main.cpp:49
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -879,7 +879,7 @@ msgstr ""
 "verilmezse hiçbir şey yapmaz). Verilen yapbozu içe aktardıktan sonra ana "
 "pencere gösterilmeyecektir."
 
-#: src/main.cpp:60
+#: src/main.cpp:63
 #, kde-format
 msgid "No file to import given"
 msgstr "İçe aktarılacak bir dosya verilmedi"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 01:46+0000\n"
+"POT-Creation-Date: 2024-01-19 00:36+0000\n"
 "PO-Revision-Date: 2022-09-07 11:52+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -838,43 +838,43 @@ msgstr "Ошибка: не указан файл мозаики."
 msgid "Importing puzzle \"%1\" into your collection"
 msgstr "Импортирование мозаики «%1» в коллекцию"
 
-#: src/main.cpp:29
+#: src/main.cpp:30
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
 msgstr "Palapeli"
 
-#: src/main.cpp:31
+#: src/main.cpp:32
 #, kde-format
 msgid "Jigsaw Puzzle Game"
 msgstr "Игра-мозаика"
 
-#: src/main.cpp:33
+#: src/main.cpp:34
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
 msgstr "© Stefan Majewsky, 2009, 2010"
 
-#: src/main.cpp:36
+#: src/main.cpp:37
 #, kde-format
 msgid "Stefan Majewsky"
 msgstr "Stefan Majewsky"
 
-#: src/main.cpp:37
+#: src/main.cpp:38
 #, kde-format
 msgid "Johannes Loehnert"
 msgstr "Johannes Loehnert"
 
-#: src/main.cpp:38
+#: src/main.cpp:39
 #, kde-format
 msgid "The option to preview the completed puzzle"
 msgstr "Возможность предварительного просмотра собранной мозаики"
 
-#: src/main.cpp:47
+#: src/main.cpp:48
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "Путь к файлу мозаики (будет открыт если параметр -i не указан)"
 
-#: src/main.cpp:48
+#: src/main.cpp:49
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -884,7 +884,7 @@ msgstr ""
 "Импортировать указанный файл мозаики в коллекцию. Главное окно программы не "
 "будет показано после завершения импорта."
 
-#: src/main.cpp:60
+#: src/main.cpp:63
 #, kde-format
 msgid "No file to import given"
 msgstr "Не указан файл для импорта"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 01:46+0000\n"
+"POT-Creation-Date: 2024-01-19 00:36+0000\n"
 "PO-Revision-Date: 2023-03-01 01:38+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -808,43 +808,43 @@ msgstr "오류: 지정한 퍼즐 파일이 없습니다."
 msgid "Importing puzzle \"%1\" into your collection"
 msgstr "\"%1\" 퍼즐을 모음집으로 가져오는 중"
 
-#: src/main.cpp:29
+#: src/main.cpp:30
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
 msgstr "Palapeli"
 
-#: src/main.cpp:31
+#: src/main.cpp:32
 #, kde-format
 msgid "Jigsaw Puzzle Game"
 msgstr "조각 퍼즐 게임"
 
-#: src/main.cpp:33
+#: src/main.cpp:34
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
 msgstr "Copyright 2009, 2010, Stefan Majewsky"
 
-#: src/main.cpp:36
+#: src/main.cpp:37
 #, kde-format
 msgid "Stefan Majewsky"
 msgstr "Stefan Majewsky"
 
-#: src/main.cpp:37
+#: src/main.cpp:38
 #, kde-format
 msgid "Johannes Loehnert"
 msgstr "Johannes Loehnert"
 
-#: src/main.cpp:38
+#: src/main.cpp:39
 #, kde-format
 msgid "The option to preview the completed puzzle"
 msgstr "완성된 퍼즐을 미리 보는 옵션"
 
-#: src/main.cpp:47
+#: src/main.cpp:48
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "퍼즐 파일 경로(-i를 지정하지 않으면 열기)"
 
-#: src/main.cpp:48
+#: src/main.cpp:49
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -854,7 +854,7 @@ msgstr ""
 "지정한 퍼즐 파일을 로컬 모음집으로 가져옵니다(파일을 지정하지 않으면 아무것"
 "도 안 함). 퍼즐을 가져온 후 주 창을 표시하지 않습니다."
 
-#: src/main.cpp:60
+#: src/main.cpp:63
 #, kde-format
 msgid "No file to import given"
 msgstr "가져올 파일을 지정하지 않았음"
