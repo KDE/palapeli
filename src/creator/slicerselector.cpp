@@ -46,7 +46,7 @@ Palapeli::SlicerSelector::SlicerSelector(QWidget* parent)
 			Palapeli::SlicerSelection sel(pluginName, slicer);
 			m_knownSelections << sel;
 			//the index in m_knownSelections is recorded in Qt::UserRole to map selected items to SlicerSelections
-			slicerItem->setData(0, Qt::UserRole, m_knownSelections.count() - 1);
+			slicerItem->setData(0, Qt::UserRole, int(m_knownSelections.count() - 1));
 		}
 		else
 		{
@@ -59,7 +59,7 @@ Palapeli::SlicerSelector::SlicerSelector(QWidget* parent)
 				Palapeli::SlicerSelection sel(pluginName, slicer, mode);
 				m_knownSelections << sel;
 				//the index in m_knownSelections is recorded in Qt::UserRole to map selected items to SlicerSelections
-				modeItem->setData(0, Qt::UserRole, m_knownSelections.count() - 1);
+				modeItem->setData(0, Qt::UserRole, int(m_knownSelections.count() - 1));
 			}
 		}
 	}
