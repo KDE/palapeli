@@ -2,31 +2,32 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Einars Sprugis <einars8@gmail.com>, 2010, 2011.
+# SPDX-FileCopyrightText: 2024 Toms Trasūns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-19 00:36+0000\n"
-"PO-Revision-Date: 2011-07-15 00:37+0300\n"
-"Last-Translator: Einars Sprugis <einars8@gmail.com>\n"
-"Language-Team: Latvian <locale@laka.lv>\n"
+"PO-Revision-Date: 2024-02-11 21:31+0200\n"
+"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
+"Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Einārs Sprūģis"
+msgstr "Einārs Sprūģis, Toms Trasūns"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "einars8@gmail.com"
+msgstr "einars8@gmail.com, toms.trasuns@posteo.net"
 
 #: libpala/slicerpropertyset.cpp:74
 #, kde-format
@@ -77,12 +78,12 @@ msgstr "Neregulārs režģis"
 #: slicers/goldberg/slicer-goldberg.cpp:39
 #, kde-format
 msgid "Approx. piece count"
-msgstr "Aptuvenais gabaliņu skaits"
+msgstr "Apt. gabaliņu skaits"
 
 #: slicers/goldberg/slicer-goldberg.cpp:45
 #, kde-format
 msgid "Quick preset"
-msgstr "Ātrais sākumuzstādījums"
+msgstr "Sākuma uzstādījums"
 
 #: slicers/goldberg/slicer-goldberg.cpp:47
 #, kde-format
@@ -114,7 +115,7 @@ msgstr "Lieli gabaliņi"
 #: slicers/goldberg/slicer-goldberg.cpp:57
 #, kde-format
 msgid "Flipped edge percentage"
-msgstr "Apmesto mali procentuālā attiecība"
+msgstr "Apmesto malu procentuālā attiecība"
 
 #: slicers/goldberg/slicer-goldberg.cpp:64
 #, kde-format
@@ -124,7 +125,7 @@ msgstr "Malu izliekums"
 #: slicers/goldberg/slicer-goldberg.cpp:70
 #, kde-format
 msgid "Plug size"
-msgstr "Gabaliņa izmērs"
+msgstr "Kājiņu izmērs"
 
 #: slicers/goldberg/slicer-goldberg.cpp:77
 #, kde-format
@@ -134,12 +135,12 @@ msgstr "Izliekumu dažādība"
 #: slicers/goldberg/slicer-goldberg.cpp:84
 #, kde-format
 msgid "Diversity of plug position"
-msgstr "Gabaliņu izvietojuma dažādība"
+msgstr "Kājiņu novietojuma dažādība"
 
 #: slicers/goldberg/slicer-goldberg.cpp:91
 #, kde-format
 msgid "Diversity of plugs"
-msgstr "Gabaliņu dažādība"
+msgstr "Kājiņu dažādība"
 
 #: slicers/goldberg/slicer-goldberg.cpp:98
 #, kde-format
@@ -149,53 +150,47 @@ msgstr "Gabaliņu izmēru dažādība"
 #: slicers/goldberg/slicer-goldberg.cpp:107
 #, kde-format
 msgid "Dump grid image"
-msgstr "Veikt režģa attēla izmeti"
+msgstr "Saglabāt melnbaltu režģa attēlu"
 
 #: src/config/configdialog.cpp:61
-#, fuzzy, kde-format
-#| msgid "General settings"
+#, kde-format
 msgid "General Settings"
 msgstr "Vispārīgie iestatījumi"
 
 #: src/config/configdialog.cpp:64
-#, fuzzy, kde-format
-#| msgid "Mouse interaction"
+#, kde-format
 msgid "Mouse Interaction"
-msgstr "Peles mijiedarbība"
+msgstr "Peles darbības"
 
 #: src/config/configdialog.cpp:111
 #, kde-format
 msgid "Center"
-msgstr ""
+msgstr "Centrā"
 
 #: src/config/configdialog.cpp:112
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "This is used for describing that no mouse action has been assigned to "
-#| "this interaction plugin."
-#| msgid "None"
+#, kde-format
 msgid "None"
 msgstr "Nav"
 
 #: src/config/configdialog.cpp:113
 #, kde-format
 msgid "Top Left"
-msgstr ""
+msgstr "Augšā pa kreisi"
 
 #: src/config/configdialog.cpp:114
 #, kde-format
 msgid "Top Right"
-msgstr ""
+msgstr "Augšā pa labi"
 
 #: src/config/configdialog.cpp:115
 #, kde-format
 msgid "Bottom Left"
-msgstr ""
+msgstr "Apakšā pa kreisi"
 
 #: src/config/configdialog.cpp:116
 #, kde-format
 msgid "Bottom Right"
-msgstr ""
+msgstr "Apakšā pa labi"
 
 #: src/config/mouseinputbutton.cpp:45
 #, kde-format
@@ -205,7 +200,7 @@ msgstr "Noņemt šo palaidēju"
 #: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
 #, kde-format
 msgid "Input here..."
-msgstr "Ievadi šeit..."
+msgstr "Ievadiet šeit..."
 
 #: src/config/mouseinputbutton.cpp:120
 #, kde-format
@@ -213,8 +208,8 @@ msgid ""
 "Hold down the modifier keys you want, then click a mouse button or scroll a "
 "mouse wheel here"
 msgstr ""
-"Turi nospiestus vajadzīgos modifikatora taustiņus un tad šeit nospied peles "
-"pogu vai ritini ritenīti"
+"Turiet nospiestus vajadzīgos modifikatora taustiņus un tad nospiediet peles "
+"pogu vai ritiniet ritenīti"
 
 #: src/config/mouseinputbutton.cpp:225
 #, kde-format
@@ -227,60 +222,56 @@ msgstr "Nav"
 #: src/config/mouseinputbutton.cpp:231
 #, kde-format
 msgid "Click to change how an action is triggered"
-msgstr "Nospied, lai izmainītu, kā darbība tiek aktivizēta"
+msgstr "Nospiediet, lai izmainītu, kā darbība tiek palaista"
 
 #: src/config/triggerconfigwidget.cpp:20
-#, fuzzy, kde-format
-#| msgid "Mouse buttons"
+#, kde-format
 msgid "Mouse Buttons"
 msgstr "Peles pogas"
 
 #: src/config/triggerconfigwidget.cpp:21
-#, fuzzy, kde-format
-#| msgid "Mouse wheel"
+#, kde-format
 msgid "Mouse Wheel"
 msgstr "Peles ritenis"
 
 #: src/config/triggerlistview.cpp:17
 #, kde-format
 msgid "Interaction with pieces"
-msgstr "Mijiedarbība ar gabaliņiem"
+msgstr "Darbības ar gabaliņiem"
 
 #: src/config/triggerlistview.cpp:19
 #, kde-format
 msgid "Interaction with the puzzle table"
-msgstr "Mijiedarbība ar mīklas galdu"
+msgstr "Darbības ar puzles galdu"
 
 #: src/config/triggerlistview.cpp:21
 #, kde-format
 msgid "Interaction with the viewport"
-msgstr "Mijiedarbība ar skata apgabalu"
+msgstr "Darbības ar skata apgabalu"
 
 #: src/creator/puzzlecreator.cpp:38
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Create new puzzle"
+#, kde-format
 msgctxt "@title:window"
 msgid "Create New Puzzle"
-msgstr "Izveidot jaunu mīklu"
+msgstr "Izveidot jaunu puzli"
 
 #: src/creator/puzzlecreator.cpp:51
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Image file:"
-msgstr "Attēla fails:"
+msgstr "Attēla datne:"
 
 #: src/creator/puzzlecreator.cpp:52
 #, kde-format
 msgctxt "@info"
 msgid "Please describe below the image which you have chosen."
-msgstr "Lūdzu, apakšā apraksti attēlu, ko izvēlējies."
+msgstr "Aprakstiet izvēlēto attēlu."
 
 #: src/creator/puzzlecreator.cpp:53
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image name:"
-msgstr "Attēla fails:"
+msgstr "Attēla nosaukums:"
 
 #: src/creator/puzzlecreator.cpp:54
 #, kde-format
@@ -304,103 +295,97 @@ msgstr "Izvēlēties attēlu"
 #, kde-format
 msgctxt "@title:tab (page header in an assistant dialog)"
 msgid "Specify the source image to be sliced into pieces"
-msgstr "Norādīt izejas attēlu, ko sadalīt gabalos"
+msgstr "Norādiet attēlu, ko sadalīt gabalos"
 
 #: src/creator/puzzlecreator.cpp:66
 #, kde-format
 msgctxt "@item:inlistbox (page name in an assistant dialog)"
 msgid "Choose slicer"
-msgstr "Izvēlēties sadalītāju"
+msgstr "Izvēlēties sagriezēju"
 
 #: src/creator/puzzlecreator.cpp:67
 #, kde-format
 msgctxt "@title:tab (page header in an assistant dialog)"
 msgid "Choose a slicing method"
-msgstr "Izvēlēties sadalīšanas metodi"
+msgstr "Izvēlēties sagriešanas metodi"
 
 #: src/creator/puzzlecreator.cpp:68
 #, kde-format
 msgctxt "@item:inlistbox (page name in an assistant dialog)"
 msgid "Configure slicer"
-msgstr "Konfigurēt sadalītāju"
+msgstr "Konfigurēt sagriezēju"
 
 #: src/creator/puzzlecreator.cpp:69
 #, kde-format
 msgctxt "@title:tab (page header in an assistant dialog)"
 msgid "Tweak the parameters of the chosen slicing method"
-msgstr "Mainīt parametrus izvēlētajai sadalīšanas metodei"
+msgstr "Mainīt parametrus izvēlētajai sagriešanas metodei"
 
 #: src/creator/puzzlecreator.cpp:112
 #, kde-format
 msgid "Puzzle cannot be created: The slicer plugin could not be loaded."
-msgstr "Mīkla nevar tikt izveidota: neizdevās ielādēt sadalītājspraudni."
+msgstr "Puzli nevar izveidot: neizdevās ielādēt sagriešanas spraudni."
 
 #: src/creator/puzzlecreator.cpp:119
 #, kde-format
 msgid "Puzzle cannot be created: The file you selected is not an image."
-msgstr "Mīkla nevar tikt izveidota: izvēlētais fails nav attēls."
+msgstr "Puzli nevar izveidot: izvēlētā datne nav attēls."
 
 #: src/creator/puzzlecreator.cpp:127
 #, kde-format
 msgid ""
 "Puzzle cannot be created: Slicing failed because of undetermined problems."
 msgstr ""
-"Mīkla nevar tikt izveidota: sadalīšana neizdevās nenoteiktu problēmu dēļ."
+"Puzli nevar izveidot: sagriešana neizdevās neidentificētu problēmu dēļ."
 
 #: src/engine/constraintinteractor.cpp:15
 #, kde-format
 msgid "Change size of puzzle table area by dragging its edges"
-msgstr "Maini mīklas galda apgabala izmēru, velkot aiz tā malām"
+msgstr "Mainīt puzles galdiņa apgabala izmēru, velkot aiz tā malām"
 
 #: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have finished the puzzle the last time. Do you want to restart it now?"
+#, kde-format
 msgid "You have finished the puzzle. Do you want to restart it now?"
-msgstr "Tu esi salicis mīklu pēdējo reizi. Vai vēlies to pārstartēt?"
+msgstr "Jūs salikāt puzli. Vai vēlaties to pārstartēt?"
 
 #: src/engine/gameplay.cpp:181 src/engine/gameplay.cpp:1138
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
-msgstr ""
+msgstr "Pārstarēt"
 
 #: src/engine/gameplay.cpp:296
 #, kde-format
 msgid "The following puzzles will be deleted. This action cannot be undone."
-msgstr "Sekojošās mīklas tiks dzēstas. Šī darbība nav atgriezeniska."
+msgstr "Sekojošās puzles tiks dzēstas. Šī darbība nav atsaucama."
 
 #: src/engine/gameplay.cpp:315 src/engine/gameplay.cpp:341
-#, fuzzy, kde-format
-#| msgctxt "Filter for a file dialog"
-#| msgid "*.puzzle|Palapeli puzzles (*.puzzle)"
+#, kde-format
 msgctxt "Filter for a file dialog"
 msgid "Palapeli puzzles (*.puzzle)"
-msgstr "*.puzzle|Palapeli mīklas (*.puzzle)"
+msgstr "„Palapeli“ puzles (*.puzzle)"
 
 #: src/engine/gameplay.cpp:317
-#, fuzzy, kde-format
-#| msgid "Automatic builder for Palapeli puzzles"
+#, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
-msgstr "Automātiskais Palapeli mīklu būvētājs"
+msgstr "Importēt „Palapeli“ puzles"
 
 #: src/engine/gameplay.cpp:343
-#, fuzzy, kde-format
-#| msgid "Automatic builder for Palapeli puzzles"
+#, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
-msgstr "Automātiskais Palapeli mīklu būvētājs"
+msgstr "Saglabāt „Palapeli“ puzles"
 
 #: src/engine/gameplay.cpp:358
 #, kde-format
 msgid "Create a piece holder"
-msgstr ""
+msgstr "Izveidot gabaliņu turētāju"
 
 #: src/engine/gameplay.cpp:359
 #, kde-format
 msgid "Enter a short name (optional):"
-msgstr ""
+msgstr "Ievadiet saīsinātu nosaukumu (neobligāti):"
 
 #: src/engine/gameplay.cpp:405
 #, kde-format
@@ -408,17 +393,21 @@ msgid ""
 "You need to click on a piece holder to select it before you can delete it, "
 "or you can just click on its Close button."
 msgstr ""
+"Lai dzēstu gabaliņu turētāju, jums vispirms tas ir jāatlasa, uz tā "
+"nospiežot, vai arī spiediet uz „Aizvērt“ pogas."
 
 #: src/engine/gameplay.cpp:424
 #, kde-format
 msgid "The selected piece holder must be empty before you can delete it."
-msgstr ""
+msgstr "Pirms dzēšanas atlasītajam gabaliņu turētājam ir jābūt tukšam."
 
 #: src/engine/gameplay.cpp:443
 #, kde-format
 msgid ""
 "The selected piece holder must contain some pieces for 'Select all' to use."
 msgstr ""
+"Atlasītajam gabaliņu turētājam ir jāsatur vismaz daži gabaliņi, lai varētu "
+"„Atlasīt visus“."
 
 #: src/engine/gameplay.cpp:449
 #, kde-format
@@ -426,6 +415,7 @@ msgid ""
 "You need to click on a piece holder to select it before you can select all "
 "the pieces in it."
 msgstr ""
+"Lai atlasītu visus gabaliņus gabaliņu turētāja, vispirms tas ir jāatlasa."
 
 #: src/engine/gameplay.cpp:469
 #, kde-format
@@ -433,6 +423,8 @@ msgid ""
 "To rearrange pieces, either the puzzle table must have some selected pieces "
 "or there must be a selected holder with some selected pieces in it."
 msgstr ""
+"Lai pārkārtotu gabaliņus, vai nu uz puzles galda ir jābūt atlasītiem dažiem "
+"gabaliņiem, vai arī ir jāatlasa turētājs ar gabaliņiem."
 
 #: src/engine/gameplay.cpp:531
 #, kde-format
@@ -440,6 +432,8 @@ msgid ""
 "You need to have a piece holder and click it to select it before you can "
 "transfer pieces into or out of it."
 msgstr ""
+"Lai no puzles turētāja izņemtu vai tajā ieliktu gabaliņus, vispirms ir "
+"jāizveido turētājs un uz tā jānoklikšķina."
 
 #: src/engine/gameplay.cpp:551
 #, kde-format
@@ -447,12 +441,14 @@ msgid ""
 "You have selected to transfer a large piece containing more than six small "
 "pieces to a holder. Do you really wish to do that?"
 msgstr ""
+"Jūs mēģināt turētājā pārvietot vienu lielu gabalu, kas satur vairāk par "
+"sešiem maziem gabaliem. Vai tiešām vēlaties to darīt?"
 
 #: src/engine/gameplay.cpp:556
 #, kde-format
 msgctxt "@action:button"
 msgid "Transfer"
-msgstr ""
+msgstr "Pārvietot"
 
 #: src/engine/gameplay.cpp:575
 #, kde-format
@@ -460,6 +456,8 @@ msgid ""
 "You need to select one or more pieces to be transferred out of the selected "
 "holder or select pieces from the puzzle table to be transferred into it."
 msgstr ""
+"Jums ir jāatlasa viens vai vairāki gabaliņi, ko pārvietot ārpus atlasītā "
+"turētāja, vai arī jāatlasa gabaliņi no puzles galda, kurus ielikt turētājā."
 
 #: src/engine/gameplay.cpp:593
 #, kde-format
@@ -467,6 +465,8 @@ msgid ""
 "You need to select one or more pieces to be transferred from the previous "
 "holder into the newly selected holder."
 msgstr ""
+"Jums ir jāatlasa viens vai vairāki gabaliņi, kurus pārvietot no iepriekšējā "
+"turētāja uz pēc tam atlasīto turētāju."
 
 #: src/engine/gameplay.cpp:601
 #, kde-format
@@ -474,12 +474,15 @@ msgid ""
 "You need to have at least two holders, one of them selected and with "
 "selected pieces inside it, before you can transfer pieces to a second holder."
 msgstr ""
+"Jums ir nepieciešami vismaz divi turētāji — vienam jābūt atlasītam kopā ar "
+"atlasītiem tajā esošajiem gabaliņiem, lai varētu gabaliņus pārvietot uz otru "
+"turētāju."
 
 #: src/engine/gameplay.cpp:1078
 #, kde-format
 msgctxt "For holding pieces"
 msgid "Hand"
-msgstr ""
+msgstr "Roka"
 
 #: src/engine/gameplay.cpp:1081
 #, kde-format
@@ -531,47 +534,94 @@ msgid ""
 "By the way, holders can do almost all the things the puzzle table and its "
 "window can do, including joining pieces to build up a part of the solution."
 msgstr ""
+"Jūs izveidojāt lielu puzli — „Palapeli“ ir vairākas iespējas, kas palīdzēs "
+"to salikt uz ierobežotās vietas ierīces ekrānā. Sīkāk par šīm iespējām "
+"lasiet „Palapeli“ rokasgrāmatā („Palīdzības“ izvēlnē), bet šeit sniedzam "
+"dažus vienkāršākus padomus.\n"
+"\n"
+"Pirms sākat likt ir ieteicams lielās puzlēs neizmantot slīpumus un ēnojumus "
+"(skatiet „Iestatījumu“ lodziņu, jo tas var palēnināt ielādi, bet "
+"iekrāsojumus ir grūtāk redzēt, kad redzamības laukā esošie gabaliņi ir ļoti "
+"mazi.\n"
+"\n"
+"Pirmā noderīgā iespēja ir pārskats (attēls ar pabeigtu puzli) un rīkjoslas "
+"poga tā ieslēgšanai un izslēgšanai. Pārvietojot peles kursoru virs pārskata, "
+"„Palapeli“ pietuvina attiecīgās saliekamā daļas, tāpēc pārskatam izmantotā "
+"loga izmērs var būt samērā mazs.\n"
+"\n"
+"Nākamais padoms ir puzles galdiņa pietuvinātais un attālinātais skats, starp "
+"kuriem varat ātri pārslēgties ar peles pogu (pēc noklusējuma tā ir peles "
+"vidējā poga). Pietuvinātā skatā izmantojiet tukšo vietu ritināšanas joslās, "
+"lai caurlūkotu saliekamā gabaliņus pa „lappusēm“. Abus skatus varat "
+"pielāgot, pietuvinot vai attālinot skatu — šīs izmaiņas programma atceras.\n"
+"\n"
+"Uz puzles galda ir vieta, kas ir rezervēta tās salikšanai.\n"
+"\n"
+"Pēdējais padoms — iespējams atvērt mazus lodziņus, ko sauc par „turētājiem“. "
+"Tie var palīdzēt gabaliņus sašķirot pēc kādas īpašības, piemēram, maliņas, "
+"debesis vai kāds saliekamā objekts. Varat izmantot tik turētāju, cik "
+"vēlaties, kā arī piešķirt tiem nosaukumus. Viens turētājs ar nosaukumu "
+"„Roka“ parasti jau ir izveidots, lai atvieglotu atrastu gabaliņu "
+"pārvietošanu uz vietu, kur liekat puzli.\n"
+"\n"
+"Varat izmanto speciālu peles klikšķi, lai pārvietotu gabaliņus turētājā vai "
+"gabaliņus no tā izņemtu (pēc noklusējuma „Shift“ taustiņš un peles kreisais "
+"klikšķis). Vispirms aktivizējiet turētāju, kuru vēlaties izmantot — ja tas "
+"ir izdarīts, ap to parasti iezīmējas zila kontūra. Ja tas nav izdarīt, "
+"klikšķiniet uz tā. Lai pārvietotu gabaliņus turētāja, atlasiet tos uz puzles "
+"galda un veiciet speciālo klikšķi, kas šos gabaliņus „teleportēs“ turētājā. "
+"Gabaliņus varat pārvietot turētājā pa vienam vai uzreiz vairākus. \n"
+"\n"
+"Lai izņemtu gabaliņus no turētāja, pārliecinieties, ka uz puzles galda nav "
+"neviena atlasīta gabaliņa, dodieties uz turētāja logu un atlasiet gabaliņus, "
+"izmantojot parastās „Palapeli“ peles darbības. Pēc tam atgriezieties uz "
+"puzles galda skatu un veiciet speciālo klikšķi tukšā vietā, kurā vēlaties "
+"šos gabaliņus novietot. Lai novērstu pārvietoto gabaliņu sadursmes ar "
+"gabaliņiem uz galda, nepārvietojiet vienā reizē lielu gabaliņu skaitu.\n"
+"\n"
+"Starp citu — puzles turētāji ļauj darīt gandrīz visas tās pašas darbības, ko "
+"varat darīt uz puzles galda un tā logā, tostarp arī salikt kopā gabaliņus."
 
 #: src/engine/gameplay.cpp:1131
 #, kde-format
 msgctxt "Caption for hints"
 msgid "Solving Large Puzzles"
-msgstr ""
+msgstr "Lielu pužļu risināšana"
 
 #: src/engine/gameplay.cpp:1195
 #, kde-format
 msgid "Great! You have finished the puzzle."
-msgstr "Lieliski! Tu esi salicis mīklu."
+msgstr "Lieliski! Jums izdevās salikt puzli."
 
 #: src/engine/interactors.cpp:25
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Move pieces by dragging"
-msgstr "Pārvieto gabaliņus, tos velkot"
+msgstr "Pārvietot gabaliņus, tos velkot"
 
 #: src/engine/interactors.cpp:140
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Select pieces by clicking"
-msgstr "Izvēlies gabaliņus, uz tiem uzklikšķinot"
+msgstr "Atlasīt gabaliņus, uz tiem uzklikšķinot"
 
 #: src/engine/interactors.cpp:176
 #, kde-format
 msgctxt "Works instantly, without dragging"
 msgid "Teleport pieces to or from a holder"
-msgstr ""
+msgstr "Teleportēt gabaliņu uz un no turētāja"
 
 #: src/engine/interactors.cpp:201
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Move viewport by dragging"
-msgstr "Pārvieto skata apgabalu, to velkot"
+msgstr "Pārvietot skata apgabalu, to velkot"
 
 #: src/engine/interactors.cpp:227
 #, kde-format
 msgctxt "As in a movie scene"
 msgid "Switch to close-up or distant view"
-msgstr ""
+msgstr "Pārslēgties starp pietuvinātu un attālinātu skatu"
 
 #: src/engine/interactors.cpp:247
 #, kde-format
@@ -595,31 +645,31 @@ msgstr "Ritināt skata apgabalu vertikāli"
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Select multiple pieces at once"
-msgstr "Izvēlēties vairākus gabaliņus vienlaikus"
+msgstr "Atlasīt vairākus gabaliņus vienlaikus"
 
 #: src/engine/interactors.cpp:411
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Toggle lock state of the puzzle table area"
-msgstr "Pārslēgt mīklas galda apgabala noslēgšanas stāvokli"
+msgstr "Slēgt un atslēgt puzles galda apgabalu"
 
 #: src/engine/puzzlepreview.cpp:29
 #, kde-format
 msgctxt "@title:window"
 msgid "Preview of completed puzzle"
-msgstr ""
+msgstr "Saliktas puzles pārskats"
 
 #: src/engine/puzzlepreview.cpp:36
 #, kde-format
 msgctxt "text in preview window"
 msgid "Image is not available."
-msgstr ""
+msgstr "Attēls nav pieejams."
 
 #: src/engine/puzzlepreview.cpp:64
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 - Preview"
-msgstr ""
+msgstr "%1 — pārskats"
 
 #: src/engine/texturehelper.cpp:52
 #, kde-format
@@ -655,7 +705,7 @@ msgstr "Meta"
 #, kde-format
 msgctxt "a special keyboard modifier"
 msgid "GroupSwitch"
-msgstr "GrupuPārslēgs"
+msgstr "Grupu pārslēgs"
 
 #: src/engine/trigger.cpp:92
 #, kde-format
@@ -685,28 +735,28 @@ msgstr "Vidējā poga"
 #, kde-format
 msgctxt "a special mouse button"
 msgid "XButton1"
-msgstr "XButton1"
+msgstr "XPoga1"
 
 #: src/engine/trigger.cpp:99
 #, kde-format
 msgctxt "a special mouse button"
 msgid "XButton2"
-msgstr "XButton2"
+msgstr "XPoga2"
 
 #: src/engine/trigger.cpp:100
 #, kde-format
 msgid "Horizontal-Scroll"
-msgstr "Horizontālā ritināšana"
+msgstr "Horizontālais rullītis"
 
 #: src/engine/trigger.cpp:101
 #, kde-format
 msgid "Vertical-Scroll"
-msgstr "Vertikālā ritināšana"
+msgstr "Vertikālais rullītis"
 
 #: src/engine/view.cpp:337
 #, kde-format
 msgid "Your progress is saved automatically while you play."
-msgstr "Tavs progress tiek saglabāts automātiski spēles laikā."
+msgstr "Spēles stāvoklis tiek saglabāts automātiski."
 
 #: src/engine/view.cpp:337
 #, kde-format
@@ -717,7 +767,7 @@ msgstr "Automātiskā saglabāšana"
 #: src/engine/zoomwidget.cpp:26
 #, kde-format
 msgid "Lock the puzzle table area"
-msgstr "Noslēgt mīklas galda apgabalu"
+msgstr "Slēgt puzles galda apgabalu"
 
 #: src/file-io/collection-delegate.cpp:106
 #, kde-format
@@ -737,28 +787,22 @@ msgstr[2] "%2 (%1 gabaliņu)"
 #, kde-format
 msgctxt "Author attribution, e.g. \"by Jack\""
 msgid "by %1"
-msgstr "veidoja %1"
+msgstr "autors %1"
 
 #: src/file-io/collection-view.cpp:58
-#, fuzzy, kde-format
-#| msgctxt "@action:button that pops up sorting strategy selection menu"
-#| msgid "Sort list..."
+#, kde-format
 msgctxt "@action:button that pops up sorting strategy selection menu"
 msgid "Sort List..."
 msgstr "Kārtot sarakstu..."
 
 #: src/file-io/collection-view.cpp:61
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu selects sorting strategy for collection list"
-#| msgid "By title"
+#, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Title"
 msgstr "Pēc nosaukuma"
 
 #: src/file-io/collection-view.cpp:62
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu selects sorting strategy for collection list"
-#| msgid "By piece count"
+#, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Piece Count"
 msgstr "Pēc gabaliņu skaita"
@@ -766,24 +810,23 @@ msgstr "Pēc gabaliņu skaita"
 #: src/file-io/collection.cpp:36
 #, kde-format
 msgid "Loading puzzle..."
-msgstr "Ielādē mīklu..."
+msgstr "Ielādē puzli..."
 
 #: src/file-io/collection.cpp:109
-#, fuzzy, kde-format
-#| msgid "Back to &collection"
+#, kde-format
 msgid "Loading collection"
-msgstr "Atpakaļ uz &kolekciju"
+msgstr "Ielādē kolekciju"
 
 #: src/importhelper.cpp:28
 #, kde-format
 msgctxt "command line message"
 msgid "Error: No puzzle file given."
-msgstr "Kļūda: nav norādīts mīklas fails."
+msgstr "Kļūda: nav norādīta puzles datne."
 
 #: src/importhelper.cpp:40
 #, kde-format
 msgid "Importing puzzle \"%1\" into your collection"
-msgstr "Importē mīklu \"%1\" tavā kolekcijā"
+msgstr "Kolekcijā importē puzli „%1“"
 
 #: src/main.cpp:30
 #, kde-format
@@ -792,10 +835,9 @@ msgid "Palapeli"
 msgstr "Palapeli"
 
 #: src/main.cpp:32
-#, fuzzy, kde-format
-#| msgid "KDE Jigsaw Puzzle Game"
+#, kde-format
 msgid "Jigsaw Puzzle Game"
-msgstr "KDE gabaliņu mīklas spēle"
+msgstr "Puzles salikšanas spēle"
 
 #: src/main.cpp:34
 #, kde-format
@@ -810,41 +852,38 @@ msgstr "Stefan Majewsky"
 #: src/main.cpp:38
 #, kde-format
 msgid "Johannes Loehnert"
-msgstr ""
+msgstr "Johannes Loehnert"
 
 #: src/main.cpp:39
 #, kde-format
 msgid "The option to preview the completed puzzle"
-msgstr ""
+msgstr "Iespēja pārskatīt salikto puzli"
 
 #: src/main.cpp:48
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
-msgstr "Mīklas faila ceļš (tiks atvērts, ja nav dots -i)"
+msgstr "Ceļš uz puzles datni (atvērsies logs, ja nav dots „-i“)"
 
 #: src/main.cpp:49
-#, fuzzy, kde-format
-#| msgid ""
-#| "Import the given puzzle file into the local collection (does nothing if "
-#| "no puzzle file is given)"
+#, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
 "puzzle file is given). The main window will not be shown after importing the "
 "given puzzle."
 msgstr ""
-"Importēt doto mīklas failu vietējā kolekcijā (nedara neko, ja fails nav "
-"norādīts)"
+"Importēt doto puzles datni vietējā kolekcijā (nedara neko, ja nav norādīta "
+"puzles datne). Pēc puzles importēšanas galvenais logs netiks parādīts."
 
 #: src/main.cpp:63
 #, kde-format
 msgid "No file to import given"
-msgstr ""
+msgstr "Nav norādīta datne importēšanai"
 
 #. i18n: ectx: label, entry (SnappingPrecision), group (Puzzling)
 #: src/palapeli.kcfg:6
 #, kde-format
 msgid "Precision of snapping (as a percentage of piece size)."
-msgstr "Pievilkšanas precizitāte (procentuālā daļa no gabaliņa izmēra)."
+msgstr "Pievilkšanās precizitāte (procentuālā daļa no gabaliņa izmēra)."
 
 #. i18n: ectx: label, entry (ViewBackground), group (Appearance)
 #: src/palapeli.kcfg:12
@@ -853,8 +892,8 @@ msgid ""
 "The filename of the background image to use for the View, or \"__color__\" "
 "if a solid color should be used (see key \"ViewBackgroundColor\")."
 msgstr ""
-"Skatam izmantojamā fona attēla faila nosaukums vai \"__color__\", ja būtu "
-"jāizmanto viendabīga krāsa (skatīt atslēgu \"ViewBackgroundColor\")."
+"Skatam izmantojamā fona attēla datnes nosaukums vai „__color__“, lai "
+"izmantotu vienu krāsu (skatīt atslēgu „ViewBackgroundColor“)."
 
 #. i18n: ectx: label, entry (ViewBackgroundColor), group (Appearance)
 #: src/palapeli.kcfg:16
@@ -863,14 +902,14 @@ msgid ""
 "The background color to use for the View (if the key \"ViewBackground\" is "
 "set to \"__color__\")."
 msgstr ""
-"Skatam izmantojamā fona krāsa (ja atslēga \"ViewBackground\" ir iestatīta uz "
-"\"__color__\")."
+"Skatam izmantojamā fona krāsa (ja „ViewBackgroun“ ir iestatīts uz "
+"„__color__“)."
 
 #. i18n: ectx: label, entry (ViewHighlightColor), group (Appearance)
 #: src/palapeli.kcfg:20
 #, kde-format
 msgid "The highlighting color to use for selecting pieces in the View."
-msgstr ""
+msgstr "Skatam izmantojamā gabaliņu iekrāsošanas krāsa."
 
 #. i18n: ectx: label, entry (SolutionArea), group (Appearance)
 #: src/palapeli.kcfg:24
@@ -879,6 +918,8 @@ msgid ""
 "Where to reserve space on the puzzle table for the solution, when shuffling "
 "or re-shuffling the pieces."
 msgstr ""
+"Kur rezervēt vietu uz puzles galda tās salikšanai, sajaucot vai atkārtoti "
+"sajaucot gabaliņus."
 
 #. i18n: ectx: label, entry (PieceSpacing), group (Appearance)
 #: src/palapeli.kcfg:28
@@ -887,6 +928,8 @@ msgid ""
 "Spacing of pieces in puzzle grids relative to the size of the largest piece "
 "(spacing factor is 1.0 + 0.05 * value)."
 msgstr ""
+"Puzles režģu atstarpes relatīvi pret lielākā gabaliņa izmēru (atstarpes "
+"faktors ir 1,0+0,05 ✕ vērtība)"
 
 #. i18n: ectx: label, entry (ShowStatusBar), group (Appearance)
 #: src/palapeli.kcfg:32
@@ -895,7 +938,7 @@ msgid ""
 "Whether to show the status bar on the puzzle table. (It is not a real status "
 "bar, but the position and provided functionality is similar.)"
 msgstr ""
-"Vai uz mīklas galda rādīt stāvokļa joslu. (Tā nav īsta stāvokļa josla, tomēr "
+"Vai uz puzles galda rādīt stāvokļa joslu. (Tā nav īsta stāvokļa josla, tomēr "
 "novietojums un piedāvātā funkcionalitāte ir līdzīga.)"
 
 #. i18n: ectx: label, entry (PieceShadowsEnabled), group (Appearance)
@@ -905,8 +948,8 @@ msgid ""
 "Whether to render shadows below the puzzle pieces. Turning this off might "
 "improve rendering performance."
 msgstr ""
-"Vai zīmēt ēnas zem mīklas gabaliņiem. Šo izslēdzot, varētu izlaboties "
-"zīmēšanas ātrums."
+"Vai zīmēt ēnas zem puzles gabaliņiem. Šo izslēdzot, varētu izlaboties "
+"attēlošanas ātrums."
 
 #. i18n: ectx: label, entry (PieceBevelsEnabled), group (Appearance)
 #: src/palapeli.kcfg:40
@@ -915,20 +958,20 @@ msgid ""
 "Whether to render bevels on the puzzle pieces. Turning this off might "
 "improve puzzle loading performance."
 msgstr ""
-"Vai zīmēt slīpumus uz mīklas gabaliņiem. Šo izslēdzot, varētu uzlaboties "
-"mīklas ielādes ātrums."
+"Vai attēlot slīpumus uz puzles gabaliņiem. Šo izslēdzot, varētu uzlaboties "
+"puzles ielādes ātrums."
 
 #. i18n: ectx: label, entry (PuzzlePreviewVisible), group (PuzzlePreview)
 #: src/palapeli.kcfg:46
 #, kde-format
 msgid "Whether the preview window was switched on last time Palapeli was run."
-msgstr ""
+msgstr "Vai pārskata logs ir ieslēgts, pēdējo reizi spēlējot „Palapeli“."
 
 #. i18n: ectx: label, entry (PuzzlePreviewGeometry), group (PuzzlePreview)
 #: src/palapeli.kcfg:50
 #, kde-format
 msgid "Last position and size of puzzle preview."
-msgstr ""
+msgstr "Puzles pārskata pēdējais novietojums un izmērs."
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/palapeliui.rc:35
@@ -941,7 +984,7 @@ msgstr "Galvenā rīkjosla"
 #, kde-format
 msgctxt "@title:group"
 msgid "Puzzle table"
-msgstr "Mīklas galds"
+msgstr "Puzles galds"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/settings.ui:25
@@ -954,13 +997,13 @@ msgstr "Fons:"
 #: src/settings.ui:55
 #, kde-format
 msgid "Color for highlighting selected pieces:"
-msgstr ""
+msgstr "Atlasīto gabaliņu iekrāsošanas krāsa:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/settings.ui:75
 #, kde-format
 msgid "Space for solution:"
-msgstr ""
+msgstr "Vieta salikšanai:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: src/settings.ui:94
@@ -969,18 +1012,20 @@ msgid ""
 "No space is provided with puzzles of less than 20 pieces. Changes will take "
 "effect when a puzzle is created or re-started."
 msgstr ""
+"Ja puzlē ir 20 vai mazāk gabaliņu, tad šāda vieta netiek sniegta. Izmaiņas "
+"stāsies spēkā tikai pēc puzles izveidošanas vai pārstartēšanas."
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: src/settings.ui:106
 #, kde-format
 msgid "Spacing of pieces in puzzle grids (1.0-1.5):"
-msgstr ""
+msgstr "Gabaliņu atstarpes puzles režģī (1,0–1,5):"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/settings.ui:156
 #, kde-format
 msgid "Piece appearance"
-msgstr "Gabaliņa izskats"
+msgstr "Gabaliņu izskats"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceBevelsEnabled)
 #: src/settings.ui:162
@@ -1001,8 +1046,8 @@ msgid ""
 "These options can be disabled when Palapeli is running very slowly. Changes "
 "will take effect only when a new puzzle is started."
 msgstr ""
-"Šīs opcijas var tikt atslēgtas, ja Palapeli darbojas ļoti lēni. Izmaiņas "
-"stāsies spēkā tikai tad, kad tiks sākta jauna mīkla."
+"Šīs opcijas varat izslēgt, ja „Palapeli“ darbojas ļoti lēni. Izmaiņas "
+"stāsies spēkā tikai pēc jaunas puzles sākšanas."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: src/settings.ui:195
@@ -1016,14 +1061,14 @@ msgstr "Gabaliņu uzvedība"
 #, kde-format
 msgctxt "@label:slider"
 msgid "Snapping precision:"
-msgstr "Pievilkšanas precizitāte:"
+msgstr "Pievilkšanās precizitāte:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/settings.ui:241
 #, kde-format
 msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Very precise (harder)"
-msgstr "Ļoti precīzi (grūtāk)"
+msgstr "Ļoti augsta precizitāte (grūtāk)"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/settings.ui:270
@@ -1033,114 +1078,104 @@ msgid "Unprecise (easier)"
 msgstr "Neprecīzi (vieglāk)"
 
 #: src/window/mainwindow.cpp:54
-#, fuzzy, kde-format
-#| msgid "Show statusbar of puzzle table"
+#, kde-format
 msgid "Show Statusbar of Puzzle Table"
-msgstr "Rādīt mīklas galda stāvokļjoslu"
+msgstr "Rādīt puzles galda statusa joslu"
 
 #: src/window/mainwindow.cpp:57
-#, fuzzy, kde-format
-#| msgid "Back to &collection"
+#, kde-format
 msgid "Back to &Collection"
-msgstr "Atpakaļ uz &kolekciju"
+msgstr "Atgriezties &kolekcijā"
 
 #: src/window/mainwindow.cpp:58
 #, kde-format
 msgid "Go back to the collection to choose another puzzle"
-msgstr "Iet atpakaļ uz kolekciju, lai izvēlētos citu mīklu"
+msgstr "Atgriezties kolekcijā, lai izvēlētos citu puzli"
 
 #: src/window/mainwindow.cpp:64
-#, fuzzy, kde-format
-#| msgid "Create &new puzzle..."
+#, kde-format
 msgid "Create &New Puzzle..."
-msgstr "Izveidot jau&nu mīklu..."
+msgstr "&Izveidot jaunu puzli..."
 
 #: src/window/mainwindow.cpp:65
 #, kde-format
 msgid "Create a new puzzle using an image file from your disk"
-msgstr "Izveidot jaunu mīklu, izmantojot attēla failu no diska"
+msgstr "Izveidot jaunu puzli no ierīcē esošas attēla datnes"
 
 #: src/window/mainwindow.cpp:71
-#, fuzzy, kde-format
-#| msgid "Create puzzle"
+#, kde-format
 msgid "&Delete Puzzle"
-msgstr "Izveidot mīklu"
+msgstr "&Dzēst puzli"
 
 #: src/window/mainwindow.cpp:73
 #, kde-format
 msgid "Delete the selected puzzle from your collection"
-msgstr "Dzēst izvēlēto mīklu no tavas kolekcijas"
+msgstr "Dzēst izvēlēto puzli no kolekcijas"
 
 #: src/window/mainwindow.cpp:79
-#, fuzzy, kde-format
-#| msgid "&Import from file..."
+#, kde-format
 msgid "&Import from File..."
-msgstr "&Importēt no faila..."
+msgstr "&Importēt no datnes..."
 
 #: src/window/mainwindow.cpp:80
 #, kde-format
 msgid "Import a new puzzle from a file into your collection"
-msgstr "Importēt jaunu mīklu no faila tavā kolekcijā"
+msgstr "Importēt kolekcijā jaunu puzli no datnes"
 
 #: src/window/mainwindow.cpp:85
-#, fuzzy, kde-format
-#| msgid "&Export to file..."
+#, kde-format
 msgid "&Export to File..."
-msgstr "&Eksportēt failā..."
+msgstr "&Eksportēt datnē..."
 
 #: src/window/mainwindow.cpp:87
 #, kde-format
 msgid "Export the selected puzzle from your collection into a file"
-msgstr "Eksportēt izvēlēto mīklu no tavas kolekcijas failā"
+msgstr "Eksportēt datnē atlasīt kolekcijas puzli"
 
 #: src/window/mainwindow.cpp:93
-#, fuzzy, kde-format
-#| msgid "&Restart puzzle..."
+#, kde-format
 msgid "&Restart Puzzle..."
-msgstr "&Pārstartēt mīklu..."
+msgstr "&Pārstartēt puzli..."
 
 #: src/window/mainwindow.cpp:94
-#, fuzzy, kde-format
-#| msgid "Delete the saved progress"
+#, kde-format
 msgid "Delete the saved progress and reshuffle the pieces"
-msgstr "Dzēst saglabāto progresu"
+msgstr "Dzēst saglabāto progresu un no jauna sajaukt gabaliņus"
 
 #: src/window/mainwindow.cpp:101
-#, fuzzy, kde-format
-#| msgid "Create &new puzzle..."
+#, kde-format
 msgid "&Create Piece Holder..."
-msgstr "Izveidot jau&nu mīklu..."
+msgstr "&Izveidot gabaliņu turētāju..."
 
 #: src/window/mainwindow.cpp:102
 #, kde-format
 msgid "Create a temporary holder for sorting pieces"
-msgstr ""
+msgstr "Izveidot pagaidu turētāju gabaliņu šķirošanai"
 
 #: src/window/mainwindow.cpp:109
-#, fuzzy, kde-format
-#| msgid "Create &new puzzle..."
+#, kde-format
 msgid "&Delete Piece Holder"
-msgstr "Izveidot jau&nu mīklu..."
+msgstr "&Dzēst gabaliņu turētāju"
 
 #: src/window/mainwindow.cpp:110
 #, kde-format
 msgid "Delete a selected temporary holder when it is empty"
-msgstr ""
+msgstr "Dzēst atlasīto pagaidu turētāju, kad tas ir tukšs"
 
 #: src/window/mainwindow.cpp:116
 #, kde-format
 msgid "&Select All in Holder"
-msgstr ""
+msgstr "&Atlasīt visu turētājā"
 
 #: src/window/mainwindow.cpp:117
 #, kde-format
 msgid "Select all pieces in a selected piece holder"
-msgstr ""
+msgstr "Atlasīt visus gabaliņus aktīvajā turētājā"
 
 #: src/window/mainwindow.cpp:123
 #, kde-format
 msgid "&Rearrange Pieces"
-msgstr ""
+msgstr "&Pārkārtot gabaliņus"
 
 #: src/window/mainwindow.cpp:124
 #, kde-format
@@ -1148,55 +1183,57 @@ msgid ""
 "Rearrange all pieces in a selected piece holder or selected pieces in any "
 "window"
 msgstr ""
+"Pārkārtot visus gabaliņus atlasītajā gabaliņu turētājā vai jebkurā logā "
+"atlasītos gabaliņus"
 
 #: src/window/mainwindow.cpp:131
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "&Preview"
-msgstr ""
+msgstr "&Pārskats"
 
 #: src/window/mainwindow.cpp:133
 #, kde-format
 msgctxt "Preview is a noun here"
 msgid "Preview"
-msgstr ""
+msgstr "Pārskats"
 
 #: src/window/mainwindow.cpp:134
 #, kde-format
 msgid "Show or hide the image of the completed puzzle"
-msgstr ""
+msgstr "Rādīt vai paslēpt pabeigtās puzles attēlu"
 
 #: src/window/mainwindow.cpp:148
 #, kde-format
 msgid "Enable All Messages"
-msgstr ""
+msgstr "Ieslēgt visus ziņojumus"
 
 #: src/window/mainwindow.cpp:157
 #, kde-format
 msgid "Enable all messages again?"
-msgstr ""
+msgstr "Vai atkal ieslēgt visus ziņojumus?"
 
 #: src/window/mainwindow.cpp:158
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr ""
+msgstr "Ieslēgt"
 
 #: src/window/puzzletablewidget.cpp:49
 #, kde-format
 msgid "No puzzle loaded"
-msgstr "Nav ielādēta neviena mīkla"
+msgstr "Nav ielādēta neviena puzle"
 
 #: src/window/puzzletablewidget.cpp:118
 #, kde-format
 msgid "You finished the puzzle."
-msgstr "Tu saliki mīklu."
+msgstr "Jūs salikāt puzli!"
 
 #: src/window/puzzletablewidget.cpp:122
 #, kde-format
 msgctxt "Progress display"
 msgid "%1% finished"
-msgstr "%1% pabeigti"
+msgstr "Pabeigti %1%"
 
 #~ msgid ""
 #~ "If the -i/--import option is specified, the main window will not be shown "
