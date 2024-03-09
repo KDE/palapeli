@@ -4,30 +4,31 @@
 # pan93412 <pan93412@gmail.com>, 2018.
 #
 # Frank Weng (a.k.a. Franklin) <franklin at goodhorse dot idv dot tw>, 2009, 2010.
+# SPDX-FileCopyrightText: 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-10 01:46+0000\n"
-"PO-Revision-Date: 2018-03-24 16:37+0800\n"
-"Last-Translator: pan93412 <pan93412@gmail.com>\n"
-"Language-Team: Chinese <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2024-03-08 23:28+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 24.04.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Frank Weng (a.k.a. Franklin)"
+msgstr "Frank Weng (a.k.a. Franklin), Kisaragi Hiu"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "franklin@goodhorse.idv.tw"
+msgstr "franklin@goodhorse.idv.tw, mail@kisaragi-hiu.com"
 
 #: libpala/slicerpropertyset.cpp:74
 #, kde-format
@@ -153,14 +154,12 @@ msgid "Dump grid image"
 msgstr "傾印格子影像"
 
 #: src/config/configdialog.cpp:61
-#, fuzzy, kde-format
-#| msgid "General settings"
+#, kde-format
 msgid "General Settings"
 msgstr "一般設定"
 
 #: src/config/configdialog.cpp:64
-#, fuzzy, kde-format
-#| msgid "Mouse interaction"
+#, kde-format
 msgid "Mouse Interaction"
 msgstr "滑鼠互動"
 
@@ -225,14 +224,12 @@ msgid "Click to change how an action is triggered"
 msgstr "點擊以改變如何觸發動作"
 
 #: src/config/triggerconfigwidget.cpp:20
-#, fuzzy, kde-format
-#| msgid "Mouse buttons"
+#, kde-format
 msgid "Mouse Buttons"
 msgstr "滑鼠按鍵"
 
 #: src/config/triggerconfigwidget.cpp:21
-#, fuzzy, kde-format
-#| msgid "Mouse wheel"
+#, kde-format
 msgid "Mouse Wheel"
 msgstr "滑鼠滾輪"
 
@@ -244,7 +241,7 @@ msgstr "與拼圖互動"
 #: src/config/triggerlistview.cpp:19
 #, kde-format
 msgid "Interaction with the puzzle table"
-msgstr "與謎題桌面區域互動"
+msgstr "與拼圖桌區域互動"
 
 #: src/config/triggerlistview.cpp:21
 #, kde-format
@@ -252,9 +249,7 @@ msgid "Interaction with the viewport"
 msgstr "與檢視埠互動"
 
 #: src/creator/puzzlecreator.cpp:38
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Create new puzzle"
+#, kde-format
 msgctxt "@title:window"
 msgid "Create New Puzzle"
 msgstr "建立新謎題"
@@ -355,7 +350,7 @@ msgstr "您已完成了這個謎題。您要重新開始嗎？"
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
-msgstr ""
+msgstr "重新開始"
 
 #: src/engine/gameplay.cpp:296
 #, kde-format
@@ -369,15 +364,13 @@ msgid "Palapeli puzzles (*.puzzle)"
 msgstr "Palapeli 謎題 (*.puzzle)"
 
 #: src/engine/gameplay.cpp:317
-#, fuzzy, kde-format
-#| msgid "Import Palapeli puzzles"
+#, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
 msgstr "匯入 Palapeli 謎題"
 
 #: src/engine/gameplay.cpp:343
-#, fuzzy, kde-format
-#| msgid "Save Palapeli puzzles"
+#, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
 msgstr "儲存 Palapeli 謎題"
@@ -425,8 +418,8 @@ msgid ""
 "To rearrange pieces, either the puzzle table must have some selected pieces "
 "or there must be a selected holder with some selected pieces in it."
 msgstr ""
-"要重新安排拼圖片，要嘛謎題桌面要有一些選取的拼圖片，不然就必須選取某個裡面含"
-"有拼圖片的暫存器。"
+"要重新安排拼圖片，要嘛拼圖桌要有一些選取的拼圖片，不然就必須選取某個裡面含有"
+"拼圖片的暫存器。"
 
 #: src/engine/gameplay.cpp:531
 #, kde-format
@@ -446,7 +439,7 @@ msgstr "您選取了多於六個拼圖片進入暫存器中。您確定要這樣
 #, kde-format
 msgctxt "@action:button"
 msgid "Transfer"
-msgstr ""
+msgstr "轉移"
 
 #: src/engine/gameplay.cpp:575
 #, kde-format
@@ -454,8 +447,8 @@ msgid ""
 "You need to select one or more pieces to be transferred out of the selected "
 "holder or select pieces from the puzzle table to be transferred into it."
 msgstr ""
-"您要選擇在暫存器中的拼圖片，才能將它們拿出選取的暫存器，或是選擇在謎題桌面上"
-"的拼圖片，才能將它們放入選取的暫存器。"
+"您要選擇在暫存器中的拼圖片，才能將它們拿出選取的暫存器，或是選擇在拼圖桌上的"
+"拼圖片，才能將它們放入選取的暫存器。"
 
 #: src/engine/gameplay.cpp:593
 #, kde-format
@@ -540,11 +533,11 @@ msgstr ""
 "開或關閉。如果您將滑鼠移到上面，它會將圖片的某部份放大，所以您選擇的預覽視窗"
 "大小可以很小。\n"
 "\n"
-"再來，謎題桌面有靠近與放遠檢視，您可以用滑鼠雙擊中鍵來快速切換。在靠近檢視"
-"中，可以在捲軸列的空白處，一次搜尋「一頁」尋找拼圖片。您可以縮放調整兩種檢"
-"視，您所做的變更會被紀錄下來。\n"
+"再來，拼圖桌有靠近與放遠檢視，您可以用滑鼠雙擊中鍵來快速切換。在靠近檢視中，"
+"可以在捲軸列的空白處，一次搜尋「一頁」尋找拼圖片。您可以縮放調整兩種檢視，您"
+"所做的變更會被紀錄下來。\n"
 "\n"
-"接著，在謎題桌面上有個空間是保留給解謎用的。\n"
+"接著，在拼圖桌上有個空間是保留給解謎用的。\n"
 "\n"
 "最後，但也很重要的，是「拼圖暫存器」的功能。暫存器可以將像是邊緣、天空、白色"
 "房子等等的拼圖片組合起來暫時放著。您可以開啟很多的暫存器，也都可以將它們命"
@@ -552,14 +545,14 @@ msgstr ""
 "\n"
 "您可以用按鍵組合將拼圖片放進或拿出暫存器（預設是 Shift + 點擊滑鼠左鍵）。您先"
 "確認好您要使用的暫存器。點擊暫存器後，應該會有藍色的外框。要將拼圖片放入，選"
-"好在謎題桌面上的拼圖片後，按下組合鍵就可以將它們「傳送」進暫存器。您當然也可"
-"以只選擇一片，然後按下組合鍵。\n"
+"好在拼圖桌上的拼圖片後，按下組合鍵就可以將它們「傳送」進暫存器。您當然也可以"
+"只選擇一片，然後按下組合鍵。\n"
 "\n"
-"要將拼圖片組拿出暫存器，您要先確定沒有點選謎題桌面上的任何拼圖片，然後進到暫"
-"存器視窗中，選擇某些拼圖片組，再將滑鼠移到謎題桌面上的空白處按下組合鍵。一次"
-"最好不要拿出太多，避免跟桌上的拼圖片撞在一起。\n"
+"要將拼圖片組拿出暫存器，您要先確定沒有點選拼圖桌上的任何拼圖片，然後進到暫存"
+"器視窗中，選擇某些拼圖片組，再將滑鼠移到拼圖桌上的空白處按下組合鍵。一次最好"
+"不要拿出太多，避免跟桌上的拼圖片撞在一起。\n"
 "\n"
-"此外，暫存器其實可以當做一個謎題桌面。"
+"此外，暫存器其實可以當做一個拼圖桌。"
 
 #: src/engine/gameplay.cpp:1131
 #, kde-format
@@ -630,15 +623,13 @@ msgstr "一次選擇多片拼圖"
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Toggle lock state of the puzzle table area"
-msgstr "切換謎題桌面區域鎖定狀態"
+msgstr "切換拼圖桌區域鎖定狀態"
 
 #: src/engine/puzzlepreview.cpp:29
-#, fuzzy, kde-format
-#| msgctxt "Window title"
-#| msgid "Preview of completed puzzle"
+#, kde-format
 msgctxt "@title:window"
 msgid "Preview of completed puzzle"
-msgstr "謎題預覽"
+msgstr "拼圖完成後的預覽"
 
 #: src/engine/puzzlepreview.cpp:36
 #, kde-format
@@ -647,8 +638,7 @@ msgid "Image is not available."
 msgstr "影像無法取得。"
 
 #: src/engine/puzzlepreview.cpp:64
-#, fuzzy, kde-format
-#| msgid "%1 - Preview"
+#, kde-format
 msgctxt "@title:window"
 msgid "%1 - Preview"
 msgstr "%1 - 預覽"
@@ -749,7 +739,7 @@ msgstr "自動儲存"
 #: src/engine/zoomwidget.cpp:26
 #, kde-format
 msgid "Lock the puzzle table area"
-msgstr "鎖定謎題桌面區域"
+msgstr "鎖定拼圖桌區域"
 
 #: src/file-io/collection-delegate.cpp:106
 #, kde-format
@@ -770,25 +760,19 @@ msgid "by %1"
 msgstr "由：%1"
 
 #: src/file-io/collection-view.cpp:58
-#, fuzzy, kde-format
-#| msgctxt "@action:button that pops up sorting strategy selection menu"
-#| msgid "Sort list..."
+#, kde-format
 msgctxt "@action:button that pops up sorting strategy selection menu"
 msgid "Sort List..."
 msgstr "排序清單..."
 
 #: src/file-io/collection-view.cpp:61
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu selects sorting strategy for collection list"
-#| msgid "By title"
+#, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Title"
 msgstr "依標題"
 
 #: src/file-io/collection-view.cpp:62
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu selects sorting strategy for collection list"
-#| msgid "By piece count"
+#, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Piece Count"
 msgstr "依片數"
@@ -799,16 +783,15 @@ msgid "Loading puzzle..."
 msgstr "載入謎題中..."
 
 #: src/file-io/collection.cpp:109
-#, fuzzy, kde-format
-#| msgid "Back to &collection"
+#, kde-format
 msgid "Loading collection"
-msgstr "回到收藏(&C)"
+msgstr "載入收藏中"
 
 #: src/importhelper.cpp:28
 #, kde-format
 msgctxt "command line message"
 msgid "Error: No puzzle file given."
-msgstr "錯誤：未給定謎題檔。"
+msgstr "錯誤：未指定謎題檔。"
 
 #: src/importhelper.cpp:40
 #, kde-format
@@ -822,10 +805,9 @@ msgid "Palapeli"
 msgstr "Palapeli"
 
 #: src/main.cpp:31
-#, fuzzy, kde-format
-#| msgid "KDE Jigsaw Puzzle Game"
+#, kde-format
 msgid "Jigsaw Puzzle Game"
-msgstr "KDE 拼圖謎題遊戲"
+msgstr "拼圖謎題遊戲"
 
 #: src/main.cpp:33
 #, kde-format
@@ -865,7 +847,7 @@ msgstr ""
 #: src/main.cpp:60
 #, kde-format
 msgid "No file to import given"
-msgstr ""
+msgstr "未提供要匯入的檔案"
 
 #. i18n: ectx: label, entry (SnappingPrecision), group (Puzzling)
 #: src/palapeli.kcfg:6
@@ -903,7 +885,7 @@ msgstr "在檢視裝選取拼圖片使用的突顯顏色。"
 msgid ""
 "Where to reserve space on the puzzle table for the solution, when shuffling "
 "or re-shuffling the pieces."
-msgstr "謎題桌面上要保留哪一塊空間做解題用。"
+msgstr "拼圖桌上要保留哪一塊空間做解題用。"
 
 #. i18n: ectx: label, entry (PieceSpacing), group (Appearance)
 #: src/palapeli.kcfg:28
@@ -922,7 +904,7 @@ msgid ""
 "Whether to show the status bar on the puzzle table. (It is not a real status "
 "bar, but the position and provided functionality is similar.)"
 msgstr ""
-"是否在謎題桌面上顯示狀態列。（不是真正的狀態列，但是位置與提供的功能是類似"
+"是否在拼圖桌上顯示狀態列。（不是真正的狀態列，但是位置與提供的功能是類似"
 "的。）"
 
 #. i18n: ectx: label, entry (PieceShadowsEnabled), group (Appearance)
@@ -964,7 +946,7 @@ msgstr "主工具列"
 #, kde-format
 msgctxt "@title:group"
 msgid "Puzzle table"
-msgstr "謎題桌面"
+msgstr "拼圖桌"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/settings.ui:25
@@ -1056,14 +1038,12 @@ msgid "Unprecise (easier)"
 msgstr "不精準（簡單）"
 
 #: src/window/mainwindow.cpp:54
-#, fuzzy, kde-format
-#| msgid "Show statusbar of puzzle table"
+#, kde-format
 msgid "Show Statusbar of Puzzle Table"
-msgstr "顯示謎題桌面的狀態列"
+msgstr "顯示拼圖桌的狀態列"
 
 #: src/window/mainwindow.cpp:57
-#, fuzzy, kde-format
-#| msgid "Back to &collection"
+#, kde-format
 msgid "Back to &Collection"
 msgstr "回到收藏(&C)"
 
@@ -1073,8 +1053,7 @@ msgid "Go back to the collection to choose another puzzle"
 msgstr "返回收藏並選擇其他的謎題"
 
 #: src/window/mainwindow.cpp:64
-#, fuzzy, kde-format
-#| msgid "Create &new puzzle..."
+#, kde-format
 msgid "Create &New Puzzle..."
 msgstr "建立新謎題(&N)..."
 
@@ -1084,8 +1063,7 @@ msgid "Create a new puzzle using an image file from your disk"
 msgstr "使用您磁碟中的影像建立新謎題"
 
 #: src/window/mainwindow.cpp:71
-#, fuzzy, kde-format
-#| msgid "&Delete puzzle"
+#, kde-format
 msgid "&Delete Puzzle"
 msgstr "刪除謎題(&D)"
 
@@ -1095,8 +1073,7 @@ msgid "Delete the selected puzzle from your collection"
 msgstr "從您的收藏中刪除選取的謎題"
 
 #: src/window/mainwindow.cpp:79
-#, fuzzy, kde-format
-#| msgid "&Import from file..."
+#, kde-format
 msgid "&Import from File..."
 msgstr "從檔案匯入(&I)..."
 
@@ -1106,8 +1083,7 @@ msgid "Import a new puzzle from a file into your collection"
 msgstr "從檔案匯入新的謎題到您的收藏"
 
 #: src/window/mainwindow.cpp:85
-#, fuzzy, kde-format
-#| msgid "&Export to file..."
+#, kde-format
 msgid "&Export to File..."
 msgstr "匯出到檔案(&E)..."
 
@@ -1117,8 +1093,7 @@ msgid "Export the selected puzzle from your collection into a file"
 msgstr "將您的收藏中選取的謎題匯出到檔案"
 
 #: src/window/mainwindow.cpp:93
-#, fuzzy, kde-format
-#| msgid "&Restart puzzle..."
+#, kde-format
 msgid "&Restart Puzzle..."
 msgstr "重新開始解謎(&R)..."
 
@@ -1128,8 +1103,7 @@ msgid "Delete the saved progress and reshuffle the pieces"
 msgstr "刪除已儲存的進度並重新洗牌"
 
 #: src/window/mainwindow.cpp:101
-#, fuzzy, kde-format
-#| msgid "&Create piece holder..."
+#, kde-format
 msgid "&Create Piece Holder..."
 msgstr "建立拼圖暫存器(&C)..."
 
@@ -1139,8 +1113,7 @@ msgid "Create a temporary holder for sorting pieces"
 msgstr "建立拼圖暫存器"
 
 #: src/window/mainwindow.cpp:109
-#, fuzzy, kde-format
-#| msgid "&Delete piece holder"
+#, kde-format
 msgid "&Delete Piece Holder"
 msgstr "刪除拼圖暫存器(&D)"
 
@@ -1150,8 +1123,7 @@ msgid "Delete a selected temporary holder when it is empty"
 msgstr "刪除選取的空白暫存器"
 
 #: src/window/mainwindow.cpp:116
-#, fuzzy, kde-format
-#| msgid "&Select all in holder"
+#, kde-format
 msgid "&Select All in Holder"
 msgstr "選取暫存器中所有的拼圖片(&S)"
 
@@ -1161,8 +1133,7 @@ msgid "Select all pieces in a selected piece holder"
 msgstr "選取暫存器中所有的拼圖片"
 
 #: src/window/mainwindow.cpp:123
-#, fuzzy, kde-format
-#| msgid "&Rearrange pieces"
+#, kde-format
 msgid "&Rearrange Pieces"
 msgstr "重新安排拼圖片(&R)"
 
@@ -1191,14 +1162,12 @@ msgid "Show or hide the image of the completed puzzle"
 msgstr "顯示或隱藏完整謎底的影像"
 
 #: src/window/mainwindow.cpp:148
-#, fuzzy, kde-format
-#| msgid "Enable all messages"
+#, kde-format
 msgid "Enable All Messages"
 msgstr "開啟所有訊息"
 
 #: src/window/mainwindow.cpp:157
-#, fuzzy, kde-format
-#| msgid "Enable all messages"
+#, kde-format
 msgid "Enable all messages again?"
 msgstr "開啟所有訊息"
 
@@ -1206,7 +1175,7 @@ msgstr "開啟所有訊息"
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr ""
+msgstr "開啟"
 
 #: src/window/puzzletablewidget.cpp:49
 #, kde-format
