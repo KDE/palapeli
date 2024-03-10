@@ -29,7 +29,8 @@
                 "Name[sv]": "Johannes Loehnert",
                 "Name[tr]": "Johannes Loehnert",
                 "Name[uk]": "Johannes Loehnert",
-                "Name[x-test]": "xxJohannes Loehnertxx"
+                "Name[x-test]": "xxJohannes Loehnertxx",
+                "Name[zh_TW]": "Johannes Loehnert"
             }
         ],
         "Description": "Formerly known as Goldberg Slicer",
@@ -59,6 +60,7 @@
         "Description[tr]": "Önceden Goldberg Slicer bilinir",
         "Description[uk]": "Раніше відомий як «Розрізувач Ґолдберґа»",
         "Description[x-test]": "xxFormerly known as Goldberg Slicerxx",
+        "Description[zh_TW]": "舊稱 Goldberg Slicer",
         "License": "GPL",
         "Name": "Palapeli Slicer Collection",
         "Name[bs]": "Palapelijeva zbirka sjekača",
