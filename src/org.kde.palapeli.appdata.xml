@@ -19,6 +19,7 @@
   <name xml:lang="fi">Palapeli</name>
   <name xml:lang="fr">Palapeli</name>
   <name xml:lang="gl">Palapeli</name>
+  <name xml:lang="hu">Palapeli</name>
   <name xml:lang="id">Palapeli</name>
   <name xml:lang="it">Palapeli</name>
   <name xml:lang="ka">Palapeli</name>
@@ -56,6 +57,7 @@
   <summary xml:lang="fi">Palapeli</summary>
   <summary xml:lang="fr">Jeu de puzzle</summary>
   <summary xml:lang="gl">Xogo de quebracabezas jigsaw.</summary>
+  <summary xml:lang="hu">Kirakós játék</summary>
   <summary xml:lang="id">Permainan teka-teki jigsaw</summary>
   <summary xml:lang="it">Gioco di puzzle</summary>
   <summary xml:lang="ka">პაზლის თამაში</summary>
@@ -98,6 +100,7 @@
     <p xml:lang="fi">Palapeli on yhden pelaajan peli. Muista samanlaisista peleistä poiketen sinun ei tarvitse sijoittaa palasia kuvitteelliseen ruudukkoon vaan palaset ovat vapaasti liikuteltavissa. Palapeli myös muistaa aina tilanteen eli tallentaa kaiken mitä teet heti levylle.</p>
     <p xml:lang="fr">Palapeli est un jeu de puzzle à un joueur. A la différence des autres jeux de ce genre, vous n'êtes pas limité à aligner les pièces sur des grilles imaginaires. Vous pouvez déplacer les pièces à votre bon vouloir. Palapeli propose également une vraie persistance, tout ce que vous faites est immédiatement enregistré sur votre disque.</p>
     <p xml:lang="gl">Palapeli é un xogo de quebracabezas jigsaw para un xogador. A diferenza doutros xogos do mesmo xénero, non estás limitado a aliñar pezas en grades imaxinarias. As pezas poden moverse libremente. Ademais, Palapeli fornece persistencia real, é dicir, todo o que fas gárdase no disco inmediatamente.</p>
+    <p xml:lang="hu">A Palapeli egy egyjátékos kirakós játék. A műfaj más játékaival szemben a darabokat nem csak egy képzeletbeli rácson igazíthatja el, hanem szabadon mozgathatók. A Palapeli emellett mindent azonnal elment a lemezre, amit csinál.</p>
     <p xml:lang="id">Palapeli adalah permainan teka-teki jigsaw pemain tunggal. tidak seperti permainan lain yang segenre, kamu enggak dibatasi untuk mensejajarkan potongan-potongan pada kisi secara khayal. Potongan-potongan secara bebas dapat dipindah-pindah. Juga, fitur Palapeli sungguh gigih, misal apa yang kamu lakukan akan disimpan ke disk-mu secara langsung.</p>
     <p xml:lang="it">Palapeli è un gioco di puzzle a giocatore singolo. A differenza di altri giochi di questo genere, non sei limitato ad allineare pezzi su griglie immaginarie. I pezzi possono essere spostati liberamente. Palapeli, inoltre, ha la caratteristica della persistenza, ossia tutto quello che fai viene salvato immediatamente sul disco.</p>
     <p xml:lang="ka">Palapeli ერთი მოთამაშის მოზაიკის თამაშია. ამ ჟანრის სხვა თამაშებისგან განსხვავებით ის წარმოსახვით ბადეზე ნაწილების დალაგებაზე შეზღუდული არაა. ეს ნაწილები თავისუფლად-გადატანადია. ასევე Palapeli-ის ფუნქციებშია ნამდვილი მდგრადობა, ანუ, რასაც აკეთებთ, მომენტალურად ინახება.</p>
@@ -134,6 +137,7 @@
     <p xml:lang="fi">Ominaisuuksia:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
     <p xml:lang="gl">Funcionalidades:</p>
+    <p xml:lang="hu">Funkciók:</p>
     <p xml:lang="id">Fitur:</p>
     <p xml:lang="it">Caratteristiche:</p>
     <p xml:lang="ka">თვისებები:</p>
@@ -171,6 +175,7 @@
       <li xml:lang="fi">Luo ja pelaa 4–10 000 palan palapelejä</li>
       <li xml:lang="fr">Créez et jouez à des puzzles comptant de 4 à 10 000 pièces</li>
       <li xml:lang="gl">Crea e xoga quebracabezas de entre 4 e 10.000 pezas.</li>
+      <li xml:lang="hu">4-10000 darabos kirakók készítése és játék azokkal</li>
       <li xml:lang="id">Menciptakan dan memainkan teka-teki mulai dari 4 hingga 10,000 potong</li>
       <li xml:lang="it">Crea e gioca con puzzle da 4 a 10.000 pezzi</li>
       <li xml:lang="ka">შექმენით და ითამაშეთ მოზაიკა 4-10, 000 ნაწილით</li>
@@ -206,6 +211,7 @@
       <li xml:lang="fi">Palaryhmät suurten palapelien ratkaisemisen helpottamiseksi</li>
       <li xml:lang="fr">Casier à pièces pour vous aider à résoudre les grands puzzles</li>
       <li xml:lang="gl">Caixóns de pezas para axudar a resolver quebracabezas grandes.</li>
+      <li xml:lang="hu">Szortírozók nagy méretű kirakókhoz</li>
       <li xml:lang="id">Piece-holders untuk membantu memecahkan teka-teki yang besar</li>
       <li xml:lang="it">Contenitori di pezzi per aiutare a risolvere puzzle grandi</li>
       <li xml:lang="ka">ნაწილის დამჭერები დიდი მოზაიკების ამოხსნაში მოსახმარებლად</li>
