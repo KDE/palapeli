@@ -23,12 +23,10 @@
   <name xml:lang="fr">Palapeli</name>
   <name xml:lang="gl">Palapeli</name>
   <name xml:lang="hu">Palapeli</name>
-  <name xml:lang="ia">Palapeli</name>
   <name xml:lang="id">Palapeli</name>
   <name xml:lang="it">Palapeli</name>
   <name xml:lang="ka">Palapeli</name>
   <name xml:lang="ko">Palapeli</name>
-  <name xml:lang="lv">Palapeli</name>
   <name xml:lang="nl">Palapeli</name>
   <name xml:lang="nn">Palapeli</name>
   <name xml:lang="pl">Palapeli</name>
@@ -62,12 +60,10 @@
   <summary xml:lang="fr">Jeu de puzzle</summary>
   <summary xml:lang="gl">Xogo de quebracabezas jigsaw.</summary>
   <summary xml:lang="hu">Kirakós játék</summary>
-  <summary xml:lang="ia">Joco de puzzle Jigsaw</summary>
   <summary xml:lang="id">Permainan teka-teki jigsaw</summary>
   <summary xml:lang="it">Gioco di puzzle</summary>
   <summary xml:lang="ka">პაზლის თამაში</summary>
   <summary xml:lang="ko">조각 퍼즐 게임</summary>
-  <summary xml:lang="lv">Puzles spēle</summary>
   <summary xml:lang="nl">Legpuzzelspel</summary>
   <summary xml:lang="nn">Puslespelspel</summary>
   <summary xml:lang="pl">Układanie puzzli</summary>
@@ -110,7 +106,6 @@
     <p xml:lang="it">Palapeli è un gioco di puzzle a giocatore singolo. A differenza di altri giochi di questo genere, non sei limitato ad allineare pezzi su griglie immaginarie. I pezzi possono essere spostati liberamente. Palapeli, inoltre, ha la caratteristica della persistenza, ossia tutto quello che fai viene salvato immediatamente sul disco.</p>
     <p xml:lang="ka">Palapeli ერთი მოთამაშის მოზაიკის თამაშია. ამ ჟანრის სხვა თამაშებისგან განსხვავებით ის წარმოსახვით ბადეზე ნაწილების დალაგებაზე შეზღუდული არაა. ეს ნაწილები თავისუფლად-გადატანადია. ასევე Palapeli-ის ფუნქციებშია ნამდვილი მდგრადობა, ანუ, რასაც აკეთებთ, მომენტალურად ინახება.</p>
     <p xml:lang="ko">Palapeli는 1인용 조각 퍼즐 게임입니다. 단순히 조각을 그리드를 따라 맞추는 것이 아니라 자유롭게 이동할 수 있습니다. Palapeli는 즉시 자동 저장을 지원합니다.</p>
-    <p xml:lang="lv">„Palapeli“ ir puzles salikšanas spēle vienam spēlētājam. Atšķirībā no daudzām citām līdzīgām spēlēm šajā spēlētājam kauliņi nav jāliek iedomātā režģī, bet tie ir brīvi pārvietojami. Tāpat arī „Palapeli“ nodrošina pilnīgu pastāvību — programma nekavējoties saglabā visu, ko spēlētājs izdara.</p>
     <p xml:lang="nl">Palapeli is een legpuzzelspel voor één persoon. Anders dan in andere spellen in dit genre bent u niet gelimiteerd om stukjes op imaginaire rasters te plaatsen. De stukjes zijn vrij te verplaatsen. Palapeli heeft de echte blijvende functie, d.w.z. alles wat u doet wordt onmiddellijk opgeslagen op uw schijf.</p>
     <p xml:lang="nn">Palapeli er eit puslespelspel for éin spelar. I motsetning til liknande spel, treng du her ikkje plassera brikkene på eit fast rutenett; du kan flytta dei fritt rundt. Alt du gjer vert òg automatisk lagra, slik at du kan halda fram med puslespelet seinare.</p>
     <p xml:lang="pl">Palapeli jest programem do układania puzzli dla pojedynczego gracza. W odróżnieniu od innych układanego z tego rodzaju nie jesteś ograniczony przy układaniu kawałków na wyobrażalnych siatkach. Kawałki można dowolnie przesuwać. Palapeli zapewnia także trwałość, tj. po każdym twoim ruchu,  wszystko jest zapisywane na dysk natychmiastowo.</p>
@@ -143,12 +138,10 @@
     <p xml:lang="fr">Fonctionnalités :</p>
     <p xml:lang="gl">Funcionalidades:</p>
     <p xml:lang="hu">Funkciók:</p>
-    <p xml:lang="ia">Characteristicas:</p>
     <p xml:lang="id">Fitur:</p>
     <p xml:lang="it">Caratteristiche:</p>
     <p xml:lang="ka">თვისებები:</p>
     <p xml:lang="ko">기능:</p>
-    <p xml:lang="lv">Iespējas:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="nn">Funksjonar:</p>
     <p xml:lang="pl">Możliwości:</p>
@@ -186,7 +179,6 @@
       <li xml:lang="it">Crea e gioca con puzzle da 4 a 10.000 pezzi</li>
       <li xml:lang="ka">შექმენით და ითამაშეთ მოზაიკა 4-10, 000 ნაწილით</li>
       <li xml:lang="ko">4조각부터 10,000조각까지 자유로운 퍼즐 생성 및 플레이</li>
-      <li xml:lang="lv">Izveidojiet un lieciet puzles ar lielumu no 4 līdz 10 000 gabaliņiem</li>
       <li xml:lang="nl">Puzzels maken en spelen variërend van 4 tot 10.000 stukjes</li>
       <li xml:lang="nn">Lag og spel puslespel med alt frå 4 til 10 000 brikker</li>
       <li xml:lang="pl">Twórz i układaj puzzle od 4 do 10 000 kawałków</li>
@@ -222,7 +214,6 @@
       <li xml:lang="it">Contenitori di pezzi per aiutare a risolvere puzzle grandi</li>
       <li xml:lang="ka">ნაწილის დამჭერები დიდი მოზაიკების ამოხსნაში მოსახმარებლად</li>
       <li xml:lang="ko">큰 퍼즐을 풀 때 도움이 되는 조각 모음통</li>
-      <li xml:lang="lv">Gabaliņu turētāji, kas palīdz salikt lielākas puzles</li>
       <li xml:lang="nl">Houders voor puzzelstukjes om te helpen grote puzzels op te lossen</li>
       <li xml:lang="nn">Brikkehaldarar for å løysa store puslespel</li>
       <li xml:lang="pl">Pojemniki na puzzle pomagające w układaniu dużych puzzli</li>
