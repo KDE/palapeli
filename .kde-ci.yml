@@ -19,7 +19,7 @@ Dependencies:
     'frameworks/knotifications': '@latest-kf6'
     'frameworks/kwidgetsaddons': '@latest-kf6'
     'frameworks/kxmlgui': '@latest-kf6'
-    'games/libkdegames': '@latest-kf6'
+    'games/libkdegames': '@same'
 
 Options:
   require-passing-tests-on: ['Linux', 'FreeBSD', 'Windows']
