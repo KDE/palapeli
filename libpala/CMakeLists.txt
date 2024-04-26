@@ -22,8 +22,9 @@ target_sources(pala PRIVATE
 ecm_qt_declare_logging_category(pala
     HEADER libpala_debug.h
     IDENTIFIER PALAPELI_LIBPALA_LOG
-    CATEGORY_NAME org.kde.palapeli.libpala
-    DESCRIPTION "palapeli (libpala)"
+    CATEGORY_NAME palapeli.pala
+    OLD_CATEGORY_NAMES org.kde.palapeli.libpala
+    DESCRIPTION "Palapeli game (libpala)"
     EXPORT PALAPELI
 )
 

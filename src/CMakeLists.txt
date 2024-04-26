@@ -54,8 +54,9 @@ target_sources(palapeli PRIVATE
 ecm_qt_declare_logging_category(palapeli
     HEADER palapeli_debug.h
     IDENTIFIER PALAPELI_LOG
-    CATEGORY_NAME org.kde.palapeli
-    DESCRIPTION "palapeli"
+    CATEGORY_NAME palapeli
+    OLD_CATEGORY_NAMES org.kde.palapeli
+    DESCRIPTION "Palapeli game"
     EXPORT PALAPELI
 )
 
