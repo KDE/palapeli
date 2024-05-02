@@ -119,7 +119,7 @@ void Palapeli::PuzzleTableWidget::reportProgress(int pieceCount, int partCount)
 			else
 			{
 				int percentFinished = qreal(value) / qreal(pieceCount - 1) * 100;
-				m_progressBar->setText(i18nc("Progress display", "%1% finished", percentFinished));
+				m_progressBar->setText(i18nc("@info:progress", "%1% finished", percentFinished));
 			}
 		}
 	}

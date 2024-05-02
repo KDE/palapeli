@@ -17,8 +17,8 @@ Palapeli::TriggerConfigWidget::TriggerConfigWidget(QWidget* parent)
 	, m_mouseView(new Palapeli::TriggerListView(m_interactors, Palapeli::MouseInteractor, this))
 	, m_wheelView(new Palapeli::TriggerListView(m_interactors, Palapeli::WheelInteractor, this))
 {
-	addTab(m_mouseView, i18n("Mouse Buttons"));
-	addTab(m_wheelView, i18n("Mouse Wheel"));
+	addTab(m_mouseView, i18nc("@title:tab", "Mouse Buttons"));
+	addTab(m_wheelView, i18nc("@title:tab", "Mouse Wheel"));
 	connect(m_mouseView, &Palapeli::TriggerListView::associationsChanged, this, &TriggerConfigWidget::associationsChanged);
 	connect(m_wheelView, &Palapeli::TriggerListView::associationsChanged, this, &TriggerConfigWidget::associationsChanged);
 }

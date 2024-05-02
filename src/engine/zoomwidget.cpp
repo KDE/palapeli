@@ -23,7 +23,7 @@ Palapeli::ZoomWidget::ZoomWidget(QWidget* parent)
 {
 	//init buttons
 	m_constrainedButton->setIcon(QIcon::fromTheme( QStringLiteral( "select-rectangular" )));
-	m_constrainedButton->setToolTip(i18n("Lock the puzzle table area"));
+	m_constrainedButton->setToolTip(i18nc("@info:tooltip", "Lock the puzzle table area"));
 	m_constrainedButton->setCheckable(true);
 	connect(m_constrainedButton, &QToolButton::toggled, this, &ZoomWidget::constrainedChanged);
 	m_zoomOutButton->setIcon(QIcon::fromTheme( QStringLiteral( "zoom-out" )));

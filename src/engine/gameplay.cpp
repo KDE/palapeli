@@ -355,8 +355,8 @@ void Palapeli::GamePlay::createHolder()
 	qCDebug(PALAPELI_LOG) << "GamePlay::createHolder() entered";
 	bool OK;
 	QString name = QInputDialog::getText(m_mainWindow,
-		i18n("Create a piece holder"),
-		i18n("Enter a short name (optional):"),
+		i18nc("@title:window", "Create a Piece Holder"),
+		i18nc("@label:textbox", "Enter a short name (optional):"),
 		QLineEdit::Normal, QString(), &OK);
 	if (! OK) {
 		return;		// If CANCELLED, do not create a piece holder.
@@ -1128,7 +1128,7 @@ void Palapeli::GamePlay::finishLoading()
 			"By the way, holders can do almost all the things the "
 			"puzzle table and its window can do, including joining "
 			"pieces to build up a part of the solution."),
-			i18nc("Caption for hints", "Solving Large Puzzles"),
+			i18nc("@title:window for hints", "Solving Large Puzzles"),
 			QStringLiteral("largepuzzle-introduction"));
 	}
 	// Check if puzzle has been completed.

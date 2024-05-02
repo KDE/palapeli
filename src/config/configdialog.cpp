@@ -58,10 +58,10 @@ Palapeli::ConfigDialog::ConfigDialog(QWidget* parent)
 					Palapeli::TextureHelper::instance());
 	setupSolutionAreaComboBox();
 
-	addPage(generalPage, i18n("General Settings"))->
+	addPage(generalPage, i18nc("@title:tab", "General"))->
 				setIcon(QIcon::fromTheme( QStringLiteral( "configure" )));
 	//setup page "Mouse Interaction"
-	addPage(m_triggerPage, i18n("Mouse Interaction"))->
+	addPage(m_triggerPage, i18nc("@title:tab", "Mouse Interaction"))->
 				setIcon(QIcon::fromTheme( QStringLiteral( "input-mouse" )));
 	connect(m_triggerPage, &TriggerConfigWidget::associationsChanged,
 	        this, &ConfigDialog::updateButtons);
@@ -108,12 +108,12 @@ void Palapeli::ConfigDialog::showEvent(QShowEvent* event)
 void Palapeli::ConfigDialog::setupSolutionAreaComboBox()
 {
 	QComboBox* b = m_generalUi.kcfg_SolutionArea;
-	b->insertItem(Center,      i18n("Center"),       Center);
-	b->insertItem(None,        i18n("None"),         None);
-	b->insertItem(TopLeft,     i18n("Top Left"),     TopLeft);
-	b->insertItem(TopRight,    i18n("Top Right"),    TopRight);
-	b->insertItem(BottomLeft,  i18n("Bottom Left"),  BottomLeft);
-	b->insertItem(BottomRight, i18n("Bottom Right"), BottomRight);
+	b->insertItem(Center,      i18nc("@item:inlistbox space for solution", "Center"),       Center);
+	b->insertItem(None,        i18nc("@item:inlistbox space for solution", "None"),         None);
+	b->insertItem(TopLeft,     i18nc("@item:inlistbox space for solution", "Top Left"),     TopLeft);
+	b->insertItem(TopRight,    i18nc("@item:inlistbox space for solution", "Top Right"),    TopRight);
+	b->insertItem(BottomLeft,  i18nc("@item:inlistbox space for solution", "Bottom Left"),  BottomLeft);
+	b->insertItem(BottomRight, i18nc("@item:inlistbox space for solution", "Bottom Right"), BottomRight);
 	b->setCurrentIndex(Settings::solutionArea());
         connect(b, &QComboBox::currentIndexChanged, this, &ConfigDialog::solutionAreaChange);
 }

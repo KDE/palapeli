@@ -33,7 +33,7 @@ Palapeli::Collection::Item::Item(Palapeli::Puzzle* puzzle)
 	const QString id = puzzle->identifier();
 	setData(id, Palapeli::Collection::IdentifierRole);
 	setData(id.startsWith(QLatin1Char('{')), Palapeli::Collection::IsDeleteableRole);
-	setData(i18n("Loading puzzle..."), Qt::DisplayRole);
+	setData(i18nc("@info:status", "Loading puzzle…"), Qt::DisplayRole);
 	setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 	//request metadata
 	puzzle->get(Palapeli::PuzzleComponent::Metadata);

@@ -43,11 +43,12 @@ GoldbergSlicer::GoldbergSlicer(QObject* parent, const QVariantList& args)
     addProperty("020_PieceCount", prop);
     
     sprop = new Pala::StringProperty(i18n("Quick preset"));
-    QVariantList choices;
-    choices << i18nc("Puzzle shape preset", "Ordinary");
-    choices << i18nc("Puzzle shape preset", "Very regular");
-    choices << i18nc("Puzzle shape preset", "Very diverse");
-    choices << i18nc("Puzzle shape preset", "Large plugs");
+    QVariantList choices {
+        i18nc("@item puzzle shape preset", "Ordinary"),
+        i18nc("@item puzzle shape preset", "Very regular"),
+        i18nc("@item puzzle shape preset", "Very diverse"),
+        i18nc("@item puzzle shape preset", "Large plugs"),
+    };
     sprop->setChoices(choices);
     sprop->setDefaultValue(QLatin1String(""));
     sprop->setEnabled(false);
@@ -121,9 +122,9 @@ bool GoldbergSlicer::run(Pala::SlicerJob* job) {
     // FIXME: this is not pretty :-/
     QString qptext = job->argument("025_QuickPreset").toString();
     // ordinary == 0 == default
-    if (qptext == i18nc("Puzzle shape preset", "Very regular")) engine.m_quickpreset = 1;
-    if (qptext == i18nc("Puzzle shape preset", "Very diverse")) engine.m_quickpreset = 2;
-    if (qptext == i18nc("Puzzle shape preset", "Large plugs")) engine.m_quickpreset = 3;
+    if (qptext == i18nc("@item puzzle shape preset", "Very regular")) engine.m_quickpreset = 1;
+    if (qptext == i18nc("@item puzzle shape preset", "Very diverse")) engine.m_quickpreset = 2;
+    if (qptext == i18nc("@item puzzle shape preset", "Large plugs")) engine.m_quickpreset = 3;
     
     engine.m_flip_threshold = job->argument("030_FlipThreshold").toInt();
     engine.m_edge_curviness = job->argument("040_EdgeCurviness").toInt();

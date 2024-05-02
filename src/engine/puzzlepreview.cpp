@@ -26,7 +26,7 @@ Palapeli::PuzzlePreview::PuzzlePreview(QWidget* parent)
 
 	setScene(new QGraphicsScene(this));
 	setParent(parent);
-	setWindowTitle(i18nc("@title:window", "Preview of completed puzzle"));
+	setWindowTitle(i18nc("@title:window", "Preview of Completed Puzzle"));
 	setWindowFlags(Qt::Tool | Qt::WindowTitleHint);
 	setAttribute (Qt::WA_NoMousePropagation); // Accept all mouse events.
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

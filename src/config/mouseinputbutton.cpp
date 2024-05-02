@@ -42,7 +42,7 @@ Palapeli::MouseInputButton::MouseInputButton(QWidget* parent)
 	m_mainLabel->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 	m_mainLabel->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
 	m_clearButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	m_clearButton->setToolTip(i18n("Remove this trigger"));
+	m_clearButton->setToolTip(i18nc("@info:tooltip", "Remove this trigger"));
 	//setup layout
 	QHBoxLayout* layout = new QHBoxLayout;
 	setLayout(layout);
@@ -116,8 +116,8 @@ void Palapeli::MouseInputButton::captureTrigger()
 {
 	setChecked(true);
 	m_clearButton->setVisible(false); //while capture is in progress
-	m_mainLabel->setText(i18n("Input here..."));
-	setToolTip(i18n("Hold down the modifier keys you want, then click a mouse button or scroll a mouse wheel here"));
+	m_mainLabel->setText(i18nc("@info:placeholder", "Input here…"));
+	setToolTip(i18nc("@info:tooltip", "Hold down the modifier keys you want, then click a mouse button or scroll a mouse wheel here"));
 	setFocus(Qt::MouseFocusReason);
 }
 
@@ -222,13 +222,13 @@ void Palapeli::MouseInputButton::confirmTrigger(const Palapeli::Trigger& trigger
 void Palapeli::MouseInputButton::updateAppearance()
 {
 	//find caption
-	static const QString noTriggerString = i18nc("This is used for describing that no mouse action has been assigned to this interaction plugin.", "None");
+	const QString noTriggerString = i18nc("@item This is used for describing that no mouse action has been assigned to this interaction plugin.", "None");
 	QString text = m_trigger.toString();
 	if (!m_trigger.isValid())
 		text = text.arg(noTriggerString);
 	//apply properties
 	setChecked(false);
-	setToolTip(i18n("Click to change how an action is triggered"));
+	setToolTip(i18nc("@info:tooltip", "Click to change how an action is triggered"));
 	m_mainLabel->setText(text);
 	m_clearButton->setVisible(m_trigger.isValid());
 }
@@ -249,7 +249,7 @@ void Palapeli::MouseInputButton::showModifiers(Qt::KeyboardModifiers modifiers)
 {
 	Palapeli::Trigger dummyTrigger;
 	dummyTrigger.setModifiers(modifiers);
-	m_mainLabel->setText(dummyTrigger.toString().arg(i18n("Input here...")));
+	m_mainLabel->setText(dummyTrigger.toString().arg(i18nc("@info:placeholder", "Input here…")));
 }
 
 
