@@ -127,10 +127,7 @@ void Palapeli::CollectionDelegate::paint (
         QString author = index.data (Palapeli::Collection::AuthorRole)
                                      .toString();
         if (!author.isEmpty()) {
-            const QString authorString = ki18nc (
-                        "Author attribution, e.g. \"by Jack\"",
-                        "by %1")
-                        .subs(author).toString();
+            const QString authorString = i18nc("@info author attribution", "By %1", author);
             texts << authorString;
             QFont theFont (painter->font());
             theFont.setItalic(true);
