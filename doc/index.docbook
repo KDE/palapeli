@@ -80,7 +80,7 @@
       <title>Toolbar overview</title>
       <variablelist>
         <varlistentry>
-          <term><inlinemediaobject><imageobject><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject></inlinemediaobject> <guiicon>Create New Puzzle...</guiicon></term>
+          <term><inlinemediaobject><imageobject><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject></inlinemediaobject> <guiicon>Create New Puzzle…</guiicon></term>
           <listitem>
             <para><action>Opens a dialog which allows you to create a puzzle from an image on your disk.</action> See <link linkend="create-puzzles">the next chapter</link> for details.</para>
           </listitem>
@@ -90,11 +90,11 @@
           <listitem><para><action>Any puzzles that you have selected in the puzzle list, will be permanently deleted from your collection. </action></para><warning><para>This action cannot be undone.</para></warning></listitem>
         </varlistentry>
         <varlistentry>
-          <term><inlinemediaobject><imageobject><imagedata fileref="document-import.png" format="PNG"/></imageobject></inlinemediaobject> <guiicon>Import from File...</guiicon></term>
+          <term><inlinemediaobject><imageobject><imagedata fileref="document-import.png" format="PNG"/></imageobject></inlinemediaobject> <guiicon>Import from File…</guiicon></term>
           <listitem><para><action>When you have received a &palapeli; puzzle file (which can usually be recognized by the file extension <literal role="extension">.puzzle</literal>), you can use this action to import it into your local collection.</action> Puzzle files can also be played by simply clicking on them in the file manager of your choice, but after the import, the puzzle will appear in your local collection, and you can safely delete the downloaded puzzle file.</para></listitem>
         </varlistentry>
         <varlistentry>
-          <term><inlinemediaobject><imageobject><imagedata fileref="document-export.png" format="PNG"/></imageobject></inlinemediaobject> <guiicon>Export to File...</guiicon></term>
+          <term><inlinemediaobject><imageobject><imagedata fileref="document-export.png" format="PNG"/></imageobject></inlinemediaobject> <guiicon>Export to File…</guiicon></term>
           <listitem><para><action>This will export the currently selected puzzles to files, in order to enable you to give them to your friends, publish them on the web, or make backup copies of your collection.</action></para></listitem>
         </varlistentry>
       </variablelist>
@@ -105,7 +105,7 @@
     <title>Creating new puzzles</title>
     <sect1 id="creation-dialog">
     <title>The puzzle creation dialog</title>
-    <para>As described in <link linkend="toolbar-collection">the previous section</link>, you can create new puzzles by clicking on the <inlinemediaobject><imageobject><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject></inlinemediaobject> <guiicon>Create New Puzzle...</guiicon> action icon in the puzzle collection window.</para>
+    <para>As described in <link linkend="toolbar-collection">the previous section</link>, you can create new puzzles by clicking on the <inlinemediaobject><imageobject><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject></inlinemediaobject> <guiicon>Create New Puzzle…</guiicon> action icon in the puzzle collection window.</para>
     <para>Clicking this action icon opens the puzzle creation dialog, which consists of three pages:</para>
     <procedure>
       <step><para>On the first page, select an image file which will be sliced into pieces. Be sure to enter the correct metadata for the image: You should give attribution to the author of the image (&eg; the photographer or the painter); please respect the copyright of the image author.</para></step>
@@ -413,10 +413,10 @@
       <link linkend="configuration">Game Configuration</link>
       for a list of settings provided via
       <menuchoice><guimenu>Settings</guimenu>
-      <guimenuitem>Configure &palapeli;...</guimenuitem>
+      <guimenuitem>Configure &palapeli;…</guimenuitem>
       </menuchoice> or, on &macOS;,
       <menuchoice><guimenu>&palapeli;</guimenu>
-      <guimenuitem>Preferences...</guimenuitem></menuchoice>
+      <guimenuitem>Preferences…</guimenuitem></menuchoice>
       menu item.
       </para>
       <para>The spacing of pieces in puzzle grids can be
@@ -591,7 +591,7 @@
       <para>To create or delete a holder, use the
       <menuchoice><shortcut><keycap>C</keycap></shortcut>
       <guimenu>Move</guimenu><guimenuitem>
-      Create Piece Holder...</guimenuitem></menuchoice>
+      Create Piece Holder…</guimenuitem></menuchoice>
       or <menuchoice><shortcut><keycap>D</keycap></shortcut>
       <guimenu>Move</guimenu><guimenuitem>
       Delete Piece Holder</guimenuitem></menuchoice> menu items, or
@@ -708,15 +708,15 @@
     <para>The following are &palapeli;'s menu items, some of which are also available as action icons in the toolbar and keyboard shortcuts.</para>
     <variablelist>
       <varlistentry>
-        <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo> </shortcut> <guimenu>Game</guimenu> <guimenuitem>Create New Puzzle...</guimenuitem></menuchoice></term>
+        <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo> </shortcut> <guimenu>Game</guimenu> <guimenuitem>Create New Puzzle…</guimenuitem></menuchoice></term>
         <listitem><para><action>Opens a dialog which allows you to create a puzzle from an image on your disk.</action> See <link linkend="create-puzzles">the corresponding section</link> for details and also <link linkend="large-puzzle-creation">special concerns</link>, if you are going to create a puzzle with 300 or more pieces.</para></listitem>
       </varlistentry>
       <varlistentry>
-        <term><menuchoice><guimenu>Game</guimenu><guimenuitem>Import from File...</guimenuitem></menuchoice></term>
+        <term><menuchoice><guimenu>Game</guimenu><guimenuitem>Import from File…</guimenuitem></menuchoice></term>
         <listitem><para><action>When you have received a &palapeli; puzzle file (which can usually be recognized by the file extension <literal role="extension">.puzzle</literal>), you can use this action to import it into your local collection.</action> Puzzle files can also be played by simply clicking on them in the file manager of your choice, but after the import, the puzzle will appear in your local collection, and you can safely delete the downloaded puzzle file.</para></listitem>
       </varlistentry>
       <varlistentry>
-        <term><menuchoice><guimenu>Game</guimenu><guimenuitem>Export to File...</guimenuitem></menuchoice></term>
+        <term><menuchoice><guimenu>Game</guimenu><guimenuitem>Export to File…</guimenuitem></menuchoice></term>
         <listitem><para><action>This will export the currently selected puzzles to files, in order to enable you to give them to your friends, publish them on the web, or make backup copies of your collection.</action></para></listitem>
       </varlistentry>
       <varlistentry>
@@ -724,7 +724,7 @@
         <listitem><para><action>Any puzzles that you have selected in the puzzle list, will be permanently deleted from your collection.</action></para><warning><para>This action cannot be undone.</para></warning></listitem>
       </varlistentry>
       <varlistentry>
-        <term><menuchoice><guimenu>Game</guimenu><guimenuitem>Restart Puzzle...</guimenuitem></menuchoice></term>
+        <term><menuchoice><guimenu>Game</guimenu><guimenuitem>Restart Puzzle…</guimenuitem></menuchoice></term>
         <listitem><para><action>Re-shuffle all the pieces and discard the saved progress for the current puzzle.</action></para></listitem>
       </varlistentry>
       <varlistentry>
@@ -732,7 +732,7 @@
         <listitem><para><action>Quit</action> the &palapeli;.</para></listitem>
       </varlistentry>    
       <varlistentry>
-        <term><menuchoice><shortcut><keycap>C</keycap></shortcut><guimenu>Move</guimenu><guimenuitem>Create Piece Holder...</guimenuitem></menuchoice></term>
+        <term><menuchoice><shortcut><keycap>C</keycap></shortcut><guimenu>Move</guimenu><guimenuitem>Create Piece Holder…</guimenuitem></menuchoice></term>
         <listitem><para><action>Create a temporary holder for storing or sorting pieces. See <link linkend="large-puzzle-holders">Using piece-holders</link> for details of how to use a holder.</action></para></listitem>
       </varlistentry>
       <varlistentry>
@@ -773,7 +773,7 @@
         <listitem><para><action>Toggle the display of the progress bar and buttons below the puzzle table.</action> This action will change nothing in the puzzle collection.</para></listitem>
       </varlistentry>
       <varlistentry id="settings-menu-configure">
-        <term><menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &palapeli;...</guimenuitem></menuchoice></term>
+        <term><menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &palapeli;…</guimenuitem></menuchoice></term>
         <listitem><para>Open a game configuration dialog. See <link linkend="configuration">Game Configuration</link> section for more details.</para>
         </listitem>
       </varlistentry>
@@ -786,7 +786,7 @@
 
   <chapter id="configuration">
     <title>Game Configuration</title>
-    <para>To open the configuration dialog, use the menu item: <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &palapeli;...</guimenuitem></menuchoice></para>
+    <para>To open the configuration dialog, use the menu item: <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &palapeli;…</guimenuitem></menuchoice></para>
     <sect1 id="configuration-general">
       <title>General settings</title>
       <variablelist>
