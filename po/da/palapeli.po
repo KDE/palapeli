@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-19 00:36+0000\n"
+"POT-Creation-Date: 2024-05-02 00:37+0000\n"
 "PO-Revision-Date: 2017-11-11 15:25+0200\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish\n"
@@ -83,68 +83,76 @@ msgid "Quick preset"
 msgstr "Hurtig forudindstilling"
 
 #: slicers/goldberg/slicer-goldberg.cpp:47
-#, kde-format
-msgctxt "Puzzle shape preset"
+#, fuzzy, kde-format
+#| msgctxt "Puzzle shape preset"
+#| msgid "Ordinary"
+msgctxt "@item puzzle shape preset"
 msgid "Ordinary"
 msgstr "Almindelig"
 
 #: slicers/goldberg/slicer-goldberg.cpp:48
-#: slicers/goldberg/slicer-goldberg.cpp:124
-#, kde-format
-msgctxt "Puzzle shape preset"
+#: slicers/goldberg/slicer-goldberg.cpp:125
+#, fuzzy, kde-format
+#| msgctxt "Puzzle shape preset"
+#| msgid "Very regular"
+msgctxt "@item puzzle shape preset"
 msgid "Very regular"
 msgstr "Meget ensartet"
 
 #: slicers/goldberg/slicer-goldberg.cpp:49
-#: slicers/goldberg/slicer-goldberg.cpp:125
-#, kde-format
-msgctxt "Puzzle shape preset"
+#: slicers/goldberg/slicer-goldberg.cpp:126
+#, fuzzy, kde-format
+#| msgctxt "Puzzle shape preset"
+#| msgid "Very diverse"
+msgctxt "@item puzzle shape preset"
 msgid "Very diverse"
 msgstr "Meget forskelligartet"
 
 #: slicers/goldberg/slicer-goldberg.cpp:50
-#: slicers/goldberg/slicer-goldberg.cpp:126
-#, kde-format
-msgctxt "Puzzle shape preset"
+#: slicers/goldberg/slicer-goldberg.cpp:127
+#, fuzzy, kde-format
+#| msgctxt "Puzzle shape preset"
+#| msgid "Large plugs"
+msgctxt "@item puzzle shape preset"
 msgid "Large plugs"
 msgstr "Store tapper"
 
-#: slicers/goldberg/slicer-goldberg.cpp:57
+#: slicers/goldberg/slicer-goldberg.cpp:58
 #, kde-format
 msgid "Flipped edge percentage"
 msgstr "Procentdel med vendt kant"
 
-#: slicers/goldberg/slicer-goldberg.cpp:64
+#: slicers/goldberg/slicer-goldberg.cpp:65
 #, kde-format
 msgid "Edge curviness"
 msgstr "Kurvethed af kanter"
 
-#: slicers/goldberg/slicer-goldberg.cpp:70
+#: slicers/goldberg/slicer-goldberg.cpp:71
 #, kde-format
 msgid "Plug size"
 msgstr "Størrelse på tapper"
 
-#: slicers/goldberg/slicer-goldberg.cpp:77
+#: slicers/goldberg/slicer-goldberg.cpp:78
 #, kde-format
 msgid "Diversity of curviness"
 msgstr "Forskellighed i kurvethed"
 
-#: slicers/goldberg/slicer-goldberg.cpp:84
+#: slicers/goldberg/slicer-goldberg.cpp:85
 #, kde-format
 msgid "Diversity of plug position"
 msgstr "Forskellighed af placering af tapper"
 
-#: slicers/goldberg/slicer-goldberg.cpp:91
+#: slicers/goldberg/slicer-goldberg.cpp:92
 #, kde-format
 msgid "Diversity of plugs"
 msgstr "Forskellighed af tapper"
 
-#: slicers/goldberg/slicer-goldberg.cpp:98
+#: slicers/goldberg/slicer-goldberg.cpp:99
 #, kde-format
 msgid "Diversity of piece size"
 msgstr "Forskellighed i brikstørrelse"
 
-#: slicers/goldberg/slicer-goldberg.cpp:107
+#: slicers/goldberg/slicer-goldberg.cpp:108
 #, kde-format
 msgid "Dump grid image"
 msgstr "Dump gitterbillede"
@@ -152,57 +160,79 @@ msgstr "Dump gitterbillede"
 #: src/config/configdialog.cpp:61
 #, fuzzy, kde-format
 #| msgid "General settings"
-msgid "General Settings"
+msgctxt "@title:tab"
+msgid "General"
 msgstr "Generelle indstillinger"
 
 #: src/config/configdialog.cpp:64
 #, fuzzy, kde-format
 #| msgid "Mouse interaction"
+msgctxt "@title:tab"
 msgid "Mouse Interaction"
 msgstr "Museinteraktion"
 
 #: src/config/configdialog.cpp:111
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Center"
+msgctxt "@item:inlistbox space for solution"
 msgid "Center"
 msgstr "I midten"
 
 #: src/config/configdialog.cpp:112
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "None"
+msgctxt "@item:inlistbox space for solution"
 msgid "None"
 msgstr "Ingen"
 
 #: src/config/configdialog.cpp:113
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Top Left"
+msgctxt "@item:inlistbox space for solution"
 msgid "Top Left"
 msgstr "Øverst til venstre"
 
 #: src/config/configdialog.cpp:114
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Top Right"
+msgctxt "@item:inlistbox space for solution"
 msgid "Top Right"
 msgstr "Øverst til højre"
 
 #: src/config/configdialog.cpp:115
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Bottom Left"
+msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Left"
 msgstr "Nederst til venstre"
 
 #: src/config/configdialog.cpp:116
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Bottom Right"
+msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Right"
 msgstr "Nederst til højre"
 
 #: src/config/mouseinputbutton.cpp:45
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Remove this trigger"
+msgctxt "@info:tooltip"
 msgid "Remove this trigger"
 msgstr "Fjern denne udløser"
 
 #: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
-#, kde-format
-msgid "Input here..."
+#, fuzzy, kde-format
+#| msgid "Input here..."
+msgctxt "@info:placeholder"
+msgid "Input here…"
 msgstr "Input her..."
 
 #: src/config/mouseinputbutton.cpp:120
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Hold down the modifier keys you want, then click a mouse button or scroll "
+#| "a mouse wheel here"
+msgctxt "@info:tooltip"
 msgid ""
 "Hold down the modifier keys you want, then click a mouse button or scroll a "
 "mouse wheel here"
@@ -211,27 +241,32 @@ msgstr ""
 "et musehjul her"
 
 #: src/config/mouseinputbutton.cpp:225
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "None"
 msgctxt ""
-"This is used for describing that no mouse action has been assigned to this "
-"interaction plugin."
+"@item This is used for describing that no mouse action has been assigned to "
+"this interaction plugin."
 msgid "None"
 msgstr "Ingen"
 
 #: src/config/mouseinputbutton.cpp:231
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Click to change how an action is triggered"
+msgctxt "@info:tooltip"
 msgid "Click to change how an action is triggered"
 msgstr "Klik for at ændre hvordan en handling udløses"
 
 #: src/config/triggerconfigwidget.cpp:20
 #, fuzzy, kde-format
 #| msgid "Mouse buttons"
+msgctxt "@title:tab"
 msgid "Mouse Buttons"
 msgstr "Museknapper"
 
 #: src/config/triggerconfigwidget.cpp:21
 #, fuzzy, kde-format
 #| msgid "Mouse wheel"
+msgctxt "@title:tab"
 msgid "Mouse Wheel"
 msgstr "Musehjul"
 
@@ -384,12 +419,16 @@ msgid "Save Palapeli Puzzles"
 msgstr "Gem Palapeli-puslespil"
 
 #: src/engine/gameplay.cpp:358
-#, kde-format
-msgid "Create a piece holder"
+#, fuzzy, kde-format
+#| msgid "Create a piece holder"
+msgctxt "@title:window"
+msgid "Create a Piece Holder"
 msgstr "Opret en brikholder"
 
 #: src/engine/gameplay.cpp:359
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Enter a short name (optional):"
+msgctxt "@label:textbox"
 msgid "Enter a short name (optional):"
 msgstr "Indtast et kort navn (valgfrit):"
 
@@ -590,8 +629,10 @@ msgstr ""
 "løsningen."
 
 #: src/engine/gameplay.cpp:1131
-#, kde-format
-msgctxt "Caption for hints"
+#, fuzzy, kde-format
+#| msgctxt "Caption for hints"
+#| msgid "Solving Large Puzzles"
+msgctxt "@title:window for hints"
 msgid "Solving Large Puzzles"
 msgstr "Løser stort puslespil"
 
@@ -665,7 +706,7 @@ msgstr "Slå låst tilstand af puslespilsområdet til/fra"
 #| msgctxt "Window title"
 #| msgid "Preview of completed puzzle"
 msgctxt "@title:window"
-msgid "Preview of completed puzzle"
+msgid "Preview of Completed Puzzle"
 msgstr "Forhåndsvisning af det færdige puslespil"
 
 #: src/engine/puzzlepreview.cpp:36
@@ -763,19 +804,23 @@ msgstr "Vandret rulning"
 msgid "Vertical-Scroll"
 msgstr "Lodret rulning"
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:338
 #, kde-format
 msgid "Your progress is saved automatically while you play."
 msgstr "Din fremgang gemmes automatisk mens du spiller."
 
-#: src/engine/view.cpp:337
-#, kde-format
-msgctxt "used as caption for a dialog that explains the autosave feature"
-msgid "Automatic saving"
+#: src/engine/view.cpp:339
+#, fuzzy, kde-format
+#| msgctxt "used as caption for a dialog that explains the autosave feature"
+#| msgid "Automatic saving"
+msgctxt "@title:window dialog that explains the autosave feature"
+msgid "Automatic Saving"
 msgstr "Automatisk gemning"
 
 #: src/engine/zoomwidget.cpp:26
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Lock the puzzle table area"
+msgctxt "@info:tooltip"
 msgid "Lock the puzzle table area"
 msgstr "Lås puslespilsområdet"
 
@@ -792,10 +837,12 @@ msgid_plural "%2 (%1 pieces)"
 msgstr[0] "%2 (%1 brik)"
 msgstr[1] "%2 (%1 brikker)"
 
-#: src/file-io/collection-delegate.cpp:132
-#, kde-format
-msgctxt "Author attribution, e.g. \"by Jack\""
-msgid "by %1"
+#: src/file-io/collection-delegate.cpp:130
+#, fuzzy, kde-format
+#| msgctxt "Author attribution, e.g. \"by Jack\""
+#| msgid "by %1"
+msgctxt "@info author attribution"
+msgid "By %1"
 msgstr "af %1"
 
 #: src/file-io/collection-view.cpp:58
@@ -803,7 +850,7 @@ msgstr "af %1"
 #| msgctxt "@action:button that pops up sorting strategy selection menu"
 #| msgid "Sort list..."
 msgctxt "@action:button that pops up sorting strategy selection menu"
-msgid "Sort List..."
+msgid "Sort List…"
 msgstr "Sortér liste..."
 
 #: src/file-io/collection-view.cpp:61
@@ -823,8 +870,10 @@ msgid "By Piece Count"
 msgstr "Efter antal brikker"
 
 #: src/file-io/collection.cpp:36
-#, kde-format
-msgid "Loading puzzle..."
+#, fuzzy, kde-format
+#| msgid "Loading puzzle..."
+msgctxt "@info:status"
+msgid "Loading puzzle…"
 msgstr "Indlæser puslespil..."
 
 #: src/file-io/collection.cpp:109
@@ -1103,113 +1152,146 @@ msgstr "Upræcis (nemmere)"
 msgid "Show Statusbar of Puzzle Table"
 msgstr "Vis puslespilsbordets statuslinje"
 
-#: src/window/mainwindow.cpp:57
+#: src/window/mainwindow.cpp:58
 #, fuzzy, kde-format
 #| msgid "Back to &collection"
+msgctxt "@action"
 msgid "Back to &Collection"
 msgstr "Tilbage til &samling"
 
-#: src/window/mainwindow.cpp:58
-#, kde-format
+#: src/window/mainwindow.cpp:59
+#, fuzzy, kde-format
+#| msgid "Go back to the collection to choose another puzzle"
+msgctxt "@info:tooltip"
 msgid "Go back to the collection to choose another puzzle"
 msgstr "Gå tilbage til samlingen for at vælge et andet puslespil"
 
-#: src/window/mainwindow.cpp:64
+#: src/window/mainwindow.cpp:66
 #, fuzzy, kde-format
-#| msgid "Create &new puzzle..."
-msgid "Create &New Puzzle..."
-msgstr "Opret &nyt puslespil..."
+#| msgctxt "@title:window"
+#| msgid "Create new puzzle"
+msgctxt "@action"
+msgid "Create &New Puzzle…"
+msgstr "Opret nyt puslespil"
 
-#: src/window/mainwindow.cpp:65
-#, kde-format
+#: src/window/mainwindow.cpp:67
+#, fuzzy, kde-format
+#| msgid "Create a new puzzle using an image file from your disk"
+msgctxt "@info:tooltip"
 msgid "Create a new puzzle using an image file from your disk"
 msgstr "Opret et nyt puslespil ud fra en billedfil på din harddisk"
 
-#: src/window/mainwindow.cpp:71
+#: src/window/mainwindow.cpp:74
 #, fuzzy, kde-format
 #| msgid "&Delete puzzle"
+msgctxt "@action"
 msgid "&Delete Puzzle"
 msgstr "&Slet puslespil"
 
-#: src/window/mainwindow.cpp:73
-#, kde-format
+#: src/window/mainwindow.cpp:76
+#, fuzzy, kde-format
+#| msgid "Delete the selected puzzle from your collection"
+msgctxt "@info:tooltip"
 msgid "Delete the selected puzzle from your collection"
 msgstr "Slet det valgte puslespil fra din samling"
 
-#: src/window/mainwindow.cpp:79
+#: src/window/mainwindow.cpp:83
 #, fuzzy, kde-format
 #| msgid "&Import from file..."
-msgid "&Import from File..."
+msgctxt "@action"
+msgid "&Import from File…"
 msgstr "&Importér fra fil..."
 
-#: src/window/mainwindow.cpp:80
-#, kde-format
+#: src/window/mainwindow.cpp:84
+#, fuzzy, kde-format
+#| msgid "Import a new puzzle from a file into your collection"
+msgctxt "@info:tooltip"
 msgid "Import a new puzzle from a file into your collection"
 msgstr "Importér et nyt puslespil fra en fil til din samling"
 
-#: src/window/mainwindow.cpp:85
+#: src/window/mainwindow.cpp:90
 #, fuzzy, kde-format
 #| msgid "&Export to file..."
-msgid "&Export to File..."
+msgctxt "@action"
+msgid "&Export to File…"
 msgstr "&Eksportér til fil..."
 
-#: src/window/mainwindow.cpp:87
-#, kde-format
+#: src/window/mainwindow.cpp:92
+#, fuzzy, kde-format
+#| msgid "Export the selected puzzle from your collection into a file"
+msgctxt "@info:tooltip"
 msgid "Export the selected puzzle from your collection into a file"
 msgstr "Eksportér det valgte puslespil fra din samling til en fil"
 
-#: src/window/mainwindow.cpp:93
+#: src/window/mainwindow.cpp:99
 #, fuzzy, kde-format
 #| msgid "&Restart puzzle..."
-msgid "&Restart Puzzle..."
+msgctxt "@action"
+msgid "&Restart Puzzle…"
 msgstr "&Genstart puslespil..."
 
-#: src/window/mainwindow.cpp:94
-#, kde-format
+#: src/window/mainwindow.cpp:100
+#, fuzzy, kde-format
+#| msgid "Delete the saved progress and reshuffle the pieces"
+msgctxt "@info:tooltip"
 msgid "Delete the saved progress and reshuffle the pieces"
 msgstr "Slet den gemte fremgang og bland brikkerne igen"
 
-#: src/window/mainwindow.cpp:101
+#: src/window/mainwindow.cpp:107
 #, fuzzy, kde-format
 #| msgid "&Create piece holder..."
-msgid "&Create Piece Holder..."
+msgctxt "@action"
+msgid "&Create Piece Holder…"
 msgstr "&Opret brikholder..."
 
-#: src/window/mainwindow.cpp:102
-#, kde-format
+#: src/window/mainwindow.cpp:108
+#, fuzzy, kde-format
+#| msgid "Create a temporary holder for sorting pieces"
+msgctxt "@info:tooltip"
 msgid "Create a temporary holder for sorting pieces"
 msgstr "Opret en midlertidig holder til sortering af brikker"
 
-#: src/window/mainwindow.cpp:109
+#: src/window/mainwindow.cpp:116
 #, fuzzy, kde-format
 #| msgid "&Delete piece holder"
+msgctxt "@action"
 msgid "&Delete Piece Holder"
 msgstr "&Slet brikholder"
 
-#: src/window/mainwindow.cpp:110
-#, kde-format
+#: src/window/mainwindow.cpp:117
+#, fuzzy, kde-format
+#| msgid "Delete a selected temporary holder when it is empty"
+msgctxt "@info:tooltip"
 msgid "Delete a selected temporary holder when it is empty"
 msgstr "Slet en valgt midlertidig holder når den er tom"
 
-#: src/window/mainwindow.cpp:116
+#: src/window/mainwindow.cpp:124
 #, fuzzy, kde-format
 #| msgid "&Select all in holder"
+msgctxt "@action"
 msgid "&Select All in Holder"
 msgstr "&Vælg alle i holder"
 
-#: src/window/mainwindow.cpp:117
-#, kde-format
+#: src/window/mainwindow.cpp:125
+#, fuzzy, kde-format
+#| msgid "Select all pieces in a selected piece holder"
+msgctxt "@info:tooltip"
 msgid "Select all pieces in a selected piece holder"
 msgstr "Vælg alle brikker i en valgt brikholder"
 
-#: src/window/mainwindow.cpp:123
+#: src/window/mainwindow.cpp:131
 #, fuzzy, kde-format
 #| msgid "&Rearrange pieces"
+msgctxt "@action"
 msgid "&Rearrange Pieces"
 msgstr "&Omarranger brikker"
 
-#: src/window/mainwindow.cpp:124
-#, kde-format
+#: src/window/mainwindow.cpp:132
+#, fuzzy, kde-format
+#| msgid ""
+#| "Rearrange all pieces in a selected piece holder or selected pieces in any "
+#| "window"
+msgctxt "@info:tooltip"
 msgid ""
 "Rearrange all pieces in a selected piece holder or selected pieces in any "
 "window"
@@ -1217,36 +1299,43 @@ msgstr ""
 "Omarranger alle brikker i en valgt brikholder eller valgte brikker i et "
 "vindue"
 
-#: src/window/mainwindow.cpp:131
-#, kde-format
-msgctxt "Preview is a noun here"
-msgid "&Preview"
-msgstr "&Forhåndsvis"
+#: src/window/mainwindow.cpp:140
+#, fuzzy, kde-format
+#| msgctxt "Preview is a noun here"
+#| msgid "Preview"
+msgctxt "@option:check"
+msgid "Show Preview"
+msgstr "Forhåndsvis"
 
-#: src/window/mainwindow.cpp:133
-#, kde-format
-msgctxt "Preview is a noun here"
+#: src/window/mainwindow.cpp:141
+#, fuzzy, kde-format
+#| msgctxt "Preview is a noun here"
+#| msgid "Preview"
+msgctxt "@option:check Preview is a noun here"
 msgid "Preview"
 msgstr "Forhåndsvis"
 
-#: src/window/mainwindow.cpp:134
-#, kde-format
+#: src/window/mainwindow.cpp:142
+#, fuzzy, kde-format
+#| msgid "Show or hide the image of the completed puzzle"
+msgctxt "@info:tooltip"
 msgid "Show or hide the image of the completed puzzle"
 msgstr "Vis eller skjul billedet af det færdige puslespil"
 
-#: src/window/mainwindow.cpp:148
+#: src/window/mainwindow.cpp:156
 #, fuzzy, kde-format
 #| msgid "Enable all messages"
+msgctxt "@action"
 msgid "Enable All Messages"
 msgstr "Aktivér alle meddelelser"
 
-#: src/window/mainwindow.cpp:157
+#: src/window/mainwindow.cpp:165
 #, fuzzy, kde-format
 #| msgid "Enable all messages"
 msgid "Enable all messages again?"
 msgstr "Aktivér alle meddelelser"
 
-#: src/window/mainwindow.cpp:158
+#: src/window/mainwindow.cpp:166
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
@@ -1263,10 +1352,27 @@ msgid "You finished the puzzle."
 msgstr "Du har gennemført puslespillet."
 
 #: src/window/puzzletablewidget.cpp:122
-#, kde-format
-msgctxt "Progress display"
+#, fuzzy, kde-format
+#| msgctxt "Progress display"
+#| msgid "%1% finished"
+msgctxt "@info:progress"
 msgid "%1% finished"
 msgstr "%1% gennemført"
+
+#~ msgctxt ""
+#~ "This is used for describing that no mouse action has been assigned to "
+#~ "this interaction plugin."
+#~ msgid "None"
+#~ msgstr "Ingen"
+
+#, fuzzy
+#~| msgid "Create &new puzzle..."
+#~ msgid "Create &New Puzzle..."
+#~ msgstr "Opret &nyt puslespil..."
+
+#~ msgctxt "Preview is a noun here"
+#~ msgid "&Preview"
+#~ msgstr "&Forhåndsvis"
 
 #~ msgid ""
 #~ "If the -i/--import option is specified, the main window will not be shown "

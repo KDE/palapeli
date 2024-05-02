@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-19 00:36+0000\n"
+"POT-Creation-Date: 2024-05-02 00:37+0000\n"
 "PO-Revision-Date: 2024-03-09 15:19+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -87,124 +87,156 @@ msgid "Quick preset"
 msgstr "Gyors előbeállítás"
 
 #: slicers/goldberg/slicer-goldberg.cpp:47
-#, kde-format
-msgctxt "Puzzle shape preset"
+#, fuzzy, kde-format
+#| msgctxt "Puzzle shape preset"
+#| msgid "Ordinary"
+msgctxt "@item puzzle shape preset"
 msgid "Ordinary"
 msgstr "Szokásos"
 
 #: slicers/goldberg/slicer-goldberg.cpp:48
-#: slicers/goldberg/slicer-goldberg.cpp:124
-#, kde-format
-msgctxt "Puzzle shape preset"
+#: slicers/goldberg/slicer-goldberg.cpp:125
+#, fuzzy, kde-format
+#| msgctxt "Puzzle shape preset"
+#| msgid "Very regular"
+msgctxt "@item puzzle shape preset"
 msgid "Very regular"
 msgstr "Nagyon szabályos"
 
 #: slicers/goldberg/slicer-goldberg.cpp:49
-#: slicers/goldberg/slicer-goldberg.cpp:125
-#, kde-format
-msgctxt "Puzzle shape preset"
+#: slicers/goldberg/slicer-goldberg.cpp:126
+#, fuzzy, kde-format
+#| msgctxt "Puzzle shape preset"
+#| msgid "Very diverse"
+msgctxt "@item puzzle shape preset"
 msgid "Very diverse"
 msgstr "Nagyon változatos"
 
 #: slicers/goldberg/slicer-goldberg.cpp:50
-#: slicers/goldberg/slicer-goldberg.cpp:126
-#, kde-format
-msgctxt "Puzzle shape preset"
+#: slicers/goldberg/slicer-goldberg.cpp:127
+#, fuzzy, kde-format
+#| msgctxt "Puzzle shape preset"
+#| msgid "Large plugs"
+msgctxt "@item puzzle shape preset"
 msgid "Large plugs"
 msgstr "Nagy csatlakozók"
 
-#: slicers/goldberg/slicer-goldberg.cpp:57
+#: slicers/goldberg/slicer-goldberg.cpp:58
 #, kde-format
 msgid "Flipped edge percentage"
 msgstr "Tükrözött szélek százaléka"
 
-#: slicers/goldberg/slicer-goldberg.cpp:64
+#: slicers/goldberg/slicer-goldberg.cpp:65
 #, kde-format
 msgid "Edge curviness"
 msgstr "Szélek görbülete"
 
-#: slicers/goldberg/slicer-goldberg.cpp:70
+#: slicers/goldberg/slicer-goldberg.cpp:71
 #, kde-format
 msgid "Plug size"
 msgstr "Csatlakozóméret"
 
-#: slicers/goldberg/slicer-goldberg.cpp:77
+#: slicers/goldberg/slicer-goldberg.cpp:78
 #, kde-format
 msgid "Diversity of curviness"
 msgstr "Görbületek változatossága"
 
-#: slicers/goldberg/slicer-goldberg.cpp:84
+#: slicers/goldberg/slicer-goldberg.cpp:85
 #, kde-format
 msgid "Diversity of plug position"
 msgstr "Csatlakozó pozíciójának változatossága"
 
-#: slicers/goldberg/slicer-goldberg.cpp:91
+#: slicers/goldberg/slicer-goldberg.cpp:92
 #, kde-format
 msgid "Diversity of plugs"
 msgstr "Csatlakozók változatossága"
 
-#: slicers/goldberg/slicer-goldberg.cpp:98
+#: slicers/goldberg/slicer-goldberg.cpp:99
 #, kde-format
 msgid "Diversity of piece size"
 msgstr "Darabméret változatossága"
 
-#: slicers/goldberg/slicer-goldberg.cpp:107
+#: slicers/goldberg/slicer-goldberg.cpp:108
 #, kde-format
 msgid "Dump grid image"
 msgstr "Rácskép kiírása"
 
 #: src/config/configdialog.cpp:61
-#, kde-format
-msgid "General Settings"
+#, fuzzy, kde-format
+#| msgid "General Settings"
+msgctxt "@title:tab"
+msgid "General"
 msgstr "Általános beállítások"
 
 #: src/config/configdialog.cpp:64
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Mouse Interaction"
+msgctxt "@title:tab"
 msgid "Mouse Interaction"
 msgstr "Egérkezelés"
 
 #: src/config/configdialog.cpp:111
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Center"
+msgctxt "@item:inlistbox space for solution"
 msgid "Center"
 msgstr "Középen"
 
 #: src/config/configdialog.cpp:112
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "None"
+msgctxt "@item:inlistbox space for solution"
 msgid "None"
 msgstr "Nincs"
 
 #: src/config/configdialog.cpp:113
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Top Left"
+msgctxt "@item:inlistbox space for solution"
 msgid "Top Left"
 msgstr "Balra fent"
 
 #: src/config/configdialog.cpp:114
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Top Right"
+msgctxt "@item:inlistbox space for solution"
 msgid "Top Right"
 msgstr "Jobbra fent"
 
 #: src/config/configdialog.cpp:115
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Bottom Left"
+msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Left"
 msgstr "Balra lent"
 
 #: src/config/configdialog.cpp:116
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Bottom Right"
+msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Right"
 msgstr "Jobbra lent"
 
 #: src/config/mouseinputbutton.cpp:45
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Remove this trigger"
+msgctxt "@info:tooltip"
 msgid "Remove this trigger"
 msgstr "Aktiváló eltávolítása"
 
 #: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
-#, kde-format
-msgid "Input here..."
+#, fuzzy, kde-format
+#| msgid "Input here..."
+msgctxt "@info:placeholder"
+msgid "Input here…"
 msgstr "Bemenet itt…"
 
 #: src/config/mouseinputbutton.cpp:120
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Hold down the modifier keys you want, then click a mouse button or scroll "
+#| "a mouse wheel here"
+msgctxt "@info:tooltip"
 msgid ""
 "Hold down the modifier keys you want, then click a mouse button or scroll a "
 "mouse wheel here"
@@ -213,25 +245,32 @@ msgstr ""
 "vagy görgessen itt"
 
 #: src/config/mouseinputbutton.cpp:225
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "None"
 msgctxt ""
-"This is used for describing that no mouse action has been assigned to this "
-"interaction plugin."
+"@item This is used for describing that no mouse action has been assigned to "
+"this interaction plugin."
 msgid "None"
 msgstr "Nincs"
 
 #: src/config/mouseinputbutton.cpp:231
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Click to change how an action is triggered"
+msgctxt "@info:tooltip"
 msgid "Click to change how an action is triggered"
 msgstr "Kattintson a művelet aktiválójának megváltoztatásához"
 
 #: src/config/triggerconfigwidget.cpp:20
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Mouse Buttons"
+msgctxt "@title:tab"
 msgid "Mouse Buttons"
 msgstr "Egérgombok"
 
 #: src/config/triggerconfigwidget.cpp:21
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Mouse Wheel"
+msgctxt "@title:tab"
 msgid "Mouse Wheel"
 msgstr "Egérgörgő"
 
@@ -381,12 +420,16 @@ msgid "Save Palapeli Puzzles"
 msgstr "Palapeli kirakók mentése"
 
 #: src/engine/gameplay.cpp:358
-#, kde-format
-msgid "Create a piece holder"
+#, fuzzy, kde-format
+#| msgid "Create a piece holder"
+msgctxt "@title:window"
+msgid "Create a Piece Holder"
 msgstr "Szortírozó létrehozása"
 
 #: src/engine/gameplay.cpp:359
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Enter a short name (optional):"
+msgctxt "@label:textbox"
 msgid "Enter a short name (optional):"
 msgstr "Adjon meg egy rövid nevet (opcionális):"
 
@@ -583,8 +626,10 @@ msgstr ""
 "kép egyes részleteit is összeállíthatja azokban a végső megoldáshoz."
 
 #: src/engine/gameplay.cpp:1131
-#, kde-format
-msgctxt "Caption for hints"
+#, fuzzy, kde-format
+#| msgctxt "Caption for hints"
+#| msgid "Solving Large Puzzles"
+msgctxt "@title:window for hints"
 msgid "Solving Large Puzzles"
 msgstr "Nagy kirakók megoldása"
 
@@ -654,9 +699,11 @@ msgid "Toggle lock state of the puzzle table area"
 msgstr "A kirakóterület zárolt állapotának ki-be kapcsolása"
 
 #: src/engine/puzzlepreview.cpp:29
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@title:window"
+#| msgid "Preview of completed puzzle"
 msgctxt "@title:window"
-msgid "Preview of completed puzzle"
+msgid "Preview of Completed Puzzle"
 msgstr "A befejezett kirakó előnézete"
 
 #: src/engine/puzzlepreview.cpp:36
@@ -753,19 +800,23 @@ msgstr "Vízszintes görgetés"
 msgid "Vertical-Scroll"
 msgstr "Függőleges görgetés"
 
-#: src/engine/view.cpp:337
+#: src/engine/view.cpp:338
 #, kde-format
 msgid "Your progress is saved automatically while you play."
 msgstr "Játék közben a pillanatnyi állás automatikusan mentődik."
 
-#: src/engine/view.cpp:337
-#, kde-format
-msgctxt "used as caption for a dialog that explains the autosave feature"
-msgid "Automatic saving"
+#: src/engine/view.cpp:339
+#, fuzzy, kde-format
+#| msgctxt "used as caption for a dialog that explains the autosave feature"
+#| msgid "Automatic saving"
+msgctxt "@title:window dialog that explains the autosave feature"
+msgid "Automatic Saving"
 msgstr "Automatikus mentés"
 
 #: src/engine/zoomwidget.cpp:26
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Lock the puzzle table area"
+msgctxt "@info:tooltip"
 msgid "Lock the puzzle table area"
 msgstr "A kirakóterület zárolása"
 
@@ -782,16 +833,20 @@ msgid_plural "%2 (%1 pieces)"
 msgstr[0] "%2 (%1 darab)"
 msgstr[1] "%2 (%1 darab)"
 
-#: src/file-io/collection-delegate.cpp:132
-#, kde-format
-msgctxt "Author attribution, e.g. \"by Jack\""
-msgid "by %1"
+#: src/file-io/collection-delegate.cpp:130
+#, fuzzy, kde-format
+#| msgctxt "Author attribution, e.g. \"by Jack\""
+#| msgid "by %1"
+msgctxt "@info author attribution"
+msgid "By %1"
 msgstr "%1"
 
 #: src/file-io/collection-view.cpp:58
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:button that pops up sorting strategy selection menu"
+#| msgid "Sort List..."
 msgctxt "@action:button that pops up sorting strategy selection menu"
-msgid "Sort List..."
+msgid "Sort List…"
 msgstr "Lista rendezése…"
 
 #: src/file-io/collection-view.cpp:61
@@ -807,8 +862,10 @@ msgid "By Piece Count"
 msgstr "Darabszám szerint"
 
 #: src/file-io/collection.cpp:36
-#, kde-format
-msgid "Loading puzzle..."
+#, fuzzy, kde-format
+#| msgid "Loading puzzle..."
+msgctxt "@info:status"
+msgid "Loading puzzle…"
 msgstr "Kirakó betöltése…"
 
 #: src/file-io/collection.cpp:109
@@ -1082,103 +1139,146 @@ msgstr "Nem precíz (könnyebb)"
 msgid "Show Statusbar of Puzzle Table"
 msgstr "Állapotsáv megjelenítése a kirakóterületen"
 
-#: src/window/mainwindow.cpp:57
-#, kde-format
+#: src/window/mainwindow.cpp:58
+#, fuzzy, kde-format
+#| msgid "Back to &Collection"
+msgctxt "@action"
 msgid "Back to &Collection"
 msgstr "Vissza"
 
-#: src/window/mainwindow.cpp:58
-#, kde-format
+#: src/window/mainwindow.cpp:59
+#, fuzzy, kde-format
+#| msgid "Go back to the collection to choose another puzzle"
+msgctxt "@info:tooltip"
 msgid "Go back to the collection to choose another puzzle"
 msgstr "Visszalépés a gyűjteménybe másik kirakó kiválasztásához"
 
-#: src/window/mainwindow.cpp:64
-#, kde-format
-msgid "Create &New Puzzle..."
-msgstr "Ú&j kirakó létrehozása…"
+#: src/window/mainwindow.cpp:66
+#, fuzzy, kde-format
+#| msgctxt "@title:window"
+#| msgid "Create New Puzzle"
+msgctxt "@action"
+msgid "Create &New Puzzle…"
+msgstr "Új kirakó létrehozása"
 
-#: src/window/mainwindow.cpp:65
-#, kde-format
+#: src/window/mainwindow.cpp:67
+#, fuzzy, kde-format
+#| msgid "Create a new puzzle using an image file from your disk"
+msgctxt "@info:tooltip"
 msgid "Create a new puzzle using an image file from your disk"
 msgstr "Új kirakó létrehozása a lemezen lévő képfájlból"
 
-#: src/window/mainwindow.cpp:71
-#, kde-format
+#: src/window/mainwindow.cpp:74
+#, fuzzy, kde-format
+#| msgid "&Delete Puzzle"
+msgctxt "@action"
 msgid "&Delete Puzzle"
 msgstr "Kirakó &törlése"
 
-#: src/window/mainwindow.cpp:73
-#, kde-format
+#: src/window/mainwindow.cpp:76
+#, fuzzy, kde-format
+#| msgid "Delete the selected puzzle from your collection"
+msgctxt "@info:tooltip"
 msgid "Delete the selected puzzle from your collection"
 msgstr "A saját gyűjteményben kijelölt kirakó törlése"
 
-#: src/window/mainwindow.cpp:79
-#, kde-format
-msgid "&Import from File..."
+#: src/window/mainwindow.cpp:83
+#, fuzzy, kde-format
+#| msgid "&Import from File..."
+msgctxt "@action"
+msgid "&Import from File…"
 msgstr "&Importálás fájlból…"
 
-#: src/window/mainwindow.cpp:80
-#, kde-format
+#: src/window/mainwindow.cpp:84
+#, fuzzy, kde-format
+#| msgid "Import a new puzzle from a file into your collection"
+msgctxt "@info:tooltip"
 msgid "Import a new puzzle from a file into your collection"
 msgstr "Új kirakó importálása fájlból a saját gyűjteménybe"
 
-#: src/window/mainwindow.cpp:85
-#, kde-format
-msgid "&Export to File..."
+#: src/window/mainwindow.cpp:90
+#, fuzzy, kde-format
+#| msgid "&Export to File..."
+msgctxt "@action"
+msgid "&Export to File…"
 msgstr "&Exportálás fájlba…"
 
-#: src/window/mainwindow.cpp:87
-#, kde-format
+#: src/window/mainwindow.cpp:92
+#, fuzzy, kde-format
+#| msgid "Export the selected puzzle from your collection into a file"
+msgctxt "@info:tooltip"
 msgid "Export the selected puzzle from your collection into a file"
 msgstr "A saját gyűjteményből kiválasztott kirakó exportálása fájlba"
 
-#: src/window/mainwindow.cpp:93
-#, kde-format
-msgid "&Restart Puzzle..."
+#: src/window/mainwindow.cpp:99
+#, fuzzy, kde-format
+#| msgid "&Restart Puzzle..."
+msgctxt "@action"
+msgid "&Restart Puzzle…"
 msgstr "Kirakó új&rakezdése…"
 
-#: src/window/mainwindow.cpp:94
-#, kde-format
+#: src/window/mainwindow.cpp:100
+#, fuzzy, kde-format
+#| msgid "Delete the saved progress and reshuffle the pieces"
+msgctxt "@info:tooltip"
 msgid "Delete the saved progress and reshuffle the pieces"
 msgstr "Az elmentett folyamat törlése és a darabok újrakeverése"
 
-#: src/window/mainwindow.cpp:101
-#, kde-format
-msgid "&Create Piece Holder..."
+#: src/window/mainwindow.cpp:107
+#, fuzzy, kde-format
+#| msgid "&Create Piece Holder..."
+msgctxt "@action"
+msgid "&Create Piece Holder…"
 msgstr "Szortírozó &létrehozása…"
 
-#: src/window/mainwindow.cpp:102
-#, kde-format
+#: src/window/mainwindow.cpp:108
+#, fuzzy, kde-format
+#| msgid "Create a temporary holder for sorting pieces"
+msgctxt "@info:tooltip"
 msgid "Create a temporary holder for sorting pieces"
 msgstr "Átmeneti szortírozó létrehozása a darabok rendezéséhez"
 
-#: src/window/mainwindow.cpp:109
-#, kde-format
+#: src/window/mainwindow.cpp:116
+#, fuzzy, kde-format
+#| msgid "&Delete Piece Holder"
+msgctxt "@action"
 msgid "&Delete Piece Holder"
 msgstr "Szortírozó &törlése"
 
-#: src/window/mainwindow.cpp:110
-#, kde-format
+#: src/window/mainwindow.cpp:117
+#, fuzzy, kde-format
+#| msgid "Delete a selected temporary holder when it is empty"
+msgctxt "@info:tooltip"
 msgid "Delete a selected temporary holder when it is empty"
 msgstr "A kijelölt átmeneti szortírozó törlése, amikor az üres"
 
-#: src/window/mainwindow.cpp:116
-#, kde-format
+#: src/window/mainwindow.cpp:124
+#, fuzzy, kde-format
+#| msgid "&Select All in Holder"
+msgctxt "@action"
 msgid "&Select All in Holder"
 msgstr "Ö&sszes kijelölése a szortírozóban"
 
-#: src/window/mainwindow.cpp:117
-#, kde-format
+#: src/window/mainwindow.cpp:125
+#, fuzzy, kde-format
+#| msgid "Select all pieces in a selected piece holder"
+msgctxt "@info:tooltip"
 msgid "Select all pieces in a selected piece holder"
 msgstr "Minden darab kijelölése a kijelölt szortírozóban"
 
-#: src/window/mainwindow.cpp:123
-#, kde-format
+#: src/window/mainwindow.cpp:131
+#, fuzzy, kde-format
+#| msgid "&Rearrange Pieces"
+msgctxt "@action"
 msgid "&Rearrange Pieces"
 msgstr "&Darabok újrarendezése"
 
-#: src/window/mainwindow.cpp:124
-#, kde-format
+#: src/window/mainwindow.cpp:132
+#, fuzzy, kde-format
+#| msgid ""
+#| "Rearrange all pieces in a selected piece holder or selected pieces in any "
+#| "window"
+msgctxt "@info:tooltip"
 msgid ""
 "Rearrange all pieces in a selected piece holder or selected pieces in any "
 "window"
@@ -1186,34 +1286,42 @@ msgstr ""
 "Minden darab újrarendezése a kijelölt szortírozóban vagy a kijelölt darabok "
 "újrarendezése bármely ablakban"
 
-#: src/window/mainwindow.cpp:131
-#, kde-format
-msgctxt "Preview is a noun here"
-msgid "&Preview"
-msgstr "&Előnézet"
+#: src/window/mainwindow.cpp:140
+#, fuzzy, kde-format
+#| msgctxt "Preview is a noun here"
+#| msgid "Preview"
+msgctxt "@option:check"
+msgid "Show Preview"
+msgstr "Előnézet"
 
-#: src/window/mainwindow.cpp:133
-#, kde-format
-msgctxt "Preview is a noun here"
+#: src/window/mainwindow.cpp:141
+#, fuzzy, kde-format
+#| msgctxt "Preview is a noun here"
+#| msgid "Preview"
+msgctxt "@option:check Preview is a noun here"
 msgid "Preview"
 msgstr "Előnézet"
 
-#: src/window/mainwindow.cpp:134
-#, kde-format
+#: src/window/mainwindow.cpp:142
+#, fuzzy, kde-format
+#| msgid "Show or hide the image of the completed puzzle"
+msgctxt "@info:tooltip"
 msgid "Show or hide the image of the completed puzzle"
 msgstr "A megoldott feladvány képének megjelenítése vagy elrejtése"
 
-#: src/window/mainwindow.cpp:148
-#, kde-format
+#: src/window/mainwindow.cpp:156
+#, fuzzy, kde-format
+#| msgid "Enable All Messages"
+msgctxt "@action"
 msgid "Enable All Messages"
 msgstr "Összes üzenet engedélyezése"
 
-#: src/window/mainwindow.cpp:157
+#: src/window/mainwindow.cpp:165
 #, kde-format
 msgid "Enable all messages again?"
 msgstr "Engedélyezi újra az összes üzenetet?"
 
-#: src/window/mainwindow.cpp:158
+#: src/window/mainwindow.cpp:166
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
@@ -1230,10 +1338,25 @@ msgid "You finished the puzzle."
 msgstr "Sikerült megoldani a feladványt."
 
 #: src/window/puzzletablewidget.cpp:122
-#, kde-format
-msgctxt "Progress display"
+#, fuzzy, kde-format
+#| msgctxt "Progress display"
+#| msgid "%1% finished"
+msgctxt "@info:progress"
 msgid "%1% finished"
 msgstr "%1% kész"
+
+#~ msgctxt ""
+#~ "This is used for describing that no mouse action has been assigned to "
+#~ "this interaction plugin."
+#~ msgid "None"
+#~ msgstr "Nincs"
+
+#~ msgid "Create &New Puzzle..."
+#~ msgstr "Ú&j kirakó létrehozása…"
+
+#~ msgctxt "Preview is a noun here"
+#~ msgid "&Preview"
+#~ msgstr "&Előnézet"
 
 #~ msgid ""
 #~ "If the -i/--import option is specified, the main window will not be shown "
