@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kdegames-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-19 00:36+0000\n"
-"PO-Revision-Date: 2024-03-08 19:54+0300\n"
+"PO-Revision-Date: 2024-05-02 13:55+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -72,7 +72,7 @@ msgstr "Dikdörtgen ızgara"
 #, kde-format
 msgctxt "Puzzle grid type"
 msgid "Rotrex (rhombi-trihexagonal) grid"
-msgstr "Rotrex (rhombi-trihekzagonal)  ızgara"
+msgstr "Rotrex (rhombi-trihekzagonal) ızgara"
 
 #: slicers/goldberg/grid.h:62
 #, kde-format
@@ -155,7 +155,7 @@ msgstr "Parça boyutunun çeşitliliği"
 #: slicers/goldberg/slicer-goldberg.cpp:107
 #, kde-format
 msgid "Dump grid image"
-msgstr "Izgara resmini dök"
+msgstr "Izgara görselini dök"
 
 #: src/config/configdialog.cpp:61
 #, kde-format
@@ -264,19 +264,19 @@ msgstr "Yeni Yapboz Oluştur"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Image file:"
-msgstr "Resim dosyası:"
+msgstr "Görsel dosyası:"
 
 #: src/creator/puzzlecreator.cpp:52
 #, kde-format
 msgctxt "@info"
 msgid "Please describe below the image which you have chosen."
-msgstr "Lütfen aşağıda seçtiğiniz görüntüyü açıklayın."
+msgstr "Lütfen aşağıda seçtiğiniz görseli açıklayın."
 
 #: src/creator/puzzlecreator.cpp:53
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image name:"
-msgstr "Resim adı:"
+msgstr "Görsel adı:"
 
 #: src/creator/puzzlecreator.cpp:54
 #, kde-format
@@ -288,19 +288,19 @@ msgstr "İsteğe bağlı açıklama:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Name of image author:"
-msgstr "Resim yazarının adı:"
+msgstr "Görsel yazarının adı:"
 
 #: src/creator/puzzlecreator.cpp:63
 #, kde-format
 msgctxt "@item:inlistbox (page name in an assistant dialog)"
 msgid "Choose image"
-msgstr "Resim seç"
+msgstr "Görsel seç"
 
 #: src/creator/puzzlecreator.cpp:64
 #, kde-format
 msgctxt "@title:tab (page header in an assistant dialog)"
 msgid "Specify the source image to be sliced into pieces"
-msgstr "Parçalara dilimlenecek olan kaynak resmi belirtin"
+msgstr "Dilimlenecek Kaynak Görsel"
 
 #: src/creator/puzzlecreator.cpp:66
 #, kde-format
@@ -312,7 +312,7 @@ msgstr "Dilimleyiciyi seç"
 #, kde-format
 msgctxt "@title:tab (page header in an assistant dialog)"
 msgid "Choose a slicing method"
-msgstr "Dilimleme yöntemi seç"
+msgstr "Dilimleme Yöntemi Seç"
 
 #: src/creator/puzzlecreator.cpp:68
 #, kde-format
@@ -324,7 +324,7 @@ msgstr "Dilimleyiciyi yapılandır"
 #, kde-format
 msgctxt "@title:tab (page header in an assistant dialog)"
 msgid "Tweak the parameters of the chosen slicing method"
-msgstr "Seçilen dilimleme yönteminin parametrelerini ayarlayın"
+msgstr "Dilimleme Yöntemi Parametreleri"
 
 #: src/creator/puzzlecreator.cpp:112
 #, kde-format
@@ -334,7 +334,7 @@ msgstr "Yapboz oluşturulamadı: Dilimleme eklentisi yüklenemedi."
 #: src/creator/puzzlecreator.cpp:119
 #, kde-format
 msgid "Puzzle cannot be created: The file you selected is not an image."
-msgstr "Yapboz oluşturulamadı: Seçtiğiniz dosya bir resim dosyası değil."
+msgstr "Yapboz oluşturulamadı: Seçtiğiniz dosya bir görsel dosyası değil."
 
 #: src/creator/puzzlecreator.cpp:127
 #, kde-format
@@ -411,7 +411,8 @@ msgstr "Seçili parça tutucu, silmeden önce boş olmalıdır."
 msgid ""
 "The selected piece holder must contain some pieces for 'Select all' to use."
 msgstr ""
-"Seçili parça tutucu, Tümünü seç' için kullanılacak bazı parçalar içermelidir."
+"Seçili parça tutucu, ‘Tümünü Seç’ için kullanılacak bazı parçaları "
+"içermelidir."
 
 #: src/engine/gameplay.cpp:449
 #, kde-format
@@ -540,7 +541,7 @@ msgid ""
 msgstr ""
 "Az önce büyük bir yapboz oluşturdunuz: Palapeli, masaüstündeki sınırlı "
 "alanda çözmenize yardımcı olacak çeşitli özelliklere sahiptir. Bunlar "
-"Palapeli El Kitabı'nda (Yardım menüsünde) ayrıntılı olarak açıklanmıştır. "
+"Palapeli El Kitabı’nda (Yardım menüsünde) ayrıntılı olarak açıklanmıştır. "
 "İşte size birkaç tez ipucu.\n"
 "\n"
 "Başlamadan önce, büyük yapbozlarda eğimler veya gölgelendirme (bkz. Ayarlar "
@@ -549,30 +550,30 @@ msgstr ""
 "vurgulanır.\n"
 "\n"
 "İlk özellik, yapboz Önizleme (tamamlanmış yapbozun resmi), açmak veya "
-"kapatmak için bir araç çubuğu düğmesidir. Fare ile üstüne gelirseniz, resmin "
+"kapatmak için bir araç çubuğu düğmesidir. Fare ile üstüne gelirseniz resmin "
 "parçalarını büyütür, böylece Önizleme için seçtiğiniz pencere boyutu oldukça "
 "küçük olabilir.\n"
 "\n"
 "Ardından, tez fare düğmesini kullanarak değiştirebileceğiniz yapboz "
 "tahtasının yakın ve uzak görüntüleri bulunur (öntanımlı Orta Tık). Yakın "
-"çekim görünümünde, yapboz parçalarını bir kerede, 'sayfa' aramak için sarma "
+"çekim görünümünde, yapboz parçalarını bir kerede, “sayfa” aramak için sarma "
 "çubuklarındaki boş alanı kullanın. İki görüntüyü yakınlaştırarak veya "
 "uzaklaştırarak ayarlayabilirsiniz, ayrıca değişiklikleriniz anımsanacaktır.\n"
 "\n"
 "Ardından, çözümü oluşturmak için ayrılmış olan yapboz tahtasında bir boşluk "
 "olacaktır.\n"
 "\n"
-"Son olarak, 'tutucular' olarak adlandırılan küçük pencereler vardır. "
+"Son olarak, “tutucular” olarak adlandırılan küçük pencereler vardır. "
 "Parçaları kenarlarda, havada veya soldaki beyaz ev gibi gruplara ayırmak "
 "içindir. İstediğiniz kadar çok tutucuya sahip olabilirsiniz ve onlara "
 "isimler verebilirsiniz. Bulduğunuz her yerden parçaları çözüm alanına "
-"taşımak için \"El\" adlı bir araca sahip olmalısınız.\n"
+"taşımak için “El” adlı bir araca sahip olmalısınız.\n"
 "\n"
 "Parçaları bir tutucunun içine veya dışına aktarmak için özel bir fare "
-"tıklatması kullanabilirsiniz. (varsayılan Üst Karakter Sol Tık). İlk önce, "
-"kullanmak istediğiniz tutucunun etkin olduğundan emin olun: mavi bir dış "
+"tıklatması kullanabilirsiniz. (öntanımlı Üst Karakter Sol Tık). İlk önce, "
+"kullanmak istediğiniz tutucunun etkin olduğundan emin olun: Mavi bir dış "
 "çizgisi olmalıdır. Değilse üzerine tıklayın. Parçaları tutucuya aktarmak "
-"için, yapboz tahtasından parçayı seçin ve sonra onları tutucuya 'ışınlamak' "
+"için, yapboz tahtasından parçayı seçin ve sonra onları tutucuya “ışınlamak” "
 "için özel tıklamayı yapın. Veya tek seferde tek bir parçaya özel tıklama "
 "yapabilirsiniz.\n"
 "\n"
@@ -668,13 +669,13 @@ msgstr "Tamamlanmış yapbozun önizlemesi"
 #, kde-format
 msgctxt "text in preview window"
 msgid "Image is not available."
-msgstr "Resim kullanılabilir değil."
+msgstr "Görsel kullanılabilir değil."
 
 #: src/engine/puzzlepreview.cpp:64
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 - Preview"
-msgstr "%1 - Önizleme"
+msgstr "%1 — Önizleme"
 
 #: src/engine/texturehelper.cpp:52
 #, kde-format
@@ -830,7 +831,7 @@ msgstr "Hata: Hiçbir yapboz dosyası verilmedi."
 #: src/importhelper.cpp:40
 #, kde-format
 msgid "Importing puzzle \"%1\" into your collection"
-msgstr "\"%1\" yapbozu koleksiyonuna aktarılıyor"
+msgstr "“%1” yapbozu koleksiyonuna içe aktarılıyor"
 
 #: src/main.cpp:30
 #, kde-format
@@ -897,8 +898,8 @@ msgid ""
 "The filename of the background image to use for the View, or \"__color__\" "
 "if a solid color should be used (see key \"ViewBackgroundColor\")."
 msgstr ""
-"Görünüm için kullanılacak arka plan resminin dosya adı veya düz bir renk "
-"kullanılıyorsa \"__color__\" (bkz. \"ViewBackgroundColor\" düğmesi)."
+"Görünüm için kullanılacak arka plan görselinin dosya adı veya düz bir renk "
+"kullanılıyorsa “__color__” (bkz. “ViewBackgroundColor” düğmesi)."
 
 #. i18n: ectx: label, entry (ViewBackgroundColor), group (Appearance)
 #: src/palapeli.kcfg:16
@@ -907,8 +908,8 @@ msgid ""
 "The background color to use for the View (if the key \"ViewBackground\" is "
 "set to \"__color__\")."
 msgstr ""
-"Görünüm için kullanılacak arka plan rengi (\"ViewBackground\" anahtarının "
-"\"__color__\" olarak ayarlanması durumunda)."
+"Görünüm için kullanılacak arka plan rengi (“ViewBackground” anahtarının "
+"“__color__” olarak ayarlanması durumunda)."
 
 #. i18n: ectx: label, entry (ViewHighlightColor), group (Appearance)
 #: src/palapeli.kcfg:20
@@ -972,7 +973,7 @@ msgstr ""
 #, kde-format
 msgid "Whether the preview window was switched on last time Palapeli was run."
 msgstr ""
-"Palapeli'nin son çalıştırıldığı zaman, önizleme penceresinin çalıştırılıp "
+"Palapeli’nin son açılışında önizleme penceresinin çalıştırılıp "
 "çalıştırılmadığı."
 
 #. i18n: ectx: label, entry (PuzzlePreviewGeometry), group (PuzzlePreview)
@@ -992,7 +993,7 @@ msgstr "Ana araç çubuğu"
 #, kde-format
 msgctxt "@title:group"
 msgid "Puzzle table"
-msgstr "Yapboz tahtası"
+msgstr "Yapboz Tahtası"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/settings.ui:25
@@ -1027,7 +1028,7 @@ msgstr ""
 #: src/settings.ui:106
 #, kde-format
 msgid "Spacing of pieces in puzzle grids (1.0-1.5):"
-msgstr "Yapboz ızgaralarındaki parçaların boşluğu (1.0-1.5):"
+msgstr "Yapboz ızgaralarındaki parçaların boşluğu (1,0–1,5):"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/settings.ui:156
@@ -1062,7 +1063,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:group"
 msgid "Piece behavior"
-msgstr "Parça davranışı"
+msgstr "Parça Davranışı"
 
 #. i18n: ectx: property (text), widget (QLabel, label_1)
 #: src/settings.ui:201
