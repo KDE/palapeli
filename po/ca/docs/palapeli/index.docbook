@@ -161,7 +161,7 @@
 ><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Crea un trencaclosques nou...</guiicon
+>Crea un trencaclosques nou…</guiicon
 ></term>
           <listitem>
             <para
@@ -199,7 +199,7 @@
 ><imagedata fileref="document-import.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Importa des d'un fitxer...</guiicon
+>Importa des d'un fitxer…</guiicon
 ></term>
           <listitem
 ><para
@@ -217,7 +217,7 @@
 ><imagedata fileref="document-export.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Exporta a un fitxer...</guiicon
+>Exporta a un fitxer…</guiicon
 ></term>
           <listitem
 ><para
@@ -244,7 +244,7 @@
 ><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Crea un trencaclosques nou...</guiicon
+>Crea un trencaclosques nou…</guiicon
 > a la finestra de la col·lecció de trencaclosques.</para>
     <para
 >En fer-hi clic, s'obrirà el diàleg de creació de trencaclosques, el qual consta de tres pàgines:</para>
@@ -769,13 +769,13 @@
 ><guimenu
 >Arranjament</guimenu
 > <guimenuitem
->Configura el &palapeli;...</guimenuitem
+>Configura el &palapeli;…</guimenuitem
 > </menuchoice
 > o a &macOS; <menuchoice
 ><guimenu
 >&palapeli;</guimenu
 > <guimenuitem
->Preferències...</guimenuitem
+>Preferències…</guimenuitem
 ></menuchoice
 >. </para>
       <para
@@ -870,7 +870,7 @@
 > <guimenu
 >Mou</guimenu
 ><guimenuitem
-> Crea un contenidor de peces...</guimenuitem
+> Crea un contenidor de peces…</guimenuitem
 ></menuchoice
 > o <menuchoice
 ><shortcut
@@ -973,7 +973,7 @@
 ><guimenu
 >Joc</guimenu
 ><guimenuitem
->Crea un trencaclosques nou...</guimenuitem
+>Crea un trencaclosques nou…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -993,7 +993,7 @@
 ><guimenu
 >Joc</guimenu
 ><guimenuitem
->Importa des d'un fitxer...</guimenuitem
+>Importa des d'un fitxer…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1011,7 +1011,7 @@
 ><guimenu
 >Joc</guimenu
 ><guimenuitem
->Exporta a un fitxer...</guimenuitem
+>Exporta a un fitxer…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1047,7 +1047,7 @@
 ><guimenu
 >Joc</guimenu
 ><guimenuitem
->Reinicia el trencaclosques...</guimenuitem
+>Reinicia el trencaclosques…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1090,7 +1090,7 @@
 ><guimenu
 >Mou</guimenu
 > <guimenuitem
->Crea un contenidor de peces...</guimenuitem
+>Crea un contenidor de peces…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1279,7 +1279,7 @@
 ><guimenu
 >Arranjament</guimenu
 ><guimenuitem
->Configura el &palapeli;...</guimenuitem
+>Configura el &palapeli;…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1310,7 +1310,7 @@
 ><guimenu
 >Arranjament</guimenu
 > <guimenuitem
->Configura el &palapeli;...</guimenuitem
+>Configura el &palapeli;…</guimenuitem
 ></menuchoice
 ></para>
     <sect1 id="configuration-general">

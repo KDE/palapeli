@@ -161,7 +161,7 @@
 ><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Nieuwe puzzel aanmaken...</guiicon
+>Nieuwe puzzel aanmaken…</guiicon
 ></term>
           <listitem>
             <para
@@ -199,7 +199,7 @@
 ><imagedata fileref="document-import.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Uit bestand importeren...</guiicon
+>Uit bestand importeren…</guiicon
 ></term>
           <listitem
 ><para
@@ -217,7 +217,7 @@
 ><imagedata fileref="document-export.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Naar bestand exporteren...</guiicon
+>Naar bestand exporteren…</guiicon
 ></term>
           <listitem
 ><para
@@ -244,7 +244,7 @@
 ><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Nieuwe puzzel aanmaken...</guiicon
+>Nieuwe puzzel aanmaken…</guiicon
 > in het puzzelverzamelingsvenster.</para>
     <para
 >Als u op dit actiepictogram klikt dan opent het dialoogvenster voor puzzel aanmaken, dat uit drie pagina's bestaat:</para>
@@ -777,13 +777,13 @@
 ><guimenu
 >Instellingen</guimenu
 > <guimenuitem
->&palapeli; instellen...</guimenuitem
+>&palapeli; instellen…</guimenuitem
 > </menuchoice
 > of op &macOS;, menu-item <menuchoice
 ><guimenu
 >&palapeli;</guimenu
 > <guimenuitem
->Voorkeuren...</guimenuitem
+>Voorkeuren…</guimenuitem
 ></menuchoice
 >. </para>
       <para
@@ -892,7 +892,7 @@
 > <guimenu
 >Zet</guimenu
 ><guimenuitem
->Houder voor stukjes maken...</guimenuitem
+>Houder voor stukjes maken…</guimenuitem
 ></menuchoice
 > of <menuchoice
 ><shortcut
@@ -1001,7 +1001,7 @@
 ><guimenu
 >Spel</guimenu
 ><guimenuitem
->Nieuwe puzzel aanmaken...</guimenuitem
+>Nieuwe puzzel aanmaken…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1021,7 +1021,7 @@
 ><guimenu
 >Spel</guimenu
 ><guimenuitem
->Uit bestand importeren...</guimenuitem
+>Uit bestand importeren…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1039,7 +1039,7 @@
 ><guimenu
 >Spel</guimenu
 ><guimenuitem
->Naar bestand exporteren...</guimenuitem
+>Naar bestand exporteren…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1118,7 +1118,7 @@
 ><guimenu
 >Verplaats</guimenu
 ><guimenuitem
->Houder voor puzzelstukjes maken...</guimenuitem
+>Houder voor puzzelstukjes maken…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1307,7 +1307,7 @@
 ><guimenu
 >Instellingen</guimenu
 ><guimenuitem
->&palapeli; instellen...</guimenuitem
+>&palapeli; instellen…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1338,7 +1338,7 @@
 ><guimenu
 >Instellingen</guimenu
 ><guimenuitem
->&palapeli; instellen...</guimenuitem
+>&palapeli; instellen…</guimenuitem
 ></menuchoice
 >.</para>
     <sect1 id="configuration-general">

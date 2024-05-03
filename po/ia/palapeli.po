@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-02 00:37+0000\n"
-"PO-Revision-Date: 2024-03-19 10:42+0100\n"
+"PO-Revision-Date: 2024-05-02 12:38+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -91,12 +91,10 @@ msgstr ""
 
 #: slicers/goldberg/slicer-goldberg.cpp:48
 #: slicers/goldberg/slicer-goldberg.cpp:125
-#, fuzzy, kde-format
-#| msgctxt "Puzzle grid type"
-#| msgid "Irregular grid"
+#, kde-format
 msgctxt "@item puzzle shape preset"
 msgid "Very regular"
-msgstr "Grilla Irregular"
+msgstr "Multe regular"
 
 #: slicers/goldberg/slicer-goldberg.cpp:49
 #: slicers/goldberg/slicer-goldberg.cpp:126
@@ -153,60 +151,52 @@ msgid "Dump grid image"
 msgstr ""
 
 #: src/config/configdialog.cpp:61
-#, fuzzy, kde-format
-#| msgid "General Settings"
+#, kde-format
 msgctxt "@title:tab"
 msgid "General"
-msgstr "Preferentias General"
+msgstr "General"
 
 #: src/config/configdialog.cpp:64
-#, fuzzy, kde-format
-#| msgid "Mouse Interaction"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Interaction"
 msgstr "Interaction de mus"
 
 #: src/config/configdialog.cpp:111
-#, fuzzy, kde-format
-#| msgid "Center"
+#, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Center"
 msgstr "Centro"
 
 #: src/config/configdialog.cpp:112
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "None"
 msgstr "Necun"
 
 #: src/config/configdialog.cpp:113
-#, fuzzy, kde-format
-#| msgid "Top Left"
+#, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Top Left"
-msgstr "In alto sinistre"
+msgstr "In alto a sinistra"
 
 #: src/config/configdialog.cpp:114
-#, fuzzy, kde-format
-#| msgid "Top Right"
+#, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Top Right"
-msgstr "In alto dextere"
+msgstr "In alto a dextera"
 
 #: src/config/configdialog.cpp:115
-#, fuzzy, kde-format
-#| msgid "Bottom Left"
+#, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Left"
-msgstr "A basso sinistre"
+msgstr "In basso a sinistra"
 
 #: src/config/configdialog.cpp:116
-#, fuzzy, kde-format
-#| msgid "Bottom Right"
+#, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Right"
-msgstr "A basso dextere"
+msgstr "In basso a dextera"
 
 #: src/config/mouseinputbutton.cpp:45
 #, kde-format
@@ -215,17 +205,13 @@ msgid "Remove this trigger"
 msgstr ""
 
 #: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
-#, fuzzy, kde-format
-#| msgid "Input here..."
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Input here…"
 msgstr "Inserta ci..."
 
 #: src/config/mouseinputbutton.cpp:120
-#, fuzzy, kde-format
-#| msgid ""
-#| "Hold down the modifier keys you want, then click a mouse button or scroll "
-#| "a mouse wheel here"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Hold down the modifier keys you want, then click a mouse button or scroll a "
@@ -235,8 +221,7 @@ msgstr ""
 "de mus o tu rola hic le rota de mus"
 
 #: src/config/mouseinputbutton.cpp:225
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt ""
 "@item This is used for describing that no mouse action has been assigned to "
 "this interaction plugin."
@@ -244,22 +229,19 @@ msgid "None"
 msgstr "Necun"
 
 #: src/config/mouseinputbutton.cpp:231
-#, fuzzy, kde-format
-#| msgid "Click to change how an action is triggered"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Click to change how an action is triggered"
 msgstr "Pulsa pro modificar como un action es discatenate"
 
 #: src/config/triggerconfigwidget.cpp:20
-#, fuzzy, kde-format
-#| msgid "Mouse Buttons"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Buttons"
 msgstr "Buttones de mus"
 
 #: src/config/triggerconfigwidget.cpp:21
-#, fuzzy, kde-format
-#| msgid "Mouse Wheel"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Wheel"
 msgstr "Rota de mus"
@@ -750,12 +732,10 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/file-io/collection-delegate.cpp:130
-#, fuzzy, kde-format
-#| msgctxt "Author attribution, e.g. \"by Jack\""
-#| msgid "by %1"
+#, kde-format
 msgctxt "@info author attribution"
 msgid "By %1"
-msgstr "per %1"
+msgstr "Per %1"
 
 #: src/file-io/collection-view.cpp:58
 #, kde-format
@@ -801,12 +781,12 @@ msgstr ""
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
-msgstr ""
+msgstr "Palapeli"
 
 #: src/main.cpp:32
 #, kde-format
 msgid "Jigsaw Puzzle Game"
-msgstr ""
+msgstr "Joco de puzzle Jigsaw"
 
 #: src/main.cpp:34
 #, kde-format
@@ -821,7 +801,7 @@ msgstr "Stefan Majewsky"
 #: src/main.cpp:38
 #, kde-format
 msgid "Johannes Loehnert"
-msgstr ""
+msgstr "Johannes Loehnert"
 
 #: src/main.cpp:39
 #, kde-format
@@ -1068,8 +1048,7 @@ msgid "Delete the selected puzzle from your collection"
 msgstr ""
 
 #: src/window/mainwindow.cpp:83
-#, fuzzy, kde-format
-#| msgid "&Import from File..."
+#, kde-format
 msgctxt "@action"
 msgid "&Import from File…"
 msgstr "&Importa ex file..."
@@ -1081,8 +1060,7 @@ msgid "Import a new puzzle from a file into your collection"
 msgstr ""
 
 #: src/window/mainwindow.cpp:90
-#, fuzzy, kde-format
-#| msgid "&Export to File..."
+#, kde-format
 msgctxt "@action"
 msgid "&Export to File…"
 msgstr "&Exporta a file..."
@@ -1097,7 +1075,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action"
 msgid "&Restart Puzzle…"
-msgstr ""
+msgstr "&Reinitia Puzzle ..."
 
 #: src/window/mainwindow.cpp:100
 #, kde-format
@@ -1156,17 +1134,13 @@ msgid ""
 msgstr ""
 
 #: src/window/mainwindow.cpp:140
-#, fuzzy, kde-format
-#| msgctxt "Preview is a noun here"
-#| msgid "Preview"
+#, kde-format
 msgctxt "@option:check"
 msgid "Show Preview"
-msgstr "Vista preliminar"
+msgstr "Monstrar vista preliminar"
 
 #: src/window/mainwindow.cpp:141
-#, fuzzy, kde-format
-#| msgctxt "Preview is a noun here"
-#| msgid "Preview"
+#, kde-format
 msgctxt "@option:check Preview is a noun here"
 msgid "Preview"
 msgstr "Vista preliminar"
@@ -1178,8 +1152,7 @@ msgid "Show or hide the image of the completed puzzle"
 msgstr ""
 
 #: src/window/mainwindow.cpp:156
-#, fuzzy, kde-format
-#| msgid "Enable All Messages"
+#, kde-format
 msgctxt "@action"
 msgid "Enable All Messages"
 msgstr "Habilita omne messages"
@@ -1206,9 +1179,7 @@ msgid "You finished the puzzle."
 msgstr ""
 
 #: src/window/puzzletablewidget.cpp:122
-#, fuzzy, kde-format
-#| msgctxt "Progress display"
-#| msgid "%1% finished"
+#, kde-format
 msgctxt "@info:progress"
 msgid "%1% finished"
 msgstr "%1% Terminate"

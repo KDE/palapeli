@@ -773,13 +773,13 @@
 ><guimenu
 >Параметри</guimenu
 > <guimenuitem
->Налаштувати &palapeli;...</guimenuitem
+>Налаштувати &palapeli;…</guimenuitem
 > </menuchoice
 > або <menuchoice
 ><guimenu
 >&palapeli;</guimenu
 > <guimenuitem
->Налаштування...</guimenuitem
+>Налаштування…</guimenuitem
 ></menuchoice
 > у &macOS;. </para>
       <para
@@ -872,7 +872,7 @@
 > <guimenu
 >Хід</guimenu
 ><guimenuitem
->Створити панель для шматочків...</guimenuitem
+>Створити панель для шматочків…</guimenuitem
 ></menuchoice
 > або <menuchoice
 ><shortcut
@@ -973,7 +973,7 @@
 ><guimenu
 >Гра</guimenu
 ><guimenuitem
->Створити складанку...</guimenuitem
+>Створити складанку…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -993,7 +993,7 @@
 ><guimenu
 >Гра</guimenu
 > <guimenuitem
->Імпортувати з файла...</guimenuitem
+>Імпортувати з файла…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1011,7 +1011,7 @@
 ><guimenu
 >Гра</guimenu
 > <guimenuitem
->Експортувати до файла</guimenuitem
+>Експортувати до файла…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1090,7 +1090,7 @@
 ><guimenu
 >Хід</guimenu
 ><guimenuitem
->Створити панель для шматочків...</guimenuitem
+>Створити панель для шматочків…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1279,7 +1279,7 @@
 ><guimenu
 >Параметри</guimenu
 > <guimenuitem
->Налаштувати &palapeli;...</guimenuitem
+>Налаштувати &palapeli;…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1310,7 +1310,7 @@
 ><guimenu
 >Параметри</guimenu
 > <guimenuitem
->Налаштувати &palapeli;...</guimenuitem
+>Налаштувати &palapeli;…</guimenuitem
 ></menuchoice
 ></para>
     <sect1 id="configuration-general">
