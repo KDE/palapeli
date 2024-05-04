@@ -47,7 +47,7 @@ Palapeli::TextureHelper::TextureHelper()
 	QPixmap colorThumbnail(DefaultThumbnailSize);
 	colorThumbnail.fill(Qt::transparent);
 	QStandardItem* colorItem = new QStandardItem;
-	colorItem->setData(QLatin1String("__color__"), IdentifierRole);
+	colorItem->setData(QStringLiteral("__color__"), IdentifierRole);
 	colorItem->setData(colorThumbnail, Qt::DecorationRole);
 	colorItem->setData(i18nc("@item:inlistbox", "Single color"), Qt::DisplayRole);
 	appendRow(colorItem);
