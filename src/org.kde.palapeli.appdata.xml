@@ -61,6 +61,7 @@
   <summary xml:lang="fi">Palapeli</summary>
   <summary xml:lang="fr">Jeu de puzzle</summary>
   <summary xml:lang="gl">Xogo de quebracabezas jigsaw.</summary>
+  <summary xml:lang="he">משחק תצרפים עם חלקים משתלב</summary>
   <summary xml:lang="hu">Kirakós játék</summary>
   <summary xml:lang="ia">Joco de puzzle Jigsaw</summary>
   <summary xml:lang="id">Permainan teka-teki jigsaw</summary>
@@ -142,6 +143,7 @@
     <p xml:lang="fi">Ominaisuuksia:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
     <p xml:lang="gl">Funcionalidades:</p>
+    <p xml:lang="he">יכולות:</p>
     <p xml:lang="hu">Funkciók:</p>
     <p xml:lang="ia">Characteristicas:</p>
     <p xml:lang="id">Fitur:</p>
@@ -181,6 +183,7 @@
       <li xml:lang="fi">Luo ja pelaa 4–10 000 palan palapelejä</li>
       <li xml:lang="fr">Créez et jouez à des puzzles comptant de 4 à 10 000 pièces</li>
       <li xml:lang="gl">Crea e xoga quebracabezas de entre 4 e 10.000 pezas.</li>
+      <li xml:lang="he">יצירה ומשחק בתצרפים מ־4 ועד 10,000 חלקים</li>
       <li xml:lang="hu">4-10000 darabos kirakók készítése és játék azokkal</li>
       <li xml:lang="id">Menciptakan dan memainkan teka-teki mulai dari 4 hingga 10,000 potong</li>
       <li xml:lang="it">Crea e gioca con puzzle da 4 a 10.000 pezzi</li>
@@ -217,6 +220,7 @@
       <li xml:lang="fi">Palaryhmät suurten palapelien ratkaisemisen helpottamiseksi</li>
       <li xml:lang="fr">Casier à pièces pour vous aider à résoudre les grands puzzles</li>
       <li xml:lang="gl">Caixóns de pezas para axudar a resolver quebracabezas grandes.</li>
+      <li xml:lang="he">מאחסני חלקים לסיוע בפתרון תצרפים גדולים</li>
       <li xml:lang="hu">Szortírozók nagy méretű kirakókhoz</li>
       <li xml:lang="id">Piece-holders untuk membantu memecahkan teka-teki yang besar</li>
       <li xml:lang="it">Contenitori di pezzi per aiutare a risolvere puzzle grandi</li>
