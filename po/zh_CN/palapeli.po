@@ -84,36 +84,28 @@ msgid "Quick preset"
 msgstr "快速预设"
 
 #: slicers/goldberg/slicer-goldberg.cpp:47
-#, fuzzy, kde-format
-#| msgctxt "Puzzle shape preset"
-#| msgid "Ordinary"
+#, kde-format
 msgctxt "@item puzzle shape preset"
 msgid "Ordinary"
 msgstr "普通"
 
 #: slicers/goldberg/slicer-goldberg.cpp:48
 #: slicers/goldberg/slicer-goldberg.cpp:125
-#, fuzzy, kde-format
-#| msgctxt "Puzzle shape preset"
-#| msgid "Very regular"
+#, kde-format
 msgctxt "@item puzzle shape preset"
 msgid "Very regular"
 msgstr "非常规整"
 
 #: slicers/goldberg/slicer-goldberg.cpp:49
 #: slicers/goldberg/slicer-goldberg.cpp:126
-#, fuzzy, kde-format
-#| msgctxt "Puzzle shape preset"
-#| msgid "Very diverse"
+#, kde-format
 msgctxt "@item puzzle shape preset"
 msgid "Very diverse"
 msgstr "非常多样"
 
 #: slicers/goldberg/slicer-goldberg.cpp:50
 #: slicers/goldberg/slicer-goldberg.cpp:127
-#, fuzzy, kde-format
-#| msgctxt "Puzzle shape preset"
-#| msgid "Large plugs"
+#, kde-format
 msgctxt "@item puzzle shape preset"
 msgid "Large plugs"
 msgstr "大接头"
@@ -171,66 +163,55 @@ msgid "Mouse Interaction"
 msgstr ""
 
 #: src/config/configdialog.cpp:111
-#, fuzzy, kde-format
-#| msgid "Center"
+#, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Center"
 msgstr "中间对齐"
 
 #: src/config/configdialog.cpp:112
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "None"
 msgstr "未分组"
 
 #: src/config/configdialog.cpp:113
-#, fuzzy, kde-format
-#| msgid "Top Left"
+#, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Top Left"
 msgstr "左上"
 
 #: src/config/configdialog.cpp:114
-#, fuzzy, kde-format
-#| msgid "Top Right"
+#, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Top Right"
 msgstr "右上"
 
 #: src/config/configdialog.cpp:115
-#, fuzzy, kde-format
-#| msgid "Bottom Left"
+#, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Left"
 msgstr "左下"
 
 #: src/config/configdialog.cpp:116
-#, fuzzy, kde-format
-#| msgid "Bottom Right"
+#, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Right"
 msgstr "右下"
 
 #: src/config/mouseinputbutton.cpp:45
-#, fuzzy, kde-format
-#| msgid "Remove this trigger"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove this trigger"
 msgstr "删除此触发器"
 
 #: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
-#, fuzzy, kde-format
-#| msgid "Input here..."
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Input here…"
-msgstr "在此输入..."
+msgstr ""
 
 #: src/config/mouseinputbutton.cpp:120
-#, fuzzy, kde-format
-#| msgid ""
-#| "Hold down the modifier keys you want, then click a mouse button or scroll "
-#| "a mouse wheel here"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Hold down the modifier keys you want, then click a mouse button or scroll a "
@@ -238,8 +219,7 @@ msgid ""
 msgstr "按住您想要用的修饰键，随后在此点击或滚动鼠标"
 
 #: src/config/mouseinputbutton.cpp:225
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt ""
 "@item This is used for describing that no mouse action has been assigned to "
 "this interaction plugin."
@@ -247,19 +227,16 @@ msgid "None"
 msgstr "未分组"
 
 #: src/config/mouseinputbutton.cpp:231
-#, fuzzy, kde-format
-#| msgid "Click to change how an action is triggered"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Click to change how an action is triggered"
 msgstr "点击可更改的操作的触发方式"
 
 #: src/config/triggerconfigwidget.cpp:20
-#, fuzzy, kde-format
-#| msgctxt "refers to no mouse buttons being pressed"
-#| msgid "No-Button"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Buttons"
-msgstr "无按键"
+msgstr ""
 
 #: src/config/triggerconfigwidget.cpp:21
 #, kde-format
@@ -410,15 +387,13 @@ msgid "Save Palapeli Puzzles"
 msgstr ""
 
 #: src/engine/gameplay.cpp:358
-#, fuzzy, kde-format
-#| msgid "Create a piece holder"
+#, kde-format
 msgctxt "@title:window"
 msgid "Create a Piece Holder"
-msgstr "创建暂存区"
+msgstr ""
 
 #: src/engine/gameplay.cpp:359
-#, fuzzy, kde-format
-#| msgid "Enter a short name (optional):"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a short name (optional):"
 msgstr "输入短名称 (可选)："
@@ -597,9 +572,7 @@ msgstr ""
 "拼在一起来构造出一部分的结果。"
 
 #: src/engine/gameplay.cpp:1131
-#, fuzzy, kde-format
-#| msgctxt "Caption for hints"
-#| msgid "Solving Large Puzzles"
+#, kde-format
 msgctxt "@title:window for hints"
 msgid "Solving Large Puzzles"
 msgstr "解决大型拼图"
@@ -670,12 +643,10 @@ msgid "Toggle lock state of the puzzle table area"
 msgstr "切换解谜板锁定状态"
 
 #: src/engine/puzzlepreview.cpp:29
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Preview of completed puzzle"
+#, kde-format
 msgctxt "@title:window"
 msgid "Preview of Completed Puzzle"
-msgstr "预览完成的拼图"
+msgstr ""
 
 #: src/engine/puzzlepreview.cpp:36
 #, kde-format
@@ -777,16 +748,13 @@ msgid "Your progress is saved automatically while you play."
 msgstr "您的进度会在游戏时自动保存。"
 
 #: src/engine/view.cpp:339
-#, fuzzy, kde-format
-#| msgctxt "used as caption for a dialog that explains the autosave feature"
-#| msgid "Automatic saving"
+#, kde-format
 msgctxt "@title:window dialog that explains the autosave feature"
 msgid "Automatic Saving"
-msgstr "自动保存"
+msgstr ""
 
 #: src/engine/zoomwidget.cpp:26
-#, fuzzy, kde-format
-#| msgid "Lock the puzzle table area"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Lock the puzzle table area"
 msgstr "锁定拼图板区域"
@@ -804,12 +772,10 @@ msgid_plural "%2 (%1 pieces)"
 msgstr[0] "%2 (%1块)"
 
 #: src/file-io/collection-delegate.cpp:130
-#, fuzzy, kde-format
-#| msgctxt "Author attribution, e.g. \"by Jack\""
-#| msgid "by %1"
+#, kde-format
 msgctxt "@info author attribution"
 msgid "By %1"
-msgstr "设计人 %1"
+msgstr ""
 
 #: src/file-io/collection-view.cpp:58
 #, kde-format
@@ -830,11 +796,10 @@ msgid "By Piece Count"
 msgstr ""
 
 #: src/file-io/collection.cpp:36
-#, fuzzy, kde-format
-#| msgid "Loading puzzle..."
+#, kde-format
 msgctxt "@info:status"
 msgid "Loading puzzle…"
-msgstr "正在加载拼图..."
+msgstr ""
 
 #: src/file-io/collection.cpp:109
 #, kde-format
@@ -1100,8 +1065,7 @@ msgid "Back to &Collection"
 msgstr ""
 
 #: src/window/mainwindow.cpp:59
-#, fuzzy, kde-format
-#| msgid "Go back to the collection to choose another puzzle"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Go back to the collection to choose another puzzle"
 msgstr "回到收藏选择其他拼图"
@@ -1113,8 +1077,7 @@ msgid "Create &New Puzzle…"
 msgstr ""
 
 #: src/window/mainwindow.cpp:67
-#, fuzzy, kde-format
-#| msgid "Create a new puzzle using an image file from your disk"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Create a new puzzle using an image file from your disk"
 msgstr "使用您磁盘上的图像文件创建新拼图"
@@ -1126,8 +1089,7 @@ msgid "&Delete Puzzle"
 msgstr ""
 
 #: src/window/mainwindow.cpp:76
-#, fuzzy, kde-format
-#| msgid "Delete the selected puzzle from your collection"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete the selected puzzle from your collection"
 msgstr "从您的收藏中删除选中的拼图"
@@ -1139,8 +1101,7 @@ msgid "&Import from File…"
 msgstr ""
 
 #: src/window/mainwindow.cpp:84
-#, fuzzy, kde-format
-#| msgid "Import a new puzzle from a file into your collection"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Import a new puzzle from a file into your collection"
 msgstr "将新拼图从文件导入到您的收藏"
@@ -1152,8 +1113,7 @@ msgid "&Export to File…"
 msgstr ""
 
 #: src/window/mainwindow.cpp:92
-#, fuzzy, kde-format
-#| msgid "Export the selected puzzle from your collection into a file"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Export the selected puzzle from your collection into a file"
 msgstr "将选中的拼图从您的收藏导出到文件"
@@ -1165,36 +1125,31 @@ msgid "&Restart Puzzle…"
 msgstr ""
 
 #: src/window/mainwindow.cpp:100
-#, fuzzy, kde-format
-#| msgid "Delete the saved progress and reshuffle the pieces"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete the saved progress and reshuffle the pieces"
 msgstr "删除已保存的进度并打乱拼图片"
 
 #: src/window/mainwindow.cpp:107
-#, fuzzy, kde-format
-#| msgid "Create a piece holder"
+#, kde-format
 msgctxt "@action"
 msgid "&Create Piece Holder…"
-msgstr "创建暂存区"
+msgstr ""
 
 #: src/window/mainwindow.cpp:108
-#, fuzzy, kde-format
-#| msgid "Create a temporary holder for sorting pieces"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Create a temporary holder for sorting pieces"
 msgstr "建立一个用于给拼片分类的暂时放置区域"
 
 #: src/window/mainwindow.cpp:116
-#, fuzzy, kde-format
-#| msgid "Create a piece holder"
+#, kde-format
 msgctxt "@action"
 msgid "&Delete Piece Holder"
-msgstr "创建暂存区"
+msgstr ""
 
 #: src/window/mainwindow.cpp:117
-#, fuzzy, kde-format
-#| msgid "Delete a selected temporary holder when it is empty"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete a selected temporary holder when it is empty"
 msgstr "在其为空时删除选中的暂时存储区域"
@@ -1206,8 +1161,7 @@ msgid "&Select All in Holder"
 msgstr ""
 
 #: src/window/mainwindow.cpp:125
-#, fuzzy, kde-format
-#| msgid "Select all pieces in a selected piece holder"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select all pieces in a selected piece holder"
 msgstr "选中当前暂存区中的所有拼片"
@@ -1219,10 +1173,7 @@ msgid "&Rearrange Pieces"
 msgstr ""
 
 #: src/window/mainwindow.cpp:132
-#, fuzzy, kde-format
-#| msgid ""
-#| "Rearrange all pieces in a selected piece holder or selected pieces in any "
-#| "window"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Rearrange all pieces in a selected piece holder or selected pieces in any "
@@ -1230,24 +1181,19 @@ msgid ""
 msgstr "重新排列选中暂存区中的所有拼片或者任何窗口中的选中拼片"
 
 #: src/window/mainwindow.cpp:140
-#, fuzzy, kde-format
-#| msgctxt "Preview is a noun here"
-#| msgid "Preview"
+#, kde-format
 msgctxt "@option:check"
 msgid "Show Preview"
-msgstr "Preview"
+msgstr ""
 
 #: src/window/mainwindow.cpp:141
-#, fuzzy, kde-format
-#| msgctxt "Preview is a noun here"
-#| msgid "Preview"
+#, kde-format
 msgctxt "@option:check Preview is a noun here"
 msgid "Preview"
 msgstr "Preview"
 
 #: src/window/mainwindow.cpp:142
-#, fuzzy, kde-format
-#| msgid "Show or hide the image of the completed puzzle"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Show or hide the image of the completed puzzle"
 msgstr "显示或隐藏完整拼图的图像"
@@ -1280,19 +1226,7 @@ msgid "You finished the puzzle."
 msgstr "您完成了拼图。"
 
 #: src/window/puzzletablewidget.cpp:122
-#, fuzzy, kde-format
-#| msgctxt "Progress display"
-#| msgid "%1% finished"
+#, kde-format
 msgctxt "@info:progress"
 msgid "%1% finished"
 msgstr "已完成 %1%"
-
-#~ msgctxt ""
-#~ "This is used for describing that no mouse action has been assigned to "
-#~ "this interaction plugin."
-#~ msgid "None"
-#~ msgstr "未分组"
-
-#~ msgctxt "Preview is a noun here"
-#~ msgid "&Preview"
-#~ msgstr "预览(&P)"

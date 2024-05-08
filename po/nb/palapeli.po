@@ -1241,13 +1241,3 @@ msgstr "Du har lagt ferdig puslespillet."
 msgctxt "@info:progress"
 msgid "%1% finished"
 msgstr "%1% fullført"
-
-#~ msgctxt ""
-#~ "This is used for describing that no mouse action has been assigned to "
-#~ "this interaction plugin."
-#~ msgid "None"
-#~ msgstr "Ingen"
-
-#~ msgctxt "Preview is a noun here"
-#~ msgid "&Preview"
-#~ msgstr "&Forhåndsvisning"
