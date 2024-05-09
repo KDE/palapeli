@@ -175,7 +175,7 @@
 ><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Crea un nuovo puzzle...</guiicon
+>Crea un nuovo puzzle…</guiicon
 ></term>
           <listitem>
             <para
@@ -213,7 +213,7 @@
 ><imagedata fileref="document-import.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Importa da file...</guiicon
+>Importa da file…</guiicon
 ></term>
           <listitem
 ><para
@@ -231,7 +231,7 @@
 ><imagedata fileref="document-export.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Esporta su file...</guiicon
+>Esporta su file…</guiicon
 ></term>
           <listitem
 ><para
@@ -258,7 +258,7 @@
 ><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Crea un nuovo puzzle</guiicon
+>Crea un nuovo puzzle…</guiicon
 > nella raccolta dei puzzle.</para>
     <para
 >Facendo clic su questa icona dell'azione si apre la finestra per la creazione del puzzle, formata da tre pagine:</para>
@@ -791,13 +791,13 @@
 ><guimenu
 >Impostazioni</guimenu
 > <guimenuitem
->Configura &palapeli;...</guimenuitem
+>Configura &palapeli;…</guimenuitem
 > </menuchoice
 > o, su &macOS;, l'elemento di menu <menuchoice
 ><guimenu
 >&palapeli;</guimenu
 > <guimenuitem
->Preferenze...</guimenuitem
+>Preferenze…</guimenuitem
 ></menuchoice
 >. </para>
       <para
@@ -906,7 +906,7 @@
 > <guimenu
 >Sposta</guimenu
 ><guimenuitem
-> Crea contenitore pezzi...</guimenuitem
+> Crea contenitore pezzi…</guimenuitem
 ></menuchoice
 > o <menuchoice
 ><shortcut
@@ -1013,7 +1013,7 @@
 > <guimenu
 >Partita</guimenu
 > <guimenuitem
->Crea un nuovo puzzle...</guimenuitem
+>Crea un nuovo puzzle…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1033,7 +1033,7 @@
 ><guimenu
 >Partita</guimenu
 ><guimenuitem
->Importa da file...</guimenuitem
+>Importa da file…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1051,7 +1051,7 @@
 ><guimenu
 >Partita</guimenu
 ><guimenuitem
->Esporta su file...</guimenuitem
+>Esporta su file…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1087,7 +1087,7 @@
 ><guimenu
 >Partita</guimenu
 ><guimenuitem
->Riavvia il puzzle...</guimenuitem
+>Riavvia il puzzle…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1130,7 +1130,7 @@
 ><guimenu
 >Sposta</guimenu
 ><guimenuitem
->Crea contenitore pezzi...</guimenuitem
+>Crea contenitore pezzi…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1319,7 +1319,7 @@
 ><guimenu
 >Impostazioni</guimenu
 ><guimenuitem
->Configura &palapeli;...</guimenuitem
+>Configura &palapeli;…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1350,7 +1350,7 @@
 ><guimenu
 >Impostazioni</guimenu
 ><guimenuitem
->Configura &palapeli;...</guimenuitem
+>Configura &palapeli;…</guimenuitem
 ></menuchoice
 ></para>
     <sect1 id="configuration-general">
