@@ -22,6 +22,7 @@
   <name xml:lang="fi">Palapeli</name>
   <name xml:lang="fr">Palapeli</name>
   <name xml:lang="gl">Palapeli</name>
+  <name xml:lang="he">פָּלַאפֵּלִי</name>
   <name xml:lang="hu">Palapeli</name>
   <name xml:lang="ia">Palapeli</name>
   <name xml:lang="id">Palapeli</name>
@@ -106,6 +107,7 @@
     <p xml:lang="fi">Palapeli on yhden pelaajan peli. Muista samanlaisista peleistä poiketen sinun ei tarvitse sijoittaa palasia kuvitteelliseen ruudukkoon vaan palaset ovat vapaasti liikuteltavissa. Palapeli myös muistaa aina tilanteen eli tallentaa kaiken mitä teet heti levylle.</p>
     <p xml:lang="fr">Palapeli est un jeu de puzzle à un joueur. A la différence des autres jeux de ce genre, vous n'êtes pas limité à aligner les pièces sur des grilles imaginaires. Vous pouvez déplacer les pièces à votre bon vouloir. Palapeli propose également une vraie persistance, tout ce que vous faites est immédiatement enregistré sur votre disque.</p>
     <p xml:lang="gl">Palapeli é un xogo de quebracabezas jigsaw para un xogador. A diferenza doutros xogos do mesmo xénero, non estás limitado a aliñar pezas en grades imaxinarias. As pezas poden moverse libremente. Ademais, Palapeli fornece persistencia real, é dicir, todo o que fas gárdase no disco inmediatamente.</p>
+    <p xml:lang="he">פָּלַאפֵּלִי הוא משחק תצרף ליחיד. בניגוד למשחקים אחרים באותו הסגנון, אין הגבלה ליישור החלקים על רשתות דמיוניות. החלקים יכולים לנוא בחופשיות, כמו כן, בפָּלַאפֵּלִי יש שימור אמיתי, כלומר כל מהלך שיבוצע יישמר בכונן אוטומטית.</p>
     <p xml:lang="hu">A Palapeli egy egyjátékos kirakós játék. A műfaj más játékaival szemben a darabokat nem csak egy képzeletbeli rácson igazíthatja el, hanem szabadon mozgathatók. A Palapeli emellett mindent azonnal elment a lemezre, amit csinál.</p>
     <p xml:lang="id">Palapeli adalah permainan teka-teki jigsaw pemain tunggal. tidak seperti permainan lain yang segenre, kamu enggak dibatasi untuk mensejajarkan potongan-potongan pada kisi secara khayal. Potongan-potongan secara bebas dapat dipindah-pindah. Juga, fitur Palapeli sungguh gigih, misal apa yang kamu lakukan akan disimpan ke disk-mu secara langsung.</p>
     <p xml:lang="it">Palapeli è un gioco di puzzle a giocatore singolo. A differenza di altri giochi di questo genere, non sei limitato ad allineare pezzi su griglie immaginarie. I pezzi possono essere spostati liberamente. Palapeli, inoltre, ha la caratteristica della persistenza, ossia tutto quello che fai viene salvato immediatamente sul disco.</p>
