@@ -203,7 +203,7 @@ msgstr "Elimina este activador"
 #: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
 #, kde-format
 msgid "Input here..."
-msgstr "Introduïx-lo ací..."
+msgstr "Introduïx-lo ací…"
 
 #: src/config/mouseinputbutton.cpp:120
 #, kde-format
@@ -811,7 +811,7 @@ msgstr "per %1"
 #, kde-format
 msgctxt "@action:button that pops up sorting strategy selection menu"
 msgid "Sort List..."
-msgstr "Ordena la llista..."
+msgstr "Ordena la llista…"
 
 #: src/file-io/collection-view.cpp:61
 #, kde-format
@@ -828,7 +828,7 @@ msgstr "Per nombre de peces"
 #: src/file-io/collection.cpp:36
 #, kde-format
 msgid "Loading puzzle..."
-msgstr "S'està carregant el trencaclosques..."
+msgstr "S'està carregant el trencaclosques…"
 
 #: src/file-io/collection.cpp:109
 #, kde-format
@@ -975,7 +975,7 @@ msgid ""
 "improve rendering performance."
 msgstr ""
 "Si s'han de renderitzar les ombres de davall de les peces del "
-"trencaclosques. Desseleccionant-la es millorarà el rendiment del renderitzat."
+"trencaclosques. Desactivant açò es millorarà el rendiment del renderitzat."
 
 #. i18n: ectx: label, entry (PieceBevelsEnabled), group (Appearance)
 #: src/palapeli.kcfg:40
@@ -985,7 +985,7 @@ msgid ""
 "improve puzzle loading performance."
 msgstr ""
 "Si s'han de renderitzar els bisells de les peces del trencaclosques. "
-"Desseleccionant-la es millorarà el rendiment del renderitzat."
+"Desactivant açò es millorarà el rendiment del renderitzat."
 
 #. i18n: ectx: label, entry (PuzzlePreviewVisible), group (PuzzlePreview)
 #: src/palapeli.kcfg:46
@@ -1124,7 +1124,7 @@ msgstr "Torna a la col·lecció per a seleccionar un altre trencaclosques"
 #: src/window/mainwindow.cpp:64
 #, kde-format
 msgid "Create &New Puzzle..."
-msgstr "Crea un trencaclosques &nou..."
+msgstr "Crea un trencaclosques &nou…"
 
 #: src/window/mainwindow.cpp:65
 #, kde-format
@@ -1144,7 +1144,7 @@ msgstr "Suprimix el trencaclosques seleccionat de la meua col·lecció"
 #: src/window/mainwindow.cpp:79
 #, kde-format
 msgid "&Import from File..."
-msgstr "&Importa des d'un fitxer..."
+msgstr "&Importa des d'un fitxer…"
 
 #: src/window/mainwindow.cpp:80
 #, kde-format
@@ -1155,7 +1155,7 @@ msgstr ""
 #: src/window/mainwindow.cpp:85
 #, kde-format
 msgid "&Export to File..."
-msgstr "&Exporta cap a un fitxer..."
+msgstr "&Exporta cap a un fitxer…"
 
 #: src/window/mainwindow.cpp:87
 #, kde-format
@@ -1165,7 +1165,7 @@ msgstr "Exporta el trencaclosques seleccionat des de la col·lecció a un fitxer
 #: src/window/mainwindow.cpp:93
 #, kde-format
 msgid "&Restart Puzzle..."
-msgstr "&Reinicia el trencaclosques..."
+msgstr "&Reinicia el trencaclosques…"
 
 #: src/window/mainwindow.cpp:94
 #, kde-format
@@ -1175,7 +1175,7 @@ msgstr "Suprimix el progrés guardat i torna a barrejar les peces"
 #: src/window/mainwindow.cpp:101
 #, kde-format
 msgid "&Create Piece Holder..."
-msgstr "&Crea un contenidor de peces..."
+msgstr "&Crea un contenidor de peces…"
 
 #: src/window/mainwindow.cpp:102
 #, kde-format
