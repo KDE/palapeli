@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-02 00:37+0000\n"
-"PO-Revision-Date: 2024-05-10 23:41+0300\n"
+"PO-Revision-Date: 2024-05-13 10:10+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -109,107 +109,107 @@ msgstr "מגוונת מאוד"
 #, kde-format
 msgctxt "@item puzzle shape preset"
 msgid "Large plugs"
-msgstr ""
+msgstr "רמות גדולות"
 
 #: slicers/goldberg/slicer-goldberg.cpp:58
 #, kde-format
 msgid "Flipped edge percentage"
-msgstr ""
+msgstr "אחוז קצה הפוך"
 
 #: slicers/goldberg/slicer-goldberg.cpp:65
 #, kde-format
 msgid "Edge curviness"
-msgstr ""
+msgstr "עקמומיות קצה"
 
 #: slicers/goldberg/slicer-goldberg.cpp:71
 #, kde-format
 msgid "Plug size"
-msgstr ""
+msgstr "גודל רמה"
 
 #: slicers/goldberg/slicer-goldberg.cpp:78
 #, kde-format
 msgid "Diversity of curviness"
-msgstr ""
+msgstr "התפלגות העקמומיות"
 
 #: slicers/goldberg/slicer-goldberg.cpp:85
 #, kde-format
 msgid "Diversity of plug position"
-msgstr ""
+msgstr "התפלגות מקום הרמה"
 
 #: slicers/goldberg/slicer-goldberg.cpp:92
 #, kde-format
 msgid "Diversity of plugs"
-msgstr ""
+msgstr "התפלגות הרמות"
 
 #: slicers/goldberg/slicer-goldberg.cpp:99
 #, kde-format
 msgid "Diversity of piece size"
-msgstr ""
+msgstr "התפלגות גודלי החלקים"
 
 #: slicers/goldberg/slicer-goldberg.cpp:108
 #, kde-format
 msgid "Dump grid image"
-msgstr ""
+msgstr "הטלת תמונת רשת"
 
 #: src/config/configdialog.cpp:61
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
-msgstr ""
+msgstr "כללי"
 
 #: src/config/configdialog.cpp:64
 #, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Interaction"
-msgstr ""
+msgstr "תפעול עם עכבר"
 
 #: src/config/configdialog.cpp:111
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Center"
-msgstr ""
+msgstr "מרכז"
 
 #: src/config/configdialog.cpp:112
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "None"
-msgstr ""
+msgstr "אין"
 
 #: src/config/configdialog.cpp:113
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Top Left"
-msgstr ""
+msgstr "משמאל למעלה"
 
 #: src/config/configdialog.cpp:114
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Top Right"
-msgstr ""
+msgstr "מימין למעלה"
 
 #: src/config/configdialog.cpp:115
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Left"
-msgstr ""
+msgstr "משמאל למטה"
 
 #: src/config/configdialog.cpp:116
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Right"
-msgstr ""
+msgstr "מימין למטה"
 
 #: src/config/mouseinputbutton.cpp:45
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove this trigger"
-msgstr ""
+msgstr "הסרת ההזנקה הזאת"
 
 #: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Input here…"
-msgstr ""
+msgstr "הקלט כאן…"
 
 #: src/config/mouseinputbutton.cpp:120
 #, kde-format
