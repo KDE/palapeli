@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-02 00:37+0000\n"
-"PO-Revision-Date: 2024-05-13 10:10+0300\n"
+"PO-Revision-Date: 2024-05-14 19:27+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -911,21 +911,21 @@ msgstr ""
 #: src/palapeliui.rc:35
 #, kde-format
 msgid "Main toolbar"
-msgstr ""
+msgstr "סרגל כלים ראשי"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/settings.ui:17
 #, kde-format
 msgctxt "@title:group"
 msgid "Puzzle table"
-msgstr ""
+msgstr "טבלת חידות"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/settings.ui:25
 #, kde-format
 msgctxt "@label:chooser for different types of background textures"
 msgid "Background:"
-msgstr ""
+msgstr "רקע:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: src/settings.ui:55
@@ -937,7 +937,7 @@ msgstr ""
 #: src/settings.ui:75
 #, kde-format
 msgid "Space for solution:"
-msgstr ""
+msgstr "מקום לפתרון:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: src/settings.ui:94
@@ -1138,49 +1138,49 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "Show Preview"
-msgstr ""
+msgstr "הצגת תצוגה מקדימה"
 
 #: src/window/mainwindow.cpp:141
 #, kde-format
 msgctxt "@option:check Preview is a noun here"
 msgid "Preview"
-msgstr ""
+msgstr "תצוגה מקדימה"
 
 #: src/window/mainwindow.cpp:142
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Show or hide the image of the completed puzzle"
-msgstr ""
+msgstr "הצגת או הסתרת תמונת החידה השלמה"
 
 #: src/window/mainwindow.cpp:156
 #, kde-format
 msgctxt "@action"
 msgid "Enable All Messages"
-msgstr ""
+msgstr "הפעלת כל ההודעות"
 
 #: src/window/mainwindow.cpp:165
 #, kde-format
 msgid "Enable all messages again?"
-msgstr ""
+msgstr "להפעיל את כל ההודעות שוב?"
 
 #: src/window/mainwindow.cpp:166
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr ""
+msgstr "הפעלה"
 
 #: src/window/puzzletablewidget.cpp:49
 #, kde-format
 msgid "No puzzle loaded"
-msgstr ""
+msgstr "לא נטענה חידה"
 
 #: src/window/puzzletablewidget.cpp:118
 #, kde-format
 msgid "You finished the puzzle."
-msgstr ""
+msgstr "סיימת את החידה."
 
 #: src/window/puzzletablewidget.cpp:122
 #, kde-format
 msgctxt "@info:progress"
 msgid "%1% finished"
-msgstr ""
+msgstr "%1% הושלמו"
