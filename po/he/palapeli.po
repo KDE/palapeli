@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-02 00:37+0000\n"
-"PO-Revision-Date: 2024-05-14 19:27+0300\n"
+"PO-Revision-Date: 2024-05-15 08:11+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -237,76 +237,76 @@ msgstr ""
 #, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Buttons"
-msgstr ""
+msgstr "כפתורי העכבר"
 
 #: src/config/triggerconfigwidget.cpp:21
 #, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Wheel"
-msgstr ""
+msgstr "גלגלת עכבר"
 
 #: src/config/triggerlistview.cpp:17
 #, kde-format
 msgid "Interaction with pieces"
-msgstr ""
+msgstr "תפעול החלקים"
 
 #: src/config/triggerlistview.cpp:19
 #, kde-format
 msgid "Interaction with the puzzle table"
-msgstr ""
+msgstr "תפעול טבלת החידה"
 
 #: src/config/triggerlistview.cpp:21
 #, kde-format
 msgid "Interaction with the viewport"
-msgstr ""
+msgstr "תפעול האשנב"
 
 #: src/creator/puzzlecreator.cpp:38
 #, kde-format
 msgctxt "@title:window"
 msgid "Create New Puzzle"
-msgstr ""
+msgstr "יצירת חידה חדשה"
 
 #: src/creator/puzzlecreator.cpp:51
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Image file:"
-msgstr ""
+msgstr "קובץ תמונה:"
 
 #: src/creator/puzzlecreator.cpp:52
 #, kde-format
 msgctxt "@info"
 msgid "Please describe below the image which you have chosen."
-msgstr ""
+msgstr "נא לתאר את התמונה שבחרת להלן."
 
 #: src/creator/puzzlecreator.cpp:53
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image name:"
-msgstr ""
+msgstr "שם התמונה:"
 
 #: src/creator/puzzlecreator.cpp:54
 #, kde-format
 msgctxt "@label:textbox (like in: This comment is optional.)"
 msgid "Optional comment:"
-msgstr ""
+msgstr "הערה כרשות:"
 
 #: src/creator/puzzlecreator.cpp:55
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Name of image author:"
-msgstr ""
+msgstr "שם יוצר/ת התמונה:"
 
 #: src/creator/puzzlecreator.cpp:63
 #, kde-format
 msgctxt "@item:inlistbox (page name in an assistant dialog)"
 msgid "Choose image"
-msgstr ""
+msgstr "בחירת תמונה"
 
 #: src/creator/puzzlecreator.cpp:64
 #, kde-format
 msgctxt "@title:tab (page header in an assistant dialog)"
 msgid "Specify the source image to be sliced into pieces"
-msgstr ""
+msgstr "נא לצייר את מקור התמונה לפירוק לחתיכות"
 
 #: src/creator/puzzlecreator.cpp:66
 #, kde-format
@@ -628,25 +628,25 @@ msgstr ""
 #, kde-format
 msgctxt "a keyboard modifier"
 msgid "Shift"
-msgstr ""
+msgstr "Shift"
 
 #: src/engine/trigger.cpp:88
 #, kde-format
 msgctxt "a keyboard modifier"
 msgid "Ctrl"
-msgstr ""
+msgstr "Ctrl"
 
 #: src/engine/trigger.cpp:89
 #, kde-format
 msgctxt "a keyboard modifier"
 msgid "Alt"
-msgstr ""
+msgstr "Alt"
 
 #: src/engine/trigger.cpp:90
 #, kde-format
 msgctxt "a keyboard modifier"
 msgid "Meta"
-msgstr ""
+msgstr "מטא"
 
 #: src/engine/trigger.cpp:91
 #, kde-format
@@ -693,17 +693,17 @@ msgstr ""
 #: src/engine/trigger.cpp:100
 #, kde-format
 msgid "Horizontal-Scroll"
-msgstr ""
+msgstr "גלילה-אופקית"
 
 #: src/engine/trigger.cpp:101
 #, kde-format
 msgid "Vertical-Scroll"
-msgstr ""
+msgstr "גלילה-אנכית"
 
 #: src/engine/view.cpp:338
 #, kde-format
 msgid "Your progress is saved automatically while you play."
-msgstr ""
+msgstr "ההתקדמות שלך נשמרת אוטומטית בזמן המשחק."
 
 #: src/engine/view.cpp:339
 #, kde-format
@@ -1040,49 +1040,49 @@ msgstr ""
 #, kde-format
 msgctxt "@action"
 msgid "&Delete Puzzle"
-msgstr ""
+msgstr "מ&חיקת חידה"
 
 #: src/window/mainwindow.cpp:76
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete the selected puzzle from your collection"
-msgstr ""
+msgstr "מחיקת החידה הנבחרת מהאוסף שלך"
 
 #: src/window/mainwindow.cpp:83
 #, kde-format
 msgctxt "@action"
 msgid "&Import from File…"
-msgstr ""
+msgstr "יי&בוא מקובץ…"
 
 #: src/window/mainwindow.cpp:84
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Import a new puzzle from a file into your collection"
-msgstr ""
+msgstr "ייבוא חידה חדשה מקובץ לאוסף שלך"
 
 #: src/window/mainwindow.cpp:90
 #, kde-format
 msgctxt "@action"
 msgid "&Export to File…"
-msgstr ""
+msgstr "יי&צוא לקובץ…"
 
 #: src/window/mainwindow.cpp:92
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Export the selected puzzle from your collection into a file"
-msgstr ""
+msgstr "ייצוא החידה הנבחרת מהאוסף שלך לקובץ"
 
 #: src/window/mainwindow.cpp:99
 #, kde-format
 msgctxt "@action"
 msgid "&Restart Puzzle…"
-msgstr ""
+msgstr "התחלת חידה מחד&ש…"
 
 #: src/window/mainwindow.cpp:100
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete the saved progress and reshuffle the pieces"
-msgstr ""
+msgstr "מחיקת ההתקדמות השמורה וערבוב החלקים מחדש"
 
 #: src/window/mainwindow.cpp:107
 #, kde-format
