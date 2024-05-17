@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-02 00:37+0000\n"
-"PO-Revision-Date: 2024-05-15 08:11+0300\n"
+"PO-Revision-Date: 2024-05-16 23:13+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -782,7 +782,7 @@ msgstr ""
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
-msgstr ""
+msgstr "פָּלַאפֵּלִי"
 
 #: src/main.cpp:32
 #, kde-format
@@ -797,22 +797,22 @@ msgstr ""
 #: src/main.cpp:37
 #, kde-format
 msgid "Stefan Majewsky"
-msgstr ""
+msgstr "סטפן מייבסקי"
 
 #: src/main.cpp:38
 #, kde-format
 msgid "Johannes Loehnert"
-msgstr ""
+msgstr "יוהאנס לוינרט"
 
 #: src/main.cpp:39
 #, kde-format
 msgid "The option to preview the completed puzzle"
-msgstr ""
+msgstr "האפשרות להצגה מקדימה של החידה הפתורה"
 
 #: src/main.cpp:48
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
-msgstr ""
+msgstr "נתיב לקובץ חידה (ייפתח אם לא סופק ‎-i)"
 
 #: src/main.cpp:49
 #, kde-format
@@ -825,13 +825,13 @@ msgstr ""
 #: src/main.cpp:63
 #, kde-format
 msgid "No file to import given"
-msgstr ""
+msgstr "לא סופק קובץ לייבוא"
 
 #. i18n: ectx: label, entry (SnappingPrecision), group (Puzzling)
 #: src/palapeli.kcfg:6
 #, kde-format
 msgid "Precision of snapping (as a percentage of piece size)."
-msgstr ""
+msgstr "דיוק ההצמדה (כאחוז מגודל החלק)."
 
 #. i18n: ectx: label, entry (ViewBackground), group (Appearance)
 #: src/palapeli.kcfg:12
@@ -957,7 +957,7 @@ msgstr ""
 #: src/settings.ui:156
 #, kde-format
 msgid "Piece appearance"
-msgstr ""
+msgstr "הופעת חלקים"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceBevelsEnabled)
 #: src/settings.ui:162
@@ -984,57 +984,57 @@ msgstr ""
 #, kde-format
 msgctxt "@title:group"
 msgid "Piece behavior"
-msgstr ""
+msgstr "התנהגות חלק"
 
 #. i18n: ectx: property (text), widget (QLabel, label_1)
 #: src/settings.ui:201
 #, kde-format
 msgctxt "@label:slider"
 msgid "Snapping precision:"
-msgstr ""
+msgstr "התנהגות הצמדה:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/settings.ui:241
 #, kde-format
 msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Very precise (harder)"
-msgstr ""
+msgstr "מדויק מאוד (קשה יותר)"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/settings.ui:270
 #, kde-format
 msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Unprecise (easier)"
-msgstr ""
+msgstr "רופף (קל יותר)"
 
 #: src/window/mainwindow.cpp:54
 #, kde-format
 msgid "Show Statusbar of Puzzle Table"
-msgstr ""
+msgstr "הצגת שורת מצב של טבלת החידה"
 
 #: src/window/mainwindow.cpp:58
 #, kde-format
 msgctxt "@action"
 msgid "Back to &Collection"
-msgstr ""
+msgstr "ח&זרה לאוסף"
 
 #: src/window/mainwindow.cpp:59
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Go back to the collection to choose another puzzle"
-msgstr ""
+msgstr "חזרה לאוסף כדי לבחור בחידה אחרת"
 
 #: src/window/mainwindow.cpp:66
 #, kde-format
 msgctxt "@action"
 msgid "Create &New Puzzle…"
-msgstr ""
+msgstr "יצירת &חידה חדשה…"
 
 #: src/window/mainwindow.cpp:67
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Create a new puzzle using an image file from your disk"
-msgstr ""
+msgstr "יצירת חידה חדשה מקובץ תמונה מהכונן שלך"
 
 #: src/window/mainwindow.cpp:74
 #, kde-format
