@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-02 00:37+0000\n"
-"PO-Revision-Date: 2024-05-16 23:13+0300\n"
+"PO-Revision-Date: 2024-05-17 08:05+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -736,47 +736,47 @@ msgstr[3] ""
 #, kde-format
 msgctxt "@info author attribution"
 msgid "By %1"
-msgstr ""
+msgstr "מאת %1"
 
 #: src/file-io/collection-view.cpp:58
 #, kde-format
 msgctxt "@action:button that pops up sorting strategy selection menu"
 msgid "Sort List…"
-msgstr ""
+msgstr "מיון הרשימה…"
 
 #: src/file-io/collection-view.cpp:61
 #, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Title"
-msgstr ""
+msgstr "לפי כותרת"
 
 #: src/file-io/collection-view.cpp:62
 #, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Piece Count"
-msgstr ""
+msgstr "לפי מספר חלקים"
 
 #: src/file-io/collection.cpp:36
 #, kde-format
 msgctxt "@info:status"
 msgid "Loading puzzle…"
-msgstr ""
+msgstr "החידה נטענת…"
 
 #: src/file-io/collection.cpp:109
 #, kde-format
 msgid "Loading collection"
-msgstr ""
+msgstr "האוסף נטען"
 
 #: src/importhelper.cpp:28
 #, kde-format
 msgctxt "command line message"
 msgid "Error: No puzzle file given."
-msgstr ""
+msgstr "שגיאה: לא סופק קובץ חידה."
 
 #: src/importhelper.cpp:40
 #, kde-format
 msgid "Importing puzzle \"%1\" into your collection"
-msgstr ""
+msgstr "החידה „%1” מיובאת לאוסף שלך."
 
 #: src/main.cpp:30
 #, kde-format
@@ -792,7 +792,7 @@ msgstr ""
 #: src/main.cpp:34
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
-msgstr ""
+msgstr "כל הזכויות שמורות 2009, 2010, סטפן מייבסקי"
 
 #: src/main.cpp:37
 #, kde-format
