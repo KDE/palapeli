@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-02 00:37+0000\n"
-"PO-Revision-Date: 2024-05-17 08:05+0300\n"
+"PO-Revision-Date: 2024-05-21 09:04+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -312,25 +312,25 @@ msgstr "נא לצייר את מקור התמונה לפירוק לחתיכות"
 #, kde-format
 msgctxt "@item:inlistbox (page name in an assistant dialog)"
 msgid "Choose slicer"
-msgstr ""
+msgstr "בחירת חותך"
 
 #: src/creator/puzzlecreator.cpp:67
 #, kde-format
 msgctxt "@title:tab (page header in an assistant dialog)"
 msgid "Choose a slicing method"
-msgstr ""
+msgstr "בחירת שיטת חיתוך"
 
 #: src/creator/puzzlecreator.cpp:68
 #, kde-format
 msgctxt "@item:inlistbox (page name in an assistant dialog)"
 msgid "Configure slicer"
-msgstr ""
+msgstr "הגדרת חותך"
 
 #: src/creator/puzzlecreator.cpp:69
 #, kde-format
 msgctxt "@title:tab (page header in an assistant dialog)"
 msgid "Tweak the parameters of the chosen slicing method"
-msgstr ""
+msgstr "כוונון משתני שיטת החיתוך הנבחרת"
 
 #: src/creator/puzzlecreator.cpp:112
 #, kde-format
