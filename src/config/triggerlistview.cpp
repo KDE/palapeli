@@ -61,6 +61,13 @@ Palapeli::TriggerListView::TriggerListView(const QMap<QByteArray, Palapeli::Inte
 Palapeli::TriggerListView::~TriggerListView()
 {
 	delete m_categoryDrawer;
+	// Work-around for bug 487499
+	// Delete the delegate before the itemview deletes the viewport
+	// and that one its children, among them the widgets the delegate
+	// has returned in createItemWidgets.
+	// Otherwise the delegate will wrongly warn about custom deletion
+	// of those widgets.
+	delete m_delegate;
 }
 
 void Palapeli::TriggerListView::getAssociations(QMap<QByteArray, Palapeli::Trigger>& associations)
