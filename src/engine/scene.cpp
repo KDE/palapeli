@@ -43,7 +43,11 @@ void Palapeli::Scene::dispatchPieces(const QList<Palapeli::Piece*> &pieces)
 {
 	for (Palapeli::Piece * piece : pieces) {
 		piece->setSelected(false);
-		removeItem(piece);
+		// piece might not yet be part of scene, like pieces merged on loading
+		// Qt otherwise emits a runtime warning if not part of this scene
+		if (piece->scene()) {
+		    removeItem(piece);
+		}
 		m_pieces.removeAll(piece);
 		disconnect(piece, &Piece::moved, this, &Scene::pieceMoved);
 	}
