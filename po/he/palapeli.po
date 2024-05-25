@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-02 00:37+0000\n"
-"PO-Revision-Date: 2024-05-21 09:04+0300\n"
+"PO-Revision-Date: 2024-05-24 10:03+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -253,7 +253,7 @@ msgstr "תפעול החלקים"
 #: src/config/triggerlistview.cpp:19
 #, kde-format
 msgid "Interaction with the puzzle table"
-msgstr "תפעול טבלת החידה"
+msgstr "תפעול טבלת הפאזל"
 
 #: src/config/triggerlistview.cpp:21
 #, kde-format
@@ -264,7 +264,7 @@ msgstr "תפעול האשנב"
 #, kde-format
 msgctxt "@title:window"
 msgid "Create New Puzzle"
-msgstr "יצירת חידה חדשה"
+msgstr "יצירת פאזל חדש"
 
 #: src/creator/puzzlecreator.cpp:51
 #, kde-format
@@ -476,7 +476,7 @@ msgstr ""
 #, kde-format
 msgctxt "For holding pieces"
 msgid "Hand"
-msgstr ""
+msgstr "יד"
 
 #: src/engine/gameplay.cpp:1081
 #, kde-format
@@ -533,7 +533,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window for hints"
 msgid "Solving Large Puzzles"
-msgstr ""
+msgstr "פתרון פאזלים גדולים"
 
 #: src/engine/gameplay.cpp:1195
 #, kde-format
@@ -760,7 +760,7 @@ msgstr "לפי מספר חלקים"
 #, kde-format
 msgctxt "@info:status"
 msgid "Loading puzzle…"
-msgstr "החידה נטענת…"
+msgstr "הפאזל נטען…"
 
 #: src/file-io/collection.cpp:109
 #, kde-format
@@ -771,12 +771,12 @@ msgstr "האוסף נטען"
 #, kde-format
 msgctxt "command line message"
 msgid "Error: No puzzle file given."
-msgstr "שגיאה: לא סופק קובץ חידה."
+msgstr "שגיאה: לא סופק קובץ פאזל."
 
 #: src/importhelper.cpp:40
 #, kde-format
 msgid "Importing puzzle \"%1\" into your collection"
-msgstr "החידה „%1” מיובאת לאוסף שלך."
+msgstr "הפאזל „%1” מיובא לאוסף שלך."
 
 #: src/main.cpp:30
 #, kde-format
@@ -807,12 +807,12 @@ msgstr "יוהאנס לוינרט"
 #: src/main.cpp:39
 #, kde-format
 msgid "The option to preview the completed puzzle"
-msgstr "האפשרות להצגה מקדימה של החידה הפתורה"
+msgstr "האפשרות להצגה מקדימה של הפאזל הפתור"
 
 #: src/main.cpp:48
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
-msgstr "נתיב לקובץ חידה (ייפתח אם לא סופק ‎-i)"
+msgstr "נתיב לקובץ פאזל (ייפתח אם לא סופק ‎-i)"
 
 #: src/main.cpp:49
 #, kde-format
@@ -918,7 +918,7 @@ msgstr "סרגל כלים ראשי"
 #, kde-format
 msgctxt "@title:group"
 msgid "Puzzle table"
-msgstr "טבלת חידות"
+msgstr "טבלת פאזלים"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/settings.ui:25
@@ -1010,7 +1010,7 @@ msgstr "רופף (קל יותר)"
 #: src/window/mainwindow.cpp:54
 #, kde-format
 msgid "Show Statusbar of Puzzle Table"
-msgstr "הצגת שורת מצב של טבלת החידה"
+msgstr "הצגת שורת מצב של טבלת הפאזל"
 
 #: src/window/mainwindow.cpp:58
 #, kde-format
@@ -1022,31 +1022,31 @@ msgstr "ח&זרה לאוסף"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Go back to the collection to choose another puzzle"
-msgstr "חזרה לאוסף כדי לבחור בחידה אחרת"
+msgstr "חזרה לאוסף כדי לבחור בפאזל אחר"
 
 #: src/window/mainwindow.cpp:66
 #, kde-format
 msgctxt "@action"
 msgid "Create &New Puzzle…"
-msgstr "יצירת &חידה חדשה…"
+msgstr "יצירת &פאזל חדש…"
 
 #: src/window/mainwindow.cpp:67
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Create a new puzzle using an image file from your disk"
-msgstr "יצירת חידה חדשה מקובץ תמונה מהכונן שלך"
+msgstr "יצירת פאזל חדש מקובץ תמונה מהכונן שלך"
 
 #: src/window/mainwindow.cpp:74
 #, kde-format
 msgctxt "@action"
 msgid "&Delete Puzzle"
-msgstr "מ&חיקת חידה"
+msgstr "מ&חיקת פאזל"
 
 #: src/window/mainwindow.cpp:76
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete the selected puzzle from your collection"
-msgstr "מחיקת החידה הנבחרת מהאוסף שלך"
+msgstr "מחיקת הפאזל הנבחר מהאוסף שלך"
 
 #: src/window/mainwindow.cpp:83
 #, kde-format
@@ -1058,7 +1058,7 @@ msgstr "יי&בוא מקובץ…"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Import a new puzzle from a file into your collection"
-msgstr "ייבוא חידה חדשה מקובץ לאוסף שלך"
+msgstr "ייבוא פאזל חדש מקובץ לאוסף שלך"
 
 #: src/window/mainwindow.cpp:90
 #, kde-format
@@ -1070,13 +1070,13 @@ msgstr "יי&צוא לקובץ…"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Export the selected puzzle from your collection into a file"
-msgstr "ייצוא החידה הנבחרת מהאוסף שלך לקובץ"
+msgstr "ייצוא הפאזל הנבחר מהאוסף שלך לקובץ"
 
 #: src/window/mainwindow.cpp:99
 #, kde-format
 msgctxt "@action"
 msgid "&Restart Puzzle…"
-msgstr "התחלת חידה מחד&ש…"
+msgstr "התחלת פאזל מחד&ש…"
 
 #: src/window/mainwindow.cpp:100
 #, kde-format
@@ -1150,7 +1150,7 @@ msgstr "תצוגה מקדימה"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Show or hide the image of the completed puzzle"
-msgstr "הצגת או הסתרת תמונת החידה השלמה"
+msgstr "הצגת או הסתרת תמונת הפאזל השלמה"
 
 #: src/window/mainwindow.cpp:156
 #, kde-format
@@ -1172,12 +1172,12 @@ msgstr "הפעלה"
 #: src/window/puzzletablewidget.cpp:49
 #, kde-format
 msgid "No puzzle loaded"
-msgstr "לא נטענה חידה"
+msgstr "לא נטען פאזל"
 
 #: src/window/puzzletablewidget.cpp:118
 #, kde-format
 msgid "You finished the puzzle."
-msgstr "סיימת את החידה."
+msgstr "סיימת את הפאזל."
 
 #: src/window/puzzletablewidget.cpp:122
 #, kde-format
