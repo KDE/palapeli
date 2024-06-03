@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-02 00:37+0000\n"
-"PO-Revision-Date: 2024-05-24 10:03+0300\n"
+"PO-Revision-Date: 2024-06-02 08:04+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -346,7 +346,7 @@ msgstr ""
 #, kde-format
 msgid ""
 "Puzzle cannot be created: Slicing failed because of undetermined problems."
-msgstr ""
+msgstr "אי אפשר ליצור פאזל: החיתוך נכשל עקב בעיות לא ידועות."
 
 #: src/engine/constraintinteractor.cpp:15
 #, kde-format
@@ -356,18 +356,18 @@ msgstr ""
 #: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
 #, kde-format
 msgid "You have finished the puzzle. Do you want to restart it now?"
-msgstr ""
+msgstr "סיימת את הפאזל. להתחיל אותו מחדש כעת?"
 
 #: src/engine/gameplay.cpp:181 src/engine/gameplay.cpp:1138
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
-msgstr ""
+msgstr "התחלה מחדש"
 
 #: src/engine/gameplay.cpp:296
 #, kde-format
 msgid "The following puzzles will be deleted. This action cannot be undone."
-msgstr ""
+msgstr "הפאזלים הבאים יימחקו. אי אפשר להסיג את הפעולה הזאת."
 
 #: src/engine/gameplay.cpp:315 src/engine/gameplay.cpp:341
 #, kde-format
@@ -604,25 +604,25 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Preview of Completed Puzzle"
-msgstr ""
+msgstr "תצוגה מקדימה של פאזל שלם"
 
 #: src/engine/puzzlepreview.cpp:36
 #, kde-format
 msgctxt "text in preview window"
 msgid "Image is not available."
-msgstr ""
+msgstr "תמונה לא זמינה."
 
 #: src/engine/puzzlepreview.cpp:64
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 - Preview"
-msgstr ""
+msgstr "%1 - תצוגה מקדימה"
 
 #: src/engine/texturehelper.cpp:52
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Single color"
-msgstr ""
+msgstr "צבע יחיד"
 
 #: src/engine/trigger.cpp:87
 #, kde-format
@@ -709,18 +709,18 @@ msgstr "ההתקדמות שלך נשמרת אוטומטית בזמן המשחק.
 #, kde-format
 msgctxt "@title:window dialog that explains the autosave feature"
 msgid "Automatic Saving"
-msgstr ""
+msgstr "שמירה אוטומטית"
 
 #: src/engine/zoomwidget.cpp:26
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Lock the puzzle table area"
-msgstr ""
+msgstr "נעילת אזור טבלת הפאזל"
 
 #: src/file-io/collection-delegate.cpp:106
 #, kde-format
 msgid "[No name]"
-msgstr ""
+msgstr "[ללא שם]"
 
 #: src/file-io/collection-delegate.cpp:111
 #, kde-format
@@ -905,7 +905,7 @@ msgstr ""
 #: src/palapeli.kcfg:50
 #, kde-format
 msgid "Last position and size of puzzle preview."
-msgstr ""
+msgstr "המקום והגודל האחרונים של תצוגת הפאזל המקדימה."
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/palapeliui.rc:35
@@ -931,7 +931,7 @@ msgstr "רקע:"
 #: src/settings.ui:55
 #, kde-format
 msgid "Color for highlighting selected pieces:"
-msgstr ""
+msgstr "צבע הדגשת החלקים הנבחרים:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/settings.ui:75
@@ -951,7 +951,7 @@ msgstr ""
 #: src/settings.ui:106
 #, kde-format
 msgid "Spacing of pieces in puzzle grids (1.0-1.5):"
-msgstr ""
+msgstr "ריווח בין החלקים ברשתות הפאזל (1.0‏-1.5):"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/settings.ui:156
@@ -963,13 +963,13 @@ msgstr "הופעת חלקים"
 #: src/settings.ui:162
 #, kde-format
 msgid "Draw bevels to create a 3-dimensional appearance"
-msgstr ""
+msgstr "ציור שיקועים ליצירת מראה תלת־ממדי"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceShadowsEnabled)
 #: src/settings.ui:172
 #, kde-format
 msgid "Draw shadows below pieces"
-msgstr ""
+msgstr "ציור צלליות מתחת לחלקים"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/settings.ui:182
@@ -978,6 +978,8 @@ msgid ""
 "These options can be disabled when Palapeli is running very slowly. Changes "
 "will take effect only when a new puzzle is started."
 msgstr ""
+"אפשר להשבית את האפשרויות האלה כאשר פָּלַאפֵּלִי איטי. השינויים ייכנסו לתוקף עם "
+"מעבר לפאזל חדש."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: src/settings.ui:195
