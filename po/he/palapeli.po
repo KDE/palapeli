@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-02 00:37+0000\n"
-"PO-Revision-Date: 2024-06-02 08:04+0300\n"
+"PO-Revision-Date: 2024-06-05 22:37+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -894,6 +894,7 @@ msgid ""
 "Whether to render bevels on the puzzle pieces. Turning this off might "
 "improve puzzle loading performance."
 msgstr ""
+"האם לעבד שיקועים בחלקי הפאזל. כיבוי האפשרות יכול לשפר את ביצועי טעינת הפאזל."
 
 #. i18n: ectx: label, entry (PuzzlePreviewVisible), group (PuzzlePreview)
 #: src/palapeli.kcfg:46
