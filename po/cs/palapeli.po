@@ -3,22 +3,22 @@
 # Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2013, 2014, 2015, 2017, 2020.
 # Lukáš Tinkl <ltinkl@redhat.com>, 2010, 2011.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012, 2013.
-# Vit Pelcak <vit@pelcak.org>, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024 Vit Pelcak <vit@pelcak.org>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-02 00:37+0000\n"
-"PO-Revision-Date: 2023-06-22 14:44+0200\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2024-06-12 15:11+0200\n"
+"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 24.05.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -163,55 +163,55 @@ msgstr "Obecné"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Interaction"
-msgstr ""
+msgstr "Interakce myši"
 
 #: src/config/configdialog.cpp:111
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Center"
-msgstr ""
+msgstr "Střed"
 
 #: src/config/configdialog.cpp:112
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "None"
-msgstr ""
+msgstr "Nic"
 
 #: src/config/configdialog.cpp:113
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Top Left"
-msgstr ""
+msgstr "Vlevo nahoře"
 
 #: src/config/configdialog.cpp:114
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Top Right"
-msgstr ""
+msgstr "Vpravo nahoře"
 
 #: src/config/configdialog.cpp:115
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Left"
-msgstr ""
+msgstr "Vlevo dole"
 
 #: src/config/configdialog.cpp:116
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Right"
-msgstr ""
+msgstr "Vpravo dole"
 
 #: src/config/mouseinputbutton.cpp:45
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove this trigger"
-msgstr ""
+msgstr "Smazat tento spouštěč"
 
 #: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Input here…"
-msgstr ""
+msgstr "Vstup zde…"
 
 #: src/config/mouseinputbutton.cpp:120
 #, kde-format
@@ -220,6 +220,8 @@ msgid ""
 "Hold down the modifier keys you want, then click a mouse button or scroll a "
 "mouse wheel here"
 msgstr ""
+"Podržte vámi vybranou klávesu (modifikátor), poté klikněte tlačítkem myši "
+"nebo točte kolečkem."
 
 #: src/config/mouseinputbutton.cpp:225
 #, kde-format
@@ -227,25 +229,25 @@ msgctxt ""
 "@item This is used for describing that no mouse action has been assigned to "
 "this interaction plugin."
 msgid "None"
-msgstr ""
+msgstr "Nic"
 
 #: src/config/mouseinputbutton.cpp:231
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Click to change how an action is triggered"
-msgstr ""
+msgstr "Kliknutím změníte nastavení spouštění činnosti."
 
 #: src/config/triggerconfigwidget.cpp:20
 #, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Buttons"
-msgstr ""
+msgstr "Tlačítka myši"
 
 #: src/config/triggerconfigwidget.cpp:21
 #, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Wheel"
-msgstr ""
+msgstr "Kolečko myši"
 
 #: src/config/triggerlistview.cpp:17
 #, kde-format
@@ -606,7 +608,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Preview of Completed Puzzle"
-msgstr ""
+msgstr "Náhled dokončeného puzzle"
 
 #: src/engine/puzzlepreview.cpp:36
 #, kde-format
@@ -711,13 +713,13 @@ msgstr "Skládání je při hraní automaticky ukládáno."
 #, kde-format
 msgctxt "@title:window dialog that explains the autosave feature"
 msgid "Automatic Saving"
-msgstr ""
+msgstr "Automatické ukládání"
 
 #: src/engine/zoomwidget.cpp:26
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Lock the puzzle table area"
-msgstr ""
+msgstr "Pozastavit skládání"
 
 #: src/file-io/collection-delegate.cpp:106
 #, kde-format
@@ -737,13 +739,13 @@ msgstr[2] "%2 (%1 kusů)"
 #, kde-format
 msgctxt "@info author attribution"
 msgid "By %1"
-msgstr ""
+msgstr "Od %1"
 
 #: src/file-io/collection-view.cpp:58
 #, kde-format
 msgctxt "@action:button that pops up sorting strategy selection menu"
 msgid "Sort List…"
-msgstr ""
+msgstr "Seřadit seznam…"
 
 #: src/file-io/collection-view.cpp:61
 #, kde-format
@@ -761,7 +763,7 @@ msgstr "Podle počtu dílků"
 #, kde-format
 msgctxt "@info:status"
 msgid "Loading puzzle…"
-msgstr ""
+msgstr "Načítá se puzzle…"
 
 #: src/file-io/collection.cpp:109
 #, kde-format
@@ -1023,73 +1025,73 @@ msgstr "Ukázat stavový řádek na desce s puzzle"
 #, kde-format
 msgctxt "@action"
 msgid "Back to &Collection"
-msgstr ""
+msgstr "Zpět do sbír&ky"
 
 #: src/window/mainwindow.cpp:59
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Go back to the collection to choose another puzzle"
-msgstr ""
+msgstr "Vrátit se do sbírky a vybrat jiné puzzle"
 
 #: src/window/mainwindow.cpp:66
 #, kde-format
 msgctxt "@action"
 msgid "Create &New Puzzle…"
-msgstr ""
+msgstr "Vytvořit nové puzzle…"
 
 #: src/window/mainwindow.cpp:67
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Create a new puzzle using an image file from your disk"
-msgstr ""
+msgstr "Vytvořit nové puzzle s použitím obrázku z disku"
 
 #: src/window/mainwindow.cpp:74
 #, kde-format
 msgctxt "@action"
 msgid "&Delete Puzzle"
-msgstr ""
+msgstr "S&mazat puzzle"
 
 #: src/window/mainwindow.cpp:76
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete the selected puzzle from your collection"
-msgstr ""
+msgstr "Smazat vybrané puzzle ze sbírky"
 
 #: src/window/mainwindow.cpp:83
 #, kde-format
 msgctxt "@action"
 msgid "&Import from File…"
-msgstr ""
+msgstr "&Importovat ze souboru…"
 
 #: src/window/mainwindow.cpp:84
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Import a new puzzle from a file into your collection"
-msgstr ""
+msgstr "Importovat nové puzzle ze souboru do sbírky"
 
 #: src/window/mainwindow.cpp:90
 #, kde-format
 msgctxt "@action"
 msgid "&Export to File…"
-msgstr ""
+msgstr "&Exportovat do souboru…"
 
 #: src/window/mainwindow.cpp:92
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Export the selected puzzle from your collection into a file"
-msgstr ""
+msgstr "Exportovat vybrané puzzle ze sbírky do souboru"
 
 #: src/window/mainwindow.cpp:99
 #, kde-format
 msgctxt "@action"
 msgid "&Restart Puzzle…"
-msgstr ""
+msgstr "&Znovu skládat puzzle…"
 
 #: src/window/mainwindow.cpp:100
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete the saved progress and reshuffle the pieces"
-msgstr ""
+msgstr "Smazat uložený postup a zamíchat všechny dílky"
 
 #: src/window/mainwindow.cpp:107
 #, kde-format
@@ -1131,7 +1133,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action"
 msgid "&Rearrange Pieces"
-msgstr ""
+msgstr "Pře&rovnat dílky"
 
 #: src/window/mainwindow.cpp:132
 #, kde-format
@@ -1145,13 +1147,13 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "Show Preview"
-msgstr ""
+msgstr "Zobrazit náhled"
 
 #: src/window/mainwindow.cpp:141
 #, kde-format
 msgctxt "@option:check Preview is a noun here"
 msgid "Preview"
-msgstr ""
+msgstr "Náhled"
 
 #: src/window/mainwindow.cpp:142
 #, kde-format
@@ -1163,7 +1165,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action"
 msgid "Enable All Messages"
-msgstr ""
+msgstr "Povolit všechny zprávy"
 
 #: src/window/mainwindow.cpp:165
 #, kde-format
@@ -1190,4 +1192,4 @@ msgstr "Puzzle složeno."
 #, kde-format
 msgctxt "@info:progress"
 msgid "%1% finished"
-msgstr ""
+msgstr "%1 % dokončeno"
