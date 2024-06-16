@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-02 00:37+0000\n"
-"PO-Revision-Date: 2024-06-05 22:37+0300\n"
+"PO-Revision-Date: 2024-06-15 08:01+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -562,37 +562,37 @@ msgstr ""
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Move viewport by dragging"
-msgstr ""
+msgstr "ניתן להזיז את האשנב בגרירה"
 
 #: src/engine/interactors.cpp:227
 #, kde-format
 msgctxt "As in a movie scene"
 msgid "Switch to close-up or distant view"
-msgstr ""
+msgstr "מעבר לתצוגה מקרוב או מרחוק"
 
 #: src/engine/interactors.cpp:247
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Zoom viewport"
-msgstr ""
+msgstr "אשנב תקריב"
 
 #: src/engine/interactors.cpp:266
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Scroll viewport horizontally"
-msgstr ""
+msgstr "גלילה אופקית באשנב"
 
 #: src/engine/interactors.cpp:268
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Scroll viewport vertically"
-msgstr ""
+msgstr "גלילה אנכית באשנב"
 
 #: src/engine/interactors.cpp:347
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Select multiple pieces at once"
-msgstr ""
+msgstr "בחירה של מספר חלקים יחד"
 
 #: src/engine/interactors.cpp:411
 #, kde-format
