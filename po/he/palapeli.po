@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-02 00:37+0000\n"
-"PO-Revision-Date: 2024-06-15 08:01+0300\n"
+"PO-Revision-Date: 2024-07-01 09:21+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 24.05.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -727,10 +727,10 @@ msgstr "[ללא שם]"
 msgctxt "Puzzle description, %2 = name string, %1 = piece count"
 msgid "%2 (%1 piece)"
 msgid_plural "%2 (%1 pieces)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%2 (חלק)"
+msgstr[1] "%2 (שני חלקים)"
+msgstr[2] "%2 (%1 חלקים)"
+msgstr[3] "%2 (%1 חלקים)"
 
 #: src/file-io/collection-delegate.cpp:130
 #, kde-format
@@ -787,7 +787,7 @@ msgstr "פָּלַאפֵּלִי"
 #: src/main.cpp:32
 #, kde-format
 msgid "Jigsaw Puzzle Game"
-msgstr ""
+msgstr "משחק פאזל מזוגזג"
 
 #: src/main.cpp:34
 #, kde-format
@@ -878,6 +878,8 @@ msgid ""
 "Whether to show the status bar on the puzzle table. (It is not a real status "
 "bar, but the position and provided functionality is similar.)"
 msgstr ""
+"האם להציג את שורת המצב בשולחן הפאזל. (זאת לא שורת מצב אמיתית, אך המקום "
+"והיכולות שהיא מציעה הן דומות.)"
 
 #. i18n: ectx: label, entry (PieceShadowsEnabled), group (Appearance)
 #: src/palapeli.kcfg:36
