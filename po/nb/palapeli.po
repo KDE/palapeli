@@ -87,8 +87,6 @@ msgstr "Raske forhåndsinnstillinger"
 
 #: slicers/goldberg/slicer-goldberg.cpp:47
 #, fuzzy, kde-format
-#| msgctxt "Puzzle shape preset"
-#| msgid "Ordinary"
 msgctxt "@item puzzle shape preset"
 msgid "Ordinary"
 msgstr "Vanlig"
@@ -96,8 +94,6 @@ msgstr "Vanlig"
 #: slicers/goldberg/slicer-goldberg.cpp:48
 #: slicers/goldberg/slicer-goldberg.cpp:125
 #, fuzzy, kde-format
-#| msgctxt "Puzzle shape preset"
-#| msgid "Very regular"
 msgctxt "@item puzzle shape preset"
 msgid "Very regular"
 msgstr "Svært regulært"
@@ -105,8 +101,6 @@ msgstr "Svært regulært"
 #: slicers/goldberg/slicer-goldberg.cpp:49
 #: slicers/goldberg/slicer-goldberg.cpp:126
 #, fuzzy, kde-format
-#| msgctxt "Puzzle shape preset"
-#| msgid "Very diverse"
 msgctxt "@item puzzle shape preset"
 msgid "Very diverse"
 msgstr "Svært varierende"
@@ -114,8 +108,6 @@ msgstr "Svært varierende"
 #: slicers/goldberg/slicer-goldberg.cpp:50
 #: slicers/goldberg/slicer-goldberg.cpp:127
 #, fuzzy, kde-format
-#| msgctxt "Puzzle shape preset"
-#| msgid "Large plugs"
 msgctxt "@item puzzle shape preset"
 msgid "Large plugs"
 msgstr "Store plugger"
@@ -180,58 +172,48 @@ msgstr ""
 
 #: src/config/configdialog.cpp:112
 #, fuzzy, kde-format
-#| msgid "None"
 msgctxt "@item:inlistbox space for solution"
 msgid "None"
 msgstr "Ingen"
 
 #: src/config/configdialog.cpp:113
 #, fuzzy, kde-format
-#| msgid "Top Left"
 msgctxt "@item:inlistbox space for solution"
 msgid "Top Left"
 msgstr "Øverst til venstre"
 
 #: src/config/configdialog.cpp:114
 #, fuzzy, kde-format
-#| msgid "Top Right"
 msgctxt "@item:inlistbox space for solution"
 msgid "Top Right"
 msgstr "Øverst til høyre"
 
 #: src/config/configdialog.cpp:115
 #, fuzzy, kde-format
-#| msgid "Bottom Left"
 msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Left"
 msgstr "Nederst til venstre"
 
 #: src/config/configdialog.cpp:116
 #, fuzzy, kde-format
-#| msgid "Bottom Right"
 msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Right"
 msgstr "Nederst til høyre"
 
 #: src/config/mouseinputbutton.cpp:45
 #, fuzzy, kde-format
-#| msgid "Remove this trigger"
 msgctxt "@info:tooltip"
 msgid "Remove this trigger"
 msgstr "Fjern dette elementet"
 
 #: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
 #, fuzzy, kde-format
-#| msgid "Input here..."
 msgctxt "@info:placeholder"
 msgid "Input here…"
 msgstr "Skriv her …"
 
 #: src/config/mouseinputbutton.cpp:120
 #, fuzzy, kde-format
-#| msgid ""
-#| "Hold down the modifier keys you want, then click a mouse button or scroll "
-#| "a mouse wheel here"
 msgctxt "@info:tooltip"
 msgid ""
 "Hold down the modifier keys you want, then click a mouse button or scroll a "
@@ -242,7 +224,6 @@ msgstr ""
 
 #: src/config/mouseinputbutton.cpp:225
 #, fuzzy, kde-format
-#| msgid "None"
 msgctxt ""
 "@item This is used for describing that no mouse action has been assigned to "
 "this interaction plugin."
@@ -251,15 +232,12 @@ msgstr "Ingen"
 
 #: src/config/mouseinputbutton.cpp:231
 #, fuzzy, kde-format
-#| msgid "Click to change how an action is triggered"
 msgctxt "@info:tooltip"
 msgid "Click to change how an action is triggered"
 msgstr "Trykk for å endre hvordan en handling utløses"
 
 #: src/config/triggerconfigwidget.cpp:20
 #, fuzzy, kde-format
-#| msgctxt "refers to no mouse buttons being pressed"
-#| msgid "No-Button"
 msgctxt "@title:tab"
 msgid "Mouse Buttons"
 msgstr "Ingen knapp"
@@ -629,7 +607,6 @@ msgstr "Endre låstilstand for puslebrettets område"
 
 #: src/engine/puzzlepreview.cpp:29
 #, fuzzy, kde-format
-#| msgid "The option to preview the completed puzzle"
 msgctxt "@title:window"
 msgid "Preview of Completed Puzzle"
 msgstr "Mulighet for forhåndsvisning av ferdig puslespill"
@@ -735,15 +712,12 @@ msgstr "Det blir automatisk lagret hvor langt du har kommet mens du spiller."
 
 #: src/engine/view.cpp:339
 #, fuzzy, kde-format
-#| msgctxt "used as caption for a dialog that explains the autosave feature"
-#| msgid "Automatic saving"
 msgctxt "@title:window dialog that explains the autosave feature"
 msgid "Automatic Saving"
 msgstr "Automatisk lagring"
 
 #: src/engine/zoomwidget.cpp:26
 #, fuzzy, kde-format
-#| msgid "Lock the puzzle table area"
 msgctxt "@info:tooltip"
 msgid "Lock the puzzle table area"
 msgstr "Lås puslebrettet"
@@ -763,8 +737,6 @@ msgstr[1] "%2 (%1 brikker)"
 
 #: src/file-io/collection-delegate.cpp:130
 #, fuzzy, kde-format
-#| msgctxt "Author attribution, e.g. \"by Jack\""
-#| msgid "by %1"
 msgctxt "@info author attribution"
 msgid "By %1"
 msgstr "av %1"
@@ -789,7 +761,6 @@ msgstr ""
 
 #: src/file-io/collection.cpp:36
 #, fuzzy, kde-format
-#| msgid "Loading puzzle..."
 msgctxt "@info:status"
 msgid "Loading puzzle…"
 msgstr "Laster puslespill …"
@@ -1065,7 +1036,6 @@ msgstr ""
 
 #: src/window/mainwindow.cpp:59
 #, fuzzy, kde-format
-#| msgid "Go back to the collection to choose another puzzle"
 msgctxt "@info:tooltip"
 msgid "Go back to the collection to choose another puzzle"
 msgstr "Gå tilbake til samlingen for å velge et annet puslespill"
@@ -1078,7 +1048,6 @@ msgstr ""
 
 #: src/window/mainwindow.cpp:67
 #, fuzzy, kde-format
-#| msgid "Create a new puzzle using an image file from your disk"
 msgctxt "@info:tooltip"
 msgid "Create a new puzzle using an image file from your disk"
 msgstr "Lag et nytt puslespill med en bildefil på disken"
@@ -1091,7 +1060,6 @@ msgstr ""
 
 #: src/window/mainwindow.cpp:76
 #, fuzzy, kde-format
-#| msgid "Delete the selected puzzle from your collection"
 msgctxt "@info:tooltip"
 msgid "Delete the selected puzzle from your collection"
 msgstr "Slett det valgte puslespillet fra samlingen"
@@ -1104,7 +1072,6 @@ msgstr ""
 
 #: src/window/mainwindow.cpp:84
 #, fuzzy, kde-format
-#| msgid "Import a new puzzle from a file into your collection"
 msgctxt "@info:tooltip"
 msgid "Import a new puzzle from a file into your collection"
 msgstr "Importer et nytt puslespill fra en fil til samlingen"
@@ -1117,7 +1084,6 @@ msgstr ""
 
 #: src/window/mainwindow.cpp:92
 #, fuzzy, kde-format
-#| msgid "Export the selected puzzle from your collection into a file"
 msgctxt "@info:tooltip"
 msgid "Export the selected puzzle from your collection into a file"
 msgstr "Eksporter det valgte puslespillet fra samlingen til en fil"
@@ -1186,23 +1152,18 @@ msgstr ""
 
 #: src/window/mainwindow.cpp:140
 #, fuzzy, kde-format
-#| msgctxt "Preview is a noun here"
-#| msgid "Preview"
 msgctxt "@option:check"
 msgid "Show Preview"
 msgstr "Forhåndsvis"
 
 #: src/window/mainwindow.cpp:141
 #, fuzzy, kde-format
-#| msgctxt "Preview is a noun here"
-#| msgid "Preview"
 msgctxt "@option:check Preview is a noun here"
 msgid "Preview"
 msgstr "Forhåndsvis"
 
 #: src/window/mainwindow.cpp:142
 #, fuzzy, kde-format
-#| msgid "The option to preview the completed puzzle"
 msgctxt "@info:tooltip"
 msgid "Show or hide the image of the completed puzzle"
 msgstr "Mulighet for forhåndsvisning av ferdig puslespill"
@@ -1236,8 +1197,6 @@ msgstr "Du har lagt ferdig puslespillet."
 
 #: src/window/puzzletablewidget.cpp:122
 #, fuzzy, kde-format
-#| msgctxt "Progress display"
-#| msgid "%1% finished"
 msgctxt "@info:progress"
 msgid "%1% finished"
 msgstr "%1% fullført"
