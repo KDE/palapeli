@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-02 00:37+0000\n"
-"PO-Revision-Date: 2024-07-01 09:21+0300\n"
+"PO-Revision-Date: 2024-10-11 16:40+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.05.1\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -373,19 +373,19 @@ msgstr "הפאזלים הבאים יימחקו. אי אפשר להסיג את ה
 #, kde-format
 msgctxt "Filter for a file dialog"
 msgid "Palapeli puzzles (*.puzzle)"
-msgstr ""
+msgstr "פאזלים של פָּלַאפֵּלִי (‎*.puzzle)"
 
 #: src/engine/gameplay.cpp:317
 #, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
-msgstr ""
+msgstr "ייבוא פאזלים של פָּלַאפֵּלִי"
 
 #: src/engine/gameplay.cpp:343
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
-msgstr ""
+msgstr "שמירת פאזלים של פָּלַאפֵּלִי"
 
 #: src/engine/gameplay.cpp:358
 #, kde-format
@@ -840,6 +840,8 @@ msgid ""
 "The filename of the background image to use for the View, or \"__color__\" "
 "if a solid color should be used (see key \"ViewBackgroundColor\")."
 msgstr ""
+"שם קובץ תמונת הרקע לשימוש עבור התצוגה, או „__color__” אם זה אמור להיות צבע "
+"אחיד (כדאי לעיין במפתח „ViewBackgroundColor”)."
 
 #. i18n: ectx: label, entry (ViewBackgroundColor), group (Appearance)
 #: src/palapeli.kcfg:16
@@ -848,12 +850,13 @@ msgid ""
 "The background color to use for the View (if the key \"ViewBackground\" is "
 "set to \"__color__\")."
 msgstr ""
+"צבע הרקע לשימוש לתצוגה (אם המפתח „ViewBackground” מוגדר ל־„__color__”)."
 
 #. i18n: ectx: label, entry (ViewHighlightColor), group (Appearance)
 #: src/palapeli.kcfg:20
 #, kde-format
 msgid "The highlighting color to use for selecting pieces in the View."
-msgstr ""
+msgstr "צבע ההדגשה לשימוש לבחירת חלקים בתצוגה."
 
 #. i18n: ectx: label, entry (SolutionArea), group (Appearance)
 #: src/palapeli.kcfg:24
@@ -861,7 +864,7 @@ msgstr ""
 msgid ""
 "Where to reserve space on the puzzle table for the solution, when shuffling "
 "or re-shuffling the pieces."
-msgstr ""
+msgstr "איפה לשמור מקום בטבלת הפאזל לפתרון, בעת ערבוב או ערבוב מחדש של החלקים."
 
 #. i18n: ectx: label, entry (PieceSpacing), group (Appearance)
 #: src/palapeli.kcfg:28
@@ -870,6 +873,8 @@ msgid ""
 "Spacing of pieces in puzzle grids relative to the size of the largest piece "
 "(spacing factor is 1.0 + 0.05 * value)."
 msgstr ""
+"ריווח חלקי הפאזל ביחס לגודל החלק הגדול ביותר (מקדם הריווח הוא 1.0 + 0.05 * "
+"ערך)"
 
 #. i18n: ectx: label, entry (ShowStatusBar), group (Appearance)
 #: src/palapeli.kcfg:32
@@ -888,6 +893,8 @@ msgid ""
 "Whether to render shadows below the puzzle pieces. Turning this off might "
 "improve rendering performance."
 msgstr ""
+"האם לעבד את הצלליות מתחת לחלקי הפאזל. כיבוי האפשרות הזאת יכול לשפר את ביצועי "
+"העיבוד."
 
 #. i18n: ectx: label, entry (PieceBevelsEnabled), group (Appearance)
 #: src/palapeli.kcfg:40
@@ -902,7 +909,7 @@ msgstr ""
 #: src/palapeli.kcfg:46
 #, kde-format
 msgid "Whether the preview window was switched on last time Palapeli was run."
-msgstr ""
+msgstr "האם מצב חלון התצוגה המקדימה השתנה מאז הפעם האחרונה שפָּלַאפֵּלִי הופעל."
 
 #. i18n: ectx: label, entry (PuzzlePreviewGeometry), group (PuzzlePreview)
 #: src/palapeli.kcfg:50
