@@ -79,6 +79,7 @@ target_link_libraries(palapeli
     KF6::KIOWidgets
     KF6::WidgetsAddons
     KF6::XmlGui
+    KF6::IconThemes
     Qt6::Svg
 )
 
