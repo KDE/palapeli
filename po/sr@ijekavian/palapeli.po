@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-02 00:37+0000\n"
+"POT-Creation-Date: 2024-11-22 00:38+0000\n"
 "PO-Revision-Date: 2017-09-28 17:59+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -931,44 +931,44 @@ msgstr "Грешка: није дат фајл слагалице."
 msgid "Importing puzzle \"%1\" into your collection"
 msgstr "Увозим слагалицу „%1“ у вашу збирку"
 
-#: src/main.cpp:30
+#: src/main.cpp:47
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
 msgstr "Палапели"
 
-#: src/main.cpp:32
+#: src/main.cpp:49
 #, fuzzy, kde-format
 #| msgid "KDE Jigsaw Puzzle Game"
 msgid "Jigsaw Puzzle Game"
 msgstr "КДЕ игра слагања дијелова"
 
-#: src/main.cpp:34
+#: src/main.cpp:51
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
 msgstr "© 2009, 2010, Штефан Мајевски"
 
-#: src/main.cpp:37
+#: src/main.cpp:54
 #, kde-format
 msgid "Stefan Majewsky"
 msgstr "Штефан Мајевски"
 
-#: src/main.cpp:38
+#: src/main.cpp:55
 #, kde-format
 msgid "Johannes Loehnert"
 msgstr "Јоханес Ленерт"
 
-#: src/main.cpp:39
+#: src/main.cpp:56
 #, kde-format
 msgid "The option to preview the completed puzzle"
 msgstr "Опција за преглед завршене слагалице"
 
-#: src/main.cpp:48
+#: src/main.cpp:65
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "Путања фајла слагалице (биће отворен ако се не зада -i)"
 
-#: src/main.cpp:49
+#: src/main.cpp:66
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -978,7 +978,7 @@ msgstr ""
 "Увези дати фајл слагалице у локалну збирку (не ради ништа ако фајл није "
 "задат). Главни прозор неће бити приказан по увозу задате слагалице."
 
-#: src/main.cpp:63
+#: src/main.cpp:80
 #, kde-format
 msgid "No file to import given"
 msgstr ""

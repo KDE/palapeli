@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-02 00:37+0000\n"
+"POT-Creation-Date: 2024-11-22 00:38+0000\n"
 "PO-Revision-Date: 2024-05-07 18:50+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -816,43 +816,43 @@ msgstr "錯誤：未指定謎題檔。"
 msgid "Importing puzzle \"%1\" into your collection"
 msgstr "匯入謎題 %1 到您的收藏中。"
 
-#: src/main.cpp:30
+#: src/main.cpp:47
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
 msgstr "Palapeli"
 
-#: src/main.cpp:32
+#: src/main.cpp:49
 #, kde-format
 msgid "Jigsaw Puzzle Game"
 msgstr "拼圖謎題遊戲"
 
-#: src/main.cpp:34
+#: src/main.cpp:51
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
 msgstr "Copyright 2009, 2010, Stefan Majewsky"
 
-#: src/main.cpp:37
+#: src/main.cpp:54
 #, kde-format
 msgid "Stefan Majewsky"
 msgstr "Stefan Majewsky"
 
-#: src/main.cpp:38
+#: src/main.cpp:55
 #, kde-format
 msgid "Johannes Loehnert"
 msgstr "Johannes Loehnert"
 
-#: src/main.cpp:39
+#: src/main.cpp:56
 #, kde-format
 msgid "The option to preview the completed puzzle"
 msgstr "預覽完整謎題的選項"
 
-#: src/main.cpp:48
+#: src/main.cpp:65
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "謎題檔的路徑（若未指定 -i 選項，則會被開啟）"
 
-#: src/main.cpp:49
+#: src/main.cpp:66
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -862,7 +862,7 @@ msgstr ""
 "匯入指定的謎題檔到本地端收藏（若沒有提供指定檔案，則不做任何事）。這個主視窗"
 "將不會在匯入指定的拼圖後顯示"
 
-#: src/main.cpp:63
+#: src/main.cpp:80
 #, kde-format
 msgid "No file to import given"
 msgstr "未提供要匯入的檔案"

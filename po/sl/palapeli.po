@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-02 00:37+0000\n"
+"POT-Creation-Date: 2024-11-22 00:38+0000\n"
 "PO-Revision-Date: 2024-05-02 09:31+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -848,43 +848,43 @@ msgstr "Napaka: izrezljanka ni bila podana."
 msgid "Importing puzzle \"%1\" into your collection"
 msgstr "Uvažanje izrezljanke \"%1\" v vašo zbirko"
 
-#: src/main.cpp:30
+#: src/main.cpp:47
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
 msgstr "Palapeli"
 
-#: src/main.cpp:32
+#: src/main.cpp:49
 #, kde-format
 msgid "Jigsaw Puzzle Game"
 msgstr "Igra izrezljanke"
 
-#: src/main.cpp:34
+#: src/main.cpp:51
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
 msgstr "Avtorske pravice 2009, 2010, Stefan Majewsky"
 
-#: src/main.cpp:37
+#: src/main.cpp:54
 #, kde-format
 msgid "Stefan Majewsky"
 msgstr "Stefan Majewsky"
 
-#: src/main.cpp:38
+#: src/main.cpp:55
 #, kde-format
 msgid "Johannes Loehnert"
 msgstr "Johannes Loehnert"
 
-#: src/main.cpp:39
+#: src/main.cpp:56
 #, kde-format
 msgid "The option to preview the completed puzzle"
 msgstr "Možnost za predogled končane izrezljanke"
 
-#: src/main.cpp:48
+#: src/main.cpp:65
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "Pot do datoteke z izrezljanko (bo odprta, če ni podan parameter -i)"
 
-#: src/main.cpp:49
+#: src/main.cpp:66
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -894,7 +894,7 @@ msgstr ""
 "Uvozi dano izrezljanko v krajevno zbirko (ne naredi nič, če ni podane "
 "izrezljanke). Po uvozu podane izrezljanke se ne bo prikazalo glavno okno."
 
-#: src/main.cpp:63
+#: src/main.cpp:80
 #, kde-format
 msgid "No file to import given"
 msgstr "Ni dane datoteke za uvoz"

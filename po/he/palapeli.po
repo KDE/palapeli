@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-02 00:37+0000\n"
+"POT-Creation-Date: 2024-11-22 00:38+0000\n"
 "PO-Revision-Date: 2024-10-14 20:58+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -829,43 +829,43 @@ msgstr "שגיאה: לא סופק קובץ פאזל."
 msgid "Importing puzzle \"%1\" into your collection"
 msgstr "הפאזל „%1” מיובא לאוסף שלך."
 
-#: src/main.cpp:30
+#: src/main.cpp:47
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
 msgstr "פָּלַאפֵּלִי"
 
-#: src/main.cpp:32
+#: src/main.cpp:49
 #, kde-format
 msgid "Jigsaw Puzzle Game"
 msgstr "משחק פאזל מזוגזג"
 
-#: src/main.cpp:34
+#: src/main.cpp:51
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
 msgstr "כל הזכויות שמורות 2009, 2010, סטפן מייבסקי"
 
-#: src/main.cpp:37
+#: src/main.cpp:54
 #, kde-format
 msgid "Stefan Majewsky"
 msgstr "סטפן מייבסקי"
 
-#: src/main.cpp:38
+#: src/main.cpp:55
 #, kde-format
 msgid "Johannes Loehnert"
 msgstr "יוהאנס לוינרט"
 
-#: src/main.cpp:39
+#: src/main.cpp:56
 #, kde-format
 msgid "The option to preview the completed puzzle"
 msgstr "האפשרות להצגה מקדימה של הפאזל הפתור"
 
-#: src/main.cpp:48
+#: src/main.cpp:65
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
 msgstr "נתיב לקובץ פאזל (ייפתח אם לא סופק ‎-i)"
 
-#: src/main.cpp:49
+#: src/main.cpp:66
 #, kde-format
 msgid ""
 "Import the given puzzle file into the local collection (does nothing if no "
@@ -875,7 +875,7 @@ msgstr ""
 "ייבוא קובץ הפאזל הנתון לאוסף המקומי (לא עוש כלום אם לא סופק פאזל). החלון "
 "הראשי לא יופיע לאחר ייבוא הפאזל הנתון."
 
-#: src/main.cpp:63
+#: src/main.cpp:80
 #, kde-format
 msgid "No file to import given"
 msgstr "לא סופק קובץ לייבוא"
