@@ -64,6 +64,18 @@ kconfig_add_kcfg_files(palapeli settings.kcfgc)
 
 ki18n_wrap_ui(palapeli settings.ui)
 
+if(APPLE)
+    set_target_properties(palapeli PROPERTIES
+           MACOSX_BUNDLE_DISPLAY_NAME "Palapeli"
+        MACOSX_BUNDLE_BUNDLE_NAME "Palapeli"
+       MACOSX_BUNDLE_LONG_VERSION_STRING "Palapeli ${RELEASE_SERVICE_VERSION}"
+        MACOSX_BUNDLE_SHORT_VERSION_STRING "${RELEASE_SERVICE_VERSION_MAJOR}.${RELEASE_SERVICE_VERSION_MINOR}"
+        MACOSX_BUNDLE_BUNDLE_VERSION "${RELEASE_SERVICE_VERSION}"
+        MACOSX_BUNDLE_GUI_IDENTIFIER "org.kde.palapeli"
+        MACOSX_BUNDLE_COPYRIGHT "2024 The Palapeli Developers")
+endif()
+
+
 file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/*-apps-palapeli.png")
 ecm_add_app_icon(palapeli ICONS ${ICONS_SRCS})
 
