@@ -36,6 +36,7 @@
   <name xml:lang="pt">Palapeli</name>
   <name xml:lang="pt-BR">Palapeli</name>
   <name xml:lang="ru">Palapeli</name>
+  <name xml:lang="sa">पहेली</name>
   <name xml:lang="sk">Palapeli</name>
   <name xml:lang="sl">Palapeli</name>
   <name xml:lang="sr">Палапели</name>
@@ -76,6 +77,7 @@
   <summary xml:lang="pt">Jogo de 'puzzles'</summary>
   <summary xml:lang="pt-BR">Jogo de quebra-cabeça</summary>
   <summary xml:lang="ru">Игра-мозаика</summary>
+  <summary xml:lang="sa">आरा पहेली खेल</summary>
   <summary xml:lang="sk">Puzzle hra</summary>
   <summary xml:lang="sl">Igra izrezljank</summary>
   <summary xml:lang="sr">Игра слагања делова</summary>
@@ -120,6 +122,7 @@
     <p xml:lang="pt">O Palapeli é um jogo de 'puzzles' para um único jogador. Ao contrário de outros jogos do género, não está limitado a alinhar as peças em grelhas imaginárias. As peças podem ser movidas à vontade. Da mesma forma, o Palapeli oferece uma persistência real; i.e., tudo o que fizer é gravado no seu disco imediatamente.</p>
     <p xml:lang="pt-BR">O Palapeli é um jogo de quebra-cabeça para um único jogador. Diferente de outros jogos do gênero, você não está limitado a alinhar as peças em grades imaginárias. As peças são movidas livremente. Além disto, o Palapeli possui persistência real, por exemplo, tudo o que você faz é salvo no disco imediatamente.</p>
     <p xml:lang="ru">Palapeli — игра-мозаика для одного игрока. В отличие от других игр вэтом жанре, пользователь не просто размещает кусочки изображения на заранееопределённой решётке. Кусочки в этой игре можно передвигать произвольным образом. Крометого, в Palapeli предусмотрено немедленное сохранение всех действий пользователя на диск, что позволяет возобновить сбор с момента перерыва.</p>
+    <p xml:lang="sa">पलापेली इति एकक्रीडकस्य आरा-प्रहेलिका-क्रीडा । तस्मिन् विधायाः अन्येषां क्रीडाणां विपरीतम् भवन्तः काल्पनिकजालपुटेषु खण्डानां संरेखणं यावत् सीमिताः न सन्ति । खण्डाः स्वतन्त्रतया चलन्ति। अपि च, पलापेली वास्तविकं स्थायित्वं दर्शयति, अर्थात् भवता यत् किमपि कृतं तत् तत्क्षणमेव भवतः डिस्कमध्ये रक्षितं भवति ।</p>
     <p xml:lang="sk">Palapeli je puzzle hra pre jedného hráča. Na rozdiel od ostatných podobných hier nie ste obmedzení zarovnaním častí do imaginárnej mriežky. Časti je možné voľne presúvať. Palapeli obsahuje aj perzistenciu, teda všetko, čo urobíte, sa okamžite uloží na disk.</p>
     <p xml:lang="sl">Palapeli je enoigralska igra izrezljank. V nasprotju z drugimi igrami te vrste, niste omejeni na navidezno mrežo, v katero postavljate kose, ampak lahko slednje prosto premikate. Dodatna zmožnost programa Palapeli je tudi prava obstojnost rešitev, saj se vsak premik takoj shrani na disk.</p>
     <p xml:lang="sr">Палапели је игра слагања делова за једног играча. За разлику од других игара овог типа, нисте ограничени на уклапање делова у замишљене мреже, већ се делови могу слободно померати. Такође, Палапели изводи праву трајност, тј. све што учините одмах се уписује на диск.</p>
@@ -159,6 +162,7 @@
     <p xml:lang="pt">Funcionalidades:</p>
     <p xml:lang="pt-BR">Recursos:</p>
     <p xml:lang="ru">Возможности:</p>
+    <p xml:lang="sa">गुणाः:</p>
     <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sl">Zmožnosti:</p>
     <p xml:lang="sr">Могућности:</p>
@@ -198,6 +202,7 @@
       <li xml:lang="pt">Criar e jogar 'puzzles' que vão de 4 até 10 000 peças.</li>
       <li xml:lang="pt-BR">Crie e jogue quebra-cabeças indo de 4 a 10.000 peças</li>
       <li xml:lang="ru">Создание и сборка мозаики (от 4 до 10000 элементов)</li>
+      <li xml:lang="sa">४ तः १०,००० पर्यन्तं पहेलिकाः निर्माय क्रीडन्तु</li>
       <li xml:lang="sk">Vytvoriť a hrať puzzle siahajúce od 4 do 10 000 častí</li>
       <li xml:lang="sl">Ustvarite in rešite izrezljanke od velikosti 4 pa vse do velikosti 10000 kosov</li>
       <li xml:lang="sr">стварање и играње слагалица од 4 до 10.000 делова</li>
@@ -235,6 +240,7 @@
       <li xml:lang="pt">Armazéns de blocos de peças para ajudar a resolver 'puzzles' grandes</li>
       <li xml:lang="pt-BR">Recipiente de peças para ajudar a resolver quebra-cabeças grandes</li>
       <li xml:lang="ru">Панели для кусочков, облегчающие сборку большой мозаики</li>
+      <li xml:lang="sa">बृहत् प्रहेलिकानां समाधानं कर्तुं सहायतार्थं टुकड़ा-धारकाः</li>
       <li xml:lang="sk">Držiaky častí na pomoc pri riešení veľkých puzzle</li>
       <li xml:lang="sl">Vsebniki za kose, ki pomagajo pri večjih izrezljankah</li>
       <li xml:lang="sr">држачи делова као помоћ у решавању великих слагалица</li>
