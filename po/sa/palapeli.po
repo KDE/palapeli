@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-22 00:38+0000\n"
-"PO-Revision-Date: 2024-12-14 01:45+0530\n"
+"PO-Revision-Date: 2024-12-20 21:53+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -273,7 +273,7 @@ msgstr "नवीन पहेली रचयतु"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Image file:"
-msgstr "चित्रसञ्चिका : १."
+msgstr "चित्रसञ्चिका :"
 
 #: src/creator/puzzlecreator.cpp:52
 #, kde-format
@@ -285,19 +285,19 @@ msgstr "भवता यत् चित्रं चितं तत् अध�
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image name:"
-msgstr "चित्रस्य नाम : १."
+msgstr "चित्रस्य नाम :"
 
 #: src/creator/puzzlecreator.cpp:54
 #, kde-format
 msgctxt "@label:textbox (like in: This comment is optional.)"
 msgid "Optional comment:"
-msgstr "वैकल्पिक टिप्पणी : १."
+msgstr "वैकल्पिक टिप्पणी :"
 
 #: src/creator/puzzlecreator.cpp:55
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Name of image author:"
-msgstr "चित्रलेखकस्य नाम : १."
+msgstr "चित्रलेखकस्य नाम :"
 
 #: src/creator/puzzlecreator.cpp:63
 #, kde-format
@@ -376,7 +376,7 @@ msgstr "निम्नलिखितप्रहेलिकाः लोप�
 #, kde-format
 msgctxt "Filter for a file dialog"
 msgid "Palapeli puzzles (*.puzzle)"
-msgstr "पहेली पहेली (*.पहेली) २."
+msgstr "पहेली पहेली (*.पहेली)"
 
 #: src/engine/gameplay.cpp:317
 #, kde-format
@@ -783,8 +783,8 @@ msgstr "[नाम नास्ति] ।"
 msgctxt "Puzzle description, %2 = name string, %1 = piece count"
 msgid "%2 (%1 piece)"
 msgid_plural "%2 (%1 pieces)"
-msgstr[0] "%2 (%1 खण्डः) २."
-msgstr[1] "%2 (%1 खण्डाः) २."
+msgstr[0] "%2 (%1 खण्डः)"
+msgstr[1] "%2 (%1 खण्डाः)"
 
 #: src/file-io/collection-delegate.cpp:130
 #, kde-format
@@ -1001,13 +1001,13 @@ msgstr "पृष्ठभूमि:"
 #: src/settings.ui:55
 #, kde-format
 msgid "Color for highlighting selected pieces:"
-msgstr "चयनितखण्डान् प्रकाशयितुं वर्णः : १."
+msgstr "चयनितखण्डान् प्रकाशयितुं वर्णः :"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/settings.ui:75
 #, kde-format
 msgid "Space for solution:"
-msgstr "समाधानार्थं स्थानं : १."
+msgstr "समाधानार्थं स्थानं :"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: src/settings.ui:94
@@ -1023,7 +1023,7 @@ msgstr ""
 #: src/settings.ui:106
 #, kde-format
 msgid "Spacing of pieces in puzzle grids (1.0-1.5):"
-msgstr "पहेलीजालेषु (१.०-१.५) खण्डानां अन्तरालः : १."
+msgstr "पहेलीजालेषु (१.०-१.५) खण्डानां अन्तरालः :"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/settings.ui:156
@@ -1065,21 +1065,21 @@ msgstr "खण्डव्यवहारः"
 #, kde-format
 msgctxt "@label:slider"
 msgid "Snapping precision:"
-msgstr "स्नैपिंग परिशुद्धता : १."
+msgstr "स्नैपिंग परिशुद्धता :"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/settings.ui:241
 #, kde-format
 msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Very precise (harder)"
-msgstr "अतीव सटीकम् (कठिनतरम्) २."
+msgstr "अतीव सटीकम् (कठिनतरम्)"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/settings.ui:270
 #, kde-format
 msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Unprecise (easier)"
-msgstr "अशुद्ध (सुलभतर) २."
+msgstr "अशुद्ध (सुलभतर)"
 
 #: src/window/mainwindow.cpp:54
 #, kde-format
