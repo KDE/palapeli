@@ -32,7 +32,6 @@ namespace Palapeli
 			void setWheelAllowed(bool wheelAllowed);
 			bool isNoButtonAllowed() const;
 			void setNoButtonAllowed(bool noButtonAllowed);
-			bool showClearButton() const;
 			///If set, a call to setTrigger() will not immediately change the trigger. Instead, the triggerRequest() signal will be fired, and the new trigger will be set only after confirmTrigger() has been called.
 			bool requiresValidation() const;
 			void setRequiresValidation(bool requiresValidation);
