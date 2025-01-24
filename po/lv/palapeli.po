@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Einars Sprugis <einars8@gmail.com>, 2010, 2011.
-# SPDX-FileCopyrightText: 2024 Toms Trasūns <toms.trasuns@posteo.net>
+# SPDX-FileCopyrightText: 2024, 2025 Toms Trasūns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-22 00:38+0000\n"
-"PO-Revision-Date: 2024-09-09 15:08+0300\n"
+"PO-Revision-Date: 2025-01-20 16:24+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -49,7 +49,7 @@ msgstr "Iepriekšdefinētie iestatījumi"
 #, kde-format
 msgctxt "Puzzle grid type"
 msgid "Cairo (pentagonal) grid"
-msgstr "Cairo (pentagonālais) režģis"
+msgstr "„Cairo“ (pentagonālais) režģis"
 
 #: slicers/goldberg/grid.h:41
 #, kde-format
@@ -246,7 +246,7 @@ msgstr "Peles pogas"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Wheel"
-msgstr "Peles ritenis"
+msgstr "Peles rullītis"
 
 #: src/config/triggerlistview.cpp:17
 #, kde-format
@@ -371,7 +371,7 @@ msgstr "Pārstarēt"
 #: src/engine/gameplay.cpp:296
 #, kde-format
 msgid "The following puzzles will be deleted. This action cannot be undone."
-msgstr "Sekojošās puzles tiks dzēstas. Šī darbība nav atsaucama."
+msgstr "Programma dzēsīs šīs puzles. Šo darbību atsaukt nevarēsiet."
 
 #: src/engine/gameplay.cpp:315 src/engine/gameplay.cpp:341
 #, kde-format
@@ -431,7 +431,7 @@ msgid ""
 "You need to click on a piece holder to select it before you can select all "
 "the pieces in it."
 msgstr ""
-"Lai atlasītu visus gabaliņus gabaliņu turētāja, vispirms tas ir jāatlasa."
+"Lai atlasītu visus gabaliņus gabaliņu turētājā, vispirms tas ir jāatlasa."
 
 #: src/engine/gameplay.cpp:469
 #, kde-format
@@ -439,8 +439,8 @@ msgid ""
 "To rearrange pieces, either the puzzle table must have some selected pieces "
 "or there must be a selected holder with some selected pieces in it."
 msgstr ""
-"Lai pārkārtotu gabaliņus, vai nu uz puzles galda ir jābūt atlasītiem dažiem "
-"gabaliņiem, vai arī ir jāatlasa turētājs ar gabaliņiem."
+"Lai sakārtotu gabaliņus uz puzles galda ir jābūt atlasītiem dažiem "
+"gabaliņiem vai arī ir jāatlasa turētājs ar gabaliņiem."
 
 #: src/engine/gameplay.cpp:531
 #, kde-format
@@ -555,10 +555,10 @@ msgstr ""
 "lasiet „Palapeli“ rokasgrāmatā („Palīdzības“ izvēlnē), bet šeit sniedzam "
 "dažus vienkāršākus padomus.\n"
 "\n"
-"Pirms sākat likt ir ieteicams lielās puzlēs neizmantot slīpumus un ēnojumus "
-"(skatiet „Iestatījumu“ lodziņu, jo tas var palēnināt ielādi, bet "
-"iekrāsojumus ir grūtāk redzēt, kad redzamības laukā esošie gabaliņi ir ļoti "
-"mazi.\n"
+"Pirms sākat likt ir ieteicams lielās puzlēs nerādīt trīsdimensionālus "
+"kauliņus un ēnojumus (skatiet „Iestatījumu“ lodziņu, jo tas var palēnināt "
+"ielādi, bet iekrāsojumus ir grūtāk redzēt, kad redzamības laukā esošie "
+"gabaliņi ir ļoti mazi.\n"
 "\n"
 "Pirmā noderīgā iespēja ir pārskats (attēls ar pabeigtu puzli) un rīkjoslas "
 "poga tā ieslēgšanai un izslēgšanai. Pārvietojot peles kursoru virs pārskata, "
@@ -602,7 +602,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window for hints"
 msgid "Solving Large Puzzles"
-msgstr "Lielu pužļu risināšana"
+msgstr "Lielu pužļu salikšana"
 
 #: src/engine/gameplay.cpp:1195
 #, kde-format
@@ -673,7 +673,7 @@ msgstr "Slēgt un atslēgt puzles galda apgabalu"
 #, kde-format
 msgctxt "@title:window"
 msgid "Preview of Completed Puzzle"
-msgstr "Saliktas puzles pārskats"
+msgstr "Saliktas puzles attēls"
 
 #: src/engine/puzzlepreview.cpp:36
 #, kde-format
@@ -685,7 +685,7 @@ msgstr "Attēls nav pieejams."
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 - Preview"
-msgstr "%1 — pārskats"
+msgstr "%1 — attēls"
 
 #: src/engine/texturehelper.cpp:52
 #, kde-format
@@ -772,7 +772,7 @@ msgstr "Vertikālais rullītis"
 #: src/engine/view.cpp:338
 #, kde-format
 msgid "Your progress is saved automatically while you play."
-msgstr "Spēles stāvoklis tiek saglabāts automātiski."
+msgstr "Spēles stāvoklis saglabājas automātiski."
 
 #: src/engine/view.cpp:339
 #, kde-format
@@ -804,7 +804,7 @@ msgstr[2] "%2 (%1 gabaliņu)"
 #, kde-format
 msgctxt "@info author attribution"
 msgid "By %1"
-msgstr "Autors %1"
+msgstr "Autors: %1"
 
 #: src/file-io/collection-view.cpp:58
 #, kde-format
@@ -855,7 +855,7 @@ msgstr "Palapeli"
 #: src/main.cpp:49
 #, kde-format
 msgid "Jigsaw Puzzle Game"
-msgstr "Puzles salikšanas spēle"
+msgstr "Lieciet puzles"
 
 #: src/main.cpp:51
 #, kde-format
@@ -875,7 +875,7 @@ msgstr "Johannes Loehnert"
 #: src/main.cpp:56
 #, kde-format
 msgid "The option to preview the completed puzzle"
-msgstr "Iespēja pārskatīt salikto puzli"
+msgstr "Iespēja apskatīt saliktu puzli"
 
 #: src/main.cpp:65
 #, kde-format
@@ -946,7 +946,7 @@ msgid ""
 "Spacing of pieces in puzzle grids relative to the size of the largest piece "
 "(spacing factor is 1.0 + 0.05 * value)."
 msgstr ""
-"Puzles režģu atstarpes relatīvi pret lielākā gabaliņa izmēru (atstarpes "
+"Puzles režģu attālumi relatīvi pret lielākā gabaliņa izmēru (atstarpes "
 "faktors ir 1,0+0,05 ✕ vērtība)"
 
 #. i18n: ectx: label, entry (ShowStatusBar), group (Appearance)
@@ -976,20 +976,20 @@ msgid ""
 "Whether to render bevels on the puzzle pieces. Turning this off might "
 "improve puzzle loading performance."
 msgstr ""
-"Vai attēlot slīpumus uz puzles gabaliņiem. Šo izslēdzot, varētu uzlaboties "
-"puzles ielādes ātrums."
+"Vai rādīt trīsdimensionālus puzles gabaliņus. Šo izslēdzot, varētu "
+"uzlaboties puzles ielādes ātrums."
 
 #. i18n: ectx: label, entry (PuzzlePreviewVisible), group (PuzzlePreview)
 #: src/palapeli.kcfg:46
 #, kde-format
 msgid "Whether the preview window was switched on last time Palapeli was run."
-msgstr "Vai pārskata logs ir ieslēgts, pēdējo reizi spēlējot „Palapeli“."
+msgstr "Vai attēla logs ir ieslēgts, pēdējo reizi spēlējot „Palapeli“."
 
 #. i18n: ectx: label, entry (PuzzlePreviewGeometry), group (PuzzlePreview)
 #: src/palapeli.kcfg:50
 #, kde-format
 msgid "Last position and size of puzzle preview."
-msgstr "Puzles pārskata pēdējais novietojums un izmērs."
+msgstr "Puzles attēla pēdējais novietojums un izmērs."
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/palapeliui.rc:35
@@ -1049,7 +1049,7 @@ msgstr "Gabaliņu izskats"
 #: src/settings.ui:162
 #, kde-format
 msgid "Draw bevels to create a 3-dimensional appearance"
-msgstr "Zīmēt slīpumus, lai izveidotu trīsdimensionālu izskatu"
+msgstr "Zīmēt trīsdimensionālus gabaliņus"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceShadowsEnabled)
 #: src/settings.ui:172
@@ -1212,7 +1212,7 @@ msgstr "Atlasīt visus gabaliņus aktīvajā turētājā"
 #, kde-format
 msgctxt "@action"
 msgid "&Rearrange Pieces"
-msgstr "&Pārkārtot gabaliņus"
+msgstr "&Sakārtot gabaliņus"
 
 #: src/window/mainwindow.cpp:132
 #, kde-format
@@ -1221,20 +1221,20 @@ msgid ""
 "Rearrange all pieces in a selected piece holder or selected pieces in any "
 "window"
 msgstr ""
-"Pārkārtot visus gabaliņus atlasītajā gabaliņu turētājā vai jebkurā logā "
+"Sakārtot visus gabaliņus atlasītajā gabaliņu turētājā vai jebkurā logā "
 "atlasītos gabaliņus"
 
 #: src/window/mainwindow.cpp:140
 #, kde-format
 msgctxt "@option:check"
 msgid "Show Preview"
-msgstr "Rādīt puzles pārskatu"
+msgstr "Rādīt puzles attēlu"
 
 #: src/window/mainwindow.cpp:141
 #, kde-format
 msgctxt "@option:check Preview is a noun here"
 msgid "Preview"
-msgstr "Pārskats"
+msgstr "Attēls"
 
 #: src/window/mainwindow.cpp:142
 #, kde-format
