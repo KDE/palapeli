@@ -70,7 +70,7 @@
   <summary xml:lang="it">Gioco di puzzle</summary>
   <summary xml:lang="ka">პაზლის თამაში</summary>
   <summary xml:lang="ko">조각 퍼즐 게임</summary>
-  <summary xml:lang="lv">Puzles spēle</summary>
+  <summary xml:lang="lv">Izveido un liec puzles</summary>
   <summary xml:lang="nl">Legpuzzelspel</summary>
   <summary xml:lang="nn">Puslespelspel</summary>
   <summary xml:lang="pl">Układanie puzzli</summary>
@@ -115,7 +115,7 @@
     <p xml:lang="it">Palapeli è un gioco di puzzle a giocatore singolo. A differenza di altri giochi di questo genere, non sei limitato ad allineare pezzi su griglie immaginarie. I pezzi possono essere spostati liberamente. Palapeli, inoltre, ha la caratteristica della persistenza, ossia tutto quello che fai viene salvato immediatamente sul disco.</p>
     <p xml:lang="ka">Palapeli ერთი მოთამაშის მოზაიკის თამაშია. ამ ჟანრის სხვა თამაშებისგან განსხვავებით ის წარმოსახვით ბადეზე ნაწილების დალაგებაზე შეზღუდული არაა. ეს ნაწილები თავისუფლად-გადატანადია. ასევე Palapeli-ის ფუნქციებშია ნამდვილი მდგრადობა, ანუ, რასაც აკეთებთ, მომენტალურად ინახება.</p>
     <p xml:lang="ko">Palapeli는 1인용 조각 퍼즐 게임입니다. 단순히 조각을 그리드를 따라 맞추는 것이 아니라 자유롭게 이동할 수 있습니다. Palapeli는 즉시 자동 저장을 지원합니다.</p>
-    <p xml:lang="lv">„Palapeli“ ir puzles salikšanas spēle vienam spēlētājam. Atšķirībā no daudzām citām līdzīgām spēlēm šajā spēlētājam kauliņi nav jāliek iedomātā režģī, bet tie ir brīvi pārvietojami. Tāpat arī „Palapeli“ nodrošina pilnīgu pastāvību — programma nekavējoties saglabā visu, ko spēlētājs izdara.</p>
+    <p xml:lang="lv">„Palapeli“ ir puzles spēle vienam spēlētājam. Atšķirībā no daudzām citām līdzīgām datorspēlēm šajā spēlētājam kauliņi nav jāliek iedomātā režģī, bet tie ir brīvi pārvietojami. Tāpat arī „Palapeli“ uzreiz saglabā visas spēlētāja veiktās darbības.</p>
     <p xml:lang="nl">Palapeli is een legpuzzelspel voor één persoon. Anders dan in andere spellen in dit genre bent u niet gelimiteerd om stukjes op imaginaire rasters te plaatsen. De stukjes zijn vrij te verplaatsen. Palapeli heeft de echte blijvende functie, d.w.z. alles wat u doet wordt onmiddellijk opgeslagen op uw schijf.</p>
     <p xml:lang="nn">Palapeli er eit puslespelspel for éin spelar. I motsetning til liknande spel, treng du her ikkje plassera brikkene på eit fast rutenett; du kan flytta dei fritt rundt. Alt du gjer vert òg automatisk lagra, slik at du kan halda fram med puslespelet seinare.</p>
     <p xml:lang="pl">Palapeli jest programem do układania puzzli dla pojedynczego gracza. W odróżnieniu od innych układanego z tego rodzaju nie jesteś ograniczony przy układaniu kawałków na wyobrażalnych siatkach. Kawałki można dowolnie przesuwać. Palapeli zapewnia także trwałość, tj. po każdym twoim ruchu,  wszystko jest zapisywane na dysk natychmiastowo.</p>
