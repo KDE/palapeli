@@ -1,21 +1,20 @@
-# Copyright (C) YEAR This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
+# Spanish translations for palapeli.po package.
+# Copyright (C) 2009-2025 This file is copyright:
+# This file is distributed under the same license as the palapeli package.
 #
-# Sofia Priego <spriego@darksylvania.net>, %Y.
-# Sofía Priego <spriego@darksylvania.net>, %Y.
-# Ignacio Poggi <ignaciop.3@gmail.com>, 2009.
-# Kira J. Fernandez <kirajfdez@gmail.com>, 2010, 2011.
-# Huever, 2010.
-# Kira J. Fernandez <kirajfdez@gmail.es>, 2011.
-# SPDX-FileCopyrightText: 2014, 2015, 2017, 2020, 2021, 2022, 2024 Eloy Cuadra <ecuadra@eloihr.net>
-# David Paul <eodos0@gmail.com>, 2014.
+# SPDX-FileCopyrightText: 2009 Ignacio Poggi <ignaciop.3@gmail.com>
+# SPDX-FileCopyrightText: 2010, 2011 Kira J. Fernandez <kirajfdez@gmail.com>
+# SPDX-FileCopyrightText: 2011 Kira J. Fernandez <kirajfdez@gmail.es>
+# SPDX-FileCopyrightText: 2014, 2015, 2017, 2020, 2021, 2022, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2014 David Paul <eodos0@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025 Sofía Priego <spriego@darksylvania.net>
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-22 00:38+0000\n"
-"PO-Revision-Date: 2024-05-02 19:18+0100\n"
-"Last-Translator: Sofía Priego <spriego@darksylvania.net>\n"
+"PO-Revision-Date: 2025-04-25 22:49+0100\n"
+"Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -215,7 +214,7 @@ msgstr "Eliminar este activador"
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Input here…"
-msgstr "Entrada aquí..."
+msgstr "Entrada aquí…"
 
 #: src/config/mouseinputbutton.cpp:120
 #, kde-format
@@ -824,7 +823,7 @@ msgstr "Por %1"
 #, kde-format
 msgctxt "@action:button that pops up sorting strategy selection menu"
 msgid "Sort List…"
-msgstr "Ordenar la lista..."
+msgstr "Ordenar la lista…"
 
 #: src/file-io/collection-view.cpp:61
 #, kde-format
@@ -842,7 +841,7 @@ msgstr "Por número de piezas"
 #, kde-format
 msgctxt "@info:status"
 msgid "Loading puzzle…"
-msgstr "Cargando rompecabezas..."
+msgstr "Cargando rompecabezas…"
 
 #: src/file-io/collection.cpp:109
 #, kde-format
@@ -1136,7 +1135,7 @@ msgstr "Volver a la colección para elegir otro rompecabezas"
 #, kde-format
 msgctxt "@action"
 msgid "Create &New Puzzle…"
-msgstr "Crear un &nuevo rompecabezas..."
+msgstr "Crear un &nuevo rompecabezas…"
 
 #: src/window/mainwindow.cpp:67
 #, kde-format
@@ -1160,7 +1159,7 @@ msgstr "Borrar el rompecabezas seleccionado de la colección"
 #, kde-format
 msgctxt "@action"
 msgid "&Import from File…"
-msgstr "&Importar de archivo..."
+msgstr "&Importar de archivo…"
 
 #: src/window/mainwindow.cpp:84
 #, kde-format
@@ -1172,7 +1171,7 @@ msgstr "Importar un nuevo rompecabezas de un archivo a la colección"
 #, kde-format
 msgctxt "@action"
 msgid "&Export to File…"
-msgstr "&Exportar a archivo..."
+msgstr "&Exportar a archivo…"
 
 #: src/window/mainwindow.cpp:92
 #, kde-format
@@ -1184,7 +1183,7 @@ msgstr "Exportar el rompecabezas seleccionado de la colección a un archivo"
 #, kde-format
 msgctxt "@action"
 msgid "&Restart Puzzle…"
-msgstr "&Reiniciar el rompecabezas..."
+msgstr "&Reiniciar el rompecabezas…"
 
 #: src/window/mainwindow.cpp:100
 #, kde-format
@@ -1196,7 +1195,7 @@ msgstr "Borrar el avance guardado y volver a barajar las piezas"
 #, kde-format
 msgctxt "@action"
 msgid "&Create Piece Holder…"
-msgstr "&Crear un portapiezas..."
+msgstr "&Crear un portapiezas…"
 
 #: src/window/mainwindow.cpp:108
 #, kde-format
@@ -1294,27 +1293,3 @@ msgstr "Has completado el rompecabezas."
 msgctxt "@info:progress"
 msgid "%1% finished"
 msgstr "%1 % completado"
-
-#~ msgctxt ""
-#~ "This is used for describing that no mouse action has been assigned to "
-#~ "this interaction plugin."
-#~ msgid "None"
-#~ msgstr "Ninguna"
-
-#~ msgid "Create &New Puzzle..."
-#~ msgstr "Crear &nuevo rompecabezas..."
-
-#~ msgctxt "Preview is a noun here"
-#~ msgid "&Preview"
-#~ msgstr "Vista &previa"
-
-#~ msgid ""
-#~ "If the -i/--import option is specified, the main window will not be shown "
-#~ "after importing the given puzzle."
-#~ msgstr ""
-#~ "Si se usa la opción -i/--import, no se mostrará la ventana principal tras "
-#~ "importar el rompecabezas indicado."
-
-#~ msgctxt "As in a movie close-up scene"
-#~ msgid "Close-up View"
-#~ msgstr "Vista en primer plano"
