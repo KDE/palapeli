@@ -420,8 +420,8 @@ msgid ""
 "You need to click on a piece holder to select it before you can delete it, "
 "or you can just click on its Close button."
 msgstr ""
-"Cal clicar en un contenidor de peces per a seleccionar-lo abans que el "
-"pugues suprimir o senzillament pots clicar en el seu botó de tancar."
+"Cal clicar damunt d'un contenidor de peces per a seleccionar-lo abans que el "
+"pugues suprimir o senzillament pots clicar damunt del seu botó de tancar."
 
 #: src/engine/gameplay.cpp:424
 #, kde-format
@@ -443,8 +443,8 @@ msgid ""
 "You need to click on a piece holder to select it before you can select all "
 "the pieces in it."
 msgstr ""
-"Cal clicar en un contenidor de peces per a seleccionar-lo abans que pugues "
-"seleccionar les seues peces."
+"Cal clicar damunt d'un contenidor de peces per a seleccionar-lo abans que "
+"pugues seleccionar les seues peces."
 
 #: src/engine/gameplay.cpp:469
 #, kde-format
@@ -598,7 +598,7 @@ msgstr ""
 "peces des d'on les trobes en l'àrea de la solució.\n"
 "\n"
 "Utilitza un clic especial del ratolí per a transferir les peces cap a dins o "
-"fora d'un contenidor (drecera predeterminada «Maj+botó esquerre»). Primer, "
+"fora d'un contenidor (drecera predeterminada «Majús+botó esquerre»). Primer, "
 "assegura't que el contenidor que vols utilitzar estiga actiu: hauria de "
 "tindre un contorn blau. Si no és així, clica'l. Per a transferir peces cap "
 "al contenidor, selecciona-les en la taula del trencaclosques i després fes "
