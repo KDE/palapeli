@@ -231,7 +231,7 @@
 ><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Crear nuevo rompecabezas...</guiicon
+>Crear nuevo rompecabezas…</guiicon
 ></term>
           <listitem>
             <para
@@ -269,7 +269,7 @@
 ><imagedata fileref="document-import.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Importar de archivo...</guiicon
+>Importar de archivo…</guiicon
 ></term>
           <listitem
 ><para
@@ -287,7 +287,7 @@
 ><imagedata fileref="document-export.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Exportar a archivo...</guiicon
+>Exportar a archivo…</guiicon
 ></term>
           <listitem
 ><para
@@ -314,7 +314,7 @@
 ><imagedata fileref="tools-wizard.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <guiicon
->Crear  nuevo rompecabezas...</guiicon
+>Crear  nuevo rompecabezas…</guiicon
 > en la ventana de la colección de rompecabezas.</para>
     <para
 >Al pulsar este icono de acción se abre el diálogo de creación de rompecabezas, que consta de tres páginas:</para>
@@ -841,13 +841,13 @@
 ><guimenu
 >Opciones</guimenu
 > <guimenuitem
->Configurar &palapeli;...</guimenuitem
+>Configurar &palapeli;…</guimenuitem
 > </menuchoice
 > o, en &macOS;, <menuchoice
 ><guimenu
 >&palapeli;</guimenu
 > <guimenuitem
->Preferencias...</guimenuitem
+>Preferencias…</guimenuitem
 ></menuchoice
 >. </para>
       <para
@@ -946,7 +946,7 @@
 > <guimenu
 >Mover</guimenu
 ><guimenuitem
-> Crear portapiezas...</guimenuitem
+> Crear portapiezas…</guimenuitem
 ></menuchoice
 > o <menuchoice
 ><shortcut
@@ -1049,7 +1049,7 @@
 ><guimenu
 >Juego</guimenu
 ><guimenuitem
->Crear nuevo rompecabezas...</guimenuitem
+>Crear nuevo rompecabezas…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1069,7 +1069,7 @@
 ><guimenu
 >Juego</guimenu
 ><guimenuitem
->Importar de archivo...</guimenuitem
+>Importar de archivo…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1087,7 +1087,7 @@
 ><guimenu
 >Juego</guimenu
 ><guimenuitem
->Exportar a archivo...</guimenuitem
+>Exportar a archivo…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1123,7 +1123,7 @@
 ><guimenu
 >Juego</guimenu
 ><guimenuitem
->Reiniciar rompecabezas...</guimenuitem
+>Reiniciar rompecabezas…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1166,7 +1166,7 @@
 ><guimenu
 >Mover</guimenu
 ><guimenuitem
->Crear portapiezas...</guimenuitem
+>Crear portapiezas…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1355,7 +1355,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar &palapeli;...</guimenuitem
+>Configurar &palapeli;…</guimenuitem
 ></menuchoice
 ></term>
         <listitem
@@ -1386,7 +1386,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar &palapeli;...</guimenuitem
+>Configurar &palapeli;…</guimenuitem
 ></menuchoice
 >.</para>
     <sect1 id="configuration-general">
