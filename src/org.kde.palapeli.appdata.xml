@@ -270,6 +270,7 @@
   </provides>
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="2.1.25080" date="2025-08-14"/>
     <release version="2.1.25043" date="2025-07-03"/>
     <release version="2.1.25042" date="2025-06-05"/>
     <release version="2.1.25041" date="2025-05-08"/>
