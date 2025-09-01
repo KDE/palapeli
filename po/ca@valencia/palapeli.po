@@ -306,7 +306,7 @@ msgstr "Nom de l'autor de la imatge:"
 #, kde-format
 msgctxt "@item:inlistbox (page name in an assistant dialog)"
 msgid "Choose image"
-msgstr "Selecciona una imatge"
+msgstr "Tria una imatge"
 
 #: src/creator/puzzlecreator.cpp:64
 #, kde-format
@@ -318,7 +318,7 @@ msgstr "Especifica l'origen de la imatge que es tallarà en peces"
 #, kde-format
 msgctxt "@item:inlistbox (page name in an assistant dialog)"
 msgid "Choose slicer"
-msgstr "Selecciona el tallador"
+msgstr "Tria el tallador"
 
 #: src/creator/puzzlecreator.cpp:67
 #, kde-format
@@ -435,7 +435,7 @@ msgid ""
 "The selected piece holder must contain some pieces for 'Select all' to use."
 msgstr ""
 "Cal que el contenidor de peces seleccionat tinga alguna peça per a utilitzar "
-"«Selecciona-les totes»."
+"«Tria-les totes»."
 
 #: src/engine/gameplay.cpp:449
 #, kde-format
@@ -487,7 +487,7 @@ msgid ""
 "holder or select pieces from the puzzle table to be transferred into it."
 msgstr ""
 "Cal seleccionar una o més peces que es transferiran fora del contenidor "
-"seleccionat o seleccionar peces des de la taula del trencaclosques per a "
+"seleccionat o triar les peces des de la taula del trencaclosques per a "
 "transferir-les."
 
 #: src/engine/gameplay.cpp:593
@@ -566,9 +566,9 @@ msgid ""
 "window can do, including joining pieces to build up a part of the solution."
 msgstr ""
 "Acabes de crear un trencaclosques gran: Palapeli té diverses "
-"característiques per a ajudar a resoldre'l en l'espai limitat de "
-"l'escriptori. Es descriuen en detall en el manual de Palapeli (en el menú "
-"Ajuda). Ací hi ha alguns consells ràpids.\n"
+"característiques per ajudar a resoldre'l en l'espai limitat de l'escriptori. "
+"Es descriuen en detall en el manual de Palapeli (en el menú Ajuda). Ací hi "
+"ha alguns consells ràpids.\n"
 "\n"
 "Abans de començar, és millor no utilitzar bisells o ombrejats amb els "
 "trencaclosques grans (vegeu el diàleg Configuració), perquè es fa més lenta "
@@ -601,17 +601,17 @@ msgstr ""
 "fora d'un contenidor (drecera predeterminada «Majús+botó esquerre»). Primer, "
 "assegura't que el contenidor que vols utilitzar estiga actiu: hauria de "
 "tindre un contorn blau. Si no és així, clica'l. Per a transferir peces cap "
-"al contenidor, selecciona-les en la taula del trencaclosques i després fes "
-"el clic especial per a «teletransportar-les» cap al contenidor. O també pots "
-"fer el clic especial en una peça a la vegada.\n"
+"al contenidor, tria-les a la taula del trencaclosques i després fes el clic "
+"especial per a «teletransportar-les» cap al contenidor. O també pots fer el "
+"clic especial en una peça a la vegada.\n"
 "\n"
 "Per a transferir peces cap a fora d'un contenidor, assegura't que no hi ha "
 "cap peça seleccionada en la taula del trencaclosques, ves fins a dins la "
-"finestra del contenidor i selecciona algunes peces, utilitzant les "
-"operacions normals del ratolí de Palapeli, després torna a la taula del "
-"trencaclosques i fes el clic especial en un espai buit a on vullgues que "
-"arriben les peces. No transferisques més d'algunes peces a la vegada, per a "
-"evitar col·lisions de peces en la taula del trencaclosques.\n"
+"finestra del contenidor i tria algunes peces, utilitzant les operacions "
+"normals del ratolí de Palapeli, després torna a la taula del trencaclosques "
+"i fes el clic especial en un espai buit a on vullgues que arriben les peces. "
+"No transferisques més d'algunes peces a la vegada, per a evitar col·lisions "
+"de peces en la taula del trencaclosques.\n"
 "\n"
 "Per cert, els contenidors poden fer quasi totes les coses que pot fer la "
 "taula del trencaclosques i les seues finestres, incloent-hi unir peces per a "
@@ -638,7 +638,7 @@ msgstr "Mou les peces arrossegant-les"
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Select pieces by clicking"
-msgstr "Selecciona les peces clicant-les"
+msgstr "Tria les peces clicant-les"
 
 #: src/engine/interactors.cpp:176
 #, kde-format
@@ -680,7 +680,7 @@ msgstr "Desplaça verticalment l'àrea de visualització"
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Select multiple pieces at once"
-msgstr "Selecciona múltiples peces alhora"
+msgstr "Tria múltiples peces alhora"
 
 #: src/engine/interactors.cpp:411
 #, kde-format
@@ -1230,13 +1230,13 @@ msgstr "Suprimix el contenidor temporal seleccionat que estiga buit"
 #, kde-format
 msgctxt "@action"
 msgid "&Select All in Holder"
-msgstr "&Selecciona-les totes en el contenidor"
+msgstr "&Tria-les totes en el contenidor"
 
 #: src/window/mainwindow.cpp:125
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select all pieces in a selected piece holder"
-msgstr "Selecciona totes les peces en el contenidor de peces seleccionat"
+msgstr "Tria totes les peces en el contenidor de peces seleccionat"
 
 #: src/window/mainwindow.cpp:131
 #, kde-format
