@@ -34,7 +34,6 @@
                 "Name[sv]": "Stefan Majewsky",
                 "Name[tr]": "Stefan Majewsky",
                 "Name[uk]": "Stefan Majewsky",
-                "Name[x-test]": "xxStefan Majewskyxx",
                 "Name[zh_TW]": "Stefan Majewsky"
             }
         ],
@@ -85,7 +84,6 @@
         "Name[sv]": "Rektangulära bitar",
         "Name[tr]": "Dikdörtgen parçalar",
         "Name[uk]": "Прямокутні шматочки",
-        "Name[x-test]": "xxRectangular piecesxx",
         "Name[zh_CN]": "矩形拼图",
         "Name[zh_TW]": "矩形拼圖片",
         "Version": "0.3"
