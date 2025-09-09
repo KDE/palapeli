@@ -34,7 +34,6 @@
                 "Name[sv]": "Stefan Majewsky",
                 "Name[tr]": "Stefan Majewsky",
                 "Name[uk]": "Stefan Majewsky",
-                "Name[x-test]": "xxStefan Majewskyxx",
                 "Name[zh_TW]": "Stefan Majewsky"
             }
         ],
@@ -83,7 +82,6 @@
         "Name[sv]": "Klassiska pusselbitar",
         "Name[tr]": "Klasik yapboz parçaları",
         "Name[uk]": "Класичні шматочки складанки",
-        "Name[x-test]": "xxClassic jigsaw piecesxx",
         "Name[zh_CN]": "传统拼图",
         "Name[zh_TW]": "傳統的拼圖片",
         "Version": "0.3"

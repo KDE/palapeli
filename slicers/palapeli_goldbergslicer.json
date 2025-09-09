@@ -34,7 +34,6 @@
                 "Name[sv]": "Johannes Loehnert",
                 "Name[tr]": "Johannes Loehnert",
                 "Name[uk]": "Johannes Loehnert",
-                "Name[x-test]": "xxJohannes Loehnertxx",
                 "Name[zh_TW]": "Johannes Loehnert"
             }
         ],
@@ -68,7 +67,6 @@
         "Description[sv]": "Tidigare känd som Goldberg delningsverktyg",
         "Description[tr]": "Önceden Goldberg Slicer bilinir",
         "Description[uk]": "Раніше відомий як «Розрізувач Ґолдберґа»",
-        "Description[x-test]": "xxFormerly known as Goldberg Slicerxx",
         "Description[zh_TW]": "舊稱 Goldberg Slicer",
         "License": "GPL",
         "Name": "Palapeli Slicer Collection",
@@ -114,7 +112,6 @@
         "Name[sv]": "Palapelis samling av delningsverktyg",
         "Name[tr]": "Palapeli Slider Koleksiyou",
         "Name[uk]": "Збірка інструментів розрізання Palapeli",
-        "Name[x-test]": "xxPalapeli Slicer Collectionxx",
         "Name[zh_CN]": "Palapeli 切分器收藏",
         "Name[zh_TW]": "Palapeli 切割器收藏",
         "Version": "0.3"
