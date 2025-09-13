@@ -154,13 +154,13 @@ msgstr "导出网格图像"
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
-msgstr ""
+msgstr "常规"
 
 #: src/config/configdialog.cpp:64
 #, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Interaction"
-msgstr ""
+msgstr "鼠标交互"
 
 #: src/config/configdialog.cpp:111
 #, kde-format
@@ -208,7 +208,7 @@ msgstr "删除此触发器"
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Input here…"
-msgstr ""
+msgstr "在此输入..."
 
 #: src/config/mouseinputbutton.cpp:120
 #, kde-format
@@ -236,13 +236,13 @@ msgstr "点击可更改的操作的触发方式"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Buttons"
-msgstr ""
+msgstr "鼠标按钮"
 
 #: src/config/triggerconfigwidget.cpp:21
 #, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Wheel"
-msgstr ""
+msgstr "鼠标滚轮"
 
 #: src/config/triggerlistview.cpp:17
 #, kde-format
@@ -263,13 +263,13 @@ msgstr "与视点互动"
 #, kde-format
 msgctxt "@title:window"
 msgid "Create New Puzzle"
-msgstr ""
+msgstr "创建新拼图"
 
 #: src/creator/puzzlecreator.cpp:51
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Image file:"
-msgstr "镜像文件："
+msgstr "图像文件："
 
 #: src/creator/puzzlecreator.cpp:52
 #, kde-format
@@ -361,7 +361,7 @@ msgstr "您上次已经完成了拼图。您现在想要重新开始吗？"
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
-msgstr ""
+msgstr "重新开始"
 
 #: src/engine/gameplay.cpp:296
 #, kde-format
@@ -378,19 +378,19 @@ msgstr "Palapeli 拼图 (*.puzzle)"
 #, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
-msgstr ""
+msgstr "导入 Palapeli 拼图"
 
 #: src/engine/gameplay.cpp:343
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
-msgstr ""
+msgstr "保存 Palapeli 拼图"
 
 #: src/engine/gameplay.cpp:358
 #, kde-format
 msgctxt "@title:window"
 msgid "Create a Piece Holder"
-msgstr ""
+msgstr "创建暂存区"
 
 #: src/engine/gameplay.cpp:359
 #, kde-format
@@ -646,7 +646,7 @@ msgstr "切换解谜板锁定状态"
 #, kde-format
 msgctxt "@title:window"
 msgid "Preview of Completed Puzzle"
-msgstr ""
+msgstr "完成拼图预览"
 
 #: src/engine/puzzlepreview.cpp:36
 #, kde-format
@@ -751,7 +751,7 @@ msgstr "您的进度会在游戏时自动保存。"
 #, kde-format
 msgctxt "@title:window dialog that explains the autosave feature"
 msgid "Automatic Saving"
-msgstr ""
+msgstr "自动保存"
 
 #: src/engine/zoomwidget.cpp:26
 #, kde-format
@@ -775,36 +775,36 @@ msgstr[0] "%2 (%1块)"
 #, kde-format
 msgctxt "@info author attribution"
 msgid "By %1"
-msgstr ""
+msgstr "按 %1"
 
 #: src/file-io/collection-view.cpp:58
 #, kde-format
 msgctxt "@action:button that pops up sorting strategy selection menu"
 msgid "Sort List…"
-msgstr ""
+msgstr "排序列表..."
 
 #: src/file-io/collection-view.cpp:61
 #, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Title"
-msgstr ""
+msgstr "按标题"
 
 #: src/file-io/collection-view.cpp:62
 #, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Piece Count"
-msgstr ""
+msgstr "按拼图块数"
 
 #: src/file-io/collection.cpp:36
 #, kde-format
 msgctxt "@info:status"
 msgid "Loading puzzle…"
-msgstr ""
+msgstr "正在加载拼图..."
 
 #: src/file-io/collection.cpp:109
 #, kde-format
 msgid "Loading collection"
-msgstr ""
+msgstr "正在加载合集"
 
 #: src/importhelper.cpp:28
 #, kde-format
@@ -826,7 +826,7 @@ msgstr "Palapeli"
 #: src/main.cpp:49
 #, kde-format
 msgid "Jigsaw Puzzle Game"
-msgstr ""
+msgstr "拼图游戏"
 
 #: src/main.cpp:51
 #, kde-format
@@ -1056,13 +1056,13 @@ msgstr "不精确(简单)"
 #: src/window/mainwindow.cpp:54
 #, kde-format
 msgid "Show Statusbar of Puzzle Table"
-msgstr ""
+msgstr "显示拼图板的状态栏"
 
 #: src/window/mainwindow.cpp:58
 #, kde-format
 msgctxt "@action"
 msgid "Back to &Collection"
-msgstr ""
+msgstr "返回到合集"
 
 #: src/window/mainwindow.cpp:59
 #, kde-format
@@ -1074,7 +1074,7 @@ msgstr "回到收藏选择其他拼图"
 #, kde-format
 msgctxt "@action"
 msgid "Create &New Puzzle…"
-msgstr ""
+msgstr "创建新拼图…"
 
 #: src/window/mainwindow.cpp:67
 #, kde-format
@@ -1086,7 +1086,7 @@ msgstr "使用您磁盘上的图像文件创建新拼图"
 #, kde-format
 msgctxt "@action"
 msgid "&Delete Puzzle"
-msgstr ""
+msgstr "删除拼图(&D)"
 
 #: src/window/mainwindow.cpp:76
 #, kde-format
@@ -1098,7 +1098,7 @@ msgstr "从您的收藏中删除选中的拼图"
 #, kde-format
 msgctxt "@action"
 msgid "&Import from File…"
-msgstr ""
+msgstr "从文件导入(&I)..."
 
 #: src/window/mainwindow.cpp:84
 #, kde-format
@@ -1110,7 +1110,7 @@ msgstr "将新拼图从文件导入到您的收藏"
 #, kde-format
 msgctxt "@action"
 msgid "&Export to File…"
-msgstr ""
+msgstr "导出到文件(&E)…"
 
 #: src/window/mainwindow.cpp:92
 #, kde-format
@@ -1122,7 +1122,7 @@ msgstr "将选中的拼图从您的收藏导出到文件"
 #, kde-format
 msgctxt "@action"
 msgid "&Restart Puzzle…"
-msgstr ""
+msgstr "重新拼图(&R)..."
 
 #: src/window/mainwindow.cpp:100
 #, kde-format
@@ -1134,7 +1134,7 @@ msgstr "删除已保存的进度并打乱拼图片"
 #, kde-format
 msgctxt "@action"
 msgid "&Create Piece Holder…"
-msgstr ""
+msgstr "创建暂存区(&C)..."
 
 #: src/window/mainwindow.cpp:108
 #, kde-format
@@ -1146,7 +1146,7 @@ msgstr "建立一个用于给拼片分类的暂时放置区域"
 #, kde-format
 msgctxt "@action"
 msgid "&Delete Piece Holder"
-msgstr ""
+msgstr "删除暂存区(&D)"
 
 #: src/window/mainwindow.cpp:117
 #, kde-format
@@ -1158,7 +1158,7 @@ msgstr "在其为空时删除选中的暂时存储区域"
 #, kde-format
 msgctxt "@action"
 msgid "&Select All in Holder"
-msgstr ""
+msgstr "选择暂存区中的所有内容(&S)"
 
 #: src/window/mainwindow.cpp:125
 #, kde-format
@@ -1170,7 +1170,7 @@ msgstr "选中当前暂存区中的所有拼片"
 #, kde-format
 msgctxt "@action"
 msgid "&Rearrange Pieces"
-msgstr ""
+msgstr "重新排列拼图(&R)"
 
 #: src/window/mainwindow.cpp:132
 #, kde-format
@@ -1184,7 +1184,7 @@ msgstr "重新排列选中暂存区中的所有拼片或者任何窗口中的选
 #, kde-format
 msgctxt "@option:check"
 msgid "Show Preview"
-msgstr ""
+msgstr "显示预览"
 
 #: src/window/mainwindow.cpp:141
 #, kde-format
@@ -1202,18 +1202,18 @@ msgstr "显示或隐藏完整拼图的图像"
 #, kde-format
 msgctxt "@action"
 msgid "Enable All Messages"
-msgstr ""
+msgstr "启用所有消息"
 
 #: src/window/mainwindow.cpp:165
 #, kde-format
 msgid "Enable all messages again?"
-msgstr ""
+msgstr "重新启用所有信息显示?"
 
 #: src/window/mainwindow.cpp:166
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr ""
+msgstr "启用"
 
 #: src/window/puzzletablewidget.cpp:49
 #, kde-format
