@@ -9,6 +9,7 @@ MimeType=application/x-palapeli-puzzle
 Exec=palapeli --import %U
 Icon=palapeli
 Name=Import into your Palapeli puzzle collection
+Name[ar]=استورد إلى تشكيلتك من ألغاز بلابيلي
 Name[bs]=Unesi u svoju Palapeli kolekciju slagalica
 Name[ca]=Importació dins la vostra col·lecció de trencaclosques del Palapeli
 Name[ca@valencia]=Importació dins la vostra col·lecció de trencaclosques de Palapeli

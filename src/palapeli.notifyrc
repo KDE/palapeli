@@ -1,5 +1,6 @@
 [Global]
 Comment=Palapeli Jigsaw Puzzle
+Comment[ar]=بلابيلي لغز الصور المقطّعة
 Comment[bs]=Palapeli testerasta slagalica
 Comment[ca]=Trencaclosques del Palapeli
 Comment[ca@valencia]=Trencaclosques de Palapeli
@@ -51,6 +52,7 @@ IconName=palapeli
 
 [Context/filemanagement]
 Name=File management operations
+Name[ar]=عمليات إدارة الملفات
 Name[bs]=Operacije upravljanja datotekama
 Name[ca]=Operacions de la gestió de fitxers
 Name[ca@valencia]=Operacions de la gestió de fitxers
@@ -101,6 +103,7 @@ Name[zh_TW]=檔案管理操作
 
 [Event/importingPuzzle]
 Name=Importing puzzle
+Name[ar]=استيراد لغز
 Name[bs]=Unos slagalica
 Name[ca]=S'està important el trencaclosques
 Name[ca@valencia]=S'està important el trencaclosques
@@ -149,6 +152,7 @@ Name[uk]=Імпортування складанки
 Name[zh_CN]=导入拼图
 Name[zh_TW]=匯入謎題
 Comment=A puzzle is being imported into the local puzzle collection
+Comment[ar]=لغز قيد الاستيراد إلى تشكيلة الألغاز المحلية
 Comment[bs]=Slagalica se unosi u lokalnu kolekciju slagalica
 Comment[ca]=S'està important un trencaclosques dins la col·lecció local de trencaclosques
 Comment[ca@valencia]=S'està important un trencaclosques dins la col·lecció local de trencaclosques

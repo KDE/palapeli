@@ -2,6 +2,7 @@
 Type=Application
 Exec=palapeli %u
 Name=Palapeli
+Name[ar]=بلابيلي
 Name[ast]=Palapeli
 Name[bs]=Palapeli
 Name[ca]=Palapeli
@@ -54,6 +55,7 @@ Name[uk]=Palapeli
 Name[zh_CN]=Palapeli
 Name[zh_TW]=Palapeli
 GenericName=Jigsaw puzzle game
+GenericName[ar]=لعبة ألغاز الصور المقطّعة
 GenericName[bs]=Igra slagalica
 GenericName[ca]=Joc de trencaclosques
 GenericName[ca@valencia]=Joc de trencaclosques
