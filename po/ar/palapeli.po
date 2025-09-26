@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-22 00:38+0000\n"
-"PO-Revision-Date: 2025-08-30 22:52+0400\n"
+"PO-Revision-Date: 2025-09-25 13:34+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 "X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
@@ -31,125 +31,125 @@ msgstr "zayed.alsaidi@gmail.com"
 #: libpala/slicerpropertyset.cpp:74
 #, kde-format
 msgid "Piece count"
-msgstr ""
+msgstr "عدد القطع"
 
 #: libpala/slicerpropertyset.cpp:78
 #, kde-format
 msgid "Piece aspect ratio"
-msgstr ""
+msgstr "نسبة أبعاد القطعة"
 
 #: slicers/goldberg/grid.h:27
 #, kde-format
 msgctxt "Puzzle grid type"
 msgid "Predefined settings"
-msgstr ""
+msgstr "إعدادات مبدئية"
 
 #: slicers/goldberg/grid.h:34
 #, kde-format
 msgctxt "Puzzle grid type"
 msgid "Cairo (pentagonal) grid"
-msgstr ""
+msgstr "شبكة القاهرة (خماسيّة)"
 
 #: slicers/goldberg/grid.h:41
 #, kde-format
 msgctxt "Puzzle grid type"
 msgid "Hexagonal grid"
-msgstr ""
+msgstr "شبكة سداسيّة"
 
 #: slicers/goldberg/grid.h:48
 #, kde-format
 msgctxt "Puzzle grid type"
 msgid "Rectangular grid"
-msgstr ""
+msgstr "شبكة مستطيلة"
 
 #: slicers/goldberg/grid.h:55
 #, kde-format
 msgctxt "Puzzle grid type"
 msgid "Rotrex (rhombi-trihexagonal) grid"
-msgstr ""
+msgstr "شبكة روتريكس (معين-مثلثي-سداسي)"
 
 #: slicers/goldberg/grid.h:62
 #, kde-format
 msgctxt "Puzzle grid type"
 msgid "Irregular grid"
-msgstr ""
+msgstr "شبكة غير منتظمة"
 
 #: slicers/goldberg/slicer-goldberg.cpp:39
 #, kde-format
 msgid "Approx. piece count"
-msgstr ""
+msgstr "العدد التقريبي للقطع"
 
 #: slicers/goldberg/slicer-goldberg.cpp:45
 #, kde-format
 msgid "Quick preset"
-msgstr ""
+msgstr "إعداد مبدئي سريع"
 
 #: slicers/goldberg/slicer-goldberg.cpp:47
 #, kde-format
 msgctxt "@item puzzle shape preset"
 msgid "Ordinary"
-msgstr ""
+msgstr "عادي"
 
 #: slicers/goldberg/slicer-goldberg.cpp:48
 #: slicers/goldberg/slicer-goldberg.cpp:125
 #, kde-format
 msgctxt "@item puzzle shape preset"
 msgid "Very regular"
-msgstr ""
+msgstr "منتظم جدًا"
 
 #: slicers/goldberg/slicer-goldberg.cpp:49
 #: slicers/goldberg/slicer-goldberg.cpp:126
 #, kde-format
 msgctxt "@item puzzle shape preset"
 msgid "Very diverse"
-msgstr ""
+msgstr "متنوع جدًا"
 
 #: slicers/goldberg/slicer-goldberg.cpp:50
 #: slicers/goldberg/slicer-goldberg.cpp:127
 #, kde-format
 msgctxt "@item puzzle shape preset"
 msgid "Large plugs"
-msgstr ""
+msgstr "مقابس كبيرة"
 
 #: slicers/goldberg/slicer-goldberg.cpp:58
 #, kde-format
 msgid "Flipped edge percentage"
-msgstr ""
+msgstr "نسبة الحافة المقلوبة"
 
 #: slicers/goldberg/slicer-goldberg.cpp:65
 #, kde-format
 msgid "Edge curviness"
-msgstr ""
+msgstr "انحناء الحافة"
 
 #: slicers/goldberg/slicer-goldberg.cpp:71
 #, kde-format
 msgid "Plug size"
-msgstr ""
+msgstr "حجم القابس"
 
 #: slicers/goldberg/slicer-goldberg.cpp:78
 #, kde-format
 msgid "Diversity of curviness"
-msgstr ""
+msgstr "تنوع الانحناء"
 
 #: slicers/goldberg/slicer-goldberg.cpp:85
 #, kde-format
 msgid "Diversity of plug position"
-msgstr ""
+msgstr "تنوع موضع القابس"
 
 #: slicers/goldberg/slicer-goldberg.cpp:92
 #, kde-format
 msgid "Diversity of plugs"
-msgstr ""
+msgstr "تنوع المقابس"
 
 #: slicers/goldberg/slicer-goldberg.cpp:99
 #, kde-format
 msgid "Diversity of piece size"
-msgstr ""
+msgstr "تنوع حجم القطعة"
 
 #: slicers/goldberg/slicer-goldberg.cpp:108
 #, kde-format
 msgid "Dump grid image"
-msgstr ""
+msgstr "تفريغ صورة الشبكة"
 
 #: src/config/configdialog.cpp:61
 #, kde-format
@@ -161,7 +161,7 @@ msgstr "عامّ"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Interaction"
-msgstr ""
+msgstr "تفاعل الفأرة"
 
 #: src/config/configdialog.cpp:111
 #, kde-format
@@ -203,7 +203,7 @@ msgstr "أسفل اليمين"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove this trigger"
-msgstr ""
+msgstr "أزل هذا الزناد"
 
 #: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
 #, kde-format
@@ -218,6 +218,7 @@ msgid ""
 "Hold down the modifier keys you want, then click a mouse button or scroll a "
 "mouse wheel here"
 msgstr ""
+"اضغط مفاتيح التعديل التي تريد، ثم انقر على زر الفأرة أو مرّر عجلة الفأرة هنا"
 
 #: src/config/mouseinputbutton.cpp:225
 #, kde-format
@@ -231,13 +232,13 @@ msgstr "لا شيء"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Click to change how an action is triggered"
-msgstr ""
+msgstr "انقر لتغيير كيف يشغل إجراء ما"
 
 #: src/config/triggerconfigwidget.cpp:20
 #, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Buttons"
-msgstr ""
+msgstr "أزرار الفأرة"
 
 #: src/config/triggerconfigwidget.cpp:21
 #, kde-format
@@ -248,23 +249,23 @@ msgstr "عجلة الفأرة"
 #: src/config/triggerlistview.cpp:17
 #, kde-format
 msgid "Interaction with pieces"
-msgstr ""
+msgstr "التفاعل مع القطع"
 
 #: src/config/triggerlistview.cpp:19
 #, kde-format
 msgid "Interaction with the puzzle table"
-msgstr ""
+msgstr "التفاعل مع طاولة اللغز"
 
 #: src/config/triggerlistview.cpp:21
 #, kde-format
 msgid "Interaction with the viewport"
-msgstr ""
+msgstr "التفاعل مع منفذ العرض"
 
 #: src/creator/puzzlecreator.cpp:38
 #, kde-format
 msgctxt "@title:window"
 msgid "Create New Puzzle"
-msgstr ""
+msgstr "أنشئ لغزًا جديدًا"
 
 #: src/creator/puzzlecreator.cpp:51
 #, kde-format
@@ -276,25 +277,25 @@ msgstr "ملفّ الصّورة:"
 #, kde-format
 msgctxt "@info"
 msgid "Please describe below the image which you have chosen."
-msgstr ""
+msgstr "الرجاء وصف الصورة التي اخترت أدناه."
 
 #: src/creator/puzzlecreator.cpp:53
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image name:"
-msgstr ""
+msgstr "اسم الصورة:"
 
 #: src/creator/puzzlecreator.cpp:54
 #, kde-format
 msgctxt "@label:textbox (like in: This comment is optional.)"
 msgid "Optional comment:"
-msgstr ""
+msgstr "تعليق اختياري:"
 
 #: src/creator/puzzlecreator.cpp:55
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Name of image author:"
-msgstr ""
+msgstr "اسم مؤلف الصورة:"
 
 #: src/creator/puzzlecreator.cpp:63
 #, kde-format
@@ -306,57 +307,57 @@ msgstr "اختر صورة"
 #, kde-format
 msgctxt "@title:tab (page header in an assistant dialog)"
 msgid "Specify the source image to be sliced into pieces"
-msgstr ""
+msgstr "حدد الصورة المصدر المراد تقطيعها"
 
 #: src/creator/puzzlecreator.cpp:66
 #, kde-format
 msgctxt "@item:inlistbox (page name in an assistant dialog)"
 msgid "Choose slicer"
-msgstr ""
+msgstr "اختر المقطّع"
 
 #: src/creator/puzzlecreator.cpp:67
 #, kde-format
 msgctxt "@title:tab (page header in an assistant dialog)"
 msgid "Choose a slicing method"
-msgstr ""
+msgstr "اختر طريقة تقطيع"
 
 #: src/creator/puzzlecreator.cpp:68
 #, kde-format
 msgctxt "@item:inlistbox (page name in an assistant dialog)"
 msgid "Configure slicer"
-msgstr ""
+msgstr "اضبط المقطّع"
 
 #: src/creator/puzzlecreator.cpp:69
 #, kde-format
 msgctxt "@title:tab (page header in an assistant dialog)"
 msgid "Tweak the parameters of the chosen slicing method"
-msgstr ""
+msgstr "عدّل معلمات طريقة التقطيع المختارة"
 
 #: src/creator/puzzlecreator.cpp:112
 #, kde-format
 msgid "Puzzle cannot be created: The slicer plugin could not be loaded."
-msgstr ""
+msgstr "لا يمكن إنشاء لغز: لم يمكن تحميل ملحق المقطّع."
 
 #: src/creator/puzzlecreator.cpp:119
 #, kde-format
 msgid "Puzzle cannot be created: The file you selected is not an image."
-msgstr ""
+msgstr "لا يمكن إنشاء لغز: الملف الذي اخترت ليس صورة."
 
 #: src/creator/puzzlecreator.cpp:127
 #, kde-format
 msgid ""
 "Puzzle cannot be created: Slicing failed because of undetermined problems."
-msgstr ""
+msgstr "لا يمكن إنشاء لغز: فشل التقطيع بسبب مشاكل غير محددة."
 
 #: src/engine/constraintinteractor.cpp:15
 #, kde-format
 msgid "Change size of puzzle table area by dragging its edges"
-msgstr ""
+msgstr "غيّر حجم منطقة طاولة اللغز بسحب حوافها"
 
 #: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
 #, kde-format
 msgid "You have finished the puzzle. Do you want to restart it now?"
-msgstr ""
+msgstr "أنهيت اللغز. أتريد إعادة تشغيله الآن؟"
 
 #: src/engine/gameplay.cpp:181 src/engine/gameplay.cpp:1138
 #, kde-format
@@ -367,37 +368,37 @@ msgstr "أعد التّشغيل"
 #: src/engine/gameplay.cpp:296
 #, kde-format
 msgid "The following puzzles will be deleted. This action cannot be undone."
-msgstr ""
+msgstr "الألغاز التالية ستحذف. لا يمكن التراجع عن هذا الإجراء."
 
 #: src/engine/gameplay.cpp:315 src/engine/gameplay.cpp:341
 #, kde-format
 msgctxt "Filter for a file dialog"
 msgid "Palapeli puzzles (*.puzzle)"
-msgstr ""
+msgstr "ألغاز بلابيلي (*.puzzle)"
 
 #: src/engine/gameplay.cpp:317
 #, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
-msgstr ""
+msgstr "استورد ألغاز بلابيلي"
 
 #: src/engine/gameplay.cpp:343
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
-msgstr ""
+msgstr "احفظ ألغاز بلابيلي"
 
 #: src/engine/gameplay.cpp:358
 #, kde-format
 msgctxt "@title:window"
 msgid "Create a Piece Holder"
-msgstr ""
+msgstr "أنشئ حاوية قطع"
 
 #: src/engine/gameplay.cpp:359
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a short name (optional):"
-msgstr ""
+msgstr "أدخل اسمًا قصيرًا (اختياري):"
 
 #: src/engine/gameplay.cpp:405
 #, kde-format
@@ -405,24 +406,26 @@ msgid ""
 "You need to click on a piece holder to select it before you can delete it, "
 "or you can just click on its Close button."
 msgstr ""
+"يجب أن تنقر على حاوية قطع لتحديدها قبل أن يمكنك حذفها، أو يمكنك النقر على زر "
+"إغلاقها."
 
 #: src/engine/gameplay.cpp:424
 #, kde-format
 msgid "The selected piece holder must be empty before you can delete it."
-msgstr ""
+msgstr "يجب أن تكون حاوية القطع المحددة فارغة قبل أن يمكنك حذفها."
 
 #: src/engine/gameplay.cpp:443
 #, kde-format
 msgid ""
 "The selected piece holder must contain some pieces for 'Select all' to use."
-msgstr ""
+msgstr "يجب أن تحتوي حاوية القطع المحددة على بعض القطع لتستخدم 'حدد الكل'."
 
 #: src/engine/gameplay.cpp:449
 #, kde-format
 msgid ""
 "You need to click on a piece holder to select it before you can select all "
 "the pieces in it."
-msgstr ""
+msgstr "يجب أن تنقر على حاوية قطع لتحديدها قبل أن يمكنك تحديد كل القطع فيها."
 
 #: src/engine/gameplay.cpp:469
 #, kde-format
@@ -430,6 +433,8 @@ msgid ""
 "To rearrange pieces, either the puzzle table must have some selected pieces "
 "or there must be a selected holder with some selected pieces in it."
 msgstr ""
+"لإعادة ترتيب القطع، يجب أن تحتوي طاولة اللغز على قطع محددة أو يجب أن تكون "
+"هناك حاوية محددة تحتوي على قطع محددة فيها."
 
 #: src/engine/gameplay.cpp:531
 #, kde-format
@@ -437,6 +442,8 @@ msgid ""
 "You need to have a piece holder and click it to select it before you can "
 "transfer pieces into or out of it."
 msgstr ""
+"يجب أن يكون لديك حاوية قطع وأن تنقر عليها لتحديدها قبل أن يمكنك نقل القطع "
+"إليها أو منها."
 
 #: src/engine/gameplay.cpp:551
 #, kde-format
@@ -444,6 +451,8 @@ msgid ""
 "You have selected to transfer a large piece containing more than six small "
 "pieces to a holder. Do you really wish to do that?"
 msgstr ""
+"اخترت نقل قطعة كبيرة تحتوي على أكثر من ست قطع صغيرة إلى حاوية. هل ترغب حقًا "
+"في فعل ذلك؟"
 
 #: src/engine/gameplay.cpp:556
 #, kde-format
@@ -457,6 +466,8 @@ msgid ""
 "You need to select one or more pieces to be transferred out of the selected "
 "holder or select pieces from the puzzle table to be transferred into it."
 msgstr ""
+"يجب أن تحدد قطعة أو أكثر لنقلها خارج الحاوية المحددة أو حدد قطعًا من طاولة "
+"اللغز لنقلها إليها."
 
 #: src/engine/gameplay.cpp:593
 #, kde-format
@@ -464,6 +475,7 @@ msgid ""
 "You need to select one or more pieces to be transferred from the previous "
 "holder into the newly selected holder."
 msgstr ""
+"يجب أن تحدد قطعة أو أكثر لنقلها من الحاوية السابقة إلى الحاوية المحددة حديثًا."
 
 #: src/engine/gameplay.cpp:601
 #, kde-format
@@ -471,6 +483,8 @@ msgid ""
 "You need to have at least two holders, one of them selected and with "
 "selected pieces inside it, before you can transfer pieces to a second holder."
 msgstr ""
+"يجب أن يكون لديك حاويتان على الأقل، إحداهما محددة وبها قطع محددة، قبل أن "
+"يمكنك نقل القطع إلى حاوية ثانية."
 
 #: src/engine/gameplay.cpp:1078
 #, kde-format
@@ -528,101 +542,138 @@ msgid ""
 "By the way, holders can do almost all the things the puzzle table and its "
 "window can do, including joining pieces to build up a part of the solution."
 msgstr ""
+"أنشأت للتو لغزًا كبيرًا: بلابيلي يحتوي على عدة ميزات لمساعدتك على حله في "
+"المساحة المحدودة على سطح المكتب. شرحت بالتفصيل في دليل بلابيلي (في قائمة "
+"المساعدة). هذه بعض النصائح السريعة.\n"
+"\n"
+"قبل البدء، قد يكون من الأفضل عدم استخدام شطف أو تظليل مع الألغاز الكبيرة "
+"(انظر مربع حوار الإعدادات)، لأنها تجعل التحميل أبطأ وتجعل التظليل أصعب في "
+"الرؤية عندما تكون القطع في العرض صغيرة جدًا.\n"
+"\n"
+"الميزة الأولى هي معاينة اللغز (صورة اللغز المكتمل) وزر في شريط الأدوات "
+"لتشغيله أو إيقاف تشغيله. إذا مررت فوقه بالفأرة، فإنه يكبر أجزاء من الصورة، "
+"لذا فإن حجم النافذة الذي تختاره للمعاينة يمكن أن يكون صغيرًا جدًا.\n"
+"\n"
+"بعد ذلك، هناك عروض قريبة وبعيدة لطاولة اللغز، والتي يمكنك التبديل بينها "
+"بسرعة باستخدام زر فأرة (مبدئيًا النقر بالزر الأوسط). في العرض القريب، استخدم "
+"المساحة الفارغة في أشرطة التمرير للبحث في قطع اللغز صفحة بصفحة. يمكنك تعديل "
+"العرضين بالتكبير أو التصغير وسيتذكر التعديل.\n"
+"\n"
+"ثم هناك مساحة على طاولة اللغز محفوظة لبناء الحل.\n"
+"\n"
+"أخيرًا وليس آخرًا، هناك نوافذ صغيرة تسمى 'حاويات'. هي لفرز القطع إلى مجموعات "
+"مثل الحواف، السماء أو البيت الأبيض على اليسار. يمكن أن يكون لديك أي عدد من "
+"الحاويات وتسميتها. يجب أن يكون لديك بالفعل واحدة باسم 'يد'، لحمل القطع من "
+"حيث تجدها إلى منطقة الحل.\n"
+"\n"
+"تستخدم نقرة فأرة خاصة لنقل القطع إلى أو من حاوية (مبدئيًا النقر مع Shift "
+"بالزر الأيسر). أولاً، تأكد أن الحاوية التي تريد استخدامها نشطة: يجب أن يكون "
+"لديها محيط أزرق. إذا لم يكن كذلك، انقر عليها. لنقل القطع إلى الحاوية، حددها "
+"على طاولة اللغز ثم قم بالنقر الخاص 'لانتقالها الفوري' إلى الحاوية. أو يمكنك "
+"فقط القيام بالنقر الخاص على قطعة واحدة في كل مرة.\n"
+"\n"
+"لنقل القطع من حاوية، تأكد أنه لا توجد قطع محددة على طاولة اللغز، اذهب إلى "
+"نافذة الحاوية وحدد بعض القطع، باستخدام عمليات فأرة بلابيلي العادية، ثم عد "
+"إلى طاولة اللغز وقم بالنقر الخاص على مساحة فارغة حيث تريد أن تصل القطع. لا "
+"تنقل أكثر من بضع قطع في كل مرة، لتجنب تصادم القطع على طاولة اللغز.\n"
+"\n"
+"بالمناسبة، يمكن للحاويات أن تفعل تقريبًا كل الأشياء التي يمكن لطاولة اللغز "
+"ونافذتها أن تفعلها، بما في ذلك ضم القطع لبناء جزء من الحل."
 
 #: src/engine/gameplay.cpp:1131
 #, kde-format
 msgctxt "@title:window for hints"
 msgid "Solving Large Puzzles"
-msgstr ""
+msgstr "حل الألغاز الكبيرة"
 
 #: src/engine/gameplay.cpp:1195
 #, kde-format
 msgid "Great! You have finished the puzzle."
-msgstr ""
+msgstr "رائع! لقد أنجزت اللغز."
 
 #: src/engine/interactors.cpp:25
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Move pieces by dragging"
-msgstr ""
+msgstr "حرّك القطع بالسحب"
 
 #: src/engine/interactors.cpp:140
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Select pieces by clicking"
-msgstr ""
+msgstr "حدد القطع بالنقر"
 
 #: src/engine/interactors.cpp:176
 #, kde-format
 msgctxt "Works instantly, without dragging"
 msgid "Teleport pieces to or from a holder"
-msgstr ""
+msgstr "نقل القطع فوريًا إلى أو من حاوية"
 
 #: src/engine/interactors.cpp:201
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Move viewport by dragging"
-msgstr ""
+msgstr "حرّك منفذ العرض بالسحب"
 
 #: src/engine/interactors.cpp:227
 #, kde-format
 msgctxt "As in a movie scene"
 msgid "Switch to close-up or distant view"
-msgstr ""
+msgstr "انتقل إلى العرض القريب أو البعيد"
 
 #: src/engine/interactors.cpp:247
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Zoom viewport"
-msgstr ""
+msgstr "كبّر منفذ العرض"
 
 #: src/engine/interactors.cpp:266
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Scroll viewport horizontally"
-msgstr ""
+msgstr "مرّر منفذ العرض أفقيًا"
 
 #: src/engine/interactors.cpp:268
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Scroll viewport vertically"
-msgstr ""
+msgstr "مرّر منفذ العرض رأسيًا"
 
 #: src/engine/interactors.cpp:347
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Select multiple pieces at once"
-msgstr ""
+msgstr "حدد عدة قطع في آن واحد"
 
 #: src/engine/interactors.cpp:411
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Toggle lock state of the puzzle table area"
-msgstr ""
+msgstr "بدّل حالة قفل منطقة طاولة اللغز"
 
 #: src/engine/puzzlepreview.cpp:29
 #, kde-format
 msgctxt "@title:window"
 msgid "Preview of Completed Puzzle"
-msgstr ""
+msgstr "معاينة اللغز المكتمل"
 
 #: src/engine/puzzlepreview.cpp:36
 #, kde-format
 msgctxt "text in preview window"
 msgid "Image is not available."
-msgstr ""
+msgstr "الصورة غير متاحة."
 
 #: src/engine/puzzlepreview.cpp:64
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 - Preview"
-msgstr ""
+msgstr "%1 - معاينة"
 
 #: src/engine/texturehelper.cpp:52
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Single color"
-msgstr ""
+msgstr "لون واحد"
 
 #: src/engine/trigger.cpp:87
 #, kde-format
@@ -652,7 +703,7 @@ msgstr "Meta"
 #, kde-format
 msgctxt "a special keyboard modifier"
 msgid "GroupSwitch"
-msgstr ""
+msgstr "تبديل المجموعة"
 
 #: src/engine/trigger.cpp:92
 #, kde-format
@@ -682,13 +733,13 @@ msgstr "الزّرّ الأوسط"
 #, kde-format
 msgctxt "a special mouse button"
 msgid "XButton1"
-msgstr ""
+msgstr "زر الفأرة X1"
 
 #: src/engine/trigger.cpp:99
 #, kde-format
 msgctxt "a special mouse button"
 msgid "XButton2"
-msgstr ""
+msgstr "زر الفأرة X2"
 
 #: src/engine/trigger.cpp:100
 #, kde-format
@@ -703,19 +754,19 @@ msgstr "التّمرير الرّأسيّ"
 #: src/engine/view.cpp:338
 #, kde-format
 msgid "Your progress is saved automatically while you play."
-msgstr ""
+msgstr "تقدمك يحفظ آليًا أثناء اللعب."
 
 #: src/engine/view.cpp:339
 #, kde-format
 msgctxt "@title:window dialog that explains the autosave feature"
 msgid "Automatic Saving"
-msgstr ""
+msgstr "الحفظ الآلي"
 
 #: src/engine/zoomwidget.cpp:26
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Lock the puzzle table area"
-msgstr ""
+msgstr "اقفل منطقة طاولة اللغز"
 
 #: src/file-io/collection-delegate.cpp:106
 #, kde-format
@@ -727,8 +778,12 @@ msgstr "[بلا اسم]"
 msgctxt "Puzzle description, %2 = name string, %1 = piece count"
 msgid "%2 (%1 piece)"
 msgid_plural "%2 (%1 pieces)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%2 (%1 قطعة)"
+msgstr[1] "%2 (قطعة واحدة)"
+msgstr[2] "%2 (قطعتين)"
+msgstr[3] "%2 (%1 قطع)"
+msgstr[4] "%2 (%1 قطعة)"
+msgstr[5] "%2 (%1 قطعة)"
 
 #: src/file-io/collection-delegate.cpp:130
 #, kde-format
@@ -740,7 +795,7 @@ msgstr "بواسطة %1"
 #, kde-format
 msgctxt "@action:button that pops up sorting strategy selection menu"
 msgid "Sort List…"
-msgstr ""
+msgstr "رتّب القائمة…"
 
 #: src/file-io/collection-view.cpp:61
 #, kde-format
@@ -752,65 +807,65 @@ msgstr "حسب العنوان"
 #, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Piece Count"
-msgstr ""
+msgstr "حسب عدد القطع"
 
 #: src/file-io/collection.cpp:36
 #, kde-format
 msgctxt "@info:status"
 msgid "Loading puzzle…"
-msgstr ""
+msgstr "جار تحميل اللغز…"
 
 #: src/file-io/collection.cpp:109
 #, kde-format
 msgid "Loading collection"
-msgstr ""
+msgstr "جار تحميل التشكيلة"
 
 #: src/importhelper.cpp:28
 #, kde-format
 msgctxt "command line message"
 msgid "Error: No puzzle file given."
-msgstr ""
+msgstr "خطأ: لم يحدد ملف لغز."
 
 #: src/importhelper.cpp:40
 #, kde-format
 msgid "Importing puzzle \"%1\" into your collection"
-msgstr ""
+msgstr "جار استيراد اللغز «%1» إلى تشكيلتك"
 
 #: src/main.cpp:47
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
-msgstr ""
+msgstr "بلابيلي"
 
 #: src/main.cpp:49
 #, kde-format
 msgid "Jigsaw Puzzle Game"
-msgstr ""
+msgstr "لعبة ألغاز"
 
 #: src/main.cpp:51
 #, kde-format
 msgid "Copyright 2009, 2010, Stefan Majewsky"
-msgstr ""
+msgstr "الحقوق محفوظة 2009، 2010، ستيفان مايويسكي"
 
 #: src/main.cpp:54
 #, kde-format
 msgid "Stefan Majewsky"
-msgstr ""
+msgstr "ستيفان مايويسكي"
 
 #: src/main.cpp:55
 #, kde-format
 msgid "Johannes Loehnert"
-msgstr ""
+msgstr "يوهانس لوهنرت"
 
 #: src/main.cpp:56
 #, kde-format
 msgid "The option to preview the completed puzzle"
-msgstr ""
+msgstr "خيار لمعاينة اللغز المكتمل"
 
 #: src/main.cpp:65
 #, kde-format
 msgid "Path to puzzle file (will be opened if -i is not given)"
-msgstr ""
+msgstr "مسار إلى ملف لغز (سيفتح إذا لم يحدد -i)"
 
 #: src/main.cpp:66
 #, kde-format
@@ -819,17 +874,19 @@ msgid ""
 "puzzle file is given). The main window will not be shown after importing the "
 "given puzzle."
 msgstr ""
+"استورد ملف اللغز المحدد إلى التشكيلة المحلية (لا يفعل شيئًا إذا لم يحدد ملف "
+"لغز). النافذة الرئيسية لن تظهر بعد استيراد اللغز المحدد."
 
 #: src/main.cpp:80
 #, kde-format
 msgid "No file to import given"
-msgstr ""
+msgstr "لم يحدد ملف للاستيراد"
 
 #. i18n: ectx: label, entry (SnappingPrecision), group (Puzzling)
 #: src/palapeli.kcfg:6
 #, kde-format
 msgid "Precision of snapping (as a percentage of piece size)."
-msgstr ""
+msgstr "دقة الانطباق (كنسبة مئوية من حجم القطعة)."
 
 #. i18n: ectx: label, entry (ViewBackground), group (Appearance)
 #: src/palapeli.kcfg:12
@@ -838,6 +895,8 @@ msgid ""
 "The filename of the background image to use for the View, or \"__color__\" "
 "if a solid color should be used (see key \"ViewBackgroundColor\")."
 msgstr ""
+"اسم ملف صورة الخلفية لاستخدامها للعرض، أو «__color__» إذا استخدم لون خالص "
+"(انظر المفتاح «ViewBackgroundColor»)."
 
 #. i18n: ectx: label, entry (ViewBackgroundColor), group (Appearance)
 #: src/palapeli.kcfg:16
@@ -846,12 +905,14 @@ msgid ""
 "The background color to use for the View (if the key \"ViewBackground\" is "
 "set to \"__color__\")."
 msgstr ""
+"لون الخلفية لاستخدامه للعرض (إذا ضبط المفتاح «ViewBackground» على "
+"«__color__»)."
 
 #. i18n: ectx: label, entry (ViewHighlightColor), group (Appearance)
 #: src/palapeli.kcfg:20
 #, kde-format
 msgid "The highlighting color to use for selecting pieces in the View."
-msgstr ""
+msgstr "لون التظليل لاستخدامه في تحديد القطع في العرض."
 
 #. i18n: ectx: label, entry (SolutionArea), group (Appearance)
 #: src/palapeli.kcfg:24
@@ -859,7 +920,7 @@ msgstr ""
 msgid ""
 "Where to reserve space on the puzzle table for the solution, when shuffling "
 "or re-shuffling the pieces."
-msgstr ""
+msgstr "أين تحجز مساحة على طاولة اللغز للحل، عند خلط القطع أو إعادة خلطها."
 
 #. i18n: ectx: label, entry (PieceSpacing), group (Appearance)
 #: src/palapeli.kcfg:28
@@ -868,6 +929,8 @@ msgid ""
 "Spacing of pieces in puzzle grids relative to the size of the largest piece "
 "(spacing factor is 1.0 + 0.05 * value)."
 msgstr ""
+"تباعد القطع في شبكات اللغز نسبة إلى حجم أكبر قطعة (عامل التباعد هو 1.0 + "
+"0.05 * القيمة)."
 
 #. i18n: ectx: label, entry (ShowStatusBar), group (Appearance)
 #: src/palapeli.kcfg:32
@@ -876,6 +939,8 @@ msgid ""
 "Whether to show the status bar on the puzzle table. (It is not a real status "
 "bar, but the position and provided functionality is similar.)"
 msgstr ""
+"هل تظهر شريط الحالة على طاولة اللغز. (ليس شريط حالة حقيقيًا، ولكن الموضع "
+"والوظائف الموفرة متشابهة.)"
 
 #. i18n: ectx: label, entry (PieceShadowsEnabled), group (Appearance)
 #: src/palapeli.kcfg:36
@@ -883,7 +948,7 @@ msgstr ""
 msgid ""
 "Whether to render shadows below the puzzle pieces. Turning this off might "
 "improve rendering performance."
-msgstr ""
+msgstr "هل يرسم الظلال أسفل قطع اللغز. إيقاف هذا قد يحسن أداء الرسم."
 
 #. i18n: ectx: label, entry (PieceBevelsEnabled), group (Appearance)
 #: src/palapeli.kcfg:40
@@ -891,19 +956,19 @@ msgstr ""
 msgid ""
 "Whether to render bevels on the puzzle pieces. Turning this off might "
 "improve puzzle loading performance."
-msgstr ""
+msgstr "هل يرسم شطفًا على قطع اللغز. إيقاف هذا قد يحسن أداء تحميل اللغز."
 
 #. i18n: ectx: label, entry (PuzzlePreviewVisible), group (PuzzlePreview)
 #: src/palapeli.kcfg:46
 #, kde-format
 msgid "Whether the preview window was switched on last time Palapeli was run."
-msgstr ""
+msgstr "هل كانت نافذة المعاينة مشغلة آخر مرة شُغل فيها بلابيلي."
 
 #. i18n: ectx: label, entry (PuzzlePreviewGeometry), group (PuzzlePreview)
 #: src/palapeli.kcfg:50
 #, kde-format
 msgid "Last position and size of puzzle preview."
-msgstr ""
+msgstr "آخر موضع وحجم لمعاينة اللغز."
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/palapeliui.rc:35
@@ -916,7 +981,7 @@ msgstr "شريط الأدوات الرئيس"
 #, kde-format
 msgctxt "@title:group"
 msgid "Puzzle table"
-msgstr ""
+msgstr "طاولة اللغز"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/settings.ui:25
@@ -929,13 +994,13 @@ msgstr "الخلفيّة:"
 #: src/settings.ui:55
 #, kde-format
 msgid "Color for highlighting selected pieces:"
-msgstr ""
+msgstr "لون تظليل القطع المحددة:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/settings.ui:75
 #, kde-format
 msgid "Space for solution:"
-msgstr ""
+msgstr "مساحة للحل:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: src/settings.ui:94
@@ -944,30 +1009,32 @@ msgid ""
 "No space is provided with puzzles of less than 20 pieces. Changes will take "
 "effect when a puzzle is created or re-started."
 msgstr ""
+"لا توفر مساحة للألغاز التي تقل عن 20 قطعة. التغييرات ستصبح سارية المفعول "
+"عندما ينشأ لغز أو يعاد تشغيله."
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: src/settings.ui:106
 #, kde-format
 msgid "Spacing of pieces in puzzle grids (1.0-1.5):"
-msgstr ""
+msgstr "تباعد القطع في شبكات اللغز (1.0-1.5):"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/settings.ui:156
 #, kde-format
 msgid "Piece appearance"
-msgstr ""
+msgstr "مظهر القطعة"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceBevelsEnabled)
 #: src/settings.ui:162
 #, kde-format
 msgid "Draw bevels to create a 3-dimensional appearance"
-msgstr ""
+msgstr "ارسم شطفًا لإنشاء مظهر ثلاثي الأبعاد"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PieceShadowsEnabled)
 #: src/settings.ui:172
 #, kde-format
 msgid "Draw shadows below pieces"
-msgstr ""
+msgstr "ارسم ظلالًا أسفل القطع"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/settings.ui:182
@@ -976,75 +1043,77 @@ msgid ""
 "These options can be disabled when Palapeli is running very slowly. Changes "
 "will take effect only when a new puzzle is started."
 msgstr ""
+"يمكن تعطيل هذه الخيارات عندما يعمل بلابيلي ببطء شديد. التغييرات ستصبح سارية "
+"المفعول فقط عند بدء لغز جديد."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: src/settings.ui:195
 #, kde-format
 msgctxt "@title:group"
 msgid "Piece behavior"
-msgstr ""
+msgstr "سلوك القطعة"
 
 #. i18n: ectx: property (text), widget (QLabel, label_1)
 #: src/settings.ui:201
 #, kde-format
 msgctxt "@label:slider"
 msgid "Snapping precision:"
-msgstr ""
+msgstr "دقة الانطباق:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/settings.ui:241
 #, kde-format
 msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Very precise (harder)"
-msgstr ""
+msgstr "دقيق جدًا (أصعب)"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/settings.ui:270
 #, kde-format
 msgctxt "@item:inrange description for the \"snapping precision\" setting"
 msgid "Unprecise (easier)"
-msgstr ""
+msgstr "غير دقيق (أسهل)"
 
 #: src/window/mainwindow.cpp:54
 #, kde-format
 msgid "Show Statusbar of Puzzle Table"
-msgstr ""
+msgstr "أظهر شريط حالة طاولة اللغز"
 
 #: src/window/mainwindow.cpp:58
 #, kde-format
 msgctxt "@action"
 msgid "Back to &Collection"
-msgstr ""
+msgstr "عودة إلى ال&تشكيلة"
 
 #: src/window/mainwindow.cpp:59
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Go back to the collection to choose another puzzle"
-msgstr ""
+msgstr "عد إلى التشكيلة لاختيار لغز آخر"
 
 #: src/window/mainwindow.cpp:66
 #, kde-format
 msgctxt "@action"
 msgid "Create &New Puzzle…"
-msgstr ""
+msgstr "أنشئ ل&غزًا جديدًا…"
 
 #: src/window/mainwindow.cpp:67
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Create a new puzzle using an image file from your disk"
-msgstr ""
+msgstr "أنشئ لغزًا جديدًا باستخدام ملف صورة من قرصك"
 
 #: src/window/mainwindow.cpp:74
 #, kde-format
 msgctxt "@action"
 msgid "&Delete Puzzle"
-msgstr ""
+msgstr "ا&حذف اللغز"
 
 #: src/window/mainwindow.cpp:76
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete the selected puzzle from your collection"
-msgstr ""
+msgstr "احذف اللغز المحدد من تشكيلتك"
 
 #: src/window/mainwindow.cpp:83
 #, kde-format
@@ -1056,7 +1125,7 @@ msgstr "ا&ستورِد من ملف…"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Import a new puzzle from a file into your collection"
-msgstr ""
+msgstr "استورد لغزًا جديدًا من ملف إلى تشكيلتك"
 
 #: src/window/mainwindow.cpp:90
 #, kde-format
@@ -1068,61 +1137,61 @@ msgstr "&صدر إلى الملف…"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Export the selected puzzle from your collection into a file"
-msgstr ""
+msgstr "صدر اللغز المحدد من تشكيلتك إلى ملف"
 
 #: src/window/mainwindow.cpp:99
 #, kde-format
 msgctxt "@action"
 msgid "&Restart Puzzle…"
-msgstr ""
+msgstr "أعد &تشغيل اللغز…"
 
 #: src/window/mainwindow.cpp:100
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete the saved progress and reshuffle the pieces"
-msgstr ""
+msgstr "احذف التقدم المحفوظ وأعد خلط القطع"
 
 #: src/window/mainwindow.cpp:107
 #, kde-format
 msgctxt "@action"
 msgid "&Create Piece Holder…"
-msgstr ""
+msgstr "أنشئ &حاوية قطع…"
 
 #: src/window/mainwindow.cpp:108
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Create a temporary holder for sorting pieces"
-msgstr ""
+msgstr "أنشئ حاوية مؤقتة لفرز القطع"
 
 #: src/window/mainwindow.cpp:116
 #, kde-format
 msgctxt "@action"
 msgid "&Delete Piece Holder"
-msgstr ""
+msgstr "احذف &حاوية القطع"
 
 #: src/window/mainwindow.cpp:117
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete a selected temporary holder when it is empty"
-msgstr ""
+msgstr "احذف حاوية مؤقتة محددة عندما تكون فارغة"
 
 #: src/window/mainwindow.cpp:124
 #, kde-format
 msgctxt "@action"
 msgid "&Select All in Holder"
-msgstr ""
+msgstr "&حدد الكل في الحاوية"
 
 #: src/window/mainwindow.cpp:125
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select all pieces in a selected piece holder"
-msgstr ""
+msgstr "حدد كل القطع في حاوية قطع محددة"
 
 #: src/window/mainwindow.cpp:131
 #, kde-format
 msgctxt "@action"
 msgid "&Rearrange Pieces"
-msgstr ""
+msgstr "أعد &ترتيب القطع"
 
 #: src/window/mainwindow.cpp:132
 #, kde-format
@@ -1130,7 +1199,7 @@ msgctxt "@info:tooltip"
 msgid ""
 "Rearrange all pieces in a selected piece holder or selected pieces in any "
 "window"
-msgstr ""
+msgstr "أعد ترتيب كل القطع في حاوية قطع محددة أو القطع المحددة في أي نافذة"
 
 #: src/window/mainwindow.cpp:140
 #, kde-format
@@ -1148,7 +1217,7 @@ msgstr "معاينة"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Show or hide the image of the completed puzzle"
-msgstr ""
+msgstr "أظهر أو أخف صورة اللغز المكتمل"
 
 #: src/window/mainwindow.cpp:156
 #, kde-format
@@ -1159,7 +1228,7 @@ msgstr "مكّن كلّ الرسائل"
 #: src/window/mainwindow.cpp:165
 #, kde-format
 msgid "Enable all messages again?"
-msgstr ""
+msgstr "هل تمكّن كل الرسائل مرة أخرى؟"
 
 #: src/window/mainwindow.cpp:166
 #, kde-format
@@ -1170,12 +1239,12 @@ msgstr "مكّن"
 #: src/window/puzzletablewidget.cpp:49
 #, kde-format
 msgid "No puzzle loaded"
-msgstr ""
+msgstr "لم يحمّل لغز"
 
 #: src/window/puzzletablewidget.cpp:118
 #, kde-format
 msgid "You finished the puzzle."
-msgstr ""
+msgstr "أنجزت اللغز."
 
 #: src/window/puzzletablewidget.cpp:122
 #, kde-format
