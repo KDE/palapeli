@@ -4,6 +4,7 @@
             {
                 "Email": "majewsky@gmx.net",
                 "Name": "Stefan Majewsky",
+                "Name[ar]": "ستيفان مايويسكي",
                 "Name[ca@valencia]": "Stefan Majewsky",
                 "Name[ca]": "Stefan Majewsky",
                 "Name[cs]": "Stefan Majewsky",
@@ -39,6 +40,7 @@
         ],
         "License": "GPL",
         "Name": "Classic jigsaw pieces",
+        "Name[ar]": "قطع أحجية كلاسيكية",
         "Name[bs]": "Klasična slagalica",
         "Name[ca@valencia]": "Peces clàssiques de puzle",
         "Name[ca]": "Peces clàssiques de puzle",

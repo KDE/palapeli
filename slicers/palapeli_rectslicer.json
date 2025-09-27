@@ -4,6 +4,7 @@
             {
                 "Email": "majewsky@gmx.net",
                 "Name": "Stefan Majewsky",
+                "Name[ar]": "ستيفان مايويسكي",
                 "Name[ca@valencia]": "Stefan Majewsky",
                 "Name[ca]": "Stefan Majewsky",
                 "Name[cs]": "Stefan Majewsky",
@@ -39,6 +40,7 @@
         ],
         "License": "GPL",
         "Name": "Rectangular pieces",
+        "Name[ar]": "قطع مستطيلة",
         "Name[bs]": "Pravougli djelovi",
         "Name[ca@valencia]": "Peces rectangulars",
         "Name[ca]": "Peces rectangulars",

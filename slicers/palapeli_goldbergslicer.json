@@ -4,6 +4,7 @@
             {
                 "Email": "loehnert.kde@gmx.de",
                 "Name": "Johannes Loehnert",
+                "Name[ar]": "يوهانس لوهنرت",
                 "Name[ca@valencia]": "Johannes Loehnert",
                 "Name[ca]": "Johannes Loehnert",
                 "Name[cs]": "Johannes Loehnert",
@@ -38,6 +39,7 @@
             }
         ],
         "Description": "Formerly known as Goldberg Slicer",
+        "Description[ar]": "المعروف سابقًا باسم Goldberg Slicer (قطَّاع غولدبرغ)",
         "Description[ca@valencia]": "Conegut anteriorment com a tallador Goldberg",
         "Description[ca]": "Conegut anteriorment com a tallador Goldberg",
         "Description[de]": "Vormals als „Goldberg“-Schneidewerkzeug bekannt",
@@ -70,6 +72,7 @@
         "Description[zh_TW]": "舊稱 Goldberg Slicer",
         "License": "GPL",
         "Name": "Palapeli Slicer Collection",
+        "Name[ar]": "مجموعة قطاع بلابيلي",
         "Name[bs]": "Palapelijeva zbirka sjekača",
         "Name[ca@valencia]": "Col·lecció de talladors de Palapeli",
         "Name[ca]": "Col·lecció de talladors del Palapeli",
