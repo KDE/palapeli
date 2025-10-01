@@ -35,6 +35,7 @@
                 "Name[sv]": "Johannes Loehnert",
                 "Name[tr]": "Johannes Loehnert",
                 "Name[uk]": "Johannes Loehnert",
+                "Name[zh_CN]": "Johannes Loehnert",
                 "Name[zh_TW]": "Johannes Loehnert"
             }
         ],
@@ -115,7 +116,7 @@
         "Name[sv]": "Palapelis samling av delningsverktyg",
         "Name[tr]": "Palapeli Slider Koleksiyou",
         "Name[uk]": "Збірка інструментів розрізання Palapeli",
-        "Name[zh_CN]": "Palapeli 切分器收藏",
+        "Name[zh_CN]": "Palapeli 切分器集合",
         "Name[zh_TW]": "Palapeli 切割器收藏",
         "Version": "0.3"
     }
