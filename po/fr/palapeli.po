@@ -930,7 +930,7 @@ msgstr "Aucun fichier fourni à importer "
 #: src/palapeli.kcfg:6
 #, kde-format
 msgid "Precision of snapping (as a percentage of piece size)."
-msgstr "Précision de l'emboîtement (en pourcentage de la taille de la pièce)."
+msgstr "Précision de l'emboitement (en pourcentage de la taille de la pièce)."
 
 #. i18n: ectx: label, entry (ViewBackground), group (Appearance)
 #: src/palapeli.kcfg:12
@@ -1115,7 +1115,7 @@ msgstr "Comportement des pièces"
 #, kde-format
 msgctxt "@label:slider"
 msgid "Snapping precision:"
-msgstr "Précision de l'emboîtement :"
+msgstr "Précision de l'emboitement :"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/settings.ui:241
