@@ -151,19 +151,16 @@ msgid "Dump grid image"
 msgstr ""
 
 #: src/config/configdialog.cpp:61
-#, fuzzy, kde-format
-#| msgid "General settings"
+#, kde-format
 msgctxt "@title:tab"
 msgid "General"
-msgstr "Socruithe ginearálta"
+msgstr ""
 
 #: src/config/configdialog.cpp:64
-#, fuzzy, kde-format
-#| msgctxt "refers to no mouse buttons being pressed"
-#| msgid "No-Button"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Interaction"
-msgstr "Gan Cnaipe"
+msgstr ""
 
 #: src/config/configdialog.cpp:111
 #, kde-format
@@ -172,14 +169,10 @@ msgid "Center"
 msgstr ""
 
 #: src/config/configdialog.cpp:112
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "This is used for describing that no mouse action has been assigned to "
-#| "this interaction plugin."
-#| msgid "None"
+#, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "None"
-msgstr "Gan gníomh"
+msgstr ""
 
 #: src/config/configdialog.cpp:113
 #, kde-format
@@ -212,51 +205,38 @@ msgid "Remove this trigger"
 msgstr ""
 
 #: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
-#, fuzzy, kde-format
-#| msgid "Input here..."
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Input here…"
-msgstr "Ionchur anseo..."
+msgstr ""
 
 #: src/config/mouseinputbutton.cpp:120
-#, fuzzy, kde-format
-#| msgid ""
-#| "Hold down the modifier keys you want, then click a mouse button or scroll "
-#| "a mouse wheel here"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Hold down the modifier keys you want, then click a mouse button or scroll a "
 "mouse wheel here"
 msgstr ""
-"Coinnigh na heochracha mionathraithe atá tú ag iarraidh síos, ansin cliceáil "
-"cnaipe ar an luch nó scrollaigh roth luiche anseo"
 
 #: src/config/mouseinputbutton.cpp:225
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "This is used for describing that no mouse action has been assigned to "
-#| "this interaction plugin."
-#| msgid "None"
+#, kde-format
 msgctxt ""
 "@item This is used for describing that no mouse action has been assigned to "
 "this interaction plugin."
 msgid "None"
-msgstr "Gan gníomh"
+msgstr ""
 
 #: src/config/mouseinputbutton.cpp:231
-#, fuzzy, kde-format
-#| msgid "Click to change how an action is triggered"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Click to change how an action is triggered"
-msgstr "Cliceáil chun an tslí a gcuirtear gníomh ar siúl a athrú"
+msgstr ""
 
 #: src/config/triggerconfigwidget.cpp:20
-#, fuzzy, kde-format
-#| msgctxt "refers to no mouse buttons being pressed"
-#| msgid "No-Button"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Buttons"
-msgstr "Gan Cnaipe"
+msgstr ""
 
 #: src/config/triggerconfigwidget.cpp:21
 #, kde-format
@@ -280,12 +260,10 @@ msgid "Interaction with the viewport"
 msgstr ""
 
 #: src/creator/puzzlecreator.cpp:38
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Create new puzzle"
+#, kde-format
 msgctxt "@title:window"
 msgid "Create New Puzzle"
-msgstr "Cruthaigh puzal nua"
+msgstr ""
 
 #: src/creator/puzzlecreator.cpp:51
 #, kde-format
@@ -377,13 +355,9 @@ msgid "Change size of puzzle table area by dragging its edges"
 msgstr ""
 
 #: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have finished the puzzle the last time. Do you want to restart it now?"
+#, kde-format
 msgid "You have finished the puzzle. Do you want to restart it now?"
 msgstr ""
-"Chríochnaigh tú an puzal le linn an tseisiúin is déanaí. An bhfuil fonn ort "
-"é a atosú anois?"
 
 #: src/engine/gameplay.cpp:181 src/engine/gameplay.cpp:1138
 #, kde-format
@@ -397,33 +371,28 @@ msgid "The following puzzles will be deleted. This action cannot be undone."
 msgstr ""
 
 #: src/engine/gameplay.cpp:315 src/engine/gameplay.cpp:341
-#, fuzzy, kde-format
-#| msgctxt "Filter for a file dialog"
-#| msgid "*.puzzle|Palapeli puzzles (*.puzzle)"
+#, kde-format
 msgctxt "Filter for a file dialog"
 msgid "Palapeli puzzles (*.puzzle)"
-msgstr "*.puzzle|Puzail Palapeli (*.puzzle)"
+msgstr ""
 
 #: src/engine/gameplay.cpp:317
-#, fuzzy, kde-format
-#| msgid "Automatic builder for Palapeli puzzles"
+#, kde-format
 msgctxt "@title:window"
 msgid "Import Palapeli Puzzles"
-msgstr "Tógálaí uathoibríoch puzal Palapeli"
+msgstr ""
 
 #: src/engine/gameplay.cpp:343
-#, fuzzy, kde-format
-#| msgid "Automatic builder for Palapeli puzzles"
+#, kde-format
 msgctxt "@title:window"
 msgid "Save Palapeli Puzzles"
-msgstr "Tógálaí uathoibríoch puzal Palapeli"
+msgstr ""
 
 #: src/engine/gameplay.cpp:358
-#, fuzzy, kde-format
-#| msgid "Create &new puzzle..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Create a Piece Holder"
-msgstr "Cruthaigh puzal &nua..."
+msgstr ""
 
 #: src/engine/gameplay.cpp:359
 #, kde-format
@@ -562,11 +531,10 @@ msgid ""
 msgstr ""
 
 #: src/engine/gameplay.cpp:1131
-#, fuzzy, kde-format
-#| msgid "Automatic builder for Palapeli puzzles"
+#, kde-format
 msgctxt "@title:window for hints"
 msgid "Solving Large Puzzles"
-msgstr "Tógálaí uathoibríoch puzal Palapeli"
+msgstr ""
 
 #: src/engine/gameplay.cpp:1195
 #, kde-format
@@ -646,12 +614,10 @@ msgid "Image is not available."
 msgstr ""
 
 #: src/engine/puzzlepreview.cpp:64
-#, fuzzy, kde-format
-#| msgctxt "For usage as window title"
-#| msgid "%1 - Palapeli"
+#, kde-format
 msgctxt "@title:window"
 msgid "%1 - Preview"
-msgstr "%1 - Palapeli"
+msgstr ""
 
 #: src/engine/texturehelper.cpp:52
 #, kde-format
@@ -743,19 +709,16 @@ msgstr ""
 "imirt."
 
 #: src/engine/view.cpp:339
-#, fuzzy, kde-format
-#| msgctxt "used as caption for a dialog that explains the autosave feature"
-#| msgid "Automatic saving"
+#, kde-format
 msgctxt "@title:window dialog that explains the autosave feature"
 msgid "Automatic Saving"
-msgstr "Sábháil uathoibríoch"
+msgstr ""
 
 #: src/engine/zoomwidget.cpp:26
-#, fuzzy, kde-format
-#| msgid "Puzzle table toolbar"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Lock the puzzle table area"
-msgstr "Barra uirlisí tábla puzail"
+msgstr ""
 
 #: src/file-io/collection-delegate.cpp:106
 #, kde-format
@@ -774,12 +737,10 @@ msgstr[3] "%2 (%1 bpíosa)"
 msgstr[4] "%2 (%1 píosa)"
 
 #: src/file-io/collection-delegate.cpp:130
-#, fuzzy, kde-format
-#| msgctxt "Author attribution, e.g. \"by Jack\""
-#| msgid "by %1"
+#, kde-format
 msgctxt "@info author attribution"
 msgid "By %1"
-msgstr "le %1"
+msgstr ""
 
 #: src/file-io/collection-view.cpp:58
 #, kde-format
@@ -788,33 +749,27 @@ msgid "Sort List…"
 msgstr ""
 
 #: src/file-io/collection-view.cpp:61
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu selects sorting strategy for collection list"
-#| msgid "By title"
+#, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Title"
-msgstr "De réir teidil"
+msgstr ""
 
 #: src/file-io/collection-view.cpp:62
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu selects sorting strategy for collection list"
-#| msgid "By piece count"
+#, kde-format
 msgctxt "@action:inmenu selects sorting strategy for collection list"
 msgid "By Piece Count"
-msgstr "De réir líon na bpíosaí"
+msgstr ""
 
 #: src/file-io/collection.cpp:36
-#, fuzzy, kde-format
-#| msgid "Loading puzzle..."
+#, kde-format
 msgctxt "@info:status"
 msgid "Loading puzzle…"
-msgstr "Puzal á luchtú..."
+msgstr ""
 
 #: src/file-io/collection.cpp:109
-#, fuzzy, kde-format
-#| msgid "Back to &collection"
+#, kde-format
 msgid "Loading collection"
-msgstr "Ar ais go dtí mo &bhailiúchán"
+msgstr ""
 
 #: src/importhelper.cpp:28
 #, kde-format
@@ -834,10 +789,9 @@ msgid "Palapeli"
 msgstr "Palapeli"
 
 #: src/main.cpp:49
-#, fuzzy, kde-format
-#| msgid "KDE Jigsaw Puzzle Game"
+#, kde-format
 msgid "Jigsaw Puzzle Game"
-msgstr "Cluiche Míreanna Mearaí KDE"
+msgstr ""
 
 #: src/main.cpp:51
 #, kde-format
@@ -1031,11 +985,10 @@ msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: src/settings.ui:195
-#, fuzzy, kde-format
-#| msgid "Piece aspect ratio"
+#, kde-format
 msgctxt "@title:group"
 msgid "Piece behavior"
-msgstr "Cóimheas treoíochta na bpíosaí"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_1)
 #: src/settings.ui:201
@@ -1059,17 +1012,15 @@ msgid "Unprecise (easier)"
 msgstr "Neamhbheacht (níos éasca)"
 
 #: src/window/mainwindow.cpp:54
-#, fuzzy, kde-format
-#| msgid "Show statusbar of puzzle table"
+#, kde-format
 msgid "Show Statusbar of Puzzle Table"
-msgstr "Taispeáin barra stádais an tábla puzail"
+msgstr ""
 
 #: src/window/mainwindow.cpp:58
-#, fuzzy, kde-format
-#| msgid "Back to &collection"
+#, kde-format
 msgctxt "@action"
 msgid "Back to &Collection"
-msgstr "Ar ais go dtí mo &bhailiúchán"
+msgstr ""
 
 #: src/window/mainwindow.cpp:59
 #, kde-format
@@ -1078,82 +1029,70 @@ msgid "Go back to the collection to choose another puzzle"
 msgstr ""
 
 #: src/window/mainwindow.cpp:66
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Create new puzzle"
+#, kde-format
 msgctxt "@action"
 msgid "Create &New Puzzle…"
-msgstr "Cruthaigh puzal nua"
+msgstr ""
 
 #: src/window/mainwindow.cpp:67
-#, fuzzy, kde-format
-#| msgid "Create a new puzzle using an image file from your disk"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Create a new puzzle using an image file from your disk"
-msgstr "Cruthaigh puzal nua ó chomhad íomhá ar do dhiosca"
+msgstr ""
 
 #: src/window/mainwindow.cpp:74
-#, fuzzy, kde-format
-#| msgid "Create puzzle"
+#, kde-format
 msgctxt "@action"
 msgid "&Delete Puzzle"
-msgstr "Cruthaigh puzal"
+msgstr ""
 
 #: src/window/mainwindow.cpp:76
-#, fuzzy, kde-format
-#| msgid "Delete the selected puzzle from your collection"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete the selected puzzle from your collection"
-msgstr "Scrios an puzal roghnaithe ó do bhailiúchán"
+msgstr ""
 
 #: src/window/mainwindow.cpp:83
-#, fuzzy, kde-format
-#| msgid "&Import from file..."
+#, kde-format
 msgctxt "@action"
 msgid "&Import from File…"
-msgstr "&Iompórtáil ó chomhad..."
+msgstr ""
 
 #: src/window/mainwindow.cpp:84
-#, fuzzy, kde-format
-#| msgid "Import a new puzzle from a file into your collection"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Import a new puzzle from a file into your collection"
-msgstr "Iompórtáil puzal nua ó chomhad go dtí do bhailiúchán"
+msgstr ""
 
 #: src/window/mainwindow.cpp:90
-#, fuzzy, kde-format
-#| msgid "&Export to file..."
+#, kde-format
 msgctxt "@action"
 msgid "&Export to File…"
-msgstr "&Easpórtáil go comhad..."
+msgstr ""
 
 #: src/window/mainwindow.cpp:92
-#, fuzzy, kde-format
-#| msgid "Export the selected puzzle from your collection into a file"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Export the selected puzzle from your collection into a file"
-msgstr "Easpórtáil an puzal roghnaithe ó do bhailiúchán go comhad"
+msgstr ""
 
 #: src/window/mainwindow.cpp:99
-#, fuzzy, kde-format
-#| msgid "&Restart puzzle..."
+#, kde-format
 msgctxt "@action"
 msgid "&Restart Puzzle…"
-msgstr "&Atosaigh an puzal..."
+msgstr ""
 
 #: src/window/mainwindow.cpp:100
-#, fuzzy, kde-format
-#| msgid "Delete the saved progress"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete the saved progress and reshuffle the pieces"
-msgstr "Scrios an dul chun cinn sábháilte"
+msgstr ""
 
 #: src/window/mainwindow.cpp:107
-#, fuzzy, kde-format
-#| msgid "Create &new puzzle..."
+#, kde-format
 msgctxt "@action"
 msgid "&Create Piece Holder…"
-msgstr "Cruthaigh puzal &nua..."
+msgstr ""
 
 #: src/window/mainwindow.cpp:108
 #, kde-format
@@ -1162,11 +1101,10 @@ msgid "Create a temporary holder for sorting pieces"
 msgstr ""
 
 #: src/window/mainwindow.cpp:116
-#, fuzzy, kde-format
-#| msgid "Create &new puzzle..."
+#, kde-format
 msgctxt "@action"
 msgid "&Delete Piece Holder"
-msgstr "Cruthaigh puzal &nua..."
+msgstr ""
 
 #: src/window/mainwindow.cpp:117
 #, kde-format
@@ -1175,11 +1113,10 @@ msgid "Delete a selected temporary holder when it is empty"
 msgstr ""
 
 #: src/window/mainwindow.cpp:124
-#, fuzzy, kde-format
-#| msgid "Create &new puzzle..."
+#, kde-format
 msgctxt "@action"
 msgid "&Select All in Holder"
-msgstr "Cruthaigh puzal &nua..."
+msgstr ""
 
 #: src/window/mainwindow.cpp:125
 #, kde-format
@@ -1202,18 +1139,16 @@ msgid ""
 msgstr ""
 
 #: src/window/mainwindow.cpp:140
-#, fuzzy, kde-format
-#| msgid "Overview"
+#, kde-format
 msgctxt "@option:check"
 msgid "Show Preview"
-msgstr "Foramharc"
+msgstr ""
 
 #: src/window/mainwindow.cpp:141
-#, fuzzy, kde-format
-#| msgid "Overview"
+#, kde-format
 msgctxt "@option:check Preview is a noun here"
 msgid "Preview"
-msgstr "Foramharc"
+msgstr ""
 
 #: src/window/mainwindow.cpp:142
 #, kde-format
@@ -1249,92 +1184,7 @@ msgid "You finished the puzzle."
 msgstr "Chríochnaigh tú an puzal."
 
 #: src/window/puzzletablewidget.cpp:122
-#, fuzzy, kde-format
-#| msgctxt "Progress display"
-#| msgid "%1% finished"
+#, kde-format
 msgctxt "@info:progress"
 msgid "%1% finished"
-msgstr "%1% críochnaithe"
-
-#~ msgctxt ""
-#~ "This is used for describing that no mouse action has been assigned to "
-#~ "this interaction plugin."
-#~ msgid "None"
-#~ msgstr "Gan gníomh"
-
-#, fuzzy
-#~| msgid "Create &new puzzle..."
-#~ msgid "Create &New Puzzle..."
-#~ msgstr "Cruthaigh puzal &nua..."
-
-#, fuzzy
-#~| msgid "Overview"
-#~ msgctxt "Preview is a noun here"
-#~ msgid "&Preview"
-#~ msgstr "Foramharc"
-
-#~ msgid "&Delete"
-#~ msgstr "&Scrios"
-
-#~ msgctxt ""
-#~ "General note to translators: There is an important distinction to make "
-#~ "between \"puzzle table\" and \"puzzle table area\". The first one is the "
-#~ "complete widget with zooming controls, progress bar and all, while the "
-#~ "latter is that part of it where pieces can be moved."
-#~ msgid "Puzzle table"
-#~ msgstr "Tábla puzail"
-
-#~ msgid "Collection actions toolbar"
-#~ msgstr "Barra gníomhartha bailiúcháin"
-
-#~ msgctxt "The application's name"
-#~ msgid "libpala-puzzlebuilder"
-#~ msgstr "libpala-puzzlebuilder"
-
-#~ msgid "Copyright 2009, Stefan Majewsky"
-#~ msgstr "© 2009 Stefan Majewsky"
-
-#~ msgctxt "description for a command line switch"
-#~ msgid "Configuration file"
-#~ msgstr "Comhad cumraíochta"
-
-#~ msgctxt "description for a command line switch"
-#~ msgid "Output file"
-#~ msgstr "Aschomhad"
-
-#~ msgid "The given puzzle file is corrupted."
-#~ msgstr "Tá an comhad puzail truaillithe."
-
-#~ msgid "The puzzle file could not be imported into the local collection."
-#~ msgstr ""
-#~ "Níorbh fhéidir an comhad puzail a iompórtáil go dtí an bailiúchán logánta."
-
-#~ msgid ""
-#~ "Create a new puzzle with the given information, and save it in my "
-#~ "collection"
-#~ msgstr ""
-#~ "Cruthaigh puzal nua leis an eolas tugtha, agus sábháil i mo bhailiúchán é"
-
-#~ msgid "Puzzle type:"
-#~ msgstr "Cineál an phuzail:"
-
-#~ msgid "Puzzle name:"
-#~ msgstr "Ainm an phuzail:"
-
-#~ msgid "Basic slicing options"
-#~ msgstr "Bunroghanna gearrtha"
-
-#~ msgid "Puzzle information"
-#~ msgstr "Eolas faoin phuzal"
-
-#~ msgid "Advanced slicing options"
-#~ msgstr "Ardroghanna gearrtha"
-
-#~ msgid "(c) 2008, the Palapeli team"
-#~ msgstr "© 2008, Foireann Palapeli"
-
-#~ msgid "Felix Lemke"
-#~ msgstr "Felix Lemke"
-
-#~ msgid "View"
-#~ msgstr "Amharc"
+msgstr ""
