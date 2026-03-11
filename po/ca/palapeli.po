@@ -1296,16 +1296,3 @@ msgstr "Has finalitzat el trencaclosques."
 msgctxt "@info:progress"
 msgid "%1% finished"
 msgstr "%1% finalitzat"
-
-#~ msgctxt ""
-#~ "This is used for describing that no mouse action has been assigned to "
-#~ "this interaction plugin."
-#~ msgid "None"
-#~ msgstr "Cap"
-
-#~ msgid "Create &New Puzzle..."
-#~ msgstr "Crea un trencaclosques &nou..."
-
-#~ msgctxt "Preview is a noun here"
-#~ msgid "&Preview"
-#~ msgstr "Vista &prèvia"
