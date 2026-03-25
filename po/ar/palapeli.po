@@ -1,13 +1,13 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the palapeli package.
-# SPDX-FileCopyrightText: 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2025, 2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:50+0000\n"
-"PO-Revision-Date: 2025-09-25 13:34+0400\n"
+"PO-Revision-Date: 2026-03-24 11:05+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -637,7 +637,7 @@ msgstr "مرّر منفذ العرض أفقيًا"
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Scroll viewport vertically"
-msgstr "مرّر منفذ العرض رأسيًا"
+msgstr "مرّر منفذ العرض عموديًا"
 
 #: src/engine/interactors.cpp:347
 #, kde-format
@@ -875,7 +875,7 @@ msgid ""
 "given puzzle."
 msgstr ""
 "استورد ملف اللغز المحدد إلى التشكيلة المحلية (لا يفعل شيئًا إذا لم يحدد ملف "
-"لغز). النافذة الرئيسية لن تظهر بعد استيراد اللغز المحدد."
+"لغز). النافذة الرئيسة لن تظهر بعد استيراد اللغز المحدد."
 
 #: src/main.cpp:80
 #, kde-format
