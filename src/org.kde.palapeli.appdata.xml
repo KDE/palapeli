@@ -100,6 +100,7 @@
     <p xml:lang="ar">بلابيلي هي لعبة ألغاز أحجية لاعب واحد. على عكس الألعاب الأخرى من هذا النوع، لا تقتصر اللعبة على ترتيب القطع على شبكات وهمية. فالقطع قابلة للتحريك بحرية. كما تتميز بلابيلي بالاستمرارية الحقيقية، أي أن كل ما تفعله يحفظ على القرص الخاص بك على الفور.</p>
     <p xml:lang="ca">El Palapeli és un joc de trencaclosques per a un jugador. A diferència d'altres jocs d'aquest tipus, no esteu limitat a alinear peces en quadrícules imaginàries. Les peces es poden moure lliurement. El Palapeli també es caracteritza per la seva persistència real, és a dir, qualsevol cosa que feu es desarà immediatament en el disc.</p>
     <p xml:lang="ca-valencia">Palapeli és un joc de trencaclosques per a un jugador. A diferència d'altres jocs d'este tipus, no esteu limitat a alinear peces en quadrícules imaginàries. Les peces es poden moure lliurement. Palapeli també es caracteritza per la seua persistència real, és a dir, qualsevol cosa que feu es guardarà immediatament en el disc.</p>
+    <p xml:lang="cs">Palapeli je hra se skládáním puzzle pro jednoho hráče. Na rozdíl od jiných her tohoto žánru nejste omezeni na skládání dílků na imaginární mřížce. Dílky lze libovolně přesouvat. Palapeli navíc nabízí funkci trvalého ukládání, což znamená, že vše, co uděláte, se okamžitě ukládá na disk.</p>
     <p xml:lang="de">Palapeli ist ein Bilderpuzzle-Spiel für einen Spieler. Im Gegensatz zu anderen Spielen in dieser Kategorie werden Sie nicht auf das Ausrichten von Teilen an imaginären Gittern eingeschränkt. Die Puzzleteile können beliebig verschoben werden. Außerdem bleiben alle Spielzüge erhalten, da jeder Zug sofort auf der Festplatte gespeichert wird.</p>
     <p xml:lang="el">Το Palapeli είναι ένα παιχνίδι παζλ για έναν παίκτη. Αντίθετα από παρόμοια παιχνίδια, δεν περιορίζεστε να στοιχίζετε κομμάτια σε πλέγματα της φαντασίας. Τα κομμάτια μετακινούνται ελεύθερα. Επίσης, το Palapeli αποθηκεύει μόνιμα, δηλ. ό,τι κάνετε αποθηκεύεται αμέσως στον δίσκο σας.</p>
     <p xml:lang="en-GB">Palapeli is a single-player jigsaw puzzle game. Unlike other games in that genre, you are not limited to aligning pieces on imaginary grids. The pieces are freely moveable. Also, Palapeli features real persistence, i.e. everything you do is saved on your disk immediately.</p>
@@ -180,6 +181,7 @@
       <li xml:lang="ar">إنشاء وتشغيل ألغاز تتراوح من 4 إلى 10000 قطعة</li>
       <li xml:lang="ca">Crea i juga a trencaclosques des de 4 fins a 10.000 peces</li>
       <li xml:lang="ca-valencia">Crea i juga a trencaclosques des de 4 fins a 10.000 peces</li>
+      <li xml:lang="cs">Vytvářejte a skládejte puzzle o velikosti od 4 do 10 000 dílků</li>
       <li xml:lang="de">Erstellen und Spielen von Puzzles von 4 bis 10.00 Teilen</li>
       <li xml:lang="el">Δημιουργήστε και παίξετε με παζλ από 4 έως και 10000 κομμάτια</li>
       <li xml:lang="en-GB">Create and play puzzles ranging from 4 to 10,000 pieces</li>
@@ -218,6 +220,7 @@
       <li xml:lang="ar">حاملات القطع للمساعدة في حل الألغاز الكبيرة</li>
       <li xml:lang="ca">Contenidors de peces per a ajudar a resoldre trencaclosques grans</li>
       <li xml:lang="ca-valencia">Contenidors de peces per ajudar a resoldre trencaclosques grans</li>
+      <li xml:lang="cs">Držáky dílků, které usnadňují skládání velkých puzzle</li>
       <li xml:lang="de">Teileablagen als Hilfe für große Puzzles</li>
       <li xml:lang="el">Βάσεις κομματιών για βοήθεια στην επίλυση μεγάλων παζλ</li>
       <li xml:lang="en-GB">Piece-holders for helping solve large puzzles</li>
