@@ -8,24 +8,25 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:50+0000\n"
-"PO-Revision-Date: 2013-09-08 07:05+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"PO-Revision-Date: 2026-06-01 16:36-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "ئابدۇقادىر ئابلىز, غەيرەت كەنجى"
+msgstr "ئابدۇقادىر ئابلىز، غەيرەت كەنجى"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "sahran.ug@gmail.com,  gheyret@gmail.com"
+msgstr "sahranbay@gmail.com, gheyret@gmail.com"
 
 #: libpala/slicerpropertyset.cpp:74
 #, kde-format
@@ -84,12 +85,10 @@ msgid "Quick preset"
 msgstr ""
 
 #: slicers/goldberg/slicer-goldberg.cpp:47
-#, fuzzy, kde-format
-#| msgctxt "Puzzle shape preset"
-#| msgid "Ordinary"
+#, kde-format
 msgctxt "@item puzzle shape preset"
 msgid "Ordinary"
-msgstr "ئادەتتىكى"
+msgstr ""
 
 #: slicers/goldberg/slicer-goldberg.cpp:48
 #: slicers/goldberg/slicer-goldberg.cpp:125
@@ -153,32 +152,25 @@ msgid "Dump grid image"
 msgstr ""
 
 #: src/config/configdialog.cpp:61
-#, fuzzy, kde-format
-#| msgid "General settings"
+#, kde-format
 msgctxt "@title:tab"
 msgid "General"
-msgstr "ئادەتتىكى تەڭشەك"
+msgstr "ئادەتتىكى"
 
 #: src/config/configdialog.cpp:64
-#, fuzzy, kde-format
-#| msgctxt "a mouse button"
-#| msgid "Middle-Button"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Interaction"
-msgstr "ئوتتۇرا توپچا"
+msgstr ""
 
 #: src/config/configdialog.cpp:111
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Center"
-msgstr ""
+msgstr "ئوتتۇرا"
 
 #: src/config/configdialog.cpp:112
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "This is used for describing that no mouse action has been assigned to "
-#| "this interaction plugin."
-#| msgid "None"
+#, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "None"
 msgstr "يوق"
@@ -187,25 +179,25 @@ msgstr "يوق"
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Top Left"
-msgstr ""
+msgstr "سول ئۈستى"
 
 #: src/config/configdialog.cpp:114
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Top Right"
-msgstr ""
+msgstr "ئوڭ ئۈستى"
 
 #: src/config/configdialog.cpp:115
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Left"
-msgstr ""
+msgstr "سول ئاستى"
 
 #: src/config/configdialog.cpp:116
 #, kde-format
 msgctxt "@item:inlistbox space for solution"
 msgid "Bottom Right"
-msgstr ""
+msgstr "ئوڭ ئاستى"
 
 #: src/config/mouseinputbutton.cpp:45
 #, kde-format
@@ -214,31 +206,21 @@ msgid "Remove this trigger"
 msgstr ""
 
 #: src/config/mouseinputbutton.cpp:119 src/config/mouseinputbutton.cpp:252
-#, fuzzy, kde-format
-#| msgid "Input here..."
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Input here…"
-msgstr "بۇ جايغا كىرگۈزۈڭ…"
+msgstr ""
 
 #: src/config/mouseinputbutton.cpp:120
-#, fuzzy, kde-format
-#| msgid ""
-#| "Hold down the modifier keys you want, then click a mouse button or scroll "
-#| "a mouse wheel here"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Hold down the modifier keys you want, then click a mouse button or scroll a "
 "mouse wheel here"
 msgstr ""
-"ئۆزگەرتمەكچى بولغان كۇنۇپكىنى بېسىپ تۇرۇپ، ئارقىدىن چاشقىنەكنى چېكىڭ ياكى "
-"دومىلىتىڭ"
 
 #: src/config/mouseinputbutton.cpp:225
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "This is used for describing that no mouse action has been assigned to "
-#| "this interaction plugin."
-#| msgid "None"
+#, kde-format
 msgctxt ""
 "@item This is used for describing that no mouse action has been assigned to "
 "this interaction plugin."
@@ -246,25 +228,22 @@ msgid "None"
 msgstr "يوق"
 
 #: src/config/mouseinputbutton.cpp:231
-#, fuzzy, kde-format
-#| msgid "Click to change how an action is triggered"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Click to change how an action is triggered"
-msgstr "مەشغۇلاتنىڭ تېگىش ئۇسۇلى چېكىلسە ئۆزگىرىدۇ"
+msgstr ""
 
 #: src/config/triggerconfigwidget.cpp:20
-#, fuzzy, kde-format
-#| msgctxt "a mouse button"
-#| msgid "Middle-Button"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Buttons"
-msgstr "ئوتتۇرا توپچا"
+msgstr ""
 
 #: src/config/triggerconfigwidget.cpp:21
 #, kde-format
 msgctxt "@title:tab"
 msgid "Mouse Wheel"
-msgstr ""
+msgstr "چاشقىنەك غالتىكى"
 
 #: src/config/triggerlistview.cpp:17
 #, kde-format
@@ -383,7 +362,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
-msgstr ""
+msgstr "قايتا قوزغات"
 
 #: src/engine/gameplay.cpp:296
 #, kde-format
@@ -470,7 +449,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Transfer"
-msgstr ""
+msgstr "يوللا"
 
 #: src/engine/gameplay.cpp:575
 #, kde-format
@@ -685,19 +664,19 @@ msgstr ""
 #, kde-format
 msgctxt "a mouse button"
 msgid "Left-Button"
-msgstr "سول توپچا"
+msgstr "سول توپچە"
 
 #: src/engine/trigger.cpp:96
 #, kde-format
 msgctxt "a mouse button"
 msgid "Right-Button"
-msgstr "ئوڭ توپچا"
+msgstr "ئوڭ توپچە"
 
 #: src/engine/trigger.cpp:97
 #, kde-format
 msgctxt "a mouse button"
 msgid "Middle-Button"
-msgstr "ئوتتۇرا توپچا"
+msgstr "ئوتتۇرا توپچە"
 
 #: src/engine/trigger.cpp:98
 #, kde-format
@@ -751,12 +730,10 @@ msgid_plural "%2 (%1 pieces)"
 msgstr[0] ""
 
 #: src/file-io/collection-delegate.cpp:130
-#, fuzzy, kde-format
-#| msgctxt "Author attribution, e.g. \"by Jack\""
-#| msgid "by %1"
+#, kde-format
 msgctxt "@info author attribution"
 msgid "By %1"
-msgstr "ئاپتور %1"
+msgstr ""
 
 #: src/file-io/collection-view.cpp:58
 #, kde-format
@@ -802,7 +779,7 @@ msgstr ""
 #, kde-format
 msgctxt "The application's name"
 msgid "Palapeli"
-msgstr "Palapeli"
+msgstr ""
 
 #: src/main.cpp:49
 #, kde-format
@@ -822,7 +799,7 @@ msgstr "Stefan Majewsky"
 #: src/main.cpp:55
 #, kde-format
 msgid "Johannes Loehnert"
-msgstr ""
+msgstr "Johannes Loehnert"
 
 #: src/main.cpp:56
 #, kde-format
@@ -1057,11 +1034,10 @@ msgid "Create a new puzzle using an image file from your disk"
 msgstr ""
 
 #: src/window/mainwindow.cpp:74
-#, fuzzy, kde-format
-#| msgid "&Delete"
+#, kde-format
 msgctxt "@action"
 msgid "&Delete Puzzle"
-msgstr "ئۆچۈر(&D)"
+msgstr ""
 
 #: src/window/mainwindow.cpp:76
 #, kde-format
@@ -1094,11 +1070,10 @@ msgid "Export the selected puzzle from your collection into a file"
 msgstr ""
 
 #: src/window/mainwindow.cpp:99
-#, fuzzy, kde-format
-#| msgid "&Delete"
+#, kde-format
 msgctxt "@action"
 msgid "&Restart Puzzle…"
-msgstr "ئۆچۈر(&D)"
+msgstr ""
 
 #: src/window/mainwindow.cpp:100
 #, kde-format
@@ -1119,11 +1094,10 @@ msgid "Create a temporary holder for sorting pieces"
 msgstr ""
 
 #: src/window/mainwindow.cpp:116
-#, fuzzy, kde-format
-#| msgid "&Delete"
+#, kde-format
 msgctxt "@action"
 msgid "&Delete Piece Holder"
-msgstr "ئۆچۈر(&D)"
+msgstr ""
 
 #: src/window/mainwindow.cpp:117
 #, kde-format
@@ -1161,13 +1135,13 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "Show Preview"
-msgstr ""
+msgstr "ئالدىن كۆزىتىشنى كۆرسەت"
 
 #: src/window/mainwindow.cpp:141
 #, kde-format
 msgctxt "@option:check Preview is a noun here"
 msgid "Preview"
-msgstr ""
+msgstr "ئالدىن كۆزەت"
 
 #: src/window/mainwindow.cpp:142
 #, kde-format
@@ -1179,7 +1153,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action"
 msgid "Enable All Messages"
-msgstr ""
+msgstr "ھەممە ئۇچۇرنى قوزغات"
 
 #: src/window/mainwindow.cpp:165
 #, kde-format
@@ -1190,7 +1164,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr ""
+msgstr "قوزغات"
 
 #: src/window/puzzletablewidget.cpp:49
 #, kde-format
