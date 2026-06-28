@@ -704,7 +704,7 @@ msgstr "La imatge no està disponible."
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 - Preview"
-msgstr "%1 - Vista prèvia"
+msgstr "%1 – Vista prèvia"
 
 #: src/engine/texturehelper.cpp:52
 #, kde-format
