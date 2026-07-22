@@ -1,69 +1,146 @@
 {
-    "version": 2,
+    "$schema": "https://cmake.org/cmake/help/latest/_downloads/3e2d73bff478d88a7de0de736ba5e361/schema.json",
+    "version": 8,
     "configurePresets": [
+        {
+            "name": "base",
+            "displayName": "base preset",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build-${presetName}",
+            "installDir": "$env{KF6}",
+            "hidden": true,
+            "cacheVariables": {
+                "WARNINGS_AS_ERRORS": "ON"
+            }
+        },
+        {
+            "name": "dev-mold",
+            "displayName": "Build as debug + using mold linker",
+            "cacheVariables": {
+                "CMAKE_SHARED_LINKER_FLAGS": "-fuse-ld=mold"
+            },
+            "inherits": [
+                "dev"
+            ]
+        },
+        {
+            "name": "check-cmake",
+            "displayName": "Configure with strict warning",
+            "inherits": [
+                "dev-mold"
+            ],
+            "errors": {
+                "dev": true
+            },
+            "warnings": {
+                "uninitialized": true
+            }
+        },
         {
             "name": "dev",
             "displayName": "Build as debug",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-		"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-            }
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            },
+            "inherits": [
+                "base"
+            ]
         },
         {
             "name": "asan",
             "displayName": "Build with Asan support.",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build-asan",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-                "ECM_ENABLE_SANITIZERS" : "'address;undefined'",
-		"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-            }
+                "ECM_ENABLE_SANITIZERS": "'address;undefined'"
+            },
+            "inherits": [
+                "base"
+            ]
+        },
+        {
+            "name": "dev-clang",
+            "displayName": "dev-clang",
+            "environment": {
+                "CXX": "clang++",
+                "CCACHE_DISABLE": "ON"
+            },
+            "inherits": [
+                "dev"
+            ]
         },
         {
             "name": "unity",
             "displayName": "Build with CMake unity support.",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build-unity",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-		"CMAKE_UNITY_BUILD": "ON",
-		"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-            }
+                "USE_UNITY_CMAKE_SUPPORT": "ON"
+            },
+            "inherits": [
+                "dev"
+            ]
         },
         {
             "name": "release",
             "displayName": "Build as release mode.",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build-release",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
-            }
+                "CMAKE_BUILD_TYPE": "Release",
+                "BUILD_TESTING": "OFF"
+            },
+            "inherits": [
+                "base"
+            ]
         },
         {
             "name": "profile",
             "displayName": "profile",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build-profile",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-		"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-            }
-	},
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            },
+            "inherits": [
+                "base"
+            ]
+        },
+        {
+            "name": "coverage",
+            "displayName": "coverage",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "USE_UNITY_CMAKE_SUPPORT": "OFF",
+                "BUILD_COVERAGE": "ON"
+            },
+            "inherits": [
+                "base"
+            ]
+        },
         {
             "name": "clazy",
             "displayName": "clazy",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build-clazy",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
             },
             "environment": {
                 "CXX": "clazy",
                 "CCACHE_DISABLE": "ON"
-            }
+            },
+            "inherits": [
+                "base"
+            ]
+        },
+        {
+            "name": "ftime-trace",
+            "displayName": "ftime-trace",
+            "cacheVariables": {
+                "CMAKE_C_FLAGS_INIT": "-ftime-trace",
+                "CMAKE_CXX_FLAGS_INIT": "-ftime-trace"
+            },
+            "environment": {
+                "CC": "/usr/bin/clang",
+                "CXX": "/usr/bin/clang++",
+                "CCACHE_DISABLE": "ON"
+            },
+            "inherits": [
+                "dev"
+            ]
         }
     ],
     "buildPresets": [
@@ -72,11 +149,85 @@
             "configurePreset": "dev"
         },
         {
+            "name": "ftime-trace",
+            "configurePreset": "ftime-trace"
+        },
+        {
+            "name": "dev-mold",
+            "configurePreset": "dev-mold"
+        },
+        {
+            "name": "dev-clang",
+            "configurePreset": "dev-clang"
+        },
+        {
+            "name": "release",
+            "configurePreset": "release"
+        },
+        {
+            "name": "unity",
+            "configurePreset": "unity"
+        },
+        {
+            "name": "coverage",
+            "configurePreset": "coverage"
+        },
+        {
+            "name": "asan",
+            "configurePreset": "asan"
+        },
+        {
             "name": "clazy",
             "configurePreset": "clazy",
             "environment": {
-                "CLAZY_CHECKS" : "level0,level1,detaching-member,ifndef-define-typo,isempty-vs-count,qrequiredresult-candidates,reserve-candidates,signal-with-return-value,unneeded-cast,function-args-by-ref,function-args-by-value,returning-void-expression,no-ctor-missing-parent-argument,isempty-vs-count,qhash-with-char-pointer-key,raw-environment-function,qproperty-type-mismatch,old-style-connect,qstring-allocations,container-inside-loop,heap-allocated-small-trivial-type,inefficient-qlist,qstring-varargs,level2,detaching-member,heap-allocated-small-trivial-type,isempty-vs-count,qstring-varargs,qvariant-template-instantiation,raw-environment-function,reserve-candidates,signal-with-return-value,thread-with-slots,no-ctor-missing-parent-argument,no-missing-typeinfo",
-                "CCACHE_DISABLE" : "ON"
+                "CLAZY_CHECKS": "level0,level1,detaching-member,ifndef-define-typo,isempty-vs-count,qrequiredresult-candidates,reserve-candidates,signal-with-return-value,unneeded-cast,function-args-by-ref,function-args-by-value,returning-void-expression,no-ctor-missing-parent-argument,isempty-vs-count,qhash-with-char-pointer-key,raw-environment-function,qproperty-type-mismatch,old-style-connect,qstring-allocations,container-inside-loop,heap-allocated-small-trivial-type,inefficient-qlist,qstring-varargs,level2,detaching-member,heap-allocated-small-trivial-type,isempty-vs-count,qstring-varargs,qvariant-template-instantiation,raw-environment-function,reserve-candidates,signal-with-return-value,thread-with-slots,no-ctor-missing-parent-argument,no-missing-typeinfo",
+                "CCACHE_DISABLE": "ON"
+            }
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "dev",
+            "configurePreset": "dev",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": false
+            }
+        },
+        {
+            "name": "asan",
+            "configurePreset": "asan",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "unity",
+            "configurePreset": "unity",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "coverage",
+            "configurePreset": "coverage",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
             }
         }
     ]
