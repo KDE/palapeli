@@ -103,5 +103,6 @@ install(FILES palapeli.kcfg
         DESTINATION ${KDE_INSTALL_DATADIR}/palapeli)
 install(PROGRAMS org.kde.palapeli.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 install(FILES org.kde.palapeli.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
+install(FILES palapeli.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 add_subdirectory(pics)
