@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: KDE 4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:50+0000\n"
-"PO-Revision-Date: 2026-08-05 19:29+0200\n"
+"PO-Revision-Date: 2026-08-08 00:02+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@nuug.no>\n"
 "Language: nn\n"
@@ -358,18 +358,18 @@ msgstr ""
 #: src/engine/constraintinteractor.cpp:15
 #, kde-format
 msgid "Change size of puzzle table area by dragging its edges"
-msgstr "Endra storleik på puslebrettområdet ved å dra i kantane"
+msgstr "Endra storleik på brettområdet ved å dra i kantane"
 
 #: src/engine/gameplay.cpp:180 src/engine/gameplay.cpp:1137
 #, kde-format
 msgid "You have finished the puzzle. Do you want to restart it now?"
-msgstr "Du har lagt ferdig puslespelet. Vil du prøva å pusla det på nytt?"
+msgstr "Du er ferdig med puslespelet. Vil du prøva å pusla det på nytt?"
 
 #: src/engine/gameplay.cpp:181 src/engine/gameplay.cpp:1138
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
-msgstr "Start på nytt"
+msgstr "Pusla på nytt"
 
 #: src/engine/gameplay.cpp:296
 #, kde-format
@@ -634,13 +634,13 @@ msgstr "Flytt brikker til eller frå brikkehaldarar"
 #, kde-format
 msgctxt "Description (used like a name) for a mouse interaction method"
 msgid "Move viewport by dragging"
-msgstr "Flytt visingsområdet ved å dra"
+msgstr "Flytt visingsområdet ved å dra det"
 
 #: src/engine/interactors.cpp:227
 #, kde-format
 msgctxt "As in a movie scene"
 msgid "Switch to close-up or distant view"
-msgstr "Byt til nær- eller fjernvising"
+msgstr "Veksla mellom nær- og fjernvising"
 
 #: src/engine/interactors.cpp:247
 #, kde-format
@@ -809,10 +809,10 @@ msgid "By %1"
 msgstr "Av %1"
 
 #: src/file-io/collection-view.cpp:58
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:button that pops up sorting strategy selection menu"
 msgid "Sort List…"
-msgstr "Sorter liste …"
+msgstr "Sorter lista …"
 
 #: src/file-io/collection-view.cpp:61
 #, kde-format
@@ -1035,7 +1035,7 @@ msgid ""
 "effect when a puzzle is created or re-started."
 msgstr ""
 "Det vert ikkje reservert plass viss puslespelet har mindre enn 20 brikker. "
-"Endringane får verknad når eit puslespel vert laga eller begynt på nytt."
+"Endringane får verknad når eit puslespel vert laga eller påbegynt på nytt."
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: src/settings.ui:106
