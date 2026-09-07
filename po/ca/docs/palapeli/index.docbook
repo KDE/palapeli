@@ -749,7 +749,7 @@
       <title
 >Crear trencaclosques grans: inquietuds especials</title>
       <para
->Abans de crear un trencaclosques gran, haureu d'assegurar-vos que la imatge en el vostre codi font contingui prou detall (&ead;, força megapíxels). Podeu utilitzar una utilitat de fitxer o visualitzador/editor de fotografies per a descobrir quants píxels d'amplada i alçada té la imatge quan no es comprimeix amb JPEG o un altre format d'imatge. Com una regla aproximada, permeteu un megapíxel per 1.000 peces. Això donarà a cada peça uns 1.000 píxels o més de 30 per 30 píxels, el qual farà les peces raonablement definides en les vores i es podran veure quan apropeu la vista. Podeu treballar amb menys megapíxels, però podria ser difícil distingir i reconèixer les peces durant la partida. </para>
+>Abans de crear un trencaclosques gran, haureu d'assegurar-vos que la imatge en el vostre codi font contingui prou detall (&ead;, força megapíxels). Podeu utilitzar una utilitat de fitxer o visualitzador/editor de fotografies per a descobrir quants píxels d'amplada i altura té la imatge quan no es comprimeix amb JPEG o un altre format d'imatge. Com una regla aproximada, permeteu un megapíxel per 1.000 peces. Això donarà a cada peça uns 1.000 píxels o més de 30 per 30 píxels, el qual farà les peces raonablement definides en les vores i es podran veure quan apropeu la vista. Podeu treballar amb menys megapíxels, però podria ser difícil distingir i reconèixer les peces durant la partida. </para>
       <para
 >Quan creeu o reinicieu un trencaclosques gran, podria ser millor evitar l'ús de les característiques de bisell i ombra del &palapeli; (vegeu la secció <link linkend="configuration-general"
 >Configuració general</link
@@ -779,7 +779,7 @@
 ></menuchoice
 >. </para>
       <para
->L'espaiat de les peces en la quadrícula del trencaclosques es pot establir des d'1,0 a 1,5 vegades l'alçada i l'amplada de les peces més altes i més amples. Les configuracions més petites envasen millor les peces a la vista, però les més grans permeten més espai per a arrossegar, deixar anar i estirar la banda de goma. El valor predeterminat és 1,3, però 1,1 és molt viable en trencaclosques grans. La configuració s'aplicarà als trencaclosques de totes les mides i també afectarà les quadrícules utilitzades amb els contenidors de peces (vegeu <link linkend="large-puzzle-holders"
+>L'espaiat de les peces en la quadrícula del trencaclosques es pot establir des d'1,0 a 1,5 vegades l'altura i l'amplada de les peces més altes i més amples. Les configuracions més petites envasen millor les peces a la vista, però les més grans permeten més espai per a arrossegar, deixar anar i estirar la banda de goma. El valor predeterminat és 1,3, però 1,1 és molt viable en trencaclosques grans. La configuració s'aplicarà als trencaclosques de totes les mides i també afectarà les quadrícules utilitzades amb els contenidors de peces (vegeu <link linkend="large-puzzle-holders"
 >Usar els contenidors de peces</link
 >) o en tornar a organitzar les peces automàticament a la taula del trencaclosques, emprant l'element de menú <menuchoice
 ><shortcut
