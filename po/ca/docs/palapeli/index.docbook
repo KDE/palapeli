@@ -277,7 +277,7 @@
       <para
 >Ambdós talladors permeten un nombre de peces i s'ajustarà la relació d'aspecte. Arrossegar el control lliscant <guilabel
 >Relació d'aspecte de la peça:</guilabel
-> a l'esquerra resultarà en peces altes, ajustar-lo a la dreta produirà peces amples. La selecció predeterminada produirà aproximadament peces quadrades.</para>
+> a l'esquerra donarà com a resultat peces altes, ajustar-lo a la dreta produirà peces amples. La selecció predeterminada produirà aproximadament peces quadrades.</para>
     </sect1>
     <sect1 id="psc">
       <title
@@ -374,7 +374,7 @@
 ></term>
           <listitem
 ><para
->La probabilitat que es capgiri cada pestanya. Es considerarà una pestanya capgirada si apunta en la direcció oposada, com ho faria en una quadrícula totalment regular. en la quadrícula rectangular, això resultarà en peces amb 3 o 4 pestanyes que apunten cap a dins respecte cap a fora. Feu anar el control lliscant cap a l'esquerra per a obtenir la quadrícula normal completament regular. Al mig, l'orientació de la pestanya serà aleatòria. A la dreta, la quadrícula serà de nou totalment regular, però amb una regla «alternativa». Això <emphasis
+>La probabilitat que es capgiri cada pestanya. Es considerarà una pestanya capgirada si apunta en la direcció oposada, com ho faria en una quadrícula totalment regular. en la quadrícula rectangular, això ocasiona peces amb 3 o 4 pestanyes que apunten cap a dins respecte cap a fora. Feu anar el control lliscant cap a l'esquerra per a obtenir la quadrícula normal completament regular. Al mig, l'orientació de la pestanya serà aleatòria. A la dreta, la quadrícula serà de nou totalment regular, però amb una regla «alternativa». Això <emphasis
 >no</emphasis
 > significa la reversió de totes les pestanyes: a la quadrícula regular alternativa, per exemple, cada peça té quatre pestanyes de punta cap a dins o quatre apuntant cap a fora. Aquesta configuració no té efecte en la quadrícula irregular.</para
 ></listitem>
