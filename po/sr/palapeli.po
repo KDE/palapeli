@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:50+0000\n"
-"PO-Revision-Date: 2026-10-05 01:57+0200\n"
+"PO-Revision-Date: 2026-10-07 11:45+0200\n"
 "Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr\n"
@@ -398,7 +398,7 @@ msgstr "Завршили сте ову слагалицу. Желите ли д�
 #, kde-format
 msgctxt "@action:button"
 msgid "Restart"
-msgstr "Покрени поново"
+msgstr "Слажи из почетка"
 
 #: src/engine/gameplay.cpp:296
 #, kde-format
