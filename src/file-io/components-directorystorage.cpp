@@ -78,7 +78,7 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 			QList<int> value = relationsGroup.readEntry(QString::number(i), QList<int>());
 			if (value.size() < 2) //end of relations list
 				break;
-			contents.relations << QPair<int, int>(value[0], value[1]);
+			contents.relations << std::pair<int, int>(value[0], value[1]);
 		}
 		//done
 		return new Palapeli::ContentsComponent(contents);
@@ -180,7 +180,7 @@ Palapeli::DirectoryStorageComponent* Palapeli::DirectoryStorageComponent::fromDa
 	KConfigGroup relationsGroup(&manifest, QStringLiteral("Relations"));
 	for (int index = 0; index < contents.relations.count(); ++index)
 	{
-		const QPair<int, int> relation = contents.relations[index];
+		const std::pair<int, int> relation = contents.relations[index];
 		relationsGroup.writeEntry(QString::number(index), QList<int>() << relation.first << relation.second);
 	}
 	//save manifest; done

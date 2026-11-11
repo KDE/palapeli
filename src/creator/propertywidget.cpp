@@ -68,7 +68,7 @@ Palapeli::IntegerPropertyWidget::IntegerPropertyWidget()
 void Palapeli::IntegerPropertyWidget::initialize(const Pala::SlicerProperty* property)
 {
 	const Pala::IntegerProperty* intProperty = static_cast<const Pala::IntegerProperty*>(property);
-	const QPair<int,int> range = intProperty->range();
+	const std::pair<int,int> range = intProperty->range();
 	const QVariantList choices = property->choices();
 	QWidget* usedWidget;
 	if (choices.isEmpty())

@@ -9,11 +9,11 @@
 
 #include "libpala_export.h"
 
-#include <QPair>
 #include <QVariant>
 #include <QVariantList>
 
 #include <memory>
+#include <utility>
 
 namespace Pala
 {
@@ -104,7 +104,7 @@ namespace Pala
 			~IntegerProperty() override;
 
 			///\internal
-			QPair<int, int> range() const;
+			std::pair<int, int> range() const;
 			///\internal
 			Representation representation() const;
 

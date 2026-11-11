@@ -8,9 +8,11 @@
 #define PALAPELI_PUZZLESTRUCTS_H
 
 #include <QMap>
-#include <QPair>
 #include <QImage>
 #include <QVariant>
+
+#include <utility>
+
 //NOTE: This header defines data structures for Palapeli::Puzzle. PuzzleMetadata contains a bunch of metadata, which is used in the Palapeli::Collection classes. PuzzleContents contains the constituents of the puzzle, and is used by the Palapeli::Scene. Both structures are separate, to allow Palapeli::Puzzle to load only the metadata if only they are needed. The PuzzleCreationContext structure contains some data which is generated during puzzle creation, but not loaded in the current Palapeli version. When writing a newly generated puzzle for the first time, they are also written into the file, to have them available if a newer Palapeli version decides to use them.
 
 namespace Palapeli
@@ -30,7 +32,7 @@ namespace Palapeli
 		QSize imageSize;
 		QMap<int, QImage> pieces;
 		QMap<int, QPoint> pieceOffsets;
-		QList<QPair<int, int> > relations;
+		QList<std::pair<int, int> > relations;
 	};
 
 	struct PuzzleCreationContext : public Palapeli::PuzzleMetadata

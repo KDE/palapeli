@@ -15,6 +15,7 @@
 #include <QImage>
 
 #include <memory>
+#include <utility>
 
 namespace Pala
 {
@@ -50,7 +51,7 @@ namespace Pala
 			///\internal
 			QMap<int, QPoint> pieceOffsets() const;
 			///\internal
-			QList<QPair<int, int> > relations() const;
+			QList<std::pair<int, int> > relations() const;
 			///\internal
 			void setMode(const Pala::SlicerMode* mode);
 

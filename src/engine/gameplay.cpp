@@ -40,7 +40,7 @@
 #include <KMessageBox>
 
 // Use this because comma in type is not possible in foreach macro.
-typedef QPair<int, int> DoubleIntPair;
+typedef std::pair<int, int> DoubleIntPair;
 
 //TODO: move LoadingWidget into here (stack into m_centralWidget)
 

@@ -22,7 +22,7 @@ class Pala::SlicerJobPrivate
 
 		QMap<int, QImage> m_pieces;
 		QMap<int, QPoint> m_pieceOffsets;
-		QList<QPair<int, int> > m_relations;
+		QList<std::pair<int, int> > m_relations;
 };
 
 //END Pala::SlicerJobPrivate
@@ -67,7 +67,7 @@ QMap<int, QPoint> Pala::SlicerJob::pieceOffsets() const
 	return d->m_pieceOffsets;
 }
 
-QList<QPair<int, int> > Pala::SlicerJob::relations() const
+QList<std::pair<int, int> > Pala::SlicerJob::relations() const
 {
 	Q_D(const SlicerJob);
 	return d->m_relations;
@@ -129,5 +129,5 @@ void Pala::SlicerJob::addPieceFromMask(int pieceID, const QImage& mask, const QP
 void Pala::SlicerJob::addRelation(int pieceID1, int pieceID2)
 {
 	Q_D(SlicerJob);
-	d->m_relations << QPair<int, int>(pieceID1, pieceID2);
+	d->m_relations << std::pair<int, int>(pieceID1, pieceID2);
 }

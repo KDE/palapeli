@@ -48,7 +48,7 @@ public:
 	{
 	}
 
-	QPair<int, int> m_range;
+	std::pair<int, int> m_range;
 	Pala::IntegerProperty::Representation m_representation;
 };
 
@@ -169,7 +169,7 @@ Pala::IntegerProperty::IntegerProperty(const QString& caption)
 
 Pala::IntegerProperty::~IntegerProperty() = default;
 
-QPair<int, int> Pala::IntegerProperty::range() const
+std::pair<int, int> Pala::IntegerProperty::range() const
 {
 	Q_D(const IntegerProperty);
 	return d->m_range;
