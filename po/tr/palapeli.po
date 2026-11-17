@@ -6,13 +6,13 @@
 # Serdar Dalgıç <serdar@pardus.org.tr>, 2010.
 # obsoleteman <tulliana@gmail.com>, 2009.
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014.
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022-2026 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdegames-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:50+0000\n"
-"PO-Revision-Date: 2026-05-02 19:53+0300\n"
+"PO-Revision-Date: 2026-11-16 19:30+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -565,10 +565,10 @@ msgstr ""
 "görünümdeki parçalar ne kadar küçük olduğunu görmek için daha sert "
 "vurgulanır.\n"
 "\n"
-"İlk özellik, yapboz Önizleme (tamamlanmış yapbozun resmi), açmak veya "
+"İlk özellik, yapboz ön izlemesi (tamamlanmış yapbozun resmi), açmak veya "
 "kapatmak için bir araç çubuğu düğmesidir. Fare ile üstüne gelirseniz resmin "
-"parçalarını büyütür, böylece Önizleme için seçtiğiniz pencere boyutu oldukça "
-"küçük olabilir.\n"
+"parçalarını büyütür, böylece ön izleme için seçtiğiniz pencere boyutu "
+"oldukça küçük olabilir.\n"
 "\n"
 "Ardından, tez fare düğmesini kullanarak değiştirebileceğiniz yapboz "
 "tahtasının yakın ve uzak görüntüleri bulunur (öntanımlı Orta Tık). Yakın "
@@ -679,7 +679,7 @@ msgstr "Yapboz tahtasının kilit durumunu değiştir"
 #, kde-format
 msgctxt "@title:window"
 msgid "Preview of Completed Puzzle"
-msgstr "Tamamlanmış Yapbozun Önizlemesi"
+msgstr "Tamamlanmış Yapbozun Ön İzlemesi"
 
 #: src/engine/puzzlepreview.cpp:36
 #, kde-format
@@ -691,7 +691,7 @@ msgstr "Görsel kullanılabilir değil."
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 - Preview"
-msgstr "%1 — Önizleme"
+msgstr "%1 — Ön İzleme"
 
 #: src/engine/texturehelper.cpp:52
 #, kde-format
@@ -880,7 +880,7 @@ msgstr "Johannes Loehnert"
 #: src/main.cpp:56
 #, kde-format
 msgid "The option to preview the completed puzzle"
-msgstr "Tamamlanan yapbozun önizleme seçeneği"
+msgstr "Tamamlanan yapbozun ön izleme seçeneği"
 
 #: src/main.cpp:65
 #, kde-format
@@ -991,14 +991,14 @@ msgstr ""
 #, kde-format
 msgid "Whether the preview window was switched on last time Palapeli was run."
 msgstr ""
-"Palapeli’nin son açılışında önizleme penceresinin çalıştırılıp "
+"Palapeli’nin son açılışında ön izleme penceresinin çalıştırılıp "
 "çalıştırılmadığı."
 
 #. i18n: ectx: label, entry (PuzzlePreviewGeometry), group (PuzzlePreview)
 #: src/palapeli.kcfg:50
 #, kde-format
 msgid "Last position and size of puzzle preview."
-msgstr "Yapboz önizlemesinin son konumu ve boyutu."
+msgstr "Yapboz ön izlemesinin son konumu ve boyutu."
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/palapeliui.rc:35
@@ -1237,13 +1237,13 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "Show Preview"
-msgstr "Önizlemeyi Göster"
+msgstr "Ön İzlemeyi Göster"
 
 #: src/window/mainwindow.cpp:141
 #, kde-format
 msgctxt "@option:check Preview is a noun here"
 msgid "Preview"
-msgstr "Önizleme"
+msgstr "Ön izleme"
 
 #: src/window/mainwindow.cpp:142
 #, kde-format
