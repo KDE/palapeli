@@ -12,6 +12,7 @@
 #include <Pala/SlicerProperty>
 
 #include <QFormLayout>
+#include <QMap>
 
 Palapeli::SlicerConfigWidget::SlicerConfigWidget(const Pala::Slicer* slicer)
 	: m_layout(new QFormLayout)

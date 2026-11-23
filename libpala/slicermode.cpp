@@ -7,6 +7,8 @@
 #include "slicermode.h"
 #include "slicerproperty.h"
 
+#include <QHash>
+
 class Pala::SlicerModePrivate
 {
 	public:

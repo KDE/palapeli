@@ -8,6 +8,7 @@
 #include "triggerlistview_p.h"
 #include <KCategoryDrawer>
 #include <KLocalizedString>
+#include <QMap>
 #include <QStandardItemModel>
 static QString categoryToString(Palapeli::Interactor::Category category)
 {
