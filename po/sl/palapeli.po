@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:50+0000\n"
+"POT-Creation-Date: 2026-11-24 01:00+0000\n"
 "PO-Revision-Date: 2024-05-02 09:31+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -249,17 +249,17 @@ msgctxt "@title:tab"
 msgid "Mouse Wheel"
 msgstr "Miškin kolešček"
 
-#: src/config/triggerlistview.cpp:17
+#: src/config/triggerlistview.cpp:18
 #, kde-format
 msgid "Interaction with pieces"
 msgstr "Interakcija s kosi"
 
-#: src/config/triggerlistview.cpp:19
+#: src/config/triggerlistview.cpp:20
 #, kde-format
 msgid "Interaction with the puzzle table"
 msgstr "Interakcija z mizo z izrezljanko"
 
-#: src/config/triggerlistview.cpp:21
+#: src/config/triggerlistview.cpp:22
 #, kde-format
 msgid "Interaction with the viewport"
 msgstr "Interakcija z vidnim poljem"

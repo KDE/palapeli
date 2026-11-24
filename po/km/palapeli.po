@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:50+0000\n"
+"POT-Creation-Date: 2026-11-24 01:00+0000\n"
 "PO-Revision-Date: 2012-07-10 15:56+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer\n"
@@ -272,17 +272,17 @@ msgctxt "@title:tab"
 msgid "Mouse Wheel"
 msgstr "កង់​កណ្ដុរ"
 
-#: src/config/triggerlistview.cpp:17
+#: src/config/triggerlistview.cpp:18
 #, kde-format
 msgid "Interaction with pieces"
 msgstr "អន្តរកម្ម​​ជា​មួយ​ចំណិត"
 
-#: src/config/triggerlistview.cpp:19
+#: src/config/triggerlistview.cpp:20
 #, kde-format
 msgid "Interaction with the puzzle table"
 msgstr "អន្តរកម្ម​​ជា​មួយ​​តារាង​​ល្បែង​ផ្គុំ​រូប"
 
-#: src/config/triggerlistview.cpp:21
+#: src/config/triggerlistview.cpp:22
 #, kde-format
 msgid "Interaction with the viewport"
 msgstr "អន្តរកម្ម​ជា​មួយ​ច្រក​ទិដ្ឋភាព"

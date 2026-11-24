@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:50+0000\n"
+"POT-Creation-Date: 2026-11-24 01:00+0000\n"
 "PO-Revision-Date: 2024-05-02 16:03+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -251,17 +251,17 @@ msgctxt "@title:tab"
 msgid "Mouse Wheel"
 msgstr "Roda del ratolí"
 
-#: src/config/triggerlistview.cpp:17
+#: src/config/triggerlistview.cpp:18
 #, kde-format
 msgid "Interaction with pieces"
 msgstr "Interacció amb les peces"
 
-#: src/config/triggerlistview.cpp:19
+#: src/config/triggerlistview.cpp:20
 #, kde-format
 msgid "Interaction with the puzzle table"
 msgstr "Interacció amb la taula del trencaclosques"
 
-#: src/config/triggerlistview.cpp:21
+#: src/config/triggerlistview.cpp:22
 #, kde-format
 msgid "Interaction with the viewport"
 msgstr "Interacció amb l'àrea de visualització"

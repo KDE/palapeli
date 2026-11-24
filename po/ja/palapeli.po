@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: palapeli\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:50+0000\n"
+"POT-Creation-Date: 2026-11-24 01:00+0000\n"
 "PO-Revision-Date: 2013-05-10 23:01-0700\n"
 "Last-Translator: Fumiaki Okushi <okushi@kde.gr.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -270,17 +270,17 @@ msgctxt "@title:tab"
 msgid "Mouse Wheel"
 msgstr "ホイール設定"
 
-#: src/config/triggerlistview.cpp:17
+#: src/config/triggerlistview.cpp:18
 #, kde-format
 msgid "Interaction with pieces"
 msgstr "パズルピースに対する操作"
 
-#: src/config/triggerlistview.cpp:19
+#: src/config/triggerlistview.cpp:20
 #, kde-format
 msgid "Interaction with the puzzle table"
 msgstr "パズルテーブルに対する操作"
 
-#: src/config/triggerlistview.cpp:21
+#: src/config/triggerlistview.cpp:22
 #, kde-format
 msgid "Interaction with the viewport"
 msgstr "視点に対する操作"

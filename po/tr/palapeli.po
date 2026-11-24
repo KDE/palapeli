@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdegames-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:50+0000\n"
-"PO-Revision-Date: 2026-11-16 19:30+0300\n"
+"POT-Creation-Date: 2026-11-24 01:00+0000\n"
+"PO-Revision-Date: 2026-11-23 18:16+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -48,7 +48,7 @@ msgstr "Parça görünüm oranı"
 #, kde-format
 msgctxt "Puzzle grid type"
 msgid "Predefined settings"
-msgstr "Öntanımlı ayarlar"
+msgstr "Varsayılan ayarlar"
 
 #: slicers/goldberg/grid.h:34
 #, kde-format
@@ -253,17 +253,17 @@ msgctxt "@title:tab"
 msgid "Mouse Wheel"
 msgstr "Fare Tekerleği"
 
-#: src/config/triggerlistview.cpp:17
+#: src/config/triggerlistview.cpp:18
 #, kde-format
 msgid "Interaction with pieces"
 msgstr "Parçalarla etkileşim"
 
-#: src/config/triggerlistview.cpp:19
+#: src/config/triggerlistview.cpp:20
 #, kde-format
 msgid "Interaction with the puzzle table"
 msgstr "Yapboz tahtasıyla etkileşim"
 
-#: src/config/triggerlistview.cpp:21
+#: src/config/triggerlistview.cpp:22
 #, kde-format
 msgid "Interaction with the viewport"
 msgstr "Görünüm ile etkileşim"
@@ -571,7 +571,7 @@ msgstr ""
 "oldukça küçük olabilir.\n"
 "\n"
 "Ardından, tez fare düğmesini kullanarak değiştirebileceğiniz yapboz "
-"tahtasının yakın ve uzak görüntüleri bulunur (öntanımlı Orta Tık). Yakın "
+"tahtasının yakın ve uzak görüntüleri bulunur (varsayılan Orta Tık). Yakın "
 "çekim görünümünde, yapboz parçalarını bir kerede, “sayfa” aramak için sarma "
 "çubuklarındaki boş alanı kullanın. İki görüntüyü yakınlaştırarak veya "
 "uzaklaştırarak ayarlayabilirsiniz, ayrıca değişiklikleriniz anımsanacaktır.\n"
@@ -586,7 +586,7 @@ msgstr ""
 "taşımak için “El” adlı bir araca sahip olmalısınız.\n"
 "\n"
 "Parçaları bir tutucunun içine veya dışına aktarmak için özel bir fare "
-"tıklatması kullanabilirsiniz. (öntanımlı Üst Karakter Sol Tık). İlk önce, "
+"tıklatması kullanabilirsiniz. (varsayılan Üst Karakter Sol Tık). İlk önce, "
 "kullanmak istediğiniz tutucunun etkin olduğundan emin olun: Mavi bir dış "
 "çizgisi olmalıdır. Değilse üzerine tıklayın. Parçaları tutucuya aktarmak "
 "için yapboz tahtasından parçayı seçin ve sonra onları tutucuya “ışınlamak” "
