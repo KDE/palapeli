@@ -102,10 +102,8 @@ Palapeli::PuzzleComponent* Palapeli::DirectoryStorageComponent::cast(Palapeli::P
 		args.remove(QStringLiteral("ImageSize"));
 		args.remove(QStringLiteral("Slicer"));
 		args.remove(QStringLiteral("SlicerMode"));
-		QMapIterator<QString, QString> iter(args);
-		while (iter.hasNext())
+		for (auto iter = args.cbegin(), end = args.cend(); iter != end; ++iter)
 		{
-			iter.next();
 			creationContext.slicerArgs.insert(iter.key().toUtf8(), iter.value());
 		}
 		return new Palapeli::CreationContextComponent(creationContext);
@@ -151,18 +149,15 @@ Palapeli::DirectoryStorageComponent* Palapeli::DirectoryStorageComponent::fromDa
 		jobGroup.writeEntry("Image", "kfiledialog:///palapeli/pseudopath"); //just a placeholder, to make sure that an "Image" key is available
 		jobGroup.writeEntry("Slicer", creationContext.slicer);
 		jobGroup.writeEntry("SlicerMode", creationContext.slicerMode);
-		QMapIterator<QByteArray, QVariant> iterSlicerArgs(creationContext.slicerArgs);
-		while (iterSlicerArgs.hasNext())
+		for (auto iterSlicerArgs = creationContext.slicerArgs.cbegin(), end = creationContext.slicerArgs.cend(); iterSlicerArgs != end; ++iterSlicerArgs)
 		{
-			iterSlicerArgs.next();
 			jobGroup.writeEntry(QString::fromUtf8(iterSlicerArgs.key()), iterSlicerArgs.value());
 		}
 	}
 	//write pieces to cache
-	QMapIterator<int, QImage> iterPieces(contents.pieces);
-	while (iterPieces.hasNext())
+	for (auto iterPieces = contents.pieces.cbegin(), end = contents.pieces.cend(); iterPieces != end; ++iterPieces)
 	{
-		const QString imagePath = dir.absoluteFilePath(QString::fromLatin1("%1.png").arg(iterPieces.next().key()));
+		const QString imagePath = dir.absoluteFilePath(QString::fromLatin1("%1.png").arg(iterPieces.key()));
 		iterPieces.value().save(imagePath);
 	}
 	//write thumbnail into tempdir
@@ -170,10 +165,8 @@ Palapeli::DirectoryStorageComponent* Palapeli::DirectoryStorageComponent::fromDa
 	metadata.image.save(imagePath);
 	//write piece offsets into target manifest
 	KConfigGroup offsetGroup(&manifest, QStringLiteral("PieceOffsets"));
-	QMapIterator<int, QPoint> iterOffsets(contents.pieceOffsets);
-	while (iterOffsets.hasNext())
+	for (auto iterOffsets = contents.pieceOffsets.cbegin(), end = contents.pieceOffsets.cend(); iterOffsets != end; ++iterOffsets)
 	{
-		iterOffsets.next();
 		offsetGroup.writeEntry(QString::number(iterOffsets.key()), iterOffsets.value());
 	}
 	//write piece relations into target manifest

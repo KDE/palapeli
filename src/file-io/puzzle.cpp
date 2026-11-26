@@ -73,9 +73,7 @@ Palapeli::Puzzle::Private::Private(Palapeli::Puzzle* q, Palapeli::PuzzleComponen
 
 Palapeli::Puzzle::~Puzzle()
 {
-	QHashIterator<Palapeli::PuzzleComponent::Type, Component*> iter(d->m_components);
-	while (iter.hasNext())
-		delete iter.next().value();
+	qDeleteAll(d->m_components);
 	delete d;
 }
 

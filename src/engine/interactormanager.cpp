@@ -134,10 +134,9 @@ void Palapeli::InteractorManager::handleEventCommon(const Palapeli::MouseEvent& 
 		}
 	//sort remaining interactors by priority (the sorting is done by QMap)
 	QMultiMap<int, Palapeli::Interactor*> sortedInteractors;
-	QMapIterator<Palapeli::Interactor*, EventContext> iter1(interactorData);
-	while (iter1.hasNext())
+	for (auto iter1 = interactorData.cbegin(), end = interactorData.cend(); iter1 != end; ++iter1)
 	{
-		Palapeli::Interactor* interactor = iter1.next().key();
+		Palapeli::Interactor* interactor = iter1.key();
 		int priority = interactor->priority();
 		if ((iter1.value().flags & Palapeli::EventMatchesExactly) == Palapeli::EventMatchesExactly)
 			priority += AdditionalPriorityForExactMatches;

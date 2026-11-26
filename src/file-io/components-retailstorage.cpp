@@ -49,10 +49,8 @@ Palapeli::PuzzleComponent* Palapeli::RetailStorageComponent::cast(Type type) con
 	args.remove(QStringLiteral("ImageSize"));
 	args.remove(QStringLiteral("Slicer"));
 	args.remove(QStringLiteral("SlicerMode"));
-	QMapIterator<QString, QString> iter(args);
-	while (iter.hasNext())
+	for (auto iter = args.cbegin(), end = args.cend(); iter != end; ++iter)
 	{
-		iter.next();
 		creationContext.slicerArgs.insert(iter.key().toUtf8(), iter.value());
 	}
 	return new Palapeli::CreationContextComponent(creationContext);

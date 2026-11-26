@@ -6,8 +6,6 @@
 
 #include "slicerproperty.h"
 
-#include <QMutableListIterator>
-
 //BEGIN private classes
 
 class Pala::SlicerPropertyPrivate
@@ -124,9 +122,8 @@ void Pala::SlicerProperty::setChoices(const QVariantList& choices)
 {
 	Q_D(SlicerProperty);
 	d->m_choices = choices;
-	QMutableListIterator<QVariant> iter(d->m_choices);
-	while (iter.hasNext())
-		iter.next().convert(QMetaType(d->m_type));
+	for (QVariant& choice : d->m_choices)
+		choice.convert(QMetaType(d->m_type));
 }
 
 void Pala::SlicerProperty::setDefaultValue(const QVariant& value)
